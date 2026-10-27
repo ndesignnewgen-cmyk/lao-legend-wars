@@ -1003,6 +1003,149 @@ body{background:
   .ggrid{grid-template-columns:repeat(auto-fill,minmax(96px,1fr));overflow:visible}
   .gtab{min-width:0;font-size:14px}
 }
+/* ---------- wallet, menu sections and the deck builder ---------- */
+.wallet{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.wallet span{background:#ffffff12;border:1px solid #ffffff26;border-radius:999px;padding:6px 14px;font:700 15px var(--f-d)}
+.wallet b{color:var(--gold)}
+.wallet.sm span{padding:4px 10px;font-size:13px}
+.mrow.big .btn2{padding:11px 18px;font-size:15px;position:relative}
+.badge{position:absolute;top:-8px;right:-6px;background:#e0302a;color:#fff;font:800 12px/1 var(--f-d);font-style:normal;padding:4px 7px;border-radius:999px;box-shadow:0 0 0 2px var(--mat)}
+.secth{margin:6px 0 -8px;font:800 20px var(--f-d)}
+.subh{margin:0 0 -10px;width:min(920px,100%);color:var(--dim);font:700 14px var(--f-d)}
+.deck.lockd .card{filter:grayscale(.85) brightness(.6)}
+.deck.lockd small{color:#ffcf8a}
+.bcell.nown .card,.pc.nown .card{filter:grayscale(1) brightness(.45)}
+.reward{margin:0;font:800 22px var(--f-d);color:var(--gold)}
+.reward span{font-size:15px;color:#9fe0a0}.reward small{display:block;font-size:12px;color:var(--dim)}
+.codebox{width:100%;font:13px/1.5 ui-monospace,Menlo,monospace;background:#0006;color:var(--ink);border:1px solid #ffffff2a;border-radius:10px;padding:10px;resize:vertical;word-break:break-all}
+.builder{height:100%;display:flex;flex-direction:column;padding:12px max(12px,env(safe-area-inset-right,0px)) 0 max(12px,env(safe-area-inset-left,0px));gap:10px}
+.bhead{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.bhead h2{margin:0;font:800 22px var(--f-d);flex:1;white-space:nowrap}
+.bwrap{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:14px}
+.bpool{min-height:0;display:flex;flex-direction:column;gap:8px}
+.bfil .tabs{margin:0 0 8px;max-width:none}
+.costs{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.costs button{min-width:40px;min-height:36px;background:#ffffff10;border:1px solid #ffffff24;border-radius:10px;font:800 14px var(--f-d);cursor:pointer;padding:0 10px}
+.costs button.on{background:var(--gold);color:#1a1206;border-color:var(--gold)}
+.costs .own{display:flex;align-items:center;gap:6px;font:700 13px var(--f-d);color:var(--dim);margin-left:6px}
+.costs input[type=search]{flex:1;min-width:150px;min-height:36px;background:#0005;border:1px solid #ffffff2a;border-radius:10px;padding:0 12px;color:var(--ink);font:600 14px var(--f-d)}
+.rules{margin:6px 0 0;color:var(--dim);font:600 12px var(--f-d)}
+.bgrid2{flex:1;min-height:0;overflow-y:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:12px;align-content:start;padding:8px 6px 24px}
+.pc{position:relative;cursor:pointer;border-radius:8px;transition:transform .12s}
+.pc:hover{transform:translateY(-3px)}
+.pc.ind{box-shadow:0 0 0 3px #3ddc84;border-radius:8px}
+.pc.full:not(.ind) .card{opacity:.55}
+.pc .cnt3{position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);z-index:3;background:#000c;color:#fff;font:800 12px/1 var(--f-d);padding:5px 9px;border-radius:999px;box-shadow:0 0 0 1.5px #ffffff66;white-space:nowrap}
+.pc.ind .cnt3{background:#1f9d6b}
+.pc .pi{position:absolute;top:-6px;right:-6px;z-index:3;width:26px;height:26px;border-radius:50%;border:0;background:#fff;color:#1b1b1b;font:800 14px var(--f-d);cursor:pointer;box-shadow:0 2px 6px #0008}
+.bdeck{min-height:0;display:flex;flex-direction:column;background:var(--mat-2);border:1px solid #ffffff1c;border-radius:16px 16px 0 0;overflow:hidden}
+.sheetbar{display:none}
+.bdin{flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding:14px}
+.dtop{display:flex;gap:8px;align-items:center}
+.dtop input{flex:1;min-width:0;min-height:40px;background:#0005;border:1px solid #ffffff2a;border-radius:10px;padding:0 12px;color:var(--ink);font:800 16px var(--f-d)}
+.dcount{font:800 20px var(--f-d);color:#ffcf8a}.dcount.ok{color:#3ddc84}
+.curve{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;height:84px;align-items:end}
+.curve div{height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:2px}
+.curve i{display:block;width:100%;min-height:2px;background:linear-gradient(180deg,#8fc2ff,#2c63c9);border-radius:4px 4px 0 0}
+.curve small{font:700 11px var(--f-d);color:var(--dim)}.curve b{font:800 11px var(--f-d)}
+.tchips{display:flex;gap:6px;flex-wrap:wrap}
+.tchip{background:#6b3fb0;color:#fff;border-radius:999px;padding:3px 10px;font:700 12px var(--f-d)}
+.hint2{color:var(--dim);font:600 12px var(--f-d)}
+.issues{margin:0;padding:8px 12px 8px 26px;background:#e0302a22;border:1px solid #e0302a66;border-radius:10px;color:#ffb3ad;font:700 13px/1.6 var(--f-d)}
+.okmsg{margin:0;padding:8px 12px;background:#1f9d6b26;border:1px solid #3ddc8466;border-radius:10px;color:#9ff0c0;font:800 14px var(--f-d)}
+.drows{display:flex;flex-direction:column;gap:4px}
+.drow{display:grid;grid-template-columns:30px minmax(0,1fr) auto 36px;align-items:center;gap:8px;background:#ffffff0c;border-radius:10px;padding:3px 4px 3px 6px;border-left:4px solid #8a8a8a}
+.drow.rare{border-left-color:#3d86e8}.drow.legend{border-left-color:#f2b632}
+.drow .dc{display:grid;place-items:center;width:26px;height:26px;border-radius:7px;background:#1f9d6b;color:#fff;font:800 14px var(--f-d)}
+.drow .dn{background:none;border:0;padding:0;text-align:left;color:var(--ink);font:700 14px var(--f-d);cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.drow b{font:800 14px var(--f-d);color:var(--gold)}
+.drow .dm{width:32px;height:32px;border-radius:9px;border:0;background:#ffffff18;color:#fff;font:800 18px var(--f-d);cursor:pointer}
+.dbtns{display:flex;flex-wrap:wrap;gap:8px;padding-bottom:10px}
+.dbtns .btn-main{width:100%}
+.btn2.danger{color:#ffb3ad;border-color:#e0302a88}
+.empty{color:var(--dim);font:600 14px var(--f-d);text-align:center;grid-column:1/-1}
+@media (max-width:860px){
+  .bwrap{grid-template-columns:minmax(0,1fr)}
+  .bgrid2{grid-template-columns:repeat(auto-fill,minmax(92px,1fr));padding-bottom:80px}
+  .bdeck{position:fixed;left:0;right:0;bottom:0;z-index:30;max-height:58px;border-radius:18px 18px 0 0;box-shadow:0 -10px 30px #0009;transition:max-height .25s}
+  .bdeck.open{max-height:78vh}
+  .sheetbar{display:flex;justify-content:center;gap:8px;align-items:center;min-height:58px;flex:none;border:0;background:var(--gold);color:#1a1206;font:800 17px var(--f-d);cursor:pointer}
+  .bhead .wallet{flex-basis:100%;justify-content:flex-start;order:3}
+  .bfil .tabs,.costs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+  .bfil .tabs button,.costs button,.costs .own{flex:none;white-space:nowrap}
+  .costs input[type=search]{min-width:160px}
+  .rules{display:none}
+}
+/* ---------- card shop and pack opening ---------- */
+.shop{height:100%;overflow-y:auto;padding:12px max(14px,env(safe-area-inset-right,0px)) 40px max(14px,env(safe-area-inset-left,0px));display:flex;flex-direction:column;gap:14px}
+.shop > .tabs{margin:0}
+.lore2{margin:0;color:var(--dim);font:600 13px/1.7 var(--f-d);max-width:760px}
+.freebar{display:flex;align-items:center;gap:14px;justify-content:space-between;background:linear-gradient(90deg,#1f9d6b55,#1f9d6b18);border:1px solid #3ddc8466;border-radius:14px;padding:12px 16px;font:800 17px var(--f-d)}
+.packs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));gap:16px}
+.pack{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;background:var(--mat-2);border:1px solid #ffffff1c;border-radius:18px;padding:18px}
+.pack h3{margin:0;font:800 20px var(--f-d)}
+.pack p{margin:0;color:var(--dim);font:600 13px/1.6 var(--f-d)}
+.pack .odds{color:#cfe3ff}
+.pimg{width:120px;aspect-ratio:3/4;border-radius:14px;display:grid;place-items:center;font:800 26px var(--f-d);color:#fff;text-shadow:0 2px 0 #0008;
+  background:radial-gradient(circle at 50% 35%,#7cc04a,#2f6b1e 70%);box-shadow:inset 0 0 0 4px #e8c48a,inset 0 0 0 8px #3f8f3a,0 10px 24px #0008;position:relative}
+.pimg::after{content:"";position:absolute;left:-4px;right:-4px;top:46%;height:12px;background:repeating-linear-gradient(90deg,#fff 0 6px,#e0302a 6px 12px);border-radius:6px}
+.pack.deck .pimg{background:radial-gradient(circle at 50% 35%,#4a8fe0,#1d2b6b 70%)}
+.pack.gold .pimg{background:radial-gradient(circle at 50% 35%,#ffe48a,#b07a0c 70%);animation:pulse 1.6s infinite}
+.pdecks{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.pdecks button{width:38px;height:38px;border-radius:50%;border:1px solid #ffffff2a;background:#ffffff10;font:800 15px var(--f-d);cursor:pointer}
+.pdecks button.on{background:var(--gold);color:#1a1206}
+.pity{margin:0;text-align:center;font:700 15px var(--f-d)}.pity b{color:var(--gold);font-size:20px}
+.cgrid{overflow:visible}
+.popen{position:fixed;inset:0;z-index:60;background:radial-gradient(circle at 50% 40%,#3a2a5aee,#0b0710f5 70%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:16px;animation:fadein .2s}
+.bigpack{width:min(220px,52vw);aspect-ratio:3/4;border-radius:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;cursor:pointer;color:#fff;text-align:center;
+  background:radial-gradient(circle at 50% 35%,#7cc04a,#2f6b1e 70%);box-shadow:inset 0 0 0 6px #e8c48a,inset 0 0 0 12px #3f8f3a,0 20px 60px #000c;animation:pshake 1s ease-in-out infinite;position:relative}
+.bigpack::after{content:"";position:absolute;left:-6px;right:-6px;top:47%;height:18px;background:repeating-linear-gradient(90deg,#fff 0 8px,#e0302a 8px 16px);border-radius:8px}
+.bigpack.deck{background:radial-gradient(circle at 50% 35%,#4a8fe0,#1d2b6b 70%)}.bigpack.gold{background:radial-gradient(circle at 50% 35%,#ffe48a,#b07a0c 70%)}
+.bigpack span{font:800 22px var(--f-d);position:relative;z-index:1;margin-bottom:60px}.bigpack small{font:700 14px var(--f-d);position:relative;z-index:1;margin-top:40px}
+@keyframes pshake{0%,100%{transform:rotate(0)}20%{transform:rotate(-3deg) scale(1.02)}40%{transform:rotate(3deg)}60%{transform:rotate(-2deg) scale(1.03)}80%{transform:rotate(2deg)}}
+.prow{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;max-width:1000px}
+.pcard{width:min(160px,28vw);position:relative;animation:pdeal .45s cubic-bezier(.2,1.2,.4,1) both}
+.pcard:nth-child(2){animation-delay:.08s}.pcard:nth-child(3){animation-delay:.16s}.pcard:nth-child(4){animation-delay:.24s}.pcard:nth-child(5){animation-delay:.32s}
+@keyframes pdeal{from{transform:translateY(-60px) scale(.6);opacity:0}}
+.pcard.down{cursor:pointer}.pcard.down .cback{width:100%}
+.pcard.down:hover{transform:translateY(-6px)}
+.pcard.down.r-rare{filter:drop-shadow(0 0 10px #4a8fe0)}
+.pcard.down.r-legend{filter:drop-shadow(0 0 18px #ffd23d);animation:pdeal .45s both,pulse 1s infinite}
+.pcard.down.r-alt{filter:drop-shadow(0 0 18px #ff7ad9) drop-shadow(0 0 12px #7af0ff);animation:pdeal .45s both,pulse .8s infinite}
+.pcard.up{animation:pflip .5s ease-out both}
+.popen.still,.popen.still .pcard{animation:none}
+.popen.still .pcard.down.r-legend,.popen.still .pcard.down.r-alt{animation:pulse 1s infinite}
+.popen.still .pcard.jf{animation:pflip .5s ease-out both}
+@keyframes pflip{from{transform:rotateY(90deg) scale(1.1)}to{transform:none}}
+.pcard.up.r-legend .card{box-shadow:0 0 0 3px #ffd23d,0 0 40px #ffd23d}
+.pcard.up.r-alt .card{box-shadow:0 0 0 3px #fff,0 0 40px #ff7ad9}
+.pcard.up.r-rare .card{box-shadow:0 0 0 3px #4a8fe0,0 0 20px #4a8fe099}
+.ptag{position:absolute;left:50%;bottom:-12px;transform:translateX(-50%);white-space:nowrap;background:#000d;color:#fff;font:800 12px var(--f-d);padding:5px 10px;border-radius:999px;box-shadow:0 0 0 1.5px #ffffff55}
+.pcard.r-legend .ptag{background:#b07a0c}.pcard.r-alt .ptag{background:linear-gradient(90deg,#d94ab0,#4ab8d9)}.pcard.r-rare .ptag{background:#2459b8}
+/* ---------- 2 players on one device ---------- */
+.modal-bg.pass{background:radial-gradient(circle at 50% 40%,#1d2b6b,#05060f 75%)}
+.passic{font-size:54px}
+.pvph{margin:6px 0 -4px;font:800 15px var(--f-d);align-self:flex-start}
+.pvph.blue{color:#8fb2ff}.pvph.red{color:#ff9a8f}
+.pvprow{display:flex;gap:8px;overflow-x:auto;width:100%;padding:4px 2px 8px}
+.pvpd{flex:none;width:92px;display:flex;flex-direction:column;align-items:center;gap:4px;background:#ffffff0c;border:2px solid transparent;border-radius:12px;padding:6px;cursor:pointer;color:var(--ink)}
+.pvpd.on{border-color:var(--gold);background:#f2b63222}
+.pvpc{width:66px;display:block}
+.pvpd small{font:700 11px/1.3 var(--f-d);text-align:center}
+/* ---------- quests, levels and drops ---------- */
+.lvmini{margin-top:-10px;font:800 14px var(--f-d);color:#cfe3ff}
+.lvbox{width:100%;background:#ffffff0c;border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:6px;text-align:left}
+.lvbox b{font:800 17px var(--f-d)}.lvbox small{color:var(--dim);font:600 12px var(--f-d)}
+.bar{height:10px;border-radius:999px;background:#ffffff18;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,#f2b632,#ffe48a);border-radius:999px}
+.qlist{width:100%;display:flex;flex-direction:column;gap:8px}
+.qrow{display:flex;align-items:center;gap:10px;background:#ffffff0c;border-radius:14px;padding:10px 12px;text-align:left}
+.qrow.got{opacity:.6}
+.qt{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px}.qt b{font:800 15px var(--f-d)}.qt small{color:var(--dim);font:600 12px var(--f-d)}
+.qok{font-size:24px}
+.lvup{margin:0;font:800 17px var(--f-d);color:#9fe0ff}
+.dropnew{display:flex;flex-direction:column;align-items:center;gap:4px}
+.dropnew b{font:800 16px var(--f-d);color:#9ff0c0}.dropnew small{color:var(--dim);font:600 12px var(--f-d)}
+.dropnew .dcard{width:min(130px,34vw);animation:pflip .6s ease-out both}
 /* ---------- modal ---------- */
 .modal-bg{position:fixed;inset:0;z-index:50;background:#000c;display:grid;place-items:center;padding:16px}
 .modal{background:var(--mat-2);border:1px solid #ffffff1c;border-radius:18px;padding:18px;width:min(560px,100%);max-height:92%;overflow:auto;display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center}
@@ -1240,6 +1383,151 @@ const DECKS = [
 const DORDER = DECKS.map((_, i) => i).sort((a, b) => DECKS[a].no - DECKS[b].no);
 const LEVELS = ['ງ່າຍ','ກາງ','ຍາກ'];
 
+/* ---------- collection: the cards you own, your gems and your own decks (saved in this browser only) ---------- */
+const COL_KEY = 'lao-legend-collection';
+const STARTERS = [0, 4, 2];   // DECKS index of deck 1 (ສາຍນ້ຳ), deck 4 (ທ້າວຮຸ່ງ), deck 3 (ພະລາມ)
+const NEUTRAL = new Set(Object.keys(C).filter(id => C[id].tribe === 'villager' || ['baci','khaoniao','phukkhaen','tikong','faphaa','satnam','haingeun','lowai','wao','katip','thonghai','talatsao','khonephapheng'].includes(id)));
+const RULE = {size:30, copies:3, legend:1, neutral:6, tribes:3};
+const rarityOf = id => C[id].legend ? 'legend' : (C[id].cost >= 5 ? 'rare' : 'common');
+const RARITY_NAME = {common:'ສາມັນ', rare:'ຫາຍາກ', legend:'ຕຳນານ', alt:'✦ ອາດພິເສດ'};
+const today = () => new Date().toLocaleDateString('en-CA');
+let COL = null;
+function col(){
+  if(COL) return COL;
+  COL = loadJ(COL_KEY, null);
+  if(!COL || !COL.v){
+    COL = {v:1, cards:{}, alts:{}, gems:300, dust:0, decks:[], day:'', dayGems:0, firstWinDay:'', tutGems:false, freePacks:0, pity:0, packs:0, xp:0, quests:null, made:Date.now()};
+    for(const di of STARTERS) for(const [id, n] of Object.entries(DECKS[di].list)) COL.cards[id] = Math.min(RULE.copies, (COL.cards[id] || 0) + n);
+    saveJ(COL_KEY, COL);
+  }
+  return COL;
+}
+function saveCol(){ saveJ(COL_KEY, COL); }
+const owned = id => col().cards[id] || 0;
+const listTotal = list => Object.values(list).reduce((a, n) => a + n, 0);
+const deckOwned = list => Object.entries(list).every(([id, n]) => owned(id) >= n);
+const ownedOf = list => Object.entries(list).reduce((a, [id, n]) => a + Math.min(n, owned(id)), 0);
+function deckTribes(list){ const t = new Set(); for(const id in list) if(C[id].type === 'char' && C[id].tribe !== 'villager') t.add(C[id].tribe); return t; }
+// why this card cannot go in (null = it can)
+function addBlock(list, id){
+  const d = C[id], n = list[id] || 0;
+  if(owned(id) <= n) return owned(id) ? 'ມີ «' + d.name + '» ພຽງ ' + owned(id) + ' ໃບ' : 'ຍັງບໍ່ມີກາດ «' + d.name + '»';
+  if(n >= RULE.copies) return 'ຊື່ດຽວກັນໃສ່ໄດ້ບໍ່ເກີນ ' + RULE.copies + ' ໃບ';
+  if(listTotal(list) >= RULE.size) return 'ເດັກເຕັມ ' + RULE.size + ' ໃບແລ້ວ';
+  if(d.legend && Object.keys(list).some(x => C[x].legend)) return 'ກາດຕຳນານໄດ້ແຕ່ 1 ໃບ';
+  if(NEUTRAL.has(id) && Object.keys(list).filter(x => NEUTRAL.has(x)).reduce((a, x) => a + list[x], 0) >= RULE.neutral) return 'ກາດກາງໄດ້ບໍ່ເກີນ ' + RULE.neutral + ' ໃບ';
+  if(d.type === 'char' && d.tribe !== 'villager'){ const t = deckTribes(list); if(!t.has(d.tribe) && t.size >= RULE.tribes) return 'ຕົວລະຄອນໄດ້ບໍ່ເກີນ ' + RULE.tribes + ' ເຜົ່າ'; }
+  return null;
+}
+function deckIssues(list){
+  const out = [], tot = listTotal(list);
+  for(const [id, n] of Object.entries(list)){ if(n > owned(id)) out.push('ມີ «' + C[id].name + '» ພຽງ ' + owned(id) + ' ໃບ'); if(n > RULE.copies) out.push('«' + C[id].name + '» ເກີນ ' + RULE.copies + ' ໃບ'); }
+  if(tot !== RULE.size) out.push(tot < RULE.size ? 'ຂາດອີກ ' + (RULE.size - tot) + ' ໃບ' : 'ເກີນ ' + (tot - RULE.size) + ' ໃບ');
+  if(Object.keys(list).filter(x => C[x].legend).reduce((a, x) => a + list[x], 0) > RULE.legend) out.push('ກາດຕຳນານໄດ້ແຕ່ 1 ໃບ');
+  if(Object.keys(list).filter(x => NEUTRAL.has(x)).reduce((a, x) => a + list[x], 0) > RULE.neutral) out.push('ກາດກາງໄດ້ບໍ່ເກີນ ' + RULE.neutral + ' ໃບ');
+  if(deckTribes(list).size > RULE.tribes) out.push('ຕົວລະຄອນໄດ້ບໍ່ເກີນ ' + RULE.tribes + ' ເຜົ່າ');
+  return out;
+}
+// the built deck that shares the most cards: it lends the bot style, the talk lines and the stats slot
+function baseDeckOf(list){
+  let best = 0, bs = -1;
+  DECKS.forEach((d, i) => { let s = 0; for(const id in list) if(!NEUTRAL.has(id) && d.list[id]) s += Math.min(list[id], d.list[id]); if(s > bs){ bs = s; best = i; } });
+  return best;
+}
+function coverOf(list){
+  const ids = Object.keys(list); const lg = ids.find(id => C[id].legend);
+  return lg || (ids.length ? maxBy(ids, id => (C[id].type === 'char' ? 10 : 0) + C[id].cost) : DECKS[0].legend);
+}
+function costCurve(list){ const c = [0,0,0,0,0,0,0,0]; for(const [id, n] of Object.entries(list)) c[Math.min(7, C[id].cost)] += n; return c; }
+// fill the empty slots with owned cards that fit the deck: same built deck first, then same tribes, then a smooth cost curve
+function autoFill(list){
+  let guard = 0;
+  while(listTotal(list) < RULE.size && guard++ < 120){
+    const cands = Object.keys(C).filter(id => !addBlock(list, id)); if(!cands.length) break;
+    const base = DECKS[baseDeckOf(list)].list, t = deckTribes(list), cv = costCurve(list), want = [0,2,5,5,5,4,3,4];
+    const id = maxBy(cands, x => (base[x] ? 5 : 0) + (t.has(C[x].tribe) ? 3 : 0) + (NEUTRAL.has(x) ? .5 : 0) + (want[Math.min(7, C[x].cost)] - cv[Math.min(7, C[x].cost)]) * .6 + Math.random());
+    list[id] = (list[id] || 0) + 1;
+  }
+  return list;
+}
+// short text code so a deck can be shared with a friend
+function deckCode(list){ return 'LLW1.' + btoa(Object.entries(list).map(([id, n]) => id + (n > 1 ? '*' + n : '')).join(',')).replace(/=+$/, ''); }
+function readCode(code){
+  try{
+    const raw = atob(String(code).trim().replace(/^LLW1\./, '')), list = {};
+    for(const part of raw.split(',')){ const [id, n] = part.split('*'); if(!C[id]) return null; list[id] = Math.max(1, Math.min(RULE.copies, +n || 1)); }
+    return listTotal(list) ? list : null;
+  }catch(e){ return null; }
+}
+// gems after a game against the bot: capped per day so short sessions are enough
+function gameGems(won){
+  const c = col(), day = today(), full = won ? ([10, 20, 35][S.level] || 10) : 5;
+  if(c.day !== day){ c.day = day; c.dayGems = 0; }
+  const base = Math.min(full, Math.max(0, 300 - c.dayGems)); c.dayGems += base;
+  let first = 0; if(won && c.firstWinDay !== day){ first = 50; c.firstWinDay = day; }
+  c.gems += base + first; saveCol();
+  return {base, first, capped:base < full};
+}
+/* ---------- daily quests, the level track and card drops ---------- */
+const QUEST_POOL = [
+  {k:'win', n:2, t:'ຊະນະບອດ 2 ເກມ', g:50}, {k:'game', n:3, t:'ຫຼິ້ນ 3 ເກມ', g:30}, {k:'kill', n:8, t:'ທຳລາຍຕົວລະຄອນຄູ່ແຂ່ງ 8 ໃບ', g:40},
+  {k:'spell', n:5, t:'ໃຊ້ຄາຖາ ຫຼື ຂອງວິເສດ 5 ໃບ', g:40}, {k:'play', n:15, t:'ລົງກາດ 15 ໃບ', g:40}, {k:'pack', n:1, t:'ເປີດຊອງກາດ 1 ຊອງ', g:30},
+  {k:'winhard', n:1, t:'ຊະນະບອດລະດັບຍາກ 1 ເກມ', g:60}, {k:'legend', n:1, t:'ລົງກາດຕຳນານ 1 ໃບ', g:40}, {k:'face', n:15, t:'ໂຈມຕີຂວັນບອດ ລວມ 15', g:50},
+  {k:'tribe:naga', n:6, t:'ລົງເຜົ່ານາກ 6 ໃບ', g:50}, {k:'tribe:hero', n:6, t:'ລົງເຜົ່າວິລະບຸລຸດ 6 ໃບ', g:50}, {k:'tribe:himma', n:5, t:'ລົງເຜົ່າຫິມະພານ 5 ໃບ', g:50},
+  {k:'tribe:warrior', n:6, t:'ລົງເຜົ່ານັກຮົບ 6 ໃບ', g:50}, {k:'tribe:giant', n:4, t:'ລົງເຜົ່າຍັກ 4 ໃບ', g:50}, {k:'tribe:ghost', n:4, t:'ລົງເຜົ່າຜີ 4 ໃບ', g:50},
+  {k:'tribe:thewada', n:5, t:'ລົງເຜົ່າເທວະດາ 5 ໃບ', g:50}
+];
+const LEVEL_XP = 100, LEVEL_MAX = 30;
+const levelOf = xp => Math.min(LEVEL_MAX, Math.floor(xp / LEVEL_XP) + 1);
+function quests(){
+  const c = col(), day = today();
+  if(!c.quests || c.quests.day !== day){
+    // tribe quests only for tribes you can actually play
+    const pool = QUEST_POOL.filter(q => !q.k.startsWith('tribe:') || Object.keys(c.cards).some(id => c.cards[id] && C[id].tribe === q.k.slice(6)));
+    const pick3 = []; while(pick3.length < 3){ const q = pick(pool); if(!pick3.some(x => x.k === q.k)) pick3.push({...q, p:0, claimed:false}); }
+    c.quests = {day, list:pick3, rerolled:false}; saveCol();
+  }
+  return c.quests.list;
+}
+function questEvent(k, n){
+  if(!S && k !== 'pack') return; if(S && (S.auto || S.sim || S.pvp || S.tut)) return;
+  let hit = false; for(const q of quests()) if(q.k === k && q.p < q.n){ q.p = Math.min(q.n, q.p + (n || 1)); hit = true; if(q.p >= q.n && S && !S.fast) setTimeout(() => toast('⭐ ພາລະກິດສຳເລັດ: ' + q.t), 300); }
+  if(hit) saveCol();
+}
+function addXP(n){
+  const c = col(), before = levelOf(c.xp); c.xp += n; const after = levelOf(c.xp); let gift = '';
+  for(let L = before + 1; L <= after; L++){ c.gems += 100; if(L % 5 === 0){ c.freePacks += 1; c.gems += 100; } gift = 'ຂຶ້ນລະດັບ ' + L + '! 💎' + (L % 5 === 0 ? '200 + ຊອງຟຣີ 1' : '100'); }
+  saveCol(); return gift;
+}
+function giveCard(id){ const c = col(); if(owned(id) < RULE.copies){ c.cards[id] = owned(id) + 1; saveCol(); return 'new'; } c.dust += DUST_GET[rarityOf(id)]; saveCol(); return 'dust'; }
+// after a game against the bot: quest progress, XP, a chance to keep a card from the beaten deck
+function afterGame(won){
+  const c = col(), opp = S.p[1], notes = [];
+  questEvent('game'); if(won){ questEvent('win'); if(S.level === 2) questEvent('winhard'); }
+  const lv = addXP(won ? 40 : 20); if(lv) notes.push('<p class="lvup">⭐ ' + lv + '</p>');
+  if(won){
+    c.hardBeat = c.hardBeat || {};
+    let drop = null, why = '';
+    if(S.level === 2 && !c.hardBeat[opp.di]){ c.hardBeat[opp.di] = true; drop = DECKS[opp.di].legend; why = 'ຊະນະບອດຍາກ ເດັກ ' + DECKS[opp.di].no + ' ເທື່ອທຳອິດ!'; }
+    else if(Math.random() < .3){ const ids = Object.keys(DECKS[opp.di].list).filter(id => !C[id].legend); drop = pick(ids); why = 'ຍຶດໄດ້ຈາກເດັກຂອງບອດ'; }
+    if(drop){ const res = giveCard(drop); notes.push('<div class="dropnew"><b>🎁 ' + (res === 'new' ? 'ໄດ້ກາດ' : 'ກາດຊ້ຳ → ✨ ຜົງແກ້ວ') + '</b><small>' + why + '</small><div class="dcard">' + cardHTML(drop) + '</div></div>'); }
+    saveCol();
+  }
+  S.afterNote = notes.join('');
+}
+function questsHTML(){
+  const c = col(), list = quests(), L = levelOf(c.xp), into = c.xp - (L - 1) * LEVEL_XP;
+  return '<p class="q">⭐ ພາລະກິດປະຈຳວັນ</p>' +
+    '<div class="lvbox"><b>ລະດັບ ' + L + (L >= LEVEL_MAX ? ' (ສູງສຸດ)' : '') + '</b><div class="bar"><i style="width:' + (L >= LEVEL_MAX ? 100 : into) + '%"></i></div><small>' + (L >= LEVEL_MAX ? 'ເຈົ້າແມ່ນຕຳນານແລ້ວ!' : into + '/' + LEVEL_XP + ' XP · ຂຶ້ນລະດັບ ໄດ້ 💎100, ທຸກ 5 ລະດັບ ໄດ້ຊອງຟຣີ') + '</small></div>' +
+    '<div class="qlist">' + list.map((q, i) => '<div class="qrow' + (q.claimed ? ' got' : '') + '"><div class="qt"><b>' + q.t + '</b><div class="bar"><i style="width:' + Math.round(q.p / q.n * 100) + '%"></i></div><small>' + q.p + '/' + q.n + ' · 💎' + q.g + ' + 30 XP</small></div>' +
+      (q.claimed ? '<span class="qok">✅</span>' : q.p >= q.n ? '<button class="btn-main sm" data-a="qclaim" data-v="' + i + '">ຮັບ</button>' : (c.quests.rerolled ? '' : '<button class="btn2" data-a="qreroll" data-v="' + i + '" title="ປ່ຽນພາລະກິດ (ມື້ລະ 1 ເທື່ອ)">🔄</button>')) + '</div>').join('') + '</div>' +
+    '<p class="lore">ພາລະກິດໃໝ່ທຸກມື້ · ປ່ຽນພາລະກິດໄດ້ມື້ລະ 1 ເທື່ອ</p><div class="mbtns"><button class="btn2" data-a="mmclose">ປິດ</button></div>';
+}
+function tutReward(){
+  const c = col(); if(c.tutGems) return; c.tutGems = true; c.gems += 300; c.freePacks += 3; saveCol();
+  setTimeout(() => toast('ຈົບບົດສອນ: ໄດ້ 💎300 ແລະ ຊອງຟຣີ 3 ຊອງ!'), 400);
+}
+
 
 /* ---------- sound: everything is synthesized, no audio files ---------- */
 const SND = {ctx:null, sfx:null, mus:null, timer:null};
@@ -1331,7 +1619,7 @@ const LINES = [
   {play:['ພີ່ນ້ອງມາແລ້ວ!','ຈັບມືກັນໄວ້','ບໍ່ຢ້ານດອກ'], kill:['ຂໍໂທດເດີ້','ໄປກ່ອນເດີ້'], lose:['ບໍ່ເປັນຫຍັງ ຈະກັບມາໃໝ່!','ລໍຖ້າເບິ່ງ'], legend:['ພຸດທະເສນ ຂີ່ມ້າບິນມາແລ້ວ!'], low:['ພີ່ນ້ອງ ຊ່ວຍແດ່…'], win:['ຄວາມຮັກຊະນະ!'], losegame:['ເຈົ້າເກັ່ງແທ້!']}
 ];
 function botSay(kind, force){
-  if(!S || S.auto || S.sim || S.fast) return;
+  if(!S || S.auto || S.sim || S.fast || S.pvp) return;
   const now = Date.now();
   if(!force && (now - (S.lastSay || 0) < 3500 || Math.random() > .45)) return;
   const L = (LINES[S.p[1].di] || LINES[0])[kind]; const c = centerOf('h:1'); if(!L || !c) return;
@@ -1350,6 +1638,7 @@ function recordGame(won){
   const d = st.deck[S.p[0].di], l = st.level[S.level]; d.p++; l.p++; if(won){ d.w++; l.w++; }
   st.streak = won ? (st.streak || 0) + 1 : 0; st.best = Math.max(st.best || 0, st.streak);
   saveJ('lao-legend-stats', st);
+  if(S.cdeck){ const cd = col().decks.find(x => x.id === S.cdeck); if(cd){ cd.p = (cd.p || 0) + 1; if(won) cd.w = (cd.w || 0) + 1; saveCol(); } }
 }
 
 /* ---------- engine ---------- */
@@ -1361,9 +1650,9 @@ const oppLoc = p => { const q = S.p.includes(p) ? opp(p) : null; return q ? q.lo
 const isBot = p => p.bot || S.auto;
 const tkey = t => t.kind === 'hero' ? 'h:' + pi(t.owner) : 'c:' + t.c.uid;
 
-function mkPlayer(name, di, bot, level){
+function mkPlayer(name, di, bot, level, list){
   const deck = [];
-  for(const [id, n] of Object.entries(DECKS[di].list)) for(let i=0;i<n;i++) deck.push(id);
+  for(const [id, n] of Object.entries(list || DECKS[di].list)) for(let i=0;i<n;i++) deck.push(id);
   shuffle(deck);
   return {name, bot, di, level, life:20, maxMana:0, mana:0, penalty:0, deck, hand:[], field:[], loc:null, grave:[]};
 }
@@ -1372,7 +1661,7 @@ const IMG_KEEP = new Map();
 function preloadArt(files){
   for(const f of files){ if(IMG_KEEP.has(f)) continue; const im = new Image(); im.decoding = 'async'; im.src = ART + f + '.jpg'; IMG_KEEP.set(f, im); }
 }
-function deckArt(di){ return Object.keys(DECKS[di].list).flatMap(id => ALT[id] ? [C[id].img, ALT[id]] : [C[id].img]); }
+function deckArt(di, list){ return Object.keys(list || DECKS[di].list).flatMap(id => ALT[id] ? [C[id].img, ALT[id]] : [C[id].img]); }
 // a picture that failed (slow or dropped connection) gets two more tries before it gives up
 document.addEventListener('keydown', e => { if(e.key === 'Escape' && ui.grave){ ui.grave = null; render(); } });
 document.addEventListener('error', e => {
@@ -1386,11 +1675,15 @@ function newGame(di, level, opts){
   opts = opts || {};
   ui.grave = null;
   const others = DECKS.map((_, i) => i).filter(x => x !== di);
-  const bi = opts.botDeck != null ? opts.botDeck : pick(others);
-  S = {screen:'game', p:[mkPlayer('ເຈົ້າ', di, false, level), mkPlayer('ບອດ', bi, true, level)], turn:0, T:1, level, log:[], over:null,
-       busy:false, targeting:null, sel:null, modal:null, fast:!!opts.fast, auto:!!opts.auto, onEnd:opts.onEnd};
+  const bi = opts.pvp ? opts.pvp.di : (opts.botDeck != null ? opts.botDeck : pick(others));
+  S = {screen:'game', p:[mkPlayer('ເຈົ້າ', di, false, level, opts.list), mkPlayer('ບອດ', bi, true, level)], turn:0, T:1, level, log:[], over:null,
+       busy:false, targeting:null, sel:null, modal:null, fast:!!opts.fast, auto:!!opts.auto, onEnd:opts.onEnd, cdeck:opts.cdeck || null, reward:null, drop:null};
+  if(opts.cover) S.p[0].cover = opts.cover;
+  if(opts.pvp){   // 2 players, one device: whoever's turn it is always sits at the bottom (index 0); the pair swaps at every turn change
+    S.pvp = opts.pvp; S.p[0].name = 'ຜູ້ຫຼິ້ນ 1'; S.p[1] = mkPlayer('ຜູ້ຫຼິ້ນ 2', bi, false, level, opts.pvp.list); if(opts.pvp.cover) S.p[1].cover = opts.pvp.cover;
+  }
   if(S.auto){ S.p[0].name = 'ບອດ A'; S.p[1].name = 'ບອດ B'; }
-  if(!S.fast) preloadArt(['back', ...deckArt(di), ...deckArt(bi)]);
+  if(!S.fast) preloadArt(['back', ...deckArt(di, opts.list), ...deckArt(bi)]);
   if(opts.levels){ S.p[0].level = opts.levels[0]; S.p[1].level = opts.levels[1]; }
   for(const p of S.p) for(let i=0;i<5;i++) drawRaw(p);
   S.turn = opts.first != null ? opts.first : (Math.random() < .5 ? 0 : 1);
@@ -1405,18 +1698,22 @@ function newGame(di, level, opts){
       me.deck.unshift(out.id); out.id = want;
     }
   }
+  if(S.pvp){ if(S.turn === 1){ S.p.reverse(); S.turn = 0; } log(S.p[0].name + ' ໄດ້ໄປກ່ອນ'); const G = S; render(); passScreen().then(() => { if(S === G) startTurn(); }); return; }
   log(S.turn === 0 ? 'ເຈົ້າໄດ້ໄປກ່ອນ' : 'ບອດໄດ້ໄປກ່ອນ');
   render();
   startTurn();
 }
+// cover the board until the next player has the device, so nobody sees the other hand
+function passScreen(){ return new Promise(r => { S.modal = {type:'pass', name:S.p[0].name, resolve:r}; render(); }); }
 function log(m){ if(!S) return; S.log.unshift(m); if(S.log.length > 60) S.log.pop(); }
 function drawRaw(p){
   if(!p.deck.length) return false;
   const h = {uid:++U, id:p.deck.pop()};
-  if(ALT[h.id] && Math.random() < ALT_CHANCE){
+  const mine = !S.auto && !S.sim && !S.pvp && p === S.p[0];
+  if(ALT[h.id] && (mine ? (col().alts[h.id] || Math.random() < ALT_CHANCE * .4) : Math.random() < ALT_CHANCE)){
     h.alt = 1;
-    if(!S.auto && p === S.p[0] && !S.sim) markAltSeen(h.id);
-    if(!S.fast && !S.auto && p === S.p[0]){ setTimeout(() => { const d = addFx('toast alt'); d.textContent = '✦ ໄດ້ກາດອາດພິເສດ: ' + C[h.id].name; setTimeout(() => d.remove(), 1900); sfx('spell'); }, 700); }
+    if(mine) markAltSeen(h.id);
+    if(!S.fast && mine && !col().alts[h.id]){ setTimeout(() => { const d = addFx('toast alt'); d.textContent = '✦ ໄດ້ກາດອາດພິເສດ: ' + C[h.id].name; setTimeout(() => d.remove(), 1900); sfx('spell'); }, 700); }
   }
   p.hand.push(h); return true;
 }
@@ -1508,6 +1805,7 @@ function playBlock(p, h){
 
 async function playCard(p, h, t){
   const d = C[h.id];
+  if(p === S.p[0] && !isBot(p)){ questEvent('play'); if(d.type === 'char'){ questEvent('tribe:' + d.tribe); if(d.legend) questEvent('legend'); } else if(d.type === 'spell' || d.type === 'item') questEvent('spell'); }
   p.mana -= costOf(p, h.id);
   p.hand.splice(p.hand.indexOf(h), 1);
   log(p.name + ' ລົງ «' + d.name + '»'); if(!S.fast) ui.detail = {id:h.id, alt:h.alt};
@@ -1690,6 +1988,7 @@ async function destroy(p, c, quick){
   const i = p.field.indexOf(c); if(i < 0) return;
   p.field.splice(i, 1); p.grave.push(...c.items, c.id);
   log('«' + C[c.id].name + '» ຖືກທຳລາຍ');
+  if(p === S.p[1] && !S.p[0].bot) questEvent('kill');
   if(c.items.includes('katip')){ draw(p, 1); log('ກະຕິບເຂົ້າ: ' + p.name + ' ຈົ່ວກາດ 1 ໃບ'); }
   if(c.id === 'phikongkoy'){ opp(p).penalty++; log('ສຽງຜີກອງກອຍ: ' + opp(p).name + ' ເສຍ 1 ບຸນ ຕາໜ້າ'); }
   if(c.id === 'nangnoy'){ draw(p, 1); log('ນາງນ້ອຍ: ' + p.name + ' ຈົ່ວກາດ 1 ໃບ'); }
@@ -1715,7 +2014,7 @@ function heal(p, n){
   if(g > 0){ floatAt('h:' + pi(p), '+' + g, 'heal'); fxHeal('h:' + pi(p)); log(p.name + ' ຟື້ນຂວັນ +' + g); }
 }
 function damageHero(p, n){
-  p.life -= n; floatAt('h:' + pi(p), '-' + n, ''); shakeEl('h:' + pi(p));
+  p.life -= n; if(p === S.p[1] && !S.p[0].bot) questEvent('face', n); floatAt('h:' + pi(p), '-' + n, ''); shakeEl('h:' + pi(p));
   if(!S.fast){ if(pi(p) === 0 && !S.auto) fxVignette(); if(n >= 6) fxBigShake(); if(p === S.p[1] && p.life > 0 && p.life <= 6) botSay('low'); }
   log(p.name + ' ເສຍຂວັນ ' + n);
   if(p.life <= 0) gameOver(opp(p), 'life');
@@ -1730,7 +2029,7 @@ async function attack(p, c, t){
   if(ri >= 0 && q.mana >= 1 && !S.over){
     const what = t.kind === 'hero' ? 'ຂວັນຂອງເຈົ້າ' : '«' + C[t.c.id].name + '»';
     const use = isBot(q) ? botReact(q, p, c, t)
-      : await new Promise(r => { S.modal = {type:'ask', text:'«' + C[c.id].name + '» ກຳລັງໂຈມຕີ ' + what + '. ໃຊ້ «ກົນຊຽງໝ້ຽງ» ຍົກເລີກບໍ?', html:cardHTML('konxiengmieng'), resolve:r}; render(); });
+      : await new Promise(r => { S.modal = {type:'ask', text:(S.pvp ? q.name + ' ຮັບເຄື່ອງ: ' : '') + '«' + C[c.id].name + '» ກຳລັງໂຈມຕີ ' + what + '. ໃຊ້ «ກົນຊຽງໝ້ຽງ» ຍົກເລີກບໍ?', html:cardHTML('konxiengmieng'), resolve:r}; render(); });
     if(use){
       const h = q.hand[ri]; q.hand.splice(ri, 1); q.mana -= 1; q.grave.push(h.id);
       await fxActivate(h.id, null, pi(q));
@@ -1788,7 +2087,7 @@ async function startTurn(){
   S.sel = null; S.busy = isBot(p);
   render();
   if(S.T > 1) fxDraw(pi(p));
-  await fxBanner(isBot(p) ? (S.auto ? p.name : 'ຕາຂອງບອດ') : 'ຕາຂອງເຈົ້າ', isBot(p));
+  await fxBanner(isBot(p) ? (S.auto ? p.name : 'ຕາຂອງບອດ') : (S.pvp ? 'ຕາຂອງ ' + p.name : 'ຕາຂອງເຈົ້າ'), isBot(p));
   if(S !== G || G.over) return;
   if(isBot(p)) botTurn(); else { S.busy = false; render(); tutEvent('myturn'); }
 }
@@ -1805,7 +2104,9 @@ async function endTurn(){
   for(const pl of S.p) for(const c of pl.field) c.mods = c.mods.filter(m => m.exp > S.T);
   await checkDeaths();
   if(S !== G || G.over) return;
-  S.T++; S.turn = 1 - S.turn;
+  S.T++;
+  if(S.pvp){ S.p.reverse(); S.turn = 0; await passScreen(); if(S !== G || G.over) return; }
+  else S.turn = 1 - S.turn;
   startTurn();
 }
 function gameOver(winner, reason){
@@ -1814,8 +2115,8 @@ function gameOver(winner, reason){
   S.over = {winner:pi(winner), reason}; S.busy = false; S.targeting = null;
   if(!S.auto){
     const won = S.over.winner === 0; sfx(won ? 'win' : 'lose'); if(won) fxConfetti(); botSay(won ? 'losegame' : 'win', true);
-    if(!S.tut) recordGame(won);
-    else { saveJ('lao-legend-tut', 1); S.tut = null; }
+    if(!S.tut && !S.pvp){ recordGame(won); S.reward = gameGems(won); if(typeof afterGame === 'function') afterGame(won); }
+    else if(S.tut){ saveJ('lao-legend-tut', 1); S.tut = null; tutReward(); }
     S.modal = {type:'over'};
   }
   render();
@@ -2182,26 +2483,228 @@ function cardHTML(id, cs, alt, pv){
 }
 function render(){
   if(S && S.fast) return;
-  if(!S){ $app.innerHTML = (ui.screen === 'book' ? bookHTML() : menuHTML()) + menuModalHTML() + settingsHTML(); return; }
+  if(!S){ $app.innerHTML = (ui.screen === 'book' ? bookHTML() : ui.screen === 'builder' ? builderHTML() : ui.screen === 'shop' && typeof shopHTML === 'function' ? shopHTML() : menuHTML()) + menuModalHTML() + settingsHTML(); return; }
   $app.innerHTML = boardHTML() + modalHTML() + graveHTML() + settingsHTML() + tutHTML();
   tutHighlight();
 }
+const escH = t => String(t).replace(/[&<>"]/g, ch => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;'}[ch]));
+function walletHTML(cls){
+  const c = col(), have = Object.keys(C).filter(id => c.cards[id]).length;
+  return '<div class="wallet ' + (cls || '') + '"><span title="ເພັດ">💎 <b>' + c.gems + '</b></span><span title="ຜົງແກ້ວ">✨ <b>' + c.dust + '</b></span><span title="ກາດທີ່ມີ">🃏 <b>' + have + '/' + Object.keys(C).length + '</b></span></div>';
+}
 function menuHTML(){
   let st = null; try{ st = JSON.parse(localStorage.getItem('lao-legend-stats') || 'null'); }catch(e){}
+  const c = col(), sel = ui.deck;
+  const built = DORDER.map(i => { const d = DECKS[i], ok = deckOwned(d.list);
+    return '<div class="deck ' + (sel === i ? 'on' : '') + (ok ? '' : ' lockd') + '" role="button" tabindex="0" data-a="deck" data-v="' + i + '">' + cardHTML(d.legend) +
+      '<div><b>ເດັກ ' + d.no + (STARTERS.includes(i) ? ' · ເລີ່ມຕົ້ນ' : '') + '</b><span>' + d.name + '</span><small>' + (ok ? d.style : '🔒 ມີກາດ ' + ownedOf(d.list) + '/30 · ເປີດຊອງເພື່ອສະສົມ') + '</small></div></div>'; }).join('');
+  const mine = c.decks.map(d => { const bad = deckIssues(d.list);
+    return '<div class="deck ' + (sel === 'c:' + d.id ? 'on' : '') + '" role="button" tabindex="0" data-a="deck" data-v="c:' + d.id + '">' + cardHTML(coverOf(d.list)) +
+      '<div><b>ເດັກຂອງຂ້ອຍ' + (d.p ? ' · ຊະນະ ' + (d.w || 0) + '/' + d.p : '') + '</b><span>' + escH(d.name) + '</span><small>' + (bad.length ? '⚠️ ' + bad[0] : '30 ໃບ · ພ້ອມຫຼິ້ນ') + '</small></div></div>'; }).join('');
+  const free = c.freePacks ? ' <em class="badge">' + c.freePacks + '</em>' : '';
   return '<div class="menu">' +
-    '<div class="logo"><h1><img class="logoimg" src="art/logo.webp" alt="Lao Legend Wars" width="960" height="640"></h1><div class="set">ສົງຄາມຕຳນານລາວ · ເກມກາດນິທານລາວ · ຫຼິ້ນຟຣີ</div><p>ເລືອກເດັກ ແລ້ວສູ້ກັບບອດ</p></div>' +
-    '<div class="decks">' + DORDER.map(i => { const d = DECKS[i];
-      return '<div class="deck ' + (ui.deck === i ? 'on' : '') + '" role="button" tabindex="0" data-a="deck" data-v="' + i + '">' + cardHTML(d.legend) +
-      '<div><b>ເດັກ ' + d.no + '</b><span>' + d.name + '</span><small>' + d.style + '</small></div></div>'; }).join('') + '</div>' +
+    '<div class="logo"><h1><img class="logoimg" src="art/logo.webp" alt="Lao Legend Wars" width="960" height="640"></h1><div class="set">ສົງຄາມຕຳນານລາວ · ເກມກາດນິທານລາວ · ຫຼິ້ນຟຣີ</div></div>' +
+    walletHTML() + '<div class="lvmini">⭐ ລະດັບ ' + levelOf(col().xp) + '</div>' +
+    '<div class="mrow big"><button class="btn2" data-a="ednew">🃏 ຈັດເດັກ</button><button class="btn2" data-a="shop">🎴 ຮ້ານຊອງກາດ' + free + '</button><button class="btn2" data-a="quests">⭐ ພາລະກິດ' + (quests().filter(q => q.p >= q.n && !q.claimed).length ? ' <em class="badge">' + quests().filter(q => q.p >= q.n && !q.claimed).length + '</em>' : '') + '</button><button class="btn2" data-a="pvpstart">👥 2 ຄົນ</button></div>' +
+    '<h3 class="secth">ເລືອກເດັກ ແລ້ວສູ້ກັບບອດ</h3>' +
+    (c.decks.length ? '<p class="subh">ເດັກຂອງຂ້ອຍ</p><div class="decks">' + mine + '</div>' : '') +
+    '<p class="subh">ເດັກສຳເລັດຮູບ</p><div class="decks">' + built + '</div>' +
     '<p class="themelbl">ໜ້າຕາສະໜາມ</p>' + themePicker() + '<div class="levels"><span>ລະດັບບອດ</span>' + LEVELS.map((l, i) =>
       '<button class="lv ' + (ui.level === i ? 'on' : '') + '" data-a="lvl" data-v="' + i + '">' + l + '</button>').join('') +
       '</div>' +
     '<button class="btn-main" data-a="start">ເລີ່ມຫຼິ້ນ</button>' +
-    '<div class="mrow"><button class="btn2 ' + (loadJ('lao-legend-tut', 0) ? '' : 'hl') + '" data-a="tutstart">ສອນຫຼິ້ນ</button><button class="btn2" data-a="book">ປຶ້ມກາດ</button><button class="btn2" data-a="stats">ສະຖິຕິ</button><button class="btn2" data-a="settings">ຕັ້ງຄ່າ</button></div>' +
+    '<div class="mrow">' + (typeof sel === 'string' ? '<button class="btn2" data-a="edsel">✏️ ແກ້ເດັກນີ້</button>' : '<button class="btn2" data-a="edsel">✏️ ກັອບເດັກນີ້ໄປແກ້</button>') +
+      '<button class="btn2 ' + (loadJ('lao-legend-tut', 0) ? '' : 'hl') + '" data-a="tutstart">ສອນຫຼິ້ນ</button><button class="btn2" data-a="book">ປຶ້ມກາດ</button><button class="btn2" data-a="stats">ສະຖິຕິ</button><button class="btn2" data-a="settings">ຕັ້ງຄ່າ</button></div>' +
     (st && st.played ? '<div class="stats">ຊະນະ ' + st.won + ' ຈາກ ' + st.played + ' ເກມ</div>' : '') +
     '<p class="links"><a href="' + RULES_URL + '" target="_blank" rel="noopener">ອ່ານກົດການຫຼິ້ນ</a> · <a href="' + CARDS_URL + '" target="_blank" rel="noopener">ເບິ່ງກາດທັງໝົດ</a></p>' +
-    '<p class="note">ສະບັບທົດລອງ: ກາດ ' + Object.keys(C).length + ' ແບບ, ບອດ 3 ລະດັບ, ເອັບເຟັກ ແລະ ສຽງ. ກາດ ' + Object.keys(ALT).length + ' ແບບ (ເຊັ່ນ ສິນໄຊ, ພະຍານາກ, ທ້າວຮຸ່ງ) ມີໂອກາດ 1 ໃນ 4 ອອກເປັນ ✦ ອາດພິເສດ.</p>' +
+    '<p class="note">ສະບັບທົດລອງ · ກາດ ແລະ ເພັດ ເກັບໄວ້ໃນເຄື່ອງນີ້ເທົ່ານັ້ນ · ບໍ່ມີການຈ່າຍເງິນແທ້</p>' +
   '</div>';
+}
+// any built deck (even locked ones, it's a local game between friends) and your finished decks
+function pvpChoices(){
+  return DORDER.map(i => ({k:'b' + i, name:'ເດັກ ' + DECKS[i].no + ' · ' + DECKS[i].name, cover:DECKS[i].legend}))
+    .concat(col().decks.filter(d => !deckIssues(d.list).length).map(d => ({k:'c' + d.id, name:d.name, cover:coverOf(d.list)})));
+}
+function pvpSpec(k){
+  if(k[0] === 'c'){ const d = col().decks.find(x => x.id === k.slice(1)); if(d) return {di:baseDeckOf(d.list), list:{...d.list}, cover:coverOf(d.list)}; }
+  const i = +k.slice(1) || 0; return {di:i, list:null, cover:null};
+}
+function pvpGo(a, b){
+  const A = pvpSpec(a), B = pvpSpec(b);
+  ui.mmodal = null; ui.screen = null;
+  newGame(A.di, ui.level, {list:A.list, cover:A.cover, pvp:{di:B.di, list:B.list, cover:B.cover, keys:[a, b]}});
+}
+function pvpReplay(){ const k = S.pvp.keys; pvpGo(k[0], k[1]); }
+function startSelected(){
+  const s = ui.deck;
+  if(typeof s === 'string'){
+    const d = col().decks.find(x => 'c:' + x.id === s); if(!d){ ui.deck = 0; return startSelected(); }
+    const iss = deckIssues(d.list); if(iss.length){ S = null; ui.screen = null; render(); toast('«' + d.name + '»: ' + iss[0]); return; }
+    newGame(baseDeckOf(d.list), ui.level, {list:{...d.list}, cover:coverOf(d.list), cdeck:d.id}); return;
+  }
+  if(!deckOwned(DECKS[s].list)){ S = null; ui.screen = null; render(); toast('ເດັກນີ້ຍັງລັອກ: ມີກາດ ' + ownedOf(DECKS[s].list) + '/30'); return; }
+  newGame(s, ui.level);
+}
+
+/* ---------- deck builder ---------- */
+function openEditor(cid, list, name){ ui.ed = {cid, list:{...list}, name:name || 'ເດັກຂອງຂ້ອຍ ' + (col().decks.length + 1), del:false}; ui.bf = ui.bf || {tab:'all', cost:0, own:false, q:''}; ui.sheet = false; ui.screen = 'builder'; render(); }
+function saveEditor(){
+  const e = ui.ed, c = col(), name = (e.name || '').trim().slice(0, 24) || 'ເດັກຂອງຂ້ອຍ';
+  if(e.cid){ const d = c.decks.find(x => x.id === e.cid); if(d){ d.name = name; d.list = {...e.list}; saveCol(); return e.cid; } }
+  if(c.decks.length >= 10){ toast('ບັນທຶກໄດ້ສູງສຸດ 10 ເດັກ'); return null; }
+  e.cid = Date.now().toString(36); c.decks.push({id:e.cid, name, list:{...e.list}, p:0, w:0}); saveCol(); return e.cid;
+}
+function edPool(){
+  const f = ui.bf, q = (f.q || '').trim(), list = ui.ed.list;
+  let ids = bookIds(f.tab || 'all');
+  if(f.cost) ids = ids.filter(id => f.cost === 7 ? C[id].cost >= 7 : C[id].cost === f.cost);
+  if(f.own) ids = ids.filter(id => owned(id));
+  if(q) ids = ids.filter(id => C[id].name.includes(q));
+  return ids.map(id => { const o = owned(id), n = list[id] || 0, why = addBlock(list, id);
+    return '<div class="pc' + (o ? '' : ' nown') + (n ? ' ind' : '') + (why && o ? ' full' : '') + '" role="button" tabindex="0" data-a="edadd" data-v="' + id + '" title="' + escH(why || 'ແຕະເພື່ອໃສ່ເດັກ') + '">' + cardHTML(id) +
+      '<span class="cnt3">' + (o ? n + '/' + o : '🔒') + '</span><button class="pi" data-a="edinfo" data-v="' + id + '" aria-label="ເບິ່ງກາດ ' + C[id].name + '">i</button></div>'; }).join('') || '<p class="empty">ບໍ່ພົບກາດ</p>';
+}
+function edPanel(){
+  const e = ui.ed, list = e.list, tot = listTotal(list), iss = deckIssues(list), cv = costCurve(list), mx = Math.max(4, ...cv);
+  const rows = Object.keys(list).sort((a, b) => C[a].cost - C[b].cost || C[a].name.localeCompare(C[b].name)).map(id =>
+    '<div class="drow ' + rarityOf(id) + '"><span class="dc">' + C[id].cost + '</span><button class="dn" data-a="edinfo" data-v="' + id + '">' + C[id].name + '</button><b>×' + list[id] + '</b><button class="dm" data-a="edrem" data-v="' + id + '" aria-label="ເອົາ ' + C[id].name + ' ອອກ">−</button></div>').join('');
+  const tribes = [...deckTribes(list)].map(t => '<span class="tchip">' + TRIBE_NAME[t] + '</span>').join('');
+  return '<div class="dtop"><input id="edname" maxlength="24" value="' + escH(e.name) + '" aria-label="ຊື່ເດັກ"><span class="dcount ' + (tot === RULE.size ? 'ok' : '') + '">' + tot + '/' + RULE.size + '</span></div>' +
+    '<div class="curve" aria-label="ກຣາຟບຸນ">' + cv.map((n, i) => '<div><b>' + (n || '') + '</b><i style="height:' + Math.round(n / mx * 100) + '%"></i><small>' + (i === 7 ? '7+' : i) + '</small></div>').join('') + '</div>' +
+    '<div class="tchips">' + (tribes || '<span class="hint2">ເຜົ່າໃນເດັກ ຈະສະແດງຢູ່ນີ້ (ສູງສຸດ 3)</span>') + '</div>' +
+    (iss.length ? '<ul class="issues">' + iss.slice(0, 3).map(x => '<li>' + x + '</li>').join('') + '</ul>' : '<p class="okmsg">✅ ເດັກພ້ອມຫຼິ້ນແລ້ວ</p>') +
+    '<div class="drows">' + (rows || '<p class="empty">ແຕະກາດ ເພື່ອໃສ່ເດັກ</p>') + '</div>' +
+    '<div class="dbtns"><button class="btn-main sm" data-a="edplay"' + (iss.length ? ' disabled' : '') + '>⚔️ ຫຼິ້ນດ້ວຍເດັກນີ້</button>' +
+      '<button class="btn2" data-a="edsave">💾 ບັນທຶກ</button><button class="btn2" data-a="edauto">✨ ເຕີມໃຫ້ເອງ</button><button class="btn2" data-a="edclear">ລ້າງ</button><button class="btn2" data-a="edcode">🔗 ລະຫັດເດັກ</button>' +
+      (e.cid ? '<button class="btn2 danger" data-a="eddel">' + (e.del ? 'ກົດອີກເທື່ອ ເພື່ອລຶບ' : '🗑 ລຶບເດັກ') + '</button>' : '') + '</div>';
+}
+function builderHTML(){
+  const f = ui.bf, tot = listTotal(ui.ed.list);
+  const tabs = [['all', 'ທັງໝົດ']].concat(DORDER.map(i => ['d' + i, 'ເດັກ ' + DECKS[i].no]), [['neutral', 'ກາດກາງ']]);
+  return '<div class="builder"><div class="bhead"><button class="btn2" data-a="edback">← ເມນູ</button><h2>ຈັດເດັກ</h2>' + walletHTML('sm') + '</div>' +
+    '<div class="bwrap"><section class="bpool"><div class="bfil"><div class="tabs">' + tabs.map(([k, l]) => '<button class="' + ((f.tab || 'all') === k ? 'on' : '') + '" data-a="edtab" data-v="' + k + '">' + l + '</button>').join('') + '</div>' +
+    '<div class="costs">' + [0,1,2,3,4,5,6,7].map(n => '<button class="' + ((f.cost || 0) === n ? 'on' : '') + '" data-a="edcost" data-v="' + n + '">' + (n === 0 ? 'ບຸນທັງໝົດ' : n === 7 ? '7+' : n) + '</button>').join('') +
+    '<label class="own"><input type="checkbox" id="edown"' + (f.own ? ' checked' : '') + '> ສະເພາະທີ່ມີ</label><input id="edq" type="search" placeholder="ຊອກຊື່ກາດ…" value="' + escH(f.q || '') + '" aria-label="ຊອກຊື່ກາດ"></div>' +
+    '<p class="rules">ກົດ: 30 ໃບ · ຊື່ດຽວກັນບໍ່ເກີນ 3 · ຕຳນານ 1 ໃບ · ກາດກາງບໍ່ເກີນ 6 · ບໍ່ເກີນ 3 ເຜົ່າ</p></div>' +
+    '<div class="bgrid2" id="edpool">' + edPool() + '</div></section>' +
+    '<aside class="bdeck' + (ui.sheet ? ' open' : '') + '"><button class="sheetbar" data-a="edsheet"><span id="edbar">ເດັກ ' + tot + '/30</span> <i>' + (ui.sheet ? '▼' : '▲') + '</i></button><div class="bdin" id="edpanel">' + edPanel() + '</div></aside></div></div>';
+}
+function edRefresh(pool){
+  const P = document.getElementById('edpanel'); if(P) P.innerHTML = edPanel();
+  const B = document.getElementById('edbar'); if(B) B.textContent = 'ເດັກ ' + listTotal(ui.ed.list) + '/30';
+  if(pool !== false){ const G = document.getElementById('edpool'); if(G) G.innerHTML = edPool(); }
+}
+function copyText(t){ try{ navigator.clipboard.writeText(t); }catch(e){} }
+
+/* ---------- card packs: earned gems only, odds shown openly, a legend at least every 10 packs, extras turn into dust ---------- */
+const PACKS = {
+  basic:{name:'ຊອງທຳມະດາ', cost:100, desc:'5 ໃບ ຈາກທຸກເດັກ · ຫາຍາກຂຶ້ນໄປ ຢ່າງໜ້ອຍ 1 ໃບ', legend:.08, alt:.01},
+  deck:{name:'ຊອງເດັກ', cost:150, desc:'5 ໃບ ຈາກເດັກທີ່ເລືອກ + ກາດກາງ', legend:.08, alt:.01},
+  gold:{name:'ຊອງພິເສດ', cost:200, desc:'5 ໃບ · ຫາຍາກຂຶ້ນໄປ 2 ໃບ · ໂອກາດຕຳນານ ແລະ ອາດພິເສດ ສູງຂຶ້ນ', legend:.15, alt:.05}
+};
+const DUST_GET = {common:5, rare:20, legend:100, alt:200}, DUST_MAKE = {common:40, rare:100, legend:400};
+const PITY = 10;
+// the odds behind PACKS, per pack, so the shop can print them honestly
+function packOdds(kind){ const k = PACKS[kind], l = 1 - (1 - k.legend) * (1 - k.legend); return {legend:Math.round(l * 100), alt:Math.round((1 - Math.pow(1 - k.alt, 5)) * 100)}; }
+function rollPack(kind, di){
+  const c = col(), k = PACKS[kind];
+  let pool = Object.keys(C);
+  if(kind === 'deck'){ const L = DECKS[di].list; pool = pool.filter(id => L[id] || NEUTRAL.has(id)); }
+  const by = r => pool.filter(id => rarityOf(id) === r);
+  const pickOf = r => {
+    let ids = by(r); if(!ids.length) ids = by('rare').length ? by('rare') : pool;
+    if(r === 'legend'){ const fresh = ids.filter(id => !owned(id)); if(fresh.length) ids = fresh; }   // no repeat legend until you have them all
+    const w = ids.map(id => owned(id) >= RULE.copies ? 1 : (owned(id) ? 2 : 3));                    // cards you lack come up more often
+    let t = Math.random() * w.reduce((a, b) => a + b, 0);
+    for(let i = 0; i < ids.length; i++){ t -= w[i]; if(t <= 0) return ids[i]; } return ids[ids.length - 1];
+  };
+  const out = []; let gotLegend = false;
+  for(let slot = 0; slot < 5; slot++){
+    let r;
+    if(slot === 3 || (kind === 'gold' && slot === 4)) r = Math.random() < k.legend ? 'legend' : 'rare';
+    else if(slot === 4) r = Math.random() < k.legend ? 'legend' : (Math.random() < .35 ? 'rare' : 'common');
+    else r = Math.random() < .15 ? 'rare' : 'common';
+    if(slot === 3 && !gotLegend && c.pity >= PITY - 1 && !out.some(x => x.r === 'legend')) r = 'legend';
+    const id = pickOf(r); if(rarityOf(id) === 'legend') gotLegend = true;
+    out.push({id, r:rarityOf(id), alt:!!(ALT[id] && Math.random() < k.alt)});
+  }
+  c.pity = gotLegend ? 0 : c.pity + 1; c.packs++;
+  for(const x of out){
+    x.isNew = !owned(x.id);
+    if(owned(x.id) < RULE.copies) c.cards[x.id] = owned(x.id) + 1; else { x.dust = DUST_GET[x.r]; c.dust += x.dust; }
+    if(x.alt){ if(c.alts[x.id]){ c.dust += DUST_GET.alt; x.dust = (x.dust || 0) + DUST_GET.alt; } else { c.alts[x.id] = true; markAltSeen(x.id); x.isNew = true; } }
+  }
+  if(typeof questEvent === 'function') questEvent('pack', 1);
+  saveCol(); return out;
+}
+function shopHTML(){
+  const c = col(), tab = ui.shopTab || 'packs', sd = ui.shopDeck != null ? ui.shopDeck : 1;
+  const card = kind => { const k = PACKS[kind], o = packOdds(kind), can = c.gems >= k.cost;
+    return '<div class="pack ' + kind + '"><div class="pimg" aria-hidden="true"><span>' + (kind === 'deck' ? 'ເດັກ ' + DECKS[sd].no : kind === 'gold' ? '✦' : '🃏') + '</span></div><h3>' + k.name + '</h3><p>' + k.desc + '</p>' +
+      (kind === 'deck' ? '<div class="pdecks">' + DORDER.map(i => '<button class="' + (i === sd ? 'on' : '') + '" data-a="shopdeck" data-v="' + i + '">' + DECKS[i].no + '</button>').join('') + '</div>' : '') +
+      '<p class="odds">ຕໍ່ຊອງ: ຕຳນານ ~' + o.legend + '% · ອາດພິເສດ ~' + o.alt + '%</p><button class="btn-main sm" data-a="buy" data-v="' + kind + '"' + (can ? '' : ' disabled') + '>💎 ' + k.cost + '</button></div>'; };
+  let body;
+  if(tab === 'craft'){
+    const f = ui.craftTab || 'all';
+    const ids = bookIds(f).filter(id => owned(id) < RULE.copies);
+    body = '<p class="lore2">ໃຊ້ ✨ ຜົງແກ້ວ ສ້າງກາດທີ່ຢາກໄດ້. ຜົງແກ້ວ ໄດ້ຈາກກາດທີ່ຊ້ຳເກີນ 3 ໃບ. ສາມັນ ✨40 · ຫາຍາກ ✨100 · ຕຳນານ ✨400</p>' +
+      '<div class="tabs">' + [['all', 'ທັງໝົດ']].concat(DORDER.map(i => ['d' + i, 'ເດັກ ' + DECKS[i].no]), [['neutral', 'ກາດກາງ']]).map(([k, l]) => '<button class="' + (f === k ? 'on' : '') + '" data-a="crafttab" data-v="' + k + '">' + l + '</button>').join('') + '</div>' +
+      '<div class="bgrid2 cgrid">' + (ids.map(id => '<div class="pc' + (owned(id) ? '' : ' nown') + '" role="button" tabindex="0" data-a="craftsel" data-v="' + id + '">' + cardHTML(id) + '<span class="cnt3">✨' + DUST_MAKE[rarityOf(id)] + ' · ມີ ' + owned(id) + '</span></div>').join('') || '<p class="empty">ມີກາດຄົບ 3 ໃບ ທຸກແບບແລ້ວ!</p>') + '</div>';
+  } else {
+    body = (c.freePacks ? '<div class="freebar"><b>🎁 ຊອງຟຣີ ' + c.freePacks + ' ຊອງ</b><button class="btn-main sm" data-a="freeopen">ເປີດເລີຍ</button></div>' : '') +
+      '<div class="packs">' + card('basic') + card('deck') + card('gold') + '</div>' +
+      '<p class="pity">🎯 ຮັບປະກັນຕຳນານ: ອີກ <b>' + Math.max(1, PITY - c.pity) + '</b> ຊອງ · ເປີດໄປແລ້ວ ' + c.packs + ' ຊອງ</p>' +
+      '<p class="lore2">ເພັດໄດ້ຈາກການຫຼິ້ນເທົ່ານັ້ນ: ຊະນະບອດ ງ່າຍ/ກາງ/ຍາກ = 10/20/35 · ຊະນະທຳອິດຂອງມື້ +50 · ພາລະກິດປະຈຳວັນ. ບໍ່ມີການຈ່າຍເງິນແທ້.</p>';
+  }
+  return '<div class="shop"><div class="bhead"><button class="btn2" data-a="shopback">← ເມນູ</button><h2>ຮ້ານຊອງກາດ</h2>' + walletHTML('sm') + '</div>' +
+    '<div class="tabs"><button class="' + (tab === 'packs' ? 'on' : '') + '" data-a="shoptab" data-v="packs">🎴 ຊອງກາດ</button><button class="' + (tab === 'craft' ? 'on' : '') + '" data-a="shoptab" data-v="craft">✨ ສ້າງກາດ</button></div>' +
+    body + '</div>' + packOpenHTML();
+}
+function packOpenHTML(){
+  const o = ui.open; if(!o) return '';
+  if(!o.torn) return '<div class="popen"><div class="bigpack ' + o.kind + '" role="button" tabindex="0" data-a="packtear"><span>' + PACKS[o.kind].name + '</span><small>ແຕະເພື່ອແກະ</small></div></div>';
+  const done = o.cards.every((_, i) => o.flip[i]), still = o.dealt; o.dealt = true;   // deal and fade in once; later redraws only animate the card just flipped
+  return '<div class="popen' + (still ? ' still' : '') + '"><div class="prow">' + o.cards.map((x, i) => o.flip[i]
+      ? '<div class="pcard up r-' + (x.alt ? 'alt' : x.r) + (o.last === i || o.last === 'all' ? ' jf' : '') + '">' + cardHTML(x.id, null, x.alt ? 1 : 0) + '<span class="ptag">' + (x.alt ? RARITY_NAME.alt : RARITY_NAME[x.r]) + (x.isNew ? ' · ໃໝ່!' : '') + (x.dust ? ' · ✨+' + x.dust : '') + '</span></div>'
+      : '<div class="pcard down r-' + (x.alt ? 'alt' : x.r) + '" role="button" tabindex="0" data-a="flip" data-v="' + i + '"><span class="cback">' + BACK + '</span></div>').join('') + '</div>' +
+    '<div class="mbtns">' + (done ? '<button class="btn-main sm" data-a="opendone">ຕົກລົງ</button>' + (col().gems >= PACKS[o.kind].cost ? '<button class="btn2" data-a="buy" data-v="' + o.kind + '">ເປີດອີກ 💎' + PACKS[o.kind].cost + '</button>' : '') : '<button class="btn2" data-a="flipall">ເປີດທັງໝົດ</button>') + '</div></div>';
+}
+function openPack(kind, free){
+  const c = col();
+  if(free){ if(!c.freePacks) return; c.freePacks--; }
+  else { if(c.gems < PACKS[kind].cost){ toast('ເພັດບໍ່ພໍ'); return; } c.gems -= PACKS[kind].cost; }
+  ui.open = {kind, cards:rollPack(kind, ui.shopDeck != null ? ui.shopDeck : 1), flip:{}, torn:false}; sfx('spell'); render();
+}
+function flipCard(i){
+  const o = ui.open; if(!o || o.flip[i]) return; o.flip[i] = true; o.last = i; const x = o.cards[i];
+  sfx(x.r === 'legend' || x.alt ? 'win' : (x.r === 'rare' ? 'spell' : 'turn'));
+  render();
+}
+function shopClick(a, v){
+  if(a === 'shop'){ ui.screen = 'shop'; ui.open = null; render(); return true; }
+  if(ui.screen !== 'shop') return false;
+  if(ui.open){
+    if(a === 'packtear'){ ui.open.torn = true; sfx('boom'); render(); }
+    else if(a === 'flip') flipCard(+v);
+    else if(a === 'flipall'){ ui.open.cards.forEach((_, i) => ui.open.flip[i] = true); ui.open.last = 'all'; sfx('win'); render(); }
+    else if(a === 'opendone'){ ui.open = null; render(); }
+    else if(a === 'buy'){ ui.open = null; openPack(v); }
+    return true;
+  }
+  if(a === 'craftdo'){
+    const id = v, cost = DUST_MAKE[rarityOf(id)], c = col();
+    if(owned(id) >= RULE.copies || c.dust < cost){ toast('ຜົງແກ້ວບໍ່ພໍ'); return true; }
+    c.dust -= cost; c.cards[id] = owned(id) + 1; saveCol(); ui.mmodal = null; sfx('win'); render(); toast('ສ້າງ «' + C[id].name + '» ແລ້ວ'); return true;
+  }
+  if(ui.mmodal) return false;
+  if(a === 'shopback'){ ui.screen = null; render(); return true; }
+  if(a === 'shoptab'){ ui.shopTab = v; render(); return true; }
+  if(a === 'crafttab'){ ui.craftTab = v; render(); return true; }
+  if(a === 'shopdeck'){ ui.shopDeck = +v; render(); return true; }
+  if(a === 'buy'){ openPack(v); return true; }
+  if(a === 'freeopen'){ openPack('basic', true); return true; }
+  if(a === 'craftsel'){ ui.mmodal = {type:'craft', id:v}; render(); return true; }
+  return true;
 }
 
 const BOOKTABS = [['all','ທັງໝົດ']].concat(DORDER.map(i => ['d' + i, 'ເດັກ ' + DECKS[i].no]), [['neutral','ກາດກາງ'],['alt','✦ ອາດພິເສດ']]);
@@ -2216,10 +2719,10 @@ function bookIds(tab){
 function bookHTML(){
   const tab = ui.bookTab || 'all', seen = loadJ('lao-legend-alts', []);
   let cells;
-  if(tab === 'alt') cells = Object.keys(ALT).map(id => seen.includes(id)
+  if(tab === 'alt') cells = Object.keys(ALT).map(id => seen.includes(id) || col().alts[id]
       ? '<div class="bcell" data-a="bookcard" data-v="' + id + '" data-alt="1">' + cardHTML(id, null, 1) + '<small>✦ ' + C[id].name + '</small></div>'
       : '<div class="bcell"><div class="locked"><div><b>?</b>ຈົ່ວ ' + C[id].name + '<br>ໃຫ້ພົບໃນເກມ</div></div><small>ຍັງບໍ່ພົບ</small></div>').join('');
-  else cells = bookIds(tab).map(id => '<div class="bcell" data-a="bookcard" data-v="' + id + '">' + cardHTML(id) + '</div>').join('');
+  else cells = bookIds(tab).map(id => '<div class="bcell' + (owned(id) ? '' : ' nown') + '" data-a="bookcard" data-v="' + id + '">' + cardHTML(id) + '<small>' + (owned(id) ? 'ມີ ' + owned(id) + ' ໃບ' : '🔒 ຍັງບໍ່ມີ') + '</small></div>').join('');
   return '<div class="book"><div class="bookhead"><button class="btn2" data-a="bookback">← ກັບຄືນ</button><h2>ປຶ້ມກາດ</h2><span class="cnt2">' + Object.keys(C).length + ' ແບບ · ອາດພິເສດ ' + seen.length + '/' + Object.keys(ALT).length + '</span></div>' +
     '<div class="tabs">' + BOOKTABS.map(([k, l]) => '<button class="' + (tab === k ? 'on' : '') + '" data-a="booktab" data-v="' + k + '">' + l + '</button>').join('') + '</div>' +
     '<div class="bgrid">' + cells + '</div></div>';
@@ -2227,7 +2730,25 @@ function bookHTML(){
 function menuModalHTML(){
   const m = ui.mmodal; if(!m) return '';
   let inner = '';
-  if(m.type === 'card') inner = '<div style="width:min(290px,66vw)">' + cardHTML(m.id, null, m.alt) + '</div><p class="lore">' + C[m.id].lore + '</p><div class="mbtns"><button class="btn2" data-a="mmclose">ປິດ</button></div>';
+  if(m.type === 'pvp'){
+    const ch = pvpChoices(), row = (who, cur) => '<div class="pvprow">' + ch.map(x => '<button class="pvpd' + (x.k === cur ? ' on' : '') + '" data-a="pvpsel" data-v="' + who + x.k + '"><span class="pvpc">' + cardHTML(x.cover) + '</span><small>' + escH(x.name) + '</small></button>').join('') + '</div>';
+    inner = '<p class="q">👥 ຫຼິ້ນ 2 ຄົນ ເຄື່ອງດຽວ</p><p class="lore">ຜັດກັນຫຼິ້ນ. ປ່ຽນຕາແລ້ວ ສົ່ງເຄື່ອງໃຫ້ອີກຄົນ</p>' +
+      '<p class="pvph blue">ຜູ້ຫຼິ້ນ 1</p>' + row('a', m.a) + '<p class="pvph red">ຜູ້ຫຼິ້ນ 2</p>' + row('b', m.b) +
+      '<div class="mbtns"><button class="btn-main sm" data-a="pvpgo">⚔️ ເລີ່ມສູ້</button><button class="btn2" data-a="mmclose">ປິດ</button></div>';
+  }
+  else if(m.type === 'code'){
+    const code = deckCode(ui.ed ? ui.ed.list : {});
+    inner = '<p class="q">🔗 ລະຫັດເດັກ</p><p class="lore">ກັອບລະຫັດນີ້ ສົ່ງໃຫ້ໝູ່. ໝູ່ວາງລະຫັດໃນຊ່ອງລຸ່ມ ເພື່ອໄດ້ເດັກດຽວກັນ (ຖ້າມີກາດຄົບ)</p>' +
+      '<textarea id="edcodeout" class="codebox" readonly rows="3">' + code + '</textarea><div class="mbtns"><button class="btn-main sm" data-a="edcopy">ກັອບລະຫັດ</button></div>' +
+      '<textarea id="edcodein" class="codebox" rows="3" placeholder="ວາງລະຫັດເດັກຂອງໝູ່ຢູ່ນີ້…"></textarea><div class="mbtns"><button class="btn2" data-a="edimport">ນຳເຂົ້າ</button><button class="btn2" data-a="mmclose">ປິດ</button></div>';
+  }
+  else if(m.type === 'craft'){
+    const cost = DUST_MAKE[rarityOf(m.id)], can = col().dust >= cost;
+    inner = '<div style="width:min(240px,60vw)">' + cardHTML(m.id) + '</div><p class="q">ສ້າງ «' + C[m.id].name + '» · ' + RARITY_NAME[rarityOf(m.id)] + '</p><p class="lore">ມີແລ້ວ ' + owned(m.id) + ' ໃບ · ຜົງແກ້ວຂອງເຈົ້າ ✨' + col().dust + '</p>' +
+      '<div class="mbtns"><button class="btn-main sm" data-a="craftdo" data-v="' + m.id + '"' + (can ? '' : ' disabled') + '>ສ້າງ ✨' + cost + '</button><button class="btn2" data-a="mmclose">ປິດ</button></div>';
+  }
+  else if(m.type === 'quests') inner = questsHTML();
+  else if(m.type === 'card') inner = '<div style="width:min(290px,66vw)">' + cardHTML(m.id, null, m.alt) + '</div><p class="lore">' + C[m.id].lore + '</p><div class="mbtns"><button class="btn2" data-a="mmclose">ປິດ</button></div>';
   else if(m.type === 'stats'){
     const st = loadJ('lao-legend-stats', {played:0, won:0}), pct = (w, p) => p ? Math.round(w / p * 100) + '%' : '–';
     const dk = st.deck || [{p:0,w:0},{p:0,w:0},{p:0,w:0}], lv = st.level || [{p:0,w:0},{p:0,w:0},{p:0,w:0}];
@@ -2258,17 +2779,17 @@ function boardHTML(){
 function turnBox(){
   const mine = S.turn === 0 && !S.over && !S.auto, me = S.p[0];
   const moves = mine && (me.hand.some(h => !playBlock(me, h)) || me.field.some(c => canAttack(me, c)));
-  const chip = '<span class="tchip2 ' + (mine ? '' : 'bot') + '">ຕາທີ ' + Math.ceil(S.T / 2) + ' · ' + (S.over ? 'ຈົບເກມ' : (mine ? 'ຕາຂອງເຈົ້າ' : (S.auto ? cur().name : 'ຕາບອດ'))) + '</span>';
+  const chip = '<span class="tchip2 ' + (mine ? '' : 'bot') + '">ຕາທີ ' + Math.ceil(S.T / 2) + ' · ' + (S.over ? 'ຈົບເກມ' : (mine ? (S.pvp ? S.p[0].name : 'ຕາຂອງເຈົ້າ') : (S.auto ? cur().name : 'ຕາບອດ'))) + '</span>';
   const btn = (mine && !S.busy)
     ? '<button class="medal go ' + (moves ? '' : 'glow') + '" data-a="end"><b>ຈົບຕາ</b><small>' + (moves ? 'ຍັງລົງກາດ ຫຼື ໂຈມຕີໄດ້' : 'ກົດເພື່ອສົ່ງຕາ') + '</small></button>'
     : '<button class="medal" disabled><b>' + (S.over ? 'ຈົບເກມ' : (mine ? '…' : 'ລໍຖ້າບອດ')) + '</b></button>';
   return '<div class="rturn">' + chip + btn + '<button class="logb" data-a="log">' + (S.log[0] || '') + '</button></div>';
 }
-function whoLabel(p, i){ return S.auto ? p.name : (i ? 'ບອດ · ' + LEVELS[S.level] : 'ເຈົ້າ'); }
+function whoLabel(p, i){ return S.auto || S.pvp ? p.name : (i ? 'ບອດ · ' + LEVELS[S.level] : 'ເຈົ້າ'); }
 function plate2(p, i){
   const k = 'h:' + i, tg = S.targeting && S.targeting.list.some(x => tkey(x) === k);
   let gems = ''; for(let j=0;j<10;j++) gems += '<i class="gem ' + (j < p.mana ? 'full' : (j < p.maxMana ? 'spent' : '')) + '"></i>';
-  return '<div class="lplate ' + (i ? 'opp' : 'me') + ' ' + (tg ? 'tgt' : '') + '" data-a="hero" data-k="' + k + '"><div class="lav"><img src="' + ART + C[DECKS[p.di].legend].img + '.jpg" alt=""></div>' +
+  return '<div class="lplate ' + (i ? 'opp' : 'me') + ' ' + (tg ? 'tgt' : '') + '" data-a="hero" data-k="' + k + '"><div class="lav"><img src="' + ART + C[p.cover || DECKS[p.di].legend].img + '.jpg" alt=""></div>' +
     '<div><div class="lnm">' + whoLabel(p, i) + ' · ເດັກ ' + p.deck.length + '</div><div class="llife">' + HEART + Math.max(0, p.life) + '</div>' +
     '<div class="lsub"><div class="gems">' + gems + '</div><em>ບຸນ ' + p.mana + '/' + p.maxMana + '</em></div></div></div>';
 }
@@ -2288,7 +2809,7 @@ function half2(p, i){
     last.map((id, j) => '<div class="gyc" style="--j:' + (last.length - 1 - j) + '">' + cardHTML(id) + '</div>').join('') +
     '<span class="cnt">' + p.grave.length + '</span><span class="gyl">' + IC_EYE + 'ກອງຖິ້ມ</span></div>';
   const pcol = '<div class="pcol">' + (i ? deck + grave : grave + deck) + '</div>';
-  const lane = '<div class="lane chars' + (p.loc ? ' hasloc' : '') + '" data-k="side:' + i + '"' + (p.loc ? ' style="--locimg:url(' + ART + C[p.loc].img + '.jpg)"' : '') + '><span class="wm">' + (S.auto ? p.name : (i ? 'ຝ່າຍບອດ' : 'ຝ່າຍເຈົ້າ')) + '</span>' +
+  const lane = '<div class="lane chars' + (p.loc ? ' hasloc' : '') + '" data-k="side:' + i + '"' + (p.loc ? ' style="--locimg:url(' + ART + C[p.loc].img + '.jpg)"' : '') + '><span class="wm">' + (S.auto || S.pvp ? p.name : (i ? 'ຝ່າຍບອດ' : 'ຝ່າຍເຈົ້າ')) + '</span>' +
     '<div class="row" style="--n:' + p.field.length + '">' + p.field.map(c => miniHTML(p, c)).join('') + '</div></div>';
   return '<div class="half2 ' + (i ? 'opp' : 'me') + '" data-k="mat:' + i + '">' + strip + lane + pcol + '</div>';
 }
@@ -2379,10 +2900,14 @@ function modalHTML(){
       '</div><div class="mbtns"><button class="btn2" data-a="mclose">ຈື່ແລ້ວ</button></div>';
   } else if(m.type === 'log'){
     inner = '<p class="q">ບັນທຶກເຫດການ</p><ol class="loglist">' + S.log.map(l => '<li>' + l + '</li>').join('') + '</ol><div class="mbtns"><button class="btn2" data-a="mclose">ປິດ</button></div>';
+  } else if(m.type === 'pass'){
+    return '<div class="modal-bg pass"><div class="modal"><div class="passic">🤝</div><p class="q">ສົ່ງເຄື່ອງໃຫ້</p><div class="over win">' + m.name + '</div><p class="lore">ຄົນອື່ນຢ່າແນມເບິ່ງກາດໃນມືເດີ້!</p><div class="mbtns"><button class="btn-main" data-a="passok">ຂ້ອຍແມ່ນ ' + m.name + ' · ເລີ່ມເລີຍ</button></div></div></div>';
   } else if(m.type === 'over'){
     const win = S.over.winner === 0;
-    inner = '<div class="over ' + (win ? 'win' : 'lose') + '">' + (win ? 'ເຈົ້າຊະນະ!' : 'ບອດຊະນະ') + '</div><div style="width:min(200px,50vw)">' + cardHTML(DECKS[S.p[S.over.winner].di].legend) + '</div>' +
+    inner = '<div class="over ' + (win || S.pvp ? 'win' : 'lose') + '">' + (S.pvp ? S.p[S.over.winner].name + ' ຊະນະ!' : (win ? 'ເຈົ້າຊະນະ!' : 'ບອດຊະນະ')) + '</div><div style="width:min(200px,50vw)">' + cardHTML(S.p[S.over.winner].cover || DECKS[S.p[S.over.winner].di].legend) + '</div>' +
       '<p class="q">' + (S.over.reason === 'deck' ? 'ເດັກໝົດ' : 'ຂວັນເຫຼືອ 0') + ' · ຫຼິ້ນໄປ ' + Math.ceil(S.T / 2) + ' ຕາ</p>' +
+      (S.reward ? '<p class="reward">💎 +' + S.reward.base + (S.reward.first ? ' <span>+' + S.reward.first + ' ຊະນະທຳອິດຂອງມື້</span>' : '') + (S.reward.capped ? ' <small>(ຮອດເພດານເພັດຂອງມື້ນີ້ແລ້ວ)</small>' : '') + '</p>' : '') +
+      (S.afterNote || '') +
       '<div class="mbtns"><button class="btn-main sm" data-a="replay">ຫຼິ້ນອີກ</button><button class="btn2" data-a="menu">ປ່ຽນເດັກ</button></div>';
   }
   return '<div class="modal-bg"><div class="modal">' + inner + '</div></div>';
@@ -2720,16 +3245,53 @@ $app.addEventListener('click', e => {
   if(ui.settingsOpen) return;
   if(!S || S.screen !== 'game'){
     if(a === 'mmclose'){ ui.mmodal = null; render(); return; }
+    if(a === 'edcopy'){ const t = document.getElementById('edcodeout'); if(t){ t.select(); copyText(t.value); } toast('ກັອບລະຫັດແລ້ວ'); return; }
+    if(a === 'edimport'){
+      const l = readCode((document.getElementById('edcodein') || {}).value || ''); if(!l){ toast('ລະຫັດບໍ່ຖືກຕ້ອງ'); return; }
+      const miss = Object.keys(l).filter(id => owned(id) < l[id]).length; ui.ed.list = {};
+      for(const [id, n] of Object.entries(l)){ const k = Math.min(n, owned(id)); if(k) ui.ed.list[id] = k; }
+      ui.mmodal = null; render(); toast(miss ? 'ນຳເຂົ້າແລ້ວ · ຂາດກາດ ' + miss + ' ແບບ ທີ່ເຈົ້າຍັງບໍ່ມີ' : 'ນຳເຂົ້າແລ້ວ'); return;
+    }
+    if(a === 'qclaim' && ui.mmodal && ui.mmodal.type === 'quests'){ const q = quests()[+v], c = col(); if(q && q.p >= q.n && !q.claimed){ q.claimed = true; c.gems += q.g; saveCol(); const lv = addXP(30); sfx('win'); toast('💎 +' + q.g + (lv ? ' · ' + lv : '')); } render(); return; }
+    if(a === 'qreroll' && ui.mmodal && ui.mmodal.type === 'quests'){ const c = col(), list = quests(); if(!c.quests.rerolled){ const pool = QUEST_POOL.filter(x => !list.some(y => y.k === x.k)); list[+v] = {...pick(pool), p:0, claimed:false}; c.quests.rerolled = true; saveCol(); } render(); return; }
+    if(a === 'pvpsel' && ui.mmodal && ui.mmodal.type === 'pvp'){ ui.mmodal[v[0]] = v.slice(1); render(); return; }
+    if(a === 'pvpgo' && ui.mmodal && ui.mmodal.type === 'pvp'){ pvpGo(ui.mmodal.a, ui.mmodal.b); return; }
+    if(typeof shopClick === 'function' && shopClick(a, v, el)) return;
     if(ui.mmodal) return;
+    if(ui.screen === 'builder'){
+      const e = ui.ed;
+      if(a === 'edback'){ if(listTotal(e.list)) saveEditor(); ui.screen = null; render(); return; }
+      if(a === 'edtab'){ ui.bf.tab = v; render(); return; }
+      if(a === 'edcost'){ ui.bf.cost = +v; render(); return; }
+      if(a === 'edinfo'){ ui.mmodal = {type:'card', id:v}; render(); return; }
+      if(a === 'edadd'){ const why = addBlock(e.list, v); if(why){ toast(why); return; } e.list[v] = (e.list[v] || 0) + 1; e.del = false; sfx('spell'); edRefresh(); return; }
+      if(a === 'edrem'){ if(e.list[v] > 1) e.list[v]--; else delete e.list[v]; edRefresh(); return; }
+      if(a === 'edsave'){ if(saveEditor()) toast('ບັນທຶກ «' + e.name + '» ແລ້ວ'); edRefresh(false); return; }
+      if(a === 'edauto'){ autoFill(e.list); edRefresh(); toast(listTotal(e.list) < RULE.size ? 'ກາດທີ່ມີ ບໍ່ພໍເຕີມໃຫ້ຄົບ 30' : 'ເຕີມໃຫ້ຄົບແລ້ວ'); return; }
+      if(a === 'edclear'){ e.list = {}; edRefresh(); return; }
+      if(a === 'edcode'){ ui.mmodal = {type:'code'}; render(); return; }
+      if(a === 'eddel'){ if(!e.del){ e.del = true; edRefresh(false); return; } const c = col(); c.decks = c.decks.filter(x => x.id !== e.cid); saveCol(); if(ui.deck === 'c:' + e.cid) ui.deck = 0; ui.screen = null; render(); toast('ລຶບເດັກແລ້ວ'); return; }
+      if(a === 'edplay'){ if(deckIssues(e.list).length) return; const id = saveEditor(); if(!id) return; ui.deck = 'c:' + id; ui.screen = null; startSelected(); return; }
+      if(a === 'edsheet'){ ui.sheet = !ui.sheet; const d = document.querySelector('.bdeck'); if(d) d.classList.toggle('open', ui.sheet); const i = document.querySelector('.sheetbar i'); if(i) i.textContent = ui.sheet ? '▼' : '▲'; return; }
+      return;
+    }
+    if(a === 'ednew'){ openEditor(null, {}); return; }
+    if(a === 'quests'){ ui.mmodal = {type:'quests'}; render(); return; }
+    if(a === 'pvpstart'){ ui.mmodal = {type:'pvp', a:typeof ui.deck === 'string' ? 'c' + ui.deck.slice(2) : 'b' + ui.deck, b:'b' + DORDER[1]}; render(); return; }
+    if(a === 'edsel'){
+      if(typeof ui.deck === 'string'){ const d = col().decks.find(x => 'c:' + x.id === ui.deck); if(d){ openEditor(d.id, d.list, d.name); return; } }
+      const d = DECKS[ui.deck] || DECKS[0], l = {}; for(const [id, n] of Object.entries(d.list)){ const k = Math.min(n, owned(id)); if(k) l[id] = k; }
+      openEditor(null, l, d.name + ' (ຂອງຂ້ອຍ)'); return;
+    }
     if(a === 'book'){ ui.screen = 'book'; render(); return; }
     if(a === 'bookback'){ ui.screen = null; render(); return; }
     if(a === 'booktab'){ ui.bookTab = v; render(); return; }
     if(a === 'bookcard'){ ui.mmodal = {type:'card', id:v, alt:el.dataset.alt ? 1 : 0}; render(); return; }
     if(a === 'stats'){ ui.mmodal = {type:'stats'}; render(); return; }
     if(a === 'tutstart'){ ui.screen = null; newGame(0, 0, {botDeck:1, first:0, tut:true}); return; }
-    if(a === 'deck'){ ui.deck = +v; render(); }
+    if(a === 'deck'){ ui.deck = v.startsWith('c:') ? v : +v; render(); }
     else if(a === 'lvl'){ ui.level = +v; render(); }
-    else if(a === 'start'){ newGame(ui.deck, ui.level); }
+    else if(a === 'start'){ startSelected(); }
     return;
   }
   if(ui.grave){
@@ -2740,12 +3302,13 @@ $app.addEventListener('click', e => {
     return;
   }
   if(a === 'tutnext'){ if(S.tut){ S.tut.step++; render(); } return; }
-  if(a === 'tutdone' || a === 'tutskip'){ S.tut = null; saveJ('lao-legend-tut', 1); render(); return; }
+  if(a === 'tutdone' || a === 'tutskip'){ if(a === 'tutdone') tutReward(); S.tut = null; saveJ('lao-legend-tut', 1); render(); return; }
   if(a === 'mclose'){ closeModal(); return; }
+  if(a === 'passok' && S.modal && S.modal.type === 'pass'){ const r = S.modal.resolve; S.modal = null; render(); r(); return; }
   if(a === 'yes' || a === 'no'){ const r = S.modal.resolve; S.modal = null; render(); r(a === 'yes'); return; }
   if(a === 'discard'){ const r = S.modal.resolve; const h = S.p[0].hand.find(x => x.uid === +v); S.modal = null; render(); r(h); return; }
   if(a === 'menu'){ if(S.over || (S.turn === 0 && !S.busy)){ S = null; ui.grave = null; render(); } return; }
-  if(a === 'replay'){ newGame(ui.deck, ui.level); return; }
+  if(a === 'replay'){ if(S.pvp && typeof pvpReplay === 'function') pvpReplay(); else startSelected(); return; }
   if(S.modal) return;
   if(S.targeting){
     if(a === 'cancel'){ const r = S.targeting.resolve; S.targeting = null; S.sel = null; render(); r(undefined); return; }
@@ -2784,6 +3347,14 @@ $app.addEventListener('pointerover', e => {
   if(el.dataset.a === 'hand'){ const h = S.p[0].hand.find(x => x.uid === +el.dataset.v); if(h) setDetail({id:h.id, alt:h.alt}); }
   else if(el.dataset.a === 'field'){ for(const pl of S.p){ const c = pl.field.find(x => 'c:' + x.uid === el.dataset.k); if(c){ setDetail({id:c.id, alt:c.alt, pw:pow(pl, c)}); break; } } }
   else if(el.dataset.v && C[el.dataset.v]) setDetail({id:el.dataset.v});
+});
+$app.addEventListener('input', e => {
+  if(!ui.ed || ui.screen !== 'builder') return;
+  if(e.target.id === 'edname') ui.ed.name = e.target.value;
+  else if(e.target.id === 'edq'){ ui.bf.q = e.target.value; const G = document.getElementById('edpool'); if(G) G.innerHTML = edPool(); }
+});
+$app.addEventListener('change', e => {
+  if(e.target.id === 'edown' && ui.bf){ ui.bf.own = e.target.checked; const G = document.getElementById('edpool'); if(G) G.innerHTML = edPool(); }
 });
 $app.addEventListener('keydown', e => {
   if(e.key !== 'Enter' && e.key !== ' ') return;
