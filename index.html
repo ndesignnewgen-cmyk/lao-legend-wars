@@ -922,6 +922,62 @@ body{background:
   .arena.v6 .mid2 .vs{font-size:10px;line-height:16px}
   .arena.v6 .fan{--cw:clamp(52px,min(8vw,22dvh),110px)}
 }
+/* ---------- discard pile on the field and the ກອງຖິ້ມ viewer ---------- */
+.card .art{background:linear-gradient(160deg,#4a5a8a,#232a48)}
+.card .art img.broken{visibility:hidden}
+.arena.v6 .half2 .pcol{width:min(calc((100cqh - 6px) / 2 * .8),max(15cqw,56px))}
+.arena.v6 .half2.me .pcol{grid-template-rows:1.25fr 1fr}
+.arena.v6 .half2.opp .pcol{grid-template-rows:1fr 1.25fr}
+.arena.v6 .slot.dk{cursor:pointer}
+.arena.v6 .slot.gy{cursor:pointer;transition:transform .15s}
+.arena.v6 .slot.gy:hover{transform:scale(1.05);z-index:4}
+.arena.v6 .slot.gy:hover,.arena.v6 .slot.gy:focus-visible{outline:3px solid #f2b632;outline-offset:2px}
+.arena.v6 .slot.gy .gyc{position:absolute;inset:0;transform:translate(calc(var(--j) * -4px),calc(var(--j) * -3px)) rotate(calc(var(--j) * -5deg));filter:brightness(calc(1 - var(--j) * .12))}
+.arena.v6 .slot.gy .gyc .card{position:absolute;inset:0;width:100%}
+.arena.v6 .slot.gy .gyl{position:absolute;left:50%;bottom:6px;transform:translateX(-50%);z-index:3;display:flex;align-items:center;gap:4px;
+  background:#000000c4;color:#fff;font:800 11px/1 var(--f-d);padding:5px 9px 5px 7px;border-radius:999px;white-space:nowrap;box-shadow:0 0 0 1.5px #ffffff88}
+.arena.v6 .slot.gy .gyl svg{width:13px;height:13px}
+.arena.v6 .slot.gy:not(.has) .gyl{bottom:auto;top:50%;transform:translate(-50%,-50%)}
+.arena.v6 .slot.gy::after{display:none}
+.arena.v6 .slot.dk .cback{position:absolute;inset:0}
+.gview-bg{position:fixed;inset:0;z-index:55;background:#0b0710d9;display:grid;place-items:center;padding:16px;animation:fadein .18s}
+@keyframes fadein{from{opacity:0}}
+.gview{width:min(1080px,100%);max-height:100%;display:flex;flex-direction:column;gap:12px;background:#fffaf0;color:#2b2014;border-radius:22px;padding:18px 20px;
+  box-shadow:0 0 0 3px var(--side),0 24px 60px #000a;--side:#2c63c9;overflow:hidden}
+.gview.opp{--side:#c8312b}
+.ghead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.ghead h2{margin:0;font:800 clamp(20px,3vw,28px)/1.25 var(--f-d)}
+.ghead p{margin:2px 0 0;color:#7a6a55;font-size:14px}
+.gx{flex:none;width:48px;height:48px;border-radius:50%;border:0;background:#2b2014;color:#fff;font:800 20px var(--f-d);cursor:pointer}
+.gtabs,.gfils{display:flex;gap:8px;flex-wrap:wrap}
+.gtab{flex:1;min-width:140px;min-height:48px;border:0;border-radius:14px;cursor:pointer;font:800 16px var(--f-d);color:#fff;opacity:.55;background:var(--c)}
+.gtab.me{--c:linear-gradient(180deg,#2c63c9,#1d2b6b)}.gtab.opp{--c:linear-gradient(180deg,#c8312b,#6e1410)}
+.gtab.on{opacity:1;box-shadow:0 0 0 3px #fff,0 0 0 5px #f2b632}
+.gtab b{display:inline-block;min-width:28px;margin-left:6px;padding:1px 8px;border-radius:999px;background:#fff3;font-size:15px}
+.gfil{min-height:40px;padding:0 16px;border-radius:999px;border:2px solid #e3d5bb;background:#fff;color:#2b2014;font:700 14px var(--f-d);cursor:pointer}
+.gfil.on{background:#2b2014;border-color:#2b2014;color:#fff}
+.gbody{min-height:0;flex:1;display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:16px;overflow:hidden}
+.gprev{display:flex;flex-direction:column;gap:10px;overflow:auto}
+.gprev .card{width:100%}
+.gptxt b{font:800 18px var(--f-d)}
+.gptxt p{margin:4px 0 0;font-size:15px;line-height:1.75}
+.gptxt [class^="kw-"]{border-width:1.5px;padding:0 7px;border-radius:6px;margin:0 2px;line-height:1.5}
+.ggrid{min-height:0;overflow-y:auto;overflow-x:hidden;display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:16px;align-content:start;padding:10px 10px 14px}
+.gcard{position:relative;padding:0;border:0;background:none;cursor:pointer;border-radius:10px;transition:transform .12s}
+.gcard .card{width:100%}
+.gcard:hover{transform:translateY(-4px)}
+.gcard.on{box-shadow:0 0 0 4px #f2b632}
+.gcard .gn{position:absolute;top:-8px;right:-8px;z-index:3;background:#2b2014;color:#fff;font:800 15px/1 var(--f-d);padding:6px 9px;border-radius:999px;box-shadow:0 0 0 2px #fff}
+.gcard .grv{position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);z-index:3;background:#1f9d6b;color:#fff;font:800 11px/1 var(--f-d);padding:5px 9px;border-radius:999px;white-space:nowrap;box-shadow:0 0 0 2px #fff}
+.gnone{grid-column:1/-1;margin:40px 0;text-align:center;color:#7a6a55;font:700 16px var(--f-d)}
+@media (max-width:760px){
+  .gview{padding:14px;border-radius:18px;gap:10px}
+  .gbody{grid-template-columns:minmax(0,1fr);overflow:auto}
+  .gprev{flex-direction:row;align-items:flex-start;overflow:visible}
+  .gprev .card{width:min(150px,40vw);flex:none}
+  .ggrid{grid-template-columns:repeat(auto-fill,minmax(96px,1fr));overflow:visible}
+  .gtab{min-width:0;font-size:14px}
+}
 /* ---------- modal ---------- */
 .modal-bg{position:fixed;inset:0;z-index:50;background:#000c;display:grid;place-items:center;padding:16px}
 .modal{background:var(--mat-2);border:1px solid #ffffff1c;border-radius:18px;padding:18px;width:min(560px,100%);max-height:92%;overflow:auto;display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center}
@@ -1021,7 +1077,7 @@ const IC_LOG = '<svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18
 const IC_EXIT = '<svg viewBox="0 0 24 24"><path d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M10 8l-4 4 4 4M6 12h10" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const IC_EYE = '<svg viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" fill="none" stroke="#fff" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="#fff"/></svg>';
 const DECKICON = '<svg viewBox="0 0 24 24"><rect x="5" y="3" width="13" height="17" rx="2" fill="#8a2020" stroke="#f2b632" stroke-width="1.4"/><rect x="7.5" y="5.5" width="13" height="17" rx="2" fill="#5a1414" stroke="#f2b632" stroke-width="1.4"/></svg>';
-const BACK = '<img src="art/back.jpg" alt="" loading="lazy">';
+const BACK = '<img src="art/back.jpg" alt="">';
 const FLAG = '<svg viewBox="0 0 24 24"><path d="M5 21V4" stroke="#1a1206" stroke-width="2.4" stroke-linecap="round"/><path d="M5 4h11l-2 4 2 4H5" fill="#1a1206"/></svg>';
 const TAP = '<svg viewBox="0 0 24 24"><path d="M9 11V5a2 2 0 0 1 4 0v5l4.5.9a2 2 0 0 1 1.6 2.3L18 19a3 3 0 0 1-3 2.5h-3.3a3 3 0 0 1-2.4-1.2L6 16a1.6 1.6 0 0 1 2.4-2.1L9 14.5" fill="#ffd23d" stroke="#1b1b1b" stroke-width="1.6" stroke-linejoin="round"/></svg>';
 const TC = {thewada:'#9fe0ff', villager:'#e8c48a', naga:'#3aa0ff', giant:'#ff5a3c', ghost:'#a77bff', himma:'#ffcf3a', hero:'#ffffff', nakpat:'#7be36a', warrior:'#ff9f43'};
@@ -1286,13 +1342,30 @@ function mkPlayer(name, di, bot, level){
   shuffle(deck);
   return {name, bot, di, level, life:20, maxMana:0, mana:0, penalty:0, deck, hand:[], field:[], loc:null, grave:[]};
 }
+// keep every picture of both decks in memory, so re-drawing the board never shows a blank card
+const IMG_KEEP = new Map();
+function preloadArt(files){
+  for(const f of files){ if(IMG_KEEP.has(f)) continue; const im = new Image(); im.decoding = 'async'; im.src = ART + f + '.jpg'; IMG_KEEP.set(f, im); }
+}
+function deckArt(di){ return Object.keys(DECKS[di].list).flatMap(id => ALT[id] ? [C[id].img, ALT[id]] : [C[id].img]); }
+// a picture that failed (slow or dropped connection) gets two more tries before it gives up
+document.addEventListener('keydown', e => { if(e.key === 'Escape' && ui.grave){ ui.grave = null; render(); } });
+document.addEventListener('error', e => {
+  const im = e.target; if(!(im instanceof HTMLImageElement)) return;
+  const src = im.getAttribute('src') || ''; if(!src.startsWith(ART)) return;
+  const n = +(im.dataset.retry || 0); if(n >= 2){ im.classList.add('broken'); return; }
+  im.dataset.retry = n + 1;
+  setTimeout(() => { im.src = src.split('?')[0] + '?r=' + (n + 1); }, 600 * (n + 1));
+}, true);
 function newGame(di, level, opts){
   opts = opts || {};
+  ui.grave = null;
   const others = DECKS.map((_, i) => i).filter(x => x !== di);
   const bi = opts.botDeck != null ? opts.botDeck : pick(others);
   S = {screen:'game', p:[mkPlayer('ເຈົ້າ', di, false, level), mkPlayer('ບອດ', bi, true, level)], turn:0, T:1, level, log:[], over:null,
        busy:false, targeting:null, sel:null, modal:null, fast:!!opts.fast, auto:!!opts.auto, onEnd:opts.onEnd};
   if(S.auto){ S.p[0].name = 'ບອດ A'; S.p[1].name = 'ບອດ B'; }
+  if(!S.fast) preloadArt(['back', ...deckArt(di), ...deckArt(bi)]);
   if(opts.levels){ S.p[0].level = opts.levels[0]; S.p[1].level = opts.levels[1]; }
   for(const p of S.p) for(let i=0;i<5;i++) drawRaw(p);
   S.turn = opts.first != null ? opts.first : (Math.random() < .5 ? 0 : 1);
@@ -2063,7 +2136,7 @@ function fmtSkill(t){
 function cardHTML(id, cs, alt, pv){
   const d = C[id]; const isAlt = !!(alt && ALT[id]); const cls = (d.legend ? 'legend' : (d.type === 'char' ? 'hero' : 'spell')) + (isAlt ? ' alt' : '');
   const cost = cs != null ? cs : d.cost;
-  return '<div class="card ' + cls + '"><div class="face"><div class="art"><img src="' + ART + (isAlt ? ALT[id] : d.img) + '.jpg" alt="" loading="lazy"></div>' + (isAlt ? '<span class="altbadge">✦ ອາດພິເສດ</span>' : '') +
+  return '<div class="card ' + cls + '"><div class="face"><div class="art"><img src="' + ART + (isAlt ? ALT[id] : d.img) + '.jpg" alt=""' + (S ? '' : ' loading="lazy"') + '></div>' + (isAlt ? '<span class="altbadge">✦ ອາດພິເສດ</span>' : '') +
     '<div class="cost"><span class="lbl">ບຸນ</span><span class="num">' + cost + '</span></div>' +
     '<div class="sym">' + SYM[d.type === 'char' ? d.tribe : 'spell'] + '</div>' +
     '<div class="panel"><span class="tag">' + d.tag + '</span><p class="skill">' + fmtSkill(d.skill) + '</p></div>' +
@@ -2073,7 +2146,7 @@ function cardHTML(id, cs, alt, pv){
 function render(){
   if(S && S.fast) return;
   if(!S){ $app.innerHTML = (ui.screen === 'book' ? bookHTML() : menuHTML()) + menuModalHTML() + settingsHTML(); return; }
-  $app.innerHTML = boardHTML() + modalHTML() + settingsHTML() + tutHTML();
+  $app.innerHTML = boardHTML() + modalHTML() + graveHTML() + settingsHTML() + tutHTML();
   tutHighlight();
 }
 function menuHTML(){
@@ -2172,8 +2245,11 @@ function half2(p, i){
   const strip = '<div class="strip">' +
     '<div class="slot loc' + (p.loc ? ' has' : '') + '" data-l="ສະຖານທີ່"' + (p.loc ? ' data-a="info" data-v="' + p.loc + '"' : '') + '>' + (p.loc ? cardHTML(p.loc) : '') + '</div>' +
     '<div class="slot magic' + (mg ? ' has' : '') + '" data-l="ຄາຖາ"' + (mg ? ' data-a="info" data-v="' + mg + '"' : '') + '>' + (mg ? cardHTML(mg) : '') + '</div></div>';
-  const deck = '<div class="slot' + (p.deck.length ? ' has' : '') + '" data-k="deck:' + i + '" data-l="ເດັກ">' + (p.deck.length ? '<span class="cback">' + BACK + '</span>' : '') + '<span class="cnt">' + p.deck.length + '</span></div>';
-  const grave = '<div class="slot' + (top ? ' has' : '') + '" data-l="ກອງຖິ້ມ"' + (top ? ' data-a="info" data-v="' + top + '"' : '') + '>' + (top ? cardHTML(top) : '') + '<span class="cnt">' + p.grave.length + '</span></div>';
+  const deck = '<div class="slot dk' + (p.deck.length ? ' has' : '') + '" data-k="deck:' + i + '" data-a="deckinfo" data-v="' + i + '" data-l="ເດັກ">' + (p.deck.length ? '<span class="cback">' + BACK + '</span>' : '') + '<span class="cnt">' + p.deck.length + '</span></div>';
+  const last = p.grave.slice(-3);
+  const grave = '<div class="slot gy' + (top ? ' has' : '') + '" data-a="grave" data-v="' + i + '" data-l="ກອງຖິ້ມ" role="button" tabindex="0" aria-label="ເບິ່ງກອງຖິ້ມ ' + p.grave.length + ' ໃບ">' +
+    last.map((id, j) => '<div class="gyc" style="--j:' + (last.length - 1 - j) + '">' + cardHTML(id) + '</div>').join('') +
+    '<span class="cnt">' + p.grave.length + '</span><span class="gyl">' + IC_EYE + 'ກອງຖິ້ມ</span></div>';
   const pcol = '<div class="pcol">' + (i ? deck + grave : grave + deck) + '</div>';
   const lane = '<div class="lane chars' + (p.loc ? ' hasloc' : '') + '" data-k="side:' + i + '"' + (p.loc ? ' style="--locimg:url(' + ART + C[p.loc].img + '.jpg)"' : '') + '><span class="wm">' + (S.auto ? p.name : (i ? 'ຝ່າຍບອດ' : 'ຝ່າຍເຈົ້າ')) + '</span>' +
     '<div class="row" style="--n:' + p.field.length + '">' + p.field.map(c => miniHTML(p, c)).join('') + '</div></div>';
@@ -2192,6 +2268,34 @@ function detailHTML(){
     '<div class="pc">' + cardHTML(d0.id, null, d0.alt, isChar ? pw : null) + '</div>' +
     '<div class="pchips"><span>ບຸນ <b>' + d.cost + '</b></span>' + (isChar ? '<span>ພະລັງ <b>' + pw + '</b>' + (pw !== d.power ? ' (' + d.power + ')' : '') + '</span>' : '') + '</div>' +
     '<div class="ptype">' + type + '</div><p class="pskill">' + fmtSkill(d.skill) + '</p><p class="plore">' + d.lore + '</p>';
+}
+// ກອງຖິ້ມ viewer: every card that has left the game, per side, newest first, repeats stacked as ×N
+function graveGroups(p, f){
+  const out = new Map();
+  for(let i = p.grave.length - 1; i >= 0; i--){
+    const id = p.grave[i], t = C[id].type;
+    if((f === 'char' && t !== 'char') || (f === 'magic' && t === 'char')) continue;
+    const g = out.get(id); if(g) g.n++; else out.set(id, {id, n:1});
+  }
+  return [...out.values()];
+}
+function graveHTML(){
+  const g = ui.grave; if(!g || !S || S.screen !== 'game') return '';
+  const p = S.p[g.side], f = g.f || 'all', list = graveGroups(p, f);
+  const nChar = p.grave.filter(id => C[id].type === 'char').length;
+  const revive = DECKS[p.di].no === 6;  // the ນາງສິບສອງ deck brings characters back, so point out which ones can return
+  const sel = g.sel && list.some(x => x.id === g.sel) ? g.sel : (list[0] && list[0].id);
+  const tabs = [0, 1].map(i => '<button class="gtab ' + (i ? 'opp' : 'me') + (g.side === i ? ' on' : '') + '" data-a="gtab" data-v="' + i + '">' + (i ? 'ຂອງບອດ' : 'ຂອງເຈົ້າ') + ' <b>' + S.p[i].grave.length + '</b></button>').join('');
+  const fil = [['all', 'ທັງໝົດ', p.grave.length], ['char', 'ຕົວລະຄອນ', nChar], ['magic', 'ຄາຖາ · ຂອງວິເສດ', p.grave.length - nChar]]
+    .map(([k, l, n]) => '<button class="gfil' + (f === k ? ' on' : '') + '" data-a="gfil" data-v="' + k + '">' + l + ' ' + n + '</button>').join('');
+  const prev = sel ? '<div class="gprev">' + cardHTML(sel) + '<div class="gptxt"><b>' + C[sel].name + '</b><p>' + fmtSkill(C[sel].skill) + '</p></div></div>' : '';
+  const grid = list.length ? list.map(x => '<button class="gcard' + (x.id === sel ? ' on' : '') + '" data-a="gsel" data-v="' + x.id + '" aria-label="' + C[x.id].name + '">' + cardHTML(x.id) +
+      (x.n > 1 ? '<span class="gn">×' + x.n + '</span>' : '') + (revive && C[x.id].type === 'char' && !C[x.id].legend ? '<span class="grv">↺ ຄືນຊີບໄດ້</span>' : '') + '</button>').join('')
+    : '<p class="gnone">' + (p.grave.length ? 'ບໍ່ມີກາດແບບນີ້' : 'ຍັງບໍ່ມີກາດໃນກອງຖິ້ມ') + '</p>';
+  return '<div class="gview-bg" data-a="gclose"><div class="gview ' + (g.side ? 'opp' : 'me') + '" role="dialog" aria-modal="true" aria-label="ກອງຖິ້ມ" data-a="gstay">' +
+    '<div class="ghead"><div><h2>ກອງຖິ້ມ · ສຸສານກາດ</h2><p>ກາດທີ່ຖືກທຳລາຍ ຫຼື ໃຊ້ແລ້ວ ຈະມາຢູ່ບ່ອນນີ້</p></div><button class="gx" data-a="gclose" aria-label="ປິດ">✕</button></div>' +
+    '<div class="gtabs">' + tabs + '</div><div class="gfils">' + fil + '</div>' +
+    '<div class="gbody">' + prev + '<div class="ggrid">' + grid + '</div></div></div></div>';
 }
 function setDetail(o){
   if(!o || (ui.detail && ui.detail.id === o.id && ui.detail.alt === o.alt && ui.detail.pw === o.pw)) return;
@@ -2591,12 +2695,19 @@ $app.addEventListener('click', e => {
     else if(a === 'start'){ newGame(ui.deck, ui.level); }
     return;
   }
+  if(ui.grave){
+    if(a === 'gclose'){ ui.grave = null; render(); }
+    else if(a === 'gtab'){ ui.grave = {side:+v, f:'all'}; render(); }
+    else if(a === 'gfil'){ ui.grave.f = v; ui.grave.sel = null; render(); }
+    else if(a === 'gsel'){ ui.grave.sel = v; setDetail({id:v}); render(); }
+    return;
+  }
   if(a === 'tutnext'){ if(S.tut){ S.tut.step++; render(); } return; }
   if(a === 'tutdone' || a === 'tutskip'){ S.tut = null; saveJ('lao-legend-tut', 1); render(); return; }
   if(a === 'mclose'){ closeModal(); return; }
   if(a === 'yes' || a === 'no'){ const r = S.modal.resolve; S.modal = null; render(); r(a === 'yes'); return; }
   if(a === 'discard'){ const r = S.modal.resolve; const h = S.p[0].hand.find(x => x.uid === +v); S.modal = null; render(); r(h); return; }
-  if(a === 'menu'){ if(S.over || (S.turn === 0 && !S.busy)){ S = null; render(); } return; }
+  if(a === 'menu'){ if(S.over || (S.turn === 0 && !S.busy)){ S = null; ui.grave = null; render(); } return; }
   if(a === 'replay'){ newGame(ui.deck, ui.level); return; }
   if(S.modal) return;
   if(S.targeting){
@@ -2607,6 +2718,8 @@ $app.addEventListener('click', e => {
   }
   if(a === 'hidehand'){ ui.hideHand = !ui.hideHand; render(); return; }
   if(a === 'info'){ S.modal = {type:'info', id:v}; render(); return; }
+  if(a === 'grave'){ ui.grave = {side:+v, f:'all'}; render(); return; }
+  if(a === 'deckinfo'){ toast((+v ? 'ເດັກບອດ' : 'ເດັກເຈົ້າ') + ' ເຫຼືອ ' + S.p[+v].deck.length + ' ໃບ'); return; }
   if(a === 'log'){ S.modal = {type:'log'}; render(); return; }
   const myMove = S.turn === 0 && !S.busy && !S.over && !S.auto;
   if(a === 'hand'){
