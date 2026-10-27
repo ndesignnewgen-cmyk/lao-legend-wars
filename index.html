@@ -925,21 +925,20 @@ body{background:
 /* ---------- discard pile on the field and the ກອງຖິ້ມ viewer ---------- */
 .card .art{background:linear-gradient(160deg,#4a5a8a,#232a48)}
 .card .art img.broken{visibility:hidden}
-.arena.v6 .half2 .pcol{width:min(calc((100cqh - 6px) / 2 * .8),max(15cqw,56px))}
-.arena.v6 .half2.me .pcol{grid-template-rows:1.25fr 1fr}
-.arena.v6 .half2.opp .pcol{grid-template-rows:1fr 1.25fr}
+/* every card in a side slot (location, spell, deck, discard) fits the slot by width and height, centred, so piles never spill */
+.arena.v6 .half2 .slot{container-type:size}
+.arena.v6 .half2 .slot .card,.arena.v6 .half2 .slot .cback{position:absolute;inset:auto;left:50%;top:50%;width:min(100cqw,calc(100cqh * .716));height:auto;transform:translate(-50%,-50%)}
 .arena.v6 .slot.dk{cursor:pointer}
 .arena.v6 .slot.gy{cursor:pointer;transition:transform .15s}
 .arena.v6 .slot.gy:hover{transform:scale(1.05);z-index:4}
 .arena.v6 .slot.gy:hover,.arena.v6 .slot.gy:focus-visible{outline:3px solid #f2b632;outline-offset:2px}
-.arena.v6 .slot.gy .gyc{position:absolute;inset:0;transform:translate(calc(var(--j) * -4px),calc(var(--j) * -3px)) rotate(calc(var(--j) * -5deg));filter:brightness(calc(1 - var(--j) * .12))}
-.arena.v6 .slot.gy .gyc .card{position:absolute;inset:0;width:100%}
+.arena.v6 .half2 .slot.gy .gyc .card{width:min(88cqw,calc(88cqh * .716))}
+.arena.v6 .slot.gy .gyc{position:absolute;inset:0;transform:translate(calc(var(--j) * -1px),calc(var(--j) * -1px)) rotate(calc(var(--j) * -3deg));filter:brightness(calc(1 - var(--j) * .12))}
 .arena.v6 .slot.gy .gyl{position:absolute;left:50%;bottom:6px;transform:translateX(-50%);z-index:3;display:flex;align-items:center;gap:4px;
   background:#000000c4;color:#fff;font:800 11px/1 var(--f-d);padding:5px 9px 5px 7px;border-radius:999px;white-space:nowrap;box-shadow:0 0 0 1.5px #ffffff88}
 .arena.v6 .slot.gy .gyl svg{width:13px;height:13px}
 .arena.v6 .slot.gy:not(.has) .gyl{bottom:auto;top:50%;transform:translate(-50%,-50%)}
 .arena.v6 .slot.gy::after{display:none}
-.arena.v6 .slot.dk .cback{position:absolute;inset:0}
 .gview-bg{position:fixed;inset:0;z-index:55;background:#0b0710d9;display:grid;place-items:center;padding:16px;animation:fadein .18s}
 @keyframes fadein{from{opacity:0}}
 .gview{width:min(1080px,100%);max-height:100%;display:flex;flex-direction:column;gap:12px;background:#fffaf0;color:#2b2014;border-radius:22px;padding:18px 20px;
