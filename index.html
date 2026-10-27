@@ -851,6 +851,7 @@ const SYM = {
   himma:'<svg viewBox="0 0 24 24"><path d="M3 15c4-1 6-4 7-9 1 4 0 7-2 9 3-1 6-4 7-8 1 5-1 9-5 11 3 0 6-2 8-4-1 5-6 8-11 7-2 0-3-2-4-6z" fill="#ffd23d" stroke="#1b1b1b" stroke-width="1.3" stroke-linejoin="round"/></svg>',
   thewada:'<svg viewBox="0 0 24 24"><path d="M12 9c-3-4-7-5-10-4 2 1 3 3 3 5 2-1 4-1 7-1zM12 9c3-4 7-5 10-4-2 1-3 3-3 5-2-1-4-1-7-1z" fill="#cdeeff" stroke="#1b1b1b" stroke-width="1.2" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.4" fill="#ffd23d" stroke="#1b1b1b" stroke-width="1.2"/><path d="M9.5 8.5 10.5 5 12 7 13.5 5 14.5 8.5z" fill="#ffd23d" stroke="#1b1b1b" stroke-width="1" stroke-linejoin="round"/><path d="M10 19l2-3 2 3" fill="none" stroke="#9fe0ff" stroke-width="1.6" stroke-linecap="round"/></svg>',
   villager:'<svg viewBox="0 0 24 24"><path d="M2.5 11 12 3l9.5 8" fill="none" stroke="#1b1b1b" stroke-width="2" stroke-linejoin="round"/><path d="M4.5 10.5 12 4.5l7.5 6V13h-15z" fill="#d9342b" stroke="#1b1b1b" stroke-width="1.3" stroke-linejoin="round"/><path d="M6 13h12v5H6z" fill="#e8c48a" stroke="#1b1b1b" stroke-width="1.3"/><path d="M7 18v3M17 18v3M12 18v3" stroke="#1b1b1b" stroke-width="1.6"/><path d="M10.5 13h3v5h-3z" fill="#8a4a1f" stroke="#1b1b1b" stroke-width="1"/></svg>',
+  warrior:'<svg viewBox="0 0 24 24"><path d="M5 21 19.5 4.5" stroke="#1b1b1b" stroke-width="2.6" stroke-linecap="round"/><path d="M19.5 4.5 16 5.6l2.4 2.4z" fill="#ffd23d" stroke="#1b1b1b" stroke-width="1.3" stroke-linejoin="round"/><circle cx="9.5" cy="13.5" r="6" fill="#ff9f43" stroke="#1b1b1b" stroke-width="1.4"/><circle cx="9.5" cy="13.5" r="2.2" fill="#ffe08a" stroke="#1b1b1b" stroke-width="1.2"/></svg>',
   nakpat:'<svg viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-9l-5 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" fill="#9be38a" stroke="#1b1b1b" stroke-width="1.4" stroke-linejoin="round"/><path d="M12 7v4.5" stroke="#1b1b1b" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="14" r="1.3" fill="#1b1b1b"/></svg>',
   spell:'<svg viewBox="0 0 24 24"><path d="M12 1.5l2.4 7.1 7.1 2.4-7.1 2.4L12 20.5l-2.4-7.1L2.5 11l7.1-2.4z" fill="#8fc2ff" stroke="#1b1b1b" stroke-width="1.4" stroke-linejoin="round"/><circle cx="19.5" cy="19.5" r="2" fill="#ffd23d" stroke="#1b1b1b" stroke-width="1"/></svg>'
 };
@@ -864,7 +865,7 @@ const DECKICON = '<svg viewBox="0 0 24 24"><rect x="5" y="3" width="13" height="
 const BACK = '<img src="art/back.jpg" alt="" loading="lazy">';
 const FLAG = '<svg viewBox="0 0 24 24"><path d="M5 21V4" stroke="#1a1206" stroke-width="2.4" stroke-linecap="round"/><path d="M5 4h11l-2 4 2 4H5" fill="#1a1206"/></svg>';
 const TAP = '<svg viewBox="0 0 24 24"><path d="M9 11V5a2 2 0 0 1 4 0v5l4.5.9a2 2 0 0 1 1.6 2.3L18 19a3 3 0 0 1-3 2.5h-3.3a3 3 0 0 1-2.4-1.2L6 16a1.6 1.6 0 0 1 2.4-2.1L9 14.5" fill="#ffd23d" stroke="#1b1b1b" stroke-width="1.6" stroke-linejoin="round"/></svg>';
-const TC = {thewada:'#9fe0ff', villager:'#e8c48a', naga:'#3aa0ff', giant:'#ff5a3c', ghost:'#a77bff', himma:'#ffcf3a', hero:'#ffffff', nakpat:'#7be36a'};
+const TC = {thewada:'#9fe0ff', villager:'#e8c48a', naga:'#3aa0ff', giant:'#ff5a3c', ghost:'#a77bff', himma:'#ffcf3a', hero:'#ffffff', nakpat:'#7be36a', warrior:'#ff9f43'};
 
 /* ---------- card data ---------- */
 const C = {};
@@ -947,7 +948,23 @@ def('loduhnao',{name:'ລະດູໜາວ',type:'loc',cost:2,tag:'ສະຖາ
 def('loduhon',{name:'ລະດູຮ້ອນ',type:'loc',cost:2,tag:'ສະຖານທີ່ · ລະດູ',skill:'ຢູ່ສະໜາມ: ກາດຄາຖາຂອງເຈົ້າ ໃຊ້ບຸນໜ້ອຍລົງ 1. ທຸກ 2 ຕາ ປ່ຽນເປັນລະດູຝົນ',lore:'ແດດແຮງ ລໍຖ້າບຸນບັ້ງໄຟ'});
 const SEASONS = ['lodufon', 'loduhnao', 'loduhon'];
 
-const ALT = {sinxay:'alt-sinxay', phayanak:'alt-phayanak', hapkhanasouane:'alt-hapkhanasouane', phralam:'alt-phralam', phayathaen:'alt-phayathaen'};
+// deck: ທ້າວຮຸ່ງ (the army). ຮວມພົນ = stronger while another warrior stands beside it
+const RALLY = 'ຮວມພົນ: ຖ້າມີເຜົ່ານັກຮົບໃບອື່ນຢູ່ສະໜາມ ພະລັງ +1';
+def('phonthahan',{name:'ພົນທະຫານ',tribe:'warrior',cost:1,power:1,kw:{rally:1},tag:'ຮວມພົນ',skill:RALLY,lore:'ທະຫານເດີນເທົ້າ ຜູ້ເດີນໜ້າກ່ອນໝູ່'});
+def('naktanu',{name:'ນັກທະນູ',tribe:'warrior',cost:2,power:1,tag:'ຍິງໄກ',skill:'ເມື່ອລົງສະໜາມ ໂຈມຕີ 1 ໃສ່ຕົວລະຄອນຂອງຄູ່ແຂ່ງ 1 ໃບ. ຮວມພົນ: ຖ້າມີເຜົ່ານັກຮົບໃບອື່ນ ໂຈມຕີ 2 ແທນ',lore:'ນັກຍິງທະນູ ຜູ້ຍິງໄດ້ໄກກວ່າໝູ່'});
+def('masuek',{name:'ມ້າເສິກ',tribe:'warrior',cost:3,power:3,kw:{rush:1},tag:'ບຸກໄວ',skill:'ໂຈມຕີໄດ້ທັນທີ ໃນຕາທີ່ລົງສະໜາມ',lore:'ມ້າເສິກ ຄວບໄວດັ່ງລົມ'});
+def('nakrobto',{name:'ນັກຮົບຖືໂລ່',tribe:'warrior',cost:3,power:2,kw:{taunt:1,rally:1},tag:'ກັນໄພ · ຮວມພົນ',skill:'ກັນໄພ. ' + RALLY,lore:'ຖືໂລ່ໄມ້ ກັນລູກສອນໃຫ້ໝູ່'});
+def('maethap',{name:'ແມ່ທັບ',tribe:'warrior',cost:5,power:3,tag:'ນຳທັບ',skill:'ຕົວລະຄອນເຜົ່ານັກຮົບທຸກໃບຂອງເຈົ້າ ພະລັງ +1',lore:'ແມ່ທັບໃຫຍ່ ຜູ້ຊີ້ທາງໃຫ້ກອງທັບ'});
+def('xangsuek',{name:'ຊ້າງເສິກ',tribe:'warrior',cost:6,power:6,tag:'ບຸກທະລຸ',skill:'ເມື່ອທຳລາຍຕົວລະຄອນຂອງຄູ່ແຂ່ງໄດ້ ພະລັງທີ່ເຫຼືອ ໂຈມຕີຂວັນຄູ່ແຂ່ງ',lore:'ຊ້າງເສິກໃສ່ເກາະທອງ ບຸກທະລຸແນວຂ້າເສິກ'});
+def('thaohung',{name:'ທ້າວຮຸ່ງ',tribe:'warrior',cost:9,power:7,legend:1,tag:'ວິລະບຸລຸດແຫ່ງສະໜາມເສິກ',skill:'ເມື່ອລົງສະໜາມ ເອີ້ນ «ພົນທະຫານ» 2 ໃບ ມາຊ່ວຍ. ເຜົ່ານັກຮົບທຸກໃບຂອງເຈົ້າ ໂຈມຕີໄດ້ທັນທີ ໃນຕາທີ່ລົງສະໜາມ',lore:'ທ້າວຮຸ່ງ ທ້າວເຈືອງ ວິລະບຸລຸດຜູ້ນຳທັບອອກເສິກ'});
+def('pasumthap',{name:'ປະຊຸມທັບ',type:'spell',cost:2,tag:'ຄາຖາ · ວາງແຜນ',skill:'ຈົ່ວກາດ 1 ໃບ. ຖ້າມີເຜົ່ານັກຮົບ 2 ໃບຂຶ້ນໄປຢູ່ສະໜາມ ຈົ່ວກາດ 2 ໃບ ແທນ',lore:'ແມ່ທັບ ນາຍກອງ ລ້ອມວົງວາງແຜນເສິກ'});
+def('khongsuek',{name:'ຄ້ອງເສິກ',type:'spell',cost:4,tag:'ຄາຖາ · ສຽງຄ້ອງ',skill:'ເຜົ່ານັກຮົບທຸກໃບຂອງເຈົ້າ ໂຈມຕີໄດ້ 2 ເທື່ອ ໃນຕານີ້',lore:'ສຽງຄ້ອງດັງ ທົ່ວສະໜາມເສິກ'});
+def('hokwiset',{name:'ຫອກວິເສດ',type:'item',cost:3,bonus:2,tag:'ຂອງວິເສດ · ຫອກໄຟ',skill:'ຕິດໃສ່ຕົວລະຄອນ 1 ໃບ: ພະລັງ +2 ແລະ ໂຈມຕີຂ້າມ ກັນໄພ ໄດ້',lore:'ຫອກລຸກເປັນໄຟ ເຈາະທະລຸທຸກໂລ່'});
+def('muangphuan',{name:'ເມືອງພວນ',type:'loc',cost:2,buff:'warrior',tag:'ສະຖານທີ່',skill:'ຢູ່ສະໜາມ: ເຜົ່ານັກຮົບທຸກໃບ ພະລັງ +1',lore:'ເມືອງໃຫຍ່ ມີກຳແພງ ແລະ ຂົວຂ້າມນ້ຳ'});
+def('khaithahan',{name:'ຄ້າຍທະຫານ',type:'loc',cost:3,tag:'ສະຖານທີ່',skill:'ຢູ່ສະໜາມ: ທຸກ 2 ຕາ ເອີ້ນ «ພົນທະຫານ» 1 ໃບ ມາຊ່ວຍ',lore:'ກອງໄຟຄ້າຍທະຫານ ຍາມພັກເສິກ'});
+
+const ALT = {sinxay:'alt-sinxay', phayanak:'alt-phayanak', hapkhanasouane:'alt-hapkhanasouane', phralam:'alt-phralam', phayathaen:'alt-phayathaen',
+             thaohung:'alt-thaohung', xangsuek:'alt-xangsuek', maethap:'alt-maethap'};
 const ALT_CHANCE = location.hash === '#altall' ? 1 : .25;  // #altall makes every one alt, for showing the cards off
 
 const DECKS = [
@@ -958,8 +975,12 @@ const DECKS = [
   {no:3, name:'ພະລັກພະລາມ ແລະ ຫິມະພານ', legend:'phralam', aggr:1.3, style:'ບິນ, ໄວ, ຫຼອກຄູ່ແຂ່ງ',
    list:{hongthong:3,xiengmieng:2,kinnari:2,phralak:2,singhimma:2,hanuman:2,khrut:2,phralam:1,sonphralam:2,lomphayu:2,konxiengmieng:3,pahimmaphan:1,wao:1,satnam:1,talatsao:1,phukkhaen:1,khaoniao:1,molam:1}},
   {no:5, name:'ພະຍາແຖນ', legend:'phayathaen', aggr:1.2, style:'ຄວບຄຸມ ດິນຟ້າອາກາດ, ລະດູປ່ຽນເອງ',
-   list:{thewadanoi:3,thahanthaen:3,thaenfahong:3,thaenfon:2,nanghung:2,thaenlom:2,phayathaen:1,phayufa:2,mokseo:2,lodufon:2,loduhnao:1,loduhon:1,faphaa:2,wao:1,baci:1,khaoniao:1,haingeun:1}}
+   list:{thewadanoi:3,thahanthaen:3,thaenfahong:3,thaenfon:2,nanghung:2,thaenlom:2,phayathaen:1,phayufa:2,mokseo:2,lodufon:2,loduhnao:1,loduhon:1,faphaa:2,wao:1,baci:1,khaoniao:1,haingeun:1}},
+  // added after deck 5, so it sits last here to keep saved per-deck stats in place; DORDER shows it in number order
+  {no:4, name:'ທ້າວຮຸ່ງ ແລະ ກອງທັບ', legend:'thaohung', aggr:1.5, style:'ຮວມພົນ, ບຸກໄວ, ລົງຫຼາຍໃບ',
+   list:{phonthahan:3,naktanu:3,masuek:2,nakrobto:3,maethap:2,xangsuek:2,thaohung:1,pasumthap:2,khongsuek:2,hokwiset:2,muangphuan:1,khaithahan:1,khwai:1,phukkhaen:1,lowai:1,molam:1,faphaa:1,baci:1}}
 ];
+const DORDER = DECKS.map((_, i) => i).sort((a, b) => DECKS[a].no - DECKS[b].no);
 const LEVELS = ['ງ່າຍ','ກາງ','ຍາກ'];
 
 
@@ -1048,7 +1069,8 @@ const LINES = [
   {play:['ສາຍນ້ຳຈະປົກປ້ອງຂ້ອຍ','ມາເລີຍ!','ລອງໃບນີ້ເບິ່ງ'], kill:['ນ້ຳພັດໄປແລ້ວ','ຂໍໂທດເດີ້'], lose:['ໂອ້ຍ!','ບໍ່ເປັນຫຍັງ ຍັງມີອີກ'], legend:['ພະຍານາກ ຂຶ້ນມາແລ້ວ!'], low:['ອັນຕະລາຍແລ້ວ…'], win:['ຂ້ອຍຊະນະ! ຫຼິ້ນອີກບໍ?'], losegame:['ເຈົ້າເກັ່ງຫຼາຍ!']},
   {play:['ຍັກມາແລ້ວ!','ຮ່າໆໆ','ຢ້ານບໍ?'], kill:['ກິນໝົດ!','ອ່ອນແທ້'], lose:['ໂອ້ຍ ເຈັບ!','ຈື່ໄວ້ເດີ້'], legend:['ສິບຫົວ ພ້ອມສູ້!'], low:['ຍັງບໍ່ຍອມແພ້!'], win:['ຍັກຊະນະ!'], losegame:['ເທື່ອໜ້າ ຂ້ອຍບໍ່ຍອມ!']},
   {play:['ບິນໄປເລີຍ!','ລອງໃບນີ້ເບິ່ງ','ໄວກວ່າເດີ້'], kill:['ໄວກວ່າ!','ຫຼອກໄດ້ແລ້ວ'], lose:['ຮ້າຍແທ້!','ຄິດບໍ່ເຖິງ'], legend:['ພະລາມ ລົງສະໜາມ!'], low:['ຕ້ອງຄິດໃຫ້ດີ…'], win:['ສະຫຼາດກວ່າ!'], losegame:['ຍອມໃຈເລີຍ!']},
-  {play:['ຟ້າຈະຕັດສິນ!','ລົມ ຝົນ ມາແລ້ວ','ເບິ່ງຟ້າເດີ້'], kill:['ຟ້າຜ່າແລ້ວ!','ໝອກບັງຕາບໍ?'], lose:['ຟ້າມືດໄປແລ້ວ','ຮ້າຍແທ້!'], legend:['ພະຍາແຖນ ສະເດັດລົງມາ!'], low:['ຟ້າຍັງບໍ່ສິ້ນ…'], win:['ຟ້າຊະນະ!'], losegame:['ຂ້ອຍຍອມໃຈເຈົ້າ!']}
+  {play:['ຟ້າຈະຕັດສິນ!','ລົມ ຝົນ ມາແລ້ວ','ເບິ່ງຟ້າເດີ້'], kill:['ຟ້າຜ່າແລ້ວ!','ໝອກບັງຕາບໍ?'], lose:['ຟ້າມືດໄປແລ້ວ','ຮ້າຍແທ້!'], legend:['ພະຍາແຖນ ສະເດັດລົງມາ!'], low:['ຟ້າຍັງບໍ່ສິ້ນ…'], win:['ຟ້າຊະນະ!'], losegame:['ຂ້ອຍຍອມໃຈເຈົ້າ!']},
+  {play:['ບຸກເລີຍ!','ຮວມພົນ!','ທັບໃຫຍ່ມາແລ້ວ'], kill:['ແຕກທັບແລ້ວ!','ສູ້ບໍ່ໄຫວດອກ'], lose:['ຖອຍກ່ອນ!','ພົນຍັງມີອີກ'], legend:['ທ້າວຮຸ່ງ ນຳທັບອອກເສິກ!'], low:['ຢືນໄວ້! ຢ່າຖອຍ!'], win:['ກອງທັບຊະນະ!'], losegame:['ເຈົ້າເປັນແມ່ທັບທີ່ເກັ່ງ!']}
 ];
 function botSay(kind, force){
   if(!S || S.auto || S.sim || S.fast) return;
@@ -1073,7 +1095,7 @@ function recordGame(won){
 }
 
 /* ---------- engine ---------- */
-const OPTIONAL = new Set(['phikrasue','kumphan','naiphan','thaenfahong']);
+const OPTIONAL = new Set(['phikrasue','kumphan','naiphan','thaenfahong','naktanu']);
 const cur = () => S.p[S.turn];
 const pi = p => S.p.indexOf(p);
 const opp = p => S.p[1 - pi(p)];
@@ -1144,6 +1166,8 @@ function pow(p, c, vs, att){
   if(p.loc && C[p.loc].buff === d.tribe) v++;
   if(d.tribe === 'hero') v += p.field.filter(x => x.id === 'khunborom').length;
   if(d.tribe === 'naga') v += p.field.filter(x => x.id === 'phayanak').length;
+  if(d.tribe === 'warrior') v += p.field.filter(x => x.id === 'maethap').length;
+  if(d.kw.rally && p.field.some(x => x !== c && C[x.id].tribe === 'warrior')) v++;
   if(c.id === 'phralak' && p.field.some(x => x.id === 'phralam')) v += 2;
   if(c.id === 'phikrasue' && p.loc === 'khuenduenmuet') v++;
   if(p.loc === 'thonghai' && d.cost <= 2) v++;
@@ -1161,12 +1185,14 @@ function pow(p, c, vs, att){
 }
 const hasTaunt = c => !!C[c.id].kw.taunt || c.items.includes('lowai');
 const hasFly = c => !!C[c.id].kw.fly || c.items.includes('wao');
-const maxAtk = c => c.id === 'hapkhanasouane' ? 2 : (c.id === 'sinxay' && c.items.includes('sonsin') ? 2 : 1);
-const canAttack = (p, c) => !S.over && S.turn === pi(p) && !c.sick && !(c.frz && c.frz >= S.T) && c.atk < maxAtk(c);
+const maxAtk = c => c.id === 'hapkhanasouane' || c.x2 === S.T ? 2 : (c.id === 'sinxay' && c.items.includes('sonsin') ? 2 : 1);
+// ທ້າວຮຸ່ງ lets every warrior beside him attack on the turn it lands
+const isSick = (p, c) => c.sick && !(C[c.id].tribe === 'warrior' && p.field.some(x => x.id === 'thaohung'));
+const canAttack = (p, c) => !S.over && S.turn === pi(p) && !isSick(p, c) && !(c.frz && c.frz >= S.T) && c.atk < maxAtk(c);
 
 function attackTargets(p, c){
   const q = opp(p), d = C[c.id];
-  const taunts = q.field.filter(hasTaunt);
+  const taunts = c.items.includes('hokwiset') ? [] : q.field.filter(hasTaunt);
   const list = (taunts.length ? taunts : q.field).map(x => ({kind:'char', owner:q, c:x}));
   if(!d.kw.noFace && (hasFly(c) || !taunts.length)) list.push({kind:'hero', owner:q});
   return list;
@@ -1179,7 +1205,7 @@ function targetsFor(p, id){
     case 'bangfai': return [...chars(q, notImm), ...chars(p), {kind:'hero', owner:q}];
     case 'khamsap': return chars(q, notImm);
     case 'lomphayu': return [...chars(q, notImm), ...chars(p)];
-    case 'sonsin': case 'sonphralam': return chars(p);
+    case 'sonsin': case 'sonphralam': case 'hokwiset': return chars(p);
     case 'kabongyak': return chars(p, c => C[c.id].tribe === 'giant');
     case 'phikrasue': return chars(q);
     case 'kumphan': return chars(q, c => C[c.id].cost <= 3);
@@ -1187,6 +1213,7 @@ function targetsFor(p, id){
     case 'phukkhaen': case 'lowai': case 'wao': case 'katip': return chars(p);
     case 'naiphan': case 'thaenfahong': return chars(q);
     case 'mokseo': return chars(q, notImm);
+    case 'naktanu': return chars(q);
   }
   return null;
 }
@@ -1269,6 +1296,15 @@ async function onPlay(p, c, t){
     case 'phikrasue':
       if(t && t.owner.field.includes(t.c)){ t.c.mods.push({amt:-2, exp:S.T}); await fxFireflies('c:' + c.uid, tkey(t)); log('«' + C[t.c.id].name + '» ພະລັງ -2'); }
       break;
+    case 'naktanu': {
+      const dmg = p.field.some(x => x !== c && C[x.id].tribe === 'warrior') ? 2 : 1;
+      if(!t || !t.owner.field.includes(t.c)) break;
+      if(!S.fast){ const b = centerOf(tkey(t)); if(b) speedLines(b.x, b.y, '#ff9f43'); sfx('hit'); }
+      await fxRing(tkey(t), '#ff9f43', true);
+      if(pow(t.owner, t.c) <= dmg) await destroy(t.owner, t.c); else { floatAt(tkey(t), 'ທົນໄດ້!', 'hit'); log('«' + C[t.c.id].name + '» ທົນໄດ້'); }
+      break;
+    }
+    case 'thaohung': await summon(p, 'phonthahan', 2); break;
     case 'kumphan':
       if(t && t.owner.field.includes(t.c)){ await fxGrab(tkey(t)); bounce(t.owner, t.c); log('ຍັກກຸມພັນ ສົ່ງ «' + C[t.c.id].name + '» ກັບຄືນມື'); }
       break;
@@ -1327,8 +1363,21 @@ async function castSpell(p, id, t){
       break;
     }
     case 'mokseo': t.c.frz = S.T + 1; await fxRing(tkey(t), '#e8e8f4', true); log('«' + C[t.c.id].name + '» ຫຼົງໝອກ ໂຈມຕີບໍ່ໄດ້ ຕາໜ້າ'); break;
+    case 'pasumthap': { const n = p.field.filter(c => C[c.id].tribe === 'warrior').length >= 2 ? 2 : 1; sfx('heal'); draw(p, n); log(p.name + ' ປະຊຸມທັບ ຈົ່ວກາດ ' + n + ' ໃບ'); break; }
+    case 'khongsuek': {
+      sfx('turn'); const ws = p.field.filter(c => C[c.id].tribe === 'warrior');
+      for(const c of ws){ c.x2 = S.T; particlesAt('c:' + c.uid, '#ff9f43', 10); }
+      await fxRing('side:' + pi(p), '#ff9f43', true); log(p.name + ' ຕີຄ້ອງເສິກ ນັກຮົບ ' + ws.length + ' ໃບ ໂຈມຕີໄດ້ 2 ເທື່ອ');
+      break;
+    }
     case 'haingeun': p.mana += 1; sfx('heal'); particlesAt('h:' + pi(p), '#ffd23d', 16); log(p.name + ' ໄດ້ບຸນ +1'); break;
   }
+}
+// put fresh copies of a character straight onto the field (they are not drawn from the deck)
+async function summon(p, id, n){
+  let k = 0;
+  for(let i=0;i<n && p.field.length < 5;i++){ const c = {uid:++U, id, sick:!C[id].kw.rush, atk:0, items:[], mods:[]}; p.field.push(c); render(); await fxEnter(c); k++; }
+  if(k) log(p.name + ' ເອີ້ນ «' + C[id].name + '» ' + k + ' ໃບ');
 }
 function bounce(owner, c){
   const i = owner.field.indexOf(c); if(i < 0) return;
@@ -1386,7 +1435,7 @@ async function attack(p, c, t){
     const a = pow(p, c, tc, true), b = pow(q, tc, c, false);
     log('«' + C[c.id].name + '» (' + a + ') ໂຈມຕີ «' + C[tc.id].name + '» (' + b + ')');
     floatAt('c:' + tc.uid, String(a), a >= 6 ? 'hit crit' : 'hit');
-    if(a > b){ await destroy(q, tc); if(c.id === 'singhimma') draw(p, 1); }
+    if(a > b){ await destroy(q, tc); if(c.id === 'singhimma') draw(p, 1); if(c.id === 'xangsuek' && !S.over){ log('ຊ້າງເສິກ ບຸກທະລຸ'); damageHero(q, a - b); } }
     else if(b > a){ await destroy(p, c); if(tc.id === 'singhimma') draw(q, 1); }
     else { await Promise.all([destroy(q, tc), destroy(p, c)]); if(c.id === 'singhimma') draw(p, 1); if(tc.id === 'singhimma') draw(q, 1); }
   }
@@ -1402,6 +1451,10 @@ async function turnStartEffects(p){
     const weak = q.field.filter(c => pow(q, c) <= 2); if(!weak.length || S.over) continue;
     const v = maxBy(weak, c => C[c.id].cost); if(!S.fast){ const k = centerOf('c:' + v.uid); if(k){ shockAt(k.x, k.y, '#9fe0ff', 140); flashScreen('#e6f6ff', .3); sfx('boom'); } await sleep(250); }
     log('ພະຍາແຖນ ຟ້າຜ່າ «' + C[v.id].name + '»'); await destroy(q, v);
+  }
+  if(p.loc === 'khaithahan'){
+    p.locAge = (p.locAge || 0) + 1;
+    if(p.locAge >= 2){ p.locAge = 0; await summon(p, 'phonthahan', 1); }
   }
   if(SEASONS.includes(p.loc)){
     p.locAge = (p.locAge || 0) + 1;
@@ -1498,7 +1551,7 @@ function botPick(p, q){
     const en = tl.filter(x => x.kind === 'char' && x.owner === q);
     if(d.type === 'loc'){
       if(!p.loc){
-        const tribe = h.id === 'pasatyak' ? 'giant' : d.buff;
+        const tribe = h.id === 'pasatyak' ? 'giant' : (h.id === 'khaithahan' ? 'warrior' : d.buff);
         s = 2 + p.field.filter(c => C[c.id].tribe === tribe).length + p.hand.filter(x => C[x.id].tribe === tribe).length * .5;
       }
     } else if(d.type === 'char'){
@@ -1510,8 +1563,15 @@ function botPick(p, q){
       if(h.id === 'kumphan' && en.length){ t = maxBy(en, x => C[x.c.id].cost + pow(q, x.c)); s += 2; }
       if(h.id === 'khankhaak' && p.deck.includes('bangfai')) s += 2;
       if((h.id === 'babynaga' || h.id === 'kinnari') && p.life < 14) s += 2;
+      if(h.id === 'naktanu'){
+        const dmg = p.field.some(c => C[c.id].tribe === 'warrior') ? 2 : 1, k = en.filter(x => pow(q, x.c) <= dmg);
+        t = k.length ? maxBy(k, x => C[x.c.id].cost + pow(q, x.c)) : (en.length ? en[0] : null);
+        if(k.length) s += 2 + C[t.c.id].cost;
+      }
+      if(d.tribe === 'warrior' && p.field.some(c => C[c.id].tribe === 'warrior')) s += 1;
+      if(h.id === 'thaohung') s += Math.min(2, 5 - p.field.length) * 3;
     } else if(d.type === 'item'){
-      if(tl.length){ t = maxBy(tl, x => pow(p, x.c) + (x.c.sick ? 0 : 1) + (x.c.id === 'sinxay' && h.id === 'sonsin' ? 6 : 0) - (h.id === 'wao' && hasFly(x.c) ? 9 : 0) - (h.id === 'lowai' && hasTaunt(x.c) ? 9 : 0)); s = 2 + d.bonus + (h.id === 'wao' || h.id === 'lowai' ? 1.5 : 0); }
+      if(tl.length){ t = maxBy(tl, x => pow(p, x.c) + (x.c.sick ? 0 : 1) + (x.c.id === 'sinxay' && h.id === 'sonsin' ? 6 : 0) - (h.id === 'wao' && hasFly(x.c) ? 9 : 0) - (h.id === 'lowai' && hasTaunt(x.c) ? 9 : 0) - (h.id === 'hokwiset' && x.c.items.includes('hokwiset') ? 9 : 0)); s = 2 + d.bonus + (h.id === 'wao' || h.id === 'lowai' || (h.id === 'hokwiset' && q.field.some(hasTaunt)) ? 1.5 : 0); }
     } else if(h.id === 'bangfai'){
       const dmg = p.field.some(x => x.id === 'khankhaak') ? 5 : 3;
       if(q.life <= dmg){ t = {kind:'hero', owner:q}; s = 100; }
@@ -1544,6 +1604,11 @@ function botPick(p, q){
       let v = 0; for(const c of q.field) if(c.id !== 'phayanak' && pow(q, c) <= 2) v += C[c.id].cost + 1; s = v >= 3 ? v : 0;
     } else if(h.id === 'mokseo'){
       if(en.length){ t = maxBy(en, x => pow(q, x.c)); s = pow(q, t.c) >= 4 ? 2.5 : 0; }
+    } else if(h.id === 'pasumthap'){
+      s = p.hand.length <= 5 ? (p.field.filter(c => C[c.id].tribe === 'warrior').length >= 2 ? 5 : 2.5) : 1;
+    } else if(h.id === 'khongsuek'){
+      const ws = p.field.filter(c => C[c.id].tribe === 'warrior' && canAttack(p, c));
+      s = ws.length >= 2 ? ws.reduce((a, c) => a + pow(p, c), 0) * .8 : 0;
     } else if(h.id === 'haingeun'){
       s = .5;
     } else if(h.id === 'lomphayu'){
@@ -1593,8 +1658,8 @@ function botReact(q, p, c, t){
 function cloneState(hideIdx){
   const cp = (p, i) => ({name:p.name, bot:true, di:p.di, level:p.level, life:p.life, maxMana:p.maxMana, mana:p.mana, penalty:p.penalty,
     deck:null, hand:null,
-    field:p.field.map(c => ({uid:c.uid, id:c.id, sick:c.sick, atk:c.atk, items:c.items.slice(), mods:c.mods.map(m => ({amt:m.amt, exp:m.exp}))})),
-    loc:p.loc, grave:p.grave.slice(), lastMagic:p.lastMagic, _src:p, _i:i});
+    field:p.field.map(c => ({uid:c.uid, id:c.id, sick:c.sick, atk:c.atk, x2:c.x2, frz:c.frz, items:c.items.slice(), mods:c.mods.map(m => ({amt:m.amt, exp:m.exp}))})),
+    loc:p.loc, locAge:p.locAge, grave:p.grave.slice(), lastMagic:p.lastMagic, _src:p, _i:i});
   const ps = S.p.map(cp);
   for(const q of ps){
     const src = q._src;
@@ -1737,6 +1802,7 @@ function promptOf(id){
   if(d.type === 'item') return 'ເລືອກຕົວລະຄອນ ທີ່ຈະຕິດ «' + d.name + '»';
   if(id === 'phikrasue') return 'ເລືອກຕົວລະຄອນຄູ່ແຂ່ງ ໃຫ້ພະລັງ -2';
   if(id === 'kumphan') return 'ເລືອກຕົວລະຄອນ ທີ່ຈະສົ່ງກັບຄືນມື';
+  if(id === 'naktanu') return 'ເລືອກເປົ້າໝາຍ ທີ່ນັກທະນູຈະຍິງ';
   return 'ເລືອກເປົ້າໝາຍ ຂອງ «' + d.name + '»';
 }
 async function tryPlay(uid){
@@ -1761,8 +1827,8 @@ function fmtSkill(t){
   const RULES = [
     [/«[^»]+»/g, 'kn'],
     [/ເມື່ອລົງສະໜາມ|ທຸກຕາ|ຢູ່ສະໜາມ|ເມື່ອໃບນີ້ຖືກທຳລາຍ|ເມື່ອທຳລາຍຕົວລະຄອນຂອງຄູ່ແຂ່ງໄດ້|ໃຊ້ຕອນຄູ່ແຂ່ງໂຈມຕີ|ເວລາໂຈມຕີ|ຕິດໃສ່ຕົວລະຄອນ(?:ເຜົ່າຍັກ)? 1 ໃບ/g, 'kt'],
-    [/ກັນໄພ|ບິນ/g, 'kk'],
-    [/ເຜົ່າ(?:ນາກ|ຍັກ|ຜີ|ວິລະບຸລຸດ|ຫິມະພານ|ນັກປາດ|ເທວະດາ|ຊາວບ້ານ)/g, 'tr'],
+    [/ກັນໄພ|ບິນ|ຮວມພົນ/g, 'kk'],
+    [/ເຜົ່າ(?:ນາກ|ຍັກ|ຜີ|ວິລະບຸລຸດ|ຫິມະພານ|ນັກປາດ|ເທວະດາ|ຊາວບ້ານ|ນັກຮົບ)/g, 'tr'],
     [/ພະລັງ \+\d+/g, 'up'], [/ພະລັງ -\d+/g, 'dn'], [/ຟື້ນຂວັນ \+\d+/g, 'hp'],
     [/ຈົ່ວກາດ \d+ ໃບ/g, 'dr'], [/ໂຈມຕີໄດ້ 2 ເທື່ອ(?:ຕໍ່ຕາ)?|ໂຈມຕີ \d+/g, 'dm']
   ];
@@ -1791,9 +1857,9 @@ function menuHTML(){
   let st = null; try{ st = JSON.parse(localStorage.getItem('lao-legend-stats') || 'null'); }catch(e){}
   return '<div class="menu">' +
     '<div class="logo"><h1><img class="logoimg" src="art/logo.webp" alt="Lao Legend Wars" width="960" height="640"></h1><div class="set">ສົງຄາມຕຳນານລາວ · ເກມກາດນິທານລາວ · ຫຼິ້ນຟຣີ</div><p>ເລືອກເດັກ ແລ້ວສູ້ກັບບອດ</p></div>' +
-    '<div class="decks">' + DECKS.map((d, i) =>
-      '<div class="deck ' + (ui.deck === i ? 'on' : '') + '" role="button" tabindex="0" data-a="deck" data-v="' + i + '">' + cardHTML(d.legend) +
-      '<div><b>ເດັກ ' + (d.no || i + 1) + '</b><span>' + d.name + '</span><small>' + d.style + '</small></div></div>').join('') + '</div>' +
+    '<div class="decks">' + DORDER.map(i => { const d = DECKS[i];
+      return '<div class="deck ' + (ui.deck === i ? 'on' : '') + '" role="button" tabindex="0" data-a="deck" data-v="' + i + '">' + cardHTML(d.legend) +
+      '<div><b>ເດັກ ' + d.no + '</b><span>' + d.name + '</span><small>' + d.style + '</small></div></div>'; }).join('') + '</div>' +
     '<p class="themelbl">ໜ້າຕາສະໜາມ</p>' + themePicker() + '<div class="levels"><span>ລະດັບບອດ</span>' + LEVELS.map((l, i) =>
       '<button class="lv ' + (ui.level === i ? 'on' : '') + '" data-a="lvl" data-v="' + i + '">' + l + '</button>').join('') +
       '</div>' +
@@ -1801,18 +1867,18 @@ function menuHTML(){
     '<div class="mrow"><button class="btn2 ' + (loadJ('lao-legend-tut', 0) ? '' : 'hl') + '" data-a="tutstart">ສອນຫຼິ້ນ</button><button class="btn2" data-a="book">ປຶ້ມກາດ</button><button class="btn2" data-a="stats">ສະຖິຕິ</button><button class="btn2" data-a="settings">ຕັ້ງຄ່າ</button></div>' +
     (st && st.played ? '<div class="stats">ຊະນະ ' + st.won + ' ຈາກ ' + st.played + ' ເກມ</div>' : '') +
     '<p class="links"><a href="' + RULES_URL + '" target="_blank" rel="noopener">ອ່ານກົດການຫຼິ້ນ</a> · <a href="' + CARDS_URL + '" target="_blank" rel="noopener">ເບິ່ງກາດທັງໝົດ</a></p>' +
-    '<p class="note">ສະບັບທົດລອງ: ກາດ 53 ແບບ, ບອດ 3 ລະດັບ, ເອັບເຟັກ ແລະ ສຽງ. ສິນໄຊ, ພະຍານາກ, ຮາບມະນາສວນ ແລະ ພະລາມ ມີໂອກາດ 1 ໃນ 4 ອອກເປັນ ✦ ອາດພິເສດ.</p>' +
+    '<p class="note">ສະບັບທົດລອງ: ກາດ ' + Object.keys(C).length + ' ແບບ, ບອດ 3 ລະດັບ, ເອັບເຟັກ ແລະ ສຽງ. ກາດ ' + Object.keys(ALT).length + ' ແບບ (ເຊັ່ນ ສິນໄຊ, ພະຍານາກ, ທ້າວຮຸ່ງ) ມີໂອກາດ 1 ໃນ 4 ອອກເປັນ ✦ ອາດພິເສດ.</p>' +
   '</div>';
 }
 
-const BOOKTABS = [['all','ທັງໝົດ']].concat(DECKS.map((d, i) => ['d' + i, 'ເດັກ ' + (d.no || i + 1)]), [['neutral','ກາດກາງ'],['alt','✦ ອາດພິເສດ']]);
+const BOOKTABS = [['all','ທັງໝົດ']].concat(DORDER.map(i => ['d' + i, 'ເດັກ ' + DECKS[i].no]), [['neutral','ກາດກາງ'],['alt','✦ ອາດພິເສດ']]);
 function bookIds(tab){
   const neutral = Object.keys(C).filter(id => C[id].tribe === 'villager' || ['baci','khaoniao','phukkhaen','tikong','faphaa','satnam','haingeun','lowai','wao','katip','thonghai','talatsao','khonephapheng'].includes(id));
   const byDeck = i => Object.keys(DECKS[i].list).filter(id => !neutral.includes(id));
   const sortc = a => a.sort((x, y) => C[x].cost - C[y].cost);
   if(tab === 'neutral') return sortc(neutral);
   if(tab[0] === 'd') return sortc(byDeck(+tab[1]));
-  return DECKS.flatMap((_, i) => sortc(byDeck(i))).concat(sortc(neutral));
+  return DORDER.flatMap(i => sortc(byDeck(i))).concat(sortc(neutral));
 }
 function bookHTML(){
   const tab = ui.bookTab || 'all', seen = loadJ('lao-legend-alts', []);
@@ -1834,7 +1900,7 @@ function menuModalHTML(){
     const dk = st.deck || [{p:0,w:0},{p:0,w:0},{p:0,w:0}], lv = st.level || [{p:0,w:0},{p:0,w:0},{p:0,w:0}];
     const row = (n, x) => '<tr><td>' + n + '</td><td class="n">' + x.p + '</td><td class="n">' + x.w + '</td><td class="n">' + pct(x.w, x.p) + '</td></tr>';
     inner = '<p class="q">ສະຖິຕິຂອງເຈົ້າ</p><table class="stattbl"><thead><tr><th></th><th>ຫຼິ້ນ</th><th>ຊະນະ</th><th>%</th></tr></thead><tbody>' +
-      row('<b>ທັງໝົດ</b>', {p:st.played || 0, w:st.won || 0}) + DECKS.map((d, i) => row('ເດັກ ' + (d.no || i + 1), dk[i] || {p:0, w:0})).join('') + LEVELS.map((l, i) => row('ບອດ' + l, lv[i])).join('') +
+      row('<b>ທັງໝົດ</b>', {p:st.played || 0, w:st.won || 0}) + DORDER.map(i => row('ເດັກ ' + DECKS[i].no, dk[i] || {p:0, w:0})).join('') + LEVELS.map((l, i) => row('ບອດ' + l, lv[i])).join('') +
       '</tbody></table><p class="lore">ຊະນະຕິດກັນ ' + (st.streak || 0) + ' · ສູງສຸດ ' + (st.best || 0) + ' · ອາດພິເສດທີ່ພົບ ' + loadJ('lao-legend-alts', []).length + '/' + Object.keys(ALT).length + '</p>' +
       '<p class="lore">ສະຖິຕິເກັບໄວ້ໃນເຄື່ອງນີ້ເທົ່ານັ້ນ</p><div class="mbtns"><button class="btn2" data-a="mmclose">ປິດ</button></div>';
   }
@@ -1912,7 +1978,7 @@ function setDetail(o){
 function miniHTML(p, c){
   const d = C[c.id], v = pow(p, c), k = 'c:' + c.uid, mine = pi(p) === 0 && !S.auto, myTurn = S.turn === pi(p);
   const cls = ['mini']; if(d.legend) cls.push('lg'); if(c.alt && ALT[c.id]) cls.push('altm');
-  if(c.sick && myTurn) cls.push('sick'); else if(myTurn && c.atk >= maxAtk(c)) cls.push('used');
+  if(isSick(p, c) && myTurn) cls.push('sick'); else if(myTurn && c.atk >= maxAtk(c)) cls.push('used');
   if(mine && myTurn && !S.busy && !S.targeting && canAttack(p, c)) cls.push('can');
   if(S.sel === c.uid) cls.push('sel');
   if(S.targeting && S.targeting.list.some(x => tkey(x) === k)) cls.push('tgt');
@@ -1924,7 +1990,7 @@ function miniHTML(p, c){
   for(const it of c.items) kw.push('<span class="it">' + C[it].name + '</span>');
   if(c.mods.some(m => m.amt < 0)) kw.push('<span class="dn">ອ່ອນແຮງ</span>');
   return '<div class="' + cls.join(' ') + '" data-a="field" data-k="' + k + '" aria-label="' + d.name + ' ພະລັງ ' + v + '">' + cardHTML(c.id, null, c.alt, v) +
-    '<div class="pwtop ' + (v > d.power ? 'up' : (v < d.power ? 'down' : '')) + '">' + v + '</div><div class="kw">' + kw.join('') + '</div>' + (c.sick && myTurn ? '<div class="st">ລໍຖ້າ</div>' : '') + '</div>';
+    '<div class="pwtop ' + (v > d.power ? 'up' : (v < d.power ? 'down' : '')) + '">' + v + '</div><div class="kw">' + kw.join('') + '</div>' + (isSick(p, c) && myTurn ? '<div class="st">ລໍຖ້າ</div>' : '') + '</div>';
 }
 function handHTML(h, i){
   const p = S.p[0]; const mine = S.turn === 0 && !S.busy && !S.over && !S.auto;
@@ -2040,7 +2106,7 @@ async function fxBanner(txt, bot){
   setTimeout(() => { for(let k = 0; k < 40; k++) emit({x:Math.random() * innerWidth, y:y + (Math.random() - .5) * 120, vx:300 + Math.random() * 500, vy:(Math.random() - .5) * 60, drag:.97, life:.6, size:2.5, kind:'spark', color:pick(col)}); }, 200);
   await sleep(dur - 80); d.remove();
 }
-const TRIBE_NAME = {naga:'ເຜົ່ານາກ', giant:'ເຜົ່າຍັກ', ghost:'ເຜົ່າຜີ', himma:'ເຜົ່າຫິມະພານ', hero:'ເຜົ່າວິລະບຸລຸດ', nakpat:'ເຜົ່ານັກປາດ', villager:'ເຜົ່າຊາວບ້ານ', thewada:'ເຜົ່າເທວະດາ'};
+const TRIBE_NAME = {naga:'ເຜົ່ານາກ', giant:'ເຜົ່າຍັກ', ghost:'ເຜົ່າຜີ', himma:'ເຜົ່າຫິມະພານ', hero:'ເຜົ່າວິລະບຸລຸດ', nakpat:'ເຜົ່ານັກປາດ', villager:'ເຜົ່າຊາວບ້ານ', thewada:'ເຜົ່າເທວະດາ', warrior:'ເຜົ່ານັກຮົບ'};
 // full-screen reveal of the character art with a name band, for legends, big characters and alt-art cards
 async function fxShowcase(id, alt){
   if(S.fast) return; const d = C[id], T = TFX[d.tribe] || TFX.hero, legend = !!d.legend;
@@ -2096,7 +2162,8 @@ const TFX = {
   hero:{c:['#ffffff','#ffd23d','#9fe0ff'], kind:'spark', g:350},
   nakpat:{c:['#7be36a','#ffffff','#ffd23d'], kind:'spark', g:350},
   villager:{c:['#e8c48a','#ffffff','#c08a4a'], kind:'dot', g:500},
-  thewada:{c:['#9fe0ff','#ffffff','#ffd23d'], kind:'spark', g:-60}
+  thewada:{c:['#9fe0ff','#ffffff','#ffd23d'], kind:'spark', g:-60},
+  warrior:{c:['#ff9f43','#ffd23d','#ffffff'], kind:'shard', g:800}
 };
 function fxCanvas(){
   if(FX.cv) return;
