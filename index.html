@@ -1010,8 +1010,23 @@ def('hokwiset',{name:'ຫອກວິເສດ',type:'item',cost:3,bonus:2,tag:'
 def('muangphuan',{name:'ເມືອງພວນ',type:'loc',cost:2,buff:'warrior',tag:'ສະຖານທີ່',skill:'ຢູ່ສະໜາມ: ເຜົ່ານັກຮົບທຸກໃບ ພະລັງ +1',lore:'ເມືອງໃຫຍ່ ມີກຳແພງ ແລະ ຂົວຂ້າມນ້ຳ'});
 def('khaithahan',{name:'ຄ້າຍທະຫານ',type:'loc',cost:3,tag:'ສະຖານທີ່',skill:'ຢູ່ສະໜາມ: ທຸກ 2 ຕາ ເອີ້ນ «ພົນທະຫານ» 1 ໃບ ມາຊ່ວຍ',lore:'ກອງໄຟຄ້າຍທະຫານ ຍາມພັກເສິກ'});
 
+// deck: ນາງສິບສອງ. ຄືນຊີບ = bring a character back from the discard pile onto the field
+def('nangnoy',{name:'ນາງນ້ອຍ',tribe:'hero',cost:1,power:1,tag:'ນ້ອງສຸດທ້ອງ',skill:'ເມື່ອໃບນີ້ຖືກທຳລາຍ ຈົ່ວກາດ 1 ໃບ',lore:'ນ້ອງສຸດທ້ອງ ໃນພີ່ນ້ອງສິບສອງ ຖືໂຄມໄຟນ້ອຍໆ'});
+def('phinong',{name:'ພີ່ນ້ອງສິບສອງ',tribe:'hero',cost:2,power:2,tag:'ຮັກພີ່ນ້ອງ',skill:'ພະລັງ +1 ຕໍ່ «ພີ່ນ້ອງສິບສອງ» ແຕ່ລະໃບ ໃນກອງຖິ້ມຂອງເຈົ້າ',lore:'ຈັບມືກັນໄວ້ ບໍ່ປະກັນ'});
+def('lukyak',{name:'ລູກຍັກ',tribe:'giant',cost:2,power:3,kw:{taunt:1},tag:'ກັນໄພ',skill:TAUNT,lore:'ຍັກນ້ອຍ ເຝົ້າປາກຖ້ຳ ດື້ແຕ່ໜ້າຮັກ'});
+def('moya',{name:'ໝໍຢາ',tribe:'hero',cost:3,power:2,tag:'ຢາວິເສດ',skill:'ເມື່ອລົງສະໜາມ ຄືນຊີບ ຕົວລະຄອນທີ່ມີບຸນ 3 ລົງມາ 1 ໃບ',lore:'ແມ່ເຖົ້າໝໍຢາ ຕົ້ມຢາສະໝຸນໄພ'});
+def('maneekap',{name:'ມ້າມະນີກາບ',tribe:'himma',cost:3,power:3,kw:{fly:1},tag:'ບິນ',skill:FLY,lore:'ມ້າຂາວວິເສດ ບິນເທິງເມກ'});
+def('kangli',{name:'ນາງກັງຣີ',tribe:'hero',cost:4,power:4,tag:'ໃຈດີ',skill:'ເມື່ອໃບນີ້ຖືກທຳລາຍ ຟື້ນຂວັນ +3 ແລະ ຈົ່ວກາດ 1 ໃບ',lore:'ນາງກັງຣີ ຖືດອກບົວ ໃນສວນມ່ວງ'});
+def('santhaman',{name:'ຍັກສັນທະມານ',tribe:'giant',cost:4,power:5,tag:'ລາຊິນີຍັກ',skill:'ເມື່ອລົງສະໜາມ ທຳລາຍຕົວລະຄອນຂອງເຈົ້າ 1 ໃບ ແລ້ວ ຈົ່ວກາດ 2 ໃບ',lore:'ລາຊິນີຍັກ ຜູ້ມີເລ່ຫຼ່ຽມຫຼາຍ'});
+def('phutthasen',{name:'ພຸດທະເສນ',tribe:'hero',cost:8,power:7,legend:1,tag:'ວິລະບຸລຸດ ມ້າບິນ',skill:'ເມື່ອລົງສະໜາມ ຄືນຊີບ ຕົວລະຄອນທີ່ມີບຸນ 4 ລົງມາ 2 ໃບ',lore:'ພຸດທະເສນ ຂີ່ມ້າມະນີກາບ ມາຊ່ວຍແມ່ ແລະ ປ້າທັງສິບສອງ'});
+def('namtamae',{name:'ນ້ຳຕາແມ່',type:'spell',cost:2,tag:'ຄາຖາ · ຄືນຊີບ',skill:'ຄືນຊີບ ຕົວລະຄອນ 1 ໃບ ຈາກກອງຖິ້ມຂອງເຈົ້າ (ບໍ່ແມ່ນຕຳນານ)',lore:'ນ້ຳຕາແຫ່ງຄວາມຮັກ ຢົດລົງໜອງບົວ'});
+def('dokbuathip',{name:'ດອກບົວທິບ',type:'item',cost:2,bonus:0,tag:'ຂອງວິເສດ · ບົວທິບ',skill:'ຕິດໃສ່ຕົວລະຄອນ 1 ໃບ: ເມື່ອໃບນັ້ນຖືກທຳລາຍ ກັບຄືນມາສະໜາມອີກ 1 ເທື່ອ',lore:'ດອກບົວສີທອງ ສ່ອງແສງຍາມຄ່ຳ'});
+def('thammuet',{name:'ຖ້ຳມືດ',type:'loc',cost:2,tag:'ສະຖານທີ່',skill:'ຢູ່ສະໜາມ: ທຸກຄັ້ງທີ່ຕົວລະຄອນຂອງເຈົ້າຖືກທຳລາຍ ຟື້ນຂວັນ +1',lore:'ຖ້ຳມືດ ມີແກ້ວສີມ່ວງ ສ່ອງແສງ'});
+def('suanmuang',{name:'ສວນມ່ວງ',type:'loc',cost:2,tag:'ສະຖານທີ່',skill:'ຢູ່ສະໜາມ: ທຸກຕາ ຖ້າກອງຖິ້ມມີຕົວລະຄອນ 4 ໃບຂຶ້ນໄປ ຈົ່ວກາດ 1 ໃບ',lore:'ສວນມ່ວງສຸກ ຍາມແລງ'});
+
 const ALT = {sinxay:'alt-sinxay', phayanak:'alt-phayanak', hapkhanasouane:'alt-hapkhanasouane', phralam:'alt-phralam', phayathaen:'alt-phayathaen',
-             thaohung:'alt-thaohung', xangsuek:'alt-xangsuek', maethap:'alt-maethap'};
+             thaohung:'alt-thaohung', xangsuek:'alt-xangsuek', maethap:'alt-maethap',
+             phutthasen:'alt-phutthasen', kangli:'alt-kangli', santhaman:'alt-santhaman'};
 const ALT_CHANCE = location.hash === '#altall' ? 1 : .25;  // #altall makes every one alt, for showing the cards off
 
 const DECKS = [
@@ -1025,7 +1040,9 @@ const DECKS = [
    list:{thewadanoi:3,thahanthaen:3,thaenfahong:3,thaenfon:2,nanghung:2,thaenlom:2,phayathaen:1,phayufa:2,mokseo:2,lodufon:2,loduhnao:1,loduhon:1,faphaa:2,wao:1,baci:1,khaoniao:1,haingeun:1}},
   // added after deck 5, so it sits last here to keep saved per-deck stats in place; DORDER shows it in number order
   {no:4, name:'ທ້າວຮຸ່ງ ແລະ ກອງທັບ', legend:'thaohung', aggr:1.5, style:'ຮວມພົນ, ບຸກໄວ, ລົງຫຼາຍໃບ',
-   list:{phonthahan:3,naktanu:3,masuek:2,nakrobto:3,maethap:2,xangsuek:2,thaohung:1,pasumthap:2,khongsuek:2,hokwiset:2,muangphuan:1,khaithahan:1,khwai:1,phukkhaen:1,lowai:1,molam:1,faphaa:1,baci:1}}
+   list:{phonthahan:3,naktanu:3,masuek:2,nakrobto:3,maethap:2,xangsuek:2,thaohung:1,pasumthap:2,khongsuek:2,hokwiset:2,muangphuan:1,khaithahan:1,khwai:1,phukkhaen:1,lowai:1,molam:1,faphaa:1,baci:1}},
+  {no:6, name:'ນາງສິບສອງ', legend:'phutthasen', aggr:1.2, style:'ຄືນຊີບ, ຕາຍແລ້ວກັບມາໃໝ່',
+   list:{nangnoy:3,phinong:3,lukyak:3,moya:2,maneekap:2,kangli:2,santhaman:2,phutthasen:1,namtamae:2,dokbuathip:2,thammuet:1,suanmuang:1,katip:2,khaoniao:1,satnam:1,molam:1,naiphan:1}}
 ];
 const DORDER = DECKS.map((_, i) => i).sort((a, b) => DECKS[a].no - DECKS[b].no);
 const LEVELS = ['ງ່າຍ','ກາງ','ຍາກ'];
@@ -1117,7 +1134,8 @@ const LINES = [
   {play:['ຍັກມາແລ້ວ!','ຮ່າໆໆ','ຢ້ານບໍ?'], kill:['ກິນໝົດ!','ອ່ອນແທ້'], lose:['ໂອ້ຍ ເຈັບ!','ຈື່ໄວ້ເດີ້'], legend:['ສິບຫົວ ພ້ອມສູ້!'], low:['ຍັງບໍ່ຍອມແພ້!'], win:['ຍັກຊະນະ!'], losegame:['ເທື່ອໜ້າ ຂ້ອຍບໍ່ຍອມ!']},
   {play:['ບິນໄປເລີຍ!','ລອງໃບນີ້ເບິ່ງ','ໄວກວ່າເດີ້'], kill:['ໄວກວ່າ!','ຫຼອກໄດ້ແລ້ວ'], lose:['ຮ້າຍແທ້!','ຄິດບໍ່ເຖິງ'], legend:['ພະລາມ ລົງສະໜາມ!'], low:['ຕ້ອງຄິດໃຫ້ດີ…'], win:['ສະຫຼາດກວ່າ!'], losegame:['ຍອມໃຈເລີຍ!']},
   {play:['ຟ້າຈະຕັດສິນ!','ລົມ ຝົນ ມາແລ້ວ','ເບິ່ງຟ້າເດີ້'], kill:['ຟ້າຜ່າແລ້ວ!','ໝອກບັງຕາບໍ?'], lose:['ຟ້າມືດໄປແລ້ວ','ຮ້າຍແທ້!'], legend:['ພະຍາແຖນ ສະເດັດລົງມາ!'], low:['ຟ້າຍັງບໍ່ສິ້ນ…'], win:['ຟ້າຊະນະ!'], losegame:['ຂ້ອຍຍອມໃຈເຈົ້າ!']},
-  {play:['ບຸກເລີຍ!','ຮວມພົນ!','ທັບໃຫຍ່ມາແລ້ວ'], kill:['ແຕກທັບແລ້ວ!','ສູ້ບໍ່ໄຫວດອກ'], lose:['ຖອຍກ່ອນ!','ພົນຍັງມີອີກ'], legend:['ທ້າວຮຸ່ງ ນຳທັບອອກເສິກ!'], low:['ຢືນໄວ້! ຢ່າຖອຍ!'], win:['ກອງທັບຊະນະ!'], losegame:['ເຈົ້າເປັນແມ່ທັບທີ່ເກັ່ງ!']}
+  {play:['ບຸກເລີຍ!','ຮວມພົນ!','ທັບໃຫຍ່ມາແລ້ວ'], kill:['ແຕກທັບແລ້ວ!','ສູ້ບໍ່ໄຫວດອກ'], lose:['ຖອຍກ່ອນ!','ພົນຍັງມີອີກ'], legend:['ທ້າວຮຸ່ງ ນຳທັບອອກເສິກ!'], low:['ຢືນໄວ້! ຢ່າຖອຍ!'], win:['ກອງທັບຊະນະ!'], losegame:['ເຈົ້າເປັນແມ່ທັບທີ່ເກັ່ງ!']},
+  {play:['ພີ່ນ້ອງມາແລ້ວ!','ຈັບມືກັນໄວ້','ບໍ່ຢ້ານດອກ'], kill:['ຂໍໂທດເດີ້','ໄປກ່ອນເດີ້'], lose:['ບໍ່ເປັນຫຍັງ ຈະກັບມາໃໝ່!','ລໍຖ້າເບິ່ງ'], legend:['ພຸດທະເສນ ຂີ່ມ້າບິນມາແລ້ວ!'], low:['ພີ່ນ້ອງ ຊ່ວຍແດ່…'], win:['ຄວາມຮັກຊະນະ!'], losegame:['ເຈົ້າເກັ່ງແທ້!']}
 ];
 function botSay(kind, force){
   if(!S || S.auto || S.sim || S.fast) return;
@@ -1142,7 +1160,7 @@ function recordGame(won){
 }
 
 /* ---------- engine ---------- */
-const OPTIONAL = new Set(['phikrasue','kumphan','naiphan','thaenfahong','naktanu']);
+const OPTIONAL = new Set(['phikrasue','kumphan','naiphan','thaenfahong','naktanu','santhaman']);
 const cur = () => S.p[S.turn];
 const pi = p => S.p.indexOf(p);
 const opp = p => S.p[1 - pi(p)];
@@ -1216,6 +1234,7 @@ function pow(p, c, vs, att){
   if(d.tribe === 'warrior') v += p.field.filter(x => x.id === 'maethap').length;
   if(d.kw.rally && p.field.some(x => x !== c && C[x.id].tribe === 'warrior')) v++;
   if(c.id === 'phralak' && p.field.some(x => x.id === 'phralam')) v += 2;
+  if(c.id === 'phinong') v += p.grave.filter(id => id === 'phinong').length;
   if(c.id === 'phikrasue' && p.loc === 'khuenduenmuet') v++;
   if(p.loc === 'thonghai' && d.cost <= 2) v++;
   if(oppLoc(p) === 'loduhnao') v--;
@@ -1257,10 +1276,11 @@ function targetsFor(p, id){
     case 'phikrasue': return chars(q);
     case 'kumphan': return chars(q, c => C[c.id].cost <= 3);
     case 'faphaa': return chars(q, notImm);
-    case 'phukkhaen': case 'lowai': case 'wao': case 'katip': return chars(p);
+    case 'phukkhaen': case 'lowai': case 'wao': case 'katip': case 'dokbuathip': return chars(p);
     case 'naiphan': case 'thaenfahong': return chars(q);
     case 'mokseo': return chars(q, notImm);
     case 'naktanu': return chars(q);
+    case 'santhaman': return chars(p);
   }
   return null;
 }
@@ -1270,6 +1290,7 @@ function playBlock(p, h){
   if(d.react) return 'ໃບນີ້ໃຊ້ໄດ້ຕອນຄູ່ແຂ່ງໂຈມຕີເທົ່ານັ້ນ';
   if(costOf(p, h.id) > p.mana) return 'ບຸນບໍ່ພໍ';
   if(d.type === 'char' && p.field.length >= 5) return 'ສະໜາມເຕັມແລ້ວ (5 ໃບ)';
+  if(h.id === 'namtamae'){ if(p.field.length >= 5) return 'ສະໜາມເຕັມແລ້ວ (5 ໃບ)'; if(!reviveList(p, 99).length) return 'ບໍ່ມີຕົວລະຄອນໃນກອງຖິ້ມ'; }
   const tl = targetsFor(p, h.id);
   if(tl && !tl.length && !OPTIONAL.has(h.id)) return 'ບໍ່ມີເປົ້າໝາຍ';
   return null;
@@ -1352,6 +1373,11 @@ async function onPlay(p, c, t){
       break;
     }
     case 'thaohung': await summon(p, 'phonthahan', 2); break;
+    case 'moya': await revive(p, 1, 3); break;
+    case 'phutthasen': await revive(p, 2, 4); break;
+    case 'santhaman':
+      if(t && t.owner.field.includes(t.c)){ await fxRing(tkey(t), '#a77bff', true); await destroy(t.owner, t.c); if(!S.over){ draw(p, 2); log('ຍັກສັນທະມານ: ' + p.name + ' ຈົ່ວກາດ 2 ໃບ'); } }
+      break;
     case 'kumphan':
       if(t && t.owner.field.includes(t.c)){ await fxGrab(tkey(t)); bounce(t.owner, t.c); log('ຍັກກຸມພັນ ສົ່ງ «' + C[t.c.id].name + '» ກັບຄືນມື'); }
       break;
@@ -1417,6 +1443,7 @@ async function castSpell(p, id, t){
       await fxRing('side:' + pi(p), '#ff9f43', true); log(p.name + ' ຕີຄ້ອງເສິກ ນັກຮົບ ' + ws.length + ' ໃບ ໂຈມຕີໄດ້ 2 ເທື່ອ');
       break;
     }
+    case 'namtamae': await revive(p, 1, 99); break;
     case 'haingeun': p.mana += 1; sfx('heal'); particlesAt('h:' + pi(p), '#ffd23d', 16); log(p.name + ' ໄດ້ບຸນ +1'); break;
   }
 }
@@ -1425,6 +1452,22 @@ async function summon(p, id, n){
   let k = 0;
   for(let i=0;i<n && p.field.length < 5;i++){ const c = {uid:++U, id, sick:!C[id].kw.rush, atk:0, items:[], mods:[]}; p.field.push(c); render(); await fxEnter(c); k++; }
   if(k) log(p.name + ' ເອີ້ນ «' + C[id].name + '» ' + k + ' ໃບ');
+}
+// ຄືນຊີບ: the strongest non-legend characters in the discard pile, cost maxCost or less
+function reviveList(p, maxCost){
+  return p.grave.filter(id => C[id].type === 'char' && !C[id].legend && C[id].cost <= maxCost).sort((a, b) => C[b].cost - C[a].cost || C[b].power - C[a].power);
+}
+async function revive(p, n, maxCost){
+  let k = 0;
+  for(let i=0;i<n && p.field.length < 5;i++){
+    const id = reviveList(p, maxCost)[0]; if(!id) break;
+    p.grave.splice(p.grave.indexOf(id), 1);
+    const c = {uid:++U, id, sick:!C[id].kw.rush, atk:0, items:[], mods:[]}; p.field.push(c);
+    if(!S.fast){ sfx('heal'); render(); particlesAt('c:' + c.uid, '#ffe08a', 18); }
+    await fxEnter(c); log(p.name + ' ຄືນຊີບ «' + C[id].name + '»'); k++;
+  }
+  if(!k) log('ບໍ່ມີຕົວລະຄອນ ທີ່ຄືນຊີບໄດ້');
+  render();
 }
 function bounce(owner, c){
   const i = owner.field.indexOf(c); if(i < 0) return;
@@ -1439,6 +1482,16 @@ async function destroy(p, c, quick){
   log('«' + C[c.id].name + '» ຖືກທຳລາຍ');
   if(c.items.includes('katip')){ draw(p, 1); log('ກະຕິບເຂົ້າ: ' + p.name + ' ຈົ່ວກາດ 1 ໃບ'); }
   if(c.id === 'phikongkoy'){ opp(p).penalty++; log('ສຽງຜີກອງກອຍ: ' + opp(p).name + ' ເສຍ 1 ບຸນ ຕາໜ້າ'); }
+  if(c.id === 'nangnoy'){ draw(p, 1); log('ນາງນ້ອຍ: ' + p.name + ' ຈົ່ວກາດ 1 ໃບ'); }
+  if(c.id === 'kangli'){ heal(p, 3); draw(p, 1); }
+  if(p.loc === 'thammuet') heal(p, 1);
+  // ດອກບົວທິບ: back on the field once, without the lotus
+  if(c.items.includes('dokbuathip') && !S.over && p.field.length < 5){
+    p.grave.splice(p.grave.lastIndexOf(c.id), 1);
+    const n = {uid:++U, id:c.id, alt:c.alt, sick:!C[c.id].kw.rush, atk:0, items:[], mods:[]}; p.field.push(n);
+    if(!S.fast){ sfx('heal'); render(); particlesAt('c:' + n.uid, '#ffb0d0', 18); }
+    await fxEnter(n); log('ດອກບົວທິບ: «' + C[c.id].name + '» ກັບຄືນມາ');
+  }
 }
 async function checkDeaths(){
   let again = true;
@@ -1499,6 +1552,7 @@ async function turnStartEffects(p){
     const v = maxBy(weak, c => C[c.id].cost); if(!S.fast){ const k = centerOf('c:' + v.uid); if(k){ shockAt(k.x, k.y, '#9fe0ff', 140); flashScreen('#e6f6ff', .3); sfx('boom'); } await sleep(250); }
     log('ພະຍາແຖນ ຟ້າຜ່າ «' + C[v.id].name + '»'); await destroy(q, v);
   }
+  if(p.loc === 'suanmuang' && p.grave.filter(id => C[id].type === 'char').length >= 4){ draw(p, 1); log('ສວນມ່ວງ: ' + p.name + ' ຈົ່ວກາດ 1 ໃບ'); }
   if(p.loc === 'khaithahan'){
     p.locAge = (p.locAge || 0) + 1;
     if(p.locAge >= 2){ p.locAge = 0; await summon(p, 'phonthahan', 1); }
@@ -1617,8 +1671,15 @@ function botPick(p, q){
       }
       if(d.tribe === 'warrior' && p.field.some(c => C[c.id].tribe === 'warrior')) s += 1;
       if(h.id === 'thaohung') s += Math.min(2, 5 - p.field.length) * 3;
+      if(h.id === 'phinong') s += p.grave.filter(id => id === 'phinong').length * 1.5;
+      if(h.id === 'moya'){ const r = reviveList(p, 3)[0]; if(r && p.field.length < 4) s += C[r].cost * 2 + 1; }
+      if(h.id === 'phutthasen') s += reviveList(p, 4).slice(0, Math.min(2, 4 - p.field.length)).reduce((a, id) => a + C[id].cost * 2, 0);
+      if(h.id === 'santhaman'){
+        const mine = tl.filter(x => x.owner === p);
+        if(mine.length){ t = minBy(mine, x => C[x.c.id].cost + pow(p, x.c) - (['nangnoy','kangli'].includes(x.c.id) || x.c.items.some(i => i === 'katip' || i === 'dokbuathip') ? 4 : 0)); s += 3 - C[t.c.id].cost - pow(p, t.c) + (['nangnoy','kangli'].includes(t.c.id) ? 3 : 0); }
+      }
     } else if(d.type === 'item'){
-      if(tl.length){ t = maxBy(tl, x => pow(p, x.c) + (x.c.sick ? 0 : 1) + (x.c.id === 'sinxay' && h.id === 'sonsin' ? 6 : 0) - (h.id === 'wao' && hasFly(x.c) ? 9 : 0) - (h.id === 'lowai' && hasTaunt(x.c) ? 9 : 0) - (h.id === 'hokwiset' && x.c.items.includes('hokwiset') ? 9 : 0)); s = 2 + d.bonus + (h.id === 'wao' || h.id === 'lowai' || (h.id === 'hokwiset' && q.field.some(hasTaunt)) ? 1.5 : 0); }
+      if(tl.length){ t = maxBy(tl, x => pow(p, x.c) + (x.c.sick ? 0 : 1) + (x.c.id === 'sinxay' && h.id === 'sonsin' ? 6 : 0) - (h.id === 'wao' && hasFly(x.c) ? 9 : 0) - (h.id === 'lowai' && hasTaunt(x.c) ? 9 : 0) - (h.id === 'hokwiset' && x.c.items.includes('hokwiset') ? 9 : 0) - (h.id === 'dokbuathip' && x.c.items.includes('dokbuathip') ? 9 : 0) + (h.id === 'dokbuathip' ? C[x.c.id].cost : 0)); s = 2 + d.bonus + (h.id === 'wao' || h.id === 'lowai' || (h.id === 'hokwiset' && q.field.some(hasTaunt)) ? 1.5 : 0); }
     } else if(h.id === 'bangfai'){
       const dmg = p.field.some(x => x.id === 'khankhaak') ? 5 : 3;
       if(q.life <= dmg){ t = {kind:'hero', owner:q}; s = 100; }
@@ -1656,6 +1717,8 @@ function botPick(p, q){
     } else if(h.id === 'khongsuek'){
       const ws = p.field.filter(c => C[c.id].tribe === 'warrior' && canAttack(p, c));
       s = ws.length >= 2 ? ws.reduce((a, c) => a + pow(p, c), 0) * .8 : 0;
+    } else if(h.id === 'namtamae'){
+      const r = reviveList(p, 99)[0]; s = r ? C[r].cost * 2 + C[r].power - 3 : 0;
     } else if(h.id === 'haingeun'){
       s = .5;
     } else if(h.id === 'lomphayu'){
@@ -1850,6 +1913,7 @@ function promptOf(id){
   if(id === 'phikrasue') return 'ເລືອກຕົວລະຄອນຄູ່ແຂ່ງ ໃຫ້ພະລັງ -2';
   if(id === 'kumphan') return 'ເລືອກຕົວລະຄອນ ທີ່ຈະສົ່ງກັບຄືນມື';
   if(id === 'naktanu') return 'ເລືອກເປົ້າໝາຍ ທີ່ນັກທະນູຈະຍິງ';
+  if(id === 'santhaman') return 'ເລືອກຕົວລະຄອນຂອງເຈົ້າ 1 ໃບ ໃຫ້ຍັກສັນທະມານທຳລາຍ (ແລ້ວຈົ່ວກາດ 2 ໃບ)';
   return 'ເລືອກເປົ້າໝາຍ ຂອງ «' + d.name + '»';
 }
 async function tryPlay(uid){
@@ -1874,7 +1938,7 @@ function fmtSkill(t){
   const RULES = [
     [/«[^»]+»/g, 'kn'],
     [/ເມື່ອລົງສະໜາມ|ທຸກຕາ|ຢູ່ສະໜາມ|ເມື່ອໃບນີ້ຖືກທຳລາຍ|ເມື່ອທຳລາຍຕົວລະຄອນຂອງຄູ່ແຂ່ງໄດ້|ໃຊ້ຕອນຄູ່ແຂ່ງໂຈມຕີ|ເວລາໂຈມຕີ|ຕິດໃສ່ຕົວລະຄອນ(?:ເຜົ່າຍັກ)? 1 ໃບ/g, 'kt'],
-    [/ກັນໄພ|ບິນ|ຮວມພົນ/g, 'kk'],
+    [/ກັນໄພ|ບິນ|ຮວມພົນ|ຄືນຊີບ/g, 'kk'],
     [/ເຜົ່າ(?:ນາກ|ຍັກ|ຜີ|ວິລະບຸລຸດ|ຫິມະພານ|ນັກປາດ|ເທວະດາ|ຊາວບ້ານ|ນັກຮົບ)/g, 'tr'],
     [/ພະລັງ \+\d+/g, 'up'], [/ພະລັງ -\d+/g, 'dn'], [/ຟື້ນຂວັນ \+\d+/g, 'hp'],
     [/ຈົ່ວກາດ \d+ ໃບ/g, 'dr'], [/ໂຈມຕີໄດ້ 2 ເທື່ອ(?:ຕໍ່ຕາ)?|ໂຈມຕີ \d+/g, 'dm']
