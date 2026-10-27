@@ -1,0 +1,2385 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ສະໜາມຕຳນານລາວ</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao+Looped:wght@400;500;700;800&family=Noto+Sans+Lao:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+/* Layout: a dark Lao playmat; bot side on top, your side below, your hand along the bottom edge */
+:root{
+  --mat:#120f18;
+  --mat-2:#1c1724;
+  --mat-3:#2a2236;
+  --ink:#f4efe4;
+  --dim:#b3a995;
+  --gold:#f2b632;
+  --good:#4fd18b;
+  --bad:#ff5d4d;
+  --mana:#55c6ff;
+  --line:#1b1b1b;
+  --f-d:'Noto Sans Lao','Phetsarath OT',sans-serif;
+  --f-b:'Noto Sans Lao Looped','Noto Sans Lao','Phetsarath OT',sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;overflow:hidden;color:var(--ink);font-family:var(--f-b);
+  background:
+    radial-gradient(ellipse at 50% 50%,#2b2140 0%,transparent 65%),
+    radial-gradient(circle at 1px 1px,#ffffff0b 1px,transparent 0) 0 0/18px 18px,
+    var(--mat);}
+button{font:inherit;color:inherit}
+#app{height:100%}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:60;overflow:hidden}
+
+/* ---------- full card face (same design as the card set) ---------- */
+.card{position:relative;width:100%;aspect-ratio:63/88;border-radius:4.4%/3.2%;container-type:inline-size;background:var(--edge);box-shadow:0 6px 16px #0009}
+.card .face{position:absolute;top:4.2cqw;left:4.2cqw;right:4.2cqw;bottom:5.4cqw;border-radius:3cqw;overflow:hidden;box-shadow:0 0 0 .7cqw #fff,0 0 0 1.3cqw var(--line)}
+.card .art{position:absolute;inset:0}
+.card .art img{width:100%;height:100%;object-fit:cover;object-position:50% 0;display:block}
+.card .cost{position:absolute;top:2.6cqw;left:2.6cqw;width:15cqw;border:.6cqw solid var(--line);border-radius:1.4cqw;overflow:hidden;background:#fff;text-align:center}
+.card .lbl{display:block;font:800 2.9cqw/1.5 var(--f-d);color:#fff}
+.card .cost .lbl{background:#1f9d6b}
+.card .num{display:block;font:800 9cqw/1.15 var(--f-d);color:var(--line)}
+.card .sym{position:absolute;top:2.6cqw;right:2.6cqw;width:13cqw;height:11cqw;border:.6cqw solid var(--line);border-radius:1.4cqw;background:#fff;display:grid;place-items:center}
+.card .sym svg{width:78%;height:78%}
+.card .panel{position:absolute;left:2.6cqw;right:2.6cqw;bottom:21.5cqw;background:#ffffffec;border:.6cqw solid var(--line);border-radius:1.6cqw;padding:3.6cqw 3cqw 2cqw;color:#1b1b1b}
+.card .tag{position:absolute;top:-2.9cqw;left:2.6cqw;background:var(--tag);color:#fff;border:.5cqw solid var(--line);font:800 3cqw/1.45 var(--f-d);padding:0 2.2cqw;border-radius:1cqw;white-space:nowrap}
+.card .skill{margin:0;font-size:3.45cqw;line-height:1.55}
+.card .bottom{position:absolute;left:2.6cqw;right:2.6cqw;bottom:2.6cqw;height:16.5cqw;display:flex;gap:2cqw}
+.card .power{width:16cqw;flex:none;border:.6cqw solid var(--line);border-radius:1.4cqw;overflow:hidden;background:#fff;text-align:center;display:flex;flex-direction:column}
+.card .power .lbl{background:#2c63c9}
+.card .power .num{flex:1;display:grid;place-items:center}
+.card .namebox{flex:1;min-width:0;border:.6cqw solid var(--line);border-radius:1.4cqw;background:#fffaf0;display:flex;align-items:center;justify-content:center;padding:0 2cqw;font:800 8.2cqw/1.2 var(--f-d);color:var(--line);white-space:nowrap;overflow:hidden}
+.card.hero{--edge:linear-gradient(160deg,#e0463a,#b8261f 55%,#8e1a15);--tag:#c8312b}
+.card.legend{--edge:linear-gradient(150deg,#ffe48a,#d39a1e 30%,#ffe69a 52%,#b07a0c 76%,#f5cf62);--tag:#b07a0c}
+.card.spell{--edge:linear-gradient(160deg,#3d86e8,#2459b8 55%,#183f8a);--tag:#2459b8}
+.card.legend::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;mix-blend-mode:color-dodge;opacity:.18;
+  background:repeating-linear-gradient(115deg,#ff3d6e 0%,#ffd23d 6%,#3dffa2 12%,#3dc5ff 18%,#b13dff 24%,#ff3d6e 30%);background-size:300% 300%;animation:holo 6s linear infinite}
+@keyframes holo{to{background-position:300% 0}}
+
+/* ---------- menu ---------- */
+.menu{height:100%;overflow-y:auto;display:flex;flex-direction:column;align-items:center;gap:20px;
+  padding-block:28px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.logo{text-align:center}
+.logo .set{font:700 15px var(--f-d);letter-spacing:.04em;color:var(--gold)}
+.logo h1{margin:0}
+.logoimg{display:block;width:min(460px,86vw);height:auto;margin:0 auto -6px;filter:drop-shadow(0 10px 24px #000a)}
+.logo p{margin:0;color:var(--dim)}
+.decks{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:14px;width:min(920px,100%)}
+.deck{display:flex;gap:14px;align-items:center;padding:12px;border-radius:16px;background:var(--mat-2);border:2px solid #ffffff14;cursor:pointer;transition:transform .15s,border-color .15s}
+.deck:hover{transform:translateY(-3px)}
+.deck:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.deck.on{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold),0 10px 30px #f2b63230}
+.deck .card{width:104px;flex:none}
+.deck b{display:block;color:var(--gold);font:800 15px var(--f-d)}
+.deck span{display:block;font:800 18px/1.35 var(--f-d)}
+.deck small{display:block;color:var(--dim);font-size:13px;margin-top:4px}
+.levels{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center}
+.levels > span{color:var(--dim)}
+.lv{background:#ffffff10;border:1px solid #ffffff24;border-radius:999px;padding:8px 18px;font:700 15px var(--f-d);cursor:pointer}
+.lv.on{background:var(--gold);color:#1a1206;border-color:var(--gold)}
+.lv:disabled{opacity:.45;cursor:default}
+.btn-main{background:var(--gold);color:#1a1206;border:0;border-radius:999px;padding:13px 40px;font:800 19px var(--f-d);cursor:pointer;box-shadow:0 6px 0 #a8740f}
+.btn-main:active{transform:translateY(3px);box-shadow:0 3px 0 #a8740f}
+.btn-main:disabled{background:#ffffff20;color:#ffffff70;box-shadow:none;cursor:default}
+.btn-main.sm{padding:10px 24px;font-size:16px}
+.btn2{background:#ffffff14;border:1px solid #ffffff2a;border-radius:999px;padding:9px 18px;font:700 14px var(--f-d);cursor:pointer}
+button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.links{margin:0;color:var(--dim);font-size:14px;text-align:center}
+.links a{color:var(--gold)}
+.note{margin:0;color:var(--dim);font-size:12.5px;text-align:center;max-width:52ch}
+.stats{color:var(--dim);font-size:13px}
+
+/* ---------- board ---------- */
+.board{height:100%;max-width:1120px;margin:0 auto;display:grid;grid-template-rows:auto minmax(0,1fr) auto minmax(0,1fr) auto auto;gap:4px;
+  padding-block:6px 2px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.bar{display:flex;align-items:center;gap:10px;justify-content:space-between;min-height:50px}
+.who{display:flex;align-items:center;gap:8px;border-radius:999px;padding:3px 14px 3px 3px;background:#0007;border:2px solid #ffffff14;transition:box-shadow .2s}
+.who.tgt{border-color:var(--bad);box-shadow:0 0 0 2px var(--bad),0 0 20px var(--bad);cursor:pointer;animation:pulse 1s infinite}
+.av{width:42px;height:42px;border-radius:50%;overflow:hidden;border:2px solid var(--gold);flex:none}
+.av img{width:100%;height:100%;object-fit:cover;object-position:50% 12%;display:block}
+.who .nm{font:700 12px var(--f-d);color:var(--dim);line-height:1.2}
+.life{display:flex;align-items:center;gap:4px;font:800 22px/1.1 var(--f-d);font-variant-numeric:tabular-nums}
+.life svg{width:18px;height:18px}
+.manabox{display:flex;flex-direction:column;align-items:center;gap:2px}
+.gems{display:flex;gap:3px}
+.gem{width:11px;height:11px;border-radius:50%;border:1px solid #ffffff30;transform:rotate(45deg);border-radius:2px}
+.gem.full{background:var(--mana);border-color:#c9efff;box-shadow:0 0 6px var(--mana)}
+.gem.spent{background:#ffffff22}
+.mtxt{font:700 11px var(--f-d);color:var(--dim);font-variant-numeric:tabular-nums}
+.meta{display:flex;align-items:center;gap:8px;font:700 12px var(--f-d);color:var(--dim)}
+.pile{display:flex;align-items:center;gap:3px}
+.pile svg{width:14px;height:14px}
+.backs{display:flex;padding-left:6px}
+.backs i{width:15px;height:21px;border-radius:3px;margin-left:-6px;background:linear-gradient(135deg,#8a2020,#3a0f0f);border:1px solid var(--gold)}
+.loc{background:#ffffff12;border:1px solid #ffffff26;border-radius:999px;padding:3px 10px;font:700 12px var(--f-d);cursor:pointer;white-space:nowrap}
+.loc.none{cursor:default;opacity:.5}
+.quit{background:none;border:1px solid #ffffff26;border-radius:999px;padding:3px 10px;font:700 12px var(--f-d);cursor:pointer;color:var(--dim)}
+.field{display:flex;justify-content:center;align-items:center;gap:clamp(4px,1.2vw,12px);min-height:0;border-radius:16px;position:relative;
+  background:radial-gradient(ellipse at 50% 50%,var(--tint,transparent),transparent 70%)}
+.field .empty{color:#ffffff2e;font:700 13px var(--f-d)}
+.field[data-loc="maenamkhong"]{--tint:#3aa0ff30}
+.field[data-loc="khuenduenmuet"]{--tint:#a77bff30}
+.field[data-loc="pasatyak"]{--tint:#ff5a3c30}
+.field[data-loc="pahimmaphan"]{--tint:#ffcf3a2a}
+.mini{--w:clamp(52px,min(17vw,12.5dvh),106px);width:var(--w);aspect-ratio:63/88;position:relative;border-radius:9px;overflow:hidden;flex:none;cursor:pointer;
+  border:2px solid #c8312b;background:#222;box-shadow:0 6px 14px #0009;transition:transform .15s,box-shadow .2s}
+.mini.lg{border-color:var(--gold)}
+.mini img{width:100%;height:100%;object-fit:cover;object-position:50% 6%;display:block}
+.mini .pw{position:absolute;left:3px;bottom:3px;width:calc(var(--w)*.34);height:calc(var(--w)*.34);border-radius:50%;background:#fff;color:#111;border:2px solid #111;
+  display:grid;place-items:center;font:800 calc(var(--w)*.2)/1 var(--f-d);font-variant-numeric:tabular-nums}
+.pw.up{background:#bff3d0;color:#0b4a24}
+.pw.down{background:#ffd2cb;color:#7a140a}
+.mini .nm{position:absolute;left:0;right:0;bottom:0;padding:calc(var(--w)*.14) 3px 3px calc(var(--w)*.38);background:linear-gradient(transparent,#000d 55%);
+  color:#fff;font:700 calc(var(--w)*.115)/1.25 var(--f-d);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini .kw{position:absolute;top:3px;left:3px;right:3px;display:flex;gap:2px;flex-wrap:wrap}
+.kw span{font:700 calc(var(--w)*.1)/1.35 var(--f-d);background:#000c;color:#fff;border-radius:4px;padding:0 3px}
+.kw .it{background:#2459b8}
+.kw .dn{background:#7a2fd0}
+.mini.sick img,.mini.used img{filter:saturate(.35) brightness(.55)}
+.mini .st{position:absolute;top:38%;left:0;right:0;text-align:center;font:800 calc(var(--w)*.13) var(--f-d);color:#fff;text-shadow:0 1px 3px #000}
+.mini.can{border-color:var(--good);box-shadow:0 0 0 2px var(--good),0 0 18px var(--good)}
+.mini.can:hover{transform:translateY(-4px)}
+.mini.sel{transform:translateY(-10px) scale(1.06);border-color:var(--gold);box-shadow:0 0 0 3px var(--gold),0 0 24px var(--gold);z-index:2}
+.mini.tgt{border-color:var(--bad);box-shadow:0 0 0 3px var(--bad),0 0 20px var(--bad);animation:pulse 1s infinite}
+.mid{display:flex;align-items:center;gap:10px;justify-content:space-between;min-height:42px}
+.turn{font:800 13px var(--f-d);padding:5px 12px;border-radius:999px;background:#ffffff10;white-space:nowrap}
+.turn.me{background:#f2b63226;color:var(--gold)}
+.logline{flex:1;min-width:0;background:none;border:0;font-size:12.5px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center;cursor:pointer}
+.endbtn{background:var(--gold);color:#1a1206;border:0;border-radius:999px;padding:9px 20px;font:800 15px var(--f-d);cursor:pointer;white-space:nowrap;box-shadow:0 4px 0 #a8740f}
+.endbtn:disabled{background:#ffffff1a;color:#ffffff60;box-shadow:none;cursor:default}
+.endbtn.glow{animation:pulse 1.1s infinite}
+.mid.tg{justify-content:center;gap:14px}
+.prompt{font:800 15px var(--f-d);color:var(--gold)}
+.hand{display:flex;gap:6px;overflow-x:auto;padding:14px 4px 6px;justify-content:safe center;scrollbar-width:none}
+.hand::-webkit-scrollbar{display:none}
+.hc{flex:none;width:clamp(70px,min(19vw,13dvh),118px);cursor:pointer;transition:transform .15s}
+.hc.ok{transform:translateY(-10px)}
+.hc.ok .card{box-shadow:0 0 0 2px var(--good),0 0 18px #4fd18b88}
+.hc.ok:hover{transform:translateY(-16px)}
+.hc.no{filter:brightness(.62)}
+
+
+/* ---------- board v2: color-coded lanes, ຂວັນ column left, piles and portrait right ---------- */
+body{background:
+    radial-gradient(ellipse at 50% 115%,#ff6a2a44 0%,transparent 55%),
+    radial-gradient(ellipse at 50% 40%,#2b2140 0%,transparent 65%),
+    radial-gradient(circle at 1px 1px,#ffffff0b 1px,transparent 0) 0 0/18px 18px,
+    var(--mat)}
+.table2{height:100%;max-width:1440px;margin:0 auto;display:grid;grid-template-rows:auto minmax(0,1fr) auto minmax(0,1fr) auto;gap:6px;
+  padding-block:6px 2px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.topinfo{display:flex;align-items:center;gap:10px;flex-wrap:wrap;min-height:30px}
+.tchip{background:#fff;color:#1b1b1b;border:2px solid #1b1b1b;border-radius:999px;padding:2px 12px;font:700 13px var(--f-d)}
+.tchip b{color:#c8312b}
+.phases{display:flex;gap:4px}
+.phases span{font:800 11px var(--f-d);padding:3px 10px;border-radius:6px;background:#ffffff14;color:#ffffff80;transform:skewX(-10deg)}
+.phases span.on{background:var(--gold);color:#1a1206}
+.ohand{margin-left:auto;display:flex;align-items:center;padding-left:8px}
+.ohand .cback{width:22px;margin-left:-9px}
+.ohand b{margin-left:8px;font:800 14px var(--f-d)}
+.cback{display:block;aspect-ratio:63/88;border-radius:7px;overflow:hidden;box-shadow:0 0 0 2px #1b1b1b,0 4px 10px #0007}
+.cback img{display:block;width:100%;height:100%;object-fit:cover}
+.half{display:grid;grid-template-columns:84px minmax(0,1fr) 200px;gap:12px;min-height:0}
+.mat{background:#efe7d6;border-radius:18px;padding:8px;display:grid;grid-template-rows:38fr 62fr;gap:8px;min-height:0;box-shadow:0 0 0 3px #1b1b1b,0 12px 30px #0009}
+.half.me .mat{grid-template-rows:62fr 38fr}
+.lane{position:relative;border-radius:12px;min-height:0}
+.lane.chars{container-type:size;overflow:hidden;box-shadow:inset 0 0 0 3px #1b1b1b;
+  background:repeating-linear-gradient(135deg,#ffffff0d 0 10px,transparent 10px 20px),#c8312b}
+.lane.chars .row{position:relative;z-index:1;height:100%;display:flex;gap:min(12px,1.4cqw);align-items:center;justify-content:center;padding:0 54px}
+.lane.chars .mini{--w:min(150px,calc((100cqh - 18px) * .716),calc((100cqw - 120px) / max(var(--n,5),3.2) - 12px))}
+.wm{position:absolute;inset:0;display:grid;place-items:center;font:800 clamp(16px,6cqw,70px)/1 var(--f-d);color:#ffffff26;letter-spacing:.08em;pointer-events:none;user-select:none;white-space:nowrap}
+.maxb{position:absolute;left:8px;bottom:8px;z-index:2;background:#fff;color:#1b1b1b;border:2px solid #1b1b1b;border-radius:7px;font:700 9px/1.2 var(--f-d);padding:2px 6px;text-align:center}
+.maxb b{display:block;font:800 18px/1 var(--f-d)}
+.half.opp .maxb{top:8px;bottom:auto}
+.lane.support{display:grid;grid-template-columns:minmax(0,26%) minmax(0,1fr);gap:8px}
+.slot{position:relative;border-radius:12px;box-shadow:inset 0 0 0 3px #1b1b1b;container-type:size;display:grid;place-items:center;overflow:hidden}
+.slot.loc{background:repeating-linear-gradient(45deg,#ffffff1a 0 8px,transparent 8px 16px),#e8b23a}
+.slot.magic{background:repeating-linear-gradient(45deg,#ffffff12 0 8px,transparent 8px 16px),#2f63c4}
+.slot .card{position:relative;z-index:1;width:min(calc((100cqh - 14px) * .716),calc(100cqw - 14px))}
+.slot.loc.has,.lm{cursor:pointer}
+.lm{position:relative;z-index:1;display:grid;place-items:center}
+.lifecol{border-radius:14px;min-height:0;display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 6px;
+  background:repeating-linear-gradient(90deg,#b98a4e 0 6px,#a8773e 6px 12px);box-shadow:0 0 0 3px #1b1b1b,inset 0 0 0 3px #e8c48a}
+.ltitle{background:#c8312b;color:#fff;border:2px solid #1b1b1b;border-radius:6px;font:800 12px var(--f-d);padding:1px 8px;transform:rotate(-4deg)}
+.lnum{display:flex;align-items:center;gap:3px;background:#fff;border:2px solid #1b1b1b;border-radius:10px;padding:2px 7px;font:800 22px/1.1 var(--f-d);color:#1b1b1b;font-variant-numeric:tabular-nums}
+.lnum svg{width:16px;height:16px}
+.beads{flex:1;min-height:0;width:30px;display:flex;flex-direction:column-reverse;gap:2px}
+.beads i{flex:1;min-height:3px;border-radius:4px;background:#00000038;border:1px solid #00000055}
+.beads i.on{background:linear-gradient(90deg,#ff8a6a,#e0302a);border-color:#7a140a}
+.sidecol{display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:8px;min-height:0}
+.piles{display:flex;gap:10px;align-items:flex-start}
+.pile{position:relative;width:min(70px,8.5dvh);flex:none}
+.pile .card{width:100%}
+.gravep[data-a]{cursor:pointer}
+.gempty{aspect-ratio:63/88;border-radius:8px;border:2px dashed #ffffff30}
+.cnt{position:absolute;top:-7px;right:-7px;z-index:2;background:#fff;color:#1b1b1b;border:2px solid #1b1b1b;border-radius:8px;font:800 13px/1 var(--f-d);padding:3px 6px;font-variant-numeric:tabular-nums}
+.plbl{display:block;text-align:center;font:700 11px var(--f-d);color:var(--dim);margin-top:4px}
+.avwrap{position:relative;display:grid;justify-items:center;gap:4px;padding:4px 8px;border-radius:18px;border:2px solid transparent}
+.avwrap.tgt{border-color:var(--bad);box-shadow:0 0 0 2px var(--bad),0 0 24px var(--bad);cursor:pointer;animation:pulse 1s infinite}
+.avbig{width:min(86px,10.5dvh);aspect-ratio:1;border-radius:50%;overflow:hidden;border:4px solid #fff;box-shadow:0 0 0 3px #1b1b1b,0 0 26px #f2b63266}
+.avbig img{width:100%;height:100%;object-fit:cover;object-position:50% 12%;display:block}
+.mana{position:absolute;top:-6px;right:-4px;background:#2459b8;color:#fff;border:3px solid #1b1b1b;border-radius:10px;padding:2px 7px;transform:rotate(6deg);text-align:center;line-height:1}
+.mana b{font:800 22px/1 var(--f-d)}
+.mana small{font:700 12px var(--f-d)}
+.mana span{display:block;font:700 9px/1.3 var(--f-d)}
+.avname{position:relative;margin-top:-12px;background:#fff;color:#1b1b1b;border:2px solid #1b1b1b;border-radius:8px;font:800 13px var(--f-d);padding:1px 10px;white-space:nowrap}
+.midline{display:flex;align-items:center;gap:12px;min-height:40px}
+.midline.tg{justify-content:center}
+.hint{display:flex;align-items:center;gap:8px;font:700 13px var(--f-d);color:#fff;min-width:0}
+.hint .ic{flex:none;width:30px;height:30px;border-radius:8px;background:#fff;border:2px solid #1b1b1b;display:grid;place-items:center}
+.hint .ic svg{width:20px;height:20px}
+.hint b{color:var(--gold)}
+.hint span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.midline .logline{flex:1}
+.handrow{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:end;gap:10px}
+.hidebtn{background:#fff;color:#1b1b1b;border:2px solid #1b1b1b;border-radius:8px;font:700 12px var(--f-d);padding:4px 10px;cursor:pointer;margin-bottom:8px}
+.handrow .hand{padding:16px 4px 4px}
+.handrow .hand.hidden{visibility:hidden;height:0;padding:0}
+.handrow .hc{width:clamp(70px,min(14vw,15.5dvh),134px)}
+.handrow .hc + .hc{margin-left:-12px}
+.endbig{display:flex;align-items:center;gap:8px;background:var(--gold);color:#1a1206;border:3px solid #1b1b1b;border-radius:14px;padding:10px 22px;font:800 18px var(--f-d);cursor:pointer;box-shadow:0 5px 0 #1b1b1b;margin-bottom:8px;white-space:nowrap}
+.endbig svg{width:20px;height:20px}
+.endbig:active{transform:translateY(3px);box-shadow:0 2px 0 #1b1b1b}
+.endbig:disabled{background:#3a3344;color:#ffffff70;box-shadow:none;cursor:default}
+.endbig.glow{animation:pulse 1.1s infinite}
+.mbar{display:none}
+@media (max-width:760px){
+  .half{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);gap:4px}
+  .half.me{grid-template-rows:minmax(0,1fr) auto}
+  .half.me .mbar{order:2}
+  .half.opp .mbar{order:-1}
+  .lifecol,.sidecol{display:none}
+  .mbar{display:flex}
+  .phases{display:none}
+  .hint .long{display:none}
+  .lane.chars .row{padding:0 8px}
+  .lane.chars .mini{--w:min(130px,calc((100cqh - 14px) * .716),calc((100cqw - 20px) / max(var(--n,5),2.4) - 6px))}
+  .maxb{display:none}
+  .endbig{padding:8px 14px;font-size:15px}
+  .handrow .hc{width:clamp(60px,19vw,96px)}
+}
+
+/* ---------- phase 3 effects ---------- */
+.pt{position:absolute;width:8px;height:8px;border-radius:50%;transform:translate(-50%,-50%);animation:pt .7s ease-out forwards}
+@keyframes pt{to{transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(.2);opacity:0}}
+.pt.up{width:9px;height:9px;opacity:0;animation:ptup 1.2s ease-out forwards}
+@keyframes ptup{0%{opacity:0;transform:translate(-50%,0) scale(.6)}20%{opacity:1}100%{opacity:0;transform:translate(-50%,-110px) scale(1.2)}}
+.runes{position:absolute;width:160px;height:160px;transform:translate(-50%,-50%);animation:runes .9s ease-out forwards}
+.runes svg{width:100%;height:100%;animation:spin 1.2s linear infinite}
+@keyframes runes{0%{opacity:0;transform:translate(-50%,-50%) scale(.4)}25%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.3)}}
+.tornado{position:absolute;width:120px;height:170px;transform:translate(-50%,-60%);animation:fadeio .9s forwards}
+.tornado i{position:absolute;left:50%;border:4px solid #e6f6ff;border-radius:50%;transform:translateX(-50%);box-shadow:0 0 12px #bfe9ff;animation:tw .3s linear infinite}
+@keyframes tw{50%{transform:translateX(-35%) scaleX(.85)}}
+.rope{position:absolute;height:6px;width:150px;transform:translate(-50%,-50%);border-radius:3px;background:repeating-linear-gradient(90deg,#c08a4a 0 6px,#7a4f1c 6px 12px);box-shadow:0 2px 0 #1b1b1b;animation:rope .9s ease-out forwards}
+@keyframes rope{0%{width:0}30%{width:150px}80%{opacity:1}100%{width:150px;opacity:0}}
+.stars{position:absolute;transform:translate(-50%,-50%);font:800 24px var(--f-d);color:#ffd23d;text-shadow:0 0 8px #000;white-space:nowrap;animation:spinfade .95s ease-out forwards}
+@keyframes spinfade{0%{opacity:0;transform:translate(-50%,-50%) rotate(0)}20%{opacity:1}100%{opacity:0;transform:translate(-50%,-110%) rotate(360deg)}}
+.fly{position:absolute;width:12px;height:12px;border-radius:50%;background:#8dff9e;box-shadow:0 0 14px #8dff9e;transform:translate(-50%,-50%)}
+.claw{position:absolute;height:8px;border-radius:4px;background:linear-gradient(90deg,transparent,#ff5a3c,#fff,transparent);box-shadow:0 0 14px #ff5a3c;transform:translate(-50%,-50%) rotate(55deg);animation:slash .45s ease-out forwards}
+.locban{position:absolute;transform:translate(-50%,-50%);font:800 clamp(20px,4vw,34px) var(--f-d);color:#fff;text-shadow:0 3px 0 #000,0 0 18px #000;white-space:nowrap;animation:showc 1.05s ease-out forwards}
+.vign{position:absolute;inset:0;box-shadow:inset 0 0 140px 40px #ff2a2aaa;animation:fadeio .6s forwards}
+#app.bigshake{animation:shake .45s}
+.conf{position:absolute;top:-20px;width:10px;height:16px;border-radius:2px;animation:conf linear forwards}
+@keyframes conf{to{transform:translateY(112vh) rotate(720deg)}}
+.flycard{position:absolute;width:62px;transform:translate(-50%,-50%)}
+.say{position:absolute;max-width:230px;background:#fff;color:#1b1b1b;border:3px solid #1b1b1b;border-radius:16px;padding:8px 13px;font:800 15px/1.45 var(--f-d);box-shadow:0 5px 0 #1b1b1b;animation:say 2.3s ease-out forwards}
+.say.l{transform:translate(calc(-100% - 58px),-50%)}
+.say.r{transform:translate(50px,-50%)}
+@keyframes say{0%{opacity:0}10%{opacity:1}85%{opacity:1}100%{opacity:0}}
+.setlist{display:flex;flex-direction:column;gap:8px;width:100%}
+.setrow{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#ffffff10;border:1px solid #ffffff22;border-radius:12px;padding:12px 16px;font:700 15px var(--f-d);cursor:pointer}
+.setrow b{background:#ffffff1a;border-radius:999px;padding:3px 12px;white-space:nowrap}
+.setrow b.on{background:var(--gold);color:#1a1206}
+.menu .btn2{margin-top:-6px}
+
+/* ---------- skill keywords ---------- */
+.kw-kt,.kw-kk,.kw-tr{display:inline-block;color:#fff;font-weight:800;border-radius:.9cqw;padding:0 1.1cqw;margin:0 .3cqw;line-height:1.45;
+  border:.35cqw solid #1b1b1b;-webkit-text-stroke:0;text-shadow:none;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.kw-kt{background:#1f9d6b}
+.kw-kk{background:#d0342c}
+.kw-tr{background:#6b3fb0}
+.kw-kn{font-weight:800}
+.kw-up{color:#0b7a3b;font-weight:800}
+.kw-dn{color:#c0261c;font-weight:800}
+.kw-hp{color:#d02c69;font-weight:800}
+.kw-dr{color:#1d5fc4;font-weight:800}
+.kw-dm{color:#c25200;font-weight:800}
+
+/* ---------- alt art (ອາດພິເສດ): borderless, holo, text right on the picture ---------- */
+.card.alt{background:#fbf8f1}
+.card.alt .face{top:2cqw;left:2cqw;right:2cqw;bottom:2cqw;border-radius:3.4cqw;box-shadow:none}
+.card.alt .panel{background:none;border:0;bottom:23cqw;padding:3.4cqw 1cqw 0}
+.card.alt .skill{color:#111;font-weight:700;font-size:3.7cqw;line-height:1.6;-webkit-text-stroke:.9cqw #fff;paint-order:stroke fill;text-shadow:0 0 1.4cqw #fffc}
+.card.alt .namebox{background:linear-gradient(90deg,#fff7e2e6,#fff7e273 75%,#fff7e200);border:0;justify-content:flex-start;padding-left:3cqw;text-shadow:0 0 .6cqw #fff,0 0 .6cqw #fff}
+.card.alt .bottom{bottom:5.2cqw}
+.card.alt::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;mix-blend-mode:color-dodge;opacity:.24;
+  background:radial-gradient(circle at 20% 30%,#fff 0 .6px,transparent 1.2px) 0 0/10px 10px,repeating-linear-gradient(115deg,#ff3d6e 0%,#ffd23d 6%,#3dffa2 12%,#3dc5ff 18%,#b13dff 24%,#ff3d6e 30%);
+  background-size:10px 10px,300% 300%;animation:holo 5s linear infinite}
+.altbadge{position:absolute;z-index:2;top:21cqw;left:2.6cqw;background:linear-gradient(135deg,#fff3b0,#e5a823);color:#3a2402;border:.5cqw solid var(--line);border-radius:1cqw;font:800 2.6cqw/1.5 var(--f-d);padding:0 1.6cqw}
+.mini.altm{border-color:#fff8dc;box-shadow:0 0 0 2px #e5a823,0 0 18px #ffd23d99,0 6px 14px #0009}
+.mini.altm::after{content:"";position:absolute;inset:0;pointer-events:none;mix-blend-mode:color-dodge;opacity:.28;
+  background:repeating-linear-gradient(115deg,#ff3d6e 0%,#ffd23d 6%,#3dffa2 12%,#3dc5ff 18%,#b13dff 24%,#ff3d6e 30%);background-size:300% 300%;animation:holo 5s linear infinite}
+.mini.altm.can{box-shadow:0 0 0 2px var(--good),0 0 18px var(--good)}
+.toast.alt{background:linear-gradient(135deg,#fff3b0,#e5a823);color:#3a2402;border-color:#1b1b1b;font-size:16px}
+
+/* ---------- field shows the whole card, not a thumbnail ---------- */
+.mini{border:0!important;background:none;overflow:visible;border-radius:4.4%/3.2%}
+.mini > .card{width:100%;box-shadow:0 6px 14px #0009}
+.mini .kw{z-index:4;top:calc(var(--w) * .25)}
+.mini .st{z-index:4;top:30%}
+.mini.altm::after{display:none}
+.mini .card .num.up{color:#0b7a3b}
+.mini .card .num.down{color:#c0261c}
+.mini .card .power .num.up{background:#c9f5d8}
+.mini .card .power .num.down{background:#ffd6cf}
+
+/* ---------- phase 4: card book, stats, tutorial ---------- */
+.mrow{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:-6px}
+.btn2.hl{background:var(--gold);color:#1a1206;border-color:var(--gold);animation:pulse 1.2s infinite}
+.book{height:100%;overflow-y:auto;padding-block:18px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.bookhead{max-width:1100px;margin:0 auto 14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.bookhead h2{margin:0;font:800 24px var(--f-d);flex:1}
+.bookhead .cnt2{color:var(--dim);font:700 14px var(--f-d)}
+.tabs{max-width:1100px;margin:0 auto 16px;display:flex;gap:6px;flex-wrap:wrap}
+.tabs button{background:#ffffff10;border:1px solid #ffffff24;border-radius:999px;padding:7px 14px;font:700 14px var(--f-d);cursor:pointer}
+.tabs button.on{background:var(--gold);color:#1a1206;border-color:var(--gold)}
+.bgrid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(150px,42vw),1fr));gap:14px}
+.bcell{cursor:pointer;transition:transform .15s}
+.bcell:hover{transform:translateY(-4px)}
+.bcell small{display:block;text-align:center;color:var(--dim);font:700 12px var(--f-d);margin-top:4px}
+.locked{aspect-ratio:63/88;border-radius:4.4%/3.2%;border:2px dashed #ffffff30;display:grid;place-items:center;text-align:center;color:#ffffff60;font:800 14px/1.5 var(--f-d);padding:10px;
+  background:repeating-linear-gradient(45deg,#ffffff06 0 10px,transparent 10px 20px)}
+.locked b{display:block;font-size:42px;color:#ffffff40}
+.stattbl{width:100%;border-collapse:collapse;font:700 15px var(--f-d)}
+.stattbl th,.stattbl td{padding:8px 10px;border-bottom:1px solid #ffffff18;text-align:left}
+.stattbl td.n{text-align:right;font-variant-numeric:tabular-nums}
+.stattbl th{color:var(--dim);font-size:13px}
+.tut{position:fixed;z-index:45;left:50%;top:calc(58px + env(safe-area-inset-top,0px));transform:translateX(-50%);width:min(560px,calc(100% - 32px));
+  display:flex;gap:12px;align-items:flex-start;background:#fffdf6;color:#1b1b1b;border:3px solid #1b1b1b;border-radius:18px;padding:12px 14px;box-shadow:0 6px 0 #1b1b1b,0 20px 40px #000a}
+.tut .face2{flex:none;width:58px;height:58px;border-radius:50%;overflow:hidden;border:3px solid var(--gold);box-shadow:0 0 0 2px #1b1b1b}
+.tut .face2 img{width:100%;height:100%;object-fit:cover;object-position:50% 10%}
+.tut .tx{flex:1;min-width:0}
+.tut b.who2{display:block;font:800 13px var(--f-d);color:#2f6b1e}
+.tut p{margin:2px 0 8px;font:700 15px/1.6 var(--f-d)}
+.tut .tb{display:flex;gap:8px;justify-content:flex-end}
+.tut .tb button{border:2px solid #1b1b1b;border-radius:999px;padding:5px 14px;font:800 14px var(--f-d);cursor:pointer;background:var(--gold);color:#1a1206}
+.tut .tb button.sk{background:#fff}
+.tut .step{font:700 11px var(--f-d);color:#8a7a60}
+.tutpulse{animation:tutp 1s infinite;border-radius:14px}
+@keyframes tutp{50%{box-shadow:0 0 0 4px #ffd23d,0 0 26px #ffd23d}}
+
+/* ---------- big effects: particle canvas, shatter, legend cut-in ---------- */
+#fxc{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:70}
+.shard{position:fixed;pointer-events:none;z-index:65;will-change:transform,opacity}
+.shard .card{width:100%}
+.float{font-size:44px;-webkit-text-stroke:2px #000;paint-order:stroke fill}
+.float.crit{font-size:64px;color:#ffd23d}
+.cutin2{position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:10px;overflow:hidden;perspective:900px;
+  background:radial-gradient(circle at 50% 45%,#2a1640e6,#000f 70%);animation:fadeio 2s forwards}
+.cutin2 .lgcard{position:relative;width:min(300px,58vw);animation:lgin .65s cubic-bezier(.2,1.2,.3,1) both}
+@keyframes lgin{from{transform:translateY(55vh) rotateY(540deg) scale(.25);filter:brightness(3)}60%{filter:brightness(2)}to{transform:none;filter:none}}
+.cutin2 .lgcard::after{content:"";position:absolute;inset:0;border-radius:4.4%/3.2%;pointer-events:none;mix-blend-mode:overlay;
+  background:linear-gradient(110deg,transparent 35%,#ffffffdd 50%,transparent 65%);background-size:250% 100%;animation:sweep 1s .65s ease-out both}
+@keyframes sweep{from{background-position:150% 0}to{background-position:-60% 0}}
+.cutin2 .cutname{position:relative;font:800 clamp(30px,7vw,56px) var(--f-d);color:var(--gold);text-shadow:0 4px 0 #000,0 0 24px #f2b632;animation:namein .5s .55s cubic-bezier(.2,1.3,.4,1) both}
+.cutin2 .cutsub{position:relative;font:800 15px var(--f-d);letter-spacing:.2em;color:#fff;animation:namein .5s .7s both}
+@keyframes namein{from{transform:translateX(-60vw) skewX(-20deg);opacity:0}to{transform:none;opacity:1}}
+.altban{position:absolute;transform:translate(-50%,-50%);white-space:nowrap;font:800 clamp(20px,4vw,30px) var(--f-d);color:#3a2402;padding:4px 18px;border-radius:999px;border:3px solid #1b1b1b;
+  background:linear-gradient(90deg,#ff9ad5,#ffe27a,#9dffcf,#8fd0ff,#d7a6ff);box-shadow:0 5px 0 #1b1b1b;animation:showc 1.2s ease-out forwards}
+
+/* ---------- v3 effects: comic impact, knockback, card break, location field ---------- */
+.pow{position:absolute;width:170px;height:170px;transform:translate(-50%,-50%) scale(0);pointer-events:none;animation:pow .7s cubic-bezier(.2,1.5,.4,1) forwards}
+.pow svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.pow b{position:absolute;inset:0;display:grid;place-items:center;font:800 34px var(--f-d);color:#e0302a;-webkit-text-stroke:5px #fff;paint-order:stroke fill;transform:rotate(-8deg);text-shadow:0 3px 0 #1b1b1b}
+.pow.big{width:230px;height:230px}
+.pow.big b{font-size:46px}
+@keyframes pow{0%{transform:translate(-50%,-50%) scale(0) rotate(-25deg)}30%{transform:translate(-50%,-50%) scale(1.12) rotate(0)}72%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.06)}}
+.lines{position:absolute;width:300px;height:300px;transform:translate(-50%,-50%);pointer-events:none;animation:lines .5s ease-out forwards}
+@keyframes lines{from{opacity:1;transform:translate(-50%,-50%) scale(.6)}to{opacity:0;transform:translate(-50%,-50%) scale(1.25)}}
+.float.hit{color:#ffd23d;-webkit-text-stroke:5px #1b1b1b}
+.half-break{position:fixed;pointer-events:none;z-index:65;filter:grayscale(.8) brightness(.9)}
+.half-break .card{width:100%}
+.crack{position:fixed;pointer-events:none;z-index:66;animation:fadeio .35s forwards}
+.mat.hasloc{background:linear-gradient(#0000004d,#0000004d),var(--locimg) center/cover,#efe7d6}
+.mat.hasloc .lane.chars{background:repeating-linear-gradient(135deg,#ffffff10 0 10px,transparent 10px 20px),#c8312b8c}
+.mat.hasloc .slot.loc{background:#e8b23aa6}
+.mat.hasloc .slot.magic{background:#2f63c4a6}
+.mat.hasloc .wm{color:#ffffff3a}
+.locwipe{position:fixed;pointer-events:none;z-index:64;border-radius:18px;background-size:cover;background-position:center}
+
+/* ---------- v4 effects (duel-game style): summon showcase, card activation, dash with afterimages, light flare ---------- */
+.show{position:absolute;inset:0;overflow:hidden;background:#000;animation:showin var(--dur) forwards}
+.show .sbg{position:absolute;inset:-6%;background-size:cover;background-position:50% 22%;animation:kb var(--dur) cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes kb{0%{transform:scale(1.4) translateY(5%);filter:brightness(2.4) saturate(1.5)}14%{filter:brightness(1.15) saturate(1.2)}100%{transform:scale(1.06);filter:brightness(1) saturate(1.1)}}
+.show .stint{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 38%,transparent 30%,#000d 100%),linear-gradient(0deg,var(--tc) 0%,transparent 45%);opacity:.8}
+.show .streaks{position:absolute;inset:-60%;background:repeating-linear-gradient(115deg,transparent 0 46px,#ffffff2e 46px 50px,transparent 50px 140px);mix-blend-mode:screen;animation:streak .55s linear infinite}
+@keyframes streak{to{transform:translate(-140px,66px)}}
+.show .sband{position:absolute;left:0;right:0;bottom:11%;padding:12px 16px;text-align:center;background:linear-gradient(90deg,transparent,#000000dd 18%,#000000dd 82%,transparent);
+  border-top:2px solid #f2b632b0;border-bottom:2px solid #f2b632b0;animation:bandin .45s .3s cubic-bezier(.2,1,.3,1) both}
+.show .sband small{display:block;font:700 14px var(--f-d);letter-spacing:.14em;color:var(--gold)}
+.show .sband b{display:block;font:800 clamp(30px,7vw,62px)/1.25 var(--f-d);color:#fff;text-shadow:0 0 20px var(--tc),0 3px 0 #000}
+.show .sband span{display:inline-block;margin-top:4px;padding:2px 20px;border-radius:4px;background:#ffffff1f;border:1px solid #ffffff33;font:800 17px var(--f-d);color:#fff;font-variant-numeric:tabular-nums}
+.show.alt .stint{background:radial-gradient(ellipse at 50% 38%,transparent 30%,#000d 100%),linear-gradient(0deg,#ff9ad5aa,#8fd0ff55 30%,transparent 50%)}
+@keyframes bandin{from{transform:scaleX(0);opacity:0}to{transform:none;opacity:1}}
+@keyframes showin{0%{opacity:0}5%{opacity:1}86%{opacity:1}100%{opacity:0}}
+.activate{position:absolute;left:50%;top:44%;width:min(250px,52vw);transform:translate(-50%,-50%)}
+.activate .glow{position:absolute;inset:-26%;border-radius:50%;background:conic-gradient(from 0deg,#f2b63200,#ffd23d,#fff6c8,#f2b63200 40%,#ffd23d 70%,#f2b63200);filter:blur(14px);opacity:.85;animation:spin 1.4s linear infinite}
+.activate .card{position:relative;box-shadow:0 0 0 3px #ffd23d,0 0 30px #ffd23d,0 0 70px #f2b63299;animation:actin .35s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes actin{from{transform:scale(.4) rotateY(70deg);opacity:0}to{transform:none;opacity:1}}
+.activate .acttag{position:absolute;left:50%;bottom:-38px;transform:translateX(-50%);white-space:nowrap;font:800 16px var(--f-d);color:#1a1206;background:var(--gold);border:2px solid #1b1b1b;border-radius:999px;padding:2px 14px}
+.ghost{position:fixed;pointer-events:none;filter:brightness(1.7) saturate(1.3) blur(1.5px)}
+.ghost .card{width:100%}
+.flare{position:absolute;width:380px;height:380px;transform:translate(-50%,-50%);pointer-events:none;mix-blend-mode:screen;animation:flare .5s ease-out forwards;
+  background:radial-gradient(circle,#fff 0 7%,color-mix(in srgb,var(--tc) 65%,#fff) 15%,transparent 44%)}
+.flare i{position:absolute;left:0;right:0;top:50%;height:8px;margin-top:-4px;border-radius:4px;background:linear-gradient(90deg,transparent,#fff 44%,#fff 56%,transparent);box-shadow:0 0 20px var(--tc)}
+.flare i+i{transform:rotate(90deg)}
+.flare.big{width:540px;height:540px}
+@keyframes flare{0%{transform:translate(-50%,-50%) scale(.2) rotate(-18deg);opacity:1}40%{opacity:1}100%{transform:translate(-50%,-50%) scale(1.15) rotate(0);opacity:0}}
+
+/* ---------- duel board v3: card info panel left, engraved stone field, plates and a turn badge ---------- */
+.duel{height:100%;display:grid;grid-template-columns:minmax(0,270px) minmax(0,1fr);grid-template-rows:minmax(0,1fr);gap:14px;
+  padding-block:8px 6px;padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));
+  background:radial-gradient(ellipse at 50% 40%,#3a2a1c 0%,#1d140d 60%,#0f0a07 100%)}
+.dpanel{min-height:0;align-self:center;max-height:calc(100% - 8px);overflow:auto;background:#0d0b14ee;border:2px solid #d9b25a88;border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:10px;box-shadow:0 10px 30px #000a}
+.dpanel .dname{display:flex;align-items:center;gap:8px;font:800 18px/1.3 var(--f-d);color:#fff;border-bottom:1px solid #ffffff22;padding-bottom:8px}
+.dpanel .dname svg{width:26px;height:26px;flex:none;background:#fff;border-radius:6px;padding:2px}
+.dpanel .dcard{width:150px;align-self:center}
+.dpanel .dstats{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.dpanel .dstats span{background:#ffffff14;border:1px solid #ffffff26;border-radius:999px;padding:2px 12px;font:700 13px var(--f-d)}
+.dpanel .dstats b{color:var(--gold)}
+.dpanel .dtype{background:#1f3f7a;color:#fff;font:700 13px var(--f-d);padding:4px 10px;border-radius:6px}
+.dpanel .dskill{margin:0;font-size:15px;line-height:1.7;color:#f4efe4}
+.dpanel .dskill [class^="kw-"]{font-size:13px}
+.dpanel .dlore{margin:0;font-size:13px;line-height:1.6;color:var(--dim);font-style:italic}
+.dpanel .dtip{margin:auto 0;text-align:center;color:var(--dim);font:700 14px/1.7 var(--f-d)}
+.dmain{position:relative;min-height:0;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto;gap:6px}
+.dtop{display:flex;align-items:center;gap:12px;min-height:58px}
+.dbot{display:flex;align-items:flex-end;gap:12px;min-height:58px}
+.plate{display:flex;align-items:center;gap:10px;flex:none;position:relative;border-radius:16px;padding:4px 14px 4px 4px;background:linear-gradient(90deg,#000000cc,#0000008c);border:2px solid #d9b25a66}
+.plate.tgt{border-color:var(--bad);box-shadow:0 0 0 2px var(--bad),0 0 24px var(--bad);cursor:pointer;animation:pulse 1s infinite}
+.hexav{width:58px;height:62px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:linear-gradient(135deg,#ffe48a,#b07a0c);display:grid;place-items:center;flex:none}
+.hexav img{width:52px;height:56px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);object-fit:cover;object-position:50% 12%}
+.plate .pn{font:800 13px var(--f-d);color:var(--dim);letter-spacing:.04em}
+.plate .pl{display:flex;align-items:baseline;gap:6px;font:800 30px/1 var(--f-d);color:#fff;font-variant-numeric:tabular-nums}
+.plate .pl small{font:800 13px var(--f-d);color:var(--gold)}
+.plate .pm{display:flex;align-items:center;gap:6px;margin-top:3px}
+.plate .pm .gems{gap:2px}
+.plate .pm .gem{width:9px;height:9px}
+.plate .pm em{font:700 11px var(--f-d);color:#9fdcff;font-style:normal}
+.obacks{display:flex;padding-left:10px}
+.obacks .cback{width:30px;margin-left:-12px}
+.obacks b{margin-left:8px;font:800 14px var(--f-d);align-self:center}
+.ebanner{flex:1;min-width:0;background:#0b1430d9;border:1px solid #9fc4ff55;border-radius:10px;padding:7px 12px;font:700 13px/1.5 var(--f-d);color:#e6eeff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;text-align:left}
+.dbtns{display:flex;gap:8px;margin-left:auto}
+.rbtn{width:46px;height:46px;border-radius:50%;border:2px solid #9fc4ff;background:radial-gradient(circle at 35% 30%,#3d7ad8,#163a7a);display:grid;place-items:center;cursor:pointer;box-shadow:0 4px 0 #0a1f44}
+.rbtn svg{width:22px;height:22px}
+.rbtn:active{transform:translateY(2px);box-shadow:0 2px 0 #0a1f44}
+.dmain,.boardwrap{min-width:0}
+.boardwrap{position:relative;min-height:0;display:grid;place-items:center;perspective:1500px;container-type:size}
+.plane{position:relative;width:min(100cqw - 70px,100cqh * 1.31);aspect-ratio:8.6/6.6;display:grid;grid-template-rows:1fr 1fr 22px 1fr 1fr;gap:6px;padding:10px 12px;border-radius:18px;
+  transform:rotateX(14deg);transform-origin:50% 62%;
+  background:
+    repeating-linear-gradient(45deg,#0000 0 46px,#d9b25a14 46px 48px),repeating-linear-gradient(-45deg,#0000 0 46px,#d9b25a14 46px 48px),
+    radial-gradient(ellipse at 50% 50%,#8a6a42,#5a4128 70%,#3e2c1a);
+  box-shadow:0 0 0 3px #d9b25a,0 0 0 9px #2a1c10,0 0 0 11px #d9b25a88,0 30px 60px #000c}
+.sidebox{display:contents}
+.srow{position:relative;display:grid;grid-template-columns:repeat(7,auto);justify-content:center;gap:8px;min-height:0}
+.tile{position:relative;height:100%;aspect-ratio:63/88;border-radius:7px;container-type:inline-size;
+  border:2px solid #f2d48a66;background:
+    linear-gradient(45deg,#0000 47%,#f2d48a2e 48% 52%,#0000 53%),linear-gradient(-45deg,#0000 47%,#f2d48a2e 48% 52%,#0000 53%),#0000002e}
+.tile.cz{border-color:#ff9a8a66}
+.tile.loc{border-color:#ffd23daa;background:#e8b23a33}
+.tile.loc::after,.tile.mz:empty::after,.tile.pile.empty::after{content:attr(data-l);position:absolute;inset:0;display:grid;place-items:center;text-align:center;font:800 10px var(--f-d);color:#ffffff59}
+.tile.mz{border-color:#8fc2ff66;background-color:#2f63c42e}
+.tile.loc.has::after{display:none}
+.tile > .card{position:absolute;inset:0;width:100%}
+.srow .tile > .mini{position:absolute;inset:0;width:100%;--w:100cqw}
+.srow.lane.chars{background:none;box-shadow:none;overflow:visible;container-type:normal;border-radius:0}
+.srow.lane.chars .wm,.srow.lane.chars .maxb{display:none}
+.tile.pile .cback{position:absolute;inset:0}
+.tile .cnt{position:absolute;top:-8px;right:-8px;z-index:3}
+.mini .pwtop{position:absolute;left:50%;top:0;transform:translate(-50%,-105%);z-index:5;font:800 calc(var(--w) * .3)/1 var(--f-d);color:#fff;-webkit-text-stroke:calc(var(--w) * .035) #1b1b1b;paint-order:stroke fill;pointer-events:none;font-variant-numeric:tabular-nums}
+.mini .pwtop.up{color:#8dffb2}
+.mini .pwtop.down{color:#ff9a8a}
+.cline{position:relative;display:flex;align-items:center;justify-content:center}
+.cline::before{content:"";position:absolute;left:4%;right:4%;top:50%;height:2px;background:linear-gradient(90deg,#0000,#ffd23d,#0000)}
+.cline span{position:relative;font:800 12px var(--f-d);color:#ffd23d;background:#3e2c1a;padding:0 10px;border-radius:999px;border:1px solid #ffd23d88}
+.sidebox.hasloc{display:contents}
+.locbg{position:absolute;border-radius:12px;background-size:cover;background-position:center;opacity:.42;pointer-events:none;mix-blend-mode:luminosity}
+.phex{position:absolute;right:-4px;top:50%;transform:translateY(-50%);width:104px;height:116px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+  background:linear-gradient(160deg,#ffd970,#b8261f 55%,#6e1410);display:grid;place-items:center;text-align:center;z-index:6;border:0;padding:0;cursor:default}
+.phex::before{content:"";position:absolute;inset:5px;clip-path:inherit;background:linear-gradient(160deg,#c8312b,#7a1611)}
+.phex > *{position:relative}
+.phex small{display:block;font:800 12px var(--f-d);color:#ffe48a}
+.phex b{display:block;font:800 18px/1.25 var(--f-d);color:#fff}
+.phex.go{cursor:pointer;background:linear-gradient(160deg,#fff3a0,#f2b632 55%,#a8740f)}
+.phex.go::before{background:linear-gradient(160deg,#f2b632,#c8860f)}
+.phex.go b{color:#1a1206}
+.phex.go small{color:#5a3a05}
+.phex.go.glow{animation:pulse 1.1s infinite}
+.phex:disabled{cursor:default}
+.tprompt{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:7;display:flex;gap:10px;align-items:center;background:#000000d9;border:2px solid #ffd23d;border-radius:999px;padding:8px 16px}
+.tprompt b{font:800 15px var(--f-d);color:#ffd23d}
+.duel .hand{flex:1;min-width:0;display:flex;justify-content:safe center;align-items:flex-end;overflow-x:auto;padding:22px 6px 4px;scrollbar-width:none}
+.duel .hand::-webkit-scrollbar{display:none}
+.duel .hand .hc{width:clamp(78px,min(9.2vw,15dvh),142px)}
+.duel .hand .hc + .hc{margin-left:-16px}
+.duel .hand .hc:hover{z-index:4}
+.duel .hand.hidden{visibility:hidden}
+@media (max-width:1000px){.duel{grid-template-columns:minmax(0,1fr)}.dpanel{display:none}}
+@media (max-width:760px){
+  .duel{gap:6px}
+  .boardwrap{container-type:normal;place-items:center stretch}
+  .plane{transform:none;width:100%;height:auto;aspect-ratio:auto;grid-template-rows:auto auto 18px auto auto;gap:4px;padding:6px 6px 6px 6px}
+  .srow{grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}
+  .tile{height:auto;width:100%}
+  .tile.loc::after,.tile.mz:empty::after,.tile.pile.empty::after{font-size:8px}
+  .mini .pwtop{font-size:calc(var(--w) * .34)}
+  .phex{width:62px;height:70px;right:2px;top:auto;bottom:-6px;transform:none}
+  .phex small{font-size:9px}.phex b{font-size:13px}
+  .dtop,.dbot{min-height:0;gap:6px}
+  .dbot{flex-wrap:wrap}
+  .duel .hand{order:3;flex:1 1 100%;padding:14px 4px 2px}
+  .duel .hand .hc{width:clamp(56px,18vw,90px)}
+  .duel .hand .hc + .hc{margin-left:-10px}
+  .plate{padding:3px 10px 3px 3px}
+  .hexav{width:42px;height:46px}.hexav img{width:37px;height:41px}
+  .plate .pl{font-size:22px}
+  .ebanner{display:none}
+  .rbtn{width:36px;height:36px}.rbtn svg{width:18px;height:18px}
+  .obacks .cback{width:22px;margin-left:-9px}
+}
+
+/* ---------- arena: our own look. Black lacquer with gold stencil (ລາຍຄຳ) like Lao temple walls ---------- */
+.arena{height:100%;display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:6px;
+  padding-block:6px 4px;padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cg fill='none' stroke='%23e2b54a' stroke-width='1.2' opacity='.16'%3E%3Cpath d='M28 16c4 6 4 10 0 12-4-2-4-6 0-12zM28 40c4-6 4-10 0-12-4 2-4 6 0 12zM16 28c6-4 10-4 12 0-2 4-6 4-12 0zM40 28c-6-4-10-4-12 0 2 4 6 4 12 0z'/%3E%3Ccircle cx='28' cy='28' r='2.2'/%3E%3Cpath d='M0 4l4-4 4 4-4 4zM48 4l4-4 4 4-4 4zM0 52l4-4 4 4-4 4zM48 52l4-4 4 4-4 4z'/%3E%3C/g%3E%3C/svg%3E") 0 0/56px 56px,radial-gradient(ellipse at 50% 45%,#3d100c 0%,#1c0907 55%,#0b0404 100%)}
+.band{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:14px;min-height:0}
+.lplate{display:flex;align-items:center;gap:10px;padding:5px 16px 5px 5px;border-radius:999px;cursor:default;
+  background:linear-gradient(180deg,#6e1712,#3a0b08);box-shadow:inset 0 0 0 1.5px #e2b54a,inset 0 0 0 4px #3a0b08,inset 0 0 0 5px #e2b54a66,0 6px 16px #000a}
+.lplate.tgt{box-shadow:0 0 0 3px var(--bad),0 0 26px var(--bad);cursor:pointer;animation:pulse 1s infinite}
+.lplate .lav{width:58px;height:58px;border-radius:50%;overflow:hidden;flex:none;box-shadow:0 0 0 3px #e2b54a,0 0 0 5px #3a0b08}
+.lplate .lav img{width:100%;height:100%;object-fit:cover;object-position:50% 12%;display:block}
+.lplate .lnm{font:700 12px var(--f-d);color:#f2d48a}
+.lplate .llife{display:flex;align-items:center;gap:6px;font:800 28px/1.05 var(--f-d);color:#fff;font-variant-numeric:tabular-nums}
+.lplate .llife svg{width:20px;height:20px}
+.lplate .lsub{display:flex;align-items:center;gap:8px;margin-top:2px}
+.lplate .gems{gap:2px}.lplate .gem{width:9px;height:9px}
+.lplate .lsub em{font:700 11px var(--f-d);color:#9fdcff;font-style:normal;white-space:nowrap}
+/* the bot's hand: same fan as yours, upside down at the top edge, backs only */
+.ofan{position:relative;--ow:clamp(60px,min(8vw,13.5dvh),124px);height:calc(var(--ow) * 1.4 * .64);container-type:inline-size;align-self:start;margin-top:-6px}
+.ofan .ob{position:absolute;left:50%;top:calc(var(--ow) * 1.4 * -.36);width:var(--ow);--o:calc(var(--i) - (var(--n) - 1) / 2);
+  --step:min(calc(var(--ow) * .82),calc((100cqw - var(--ow) - 24px) / max(var(--n) - 1, 1)));
+  transform:translateX(calc(-50% + var(--o) * var(--step))) translateY(calc(var(--o) * var(--o) * -2.4px)) rotate(calc(180deg - var(--o) * 2.4deg));transform-origin:50% 50%;
+  box-shadow:0 0 0 2px #1b1b1b,0 6px 14px #0007}
+.ofan .ocnt{position:absolute;left:50%;bottom:-14px;z-index:2;transform:translateX(-50%);font:800 12px var(--f-d);color:#f2d48a;background:#0b0404cc;border:1px solid #e2b54a88;border-radius:999px;padding:0 10px;white-space:nowrap}
+.piles2{display:flex;gap:10px;align-items:center}
+.pile2{position:relative;width:clamp(40px,4vw,58px)}
+.pile2 .card{width:100%}
+.pile2 .cnt{position:absolute;top:-8px;right:-8px;z-index:3}
+.pile2 small{display:block;text-align:center;font:700 10px var(--f-d);color:#f2d48a99;margin-top:3px}
+.pile2 .gempty{aspect-ratio:63/88;border-radius:6px;border:1.5px dashed #e2b54a55}
+.field2{position:relative;min-height:0;display:grid;grid-template-rows:minmax(0,1fr) 44px minmax(0,1fr);gap:4px;border-radius:20px;padding:12px 16px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform=''%3E%3Cpath fill='%23e2b54a' d='M2 2h22c-6 2-10 5-11 10 4-5 10-6 15-3-6 0-10 3-11 8 3-3 8-3 11 0-5 0-8 3-8 8-2-6-6-8-11-8 4 3 5 8 3 13-2-5-5-7-8-7V2z'/%3E%3Cpath fill='none' stroke='%23e2b54a' stroke-width='1.6' d='M2 30c0-16 12-28 28-28'/%3E%3C/g%3E%3C/svg%3E") no-repeat 6px 6px/46px,url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate%2860 0%29 scale%28-1 1%29'%3E%3Cpath fill='%23e2b54a' d='M2 2h22c-6 2-10 5-11 10 4-5 10-6 15-3-6 0-10 3-11 8 3-3 8-3 11 0-5 0-8 3-8 8-2-6-6-8-11-8 4 3 5 8 3 13-2-5-5-7-8-7V2z'/%3E%3Cpath fill='none' stroke='%23e2b54a' stroke-width='1.6' d='M2 30c0-16 12-28 28-28'/%3E%3C/g%3E%3C/svg%3E") no-repeat right 6px top 6px/46px,url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate%280 60%29 scale%281 -1%29'%3E%3Cpath fill='%23e2b54a' d='M2 2h22c-6 2-10 5-11 10 4-5 10-6 15-3-6 0-10 3-11 8 3-3 8-3 11 0-5 0-8 3-8 8-2-6-6-8-11-8 4 3 5 8 3 13-2-5-5-7-8-7V2z'/%3E%3Cpath fill='none' stroke='%23e2b54a' stroke-width='1.6' d='M2 30c0-16 12-28 28-28'/%3E%3C/g%3E%3C/svg%3E") no-repeat left 6px bottom 6px/46px,url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate%2860 60%29 scale%28-1 -1%29'%3E%3Cpath fill='%23e2b54a' d='M2 2h22c-6 2-10 5-11 10 4-5 10-6 15-3-6 0-10 3-11 8 3-3 8-3 11 0-5 0-8 3-8 8-2-6-6-8-11-8 4 3 5 8 3 13-2-5-5-7-8-7V2z'/%3E%3Cpath fill='none' stroke='%23e2b54a' stroke-width='1.6' d='M2 30c0-16 12-28 28-28'/%3E%3C/g%3E%3C/svg%3E") no-repeat right 6px bottom 6px/46px,url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cg fill='none' stroke='%23e2b54a' stroke-width='1.2' opacity='.32'%3E%3Cpath d='M28 16c4 6 4 10 0 12-4-2-4-6 0-12zM28 40c4-6 4-10 0-12-4 2-4 6 0 12zM16 28c6-4 10-4 12 0-2 4-6 4-12 0zM40 28c-6-4-10-4-12 0 2 4 6 4 12 0z'/%3E%3Ccircle cx='28' cy='28' r='2.2'/%3E%3Cpath d='M0 4l4-4 4 4-4 4zM48 4l4-4 4 4-4 4zM0 52l4-4 4 4-4 4zM48 52l4-4 4 4-4 4z'/%3E%3C/g%3E%3C/svg%3E") 0 0/56px 56px,radial-gradient(ellipse at 50% 50%,#2c0c09,#120606 78%);
+  box-shadow:0 0 0 2px #e2b54a,0 0 0 6px #120606,0 0 0 7px #e2b54a88,0 22px 50px #000c}
+.half2{position:relative;min-height:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;container-type:size}
+.half2 .strip{display:grid;grid-template-rows:1fr 1fr;gap:6px;width:calc((100cqh - 6px) / 2 * .716)}
+.arena .slot{position:relative;border-radius:8px;box-shadow:none;border:1.5px dashed #e2b54a66;background:#00000045;overflow:visible;container-type:normal;display:block}
+.arena .slot::after{content:attr(data-l);position:absolute;inset:0;display:grid;place-items:center;text-align:center;font:800 10px var(--f-d);color:#f2d48a66}
+.arena .slot.has::after{display:none}
+.arena .slot .card{position:absolute;inset:0;width:100%}
+.arena .lane.chars{background:radial-gradient(ellipse at 50% 60%,#5a14104d,transparent 70%);box-shadow:none;overflow:visible;border-radius:14px;border:1px solid #e2b54a33}
+.arena .lane.chars.hasloc{background:linear-gradient(#120606b8,#120606b8),var(--locimg) center/cover;border-color:#e2b54a77}
+.arena .lane.chars .wm{color:#e2b54a1f;font-size:clamp(16px,5cqw,56px)}
+.arena .lane.chars .maxb{display:none}
+.arena .lane.chars .row{padding:0 10px;gap:min(18px,2cqw);align-items:center}
+.arena .lane.chars .mini{--w:min(200px,calc((100cqh - 34px) * .716),calc((100cqw - 100px) / 5.2))}
+.mid2{position:relative;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px}
+.mid2::before{content:"";position:absolute;left:0;right:0;top:50%;height:1.5px;background:linear-gradient(90deg,#e2b54a00,#e2b54a 20%,#e2b54a 80%,#e2b54a00)}
+.mid2 .tchip2{position:relative;justify-self:start;font:800 13px var(--f-d);color:#1a0806;background:#e2b54a;border-radius:999px;padding:3px 14px;white-space:nowrap}
+.mid2 .tchip2.bot{background:#3a0b08;color:#f2d48a;box-shadow:inset 0 0 0 1.5px #e2b54a}
+.mid2 .logb{position:relative;max-width:min(520px,46vw);background:#0b0404e6;border:1px solid #e2b54a66;border-radius:999px;padding:4px 16px;font:700 13px var(--f-d);color:#f4efe4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+.medal{position:absolute;right:-6px;top:50%;transform:translateY(-50%);z-index:6;width:94px;height:94px;border-radius:50%;border:0;padding:0;display:grid;place-items:center;text-align:center;cursor:default;
+  background:radial-gradient(circle,#3a0b08 0 54%,#e2b54a 55% 58%,#0000 59%),repeating-conic-gradient(#e2b54a 0 11.25deg,#a8740f 11.25deg 22.5deg);box-shadow:0 8px 20px #000c}
+.medal span{display:block;font:800 12px var(--f-d);color:#f2d48a}
+.medal b{display:block;font:800 19px/1.2 var(--f-d);color:#fff}
+.medal.go{cursor:pointer;background:radial-gradient(circle,#f8d77a 0 54%,#7a1611 55% 58%,#0000 59%),repeating-conic-gradient(#ffe48a 0 11.25deg,#c8860f 11.25deg 22.5deg)}
+.medal.go span{color:#6e1712}.medal.go b{color:#3a0b08}
+.medal.go.glow{animation:pulse 1.1s infinite}
+.medal:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.fan{position:relative;--cw:clamp(70px,min(9.5vw,16dvh),150px);height:calc(var(--cw) * 1.4 + 44px);container-type:inline-size}
+.arena .fan.hand{display:block;overflow:visible;padding:0}
+.arena .fan .hc{position:absolute;left:50%;bottom:26px;width:var(--cw);margin:0;--o:calc(var(--i) - (var(--n) - 1) / 2);--lift:0px;
+  --step:min(calc(var(--cw) * .82),calc((100cqw - var(--cw) - 24px) / max(var(--n) - 1, 1)));
+  transform:translateX(calc(-50% + var(--o) * var(--step))) translateY(calc(var(--o) * var(--o) * 2.4px + var(--lift))) rotate(calc(var(--o) * 2.4deg))!important;
+  transform-origin:50% 140%;transition:transform .15s}
+.arena .fan .hc.ok{--lift:-12px}
+.arena .fan .hc:hover{--lift:-30px;z-index:20}
+.arena .fan.hidden{visibility:hidden}
+.btns2{display:flex;gap:8px;align-items:center}
+.gbtn{width:44px;height:44px;border-radius:50%;border:0;display:grid;place-items:center;cursor:pointer;background:radial-gradient(circle at 35% 30%,#7a1a14,#3a0b08);box-shadow:inset 0 0 0 1.5px #e2b54a,0 4px 10px #0009}
+.gbtn svg{width:20px;height:20px}
+.gbtn:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.tprompt2{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:7;display:flex;gap:10px;align-items:center;background:#0b0404ee;border:2px solid #e2b54a;border-radius:999px;padding:8px 16px;white-space:nowrap}
+.tprompt2 b{font:800 15px var(--f-d);color:#f2d48a}
+@media (max-width:760px){
+  .arena{gap:4px}
+  .band{gap:8px}
+  .band.top{grid-template-columns:minmax(0,1fr);grid-template-areas:"ofan" "plate";gap:10px}
+  .band.top .ofan{grid-area:ofan}.band.top .lplate{grid-area:plate;justify-self:start}
+  .band.bot{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"plate btns" "fan fan"}
+  .band.bot .lplate{grid-area:plate;justify-self:start}.band.bot .btns2{grid-area:btns}.band.bot .fan{grid-area:fan}
+  .piles2{display:none}
+  .lplate{padding:3px 12px 3px 3px;gap:7px}
+  .lplate .lav{width:38px;height:38px}
+  .lplate .llife{font-size:20px}.lplate .llife svg{width:15px;height:15px}
+  .lplate .lnm{font-size:10px}
+  .field2{padding:8px;grid-template-rows:minmax(0,1fr) 36px minmax(0,1fr)}
+  .half2{gap:6px}
+  .arena .lane.chars .row{padding:0 4px;gap:4px}
+  .arena .lane.chars .mini{--w:min(150px,calc((100cqh - 26px) * .716),calc((100cqw - 20px) / 5.15))}
+  .medal{width:64px;height:64px;right:-4px}.medal span{font-size:9px}.medal b{font-size:14px}
+  .mid2 .logb{display:none}
+  .gbtn{width:36px;height:36px}.gbtn svg{width:17px;height:17px}
+  .fan{--cw:clamp(56px,19vw,110px)}
+  .ofan{--ow:clamp(44px,14vw,84px)}
+}
+
+/* ---------- board themes: every colour of the arena comes from these variables ---------- */
+.arena[data-theme="mekong"]{--a-bg:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='16' viewBox='0 0 28 16'%3E%3Cg fill='none' stroke='%237fe0ff' stroke-width='1.3' opacity='.12'%3E%3Cpath d='M0 16a14 14 0 0 1 28 0M-14 8a14 14 0 0 1 28 0M14 8a14 14 0 0 1 28 0'/%3E%3C/g%3E%3C/svg%3E") 0 0/28px 16px,radial-gradient(ellipse at 50% 40%,#0d4a66 0%,#062636 60%,#02101a 100%);--f-bg:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='16' viewBox='0 0 28 16'%3E%3Cg fill='none' stroke='%237fe0ff' stroke-width='1.3' opacity='.2'%3E%3Cpath d='M0 16a14 14 0 0 1 28 0M-14 8a14 14 0 0 1 28 0M14 8a14 14 0 0 1 28 0'/%3E%3C/g%3E%3C/svg%3E") 0 0/28px 16px,radial-gradient(ellipse at 50% 50%,#0f5a73,#06283a 80%);--ring:#7fe0ff;--ring2:#7fe0ff66;--gap:#03141f;--lane-bg:radial-gradient(ellipse at 50% 60%,#2fb3a033,transparent 70%);--lane-line:#7fe0ff40;--wm:#7fe0ff24;--slot-line:#7fe0ff88;--slot-bg:#00000033;--slot-ink:#bfefff99;--plate-bg:linear-gradient(180deg,#136580,#082f42);--plate-ink:#ffffff;--soft:#bfefff;--accent:#7fe0ff;--accent-ink:#04212e;--log-bg:#031a26e6;--log-ink:#e6f8ff;--medal:radial-gradient(circle,#082f42 0 54%,#7fe0ff 55% 58%,#0000 59%),repeating-conic-gradient(#7fe0ff 0 11.25deg,#2b8fb5 11.25deg 22.5deg);--medal-go:radial-gradient(circle,#eafcff 0 54%,#0f5168 55% 58%,#0000 59%),repeating-conic-gradient(#c6f5ff 0 11.25deg,#3cb8e2 11.25deg 22.5deg);--mk1:#bfefff;--mk2:#ffffff;--gk1:#0f5168;--gk2:#062a3a;--btn-bg:radial-gradient(circle at 35% 30%,#1d8bab,#073445);--cTL:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform=''%3E%3Cpath fill='%237fe0ff' d='M2 2h22c-6 2-10 5-11 10 4-5 10-6 15-3-6 0-10 3-11 8 3-3 8-3 11 0-5 0-8 3-8 8-2-6-6-8-11-8 4 3 5 8 3 13-2-5-5-7-8-7V2z'/%3E%3Cpath fill='none' stroke='%237fe0ff' stroke-width='1.6' d='M2 30c0-16 12-28 28-28'/%3E%3C/g%3E%3C/svg%3E");--cTR:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate%2860 0%29 scale%28-1 1%29'%3E%3Cpath fill='%237fe0ff' d='M2 2h22c-6 2-10 5-11 10 4-5 10-6 15-3-6 0-10 3-11 8 3-3 8-3 11 0-5 0-8 3-8 8-2-6-6-8-11-8 4 3 5 8 3 13-2-5-5-7-8-7V2z'/%3E%3Cpath fill='none' stroke='%237fe0ff' stroke-width='1.6' d='M2 30c0-16 12-28 28-28'/%3E%3C/g%3E%3C/svg%3E");--cBL:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate%280 60%29 scale%281 -1%29'%3E%3Cpath fill='%237fe0ff' d='M2 2h22c-6 2-10 5-11 10 4-5 10-6 15-3-6 0-10 3-11 8 3-3 8-3 11 0-5 0-8 3-8 8-2-6-6-8-11-8 4 3 5 8 3 13-2-5-5-7-8-7V2z'/%3E%3Cpath fill='none' stroke='%237fe0ff' stroke-width='1.6' d='M2 30c0-16 12-28 28-28'/%3E%3C/g%3E%3C/svg%3E");--cBR:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate%2860 60%29 scale%28-1 -1%29'%3E%3Cpath fill='%237fe0ff' d='M2 2h22c-6 2-10 5-11 10 4-5 10-6 15-3-6 0-10 3-11 8 3-3 8-3 11 0-5 0-8 3-8 8-2-6-6-8-11-8 4 3 5 8 3 13-2-5-5-7-8-7V2z'/%3E%3Cpath fill='none' stroke='%237fe0ff' stroke-width='1.6' d='M2 30c0-16 12-28 28-28'/%3E%3C/g%3E%3C/svg%3E")}
+.arena[data-theme="sinh"]{--a-bg:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill='none' stroke='%232c3e8f' stroke-width='1.4' opacity='.16'%3E%3Cpath d='M20 4l16 16-16 16L4 20z'/%3E%3Cpath d='M20 12l8 8-8 8-8-8z'/%3E%3Ccircle cx='20' cy='20' r='1.6' fill='%232c3e8f'/%3E%3C/g%3E%3C/svg%3E") 0 0/40px 40px,repeating-linear-gradient(0deg,#f6ead2 0 30px,#e7d3ad 30px 32px,#f6ead2 32px 54px,#b8261f 54px 58px,#f6ead2 58px 62px,#2c3e8f 62px 66px,#f6ead2 66px 70px);--f-bg:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill='none' stroke='%23b8261f' stroke-width='1.4' opacity='.12'%3E%3Cpath d='M20 4l16 16-16 16L4 20z'/%3E%3Cpath d='M20 12l8 8-8 8-8-8z'/%3E%3Ccircle cx='20' cy='20' r='1.6' fill='%23b8261f'/%3E%3C/g%3E%3C/svg%3E") 0 0/40px 40px,radial-gradient(ellipse at 50% 50%,#fffdf6,#f3e4c4 85%);--ring:#2c3e8f;--ring2:#b8261f;--gap:#f6ead2;--lane-bg:radial-gradient(ellipse at 50% 60%,#ffffffb0,#ffffff40 70%);--lane-line:#2c3e8f55;--wm:#2c3e8f1c;--slot-line:#b8261f99;--slot-bg:#ffffff70;--slot-ink:#b8261fa8;--plate-bg:linear-gradient(180deg,#34489c,#1d2b6b);--plate-ink:#ffffff;--soft:#ffe3a8;--accent:#b8261f;--accent-ink:#ffffff;--log-bg:#fffdf6f0;--log-ink:#2b2014;--medal:radial-gradient(circle,#1d2b6b 0 54%,#f2b632 55% 58%,#0000 59%),repeating-conic-gradient(#b8261f 0 11.25deg,#2c3e8f 11.25deg 22.5deg);--medal-go:radial-gradient(circle,#fff3c4 0 54%,#b8261f 55% 58%,#0000 59%),repeating-conic-gradient(#f2b632 0 11.25deg,#b8261f 11.25deg 22.5deg);--mk1:#ffe3a8;--mk2:#ffffff;--gk1:#b8261f;--gk2:#6e1712;--btn-bg:radial-gradient(circle at 35% 30%,#4a62c9,#1d2b6b);--cTL:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform=''%3E%3Cpath fill='%23b8261f' d='M2 2h22c-6 2-10 5-11 10 4-5 10-6 15-3-6 0-10 3-11 8 3-3 8-3 11 0-5 0-8 3-8 8-2-6-6-8-11-8 4 3 5 8 3 13-2-5-5-7-8-7V2z'/%3E%3Cpath fill='none' stroke='%23b8261f' stroke-width='1.6' d='M2 30c0-16 12-28 28-28'/%3E%3C/g%3E%3C/svg%3E");--cTR:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate%2860 0%29 scale%28-1 1%29'%3E%3Cpath fill='%23b8261f' d='M2 2h22c-6 2-10 5-11 10 4-5 10-6 15-3-6 0-10 3-11 8 3-3 8-3 11 0-5 0-8 3-8 8-2-6-6-8-11-8 4 3 5 8 3 13-2-5-5-7-8-7V2z'/%3E%3Cpath fill='none' stroke='%23b8261f' stroke-width='1.6' d='M2 30c0-16 12-28 28-28'/%3E%3C/g%3E%3C/svg%3E");--cBL:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate%280 60%29 scale%281 -1%29'%3E%3Cpath fill='%23b8261f' d='M2 2h22c-6 2-10 5-11 10 4-5 10-6 15-3-6 0-10 3-11 8 3-3 8-3 11 0-5 0-8 3-8 8-2-6-6-8-11-8 4 3 5 8 3 13-2-5-5-7-8-7V2z'/%3E%3Cpath fill='none' stroke='%23b8261f' stroke-width='1.6' d='M2 30c0-16 12-28 28-28'/%3E%3C/g%3E%3C/svg%3E");--cBR:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate%2860 60%29 scale%28-1 -1%29'%3E%3Cpath fill='%23b8261f' d='M2 2h22c-6 2-10 5-11 10 4-5 10-6 15-3-6 0-10 3-11 8 3-3 8-3 11 0-5 0-8 3-8 8-2-6-6-8-11-8 4 3 5 8 3 13-2-5-5-7-8-7V2z'/%3E%3Cpath fill='none' stroke='%23b8261f' stroke-width='1.6' d='M2 30c0-16 12-28 28-28'/%3E%3C/g%3E%3C/svg%3E")}
+.arena[data-theme="himma"]{--a-bg:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='%239be38a' opacity='.12'%3E%3Cpath d='M14 30c-6-10-2-20 8-24-2 10 0 18-8 24z'/%3E%3Cpath d='M46 56c-10-4-14-14-8-22 2 8 8 14 8 22z'/%3E%3Cpath d='M50 18c-8 2-14-2-16-10 8 0 14 4 16 10z'/%3E%3Ccircle cx='30' cy='46' r='2'/%3E%3Ccircle cx='8' cy='54' r='1.5'/%3E%3C/g%3E%3C/svg%3E") 0 0/64px 64px,radial-gradient(ellipse at 50% 40%,#25542a 0%,#123018 60%,#071409 100%);--f-bg:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='%23e8c48a' opacity='.14'%3E%3Cpath d='M14 30c-6-10-2-20 8-24-2 10 0 18-8 24z'/%3E%3Cpath d='M46 56c-10-4-14-14-8-22 2 8 8 14 8 22z'/%3E%3Cpath d='M50 18c-8 2-14-2-16-10 8 0 14 4 16 10z'/%3E%3Ccircle cx='30' cy='46' r='2'/%3E%3Ccircle cx='8' cy='54' r='1.5'/%3E%3C/g%3E%3C/svg%3E") 0 0/64px 64px,radial-gradient(ellipse at 50% 50%,#356a37,#163a1d 80%);--ring:#e8c48a;--ring2:#8a5a2a;--gap:#0b1d0e;--lane-bg:radial-gradient(ellipse at 50% 60%,#ffd23d26,transparent 70%);--lane-line:#e8c48a44;--wm:#e8c48a22;--slot-line:#e8c48a88;--slot-bg:#00000033;--slot-ink:#f7e2b099;--plate-bg:linear-gradient(180deg,#7a4e28,#3e2512);--plate-ink:#ffffff;--soft:#f7e2b0;--accent:#9be38a;--accent-ink:#143018;--log-bg:#0b1d0ee6;--log-ink:#f1f7e6;--medal:radial-gradient(circle,#3e2512 0 54%,#e8c48a 55% 58%,#0000 59%),repeating-conic-gradient(#9be38a 0 11.25deg,#3f8f3a 11.25deg 22.5deg);--medal-go:radial-gradient(circle,#fff6c8 0 54%,#3f8f3a 55% 58%,#0000 59%),repeating-conic-gradient(#ffe48a 0 11.25deg,#7cc04a 11.25deg 22.5deg);--mk1:#f7e2b0;--mk2:#ffffff;--gk1:#2f6b1e;--gk2:#143018;--btn-bg:radial-gradient(circle at 35% 30%,#5a8a46,#1f3d1a);--cTL:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform=''%3E%3Cpath fill='%23e8c48a' d='M2 2h22c-6 2-10 5-11 10 4-5 10-6 15-3-6 0-10 3-11 8 3-3 8-3 11 0-5 0-8 3-8 8-2-6-6-8-11-8 4 3 5 8 3 13-2-5-5-7-8-7V2z'/%3E%3Cpath fill='none' stroke='%23e8c48a' stroke-width='1.6' d='M2 30c0-16 12-28 28-28'/%3E%3C/g%3E%3C/svg%3E");--cTR:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate%2860 0%29 scale%28-1 1%29'%3E%3Cpath fill='%23e8c48a' d='M2 2h22c-6 2-10 5-11 10 4-5 10-6 15-3-6 0-10 3-11 8 3-3 8-3 11 0-5 0-8 3-8 8-2-6-6-8-11-8 4 3 5 8 3 13-2-5-5-7-8-7V2z'/%3E%3Cpath fill='none' stroke='%23e8c48a' stroke-width='1.6' d='M2 30c0-16 12-28 28-28'/%3E%3C/g%3E%3C/svg%3E");--cBL:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate%280 60%29 scale%281 -1%29'%3E%3Cpath fill='%23e8c48a' d='M2 2h22c-6 2-10 5-11 10 4-5 10-6 15-3-6 0-10 3-11 8 3-3 8-3 11 0-5 0-8 3-8 8-2-6-6-8-11-8 4 3 5 8 3 13-2-5-5-7-8-7V2z'/%3E%3Cpath fill='none' stroke='%23e8c48a' stroke-width='1.6' d='M2 30c0-16 12-28 28-28'/%3E%3C/g%3E%3C/svg%3E");--cBR:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate%2860 60%29 scale%28-1 -1%29'%3E%3Cpath fill='%23e8c48a' d='M2 2h22c-6 2-10 5-11 10 4-5 10-6 15-3-6 0-10 3-11 8 3-3 8-3 11 0-5 0-8 3-8 8-2-6-6-8-11-8 4 3 5 8 3 13-2-5-5-7-8-7V2z'/%3E%3Cpath fill='none' stroke='%23e8c48a' stroke-width='1.6' d='M2 30c0-16 12-28 28-28'/%3E%3C/g%3E%3C/svg%3E")}
+
+.arena[data-theme]{background:var(--a-bg)}
+.arena[data-theme] .field2{background:var(--cTL) no-repeat 6px 6px/46px,var(--cTR) no-repeat right 6px top 6px/46px,var(--cBL) no-repeat left 6px bottom 6px/46px,var(--cBR) no-repeat right 6px bottom 6px/46px,var(--f-bg);
+  box-shadow:0 0 0 2px var(--ring),0 0 0 6px var(--gap),0 0 0 7px var(--ring2),0 22px 50px #0009}
+.arena[data-theme] .lane.chars{background:var(--lane-bg);border-color:var(--lane-line)}
+.arena[data-theme] .lane.chars.hasloc{background:linear-gradient(#0000004d,#0000004d),var(--locimg) center/cover;border-color:var(--ring)}
+.arena[data-theme] .lane.chars .wm{color:var(--wm)}
+.arena[data-theme] .slot{border-color:var(--slot-line);background:var(--slot-bg)}
+.arena[data-theme] .slot::after{color:var(--slot-ink)}
+.arena[data-theme] .lplate{background:var(--plate-bg);box-shadow:inset 0 0 0 1.5px var(--ring),0 6px 16px #0007}
+.arena[data-theme] .lplate .lav{box-shadow:0 0 0 3px var(--ring)}
+.arena[data-theme] .lplate .lnm{color:var(--soft)}
+.arena[data-theme] .lplate .llife{color:var(--plate-ink)}
+.arena[data-theme] .mid2::before{background:linear-gradient(90deg,#0000,var(--ring) 20%,var(--ring) 80%,#0000)}
+.arena[data-theme] .mid2 .tchip2{background:var(--accent);color:var(--accent-ink);box-shadow:none}
+.arena[data-theme] .mid2 .tchip2.bot{background:var(--plate-bg);color:var(--soft);box-shadow:inset 0 0 0 1.5px var(--ring)}
+.arena[data-theme] .mid2 .logb{background:var(--log-bg);border-color:var(--ring);color:var(--log-ink)}
+.arena[data-theme] .medal{background:var(--medal)}
+.arena[data-theme] .medal span{color:var(--mk1)}
+.arena[data-theme] .medal b{color:var(--mk2)}
+.arena[data-theme] .medal.go{background:var(--medal-go)}
+.arena[data-theme] .medal.go span{color:var(--gk1)}
+.arena[data-theme] .medal.go b{color:var(--gk2)}
+.arena[data-theme] .gbtn{background:var(--btn-bg);box-shadow:inset 0 0 0 1.5px var(--ring),0 4px 10px #0006}
+.arena[data-theme] .ofan .ocnt{background:var(--log-bg);color:var(--log-ink);border-color:var(--ring)}
+.arena[data-theme] .pile2 small{color:var(--soft)}
+.arena[data-theme="sinh"] .pile2 small{color:#2c3e8f}
+.arena[data-theme] .tprompt2{background:var(--log-bg);border-color:var(--ring)}
+.arena[data-theme] .tprompt2 b{color:var(--log-ink)}
+.themes{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.thb{display:flex;flex-direction:column;align-items:center;gap:6px;background:#ffffff0d;border:2px solid #ffffff22;border-radius:14px;padding:8px 10px;cursor:pointer;font:700 13px var(--f-d);color:var(--ink)}
+.thb.on{border-color:var(--gold);background:#f2b6321f}
+.thb i{display:block;width:96px;height:58px;border-radius:9px;box-shadow:inset 0 0 0 2px #0004}
+.thb[data-v="mekong"] i{background:radial-gradient(circle at 70% 40%,#7fe0ff 0 8px,#0000 9px),linear-gradient(160deg,#0f5a73,#03141f)}
+.thb[data-v="sinh"] i{background:repeating-linear-gradient(0deg,#f6ead2 0 10px,#b8261f 10px 13px,#f6ead2 13px 16px,#2c3e8f 16px 19px)}
+.thb[data-v="himma"] i{background:radial-gradient(circle at 70% 40%,#ffe48a 0 8px,#0000 9px),linear-gradient(160deg,#356a37,#0b1d0e)}
+.themelbl{color:var(--dim);font:700 14px var(--f-d)}
+
+/* ---------- clean backgrounds (no patterns) and the card detail panel on the left ---------- */
+.arena[data-theme="sinh"]{--a-bg:linear-gradient(180deg,#f8f1e3,#ece0c8);--f-bg:radial-gradient(ellipse at 50% 45%,#fffdf8,#f4e9d3 85%);
+  --p-bg:#fffdf7;--p-head:linear-gradient(90deg,#34489c,#1d2b6b);--p-ink:#2b2014;--p-soft:#7a6a55;--p-type:#b8261f;--chip-bg:#f3e7cf}
+.arena[data-theme="mekong"]{--a-bg:radial-gradient(ellipse at 50% 40%,#0d4a66,#062636 60%,#02101a);--f-bg:radial-gradient(ellipse at 50% 50%,#0f5a73,#06283a 80%);
+  --p-bg:#072a3a;--p-head:linear-gradient(90deg,#1a7a99,#0b3e52);--p-ink:#e6f8ff;--p-soft:#9fcfe0;--p-type:#0f5168;--chip-bg:#0d3d52}
+.arena[data-theme="himma"]{--a-bg:radial-gradient(ellipse at 50% 40%,#25542a,#123018 60%,#071409);--f-bg:radial-gradient(ellipse at 50% 50%,#356a37,#163a1d 80%);
+  --p-bg:#10260f;--p-head:linear-gradient(90deg,#7a4e28,#3e2512);--p-ink:#f1f7e6;--p-soft:#b9d0a8;--p-type:#2f6b1e;--chip-bg:#1f3d1a}
+.arena{grid-template-columns:minmax(0,300px) minmax(0,1fr);grid-template-rows:minmax(0,1fr);gap:14px}
+.amain{min-height:0;min-width:0;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto;gap:6px}
+.spanel{min-height:0;align-self:stretch;display:flex;flex-direction:column;gap:12px;overflow:auto;padding-bottom:16px;border-radius:16px;
+  background:var(--p-bg);box-shadow:0 0 0 2px var(--ring),0 0 0 5px var(--gap),0 0 0 6px var(--ring2),0 12px 28px #0003}
+.spanel .ph{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--p-head);color:#fff;font:800 19px/1.3 var(--f-d);border-radius:14px 14px 0 0}
+.spanel .ph svg{width:30px;height:30px;flex:none;background:#fff;border-radius:7px;padding:2px}
+.spanel .pc{width:min(210px,74%);align-self:center}
+.spanel .pchips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.spanel .pchips span{background:var(--chip-bg);color:var(--p-ink);border-radius:999px;padding:3px 14px;font:700 14px var(--f-d)}
+.spanel .pchips b{font-size:17px}
+.spanel .ptype{margin:0 14px;background:var(--p-type);color:#fff;font:700 13px var(--f-d);padding:5px 12px;border-radius:7px}
+.spanel .pskill{margin:0 14px;font-size:15.5px;line-height:1.8;color:var(--p-ink)}
+.spanel [class^="kw-"]{border-width:1.5px;padding:0 7px;border-radius:6px;margin:0 2px;line-height:1.5}
+.spanel .plore{margin:0 14px;padding-top:10px;border-top:1px solid var(--chip-bg);font-size:13.5px;line-height:1.7;color:var(--p-soft);font-style:italic}
+.spanel .ptip{margin:auto 20px;text-align:center;color:var(--p-soft);font:700 15px/1.8 var(--f-d)}
+.spanel .ptip b{display:block;font-size:40px;margin-bottom:6px;color:var(--ring)}
+@media (max-width:1000px){.arena{grid-template-columns:minmax(0,1fr)}.spanel{display:none}}
+
+/* ---------- v5: wide hand, piles inside the field, blue side (you) vs red side (bot), turn banner ---------- */
+.arena{--me:#2c63c9;--me2:#1d2b6b;--op:#c8312b;--op2:#6e1410}
+.band.bot{grid-template-columns:auto minmax(0,1fr) auto}
+.band.top{grid-template-columns:auto minmax(0,1fr)}
+.btns2{display:grid;grid-template-columns:repeat(2,auto);gap:6px}
+.btns2 .gbtn{width:40px;height:40px}
+.arena .fan .hc{--step:min(calc(var(--cw) * .97),calc((100cqw - var(--cw) - 24px) / max(var(--n) - 1, 1)));
+  transform:translateX(calc(-50% + var(--o) * var(--step))) translateY(calc(var(--o) * var(--o) * 1.6px + var(--lift))) rotate(calc(var(--o) * 1.6deg))!important}
+.arena .fan .hc:hover{--lift:-36px;z-index:20}
+.arena .fan .hc:hover .card{box-shadow:0 0 0 3px #fff,0 18px 30px #0008}
+.fan{--cw:clamp(76px,min(9.8vw,17dvh),156px)}
+.half2{grid-template-columns:auto minmax(0,1fr) auto}
+.half2 .pcol{display:grid;grid-template-rows:1fr 1fr;gap:6px;width:calc((100cqh - 6px) / 2 * .716)}
+.half2 .pcol .slot .cback{position:absolute;inset:0}
+.half2 .pcol .slot .cnt{position:absolute;top:-8px;right:-8px;z-index:3}
+.half2.me .pcol{margin-right:58px}
+.lplate.opp{background:linear-gradient(180deg,var(--op),var(--op2))!important}
+.lplate.me{background:linear-gradient(180deg,var(--me),var(--me2))!important}
+.arena .half2.opp .lane.chars{background:linear-gradient(180deg,#c8312b33,#c8312b10);border:2px solid #c8312b99}
+.arena .half2.me .lane.chars{background:linear-gradient(0deg,#2c63c933,#2c63c910);border:2px solid #2c63c999}
+.arena .half2.opp .lane.chars.hasloc{background:linear-gradient(180deg,#c8312b80,#c8312b33),var(--locimg) center/cover}
+.arena .half2.me .lane.chars.hasloc{background:linear-gradient(0deg,#2c63c980,#2c63c933),var(--locimg) center/cover}
+.arena .half2.opp .slot{border-color:#c8312b99}
+.arena .half2.me .slot{border-color:#2c63c999}
+.arena .half2.opp .lane.chars .wm{color:#c8312b30}
+.arena .half2.me .lane.chars .wm{color:#2c63c930}
+.arena[data-theme] .field2 .mid2::before{background:linear-gradient(90deg,#0000,var(--op) 15%,#f2b632 50%,var(--me) 85%,#0000);height:3px}
+.arena[data-theme] .field2 .mid2 .tchip2{background:var(--me);color:#fff;box-shadow:0 0 0 2px #fff,0 0 16px var(--me)}
+.arena[data-theme] .field2 .mid2 .tchip2.bot{background:var(--op);color:#fff;box-shadow:0 0 0 2px #fff,0 0 16px var(--op)}
+.tb2{position:absolute;left:0;right:0;top:46%;height:130px;transform:translateY(-50%);pointer-events:none}
+.tb2 .tbb{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;transform:skewY(-4deg);
+  background:linear-gradient(90deg,#0000,var(--c1) 14%,var(--c2) 50%,var(--c1) 86%,#0000);box-shadow:0 0 50px var(--c1);
+  border-top:3px solid #f2d48a;border-bottom:3px solid #f2d48a;animation:tbin var(--d) cubic-bezier(.2,.8,.2,1) forwards;overflow:hidden}
+.tb2 .tbb::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,#0000 40%,#ffffffb0 50%,#0000 60%);background-size:260% 100%;animation:sweep .9s .2s both;mix-blend-mode:overlay}
+.tb2 small{position:relative;font:800 15px var(--f-d);letter-spacing:.24em;color:#f2d48a;transform:skewY(4deg)}
+.tb2 b{position:relative;font:800 clamp(36px,6vw,66px)/1.15 var(--f-d);color:#fff;text-shadow:0 4px 0 #0007,0 0 26px var(--c1);transform:skewY(4deg);animation:tbtext var(--d) both}
+.tb2.blue{--c1:#2c63c9;--c2:#152463}.tb2.red{--c1:#c8312b;--c2:#5a0f0b}
+@keyframes tbin{0%{transform:skewY(-4deg) translateX(-105%)}20%{transform:skewY(-4deg) translateX(0)}78%{transform:skewY(-4deg) translateX(0);opacity:1}100%{transform:skewY(-4deg) translateX(105%);opacity:0}}
+@keyframes tbtext{0%{letter-spacing:.7em;opacity:0}24%{letter-spacing:.04em;opacity:1}80%{opacity:1}100%{opacity:0}}
+@media (max-width:760px){
+  .band.top{grid-template-columns:minmax(0,1fr)}
+  .band.bot{grid-template-columns:minmax(0,1fr) auto}
+  .btns2{grid-template-columns:repeat(4,auto)}
+  .btns2 .gbtn{width:34px;height:34px}
+  .half2.me .pcol{margin-right:0}
+  .half2{grid-template-columns:auto minmax(0,1fr) auto}
+  .fan{--cw:clamp(58px,19vw,112px)}
+  .tb2{height:92px}
+}
+/* ---------- modal ---------- */
+.modal-bg{position:fixed;inset:0;z-index:50;background:#000c;display:grid;place-items:center;padding:16px}
+.modal{background:var(--mat-2);border:1px solid #ffffff1c;border-radius:18px;padding:18px;width:min(560px,100%);max-height:92%;overflow:auto;display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center}
+.modal > .card{width:min(290px,66vw)}
+.modal .lore{margin:0;color:var(--dim);font-style:italic}
+.modal .q{margin:0;font:700 16px/1.6 var(--f-d)}
+.modal .why{margin:0;color:var(--bad);font:700 14px var(--f-d)}
+.mbtns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.pick{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.pick .hc{width:min(120px,26vw)}
+.loglist{text-align:left;margin:0;padding-left:20px;font-size:14px;line-height:1.7;color:var(--dim);max-height:50vh;overflow:auto;width:100%}
+.over{font:800 clamp(34px,9vw,54px) var(--f-d)}
+.over.win{color:var(--gold);text-shadow:0 0 30px #f2b63288}
+.over.lose{color:#c9c2b6}
+
+/* ---------- effects ---------- */
+@keyframes pulse{50%{filter:brightness(1.3)}}
+.float{position:absolute;font:800 30px var(--f-d);color:var(--bad);text-shadow:0 2px 0 #000,0 0 14px #000;animation:floatUp 1.05s ease-out forwards;white-space:nowrap}
+.float.heal{color:var(--good)}
+.float.hit{color:#fff}
+@keyframes floatUp{0%{transform:translate(-50%,-50%) scale(.5);opacity:0}15%{transform:translate(-50%,-80%) scale(1.3);opacity:1}100%{transform:translate(-50%,-200%) scale(1);opacity:0}}
+.ring{position:absolute;width:80px;height:80px;border-radius:50%;border:4px solid var(--c);box-shadow:0 0 26px var(--c),inset 0 0 18px var(--c);animation:ring .6s ease-out forwards}
+@keyframes ring{from{transform:translate(-50%,-50%) scale(.2);opacity:1}to{transform:translate(-50%,-50%) scale(var(--s));opacity:0}}
+.shake{animation:shake .35s}
+@keyframes shake{20%{translate:-6px 0}40%{translate:6px 0}60%{translate:-4px 0}80%{translate:3px 0}}
+.mini.enter{animation:enter .5s cubic-bezier(.2,1.4,.4,1)}
+@keyframes enter{from{transform:translateY(-40px) scale(1.6);opacity:0}to{transform:none;opacity:1}}
+.mini.dying{animation:die .42s forwards}
+@keyframes die{to{transform:scale(.55) rotate(-10deg);filter:grayscale(1) brightness(2.2) blur(3px);opacity:0}}
+.slash{position:absolute;height:7px;border-radius:4px;background:linear-gradient(90deg,transparent,#fff,#ffd23d,transparent);box-shadow:0 0 16px #ffd23d;transform:translate(-50%,-50%) rotate(-35deg);animation:slash .4s ease-out forwards}
+@keyframes slash{from{width:0;opacity:1}to{width:150px;opacity:0}}
+.turnban{position:absolute;left:0;right:0;top:44%;text-align:center;font:800 clamp(30px,7vw,58px) var(--f-d);color:var(--gold);text-shadow:0 4px 0 #000,0 0 30px #000;animation:ban .95s ease-out forwards}
+.turnban.bot{color:#ff9a8a}
+@keyframes ban{0%{opacity:0;transform:scale(1.6)}25%{opacity:1;transform:scale(1)}75%{opacity:1}100%{opacity:0;transform:translateY(-20px)}}
+.cutin{position:absolute;inset:0;background:#000d;display:grid;place-items:center;align-content:center;gap:14px;animation:fadeio 1.8s forwards;overflow:hidden}
+.cutin .card{width:min(300px,60vw);animation:zoomIn .6s cubic-bezier(.2,1.3,.4,1)}
+.cutname{position:relative;font:800 clamp(28px,6vw,48px) var(--f-d);color:var(--gold);text-shadow:0 3px 0 #000}
+.rays{position:absolute;inset:-50%;background:repeating-conic-gradient(from 0deg,#f2b63226 0 8deg,transparent 8deg 20deg);animation:spin 7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes zoomIn{from{transform:scale(.3) rotate(-12deg);opacity:0}}
+@keyframes fadeio{0%{opacity:0}12%{opacity:1}85%{opacity:1}100%{opacity:0}}
+.showcard{position:absolute;left:50%;top:36%;width:min(210px,44vw);transform:translate(-50%,-50%);animation:showc 1.05s ease-out forwards}
+@keyframes showc{0%{opacity:0;transform:translate(-50%,-30%) scale(.8)}20%{opacity:1;transform:translate(-50%,-50%) scale(1)}80%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(.92)}}
+.rocket{position:absolute;width:14px;height:48px;border-radius:7px 7px 3px 3px;background:linear-gradient(#e0302a 0 22%,#ffd23d 22% 30%,#9ccc4a 30%);box-shadow:0 26px 18px -4px #ffb347,0 44px 26px -6px #ff6a2a99}
+.boom{position:absolute;width:30px;height:30px;border-radius:50%;background:radial-gradient(#fff,#ffd23d 40%,#ff5a2a 68%,transparent 72%);transform:translate(-50%,-50%);animation:boom .6s ease-out forwards}
+@keyframes boom{to{width:220px;height:220px;opacity:0}}
+.wave{position:absolute;top:16%;bottom:16%;left:-80%;width:75%;border-radius:45%;background:linear-gradient(90deg,transparent,#3aa0ff99 40%,#d6f3ffdd);filter:blur(2px);animation:wave 1s ease-in forwards}
+@keyframes wave{to{left:115%}}
+.toast{position:absolute;left:50%;bottom:calc(32% + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#000e;border:1px solid #ffffff30;padding:9px 18px;border-radius:999px;font:700 14px var(--f-d);animation:fadeio 1.9s forwards;white-space:nowrap}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important}}
+</style>
+
+<div id="app"></div>
+<div id="fx"></div>
+
+<script>
+(function(){
+'use strict';
+const REDUCE = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const ART = 'art/';
+const RULES_URL = 'https://claude.ai/artifact/4LMD4PNy7TDVP3w1ciKUb3';
+const CARDS_URL = 'https://claude.ai/artifact/Q5Whqx9JteTnTcbfAAvkHs';
+const $app = document.getElementById('app'), $fx = document.getElementById('fx');
+let S = null, U = 0;
+const ui = {deck:0, level:1, hideHand:false};
+window.__errs = [];
+window.addEventListener('error', e => window.__errs.push(String(e.message)));
+window.addEventListener('unhandledrejection', e => window.__errs.push(String(e.reason && e.reason.stack || e.reason)));
+
+const SET = {sfx:true, music:true, speed:1, theme:'sinh'};
+const THEMES = [['mekong','ແມ່ນ້ຳຂອງ'],['sinh','ຜ້າຊິ່ນ'],['himma','ປ່າຫິມະພານ']];
+const themePicker = () => '<div class="themes">' + THEMES.map(([k, n]) => '<button class="thb ' + (SET.theme === k ? 'on' : '') + '" data-a="theme" data-v="' + k + '"><i></i>' + n + '</button>').join('') + '</div>';
+try{ Object.assign(SET, JSON.parse(localStorage.getItem('lao-legend-settings') || '{}')); }catch(e){}
+const sleep = ms => S && S.fast ? Promise.resolve() : new Promise(r => setTimeout(r, REDUCE ? Math.min(ms, 120) : ms * SET.speed));
+const pick = a => a[Math.floor(Math.random() * a.length)];
+const maxBy = (a, f) => a.reduce((b, x) => f(x) > f(b) ? x : b, a[0]);
+const minBy = (a, f) => a.reduce((b, x) => f(x) < f(b) ? x : b, a[0]);
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+/* ---------- icons ---------- */
+const SYM = {
+  hero:'<svg viewBox="0 0 24 24"><path d="M12 2l2.2 3.4V15h-4.4V5.4z" fill="#dfe6ee" stroke="#1b1b1b" stroke-width="1.3" stroke-linejoin="round"/><path d="M6.5 15h11v2.4h-11z" fill="#f2b632" stroke="#1b1b1b" stroke-width="1.3"/><path d="M10.8 17.4h2.4V21h-2.4z" fill="#6b3d1f" stroke="#1b1b1b" stroke-width="1.2"/></svg>',
+  naga:'<svg viewBox="0 0 24 24"><path d="M3 14c3-4 5 2 9-2s5 2 9-2" fill="none" stroke="#1b1b1b" stroke-width="4.2" stroke-linecap="round"/><path d="M3 14c3-4 5 2 9-2s5 2 9-2" fill="none" stroke="#2fb36b" stroke-width="2.4" stroke-linecap="round"/><path d="M14 8l2-6 1.6 4 2.2-3-.6 5z" fill="#ffd23d" stroke="#1b1b1b" stroke-width="1"/><path d="M3 20c3-3 5 1 9-1.5s5 1 9-1.5" fill="none" stroke="#2c63c9" stroke-width="2" stroke-linecap="round"/></svg>',
+  ghost:'<svg viewBox="0 0 24 24"><path d="M12 2.5c-4.4 0-7 3.4-7 7.6V21l2.4-1.8L9.7 21 12 19.2 14.3 21l2.3-1.8L19 21V10.1c0-4.2-2.6-7.6-7-7.6z" fill="#e9dcff" stroke="#1b1b1b" stroke-width="1.4" stroke-linejoin="round"/><circle cx="9.4" cy="10.4" r="1.6" fill="#1b1b1b"/><circle cx="14.6" cy="10.4" r="1.6" fill="#1b1b1b"/><ellipse cx="12" cy="14.6" rx="1.6" ry="1.2" fill="#1b1b1b"/></svg>',
+  giant:'<svg viewBox="0 0 24 24"><path d="M4 9c0-3.6 3.6-6.5 8-6.5S20 5.4 20 9v5.5c0 3.5-3.6 6.5-8 6.5s-8-3-8-6.5z" fill="#4fb3a0" stroke="#1b1b1b" stroke-width="1.4"/><path d="M5 6 3 1.8 7.4 4.4M19 6l2-4.2-4.4 2.6" fill="#f2b632" stroke="#1b1b1b" stroke-width="1.2" stroke-linejoin="round"/><path d="M7.4 10l3 1.2M16.6 10l-3 1.2" stroke="#1b1b1b" stroke-width="1.6" stroke-linecap="round"/><path d="M8 15.2h8" stroke="#1b1b1b" stroke-width="1.4"/><path d="M8.6 15.2l.9 3 .9-3M13.6 15.2l.9 3 .9-3" fill="#fff" stroke="#1b1b1b" stroke-width="1"/></svg>',
+  himma:'<svg viewBox="0 0 24 24"><path d="M3 15c4-1 6-4 7-9 1 4 0 7-2 9 3-1 6-4 7-8 1 5-1 9-5 11 3 0 6-2 8-4-1 5-6 8-11 7-2 0-3-2-4-6z" fill="#ffd23d" stroke="#1b1b1b" stroke-width="1.3" stroke-linejoin="round"/></svg>',
+  thewada:'<svg viewBox="0 0 24 24"><path d="M12 9c-3-4-7-5-10-4 2 1 3 3 3 5 2-1 4-1 7-1zM12 9c3-4 7-5 10-4-2 1-3 3-3 5-2-1-4-1-7-1z" fill="#cdeeff" stroke="#1b1b1b" stroke-width="1.2" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.4" fill="#ffd23d" stroke="#1b1b1b" stroke-width="1.2"/><path d="M9.5 8.5 10.5 5 12 7 13.5 5 14.5 8.5z" fill="#ffd23d" stroke="#1b1b1b" stroke-width="1" stroke-linejoin="round"/><path d="M10 19l2-3 2 3" fill="none" stroke="#9fe0ff" stroke-width="1.6" stroke-linecap="round"/></svg>',
+  villager:'<svg viewBox="0 0 24 24"><path d="M2.5 11 12 3l9.5 8" fill="none" stroke="#1b1b1b" stroke-width="2" stroke-linejoin="round"/><path d="M4.5 10.5 12 4.5l7.5 6V13h-15z" fill="#d9342b" stroke="#1b1b1b" stroke-width="1.3" stroke-linejoin="round"/><path d="M6 13h12v5H6z" fill="#e8c48a" stroke="#1b1b1b" stroke-width="1.3"/><path d="M7 18v3M17 18v3M12 18v3" stroke="#1b1b1b" stroke-width="1.6"/><path d="M10.5 13h3v5h-3z" fill="#8a4a1f" stroke="#1b1b1b" stroke-width="1"/></svg>',
+  nakpat:'<svg viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-9l-5 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" fill="#9be38a" stroke="#1b1b1b" stroke-width="1.4" stroke-linejoin="round"/><path d="M12 7v4.5" stroke="#1b1b1b" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="14" r="1.3" fill="#1b1b1b"/></svg>',
+  spell:'<svg viewBox="0 0 24 24"><path d="M12 1.5l2.4 7.1 7.1 2.4-7.1 2.4L12 20.5l-2.4-7.1L2.5 11l7.1-2.4z" fill="#8fc2ff" stroke="#1b1b1b" stroke-width="1.4" stroke-linejoin="round"/><circle cx="19.5" cy="19.5" r="2" fill="#ffd23d" stroke="#1b1b1b" stroke-width="1"/></svg>'
+};
+const HEART = '<svg viewBox="0 0 24 24"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z" fill="#ff5d4d" stroke="#1b1b1b" stroke-width="1.2"/></svg>';
+
+const IC_GEAR = '<svg viewBox="0 0 24 24"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z" fill="none" stroke="#fff" stroke-width="2"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3.9a7 7 0 0 0-2-1.2L14.2 3h-4l-.4 2.6a7 7 0 0 0-2 1.2L5.5 5.9l-2 3.4 2 1.5a7 7 0 0 0 0 2.4l-2 1.5 2 3.4 2.3-.9a7 7 0 0 0 2 1.2l.4 2.6h4l.4-2.6a7 7 0 0 0 2-1.2l2.3.9 2-3.4-2-1.5c.1-.4.1-.8.1-1.2z" fill="none" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>';
+const IC_LOG = '<svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2" fill="none" stroke="#fff" stroke-width="2"/><path d="M8 8h8M8 12h8M8 16h5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>';
+const IC_EXIT = '<svg viewBox="0 0 24 24"><path d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M10 8l-4 4 4 4M6 12h10" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const IC_EYE = '<svg viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" fill="none" stroke="#fff" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="#fff"/></svg>';
+const DECKICON = '<svg viewBox="0 0 24 24"><rect x="5" y="3" width="13" height="17" rx="2" fill="#8a2020" stroke="#f2b632" stroke-width="1.4"/><rect x="7.5" y="5.5" width="13" height="17" rx="2" fill="#5a1414" stroke="#f2b632" stroke-width="1.4"/></svg>';
+const BACK = '<img src="art/back.jpg" alt="" loading="lazy">';
+const FLAG = '<svg viewBox="0 0 24 24"><path d="M5 21V4" stroke="#1a1206" stroke-width="2.4" stroke-linecap="round"/><path d="M5 4h11l-2 4 2 4H5" fill="#1a1206"/></svg>';
+const TAP = '<svg viewBox="0 0 24 24"><path d="M9 11V5a2 2 0 0 1 4 0v5l4.5.9a2 2 0 0 1 1.6 2.3L18 19a3 3 0 0 1-3 2.5h-3.3a3 3 0 0 1-2.4-1.2L6 16a1.6 1.6 0 0 1 2.4-2.1L9 14.5" fill="#ffd23d" stroke="#1b1b1b" stroke-width="1.6" stroke-linejoin="round"/></svg>';
+const TC = {thewada:'#9fe0ff', villager:'#e8c48a', naga:'#3aa0ff', giant:'#ff5a3c', ghost:'#a77bff', himma:'#ffcf3a', hero:'#ffffff', nakpat:'#7be36a'};
+
+/* ---------- card data ---------- */
+const C = {};
+function def(id, o){ C[id] = Object.assign({id, img:id, type:'char', kw:{}}, o); }
+const TAUNT = 'ຄູ່ແຂ່ງຕ້ອງໂຈມຕີໃບນີ້ກ່ອນ ຈຶ່ງໂຈມຕີໃບອື່ນໄດ້';
+const FLY = 'ໂຈມຕີຂວັນຄູ່ແຂ່ງໄດ້ໂດຍກົງ ເຖິງວ່າມີຕົວລະຄອນກັນຢູ່';
+// deck 1
+def('babynaga',{name:'ນາກນ້ອຍ',tribe:'naga',cost:1,power:1,tag:'ນ້ຳໃຈ',skill:'ເມື່ອລົງສະໜາມ ຟື້ນຂວັນ +1',lore:'ລູກນາກນ້ອຍ ອາໄສຢູ່ໃນໜອງບົວ'});
+def('sangthong',{name:'ສັງທອງ',tribe:'hero',cost:3,power:2,kw:{taunt:1},tag:'ກັນໄພ',skill:TAUNT,lore:'ນ້ອງສິນໄຊ ຜູ້ເກີດມາໃນຫອຍສັງ'});
+def('nagaprincess',{name:'ນາງນາກ',tribe:'naga',cost:3,power:3,tag:'ພອນແມ່ນ້ຳ',skill:'ເມື່ອລົງສະໜາມ ຈົ່ວກາດ 1 ໃບ',lore:'ເຈົ້າຍິງແຫ່ງແມ່ນ້ຳຂອງ'});
+def('siho',{name:'ສີໂຫ',tribe:'hero',cost:4,power:4,tag:'ຊ້າງສານ',skill:'ເວລາໂຈມຕີ ພະລັງ +2',lore:'ນ້ອງສິນໄຊ ຫົວເປັນຊ້າງ ຕົວເປັນສິງ'});
+def('khankhaak',{name:'ພະຍາຄັນຄາກ',tribe:'himma',cost:4,power:3,tag:'ເອີ້ນບັ້ງໄຟ',skill:'ເມື່ອລົງສະໜາມ ຊອກ «ບັ້ງໄຟ» 1 ໃບຈາກເດັກ ມາໃສ່ມື',lore:'ກະສັດຄັນຄາກ ຜູ້ທ້າພະຍາແຖນໃຫ້ສົ່ງຝົນ'});
+def('sinxay',{name:'ສິນໄຊ',tribe:'hero',cost:5,power:5,tag:'ທະນູສິນ',skill:'ຖ້າຕິດ «ສອນສິນ» ໂຈມຕີໄດ້ 2 ເທື່ອຕໍ່ຕາ. ເມື່ອສູ້ກັບເຜົ່າຍັກ ພະລັງ +2',lore:'ກຸມານຜູ້ເກີດມາພ້ອມທະນູ ແລະ ດາບວິເສດ'});
+def('khunborom',{name:'ຂຸນບູລົມ',tribe:'hero',cost:7,power:6,tag:'ບິດາແຫ່ງລາວ',skill:'ຕົວລະຄອນເຜົ່າວິລະບຸລຸດທຸກໃບຂອງເຈົ້າ ພະລັງ +1',lore:'ກະສັດບັນພະບຸລຸດ ຂອງຊາວລາວ'});
+def('phayanak',{name:'ພະຍານາກ',tribe:'naga',cost:9,power:9,legend:1,tag:'ຜູ້ປົກປັກແມ່ນ້ຳຂອງ',skill:'ທຸກຕາ ຟື້ນຂວັນ +2. ເຜົ່ານາກທຸກໃບ ພະລັງ +1. ກາດຄາຖາຂອງຄູ່ແຂ່ງ ທຳລາຍໃບນີ້ບໍ່ໄດ້',lore:'ເຈົ້າແຫ່ງສາຍນ້ຳ ຜູ້ຄອຍປົກປັກບ້ານເມືອງລາວ'});
+def('bangfai',{name:'ບັ້ງໄຟ',img:'bangfai2',type:'spell',cost:3,tag:'ຄາຖາ · ຍິງຂຶ້ນຟ້າ',skill:'ໂຈມຕີ 3 ໃສ່ກາດໃດກໍໄດ້. ຖ້າມີ «ພະຍາຄັນຄາກ» ຢູ່ສະໜາມ ໂຈມຕີ 5 ແລະ ຈົ່ວກາດ 1 ໃບ',lore:'ຈູດບັ້ງໄຟ ເຕືອນພະຍາແຖນ ໃຫ້ສົ່ງຝົນລົງມາ'});
+def('sonsin',{name:'ສອນສິນ',type:'item',cost:2,bonus:2,tag:'ຂອງວິເສດ · ທະນູທອງ',skill:'ຕິດໃສ່ຕົວລະຄອນ 1 ໃບ: ພະລັງ +2. ຖ້າຕິດໃສ່ສິນໄຊ ໂຈມຕີໄດ້ 2 ເທື່ອ',lore:'ທະນູວິເສດ ທີ່ເກີດມາພ້ອມສິນໄຊ'});
+def('namthuam',{name:'ນ້ຳຖ້ວມ',type:'spell',cost:4,tag:'ຄາຖາ · ຄື້ນຍັກ',skill:'ທຳລາຍຕົວລະຄອນທຸກໃບ (ທັງສອງຝ່າຍ) ທີ່ມີພະລັງ 2 ລົງມາ',lore:'ແມ່ນ້ຳຂອງໃຈຮ້າຍ ພັດທຸກສິ່ງໄປ'});
+def('maenamkhong',{name:'ແມ່ນ້ຳຂອງ',type:'loc',cost:2,buff:'naga',tag:'ສະຖານທີ່',skill:'ຢູ່ສະໜາມ: ເຜົ່ານາກທຸກໃບ ພະລັງ +1',lore:'ສາຍນ້ຳແມ່ ທີ່ຫຼໍ່ລ້ຽງຄົນລາວ'});
+// deck 2
+def('phihuean',{name:'ຜີເຮືອນ',tribe:'ghost',cost:1,power:1,tag:'ແອບເບິ່ງ',skill:'ເມື່ອລົງສະໜາມ ເບິ່ງກາດໃນມືຄູ່ແຂ່ງທັງໝົດ',lore:'ຜີນ້ອຍຜູ້ເຝົ້າເຮືອນ ມັກຫຼິ້ນຊົນ'});
+def('phikongkoy',{name:'ຜີກອງກອຍ',tribe:'ghost',cost:2,power:2,tag:'ສຽງຮ້ອງກາງຄືນ',skill:'ເມື່ອໃບນີ້ຖືກທຳລາຍ ຄູ່ແຂ່ງເສຍ 1 ບຸນ ໃນຕາຕໍ່ໄປ',lore:'ຜີປ່າ ຮ້ອງ «ກອງ ກອຍ» ຍາມກາງຄືນ'});
+def('yaknoy',{name:'ຍັກນ້ອຍ',tribe:'giant',cost:2,power:2,kw:{noFace:1},tag:'ຫິວເຂົ້າ',skill:'ໂຈມຕີຕົວລະຄອນໄດ້ ແຕ່ໂຈມຕີຂວັນຄູ່ແຂ່ງບໍ່ໄດ້',lore:'ລູກຍັກນ້ອຍ ຫິວເຂົ້າຕະຫຼອດເວລາ'});
+def('phikrasue',{name:'ຜີກະສື',tribe:'ghost',cost:3,power:3,tag:'ແສງໄຟລອຍ',skill:'ເມື່ອລົງສະໜາມ ຕົວລະຄອນຂອງຄູ່ແຂ່ງ 1 ໃບ ພະລັງ -2 ຈົນຈົບຕາ. ຖ້າມີ «ຄືນເດືອນມືດ» ພະລັງ +1',lore:'ຫົວລອຍຢູ່ກາງອາກາດ ມີແສງໄຟສີຂຽວຕາມຫຼັງ'});
+def('yakfaopatu',{name:'ຍັກເຝົ້າປະຕູ',tribe:'giant',cost:4,power:4,kw:{taunt:1},tag:'ກັນໄພ',skill:TAUNT,lore:'ຍັກໃຫຍ່ ຜູ້ເຝົ້າປະຕູວັດ'});
+def('phikrahang',{name:'ຜີກະຫັງ',tribe:'ghost',cost:4,power:3,kw:{fly:1},tag:'ບິນ',skill:FLY,lore:'ຜີບິນດ້ວຍກະດົ້ງ ຍາມເດືອນເພັງ'});
+def('kumphan',{name:'ຍັກກຸມພັນ',tribe:'giant',cost:6,power:6,tag:'ລັກຕົວ',skill:'ເມື່ອລົງສະໜາມ ສົ່ງຕົວລະຄອນຂອງຄູ່ແຂ່ງ ທີ່ມີບຸນ 3 ລົງມາ 1 ໃບ ກັບຄືນມື',lore:'ຍັກໃຫຍ່ ຜູ້ລັກເອົານາງສຸມົນທາໄປ'});
+def('hapkhanasouane',{name:'ຮາບມະນາສວນ',tribe:'giant',cost:10,power:10,legend:1,tag:'ສິບຫົວ',skill:'ໂຈມຕີໄດ້ 2 ເທື່ອຕໍ່ຕາ. ເມື່ອສູ້ກັບ «ພະລາມ» ພະລັງ -3',lore:'ເຈົ້າຍັກສິບຫົວ ໃນເລື່ອງພະລັກພະລາມ'});
+def('khamsap',{name:'ຄຳສາບ',type:'spell',cost:3,tag:'ຄາຖາ · ຄຳສາບ',skill:'ຕົວລະຄອນຂອງຄູ່ແຂ່ງ 1 ໃບ ພະລັງ -3 ຈົນຈົບຕາຕໍ່ໄປ',lore:'ຄາຖາມືດ ເຮັດໃຫ້ສັດຕູອ່ອນແຮງ'});
+def('kabongyak',{name:'ກະບອງຍັກ',type:'item',cost:2,bonus:2,tag:'ຂອງວິເສດ · ກະບອງ',skill:'ຕິດໃສ່ຕົວລະຄອນເຜົ່າຍັກ 1 ໃບ: ພະລັງ +2',lore:'ກະບອງວິເສດ ທີ່ຍັກທຸກໂຕຢາກໄດ້'});
+def('khuenduenmuet',{name:'ຄືນເດືອນມືດ',type:'loc',cost:2,buff:'ghost',tag:'ສະຖານທີ່',skill:'ຢູ່ສະໜາມ: ເຜົ່າຜີທຸກໃບ ພະລັງ +1',lore:'ຄືນທີ່ບໍ່ມີເດືອນ ຜີອອກມາຫຼິ້ນ'});
+def('pasatyak',{name:'ປາສາດຍັກ',type:'loc',cost:2,tag:'ສະຖານທີ່',skill:'ຢູ່ສະໜາມ: ເຜົ່າຍັກທຸກໃບ ໃຊ້ບຸນໜ້ອຍລົງ 1',lore:'ບ້ານຂອງເຫຼົ່າຍັກ ເທິງພູໝອກ'});
+// deck 3
+def('hongthong',{name:'ຫົງທອງ',tribe:'himma',cost:2,power:2,kw:{fly:1},tag:'ບິນ',skill:FLY,lore:'ນົກຫົງສີທອງ ແຫ່ງປ່າຫິມະພານ'});
+def('xiengmieng',{name:'ຊຽງໝ້ຽງ',tribe:'nakpat',cost:2,power:2,tag:'ຫົວຄິດ',skill:'ເມື່ອລົງສະໜາມ ຈົ່ວກາດ 2 ໃບ ແລ້ວຖິ້ມ 1 ໃບ',lore:'ຄົນສະຫຼາດ ຜູ້ຫຼອກໄດ້ແມ່ນແຕ່ກະສັດ'});
+def('kinnari',{name:'ກິນນະລີ',tribe:'himma',cost:3,power:3,tag:'ເພງກິນນະລີ',skill:'ເມື່ອລົງສະໜາມ ຟື້ນຂວັນ +3',lore:'ເຄິ່ງຄົນເຄິ່ງນົກ ຟ້ອນງາມທີ່ສຸດໃນປ່າ'});
+def('phralak',{name:'ພະລັກ',tribe:'hero',cost:4,power:4,tag:'ພີ່ນ້ອງ',skill:'ຖ້າມີ «ພະລາມ» ຢູ່ສະໜາມ ພະລັງ +2',lore:'ນ້ອງຊາຍຜູ້ຊື່ສັດ ຂອງພະລາມ'});
+def('singhimma',{name:'ສິງຫິມະພານ',tribe:'himma',cost:5,power:5,tag:'ລາຊາປ່າ',skill:'ເມື່ອທຳລາຍຕົວລະຄອນຂອງຄູ່ແຂ່ງໄດ້ ຈົ່ວກາດ 1 ໃບ',lore:'ສິງສີທອງ ຜູ້ປົກຄອງປ່າຫິມະພານ'});
+def('hanuman',{name:'ຫະນຸມານ',tribe:'himma',cost:5,power:5,kw:{rush:1},tag:'ກະໂດດ',skill:'ໂຈມຕີໄດ້ທັນທີ ໃນຕາທີ່ລົງສະໜາມ',lore:'ທະຫານລີງເຜືອກ ຂອງພະລາມ'});
+def('khrut',{name:'ຄຸດ',tribe:'himma',cost:6,power:6,kw:{fly:1},tag:'ບິນ · ສັດຕູນາກ',skill:'ໂຈມຕີຂວັນຄູ່ແຂ່ງໄດ້ໂດຍກົງ. ສູ້ກັບເຜົ່ານາກ ພະລັງ +2',lore:'ພະຍາຄຸດ ສັດຕູເກົ່າແກ່ຂອງນາກ'});
+def('phralam',{name:'ພະລາມ',tribe:'hero',cost:8,power:8,legend:1,tag:'ວິລະບຸລຸດແຫ່ງເມືອງ',skill:'ເມື່ອລົງສະໜາມ ຈົ່ວກາດ 1 ໃບ. ສູ້ກັບເຜົ່າຍັກ ພະລັງ +3',lore:'ເຈົ້າຊາຍ ຜູ້ປາບຮາບມະນາສວນ'});
+def('sonphralam',{name:'ສອນພະລາມ',type:'item',cost:3,bonus:3,tag:'ຂອງວິເສດ · ສອນທິບ',skill:'ຕິດໃສ່ຕົວລະຄອນ 1 ໃບ: ພະລັງ +3',lore:'ລູກສອນວິເສດ ທີ່ບໍ່ເຄີຍຍິງພາດ'});
+def('lomphayu',{name:'ລົມພາຍຸ',type:'spell',cost:2,tag:'ຄາຖາ · ລົມໝູນ',skill:'ສົ່ງຕົວລະຄອນ 1 ໃບ ກັບຄືນມືເຈົ້າຂອງ',lore:'ລົມແຮງ ພັດທຸກສິ່ງປິວໄປ'});
+def('konxiengmieng',{name:'ກົນຊຽງໝ້ຽງ',type:'spell',cost:1,react:1,tag:'ຄາຖາ · ກັບດັກ',skill:'ໃຊ້ຕອນຄູ່ແຂ່ງໂຈມຕີ: ຍົກເລີກການໂຈມຕີນັ້ນ',lore:'ຂຶງເຊືອກໄວ້ ລໍຖ້າຍັກມາສະດຸດ'});
+def('pahimmaphan',{name:'ປ່າຫິມະພານ',type:'loc',cost:2,buff:'himma',tag:'ສະຖານທີ່',skill:'ຢູ່ສະໜາມ: ເຜົ່າຫິມະພານທຸກໃບ ພະລັງ +1',lore:'ປ່າວິເສດ ບ່ອນຢູ່ຂອງສັດໃນນິທານ'});
+
+// neutral cards (ເຜົ່າຊາວບ້ານ): any deck may hold up to 6
+def('baci',{name:"ບາສີສູ່ຂວັນ",type:'spell',cost:3,tag:"ຄາຖາ · ສູ່ຂວັນ",skill:"ຈົ່ວກາດ 2 ໃບ",lore:"ພິທີສູ່ຂວັນ ອວຍພອນໃຫ້ໂຊກດີ"});
+def('khaoniao',{name:"ຂ້າວໜຽວ",type:'spell',cost:1,tag:"ຄາຖາ · ອາຫານ",skill:"ຟື້ນຂວັນ +3",lore:"ກິນເຂົ້າໜຽວແລ້ວ ມີແຮງສູ້ຕໍ່"});
+def('phukkhaen',{name:"ຜູກແຂນ",type:'spell',cost:1,tag:"ຄາຖາ · ຜູກແຂນ",skill:"ຕົວລະຄອນຂອງເຈົ້າ 1 ໃບ ພະລັງ +2 ຈົນຈົບຕາ",lore:"ຜູກຝ້າຍໃສ່ແຂນ ໃຫ້ຂວັນຢູ່ກັບໂຕ"});
+def('tikong',{name:"ຕີກອງຮວມພົນ",type:'spell',cost:3,tag:"ຄາຖາ · ສຽງກອງ",skill:"ຕົວລະຄອນທຸກໃບຂອງເຈົ້າ ພະລັງ +1 ຈົນຈົບຕາ",lore:"ສຽງກອງ ເອີ້ນທຸກຄົນມາຮ່ວມມື"});
+def('faphaa',{name:"ຟ້າຜ່າ",type:'spell',cost:4,tag:"ຄາຖາ · ຟ້າຜ່າ",skill:"ໂຈມຕີ 4 ໃສ່ຕົວລະຄອນຂອງຄູ່ແຂ່ງ 1 ໃບ",lore:"ຟ້າຮ້ອງຟ້າຜ່າ ໃນລະດູຝົນ"});
+def('satnam',{name:"ສາດນ້ຳປີໃໝ່",type:'spell',cost:3,tag:"ຄາຖາ · ປີໃໝ່",skill:"ສົ່ງຕົວລະຄອນທຸກໃບ ທີ່ມີບຸນ 2 ລົງມາ (ທັງສອງຝ່າຍ) ກັບຄືນມື",lore:"ບຸນປີໃໝ່ລາວ ສາດນ້ຳມ່ວນຊື່ນ"});
+def('haingeun',{name:"ໄຫເງິນໄຫຄຳ",type:'spell',cost:0,tag:"ຄາຖາ · ຊັບສົມບັດ",skill:"ໄດ້ບຸນ +1 ໃນຕານີ້ເທົ່ານັ້ນ",lore:"ໄຫສົມບັດ ທີ່ຂຸດພົບໃຕ້ດິນ"});
+def('lowai',{name:"ໂລ່ຫວາຍ",type:'item',cost:2,bonus:1,tag:"ຂອງວິເສດ · ໂລ່",skill:"ຕິດໃສ່ຕົວລະຄອນ 1 ໃບ: ພະລັງ +1 ແລະ ໄດ້ ກັນໄພ",lore:"ໂລ່ສານດ້ວຍຫວາຍ ຂອງນັກຮົບບູຮານ"});
+def('wao',{name:"ວ່າວ",type:'item',cost:2,bonus:0,tag:"ຂອງວິເສດ · ວ່າວ",skill:"ຕິດໃສ່ຕົວລະຄອນ 1 ໃບ: ໄດ້ ບິນ",lore:"ວ່າວທີ່ເດັກລາວຫຼິ້ນ ລະດູລົມ"});
+def('katip',{name:"ກະຕິບເຂົ້າ",type:'item',cost:1,bonus:0,tag:"ຂອງວິເສດ · ກະຕິບ",skill:"ຕິດໃສ່ຕົວລະຄອນ 1 ໃບ: ເມື່ອໃບນັ້ນຖືກທຳລາຍ ຈົ່ວກາດ 1 ໃບ",lore:"ກະຕິບເຂົ້າ ທີ່ແມ່ຫໍ່ໃຫ້"});
+def('thonghai',{name:"ທົ່ງໄຫຫີນ",type:'loc',cost:2,tag:"ສະຖານທີ່",skill:"ຢູ່ສະໜາມ: ຕົວລະຄອນຂອງເຈົ້າ ທີ່ມີບຸນ 1–2 ພະລັງ +1",lore:"ມໍລະດົກໂລກ ແຂວງຊຽງຂວາງ"});
+def('talatsao',{name:"ຕະຫຼາດເຊົ້າ",type:'loc',cost:2,tag:"ສະຖານທີ່",skill:"ຢູ່ສະໜາມ: ເລີ່ມຕາ ຖ້າມີກາດໃນມື 2 ໃບລົງມາ ຈົ່ວກາດ 1 ໃບ",lore:"ຕະຫຼາດໃຫຍ່ ກາງນະຄອນຫຼວງ"});
+def('khonephapheng',{name:"ຄອນພະເພັງ",type:'loc',cost:2,tag:"ສະຖານທີ່",skill:"ຢູ່ສະໜາມ: ກາດຄາຖາຂອງຄູ່ແຂ່ງ ໃຊ້ບຸນເພີ່ມ 1",lore:"ນ້ຳຕົກໃຫຍ່ ກາງແມ່ນ້ຳຂອງ"});
+def('molam',{name:"ໝໍລຳ",tribe:'villager',cost:2,power:1,tag:"ລຳພື້ນເມືອງ",skill:"ເມື່ອລົງສະໜາມ ຈົ່ວກາດ 1 ໃບ",lore:"ນັກຮ້ອງລຳ ປຸກໃຈທຸກຄົນ"});
+def('naiphan',{name:"ນາຍພານ",tribe:'villager',cost:3,power:3,tag:"ໜ້າໄມ້",skill:"ເມື່ອລົງສະໜາມ ຕົວລະຄອນຂອງຄູ່ແຂ່ງ 1 ໃບ ພະລັງ -1 ຕະຫຼອດເກມ",lore:"ນາຍພານ ຜູ້ຊຳນານປ່າ"});
+def('khwai',{name:"ຄວາຍເຖິກ",tribe:'villager',cost:4,power:5,tag:"ແຮງງານ",skill:"ບໍ່ມີສະກິນ ແຕ່ແຮງ",lore:"ຄວາຍຊ່ວຍໄຖນາ ແຮງບໍ່ມີໝົດ"});
+def('sangpheuak',{name:"ຊ້າງເຜືອກ",tribe:'villager',cost:7,power:7,kw:{taunt:1},tag:"ກັນໄພ",skill:TAUNT,lore:"ຊ້າງມົງຄຸນ ສັນຍາລັກຂອງບ້ານເມືອງ"});
+
+// alt-art versions: each draw of these cards has this chance to come out borderless
+
+// deck: ພະຍາແຖນ (sky gods). Seasons rotate by themselves every 2 of their owner's turns
+def('thewadanoi',{name:'ເທວະດານ້ອຍ',tribe:'thewada',cost:1,power:1,kw:{fly:1},tag:'ບິນ',skill:FLY,lore:'ເທວະດານ້ອຍ ຫຼິ້ນຢູ່ໃນໝູ່ເມກ'});
+def('thahanthaen',{name:'ທະຫານແຖນ',tribe:'thewada',cost:2,power:3,kw:{taunt:1},tag:'ກັນໄພ',skill:TAUNT,lore:'ທະຫານ ຜູ້ເຝົ້າປະຕູເມືອງແຖນ'});
+def('thaenfahong',{name:'ແຖນຟ້າຮ້ອງ',tribe:'thewada',cost:3,power:2,tag:'ຟ້າຮ້ອງ',skill:'ເມື່ອລົງສະໜາມ ໂຈມຕີ 3 ໃສ່ຕົວລະຄອນຂອງຄູ່ແຂ່ງ 1 ໃບ',lore:'ແຖນຜູ້ຖືສາຍຟ້າໄວ້ໃນມື'});
+def('thaenfon',{name:'ແຖນຝົນ',tribe:'thewada',cost:3,power:2,tag:'ສາຍຝົນ',skill:'ທຸກຕາ ຟື້ນຂວັນ +1',lore:'ນາງແຖນ ຜູ້ຖອກຝົນລົງນາ'});
+def('nanghung',{name:'ນາງຮຸ້ງ',tribe:'thewada',cost:4,power:3,tag:'ຮຸ້ງເຈັດສີ',skill:'ເມື່ອລົງສະໜາມ ຈົ່ວກາດ 1 ໃບ ຕໍ່ຄາຖາໃນກອງຖິ້ມ (ສູງສຸດ 3)',lore:'ຜ້າແພເຈັດສີ ກາຍເປັນຮຸ້ງ'});
+def('thaenlom',{name:'ແຖນລົມ',tribe:'thewada',cost:5,power:4,tag:'ລົມແຮງ',skill:'ກາດຄາຖາຂອງເຈົ້າ ໃຊ້ບຸນໜ້ອຍລົງ 1',lore:'ເປົ່າເຂົາ ລົມກໍພັດທົ່ວຟ້າ'});
+def('phayathaen',{name:'ພະຍາແຖນ',tribe:'thewada',cost:9,power:8,legend:1,kw:{fly:1},tag:'ກະສັດແຫ່ງຟ້າ',skill:'ບິນ. ທຸກຕາ ທຳລາຍຕົວລະຄອນຂອງຄູ່ແຂ່ງ 1 ໃບ ທີ່ມີພະລັງ 2 ລົງມາ',lore:'ຜູ້ປົກຄອງເມືອງແຖນ ເທິງຟ້າ'});
+def('phayufa',{name:'ພາຍຸຟ້າ',type:'spell',cost:4,tag:'ຄາຖາ · ພາຍຸ',skill:'ໂຈມຕີ 2 ໃສ່ຕົວລະຄອນຂອງຄູ່ແຂ່ງທຸກໃບ',lore:'ຟ້າຜ່າລົງມາ ພ້ອມກັນທົ່ວສະໜາມ'});
+def('mokseo',{name:'ໝອກເຊົ້າ',type:'spell',cost:1,tag:'ຄາຖາ · ໝອກ',skill:'ຕົວລະຄອນຂອງຄູ່ແຂ່ງ 1 ໃບ ໂຈມຕີບໍ່ໄດ້ ໃນຕາໜ້າ',lore:'ໝອກໜາ ຈົນເບິ່ງບໍ່ເຫັນທາງ'});
+def('lodufon',{name:'ລະດູຝົນ',type:'loc',cost:2,buff:'thewada',tag:'ສະຖານທີ່ · ລະດູ',skill:'ຢູ່ສະໜາມ: ເຜົ່າເທວະດາທຸກໃບ ພະລັງ +1. ທຸກ 2 ຕາ ປ່ຽນເປັນລະດູໜາວ',lore:'ຝົນຕົກ ນາຂຽວ ທົ່ວແຜ່ນດິນ'});
+def('loduhnao',{name:'ລະດູໜາວ',type:'loc',cost:2,tag:'ສະຖານທີ່ · ລະດູ',skill:'ຢູ່ສະໜາມ: ຕົວລະຄອນຂອງຄູ່ແຂ່ງທຸກໃບ ພະລັງ -1. ທຸກ 2 ຕາ ປ່ຽນເປັນລະດູຮ້ອນ',lore:'ໝອກໜາວ ປົກຄຸມພູດອຍ'});
+def('loduhon',{name:'ລະດູຮ້ອນ',type:'loc',cost:2,tag:'ສະຖານທີ່ · ລະດູ',skill:'ຢູ່ສະໜາມ: ກາດຄາຖາຂອງເຈົ້າ ໃຊ້ບຸນໜ້ອຍລົງ 1. ທຸກ 2 ຕາ ປ່ຽນເປັນລະດູຝົນ',lore:'ແດດແຮງ ລໍຖ້າບຸນບັ້ງໄຟ'});
+const SEASONS = ['lodufon', 'loduhnao', 'loduhon'];
+
+const ALT = {sinxay:'alt-sinxay', phayanak:'alt-phayanak', hapkhanasouane:'alt-hapkhanasouane', phralam:'alt-phralam', phayathaen:'alt-phayathaen'};
+const ALT_CHANCE = location.hash === '#altall' ? 1 : .25;  // #altall makes every one alt, for showing the cards off
+
+const DECKS = [
+  {no:1, name:'ສາຍນ້ຳ ແລະ ວິລະບຸລຸດ', legend:'phayanak', aggr:1.1, style:'ຕັ້ງຮັບ, ຟື້ນຂວັນ, ຕິດອາວຸດ',
+   list:{babynaga:2,sangthong:2,nagaprincess:2,siho:3,sinxay:2,khankhaak:2,khunborom:2,phayanak:1,bangfai:3,sonsin:2,namthuam:1,maenamkhong:2,baci:2,faphaa:1,sangpheuak:1,khwai:2}},
+  {no:2, name:'ຍັກ ແລະ ຜີ', legend:'hapkhanasouane', aggr:1.6, style:'ພະລັງແຮງ, ກົນອຸບາຍ',
+   list:{phihuean:3,phikongkoy:3,yaknoy:2,phikrasue:3,yakfaopatu:2,phikrahang:2,kumphan:2,hapkhanasouane:1,khamsap:2,kabongyak:2,khuenduenmuet:1,pasatyak:1,tikong:2,naiphan:2,khwai:1,haingeun:1}},
+  {no:3, name:'ພະລັກພະລາມ ແລະ ຫິມະພານ', legend:'phralam', aggr:1.3, style:'ບິນ, ໄວ, ຫຼອກຄູ່ແຂ່ງ',
+   list:{hongthong:3,xiengmieng:2,kinnari:2,phralak:2,singhimma:2,hanuman:2,khrut:2,phralam:1,sonphralam:2,lomphayu:2,konxiengmieng:3,pahimmaphan:1,wao:1,satnam:1,talatsao:1,phukkhaen:1,khaoniao:1,molam:1}},
+  {no:5, name:'ພະຍາແຖນ', legend:'phayathaen', aggr:1.2, style:'ຄວບຄຸມ ດິນຟ້າອາກາດ, ລະດູປ່ຽນເອງ',
+   list:{thewadanoi:3,thahanthaen:3,thaenfahong:3,thaenfon:2,nanghung:2,thaenlom:2,phayathaen:1,phayufa:2,mokseo:2,lodufon:2,loduhnao:1,loduhon:1,faphaa:2,wao:1,baci:1,khaoniao:1,haingeun:1}}
+];
+const LEVELS = ['ງ່າຍ','ກາງ','ຍາກ'];
+
+
+/* ---------- sound: everything is synthesized, no audio files ---------- */
+const SND = {ctx:null, sfx:null, mus:null, timer:null};
+function audioInit(){
+  if(SND.ctx){ if(SND.ctx.state === 'suspended') SND.ctx.resume(); return; }
+  try{
+    const AC = window.AudioContext || window.webkitAudioContext; if(!AC) return;
+    SND.ctx = new AC(); const m = SND.ctx.createGain(); m.gain.value = .55; m.connect(SND.ctx.destination);
+    SND.sfx = SND.ctx.createGain(); SND.sfx.connect(m);
+    SND.mus = SND.ctx.createGain(); SND.mus.gain.value = .2; SND.mus.connect(m);
+  }catch(e){ SND.ctx = null; }
+}
+function tone(f, dur, type, vol, dest, t0, slide){
+  const c = SND.ctx, t = t0 || c.currentTime, o = c.createOscillator(), g = c.createGain();
+  o.type = type || 'sine'; o.frequency.setValueAtTime(f, t); if(slide) o.frequency.exponentialRampToValueAtTime(slide, t + dur);
+  g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(vol || .3, t + .01); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+  o.connect(g); g.connect(dest || SND.sfx); o.start(t); o.stop(t + dur + .05);
+}
+function noise(dur, vol, freq, t0, type){
+  const c = SND.ctx, t = t0 || c.currentTime, n = Math.floor(c.sampleRate * dur), b = c.createBuffer(1, n, c.sampleRate), d = b.getChannelData(0);
+  for(let i=0;i<n;i++) d[i] = Math.random() * 2 - 1;
+  const src = c.createBufferSource(); src.buffer = b; const f = c.createBiquadFilter(); f.type = type || 'lowpass'; f.frequency.value = freq || 2000;
+  const g = c.createGain(); g.gain.setValueAtTime(vol || .3, t); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+  src.connect(f); f.connect(g); g.connect(SND.sfx); src.start(t);
+}
+function sfx(name){
+  if(!SND.ctx || !SET.sfx || (S && (S.fast || S.sim))) return;
+  const t = SND.ctx.currentTime;
+  try{
+    switch(name){
+      case 'draw': noise(.18, .14, 3500, t, 'highpass'); break;
+      case 'play': tone(140, .25, 'sine', .5, null, t, 70); tone(420, .12, 'triangle', .14, null, t); break;
+      case 'attack': noise(.22, .24, 1500, t, 'bandpass'); break;
+      case 'hit': tone(90, .2, 'square', .22, null, t, 50); noise(.12, .3, 800, t); break;
+      case 'destroy': noise(.45, .34, 1200, t); tone(300, .4, 'sawtooth', .1, null, t, 60); break;
+      case 'heal': [523, 659, 784, 1047].forEach((f, i) => tone(f, .25, 'sine', .16, null, t + i * .07)); break;
+      case 'spell': [880, 1175, 1568].forEach((f, i) => tone(f, .4, 'sine', .11, null, t + i * .05)); noise(.4, .07, 6000, t, 'highpass'); break;
+      case 'rocket': noise(.6, .24, 900, t, 'bandpass'); tone(200, .6, 'sawtooth', .07, null, t, 900); break;
+      case 'boom': noise(.6, .5, 600, t); tone(60, .5, 'sine', .5, null, t, 30); break;
+      case 'legend': [65, 130, 196].forEach(f => tone(f, 2.2, 'sine', .28, null, t)); tone(392, 1.5, 'triangle', .08, null, t + .1); break;
+      case 'turn': tone(330, .5, 'sine', .16, null, t); tone(495, .5, 'sine', .09, null, t + .08); break;
+      case 'win': [523, 587, 659, 784, 880, 1047].forEach((f, i) => tone(f, .35, 'triangle', .22, null, t + i * .12)); break;
+      case 'lose': [440, 392, 330, 262].forEach((f, i) => tone(f, .45, 'triangle', .2, null, t + i * .18)); break;
+      case 'trip': tone(600, .3, 'square', .09, null, t, 150); noise(.2, .2, 1000, t + .2); break;
+      case 'wind': noise(.9, .24, 700, t, 'bandpass'); break;
+      case 'curse': tone(110, .8, 'sawtooth', .11, null, t, 80); tone(116, .8, 'sawtooth', .09, null, t, 85); break;
+    }
+  }catch(e){}
+}
+// a slow loop in a Lao-style pentatonic scale: low khaen-like drone plus a plucked phin melody
+const MEL = [0,2,3,2,0,4,3,2, 1,2,3,5,4,3,2,0], SCALE = [220,262,294,330,392,440,523,587,659,784];
+function musicStart(){
+  if(!SND.ctx || !SET.music || SND.timer) return;
+  let step = 0, next = SND.ctx.currentTime + .1; const beat = .34;
+  SND.timer = setInterval(() => {
+    const c = SND.ctx; if(!c) return;
+    while(next < c.currentTime + .4){
+      if(step % 8 === 0){ tone(110, beat * 8, 'triangle', .16, SND.mus, next); tone(165, beat * 8, 'triangle', .09, SND.mus, next); }
+      const n = MEL[step % 16];
+      if(step % 4 !== 3) tone(SCALE[n + 2], beat * .9, 'triangle', .24, SND.mus, next);
+      if(step % 2 === 0) tone(SCALE[n] * 2, .08, 'sine', .05, SND.mus, next + beat / 2);
+      next += beat; step++;
+    }
+  }, 100);
+}
+function musicStop(){ clearInterval(SND.timer); SND.timer = null; }
+function saveSet(){ try{ localStorage.setItem('lao-legend-settings', JSON.stringify(SET)); }catch(e){} }
+function toggleSetting(k){
+  if(k === 'speed') SET.speed = SET.speed === 1 ? .55 : 1; else SET[k] = !SET[k];
+  saveSet(); audioInit(); if(SET.music) musicStart(); else musicStop();
+}
+function settingsHTML(){
+  if(!ui.settingsOpen) return '';
+  const row = (k, label, on, txt) => '<button class="setrow" data-a="set" data-v="' + k + '"><span>' + label + '</span><b class="' + (on ? 'on' : '') + '">' + txt + '</b></button>';
+  return '<div class="modal-bg"><div class="modal"><p class="q">ຕັ້ງຄ່າ</p><div class="setlist">' +
+    row('sfx', 'ສຽງເອັບເຟັກ', SET.sfx, SET.sfx ? 'ເປີດ' : 'ປິດ') + row('music', 'ດົນຕີ', SET.music, SET.music ? 'ເປີດ' : 'ປິດ') +
+    row('speed', 'ຄວາມໄວເອັບເຟັກ', SET.speed < 1, SET.speed < 1 ? 'ໄວ' : 'ປົກກະຕິ') + '<p class="themelbl">ໜ້າຕາສະໜາມ</p>' + themePicker() +
+    '</div><div class="mbtns"><button class="btn2" data-a="setclose">ປິດ</button></div></div></div>';
+}
+document.addEventListener('pointerdown', () => { audioInit(); musicStart(); }, {once:true});
+
+/* ---------- bot speech ---------- */
+const LINES = [
+  {play:['ສາຍນ້ຳຈະປົກປ້ອງຂ້ອຍ','ມາເລີຍ!','ລອງໃບນີ້ເບິ່ງ'], kill:['ນ້ຳພັດໄປແລ້ວ','ຂໍໂທດເດີ້'], lose:['ໂອ້ຍ!','ບໍ່ເປັນຫຍັງ ຍັງມີອີກ'], legend:['ພະຍານາກ ຂຶ້ນມາແລ້ວ!'], low:['ອັນຕະລາຍແລ້ວ…'], win:['ຂ້ອຍຊະນະ! ຫຼິ້ນອີກບໍ?'], losegame:['ເຈົ້າເກັ່ງຫຼາຍ!']},
+  {play:['ຍັກມາແລ້ວ!','ຮ່າໆໆ','ຢ້ານບໍ?'], kill:['ກິນໝົດ!','ອ່ອນແທ້'], lose:['ໂອ້ຍ ເຈັບ!','ຈື່ໄວ້ເດີ້'], legend:['ສິບຫົວ ພ້ອມສູ້!'], low:['ຍັງບໍ່ຍອມແພ້!'], win:['ຍັກຊະນະ!'], losegame:['ເທື່ອໜ້າ ຂ້ອຍບໍ່ຍອມ!']},
+  {play:['ບິນໄປເລີຍ!','ລອງໃບນີ້ເບິ່ງ','ໄວກວ່າເດີ້'], kill:['ໄວກວ່າ!','ຫຼອກໄດ້ແລ້ວ'], lose:['ຮ້າຍແທ້!','ຄິດບໍ່ເຖິງ'], legend:['ພະລາມ ລົງສະໜາມ!'], low:['ຕ້ອງຄິດໃຫ້ດີ…'], win:['ສະຫຼາດກວ່າ!'], losegame:['ຍອມໃຈເລີຍ!']},
+  {play:['ຟ້າຈະຕັດສິນ!','ລົມ ຝົນ ມາແລ້ວ','ເບິ່ງຟ້າເດີ້'], kill:['ຟ້າຜ່າແລ້ວ!','ໝອກບັງຕາບໍ?'], lose:['ຟ້າມືດໄປແລ້ວ','ຮ້າຍແທ້!'], legend:['ພະຍາແຖນ ສະເດັດລົງມາ!'], low:['ຟ້າຍັງບໍ່ສິ້ນ…'], win:['ຟ້າຊະນະ!'], losegame:['ຂ້ອຍຍອມໃຈເຈົ້າ!']}
+];
+function botSay(kind, force){
+  if(!S || S.auto || S.sim || S.fast) return;
+  const now = Date.now();
+  if(!force && (now - (S.lastSay || 0) < 3500 || Math.random() > .45)) return;
+  const L = (LINES[S.p[1].di] || LINES[0])[kind]; const c = centerOf('h:1'); if(!L || !c) return;
+  S.lastSay = now;
+  const d = addFx('say ' + (c.x > innerWidth / 2 ? 'l' : 'r'), c.x, c.y); d.textContent = pick(L); setTimeout(() => d.remove(), 2300);
+}
+
+/* ---------- local progress: stats, alt-art found, tutorial done ---------- */
+function loadJ(k, d){ try{ return JSON.parse(localStorage.getItem(k) || 'null') || d; }catch(e){ return d; } }
+function saveJ(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+function markAltSeen(id){ const a = loadJ('lao-legend-alts', []); if(!a.includes(id)){ a.push(id); saveJ('lao-legend-alts', a); } }
+function recordGame(won){
+  const st = loadJ('lao-legend-stats', {played:0, won:0});
+  st.played = (st.played || 0) + 1; if(won) st.won = (st.won || 0) + 1;
+  st.deck = st.deck || []; while(st.deck.length < DECKS.length) st.deck.push({p:0, w:0}); st.level = st.level || [{p:0,w:0},{p:0,w:0},{p:0,w:0}];
+  const d = st.deck[S.p[0].di], l = st.level[S.level]; d.p++; l.p++; if(won){ d.w++; l.w++; }
+  st.streak = won ? (st.streak || 0) + 1 : 0; st.best = Math.max(st.best || 0, st.streak);
+  saveJ('lao-legend-stats', st);
+}
+
+/* ---------- engine ---------- */
+const OPTIONAL = new Set(['phikrasue','kumphan','naiphan','thaenfahong']);
+const cur = () => S.p[S.turn];
+const pi = p => S.p.indexOf(p);
+const opp = p => S.p[1 - pi(p)];
+const oppLoc = p => { const q = S.p.includes(p) ? opp(p) : null; return q ? q.loc : null; };  // safe when a finished game's bot turn is still unwinding
+const isBot = p => p.bot || S.auto;
+const tkey = t => t.kind === 'hero' ? 'h:' + pi(t.owner) : 'c:' + t.c.uid;
+
+function mkPlayer(name, di, bot, level){
+  const deck = [];
+  for(const [id, n] of Object.entries(DECKS[di].list)) for(let i=0;i<n;i++) deck.push(id);
+  shuffle(deck);
+  return {name, bot, di, level, life:20, maxMana:0, mana:0, penalty:0, deck, hand:[], field:[], loc:null, grave:[]};
+}
+function newGame(di, level, opts){
+  opts = opts || {};
+  const others = DECKS.map((_, i) => i).filter(x => x !== di);
+  const bi = opts.botDeck != null ? opts.botDeck : pick(others);
+  S = {screen:'game', p:[mkPlayer('ເຈົ້າ', di, false, level), mkPlayer('ບອດ', bi, true, level)], turn:0, T:1, level, log:[], over:null,
+       busy:false, targeting:null, sel:null, modal:null, fast:!!opts.fast, auto:!!opts.auto, onEnd:opts.onEnd};
+  if(S.auto){ S.p[0].name = 'ບອດ A'; S.p[1].name = 'ບອດ B'; }
+  if(opts.levels){ S.p[0].level = opts.levels[0]; S.p[1].level = opts.levels[1]; }
+  for(const p of S.p) for(let i=0;i<5;i++) drawRaw(p);
+  S.turn = opts.first != null ? opts.first : (Math.random() < .5 ? 0 : 1);
+  if(opts.tut){
+    S.tut = {step:0};
+    // make sure the first two turns have something to play: ນາກນ້ອຍ (1 ບຸນ) and ແມ່ນ້ຳຂອງ (2 ບຸນ)
+    const me = S.p[0];
+    for(const want of ['babynaga', 'maenamkhong']){
+      if(me.hand.some(h => h.id === want)) continue;
+      const i = me.deck.indexOf(want); if(i < 0) continue;
+      me.deck.splice(i, 1); const out = me.hand.reduce((b, h) => C[h.id].cost > C[b.id].cost ? h : b, me.hand[0]);
+      me.deck.unshift(out.id); out.id = want;
+    }
+  }
+  log(S.turn === 0 ? 'ເຈົ້າໄດ້ໄປກ່ອນ' : 'ບອດໄດ້ໄປກ່ອນ');
+  render();
+  startTurn();
+}
+function log(m){ if(!S) return; S.log.unshift(m); if(S.log.length > 60) S.log.pop(); }
+function drawRaw(p){
+  if(!p.deck.length) return false;
+  const h = {uid:++U, id:p.deck.pop()};
+  if(ALT[h.id] && Math.random() < ALT_CHANCE){
+    h.alt = 1;
+    if(!S.auto && p === S.p[0] && !S.sim) markAltSeen(h.id);
+    if(!S.fast && !S.auto && p === S.p[0]){ setTimeout(() => { const d = addFx('toast alt'); d.textContent = '✦ ໄດ້ກາດອາດພິເສດ: ' + C[h.id].name; setTimeout(() => d.remove(), 1900); sfx('spell'); }, 700); }
+  }
+  p.hand.push(h); return true;
+}
+function draw(p, n){
+  for(let i=0;i<(n||1);i++){
+    if(S.over) return;
+    if(!drawRaw(p)){ log(p.name + ' ໝົດເດັກ'); gameOver(opp(p), 'deck'); return; }
+  }
+}
+function costOf(p, id){
+  const d = C[id]; let c = d.cost;
+  if(d.tribe === 'giant' && p.loc === 'pasatyak') c = Math.max(1, c - 1);
+  if(d.type === 'spell' && oppLoc(p) === 'khonephapheng') c += 1;
+  if(d.type === 'spell') c -= (p.loc === 'loduhon' ? 1 : 0) + p.field.filter(x => x.id === 'thaenlom').length;
+  c = Math.max(0, c);
+  return c;
+}
+function pow(p, c, vs, att){
+  const d = C[c.id]; let v = d.power;
+  for(const i of c.items) v += C[i].bonus;
+  for(const m of c.mods) v += m.amt;
+  if(p.loc && C[p.loc].buff === d.tribe) v++;
+  if(d.tribe === 'hero') v += p.field.filter(x => x.id === 'khunborom').length;
+  if(d.tribe === 'naga') v += p.field.filter(x => x.id === 'phayanak').length;
+  if(c.id === 'phralak' && p.field.some(x => x.id === 'phralam')) v += 2;
+  if(c.id === 'phikrasue' && p.loc === 'khuenduenmuet') v++;
+  if(p.loc === 'thonghai' && d.cost <= 2) v++;
+  if(oppLoc(p) === 'loduhnao') v--;
+  if(att && c.id === 'siho') v += 2;
+  if(vs){
+    const t = C[vs.id].tribe;
+    if(c.id === 'sinxay' && t === 'giant') v += 2;
+    if(c.id === 'khrut' && t === 'naga') v += 2;
+    if(c.id === 'khankhaak' && t === 'thewada') v += 3;
+    if(c.id === 'phralam' && t === 'giant') v += 3;
+    if(c.id === 'hapkhanasouane' && vs.id === 'phralam') v -= 3;
+  }
+  return v;
+}
+const hasTaunt = c => !!C[c.id].kw.taunt || c.items.includes('lowai');
+const hasFly = c => !!C[c.id].kw.fly || c.items.includes('wao');
+const maxAtk = c => c.id === 'hapkhanasouane' ? 2 : (c.id === 'sinxay' && c.items.includes('sonsin') ? 2 : 1);
+const canAttack = (p, c) => !S.over && S.turn === pi(p) && !c.sick && !(c.frz && c.frz >= S.T) && c.atk < maxAtk(c);
+
+function attackTargets(p, c){
+  const q = opp(p), d = C[c.id];
+  const taunts = q.field.filter(hasTaunt);
+  const list = (taunts.length ? taunts : q.field).map(x => ({kind:'char', owner:q, c:x}));
+  if(!d.kw.noFace && (hasFly(c) || !taunts.length)) list.push({kind:'hero', owner:q});
+  return list;
+}
+function targetsFor(p, id){
+  const q = opp(p);
+  const chars = (pl, f) => pl.field.filter(f || (() => true)).map(c => ({kind:'char', owner:pl, c}));
+  const notImm = c => c.id !== 'phayanak';
+  switch(id){
+    case 'bangfai': return [...chars(q, notImm), ...chars(p), {kind:'hero', owner:q}];
+    case 'khamsap': return chars(q, notImm);
+    case 'lomphayu': return [...chars(q, notImm), ...chars(p)];
+    case 'sonsin': case 'sonphralam': return chars(p);
+    case 'kabongyak': return chars(p, c => C[c.id].tribe === 'giant');
+    case 'phikrasue': return chars(q);
+    case 'kumphan': return chars(q, c => C[c.id].cost <= 3);
+    case 'faphaa': return chars(q, notImm);
+    case 'phukkhaen': case 'lowai': case 'wao': case 'katip': return chars(p);
+    case 'naiphan': case 'thaenfahong': return chars(q);
+    case 'mokseo': return chars(q, notImm);
+  }
+  return null;
+}
+function playBlock(p, h){
+  const d = C[h.id];
+  if(S.turn !== pi(p)) return 'ລໍຖ້າຕາຂອງເຈົ້າ';
+  if(d.react) return 'ໃບນີ້ໃຊ້ໄດ້ຕອນຄູ່ແຂ່ງໂຈມຕີເທົ່ານັ້ນ';
+  if(costOf(p, h.id) > p.mana) return 'ບຸນບໍ່ພໍ';
+  if(d.type === 'char' && p.field.length >= 5) return 'ສະໜາມເຕັມແລ້ວ (5 ໃບ)';
+  const tl = targetsFor(p, h.id);
+  if(tl && !tl.length && !OPTIONAL.has(h.id)) return 'ບໍ່ມີເປົ້າໝາຍ';
+  return null;
+}
+
+async function playCard(p, h, t){
+  const d = C[h.id];
+  p.mana -= costOf(p, h.id);
+  p.hand.splice(p.hand.indexOf(h), 1);
+  log(p.name + ' ລົງ «' + d.name + '»'); if(!S.fast) ui.detail = {id:h.id, alt:h.alt};
+  if(d.type === 'char'){
+    const c = {uid:++U, id:h.id, alt:h.alt, sick:!d.kw.rush, atk:0, items:[], mods:[]};
+    p.field.push(c);
+    if(d.legend || d.cost >= 5 || (h.alt && ALT[h.id])) await fxShowcase(h.id, h.alt);
+    render();
+    if(isBot(p) && !S.auto) botSay(d.legend ? 'legend' : 'play', d.legend);
+    await fxEnter(c);
+    await onPlay(p, c, t);
+  } else if(d.type === 'spell'){
+    await fxActivate(h.id, h.alt, pi(p));
+    p.lastMagic = h.id; p.mh = [h.id].concat(p.mh || []).slice(0, 5);
+    render();
+    await castSpell(p, h.id, t);
+    p.grave.push(h.id);
+  } else if(d.type === 'item'){
+    await fxActivate(h.id, h.alt, pi(p));
+    t.c.items.push(h.id);
+    p.lastMagic = h.id; p.mh = [h.id].concat(p.mh || []).slice(0, 5);
+    render();
+    sfx('spell'); particlesAt('c:' + t.c.uid, '#ffd23d', 16);
+    await fxRing('c:' + t.c.uid, '#ffd23d', true);
+    log('«' + d.name + '» ຕິດໃສ່ «' + C[t.c.id].name + '»');
+  } else if(d.type === 'loc'){
+    await fxActivate(h.id, h.alt, pi(p));
+    if(p.loc) p.grave.push(p.loc);
+    p.loc = h.id; p.locAge = 0;
+    render();
+    await fxLoc(pi(p), h.id);
+  }
+  await checkDeaths();
+  render();
+}
+async function onPlay(p, c, t){
+  switch(c.id){
+    case 'babynaga': heal(p, 1); break;
+    case 'kinnari': heal(p, 3); break;
+    case 'nagaprincess': case 'phralam': case 'molam': draw(p, 1); break;
+    case 'thaenfahong':
+      if(t && t.owner.field.includes(t.c)){ await fxRing(tkey(t), '#9fe0ff', true); if(pow(t.owner, t.c) <= 3) await destroy(t.owner, t.c); else { floatAt(tkey(t), 'ທົນໄດ້!', 'hit'); log('«' + C[t.c.id].name + '» ທົນໄດ້'); } }
+      break;
+    case 'nanghung': { const n = Math.min(3, p.grave.filter(id => C[id].type === 'spell').length); if(n){ draw(p, n); log('ນາງຮຸ້ງ: ' + p.name + ' ຈົ່ວກາດ ' + n + ' ໃບ'); } break; }
+    case 'naiphan':
+      if(t && t.owner.field.includes(t.c)){ t.c.mods.push({amt:-1, exp:Infinity}); await fxRing(tkey(t), '#c08a4a', true); log('ນາຍພານ ຍິງ «' + C[t.c.id].name + '» ພະລັງ -1'); }
+      break;
+    case 'khankhaak': {
+      const i = p.deck.indexOf('bangfai');
+      if(i >= 0){ p.deck.splice(i, 1); p.hand.push({uid:++U, id:'bangfai'}); shuffle(p.deck); log('ພະຍາຄັນຄາກ ເອີ້ນ «ບັ້ງໄຟ» ມາໃສ່ມື'); }
+      break;
+    }
+    case 'phihuean':
+      if(isBot(p)) log(p.name + ' ແອບເບິ່ງກາດໃນມື' + opp(p).name);
+      else { await new Promise(r => { S.modal = {type:'peek', resolve:r}; render(); }); }
+      break;
+    case 'xiengmieng': {
+      draw(p, 2); if(S.over) break;
+      const h = isBot(p) ? minBy(p.hand, x => C[x.id].cost + (C[x.id].legend ? 20 : 0))
+                         : await new Promise(r => { S.modal = {type:'discard', resolve:r}; render(); });
+      if(h){ p.hand.splice(p.hand.indexOf(h), 1); p.grave.push(h.id); log(p.name + ' ຖິ້ມ «' + C[h.id].name + '»'); }
+      break;
+    }
+    case 'phikrasue':
+      if(t && t.owner.field.includes(t.c)){ t.c.mods.push({amt:-2, exp:S.T}); await fxFireflies('c:' + c.uid, tkey(t)); log('«' + C[t.c.id].name + '» ພະລັງ -2'); }
+      break;
+    case 'kumphan':
+      if(t && t.owner.field.includes(t.c)){ await fxGrab(tkey(t)); bounce(t.owner, t.c); log('ຍັກກຸມພັນ ສົ່ງ «' + C[t.c.id].name + '» ກັບຄືນມື'); }
+      break;
+  }
+}
+async function castSpell(p, id, t){
+  switch(id){
+    case 'bangfai': {
+      const k = p.field.some(x => x.id === 'khankhaak'); const dmg = k ? 5 : 3;
+      await fxRocket(tkey(t));
+      if(t.kind === 'hero') damageHero(t.owner, dmg);
+      else if(t.owner.field.includes(t.c)){
+        if(pow(t.owner, t.c) <= dmg) await destroy(t.owner, t.c);
+        else { log('«' + C[t.c.id].name + '» ທົນໄດ້'); floatAt(tkey(t), 'ທົນໄດ້!', 'hit'); }
+      }
+      if(k) draw(p, 1);
+      break;
+    }
+    case 'namthuam': {
+      await fxWave();
+      const v = [];
+      for(const pl of S.p) for(const c of pl.field) if(pow(pl, c) <= 2 && !(pl !== p && c.id === 'phayanak')) v.push([pl, c]);
+      await Promise.all(v.map(([pl, c]) => destroy(pl, c, true)));
+      log('ນ້ຳຖ້ວມ ພັດໄປ ' + v.length + ' ໃບ');
+      break;
+    }
+    case 'khamsap':
+      t.c.mods.push({amt:-3, exp:S.T + 1}); await fxCurse(tkey(t)); log('«' + C[t.c.id].name + '» ຖືກສາບ ພະລັງ -3');
+      break;
+    case 'lomphayu':
+      await fxTornado(tkey(t)); bounce(t.owner, t.c); log('ລົມພາຍຸ ພັດ «' + C[t.c.id].name + '» ກັບຄືນມື');
+      break;
+    case 'baci': sfx('heal'); particlesAt('h:' + pi(p), '#ffffff', 16); draw(p, 2); log(p.name + ' ສູ່ຂວັນ ຈົ່ວກາດ 2 ໃບ'); break;
+    case 'khaoniao': heal(p, 3); break;
+    case 'phukkhaen':
+      t.c.mods.push({amt:2, exp:S.T}); sfx('spell'); particlesAt(tkey(t), '#ffffff', 14); await fxRing(tkey(t), '#ffd23d', true); log('«' + C[t.c.id].name + '» ຜູກແຂນ ພະລັງ +2');
+      break;
+    case 'tikong':
+      sfx('turn'); for(const c of p.field){ c.mods.push({amt:1, exp:S.T}); particlesAt('c:' + c.uid, '#ffd23d', 8); }
+      await fxRing('side:' + pi(p), '#ffd23d', true); log(p.name + ' ຕີກອງ ຕົວລະຄອນທຸກໃບ ພະລັງ +1');
+      break;
+    case 'faphaa':
+      sfx('boom'); fxBigShake(); particlesAt(tkey(t), '#9fe0ff', 20); await fxRing(tkey(t), '#9fe0ff', true);
+      if(t.owner.field.includes(t.c)){ if(pow(t.owner, t.c) <= 4) await destroy(t.owner, t.c); else { log('«' + C[t.c.id].name + '» ທົນໄດ້'); floatAt(tkey(t), 'ທົນໄດ້!', 'hit'); } }
+      break;
+    case 'satnam': {
+      await fxWave(); let n = 0;
+      for(const pl of S.p) for(const c of [...pl.field]) if(C[c.id].cost <= 2){ bounce(pl, c); n++; }
+      log('ສາດນ້ຳປີໃໝ່ ສົ່ງ ' + n + ' ໃບ ກັບຄືນມື');
+      break;
+    }
+    case 'phayufa': {
+      sfx('boom'); flashScreen('#cfeaff', .35); const q = opp(p), v = q.field.filter(c => c.id !== 'phayanak' && pow(q, c) <= 2);
+      for(const c of q.field){ const k = centerOf('c:' + c.uid); if(k) shockAt(k.x, k.y, '#9fe0ff', 120); }
+      await sleep(300); await Promise.all(v.map(c => destroy(q, c, true))); log('ພາຍຸຟ້າ ທຳລາຍ ' + v.length + ' ໃບ');
+      break;
+    }
+    case 'mokseo': t.c.frz = S.T + 1; await fxRing(tkey(t), '#e8e8f4', true); log('«' + C[t.c.id].name + '» ຫຼົງໝອກ ໂຈມຕີບໍ່ໄດ້ ຕາໜ້າ'); break;
+    case 'haingeun': p.mana += 1; sfx('heal'); particlesAt('h:' + pi(p), '#ffd23d', 16); log(p.name + ' ໄດ້ບຸນ +1'); break;
+  }
+}
+function bounce(owner, c){
+  const i = owner.field.indexOf(c); if(i < 0) return;
+  owner.field.splice(i, 1); owner.grave.push(...c.items); owner.hand.push({uid:++U, id:c.id, alt:c.alt});
+}
+async function destroy(p, c, quick){
+  if(!p.field.includes(c)) return;
+  if(!S.fast){ sfx('destroy'); if(!S.auto) botSay(p === S.p[1] ? 'lose' : 'kill');
+    const el = elOf('c:' + c.uid); if(el){ if(REDUCE) el.classList.add('dying'); else fxShatter(el, C[c.id].tribe); await sleep(quick ? 220 : 380); } }
+  const i = p.field.indexOf(c); if(i < 0) return;
+  p.field.splice(i, 1); p.grave.push(...c.items, c.id);
+  log('«' + C[c.id].name + '» ຖືກທຳລາຍ');
+  if(c.items.includes('katip')){ draw(p, 1); log('ກະຕິບເຂົ້າ: ' + p.name + ' ຈົ່ວກາດ 1 ໃບ'); }
+  if(c.id === 'phikongkoy'){ opp(p).penalty++; log('ສຽງຜີກອງກອຍ: ' + opp(p).name + ' ເສຍ 1 ບຸນ ຕາໜ້າ'); }
+}
+async function checkDeaths(){
+  let again = true;
+  while(again && S && !S.over){
+    again = false;
+    for(const p of S.p) for(const c of [...p.field]) if(pow(p, c) <= 0){ await destroy(p, c, true); again = true; }
+  }
+}
+function heal(p, n){
+  const b = p.life; p.life = Math.min(20, p.life + n); const g = p.life - b;
+  if(g > 0){ floatAt('h:' + pi(p), '+' + g, 'heal'); fxHeal('h:' + pi(p)); log(p.name + ' ຟື້ນຂວັນ +' + g); }
+}
+function damageHero(p, n){
+  p.life -= n; floatAt('h:' + pi(p), '-' + n, ''); shakeEl('h:' + pi(p));
+  if(!S.fast){ if(pi(p) === 0 && !S.auto) fxVignette(); if(n >= 6) fxBigShake(); if(p === S.p[1] && p.life > 0 && p.life <= 6) botSay('low'); }
+  log(p.name + ' ເສຍຂວັນ ' + n);
+  if(p.life <= 0) gameOver(opp(p), 'life');
+}
+async function attack(p, c, t){
+  const q = opp(p);
+  c.atk++;
+  render();
+  await fxLunge('c:' + c.uid, tkey(t), C[c.id].tribe, t.kind === 'hero' ? pow(p, c, null, true) : pow(p, c, t.c, true));
+  if(!S || S.over) return;
+  const ri = q.hand.findIndex(h => C[h.id].react);
+  if(ri >= 0 && q.mana >= 1 && !S.over){
+    const what = t.kind === 'hero' ? 'ຂວັນຂອງເຈົ້າ' : '«' + C[t.c.id].name + '»';
+    const use = isBot(q) ? botReact(q, p, c, t)
+      : await new Promise(r => { S.modal = {type:'ask', text:'«' + C[c.id].name + '» ກຳລັງໂຈມຕີ ' + what + '. ໃຊ້ «ກົນຊຽງໝ້ຽງ» ຍົກເລີກບໍ?', html:cardHTML('konxiengmieng'), resolve:r}; render(); });
+    if(use){
+      const h = q.hand[ri]; q.hand.splice(ri, 1); q.mana -= 1; q.grave.push(h.id);
+      await fxActivate(h.id, null, pi(q));
+      floatAt('c:' + c.uid, 'ສະດຸດ!', 'hit'); await fxTrip('c:' + c.uid);
+      log(q.name + ' ໃຊ້ «ກົນຊຽງໝ້ຽງ» ຍົກເລີກການໂຈມຕີ');
+      render(); return;
+    }
+  }
+  if(t.kind === 'hero'){ damageHero(q, pow(p, c, null, true)); }
+  else {
+    const tc = t.c; if(!q.field.includes(tc) || !p.field.includes(c)) return;
+    const a = pow(p, c, tc, true), b = pow(q, tc, c, false);
+    log('«' + C[c.id].name + '» (' + a + ') ໂຈມຕີ «' + C[tc.id].name + '» (' + b + ')');
+    floatAt('c:' + tc.uid, String(a), a >= 6 ? 'hit crit' : 'hit');
+    if(a > b){ await destroy(q, tc); if(c.id === 'singhimma') draw(p, 1); }
+    else if(b > a){ await destroy(p, c); if(tc.id === 'singhimma') draw(q, 1); }
+    else { await Promise.all([destroy(q, tc), destroy(p, c)]); if(c.id === 'singhimma') draw(p, 1); if(tc.id === 'singhimma') draw(q, 1); }
+  }
+  await checkDeaths();
+  render();
+}
+
+// start-of-turn effects that need waiting: Phaya Thaen strikes, seasons move on
+async function turnStartEffects(p){
+  const q = opp(p);
+  const rain = p.field.filter(x => x.id === 'thaenfon').length; if(rain) heal(p, rain);
+  for(const th of p.field.filter(x => x.id === 'phayathaen')){
+    const weak = q.field.filter(c => pow(q, c) <= 2); if(!weak.length || S.over) continue;
+    const v = maxBy(weak, c => C[c.id].cost); if(!S.fast){ const k = centerOf('c:' + v.uid); if(k){ shockAt(k.x, k.y, '#9fe0ff', 140); flashScreen('#e6f6ff', .3); sfx('boom'); } await sleep(250); }
+    log('ພະຍາແຖນ ຟ້າຜ່າ «' + C[v.id].name + '»'); await destroy(q, v);
+  }
+  if(SEASONS.includes(p.loc)){
+    p.locAge = (p.locAge || 0) + 1;
+    if(p.locAge >= 2){ const nx = SEASONS[(SEASONS.indexOf(p.loc) + 1) % 3]; p.loc = nx; p.locAge = 0; log('ລະດູປ່ຽນເປັນ «' + C[nx].name + '»'); render(); await fxLoc(pi(p), nx); }
+  }
+  await checkDeaths();
+}
+async function startTurn(){
+  if(!S || S.over) return;
+  const G = S, p = cur();
+  if(S.T > 200){ gameOver(S.p[0].life >= S.p[1].life ? S.p[0] : S.p[1], 'life'); return; }
+  for(const c of p.field){ c.sick = false; c.atk = 0; }
+  if(S.T > 1) draw(p, 1);
+  if(S.over) return;
+  if(p.loc === 'talatsao' && p.hand.length <= 2){ draw(p, 1); log('ຕະຫຼາດເຊົ້າ: ' + p.name + ' ຈົ່ວເພີ່ມ 1 ໃບ'); if(S.over) return; }
+  p.maxMana = Math.min(10, p.maxMana + 1);
+  p.mana = Math.max(0, p.maxMana - p.penalty); p.penalty = 0;
+  const nk = p.field.filter(x => x.id === 'phayanak').length; if(nk) heal(p, 2 * nk);
+  await turnStartEffects(p); if(S !== G || S.over) return;
+  S.sel = null; S.busy = isBot(p);
+  render();
+  if(S.T > 1) fxDraw(pi(p));
+  await fxBanner(isBot(p) ? (S.auto ? p.name : 'ຕາຂອງບອດ') : 'ຕາຂອງເຈົ້າ', isBot(p));
+  if(S !== G || G.over) return;
+  if(isBot(p)) botTurn(); else { S.busy = false; render(); tutEvent('myturn'); }
+}
+async function endTurn(){
+  if(!S || S.over) return;
+  const G = S, p = cur(); if(p === S.p[0]) tutEvent('end'); S.busy = true; S.targeting = null; S.sel = null;
+  if(!S.fast && !isBot(p) && !REDUCE){
+    const md = document.querySelector('.medal');
+    if(md){ sfx('spell'); const r = md.getBoundingClientRect(); shockAt(r.left + r.width / 2, r.top + r.height / 2, '#f2b632', 120);
+      await animDone(md.animate([{transform:'translateY(-50%) rotate(0) scale(1)'}, {transform:'translateY(-50%) rotate(200deg) scale(1.18)', offset:.6}, {transform:'translateY(-50%) rotate(360deg) scale(1)'}], {duration:520, easing:'cubic-bezier(.3,.7,.3,1)'})); }
+    if(S !== G) return;
+  }
+  while(p.hand.length > 7){ const h = p.hand.shift(); p.grave.push(h.id); log(p.name + ' ຖິ້ມ «' + C[h.id].name + '» (ມືເຕັມ 7 ໃບ)'); }
+  for(const pl of S.p) for(const c of pl.field) c.mods = c.mods.filter(m => m.exp > S.T);
+  await checkDeaths();
+  if(S !== G || G.over) return;
+  S.T++; S.turn = 1 - S.turn;
+  startTurn();
+}
+function gameOver(winner, reason){
+  if(!S || S.over) return;
+  if(S.sim){ S.over = {winner:pi(winner), reason}; return; }
+  S.over = {winner:pi(winner), reason}; S.busy = false; S.targeting = null;
+  if(!S.auto){
+    const won = S.over.winner === 0; sfx(won ? 'win' : 'lose'); if(won) fxConfetti(); botSay(won ? 'losegame' : 'win', true);
+    if(!S.tut) recordGame(won);
+    else { saveJ('lao-legend-tut', 1); S.tut = null; }
+    S.modal = {type:'over'};
+  }
+  render();
+  if(S.onEnd) S.onEnd();
+}
+
+/* ---------- bot ---------- */
+async function botTurn(){
+  const G = S, p = cur(), q = opp(p);
+  const live = () => S === G && !G.over;   // stop if the game ended or a new game started
+  G.busy = true;
+  await sleep(450);
+  if(p.level === 2){ await botTurnHard(G, p); if(live()){ await sleep(280); if(live()) endTurn(); } return; }
+  let guard = 0;
+  while(live() && guard++ < 15){
+    const ch = p.level === 0 ? botPickEasy(p, q) : botPick(p, q);
+    if(!ch) break;
+    if(!G.auto) await fxShowCard(ch.h.id, ch.h.alt);
+    if(!live()) return;
+    await playCard(p, ch.h, ch.t);
+    await sleep(320);
+  }
+  const order = [...p.field].sort((a, b) => pow(p, b) - pow(p, a));
+  for(const c of order){
+    let g = 0;
+    while(live() && p.field.includes(c) && canAttack(p, c) && g++ < 3){
+      const t = p.level === 0 ? botTargetEasy(p, c) : botTarget(p, c);
+      if(!t) break;
+      await attack(p, c, t);
+      await sleep(360);
+    }
+  }
+  if(live()){ await sleep(280); if(live()) endTurn(); }
+}
+function botPick(p, q){
+  const reserve = p.hand.some(h => C[h.id].react) ? 1 : 0;
+  let best = null, bs = 0;
+  for(const h of p.hand){
+    if(playBlock(p, h)) continue;
+    const d = C[h.id], cost = costOf(p, h.id);
+    if(reserve && d.type !== 'char' && p.mana - cost < reserve && cost < 5) continue;
+    let s = 0, t = null;
+    const tl = targetsFor(p, h.id) || [];
+    const en = tl.filter(x => x.kind === 'char' && x.owner === q);
+    if(d.type === 'loc'){
+      if(!p.loc){
+        const tribe = h.id === 'pasatyak' ? 'giant' : d.buff;
+        s = 2 + p.field.filter(c => C[c.id].tribe === tribe).length + p.hand.filter(x => C[x.id].tribe === tribe).length * .5;
+      }
+    } else if(d.type === 'char'){
+      s = cost * 2 + d.power + 1;
+      if(h.id === 'phikrasue' && en.length) t = en.find(x => pow(q, x.c) <= 2) || maxBy(en, x => pow(q, x.c));
+      if((h.id === 'thaenfahong') && en.length){ const k = en.filter(x => pow(q, x.c) <= 3); t = k.length ? maxBy(k, x => C[x.c.id].cost) : null; if(t) s += 2 + C[t.c.id].cost; }
+      if(h.id === 'naiphan' && en.length){ t = maxBy(en, x => pow(q, x.c)); s += 1; }
+      if(h.id === 'nanghung') s += Math.min(3, p.grave.filter(id => C[id].type === 'spell').length);
+      if(h.id === 'kumphan' && en.length){ t = maxBy(en, x => C[x.c.id].cost + pow(q, x.c)); s += 2; }
+      if(h.id === 'khankhaak' && p.deck.includes('bangfai')) s += 2;
+      if((h.id === 'babynaga' || h.id === 'kinnari') && p.life < 14) s += 2;
+    } else if(d.type === 'item'){
+      if(tl.length){ t = maxBy(tl, x => pow(p, x.c) + (x.c.sick ? 0 : 1) + (x.c.id === 'sinxay' && h.id === 'sonsin' ? 6 : 0) - (h.id === 'wao' && hasFly(x.c) ? 9 : 0) - (h.id === 'lowai' && hasTaunt(x.c) ? 9 : 0)); s = 2 + d.bonus + (h.id === 'wao' || h.id === 'lowai' ? 1.5 : 0); }
+    } else if(h.id === 'bangfai'){
+      const dmg = p.field.some(x => x.id === 'khankhaak') ? 5 : 3;
+      if(q.life <= dmg){ t = {kind:'hero', owner:q}; s = 100; }
+      else {
+        const k = en.filter(x => pow(q, x.c) <= dmg);
+        if(k.length){ t = maxBy(k, x => C[x.c.id].cost + pow(q, x.c)); s = 3 + C[t.c.id].cost; }
+        else { t = {kind:'hero', owner:q}; s = 1.5; }
+      }
+    } else if(h.id === 'namthuam'){
+      let v = 0;
+      for(const c of q.field) if(pow(q, c) <= 2 && c.id !== 'phayanak') v += C[c.id].cost + 1;
+      for(const c of p.field) if(pow(p, c) <= 2) v -= C[c.id].cost + 1;
+      s = v >= 3 ? v : 0;
+    } else if(h.id === 'khamsap'){
+      if(en.length){ t = maxBy(en, x => pow(q, x.c)); const pw = pow(q, t.c); s = pw <= 3 ? 4 + C[t.c.id].cost : (pw >= 5 ? 3 : 0); }
+    } else if(h.id === 'baci'){
+      s = p.hand.length <= 5 ? 4.5 : 1;
+    } else if(h.id === 'khaoniao'){
+      s = p.life <= 14 ? 3 : 0;
+    } else if(h.id === 'phukkhaen'){
+      const mine = tl.filter(x => canAttack(p, x.c)); if(mine.length){ t = maxBy(mine, x => pow(p, x.c)); s = 2.5; }
+    } else if(h.id === 'tikong'){
+      const n = p.field.filter(c => canAttack(p, c)).length; s = n >= 2 ? n * 1.6 : 0;
+    } else if(h.id === 'faphaa'){
+      const k = en.filter(x => pow(q, x.c) <= 4); if(k.length){ t = maxBy(k, x => C[x.c.id].cost + pow(q, x.c)); s = 3 + C[t.c.id].cost; }
+    } else if(h.id === 'satnam'){
+      let v = 0; for(const c of q.field) if(C[c.id].cost <= 2) v += C[c.id].cost + 1; for(const c of p.field) if(C[c.id].cost <= 2) v -= C[c.id].cost + 1;
+      s = v >= 3 ? v : 0;
+    } else if(h.id === 'phayufa'){
+      let v = 0; for(const c of q.field) if(c.id !== 'phayanak' && pow(q, c) <= 2) v += C[c.id].cost + 1; s = v >= 3 ? v : 0;
+    } else if(h.id === 'mokseo'){
+      if(en.length){ t = maxBy(en, x => pow(q, x.c)); s = pow(q, t.c) >= 4 ? 2.5 : 0; }
+    } else if(h.id === 'haingeun'){
+      s = .5;
+    } else if(h.id === 'lomphayu'){
+      const big = en.filter(x => C[x.c.id].cost >= 4 || x.c.items.length);
+      if(big.length){ t = maxBy(big, x => C[x.c.id].cost + x.c.items.length * 2); s = C[t.c.id].cost; }
+    }
+    if(s > bs){ bs = s; best = {h, t}; }
+  }
+  return best;
+}
+function botTarget(p, c){
+  const q = opp(p); const ts = attackTargets(p, c); if(!ts.length) return null;
+  const hero = ts.find(x => x.kind === 'hero');
+  if(hero && pow(p, c, null, true) >= q.life) return hero;
+  let best = null, bs = -1;
+  for(const t of ts){
+    if(t.kind !== 'char') continue;
+    const a = pow(p, c, t.c, true), b = pow(q, t.c, c);
+    const tv = C[t.c.id].cost + b, mv = C[c.id].cost + pow(p, c);
+    let s = -1;
+    if(a > b) s = tv + 2; else if(a === b && tv >= mv) s = tv - mv + 1;
+    if(s > bs){ bs = s; best = t; }
+  }
+  // hitting ຂວັນ wins games; only a clearly better trade beats it
+  if(hero && pow(p, c, null, true) * (DECKS[p.di].aggr || 1.3) + (q.life <= 10 ? 3 : 0) >= bs) return hero;
+  return bs >= 0 ? best : null;
+}
+function botPickEasy(p, q){
+  const opts = p.hand.filter(h => !playBlock(p, h));
+  if(!opts.length || Math.random() < .15) return null;
+  const h = pick(opts); const tl = targetsFor(p, h.id); let t = null;
+  if(tl && tl.length){ const en = tl.filter(x => x.owner === q); t = pick(en.length ? en : tl); }
+  return {h, t};
+}
+function botTargetEasy(p, c){
+  if(Math.random() < .3) return null;
+  const ts = attackTargets(p, c); return ts.length ? pick(ts) : null;
+}
+function botReact(q, p, c, t){
+  if(q.level === 0) return false;
+  if(t.kind === 'hero'){ const d = pow(p, c, null, true); return d >= q.life || d >= 4; }
+  return pow(p, c, t.c, true) > pow(q, t.c, c) && C[t.c.id].cost >= 3;
+}
+
+
+/* ---------- hard bot: try every move on a copy of the game, keep the best ---------- */
+function cloneState(hideIdx){
+  const cp = (p, i) => ({name:p.name, bot:true, di:p.di, level:p.level, life:p.life, maxMana:p.maxMana, mana:p.mana, penalty:p.penalty,
+    deck:null, hand:null,
+    field:p.field.map(c => ({uid:c.uid, id:c.id, sick:c.sick, atk:c.atk, items:c.items.slice(), mods:c.mods.map(m => ({amt:m.amt, exp:m.exp}))})),
+    loc:p.loc, grave:p.grave.slice(), lastMagic:p.lastMagic, _src:p, _i:i});
+  const ps = S.p.map(cp);
+  for(const q of ps){
+    const src = q._src;
+    if(q._i === hideIdx){
+      // the bot may know how many cards you hold, never which ones
+      const pool = shuffle(src.deck.concat(src.hand.map(h => h.id)));
+      q.hand = src.hand.map((h, j) => ({uid:h.uid, id:pool[j]})); q.deck = pool.slice(src.hand.length);
+    } else { q.hand = src.hand.map(h => ({uid:h.uid, id:h.id})); q.deck = shuffle(src.deck.slice()); }
+    delete q._src; delete q._i;
+  }
+  return {screen:'game', p:ps, turn:S.turn, T:S.T, level:S.level, log:[], over:null, busy:true, targeting:null, sel:null, modal:null, fast:true, auto:true, sim:true};
+}
+function resolveT(tk){
+  if(!tk) return null;
+  if(tk[0] === 'h') return {kind:'hero', owner:S.p[+tk.slice(2)]};
+  const uid = +tk.slice(2);
+  for(const pl of S.p){ const c = pl.field.find(x => x.uid === uid); if(c) return {kind:'char', owner:pl, c}; }
+  return null;
+}
+function hardMoves(p){
+  const out = [{type:'end'}];
+  for(const h of p.hand){
+    if(playBlock(p, h)) continue;
+    const tl = targetsFor(p, h.id);
+    if(tl && tl.length) for(const t of tl) out.push({type:'play', uid:h.uid, tk:tkey(t)});
+    else out.push({type:'play', uid:h.uid, tk:null});
+  }
+  for(const c of p.field) if(canAttack(p, c)) for(const t of attackTargets(p, c)) out.push({type:'atk', uid:c.uid, tk:tkey(t)});
+  return out;
+}
+async function applyMove(m){
+  const p = cur();
+  if(m.type === 'play'){ const h = p.hand.find(x => x.uid === m.uid); if(h) await playCard(p, h, resolveT(m.tk)); }
+  else if(m.type === 'atk'){ const c = p.field.find(x => x.uid === m.uid), t = resolveT(m.tk); if(c && t) await attack(p, c, t); }
+}
+function evalState(me){
+  const P = S.p[me], Q = S.p[1 - me];
+  if(S.over) return S.over.winner === me ? 1e4 : -1e4;
+  const myPow = P.field.reduce((a, c) => a + pow(P, c), 0), opPow = Q.field.reduce((a, c) => a + pow(Q, c), 0);
+  let e = (P.life - Q.life) * 1.2 + myPow * 1.5 - opPow * 1.7 + (P.field.length - Q.field.length) + (P.hand.length - Q.hand.length) * .6;
+  e += P.field.filter(hasTaunt).length * 1.5;
+  e -= Q.life * ((DECKS[P.di].aggr || 1.3) - 1);
+  if(opPow >= P.life) e -= 60;
+  if(myPow >= Q.life) e += 25;
+  return e;
+}
+async function quickTurn(p, q){
+  let g = 0;
+  while(!S.over && g++ < 12){ const ch = botPick(p, q); if(!ch) break; await playCard(p, ch.h, ch.t); }
+  for(const c of [...p.field].sort((a, b) => pow(p, b) - pow(p, a))){
+    let k = 0;
+    while(!S.over && p.field.includes(c) && canAttack(p, c) && k++ < 3){ const t = botTarget(p, c); if(!t) break; await attack(p, c, t); }
+  }
+}
+async function passTurnSim(){
+  const p = cur();
+  while(p.hand.length > 7) p.grave.push(p.hand.shift().id);
+  for(const pl of S.p) for(const c of pl.field) c.mods = c.mods.filter(m => m.exp > S.T);
+  await checkDeaths(); if(S.over) return;
+  S.T++; S.turn = 1 - S.turn;
+  const n = cur();
+  for(const c of n.field){ c.sick = false; c.atk = 0; }
+  draw(n, 1); if(S.over) return;
+  if(n.loc === 'talatsao' && n.hand.length <= 2){ draw(n, 1); if(S.over) return; }
+  n.maxMana = Math.min(10, n.maxMana + 1); n.mana = Math.max(0, n.maxMana - n.penalty); n.penalty = 0;
+  const nk = n.field.filter(x => x.id === 'phayanak').length; if(nk) heal(n, 2 * nk);
+  await turnStartEffects(n);
+}
+// play the move, finish this turn the medium way, let the opponent answer, then score
+async function rolloutMove(m, me){
+  const P = S.p[me], Q = S.p[1 - me];
+  if(m.type !== 'end'){ await applyMove(m); if(!S.over) await quickTurn(P, Q); }
+  if(!S.over) await passTurnSim();
+  if(!S.over) await quickTurn(Q, P);
+  return evalState(me);
+}
+async function botTurnHard(G, p){
+  const me = pi(p); let guard = 0;
+  while(S === G && !G.over && guard++ < 14){
+    let best = null, bs = -Infinity;
+    for(const m of hardMoves(p)){
+      const real = S; let v = 0;
+      try{ for(let r=0;r<2;r++){ S = cloneState(1 - me); v += await rolloutMove(m, me) / 2; } v += m.type === 'end' ? .05 : 0; }
+      catch(err){ v = -Infinity; window.__errs.push('hard: ' + (err && err.stack || err)); }
+      finally{ S = real; }
+      if(v > bs){ bs = v; best = m; }
+    }
+    if(!best || best.type === 'end') break;
+    if(best.type === 'play'){
+      const h = p.hand.find(x => x.uid === best.uid); if(!h) break;
+      await fxShowCard(h.id, h.alt); if(S !== G || G.over) return;
+      await playCard(p, h, resolveT(best.tk));
+    } else {
+      const c = p.field.find(x => x.uid === best.uid), t = resolveT(best.tk); if(!c || !t) break;
+      await attack(p, c, t);
+    }
+    await sleep(330);
+  }
+}
+
+
+/* ---------- tutorial: ຊຽງໝ້ຽງ walks a first game step by step ---------- */
+const TUT = [
+  {t:'ສະບາຍດີ! ຂ້ອຍ ຊຽງໝ້ຽງ ຈະສອນຫຼິ້ນ. ເປົ້າໝາຍ: ເຮັດໃຫ້ <b>ຂວັນ</b> ຂອງບອດ ເຫຼືອ 0. ຂວັນຢູ່ຖັນສີແດງທາງຊ້າຍ (ໂທລະສັບ: ຮູບຫົວໃຈ).', next:1},
+  {t:'ທຸກຕາ ເຈົ້າໄດ້ <b>ບຸນ</b> ເພີ່ມ 1 (ເມັດສີຟ້າ). ລົງກາດ ຕ້ອງຈ່າຍບຸນ ຕາມເລກໃນກ່ອງສີຂຽວ ມຸມຊ້າຍເທິງຂອງກາດ.', next:1},
+  {t:'ລອງເລີຍ: ແຕະກາດທີ່ <b>ຍົກຂຶ້ນ ແລະ ມີແສງຂຽວ</b> ແລ້ວກົດ «ລົງກາດ».', wait:'play', hl:'.hand'},
+  {t:'ດີຫຼາຍ! ຕົວລະຄອນທີ່ຫາກໍລົງ ຕ້ອງ <b>ລໍຖ້າ 1 ຕາ</b> ຈຶ່ງໂຈມຕີໄດ້. ກົດປຸ່ມສີທອງ «ຈົບຕາ».', wait:'end', hl:'.medal'},
+  {t:'ຕອນນີ້ເປັນຕາຂອງບອດ. ເບິ່ງວ່າບອດລົງກາດຫຍັງ…', wait:'myturn'},
+  {t:'ຕາເຈົ້າແລ້ວ! ແຕະ <b>ຕົວລະຄອນຂອບຂຽວ</b> ຂອງເຈົ້າ ແລ້ວແຕະ <b>ເປົ້າໝາຍຂອບແດງ</b> ເພື່ອໂຈມຕີ. ຖ້າຍັງບໍ່ມີ ໃຫ້ລົງກາດ ແລ້ວຈົບຕາກ່ອນ.', wait:'attack', hl:'.lane.chars'},
+  {t:'ເກັ່ງ! <b>ພະລັງໃຜຫຼາຍກວ່າ ຊະນະ</b>, ເທົ່າກັນ ຕາຍທັງຄູ່. ຖ້າບອດບໍ່ມີ «ກັນໄພ» ເຈົ້າໂຈມຕີຂວັນບອດໂດຍກົງໄດ້.', next:1},
+  {t:'ກາດຂອບ <b>ສີຟ້າ</b> ແມ່ນຄາຖາ, ຂອງວິເສດ ແລະ ສະຖານທີ່. <b>ຄຳສີຂຽວ</b> ໃນກາດ ບອກວ່າສະກິນເຮັດວຽກຕອນໃດ. ແຕະກາດໃດກໍໄດ້ ເພື່ອອ່ານໃຫ້ລະອຽດ.', next:1},
+  {t:'ເຈົ້າພ້ອມແລ້ວ! ຫຼິ້ນຕໍ່ຈົນຊະນະບອດເລີຍ. ໂຊກດີເດີ້!', next:'done'}
+];
+function tutEvent(ev){
+  if(!S || !S.tut) return;
+  const st = TUT[S.tut.step]; if(st && st.wait === ev){ S.tut.step++; render(); }
+  else if(ev === 'myturn' && S.tut.step === 3) { S.tut.step = 5; render(); }
+}
+function tutHTML(){
+  if(!S || !S.tut || S.over) return '';
+  const i = S.tut.step, st = TUT[i]; if(!st) return '';
+  let btns = '';
+  if(st.next === 'done') btns = '<button data-a="tutdone">ເລີ່ມສູ້!</button>';
+  else if(st.next) btns = '<button data-a="tutnext">ຕໍ່ໄປ</button>';
+  btns = '<button class="sk" data-a="tutskip">ຂ້າມ</button>' + btns;
+  return '<div class="tut" role="dialog" aria-label="ສອນຫຼິ້ນ"><div class="face2"><img src="' + ART + 'xiengmieng.jpg" alt=""></div><div class="tx"><b class="who2">ຊຽງໝ້ຽງ ສອນຫຼິ້ນ <span class="step">' + (i + 1) + '/' + TUT.length + '</span></b><p>' + st.t + '</p><div class="tb">' + btns + '</div></div></div>';
+}
+function tutHighlight(){
+  document.querySelectorAll('.tutpulse').forEach(e => e.classList.remove('tutpulse'));
+  if(!S || !S.tut || S.over) return; const st = TUT[S.tut.step];
+  if(st && st.hl){ const e = document.querySelector(st.hl); if(e) e.classList.add('tutpulse'); }
+}
+
+/* ---------- player actions ---------- */
+function pickTarget(list, prompt, selUid){
+  return new Promise(resolve => { S.targeting = {list, prompt, resolve}; S.sel = selUid || null; render(); });
+}
+function promptOf(id){
+  const d = C[id];
+  if(d.type === 'item') return 'ເລືອກຕົວລະຄອນ ທີ່ຈະຕິດ «' + d.name + '»';
+  if(id === 'phikrasue') return 'ເລືອກຕົວລະຄອນຄູ່ແຂ່ງ ໃຫ້ພະລັງ -2';
+  if(id === 'kumphan') return 'ເລືອກຕົວລະຄອນ ທີ່ຈະສົ່ງກັບຄືນມື';
+  return 'ເລືອກເປົ້າໝາຍ ຂອງ «' + d.name + '»';
+}
+async function tryPlay(uid){
+  const p = S.p[0]; const h = p.hand.find(x => x.uid === uid); if(!h) return;
+  S.modal = null;
+  const why = playBlock(p, h); if(why){ toast(why); render(); return; }
+  let t = null; const tl = targetsFor(p, h.id);
+  if(tl && tl.length){ t = await pickTarget(tl, promptOf(h.id)); if(t === undefined){ render(); return; } }
+  S.busy = true; await playCard(p, h, t); if(!S || S.over) return; S.busy = false; render(); tutEvent('play');
+}
+async function attackFlow(c){
+  const p = S.p[0]; const ts = attackTargets(p, c);
+  if(!ts.length){ toast('ບໍ່ມີເປົ້າໝາຍທີ່ໂຈມຕີໄດ້'); return; }
+  const t = await pickTarget(ts, '«' + C[c.id].name + '» ຈະໂຈມຕີໃຜ?', c.uid);
+  if(!t){ render(); return; }
+  S.busy = true; await attack(p, c, t); if(!S || S.over) return; S.busy = false; render(); tutEvent('attack');
+}
+
+/* ---------- rendering ---------- */
+function fmtSkill(t){
+  // highlight game words the way printed TCG cards do: trigger chips, keyword chips, coloured numbers
+  const RULES = [
+    [/«[^»]+»/g, 'kn'],
+    [/ເມື່ອລົງສະໜາມ|ທຸກຕາ|ຢູ່ສະໜາມ|ເມື່ອໃບນີ້ຖືກທຳລາຍ|ເມື່ອທຳລາຍຕົວລະຄອນຂອງຄູ່ແຂ່ງໄດ້|ໃຊ້ຕອນຄູ່ແຂ່ງໂຈມຕີ|ເວລາໂຈມຕີ|ຕິດໃສ່ຕົວລະຄອນ(?:ເຜົ່າຍັກ)? 1 ໃບ/g, 'kt'],
+    [/ກັນໄພ|ບິນ/g, 'kk'],
+    [/ເຜົ່າ(?:ນາກ|ຍັກ|ຜີ|ວິລະບຸລຸດ|ຫິມະພານ|ນັກປາດ|ເທວະດາ|ຊາວບ້ານ)/g, 'tr'],
+    [/ພະລັງ \+\d+/g, 'up'], [/ພະລັງ -\d+/g, 'dn'], [/ຟື້ນຂວັນ \+\d+/g, 'hp'],
+    [/ຈົ່ວກາດ \d+ ໃບ/g, 'dr'], [/ໂຈມຕີໄດ້ 2 ເທື່ອ(?:ຕໍ່ຕາ)?|ໂຈມຕີ \d+/g, 'dm']
+  ];
+  const bits = [];
+  let s = String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  for(const [re, cls] of RULES) s = s.replace(re, m => { bits.push('<span class="kw-' + cls + '">' + m + '</span>'); return '\u0001' + (bits.length - 1) + '\u0002'; });
+  return s.replace(/\u0001(\d+)\u0002/g, (m, i) => bits[+i]);
+}
+function cardHTML(id, cs, alt, pv){
+  const d = C[id]; const isAlt = !!(alt && ALT[id]); const cls = (d.legend ? 'legend' : (d.type === 'char' ? 'hero' : 'spell')) + (isAlt ? ' alt' : '');
+  const cost = cs != null ? cs : d.cost;
+  return '<div class="card ' + cls + '"><div class="face"><div class="art"><img src="' + ART + (isAlt ? ALT[id] : d.img) + '.jpg" alt="" loading="lazy"></div>' + (isAlt ? '<span class="altbadge">✦ ອາດພິເສດ</span>' : '') +
+    '<div class="cost"><span class="lbl">ບຸນ</span><span class="num">' + cost + '</span></div>' +
+    '<div class="sym">' + SYM[d.type === 'char' ? d.tribe : 'spell'] + '</div>' +
+    '<div class="panel"><span class="tag">' + d.tag + '</span><p class="skill">' + fmtSkill(d.skill) + '</p></div>' +
+    '<div class="bottom">' + (d.type === 'char' ? '<div class="power"><span class="lbl">ພະລັງ</span><span class="num' + (pv == null || pv === d.power ? '' : (pv > d.power ? ' up' : ' down')) + '">' + (pv == null ? d.power : pv) + '</span></div>' : '') +
+    '<div class="namebox">' + d.name + '</div></div></div></div>';
+}
+function render(){
+  if(S && S.fast) return;
+  if(!S){ $app.innerHTML = (ui.screen === 'book' ? bookHTML() : menuHTML()) + menuModalHTML() + settingsHTML(); return; }
+  $app.innerHTML = boardHTML() + modalHTML() + settingsHTML() + tutHTML();
+  tutHighlight();
+}
+function menuHTML(){
+  let st = null; try{ st = JSON.parse(localStorage.getItem('lao-legend-stats') || 'null'); }catch(e){}
+  return '<div class="menu">' +
+    '<div class="logo"><h1><img class="logoimg" src="art/logo.webp" alt="Lao Legend Wars" width="960" height="640"></h1><div class="set">ສົງຄາມຕຳນານລາວ · ເກມກາດນິທານລາວ · ຫຼິ້ນຟຣີ</div><p>ເລືອກເດັກ ແລ້ວສູ້ກັບບອດ</p></div>' +
+    '<div class="decks">' + DECKS.map((d, i) =>
+      '<div class="deck ' + (ui.deck === i ? 'on' : '') + '" role="button" tabindex="0" data-a="deck" data-v="' + i + '">' + cardHTML(d.legend) +
+      '<div><b>ເດັກ ' + (d.no || i + 1) + '</b><span>' + d.name + '</span><small>' + d.style + '</small></div></div>').join('') + '</div>' +
+    '<p class="themelbl">ໜ້າຕາສະໜາມ</p>' + themePicker() + '<div class="levels"><span>ລະດັບບອດ</span>' + LEVELS.map((l, i) =>
+      '<button class="lv ' + (ui.level === i ? 'on' : '') + '" data-a="lvl" data-v="' + i + '">' + l + '</button>').join('') +
+      '</div>' +
+    '<button class="btn-main" data-a="start">ເລີ່ມຫຼິ້ນ</button>' +
+    '<div class="mrow"><button class="btn2 ' + (loadJ('lao-legend-tut', 0) ? '' : 'hl') + '" data-a="tutstart">ສອນຫຼິ້ນ</button><button class="btn2" data-a="book">ປຶ້ມກາດ</button><button class="btn2" data-a="stats">ສະຖິຕິ</button><button class="btn2" data-a="settings">ຕັ້ງຄ່າ</button></div>' +
+    (st && st.played ? '<div class="stats">ຊະນະ ' + st.won + ' ຈາກ ' + st.played + ' ເກມ</div>' : '') +
+    '<p class="links"><a href="' + RULES_URL + '" target="_blank" rel="noopener">ອ່ານກົດການຫຼິ້ນ</a> · <a href="' + CARDS_URL + '" target="_blank" rel="noopener">ເບິ່ງກາດທັງໝົດ</a></p>' +
+    '<p class="note">ສະບັບທົດລອງ: ກາດ 53 ແບບ, ບອດ 3 ລະດັບ, ເອັບເຟັກ ແລະ ສຽງ. ສິນໄຊ, ພະຍານາກ, ຮາບມະນາສວນ ແລະ ພະລາມ ມີໂອກາດ 1 ໃນ 4 ອອກເປັນ ✦ ອາດພິເສດ.</p>' +
+  '</div>';
+}
+
+const BOOKTABS = [['all','ທັງໝົດ']].concat(DECKS.map((d, i) => ['d' + i, 'ເດັກ ' + (d.no || i + 1)]), [['neutral','ກາດກາງ'],['alt','✦ ອາດພິເສດ']]);
+function bookIds(tab){
+  const neutral = Object.keys(C).filter(id => C[id].tribe === 'villager' || ['baci','khaoniao','phukkhaen','tikong','faphaa','satnam','haingeun','lowai','wao','katip','thonghai','talatsao','khonephapheng'].includes(id));
+  const byDeck = i => Object.keys(DECKS[i].list).filter(id => !neutral.includes(id));
+  const sortc = a => a.sort((x, y) => C[x].cost - C[y].cost);
+  if(tab === 'neutral') return sortc(neutral);
+  if(tab[0] === 'd') return sortc(byDeck(+tab[1]));
+  return DECKS.flatMap((_, i) => sortc(byDeck(i))).concat(sortc(neutral));
+}
+function bookHTML(){
+  const tab = ui.bookTab || 'all', seen = loadJ('lao-legend-alts', []);
+  let cells;
+  if(tab === 'alt') cells = Object.keys(ALT).map(id => seen.includes(id)
+      ? '<div class="bcell" data-a="bookcard" data-v="' + id + '" data-alt="1">' + cardHTML(id, null, 1) + '<small>✦ ' + C[id].name + '</small></div>'
+      : '<div class="bcell"><div class="locked"><div><b>?</b>ຈົ່ວ ' + C[id].name + '<br>ໃຫ້ພົບໃນເກມ</div></div><small>ຍັງບໍ່ພົບ</small></div>').join('');
+  else cells = bookIds(tab).map(id => '<div class="bcell" data-a="bookcard" data-v="' + id + '">' + cardHTML(id) + '</div>').join('');
+  return '<div class="book"><div class="bookhead"><button class="btn2" data-a="bookback">← ກັບຄືນ</button><h2>ປຶ້ມກາດ</h2><span class="cnt2">' + Object.keys(C).length + ' ແບບ · ອາດພິເສດ ' + seen.length + '/' + Object.keys(ALT).length + '</span></div>' +
+    '<div class="tabs">' + BOOKTABS.map(([k, l]) => '<button class="' + (tab === k ? 'on' : '') + '" data-a="booktab" data-v="' + k + '">' + l + '</button>').join('') + '</div>' +
+    '<div class="bgrid">' + cells + '</div></div>';
+}
+function menuModalHTML(){
+  const m = ui.mmodal; if(!m) return '';
+  let inner = '';
+  if(m.type === 'card') inner = '<div style="width:min(290px,66vw)">' + cardHTML(m.id, null, m.alt) + '</div><p class="lore">' + C[m.id].lore + '</p><div class="mbtns"><button class="btn2" data-a="mmclose">ປິດ</button></div>';
+  else if(m.type === 'stats'){
+    const st = loadJ('lao-legend-stats', {played:0, won:0}), pct = (w, p) => p ? Math.round(w / p * 100) + '%' : '–';
+    const dk = st.deck || [{p:0,w:0},{p:0,w:0},{p:0,w:0}], lv = st.level || [{p:0,w:0},{p:0,w:0},{p:0,w:0}];
+    const row = (n, x) => '<tr><td>' + n + '</td><td class="n">' + x.p + '</td><td class="n">' + x.w + '</td><td class="n">' + pct(x.w, x.p) + '</td></tr>';
+    inner = '<p class="q">ສະຖິຕິຂອງເຈົ້າ</p><table class="stattbl"><thead><tr><th></th><th>ຫຼິ້ນ</th><th>ຊະນະ</th><th>%</th></tr></thead><tbody>' +
+      row('<b>ທັງໝົດ</b>', {p:st.played || 0, w:st.won || 0}) + DECKS.map((d, i) => row('ເດັກ ' + (d.no || i + 1), dk[i] || {p:0, w:0})).join('') + LEVELS.map((l, i) => row('ບອດ' + l, lv[i])).join('') +
+      '</tbody></table><p class="lore">ຊະນະຕິດກັນ ' + (st.streak || 0) + ' · ສູງສຸດ ' + (st.best || 0) + ' · ອາດພິເສດທີ່ພົບ ' + loadJ('lao-legend-alts', []).length + '/' + Object.keys(ALT).length + '</p>' +
+      '<p class="lore">ສະຖິຕິເກັບໄວ້ໃນເຄື່ອງນີ້ເທົ່ານັ້ນ</p><div class="mbtns"><button class="btn2" data-a="mmclose">ປິດ</button></div>';
+  }
+  return '<div class="modal-bg"><div class="modal">' + inner + '</div></div>';
+}
+function boardHTML(){
+  const m = S.p[0], b = S.p[1];
+  return '<div class="arena" data-theme="' + (THEMES.some(t => t[0] === SET.theme) ? SET.theme : 'sinh') + '">' +
+    '<aside class="spanel" id="dpanel" aria-live="polite">' + detailHTML() + '</aside><div class="amain">' +
+    '<div class="band top">' + plate2(b, 1) +
+      '<div class="ofan" data-k="hand:1" style="--n:' + b.hand.length + '" aria-label="ກາດໃນມືບອດ ' + b.hand.length + ' ໃບ">' +
+        b.hand.map((h, i) => '<span class="ob cback" style="--i:' + i + '">' + BACK + '</span>').join('') + '<span class="ocnt">ມືບອດ ' + b.hand.length + '</span></div>' +
+      '</div>' +
+    '<div class="field2">' + half2(b, 1) + mid2() + half2(m, 0) + promptHTML() + '</div>' +
+    '<div class="band bot">' + plate2(m, 0) +
+      '<div class="fan hand ' + (ui.hideHand ? 'hidden' : '') + '" data-k="hand:0" style="--n:' + m.hand.length + '">' + m.hand.map((h, i) => handHTML(h, i)).join('') + '</div>' +
+      '<div class="btns2">' +
+        '<button class="gbtn" data-a="hidehand" aria-label="' + (ui.hideHand ? 'ສະແດງມື' : 'ຊ່ອນມື') + '">' + IC_EYE + '</button>' +
+        '<button class="gbtn" data-a="log" aria-label="ບັນທຶກເຫດການ">' + IC_LOG + '</button>' +
+        '<button class="gbtn" data-a="settings" aria-label="ຕັ້ງຄ່າ">' + IC_GEAR + '</button>' +
+        ((S.over || (S.turn === 0 && !S.busy && !S.targeting)) ? '<button class="gbtn" data-a="menu" aria-label="ອອກ">' + IC_EXIT + '</button>' : '') + '</div>' +
+    '</div></div></div>';
+}
+function whoLabel(p, i){ return S.auto ? p.name : (i ? 'ບອດ · ' + LEVELS[S.level] : 'ເຈົ້າ'); }
+function plate2(p, i){
+  const k = 'h:' + i, tg = S.targeting && S.targeting.list.some(x => tkey(x) === k);
+  let gems = ''; for(let j=0;j<10;j++) gems += '<i class="gem ' + (j < p.mana ? 'full' : (j < p.maxMana ? 'spent' : '')) + '"></i>';
+  return '<div class="lplate ' + (i ? 'opp' : 'me') + ' ' + (tg ? 'tgt' : '') + '" data-a="hero" data-k="' + k + '"><div class="lav"><img src="' + ART + C[DECKS[p.di].legend].img + '.jpg" alt=""></div>' +
+    '<div><div class="lnm">' + whoLabel(p, i) + ' · ເດັກ ' + p.deck.length + '</div><div class="llife">' + HEART + Math.max(0, p.life) + '</div>' +
+    '<div class="lsub"><div class="gems">' + gems + '</div><em>ບຸນ ' + p.mana + '/' + p.maxMana + '</em></div></div></div>';
+}
+function piles2(p, i){
+  const top = p.grave.length ? p.grave[p.grave.length - 1] : null;
+  return '<div class="piles2"><div class="pile2" data-k="deck:' + i + '"><span class="cback">' + BACK + '</span><span class="cnt">' + p.deck.length + '</span><small>ເດັກ</small></div>' +
+    '<div class="pile2"' + (top ? ' data-a="info" data-v="' + top + '"' : '') + '>' + (top ? cardHTML(top) : '<div class="gempty"></div>') + '<span class="cnt">' + p.grave.length + '</span><small>ກອງຖິ້ມ</small></div></div>';
+}
+function half2(p, i){
+  const mg = p.lastMagic, top = p.grave.length ? p.grave[p.grave.length - 1] : null;
+  const strip = '<div class="strip">' +
+    '<div class="slot loc' + (p.loc ? ' has' : '') + '" data-l="ສະຖານທີ່"' + (p.loc ? ' data-a="info" data-v="' + p.loc + '"' : '') + '>' + (p.loc ? cardHTML(p.loc) : '') + '</div>' +
+    '<div class="slot magic' + (mg ? ' has' : '') + '" data-l="ຄາຖາ"' + (mg ? ' data-a="info" data-v="' + mg + '"' : '') + '>' + (mg ? cardHTML(mg) : '') + '</div></div>';
+  const deck = '<div class="slot' + (p.deck.length ? ' has' : '') + '" data-k="deck:' + i + '" data-l="ເດັກ">' + (p.deck.length ? '<span class="cback">' + BACK + '</span>' : '') + '<span class="cnt">' + p.deck.length + '</span></div>';
+  const grave = '<div class="slot' + (top ? ' has' : '') + '" data-l="ກອງຖິ້ມ"' + (top ? ' data-a="info" data-v="' + top + '"' : '') + '>' + (top ? cardHTML(top) : '') + '<span class="cnt">' + p.grave.length + '</span></div>';
+  const pcol = '<div class="pcol">' + (i ? deck + grave : grave + deck) + '</div>';
+  const lane = '<div class="lane chars' + (p.loc ? ' hasloc' : '') + '" data-k="side:' + i + '"' + (p.loc ? ' style="--locimg:url(' + ART + C[p.loc].img + '.jpg)"' : '') + '><span class="wm">' + (S.auto ? p.name : (i ? 'ຝ່າຍບອດ' : 'ຝ່າຍເຈົ້າ')) + '</span>' +
+    '<div class="row" style="--n:' + p.field.length + '">' + p.field.map(c => miniHTML(p, c)).join('') + '</div></div>';
+  return '<div class="half2 ' + (i ? 'opp' : 'me') + '" data-k="mat:' + i + '">' + strip + lane + pcol + '</div>';
+}
+function mid2(){
+  const mine = S.turn === 0 && !S.over && !S.auto, me = S.p[0];
+  const moves = mine && (me.hand.some(h => !playBlock(me, h)) || me.field.some(c => canAttack(me, c)));
+  const chip = '<span class="tchip2 ' + (mine ? '' : 'bot') + '">ຕາທີ ' + Math.ceil(S.T / 2) + ' · ' + (S.over ? 'ຈົບເກມ' : (mine ? 'ຕາຂອງເຈົ້າ' : (S.auto ? cur().name : 'ຕາບອດ'))) + '</span>';
+  const medal = (mine && !S.busy)
+    ? '<button class="medal go endbig ' + (moves ? '' : 'glow') + '" data-a="end"><span><span>ຕາຂອງເຈົ້າ</span><b>ຈົບຕາ</b></span></button>'
+    : '<button class="medal endbig" disabled><span><span>' + (S.over ? 'ຈົບເກມ' : 'ລໍຖ້າ') + '</span><b>' + (S.over ? '' : (mine ? '…' : 'ບອດ')) + '</b></span></button>';
+  return '<div class="mid2">' + chip + '<button class="logb" data-a="log">' + (S.log[0] || '') + '</button><span></span>' + medal + '</div>';
+}
+function promptHTML(){
+  if(!S.targeting) return '';
+  return '<div class="tprompt2"><b>' + S.targeting.prompt + '</b><button class="btn2" data-a="cancel">ຍົກເລີກ</button></div>';
+}
+function detailHTML(){
+  const d0 = ui.detail; if(!d0 || !C[d0.id]) return '<p class="ptip"><b>✦</b>ຊີ້ ຫຼື ແຕະກາດໃດກໍໄດ້<br>ເພື່ອເບິ່ງກາດໃຫຍ່ ແລະ ອ່ານສະກິນຢູ່ບ່ອນນີ້</p>';
+  const d = C[d0.id], isChar = d.type === 'char', pw = d0.pw != null ? d0.pw : d.power;
+  const type = isChar ? (d.legend ? 'ກາດຕຳນານ · ' : 'ຕົວລະຄອນ · ') + TRIBE_NAME[d.tribe] : (d.type === 'loc' ? 'ກາດສະຖານທີ່' : (d.type === 'item' ? 'ຂອງວິເສດ' : 'ກາດຄາຖາ'));
+  return '<div class="ph">' + SYM[isChar ? d.tribe : 'spell'] + '<span>' + d.name + (d0.alt && ALT[d0.id] ? ' ✦' : '') + '</span></div>' +
+    '<div class="pc">' + cardHTML(d0.id, null, d0.alt, isChar ? pw : null) + '</div>' +
+    '<div class="pchips"><span>ບຸນ <b>' + d.cost + '</b></span>' + (isChar ? '<span>ພະລັງ <b>' + pw + '</b>' + (pw !== d.power ? ' (' + d.power + ')' : '') + '</span>' : '') + '</div>' +
+    '<div class="ptype">' + type + '</div><p class="pskill">' + fmtSkill(d.skill) + '</p><p class="plore">' + d.lore + '</p>';
+}
+function setDetail(o){
+  if(!o || (ui.detail && ui.detail.id === o.id && ui.detail.alt === o.alt && ui.detail.pw === o.pw)) return;
+  ui.detail = o; const el = document.getElementById('dpanel'); if(el) el.innerHTML = detailHTML();
+}
+function miniHTML(p, c){
+  const d = C[c.id], v = pow(p, c), k = 'c:' + c.uid, mine = pi(p) === 0 && !S.auto, myTurn = S.turn === pi(p);
+  const cls = ['mini']; if(d.legend) cls.push('lg'); if(c.alt && ALT[c.id]) cls.push('altm');
+  if(c.sick && myTurn) cls.push('sick'); else if(myTurn && c.atk >= maxAtk(c)) cls.push('used');
+  if(mine && myTurn && !S.busy && !S.targeting && canAttack(p, c)) cls.push('can');
+  if(S.sel === c.uid) cls.push('sel');
+  if(S.targeting && S.targeting.list.some(x => tkey(x) === k)) cls.push('tgt');
+  const kw = [];
+  if(hasTaunt(c)) kw.push('<span>ກັນໄພ</span>');
+  if(hasFly(c)) kw.push('<span>ບິນ</span>');
+  if(maxAtk(c) > 1) kw.push('<span>×2</span>');
+  if(c.frz && c.frz >= S.T) kw.push('<span class="dn">ໝອກ</span>');
+  for(const it of c.items) kw.push('<span class="it">' + C[it].name + '</span>');
+  if(c.mods.some(m => m.amt < 0)) kw.push('<span class="dn">ອ່ອນແຮງ</span>');
+  return '<div class="' + cls.join(' ') + '" data-a="field" data-k="' + k + '" aria-label="' + d.name + ' ພະລັງ ' + v + '">' + cardHTML(c.id, null, c.alt, v) +
+    '<div class="pwtop ' + (v > d.power ? 'up' : (v < d.power ? 'down' : '')) + '">' + v + '</div><div class="kw">' + kw.join('') + '</div>' + (c.sick && myTurn ? '<div class="st">ລໍຖ້າ</div>' : '') + '</div>';
+}
+function handHTML(h, i){
+  const p = S.p[0]; const mine = S.turn === 0 && !S.busy && !S.over && !S.auto;
+  const ok = mine && !playBlock(p, h);
+  return '<div class="hc ' + (ok ? 'ok' : (mine ? 'no' : '')) + '" data-a="hand" data-v="' + h.uid + '" style="--i:' + (i || 0) + '">' + cardHTML(h.id, costOf(p, h.id), h.alt) + '</div>';
+}
+function modalHTML(){
+  const m = S.modal; if(!m) return ''; let inner = '';
+  if(m.type === 'info'){
+    inner = cardHTML(m.id, null, m.alt) + '<p class="lore">' + C[m.id].lore + '</p><div class="mbtns"><button class="btn2" data-a="mclose">ປິດ</button></div>';
+  } else if(m.type === 'hand'){
+    const p = S.p[0], h = p.hand.find(x => x.uid === m.uid); if(!h){ S.modal = null; return ''; }
+    const why = playBlock(p, h);
+    inner = cardHTML(h.id, costOf(p, h.id), h.alt) + '<p class="lore">' + C[h.id].lore + '</p>' + (why ? '<p class="why">' + why + '</p>' : '') +
+      '<div class="mbtns"><button class="btn-main sm" data-a="play" data-v="' + h.uid + '" ' + (why ? 'disabled' : '') + '>ລົງກາດ · ' + costOf(p, h.id) + ' ບຸນ</button><button class="btn2" data-a="mclose">ປິດ</button></div>';
+  } else if(m.type === 'ask'){
+    inner = '<div style="width:min(200px,50vw)">' + (m.html || '') + '</div><p class="q">' + m.text + '</p><div class="mbtns"><button class="btn-main sm" data-a="yes">ໃຊ້ເລີຍ</button><button class="btn2" data-a="no">ບໍ່ໃຊ້</button></div>';
+  } else if(m.type === 'discard'){
+    inner = '<p class="q">ຊຽງໝ້ຽງ: ເລືອກກາດ 1 ໃບ ທີ່ຈະຖິ້ມ</p><div class="pick">' + S.p[0].hand.map(h => '<div class="hc" data-a="discard" data-v="' + h.uid + '">' + cardHTML(h.id) + '</div>').join('') + '</div>';
+  } else if(m.type === 'peek'){
+    const b = S.p[1];
+    inner = '<p class="q">ຜີເຮືອນ ແອບເບິ່ງກາດໃນມືບອດ</p><div class="pick">' + (b.hand.map(h => '<div class="hc">' + cardHTML(h.id) + '</div>').join('') || '<p>ບອດບໍ່ມີກາດໃນມື</p>') +
+      '</div><div class="mbtns"><button class="btn2" data-a="mclose">ຈື່ແລ້ວ</button></div>';
+  } else if(m.type === 'log'){
+    inner = '<p class="q">ບັນທຶກເຫດການ</p><ol class="loglist">' + S.log.map(l => '<li>' + l + '</li>').join('') + '</ol><div class="mbtns"><button class="btn2" data-a="mclose">ປິດ</button></div>';
+  } else if(m.type === 'over'){
+    const win = S.over.winner === 0;
+    inner = '<div class="over ' + (win ? 'win' : 'lose') + '">' + (win ? 'ເຈົ້າຊະນະ!' : 'ບອດຊະນະ') + '</div><div style="width:min(200px,50vw)">' + cardHTML(DECKS[S.p[S.over.winner].di].legend) + '</div>' +
+      '<p class="q">' + (S.over.reason === 'deck' ? 'ເດັກໝົດ' : 'ຂວັນເຫຼືອ 0') + ' · ຫຼິ້ນໄປ ' + Math.ceil(S.T / 2) + ' ຕາ</p>' +
+      '<div class="mbtns"><button class="btn-main sm" data-a="replay">ຫຼິ້ນອີກ</button><button class="btn2" data-a="menu">ປ່ຽນເດັກ</button></div>';
+  }
+  return '<div class="modal-bg"><div class="modal">' + inner + '</div></div>';
+}
+
+/* ---------- effects ---------- */
+// wait for an animation, but never longer than its own length: a hidden tab can hold 'finished' back forever
+function animDone(an){
+  const t = (an.effect && an.effect.getTiming && an.effect.getTiming().duration) || 500;
+  return Promise.race([an.finished.catch(() => {}), new Promise(r => setTimeout(r, (+t || 500) + 60))]);
+}
+function elOf(k){ const els = document.querySelectorAll('[data-k="' + k + '"]'); for(const e of els) if(e.getClientRects().length) return e; return els[0] || null; }
+function centerOf(k){ const e = elOf(k); if(!e) return null; const r = e.getBoundingClientRect(); return {x:r.left + r.width / 2, y:r.top + r.height / 2}; }
+function addFx(cls, x, y, html){ const d = document.createElement('div'); d.className = cls; if(x != null){ d.style.left = x + 'px'; d.style.top = y + 'px'; } if(html) d.innerHTML = html; $fx.appendChild(d); return d; }
+function floatAt(k, txt, cls){ if(S.fast) return; const c = centerOf(k); if(!c) return; const d = addFx('float ' + (cls || ''), c.x, c.y); d.textContent = txt; setTimeout(() => d.remove(), 1100); }
+function shakeEl(k){ if(S.fast || REDUCE) return; const e = elOf(k); if(e) e.animate([{filter:'brightness(1)'}, {filter:'brightness(2.4)', offset:.2}, {filter:'brightness(1)'}], {duration:320}); }
+async function fxRing(k, color, big){
+  if(S.fast) return; const c = centerOf(k);
+  if(c){ const d = addFx('ring', c.x, c.y); d.style.setProperty('--c', color); d.style.setProperty('--s', big ? 2.4 : 1.7); setTimeout(() => d.remove(), 700); }
+  await sleep(big ? 420 : 280);
+}
+async function fxEnter(c){
+  if(S.fast) return; sfx('play'); const e = elOf('c:' + c.uid); if(e) e.classList.add('enter');
+  await sleep(230);
+  const pt = centerOf('c:' + c.uid), tribe = C[c.id].tribe;
+  if(pt){
+    shockAt(pt.x, pt.y + 10, TC[tribe], 120); burstAt(pt.x, pt.y, tribe, 26, .75); screenShake(4);
+    if(false){
+      sfx('spell'); flashScreen('#fff', .35); rainbowBurst(pt.x, pt.y, 80);
+      const b = addFx('altban', pt.x, pt.y - 70); b.textContent = '✦ ອາດພິເສດ'; setTimeout(() => b.remove(), 1250);
+      await sleep(600);
+    }
+  }
+  await sleep(200);
+}
+const POW_WORDS = ['ຕູມ!', 'ປັງ!', 'ຊວບ!', 'ຕຶບ!', 'ໂຄມ!'];
+function powSVG(big){
+  let pts = ''; const n = 14;
+  for(let i = 0; i < n * 2; i++){ const a = i / (n * 2) * Math.PI * 2 - Math.PI / 2, r = i % 2 ? 30 + Math.random() * 6 : 50 + Math.random() * 8; pts += (60 + Math.cos(a) * r).toFixed(1) + ',' + (60 + Math.sin(a) * r).toFixed(1) + ' '; }
+  return '<svg viewBox="0 0 120 120"><defs><radialGradient id="pg"><stop offset="0" stop-color="#ffffff"></stop><stop offset=".45" stop-color="#fff3a0"></stop><stop offset="1" stop-color="' + (big ? '#ff8a2a' : '#ffc21e') + '"></stop></radialGradient></defs><polygon points="' + pts + '" fill="url(#pg)" stroke="#1b1b1b" stroke-width="4" stroke-linejoin="round"></polygon></svg>';
+}
+function speedLines(x, y, color){
+  let l = ''; for(let i = 0; i < 18; i++){ const a = i / 18 * Math.PI * 2 + Math.random() * .2, r0 = 62 + Math.random() * 14, r1 = r0 + 40 + Math.random() * 40;
+    l += '<line x1="' + (150 + Math.cos(a) * r0).toFixed(1) + '" y1="' + (150 + Math.sin(a) * r0).toFixed(1) + '" x2="' + (150 + Math.cos(a) * r1).toFixed(1) + '" y2="' + (150 + Math.sin(a) * r1).toFixed(1) + '"></line>'; }
+  const d = addFx('lines', x, y, '<svg viewBox="0 0 300 300" width="300" height="300"><g stroke="' + color + '" stroke-width="5" stroke-linecap="round">' + l + '</g></svg>');
+  setTimeout(() => d.remove(), 520);
+}
+async function fxLunge(a, b, tribe, dmg){
+  if(S.fast) return; const A = centerOf(a), B = centerOf(b), e = elOf(a), tgt = elOf(b);
+  if(!A || !B || !e || REDUCE){ await sleep(150); return; }
+  const sp = SET.speed, dx = B.x - A.x, dy = B.y - A.y, dist = Math.hypot(dx, dy) || 1, ux = dx / dist, uy = dy / dist;
+  const T = TFX[tribe] || TFX.hero, col = T.c[0], big = (dmg || 0) >= 6;
+  e.style.zIndex = 20; sfx('attack');
+  // 1) the card rises and glows in its tribe colour
+  const lift = 'translateY(-16px) scale(1.12)';
+  e.animate([{transform:'none', filter:'drop-shadow(0 0 0 ' + col + ')'}, {transform:lift, filter:'drop-shadow(0 0 18px ' + col + ')'}], {duration:230 * sp, easing:'ease-out', fill:'forwards'});
+  await sleep(250);
+  // 2) it dashes into the target, leaving fading afterimages
+  const tx = dx * .8, ty = dy * .8, dur = 170 * sp, r0 = e.getBoundingClientRect(), html = e.innerHTML, t0 = performance.now();
+  const dash = e.animate([{transform:lift}, {transform:'translate(' + tx + 'px,' + ty + 'px) scale(1.16)'}], {duration:dur, easing:'cubic-bezier(.7,0,1,.4)', fill:'forwards'});
+  const ghosts = setInterval(() => {
+    const k = Math.min(1, (performance.now() - t0) / dur), g = document.createElement('div'); g.className = 'ghost'; g.innerHTML = html;
+    Object.assign(g.style, {left:(r0.left + tx * k) + 'px', top:(r0.top + ty * k) + 'px', width:r0.width + 'px', height:r0.height + 'px'});
+    $fx.appendChild(g); g.animate([{opacity:.5}, {opacity:0}], {duration:280, fill:'forwards'}); setTimeout(() => g.remove(), 300);
+  }, 34);
+  await animDone(dash)
+  clearInterval(ghosts);
+  // 3) impact: a cross of light, a ring, a few sparks; the target flashes white and is knocked back
+  sfx('hit'); if(big) sfx('boom');
+  const f = addFx('flare' + (big ? ' big' : ''), B.x, B.y, '<i></i><i></i>'); f.style.setProperty('--tc', col); setTimeout(() => f.remove(), 520);
+  flashScreen('#ffffff', big ? .32 : .16); shockAt(B.x, B.y, col, big ? 190 : 130); burstAt(B.x, B.y, tribe, big ? 28 : 16, .9);
+  if(tgt) tgt.animate([{transform:'none', filter:'brightness(1)'}, {transform:'translate(' + ux * 18 + 'px,' + uy * 18 + 'px) rotate(' + (ux * 6) + 'deg)', filter:'brightness(2.8)', offset:.2}, {transform:'none', filter:'brightness(1)'}], {duration:440, easing:'ease-out'});
+  await sleep(130);
+  const ret = e.animate([{transform:'translate(' + tx + 'px,' + ty + 'px) scale(1.16)'}, {transform:'none', filter:'none'}], {duration:280 * sp, easing:'cubic-bezier(.2,.8,.2,1)'});
+  await animDone(ret)
+  e.getAnimations().forEach(x => x.cancel()); e.style.zIndex = '';
+}
+async function fxBanner(txt, bot){
+  if(S.fast) return; sfx('turn');
+  const d = addFx('tb2 ' + (bot ? 'red' : 'blue'), null, null, '<div class="tbb"><small>ຕາທີ ' + Math.ceil(S.T / 2) + '</small><b>' + txt + '</b></div>');
+  const dur = 1150 * SET.speed; d.style.setProperty('--d', dur + 'ms');
+  flashScreen(bot ? '#ffd6d0' : '#d6e2ff', .22);
+  const y = innerHeight * .46, col = bot ? ['#ff8a7a', '#ffd23d', '#fff'] : ['#8fb4ff', '#ffd23d', '#fff'];
+  setTimeout(() => { for(let k = 0; k < 40; k++) emit({x:Math.random() * innerWidth, y:y + (Math.random() - .5) * 120, vx:300 + Math.random() * 500, vy:(Math.random() - .5) * 60, drag:.97, life:.6, size:2.5, kind:'spark', color:pick(col)}); }, 200);
+  await sleep(dur - 80); d.remove();
+}
+const TRIBE_NAME = {naga:'ເຜົ່ານາກ', giant:'ເຜົ່າຍັກ', ghost:'ເຜົ່າຜີ', himma:'ເຜົ່າຫິມະພານ', hero:'ເຜົ່າວິລະບຸລຸດ', nakpat:'ເຜົ່ານັກປາດ', villager:'ເຜົ່າຊາວບ້ານ', thewada:'ເຜົ່າເທວະດາ'};
+// full-screen reveal of the character art with a name band, for legends, big characters and alt-art cards
+async function fxShowcase(id, alt){
+  if(S.fast) return; const d = C[id], T = TFX[d.tribe] || TFX.hero, legend = !!d.legend;
+  const dur = (legend ? 2300 : 1500) * SET.speed;
+  sfx(legend ? 'legend' : 'spell');
+  const img = ART + (alt && ALT[id] ? ALT[id] : d.img) + '.jpg';
+  const label = (alt && ALT[id] ? '✦ ອາດພິເສດ · ' : '') + (legend ? 'ກາດຕຳນານ · ' : '') + TRIBE_NAME[d.tribe] + ' · ບຸນ ' + d.cost;
+  const el = addFx('show' + (alt && ALT[id] ? ' alt' : ''), null, null, '<div class="sbg" style="background-image:url(' + img + ')"></div><div class="stint"></div><div class="streaks"></div><div class="sband"><small>' + label + '</small><b>' + d.name + '</b><span>ພະລັງ ' + d.power + '</span></div>');
+  el.style.setProperty('--dur', dur + 'ms'); el.style.setProperty('--tc', T.c[0] + 'cc');
+  flashScreen('#ffffff', legend ? .9 : .5);
+  // aura rising from the bottom edge in the tribe colour
+  const iv = setInterval(() => { for(let i = 0; i < (legend ? 6 : 3); i++) emit({x:Math.random() * innerWidth, y:innerHeight + 10, vx:(Math.random() - .5) * 40, vy:-220 - Math.random() * 260, g:-40, drag:.99, life:1.1, size:3 + Math.random() * 5, kind:'dot', color:pick(T.c)}); }, 40);
+  if(alt && ALT[id]) setTimeout(() => rainbowBurst(innerWidth / 2, innerHeight * .45, 90), 300);
+  await sleep(legend ? 2300 : 1500);
+  clearInterval(iv); el.remove();
+}
+// a spell, item or location is shown big with a golden glow, then flies into its slot
+async function fxActivate(id, alt, side){
+  if(S.fast) return; const d = C[id];
+  const tag = d.type === 'loc' ? 'ສະຖານທີ່' : (d.type === 'item' ? 'ຂອງວິເສດ' : 'ຄາຖາ');
+  const el = addFx('activate', null, null, '<div class="glow"></div>' + cardHTML(id, null, alt) + '<span class="acttag">' + tag + ' · ' + d.name + '</span>');
+  sfx('spell'); flashScreen('#fff3c4', .2);
+  const r = el.getBoundingClientRect(); for(let i = 0; i < 18; i++){ const a = Math.random() * 6.283; emit({x:r.left + r.width / 2 + Math.cos(a) * r.width * .6, y:r.top + r.height / 2 + Math.sin(a) * r.height * .5, vx:Math.cos(a) * 60, vy:Math.sin(a) * 60 - 40, drag:.97, life:.9, size:2.5, kind:'spark', color:pick(['#ffd23d', '#fff6c8', '#ffffff'])}); }
+  await sleep(780);
+  const slot = document.querySelector('[data-k="mat:' + side + '"] .slot.' + (d.type === 'loc' ? 'loc' : 'magic'));
+  if(slot && !REDUCE){
+    const s2 = slot.getBoundingClientRect(), c0 = el.getBoundingClientRect();
+    const k = Math.min(1, (s2.height * .8) / c0.height), mx = s2.left + s2.width / 2 - (c0.left + c0.width / 2), my = s2.top + s2.height / 2 - (c0.top + c0.height / 2);
+    const an = el.animate([{transform:'translate(-50%,-50%)', opacity:1}, {transform:'translate(calc(-50% + ' + mx + 'px), calc(-50% + ' + my + 'px)) scale(' + k + ')', opacity:.9}], {duration:320 * SET.speed, easing:'cubic-bezier(.5,0,.2,1)', fill:'forwards'});
+    await animDone(an)
+  }
+  el.remove();
+}
+async function fxShowCard(id, alt){ if(S.fast) return; const cd = C[id]; if(cd.type !== 'char' || cd.legend || cd.cost >= 5 || (alt && ALT[id])) return; const d = addFx('showcard', null, null, cardHTML(id, null, alt)); await sleep(1000); d.remove(); }
+async function fxRocket(k){
+  if(S.fast) return; const B = centerOf(k); if(!B) return;
+  sfx('rocket'); const sx = innerWidth / 2, sy = innerHeight + 40; const ang = Math.atan2(B.y - sy, B.x - sx) * 180 / Math.PI + 90;
+  const r = addFx('rocket', sx, sy); const tf = 'translate(-50%,-50%) rotate(' + ang + 'deg)'; r.style.transform = tf;
+  const an = r.animate([{left:sx + 'px', top:sy + 'px'}, {left:B.x + 'px', top:B.y + 'px'}], {duration:REDUCE ? 1 : 650, easing:'ease-in', fill:'forwards'});
+  await animDone(an)
+  r.remove(); sfx('boom'); particlesAt(k, '#ff8a3d', 18); const bm = addFx('boom', B.x, B.y); setTimeout(() => bm.remove(), 620); shakeEl(k); await sleep(200);
+}
+async function fxWave(){ if(S.fast) return; sfx('wind'); const d = addFx('wave'); await sleep(950); d.remove(); }
+
+
+/* ---------- particle canvas: sparks, debris, shockwaves, screen flash ---------- */
+const FX = {cv:null, ctx:null, ps:[], run:false, dpr:1, flash:0, flashColor:'#fff', last:0};
+const TFX = {
+  naga:{c:['#3aa0ff','#bfe9ff','#ffffff'], kind:'dot', g:700},
+  giant:{c:['#ff5a3c','#ffb347','#7a4a2c'], kind:'shard', g:1000, solid:true},
+  ghost:{c:['#b06bff','#e6d2ff','#8dff9e'], kind:'dot', g:-90},
+  himma:{c:['#ffd23d','#fff3b0','#ff9a3d'], kind:'leaf', g:250},
+  hero:{c:['#ffffff','#ffd23d','#9fe0ff'], kind:'spark', g:350},
+  nakpat:{c:['#7be36a','#ffffff','#ffd23d'], kind:'spark', g:350},
+  villager:{c:['#e8c48a','#ffffff','#c08a4a'], kind:'dot', g:500},
+  thewada:{c:['#9fe0ff','#ffffff','#ffd23d'], kind:'spark', g:-60}
+};
+function fxCanvas(){
+  if(FX.cv) return;
+  const cv = document.createElement('canvas'); cv.id = 'fxc'; cv.setAttribute('aria-hidden', 'true'); document.body.appendChild(cv);
+  FX.cv = cv; FX.ctx = cv.getContext('2d');
+  const rs = () => { FX.dpr = Math.min(2, window.devicePixelRatio || 1); cv.width = innerWidth * FX.dpr; cv.height = innerHeight * FX.dpr; };
+  rs(); addEventListener('resize', rs);
+}
+function fxLoop(){ if(FX.run) return; FX.run = true; FX.last = performance.now(); requestAnimationFrame(fxTick); }
+function emit(o){
+  if((S && S.fast) || REDUCE) return; fxCanvas();
+  if(FX.ps.length < 900) FX.ps.push(Object.assign({t:0, life:.8, g:0, drag:.97, size:4, kind:'dot', color:'#fff', rot:0, vr:0, vx:0, vy:0}, o));
+  fxLoop();
+}
+function fxTick(now){
+  const dt = Math.min(.05, (now - FX.last) / 1000); FX.last = now;
+  const c = FX.ctx, d = FX.dpr; c.setTransform(d, 0, 0, d, 0, 0); c.clearRect(0, 0, innerWidth, innerHeight);
+  if(FX.flash > 0){ c.globalAlpha = Math.min(1, FX.flash); c.fillStyle = FX.flashColor; c.fillRect(0, 0, innerWidth, innerHeight); FX.flash -= dt * 3.5; }
+  for(let i = FX.ps.length - 1; i >= 0; i--){
+    const p = FX.ps[i]; p.t += dt; if(p.t >= p.life){ FX.ps.splice(i, 1); continue; }
+    const k = 1 - p.t / p.life;
+    p.vx *= p.drag; p.vy = p.vy * p.drag + p.g * dt; p.x += p.vx * dt; p.y += p.vy * dt; p.rot += p.vr * dt;
+    c.globalCompositeOperation = p.solid ? 'source-over' : 'lighter';
+    c.globalAlpha = Math.max(0, Math.min(1, k * 1.4)); c.fillStyle = p.color; c.strokeStyle = p.color;
+    if(p.kind === 'dot'){ c.beginPath(); c.arc(p.x, p.y, Math.max(.5, p.size * (.4 + k * .6)), 0, 6.283); c.fill(); }
+    else if(p.kind === 'spark'){ c.lineWidth = p.size; c.lineCap = 'round'; c.beginPath(); c.moveTo(p.x, p.y); c.lineTo(p.x - p.vx * .045, p.y - p.vy * .045); c.stroke(); }
+    else if(p.kind === 'ring'){ const r = p.r0 + (p.r1 - p.r0) * (1 - k * k); c.lineWidth = p.size * k + 1; c.beginPath(); c.arc(p.x, p.y, r, 0, 6.283); c.stroke(); }
+    else if(p.kind === 'shard' || p.kind === 'leaf'){
+      c.save(); c.translate(p.x, p.y); c.rotate(p.rot);
+      if(p.kind === 'leaf'){ c.beginPath(); c.ellipse(0, 0, p.size, p.size * .38, 0, 0, 6.283); c.fill(); }
+      else { c.beginPath(); c.moveTo(-p.size / 2, -p.size / 3); c.lineTo(p.size / 2, -p.size / 4); c.lineTo(p.size / 3, p.size / 3); c.lineTo(-p.size / 3, p.size / 4); c.closePath(); c.fill(); c.strokeStyle = '#1b1b1b'; c.lineWidth = 1; c.stroke(); }
+      c.restore();
+    }
+    else if(p.kind === 'arc'){
+      // a glowing curve that grows from the attacker to the target, then its tail catches up
+      const q = p.t / p.life, head = Math.min(1, q / .45), tail = Math.max(0, (q - .3) / .7);
+      const pt = u => { const v = 1 - u; return [v * v * p.x0 + 2 * v * u * p.cx + u * u * p.x1, v * v * p.y0 + 2 * v * u * p.cy + u * u * p.y1]; };
+      c.globalCompositeOperation = 'lighter'; c.globalAlpha = 1; c.lineCap = 'round';
+      for(const [w, col, blur] of [[p.size, p.color, 22], [p.size * .38, '#ffffff', 0]]){
+        c.beginPath(); for(let u = tail; u <= head + 1e-6; u += .03){ const [x, y] = pt(Math.min(u, head)); if(u === tail) c.moveTo(x, y); else c.lineTo(x, y); }
+        c.lineWidth = w; c.strokeStyle = col; c.shadowColor = p.color; c.shadowBlur = blur; c.stroke();
+      }
+      c.shadowBlur = 0;
+      if(head < 1){ const [hx, hy] = pt(head); c.fillStyle = '#ffffff'; c.beginPath(); c.arc(hx, hy, p.size * .8, 0, 6.283); c.fill(); }
+    }
+    else if(p.kind === 'slash'){
+      const L = p.len * Math.min(1, p.t / p.life * 5), ca = Math.cos(p.ang), sa = Math.sin(p.ang);
+      c.lineCap = 'round'; c.lineWidth = p.size * k + 2; c.beginPath(); c.moveTo(p.x - ca * L / 2, p.y - sa * L / 2); c.lineTo(p.x + ca * L / 2, p.y + sa * L / 2); c.stroke();
+    }
+  }
+  c.globalCompositeOperation = 'source-over'; c.globalAlpha = 1;
+  if(FX.ps.length || FX.flash > 0) requestAnimationFrame(fxTick); else { FX.run = false; c.clearRect(0, 0, innerWidth, innerHeight); }
+}
+function burstAt(x, y, tribe, n, power){
+  const T = TFX[tribe] || TFX.hero;
+  for(let i = 0; i < n; i++){
+    const a = Math.random() * 6.283, sp = (160 + Math.random() * 480) * (power || 1);
+    emit({x, y, vx:Math.cos(a) * sp, vy:Math.sin(a) * sp - (T.g > 0 ? 140 : 0), g:T.g, drag:.93, life:.45 + Math.random() * .6,
+      size:T.kind === 'spark' ? 2 + Math.random() * 2.5 : 3 + Math.random() * 6, kind:T.kind, color:pick(T.c), rot:Math.random() * 6, vr:(Math.random() - .5) * 22, solid:T.solid});
+  }
+}
+function rainbowBurst(x, y, n){
+  for(let i = 0; i < (n || 60); i++){
+    const a = Math.random() * 6.283, sp = 120 + Math.random() * 520;
+    emit({x, y, vx:Math.cos(a) * sp, vy:Math.sin(a) * sp, g:120, drag:.95, life:.7 + Math.random() * .7, size:2 + Math.random() * 4, kind:i % 3 ? 'dot' : 'spark', color:'hsl(' + Math.floor(Math.random() * 360) + ',100%,72%)'});
+  }
+}
+function shockAt(x, y, color, r1){
+  emit({x, y, kind:'ring', r0:10, r1:r1 || 130, size:12, life:.5, color});
+  emit({x, y, kind:'ring', r0:4, r1:(r1 || 130) * .6, size:7, life:.35, color:'#ffffff'});
+}
+function slashAt(x, y, color){
+  emit({x, y, kind:'slash', ang:-.78, len:190, size:10, life:.32, color});
+  emit({x, y, kind:'slash', ang:.78, len:170, size:8, life:.32, color, t:-.05});
+}
+function flashScreen(color, amt){ if((S && S.fast) || REDUCE) return; fxCanvas(); FX.flashColor = color; FX.flash = Math.max(FX.flash, amt); fxLoop(); }
+function screenShake(){}  // the field stays still; impact is shown with flashes and bursts instead
+function fxShatter(el, tribe){
+  const r = el.getBoundingClientRect(); if(!r.width) return;
+  const html = el.innerHTML;
+  const crack = document.createElement('div'); crack.className = 'crack';
+  Object.assign(crack.style, {left:r.left + 'px', top:r.top + 'px', width:r.width + 'px', height:r.height + 'px'});
+  crack.innerHTML = '<svg viewBox="0 0 100 100" preserveAspectRatio="none" width="100%" height="100%"><polyline points="55,0 45,35 58,55 42,100" fill="none" stroke="#fff" stroke-width="3" vector-effect="non-scaling-stroke"></polyline><polyline points="45,35 25,45 M58,55 80,62" fill="none" stroke="#fff" stroke-width="2" vector-effect="non-scaling-stroke"></polyline></svg>';
+  $fx.appendChild(crack); setTimeout(() => crack.remove(), 380);
+  const halves = [['polygon(0 0,55% 0,45% 35%,58% 55%,42% 100%,0 100%)', -1], ['polygon(55% 0,100% 0,100% 100%,42% 100%,58% 55%,45% 35%)', 1]];
+  setTimeout(() => {
+    el.style.visibility = 'hidden';
+    for(const [clip, dir] of halves){
+      const d = document.createElement('div'); d.className = 'half-break'; d.innerHTML = html; d.style.clipPath = clip;
+      Object.assign(d.style, {left:r.left + 'px', top:r.top + 'px', width:r.width + 'px', height:r.height + 'px'});
+      $fx.appendChild(d);
+      d.animate([{transform:'none', opacity:1}, {transform:'translate(' + dir * 26 + 'px,-10px) rotate(' + dir * 8 + 'deg)', opacity:1, offset:.3},
+        {transform:'translate(' + dir * 60 + 'px,140px) rotate(' + dir * 26 + 'deg)', opacity:0}], {duration:620, easing:'cubic-bezier(.3,.1,.7,1)', fill:'forwards'});
+      setTimeout(() => d.remove(), 660);
+    }
+    const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    for(let i = 0; i < 14; i++) emit({x:cx + (Math.random() - .5) * r.width, y:cy + (Math.random() - .3) * r.height, vx:(Math.random() - .5) * 120, vy:-60 - Math.random() * 80, g:200, drag:.96, life:.7, size:3 + Math.random() * 4, kind:'dot', color:pick(['#d9d2c3', '#ffffff', (TFX[tribe] || TFX.hero).c[0]])});
+  }, 140);
+}
+
+function particlesAt(k, color, n){
+  if(S.fast || REDUCE) return; const c = centerOf(k); if(!c) return;
+  for(let i=0;i<(n || 12);i++){
+    const a = Math.random() * Math.PI * 2, d = 40 + Math.random() * 70, e = addFx('pt', c.x, c.y);
+    e.style.setProperty('--dx', Math.cos(a) * d + 'px'); e.style.setProperty('--dy', Math.sin(a) * d + 'px'); e.style.background = color;
+    setTimeout(() => e.remove(), 760);
+  }
+}
+function fxHeal(k){
+  if(S.fast || REDUCE) return; const c = centerOf(k); if(!c) return; sfx('heal');
+  for(let i=0;i<14;i++){ const e = addFx('pt up', c.x + (Math.random() - .5) * 70, c.y + 20); e.style.background = '#6dffa8'; e.style.animationDelay = (i * 40) + 'ms'; setTimeout(() => e.remove(), 1400); }
+}
+async function fxCurse(k){
+  if(S.fast) return; sfx('curse'); const c = centerOf(k);
+  if(c){
+    const ch = ['ກ','ຂ','ຄ','ງ','ຈ','ສ']; let txt = '';
+    ch.forEach((x, i) => { const a = i / ch.length * Math.PI * 2; txt += '<text x="' + (50 + Math.cos(a) * 38) + '" y="' + (54 + Math.sin(a) * 38) + '" text-anchor="middle" font-size="13" font-weight="800" fill="#f0dcff">' + x + '</text>'; });
+    const d = addFx('runes', c.x, c.y, '<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="#c48bff" stroke-width="3" stroke-dasharray="6 5"></circle><circle cx="50" cy="50" r="28" fill="#7a2fd022" stroke="#c48bff" stroke-width="2"></circle>' + txt + '</svg>');
+    setTimeout(() => d.remove(), 950); particlesAt(k, '#b06bff', 16);
+  }
+  await sleep(750);
+}
+async function fxTornado(k){
+  if(S.fast) return; sfx('wind'); const c = centerOf(k);
+  if(c){ let rings = ''; for(let i=0;i<6;i++){ const w = 120 - i * 16; rings += '<i style="top:' + (i * 26) + 'px;width:' + w + 'px;height:' + (22 - i) + 'px;animation-delay:' + (i * .05) + 's"></i>'; }
+    const d = addFx('tornado', c.x, c.y, rings); setTimeout(() => d.remove(), 950); }
+  await sleep(800);
+}
+async function fxTrip(k){
+  if(S.fast) return; sfx('trip'); const c = centerOf(k);
+  if(c){ const r = addFx('rope', c.x, c.y + 30); const st = addFx('stars', c.x, c.y - 30); st.textContent = '★ ★ ★'; setTimeout(() => { r.remove(); st.remove(); }, 1000);
+    const e = elOf(k); if(e && !REDUCE) e.animate([{transform:'none'}, {transform:'rotate(-18deg) translateY(6px)'}, {transform:'none'}], {duration:600}); }
+  await sleep(700);
+}
+async function fxFireflies(a, b){
+  if(S.fast) return; sfx('spell'); const A = centerOf(a), B = centerOf(b);
+  if(A && B && !REDUCE){
+    for(let i=0;i<12;i++){
+      const d = addFx('fly', A.x, A.y);
+      const mx = (A.x + B.x) / 2 + (Math.random() - .5) * 160, my = (A.y + B.y) / 2 + (Math.random() - .5) * 120;
+      d.animate([{left:A.x + 'px', top:A.y + 'px', opacity:0}, {left:mx + 'px', top:my + 'px', opacity:1, offset:.5}, {left:B.x + 'px', top:B.y + 'px', opacity:.2}], {duration:620 + i * 25, easing:'ease-in-out', fill:'forwards'});
+      setTimeout(() => d.remove(), 900);
+    }
+  }
+  await sleep(700); await fxRing(b, '#8dff9e', true);
+}
+async function fxGrab(k){
+  if(S.fast) return; sfx('hit'); const c = centerOf(k);
+  if(c){ [-26, 0, 26].forEach((o, i) => { const d = addFx('claw', c.x + o, c.y); d.style.animationDelay = (i * 60) + 'ms'; setTimeout(() => d.remove(), 650); }); particlesAt(k, '#ff5a3c', 12); }
+  await sleep(550);
+}
+async function fxLoc(i, id){
+  if(S.fast) return; sfx('spell');
+  const m = elOf('mat:' + i);
+  if(m && !REDUCE){
+    // the new place spreads over this side's field from the centre (the side box itself has no box, so measure its rows)
+    const rr = [...m.querySelectorAll('.srow')].map(x => x.getBoundingClientRect());
+    const r = rr.length ? {left:Math.min(...rr.map(x => x.left)), top:Math.min(...rr.map(x => x.top)), width:Math.max(...rr.map(x => x.right)) - Math.min(...rr.map(x => x.left)), height:Math.max(...rr.map(x => x.bottom)) - Math.min(...rr.map(x => x.top))} : m.getBoundingClientRect();
+    const w = document.createElement('div'); w.className = 'locwipe';
+    Object.assign(w.style, {left:r.left + 'px', top:r.top + 'px', width:r.width + 'px', height:r.height + 'px', backgroundImage:'url(' + ART + C[id].img + '.jpg)'});
+    $fx.appendChild(w);
+    const an = w.animate([{clipPath:'circle(0% at 50% 50%)', filter:'brightness(2)'}, {clipPath:'circle(75% at 50% 50%)', filter:'brightness(1.1)', offset:.6}, {clipPath:'circle(75% at 50% 50%)', filter:'brightness(1)', opacity:0}], {duration:1100 * SET.speed, easing:'ease-out', fill:'forwards'});
+    const c = {x:r.left + r.width / 2, y:r.top + r.height / 2}; if(c){ const d = addFx('locban', c.x, c.y); d.textContent = C[id].name; setTimeout(() => d.remove(), 1100); rainbowBurst(c.x, c.y, 30); }
+    await animDone(an)
+    w.remove();
+  } else await sleep(300);
+}
+function fxVignette(){ if(S.fast || REDUCE) return; const d = addFx('vign'); setTimeout(() => d.remove(), 650); }
+function fxBigShake(){}
+function fxConfetti(){
+  if(REDUCE) return; const cols = ['#f2b632','#e0302a','#2f63c4','#4fd18b','#ffffff'];
+  for(let i=0;i<90;i++){ const d = addFx('conf', Math.random() * innerWidth, -20); d.style.background = pick(cols); d.style.animationDuration = (2 + Math.random() * 1.8) + 's'; d.style.animationDelay = (Math.random() * .6) + 's'; setTimeout(() => d.remove(), 4500); }
+}
+function fxDraw(i){
+  if(S.fast || REDUCE) return; const A = centerOf('deck:' + i), B = centerOf('hand:' + i); if(!A || !B) return;
+  sfx('draw'); const d = addFx('flycard', A.x, A.y, '<span class="cback">' + BACK + '</span>');
+  d.animate([{left:A.x + 'px', top:A.y + 'px', transform:'translate(-50%,-50%) rotate(0)'}, {left:B.x + 'px', top:B.y + 'px', transform:'translate(-50%,-50%) rotate(' + (i ? -12 : 12) + 'deg)'}], {duration:480, easing:'ease-in-out', fill:'forwards'});
+  setTimeout(() => d.remove(), 520);
+}
+function toast(m){ const d = addFx('toast'); d.textContent = m; setTimeout(() => d.remove(), 1900); }
+
+/* ---------- input ---------- */
+function closeModal(){ const r = S && S.modal && S.modal.resolve; if(S) S.modal = null; render(); if(r) r(); }
+$app.addEventListener('click', e => {
+  const el = e.target.closest('[data-a]'); if(!el) return;
+  const a = el.dataset.a, v = el.dataset.v;
+  if(a === 'settings'){ ui.settingsOpen = true; render(); return; }
+  if(a === 'setclose'){ ui.settingsOpen = false; render(); return; }
+  if(a === 'set'){ toggleSetting(v); render(); return; }
+  if(a === 'theme'){ SET.theme = v; saveSet(); render(); return; }
+  if(ui.settingsOpen) return;
+  if(!S || S.screen !== 'game'){
+    if(a === 'mmclose'){ ui.mmodal = null; render(); return; }
+    if(ui.mmodal) return;
+    if(a === 'book'){ ui.screen = 'book'; render(); return; }
+    if(a === 'bookback'){ ui.screen = null; render(); return; }
+    if(a === 'booktab'){ ui.bookTab = v; render(); return; }
+    if(a === 'bookcard'){ ui.mmodal = {type:'card', id:v, alt:el.dataset.alt ? 1 : 0}; render(); return; }
+    if(a === 'stats'){ ui.mmodal = {type:'stats'}; render(); return; }
+    if(a === 'tutstart'){ ui.screen = null; newGame(0, 0, {botDeck:1, first:0, tut:true}); return; }
+    if(a === 'deck'){ ui.deck = +v; render(); }
+    else if(a === 'lvl'){ ui.level = +v; render(); }
+    else if(a === 'start'){ newGame(ui.deck, ui.level); }
+    return;
+  }
+  if(a === 'tutnext'){ if(S.tut){ S.tut.step++; render(); } return; }
+  if(a === 'tutdone' || a === 'tutskip'){ S.tut = null; saveJ('lao-legend-tut', 1); render(); return; }
+  if(a === 'mclose'){ closeModal(); return; }
+  if(a === 'yes' || a === 'no'){ const r = S.modal.resolve; S.modal = null; render(); r(a === 'yes'); return; }
+  if(a === 'discard'){ const r = S.modal.resolve; const h = S.p[0].hand.find(x => x.uid === +v); S.modal = null; render(); r(h); return; }
+  if(a === 'menu'){ if(S.over || (S.turn === 0 && !S.busy)){ S = null; render(); } return; }
+  if(a === 'replay'){ newGame(ui.deck, ui.level); return; }
+  if(S.modal) return;
+  if(S.targeting){
+    if(a === 'cancel'){ const r = S.targeting.resolve; S.targeting = null; S.sel = null; render(); r(undefined); return; }
+    const k = el.dataset.k; const t = k && S.targeting.list.find(x => tkey(x) === k);
+    if(t){ const r = S.targeting.resolve; S.targeting = null; S.sel = null; render(); r(t); }
+    return;
+  }
+  if(a === 'hidehand'){ ui.hideHand = !ui.hideHand; render(); return; }
+  if(a === 'info'){ S.modal = {type:'info', id:v}; render(); return; }
+  if(a === 'log'){ S.modal = {type:'log'}; render(); return; }
+  const myMove = S.turn === 0 && !S.busy && !S.over && !S.auto;
+  if(a === 'hand'){
+    const h = S.p[0].hand.find(x => x.uid === +v); if(!h) return;
+    S.modal = myMove ? {type:'hand', uid:h.uid} : {type:'info', id:h.id, alt:h.alt}; render(); return;
+  }
+  if(a === 'field'){
+    const k = el.dataset.k;
+    const own = S.p[0].field.find(c => 'c:' + c.uid === k);
+    if(own && myMove && canAttack(S.p[0], own)){ attackFlow(own); return; }
+    const any = [...S.p[0].field, ...S.p[1].field].find(c => 'c:' + c.uid === k);
+    if(any){ S.modal = {type:'info', id:any.id, alt:any.alt}; render(); }
+    return;
+  }
+  if(a === 'end'){ if(myMove) endTurn(); return; }
+});
+// the play button lives inside the hand modal, which blocks the generic handler above; route it here
+$app.addEventListener('click', e => {
+  const el = e.target.closest('[data-a="play"]'); if(!el || !S || !S.modal || S.modal.type !== 'hand') return;
+  if(S.turn === 0 && !S.busy && !S.over) tryPlay(+el.dataset.v);
+});
+$app.addEventListener('pointerover', e => {
+  if(!S || S.screen !== 'game') return;
+  const el = e.target.closest('[data-a="field"],[data-a="hand"],[data-a="info"]'); if(!el) return;
+  if(el.dataset.a === 'hand'){ const h = S.p[0].hand.find(x => x.uid === +el.dataset.v); if(h) setDetail({id:h.id, alt:h.alt}); }
+  else if(el.dataset.a === 'field'){ for(const pl of S.p){ const c = pl.field.find(x => 'c:' + x.uid === el.dataset.k); if(c){ setDetail({id:c.id, alt:c.alt, pw:pow(pl, c)}); break; } } }
+  else if(el.dataset.v && C[el.dataset.v]) setDetail({id:el.dataset.v});
+});
+$app.addEventListener('keydown', e => {
+  if(e.key !== 'Enter' && e.key !== ' ') return;
+  const el = e.target.closest('[role="button"][data-a]'); if(el){ e.preventDefault(); el.click(); }
+});
+$app.addEventListener('contextmenu', e => {
+  if(!S || S.screen !== 'game' || S.modal) return;
+  const el = e.target.closest('[data-a="field"],[data-a="hand"]'); if(!el) return;
+  e.preventDefault();
+  let id = null;
+  if(el.dataset.a === 'hand'){ const h = S.p[0].hand.find(x => x.uid === +el.dataset.v); id = h && h.id; }
+  else { const c = [...S.p[0].field, ...S.p[1].field].find(x => 'c:' + x.uid === el.dataset.k); id = c && c.id; }
+  if(id){ S.modal = {type:'info', id}; render(); }
+});
+
+/* ---------- self-test: bot vs bot, no animation ---------- */
+window.__sim = async function(n, level, levels){
+  n = n || 30; const D = DECKS.length; const res = {games:0, wins:DECKS.map(() => 0), plays:DECKS.map(() => 0), seat:[0,0], avgTurns:0, reasons:{life:0, deck:0}, errors:[]};
+  window.__errs.length = 0; let turns = 0;
+  for(let i=0;i<n;i++){
+    const a = i % D, b = (a + 1 + (Math.floor(i / D) % (D - 1))) % D;
+    try{
+      await new Promise((resolve, reject) => {
+        const to = setTimeout(() => reject(new Error('timeout game ' + i)), 30000);
+        newGame(a, level == null ? 1 : level, {fast:true, auto:true, botDeck:b, levels:levels, onEnd:() => { clearTimeout(to); resolve(); }});
+      });
+      res.games++; turns += S.T; res.plays[S.p[0].di]++; res.plays[S.p[1].di]++; res.wins[S.p[S.over.winner].di]++; res.reasons[S.over.reason]++; res.seat[S.over.winner]++;
+    }catch(err){ res.errors.push(String(err)); }
+  }
+  res.avgTurns = res.games ? Math.round(turns / res.games / 2 * 10) / 10 : 0;
+  res.errors.push(...window.__errs);
+  S = null; render();
+  return res;
+};
+
+render();
+})();
+</script>
