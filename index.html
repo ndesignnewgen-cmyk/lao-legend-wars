@@ -763,6 +763,53 @@ body{background:
   .fan{--cw:clamp(58px,19vw,112px)}
   .tb2{height:92px}
 }
+/* short, wide screens (laptops, side panes, phones held sideways): your hand peeks up from the bottom edge and rises on hover,
+   plates and the detail panel slim down, and the height they free goes to the field */
+@media (min-width:1001px) and (max-height:820px) and (min-aspect-ratio:3/2){
+  .arena{grid-template-columns:minmax(0,236px) minmax(0,1fr);gap:10px}
+  .spanel{gap:8px}
+  .spanel .ph{padding:8px 12px;font-size:16px}.spanel .ph svg{width:24px;height:24px}
+  .spanel .pc{width:min(168px,72%)}
+  .spanel .pskill{font-size:14px;line-height:1.65}
+  .spanel .plore{font-size:12.5px}
+}
+@media (min-width:761px) and (max-height:820px) and (min-aspect-ratio:3/2){
+  .arena{padding-block:4px 0}
+  .amain{gap:4px}
+  .lplate{gap:8px;padding:3px 12px 3px 3px}
+  .lplate .lav{width:42px;height:42px}
+  .lplate .llife{font-size:22px}.lplate .llife svg{width:16px;height:16px}
+  .ofan{--ow:clamp(44px,min(6vw,10dvh),92px)}
+  .field2{padding:8px 12px;grid-template-rows:minmax(0,1fr) 38px minmax(0,1fr)}
+  .medal{width:80px;height:80px}
+  .fan{--cw:clamp(76px,min(9.8vw,22dvh),150px);height:calc(var(--cw) * 1.4 * .76 + 14px)}
+  /* a full hand shrinks a little so each card keeps about 60% of its width in view */
+  .arena .fan .hc{--hw:min(var(--cw),calc((100cqw - 24px) / (var(--n) * .6 + .4)));width:var(--hw);bottom:calc(var(--hw) * 1.4 * -.24);
+    --step:min(calc(var(--hw) * .97),calc((100cqw - var(--hw) - 24px) / max(var(--n) - 1, 1)));
+    transform:translateX(calc(-50% + var(--o) * var(--step))) translateY(calc(var(--o) * var(--o) * .6px + var(--lift))) rotate(calc(var(--o) * 1.1deg))!important}
+  .arena .fan .hc:hover{--lift:calc(var(--hw) * 1.4 * -.24 - 16px)}
+  .btns2 .gbtn{width:36px;height:36px}
+}
+/* very short (phones held sideways): tighter still, so the field keeps readable cards */
+@media (min-width:761px) and (max-height:500px) and (min-aspect-ratio:3/2){
+  .arena{padding-block:2px 0}
+  .amain{gap:2px}
+  .lplate{gap:6px;padding:2px 10px 2px 2px}
+  .lplate .lav{width:32px;height:32px}
+  .lplate .lnm{font-size:10px}
+  .lplate .llife{font-size:17px}.lplate .llife svg{width:13px;height:13px}
+  .lplate .lsub{margin-top:0}.lplate .gems{display:none}
+  .ofan{--ow:clamp(34px,9dvh,48px);margin-top:-2px}
+  .ofan .ocnt{font-size:10px;bottom:-10px}
+  .field2{padding:4px 8px;gap:2px;grid-template-rows:minmax(0,1fr) 28px minmax(0,1fr)}
+  .mid2 .tchip2,.mid2 .logb{font-size:11px;padding:2px 10px}
+  .medal{width:58px;height:58px}.medal span{font-size:8px}.medal b{font-size:13px}
+  .arena .lane.chars .mini{--w:min(200px,calc((100cqh - 20px) * .716),calc((100cqw - 100px) / 5.2))}
+  .fan{--cw:clamp(60px,min(9vw,19dvh),110px);height:calc(var(--cw) * 1.4 * .7 + 10px)}
+  .arena .fan .hc{bottom:calc(var(--hw) * 1.4 * -.3)}
+  .arena .fan .hc:hover{--lift:calc(var(--hw) * 1.4 * -.3 - 10px)}
+  .btns2 .gbtn{width:30px;height:30px}.btns2 .gbtn svg{width:15px;height:15px}
+}
 /* ---------- modal ---------- */
 .modal-bg{position:fixed;inset:0;z-index:50;background:#000c;display:grid;place-items:center;padding:16px}
 .modal{background:var(--mat-2);border:1px solid #ffffff1c;border-radius:18px;padding:18px;width:min(560px,100%);max-height:92%;overflow:auto;display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center}
