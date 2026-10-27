@@ -73,9 +73,9 @@ button{font:inherit;color:inherit}
 .deck:focus-visible{outline:2px solid #fff;outline-offset:2px}
 .deck.on{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold),0 10px 30px #f2b63230}
 .deck .card{width:104px;flex:none}
-.deck b{display:block;color:var(--gold);font:800 15px var(--f-d)}
-.deck span{display:block;font:800 18px/1.35 var(--f-d)}
-.deck small{display:block;color:var(--dim);font-size:13px;margin-top:4px}
+.deck>div:not(.card) b{display:block;color:var(--gold);font:800 15px var(--f-d)}
+.deck>div:not(.card)>span{display:block;font:800 18px/1.35 var(--f-d)}
+.deck>div:not(.card)>small{display:block;color:var(--dim);font-size:13px;margin-top:4px}
 .levels{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center}
 .levels > span{color:var(--dim)}
 .lv{background:#ffffff10;border:1px solid #ffffff24;border-radius:999px;padding:8px 18px;font:700 15px var(--f-d);cursor:pointer}
