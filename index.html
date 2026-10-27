@@ -810,6 +810,118 @@ body{background:
   .arena .fan .hc:hover{--lift:calc(var(--hw) * 1.4 * -.3 - 10px)}
   .btns2 .gbtn{width:30px;height:30px}.btns2 .gbtn svg{width:15px;height:15px}
 }
+/* ---------- v6: right rail for plates, turn and tools; field, hand and the bot's backs never overlap ---------- */
+.arena.v6{grid-template-columns:minmax(0,280px) minmax(0,1fr) 212px;grid-template-rows:minmax(0,1fr);gap:12px;padding-block:8px}
+.arena.v6 .amain{grid-template-rows:auto minmax(0,1fr) auto;gap:8px}
+/* bot hand: a slim strip of backs hanging from the top edge, the count sits beside it */
+.arena.v6 .ofan{--ow:clamp(38px,min(4.6vw,8dvh),72px);height:calc(var(--ow) * 1.4 * .5);margin:0;overflow:hidden}
+.arena.v6 .ofan .ob{top:calc(var(--ow) * 1.4 * -.5)}
+.arena.v6 .ofan .ocnt{left:auto;right:0;bottom:auto;top:50%;transform:translateY(-50%);font-size:13px;padding:2px 12px}
+/* field: the turn chip and the end button moved out, so the middle is just a line */
+.arena.v6 .field2{grid-template-rows:minmax(0,1fr) 20px minmax(0,1fr);padding:12px 14px;gap:6px}
+.arena.v6 .half2.me .pcol{margin-right:0}
+/* on tall, narrow screens the slot columns stop growing, so the character lane keeps the room */
+.arena.v6 .half2 .strip,.arena.v6 .half2 .pcol{width:min(calc((100cqh - 6px) / 2 * .716),max(13cqw,48px))}
+/* fewer characters on a side get bigger cards; five always fit */
+.arena.v6 .lane.chars .row{align-items:flex-end;padding-bottom:6px}
+/* card height plus the power number above it always fit inside the lane */
+.arena.v6 .lane.chars .mini{--w:min(200px,calc((100cqh - 14px) * .58),calc((100cqw - 24px) / (max(var(--n), 3) + .3)))}
+.arena.v6 .mid2{display:flex;justify-content:center}
+.arena.v6 .mid2 .vs{position:relative;font:800 12px/20px var(--f-d);letter-spacing:.12em;color:#fff;background:linear-gradient(90deg,var(--op),var(--me));padding:0 12px;border-radius:999px;box-shadow:0 0 0 2px #fff}
+/* your hand: fully in view, no peeking off the bottom edge */
+.arena.v6 .fan{--cw:clamp(68px,min(8.6vw,18.5dvh),138px);height:calc(var(--cw) * 1.4 + 20px)}
+.arena.v6 .fan .hc{width:var(--cw);bottom:calc(14px - var(--o) * var(--o) * .5px);--step:min(calc(var(--cw) * 1.02),calc((100cqw - var(--cw) - 16px) / max(var(--n) - 1, 1)));
+  transform:translateX(calc(-50% + var(--o) * var(--step))) translateY(var(--lift)) rotate(calc(var(--o) * 1deg))!important}
+.arena.v6 .fan .hc.ok{--lift:-8px}
+.arena.v6 .fan .hc:hover{--lift:-26px}
+/* the rail */
+.arena.v6 .rail{min-height:0;display:flex;flex-direction:column;gap:10px}
+.arena.v6 .rail .lplate{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:4px 10px;padding:10px;border-radius:18px}
+.arena.v6 .rail .lplate .lav{width:54px;height:54px}
+.arena.v6 .rail .lplate .lnm{font-size:12px;line-height:1.4}
+.arena.v6 .rail .lplate .llife{font-size:30px}
+.arena.v6 .rail .lplate .lsub{flex-wrap:wrap;gap:4px 8px}
+.arena.v6 .rail .lplate .gems{display:flex;flex-wrap:wrap}
+.arena.v6 .rail .lplate.opp{order:0}.arena.v6 .rail .rturn{order:1}.arena.v6 .rail .lplate.me{order:2}.arena.v6 .rail .tools{order:3}
+.arena.v6 .rturn{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.arena.v6 .rturn .tchip2{align-self:center;font:800 14px var(--f-d);color:#fff;background:var(--me);border-radius:999px;padding:4px 16px;white-space:nowrap;box-shadow:0 0 0 2px #fff,0 0 16px var(--me)}
+.arena.v6 .rturn .tchip2.bot{background:var(--op);box-shadow:0 0 0 2px #fff,0 0 16px var(--op)}
+.arena.v6[data-theme] .rturn .medal{position:relative;inset:auto;transform:none;width:100%;height:auto;min-height:74px;border-radius:20px;padding:10px 8px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:linear-gradient(180deg,#d9d2c4,#a9a093);box-shadow:inset 0 -4px 0 #0002,0 4px 0 #6d665c;cursor:default}
+.arena.v6[data-theme] .rturn .medal b{font:800 24px/1.15 var(--f-d);color:#4a4338}
+.arena.v6[data-theme] .rturn .medal small{font:700 12px var(--f-d);color:#5a3a06}
+.arena.v6[data-theme] .rturn .medal.go{background:linear-gradient(180deg,#ffe48a,#f2b632 55%,#d8920f);box-shadow:inset 0 -5px 0 #b4740a,0 5px 0 #7a4a06,0 10px 22px #f2b63266;cursor:pointer}
+.arena.v6[data-theme] .rturn .medal.go b{color:#3a2402;font-size:28px}
+.arena.v6[data-theme] .rturn .medal.go:hover{filter:brightness(1.06)}
+.arena.v6[data-theme] .rturn .medal.go:active{transform:translateY(3px);box-shadow:inset 0 -2px 0 #b4740a,0 2px 0 #7a4a06}
+.arena.v6 .rturn .logb{position:relative;max-width:none;width:100%;white-space:normal;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+  text-align:left;font:700 12.5px/1.5 var(--f-d);padding:8px 12px;border-radius:12px;border:1px solid var(--ring);background:var(--log-bg);color:var(--log-ink);cursor:pointer}
+.arena.v6 .tools{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tbtn{display:flex;align-items:center;justify-content:center;gap:6px;min-height:46px;padding:6px 8px;border:0;border-radius:14px;cursor:pointer;
+  background:var(--btn-bg,#1d2b6b);box-shadow:inset 0 0 0 1.5px var(--ring,#fff6),0 3px 0 #0003;color:#fff;font:700 13px var(--f-d)}
+.tbtn svg{width:20px;height:20px;flex:none}
+.tbtn:hover{filter:brightness(1.12)}
+.tbtn:disabled{opacity:.4;cursor:default;filter:none}
+.tbtn:focus-visible,.arena.v6 .rturn .medal:focus-visible{outline:3px solid #fff;outline-offset:2px}
+@media (min-width:1001px) and (max-height:820px){
+  .arena.v6{grid-template-columns:minmax(0,236px) minmax(0,1fr) 196px;gap:10px;padding-block:6px}
+  .arena.v6 .rail{gap:8px}
+  .arena.v6 .rail .lplate{padding:8px}.arena.v6 .rail .lplate .lav{width:44px;height:44px}.arena.v6 .rail .lplate .llife{font-size:24px}
+  .arena.v6[data-theme] .rturn .medal{min-height:62px}
+  .tbtn{min-height:42px}
+}
+/* tablets and phones: the rail splits into a bar above the field and a bar below the hand */
+@media (max-width:1000px){
+  .arena.v6{grid-template-columns:auto minmax(0,1fr) auto;grid-template-rows:auto minmax(0,1fr) auto;
+    grid-template-areas:"opp . tools" "main main main" "me turn turn";gap:8px;padding-block:6px}
+  .arena.v6 .amain{grid-area:main}
+  .arena.v6 .rail{display:contents}
+  .arena.v6 .rail .lplate{display:flex;padding:4px 14px 4px 4px;border-radius:999px;gap:8px}
+  .arena.v6 .rail .lplate.opp{grid-area:opp}.arena.v6 .rail .lplate.me{grid-area:me}
+  .arena.v6 .rail .lplate .lav{width:42px;height:42px}
+  .arena.v6 .rail .lplate .llife{font-size:22px}
+  .arena.v6 .rail .lplate .gems{display:none}
+  .arena.v6 .rturn{grid-area:turn;flex-direction:row;align-items:center;justify-content:flex-end;gap:10px}
+  .arena.v6 .rturn .logb{display:none}
+  .arena.v6[data-theme] .rturn .medal{width:auto;min-width:150px;min-height:54px;padding:6px 18px}
+  .arena.v6[data-theme] .rturn .medal small{display:none}
+  .arena.v6 .tools{grid-area:tools;display:flex;gap:8px;align-self:center}
+  .tbtn{min-height:44px;min-width:44px;padding:6px 10px}
+  .arena.v6 .fan{--cw:clamp(60px,min(11.5vw,16dvh),130px)}
+}
+@media (max-width:640px){
+  .arena.v6{gap:6px}
+  .tbtn span{display:none}
+  .tbtn{padding:0;width:44px}
+  .arena.v6 .rturn .tchip2{display:none}
+  .arena.v6[data-theme] .rturn .medal{min-width:132px}
+  .arena.v6[data-theme] .rturn .medal.go b{font-size:22px}
+  .arena.v6 .fan{--cw:clamp(56px,18.5vw,110px)}
+  .arena.v6 .field2{padding:8px;grid-template-rows:minmax(0,1fr) 18px minmax(0,1fr)}
+}
+/* short landscape screens (phones held sideways, small laptop windows): keep the side rail, compact, so the field keeps its height */
+@media (max-height:560px) and (min-aspect-ratio:3/2){
+  .arena.v6{grid-template-columns:minmax(0,1fr) 158px;grid-template-rows:minmax(0,1fr);grid-template-areas:none;gap:8px;padding-block:4px}
+  .arena.v6 .spanel{display:none}
+  .arena.v6 .amain{grid-area:auto;gap:4px}
+  .arena.v6 .rail{display:flex;flex-direction:column;gap:6px}
+  .arena.v6 .rail .lplate{display:grid;grid-template-columns:auto minmax(0,1fr);padding:6px;border-radius:14px;gap:2px 8px}
+  .arena.v6 .rail .lplate .lav{width:34px;height:34px}
+  .arena.v6 .rail .lplate .lnm{font-size:10px}
+  .arena.v6 .rail .lplate .llife{font-size:19px}
+  .arena.v6 .rail .lplate .lsub{margin-top:0}
+  .arena.v6 .rturn{flex-direction:column;justify-content:center;gap:6px}
+  .arena.v6 .rturn .tchip2{display:block;font-size:11px;padding:2px 10px}
+  .arena.v6[data-theme] .rturn .medal{width:100%;min-width:0;min-height:50px;padding:4px}
+  .arena.v6[data-theme] .rturn .medal.go b{font-size:21px}
+  .arena.v6 .tools{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .tbtn span{display:none}
+  .tbtn{width:auto;min-height:38px;padding:0}
+  .arena.v6 .ofan{--ow:clamp(30px,8dvh,48px)}
+  .arena.v6 .field2{padding:6px 8px;gap:3px;grid-template-rows:minmax(0,1fr) 16px minmax(0,1fr)}
+  .arena.v6 .mid2 .vs{font-size:10px;line-height:16px}
+  .arena.v6 .fan{--cw:clamp(52px,min(8vw,22dvh),110px)}
+}
 /* ---------- modal ---------- */
 .modal-bg{position:fixed;inset:0;z-index:50;background:#000c;display:grid;place-items:center;padding:16px}
 .modal{background:var(--mat-2);border:1px solid #ffffff1c;border-radius:18px;padding:18px;width:min(560px,100%);max-height:92%;overflow:auto;display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center}
@@ -1588,7 +1700,7 @@ async function endTurn(){
   if(!S.fast && !isBot(p) && !REDUCE){
     const md = document.querySelector('.medal');
     if(md){ sfx('spell'); const r = md.getBoundingClientRect(); shockAt(r.left + r.width / 2, r.top + r.height / 2, '#f2b632', 120);
-      await animDone(md.animate([{transform:'translateY(-50%) rotate(0) scale(1)'}, {transform:'translateY(-50%) rotate(200deg) scale(1.18)', offset:.6}, {transform:'translateY(-50%) rotate(360deg) scale(1)'}], {duration:520, easing:'cubic-bezier(.3,.7,.3,1)'})); }
+      await animDone(md.animate([{transform:'scale(1)'}, {transform:'scale(.9)', offset:.25}, {transform:'scale(1.08)', offset:.6}, {transform:'scale(1)'}], {duration:480, easing:'cubic-bezier(.3,.7,.3,1)'})); }
     if(S !== G) return;
   }
   while(p.hand.length > 7){ const h = p.hand.shift(); p.grave.push(h.id); log(p.name + ' ຖິ້ມ «' + C[h.id].name + '» (ມືເຕັມ 7 ໃບ)'); }
@@ -2018,22 +2130,29 @@ function menuModalHTML(){
   return '<div class="modal-bg"><div class="modal">' + inner + '</div></div>';
 }
 function boardHTML(){
-  const m = S.p[0], b = S.p[1];
-  return '<div class="arena" data-theme="' + (THEMES.some(t => t[0] === SET.theme) ? SET.theme : 'sinh') + '">' +
-    '<aside class="spanel" id="dpanel" aria-live="polite">' + detailHTML() + '</aside><div class="amain">' +
-    '<div class="band top">' + plate2(b, 1) +
+  const m = S.p[0], b = S.p[1], canExit = S.over || (S.turn === 0 && !S.busy && !S.targeting);
+  const tool = (a, ic, label, off) => '<button class="tbtn" data-a="' + a + '"' + (off ? ' disabled' : '') + ' aria-label="' + label + '">' + ic + '<span>' + label + '</span></button>';
+  return '<div class="arena v6" data-theme="' + (THEMES.some(t => t[0] === SET.theme) ? SET.theme : 'sinh') + '">' +
+    '<aside class="spanel" id="dpanel" aria-live="polite">' + detailHTML() + '</aside>' +
+    '<div class="amain">' +
       '<div class="ofan" data-k="hand:1" style="--n:' + b.hand.length + '" aria-label="ກາດໃນມືບອດ ' + b.hand.length + ' ໃບ">' +
         b.hand.map((h, i) => '<span class="ob cback" style="--i:' + i + '">' + BACK + '</span>').join('') + '<span class="ocnt">ມືບອດ ' + b.hand.length + '</span></div>' +
-      '</div>' +
-    '<div class="field2">' + half2(b, 1) + mid2() + half2(m, 0) + promptHTML() + '</div>' +
-    '<div class="band bot">' + plate2(m, 0) +
+      '<div class="field2">' + half2(b, 1) + mid2() + half2(m, 0) + promptHTML() + '</div>' +
       '<div class="fan hand ' + (ui.hideHand ? 'hidden' : '') + '" data-k="hand:0" style="--n:' + m.hand.length + '">' + m.hand.map((h, i) => handHTML(h, i)).join('') + '</div>' +
-      '<div class="btns2">' +
-        '<button class="gbtn" data-a="hidehand" aria-label="' + (ui.hideHand ? 'ສະແດງມື' : 'ຊ່ອນມື') + '">' + IC_EYE + '</button>' +
-        '<button class="gbtn" data-a="log" aria-label="ບັນທຶກເຫດການ">' + IC_LOG + '</button>' +
-        '<button class="gbtn" data-a="settings" aria-label="ຕັ້ງຄ່າ">' + IC_GEAR + '</button>' +
-        ((S.over || (S.turn === 0 && !S.busy && !S.targeting)) ? '<button class="gbtn" data-a="menu" aria-label="ອອກ">' + IC_EXIT + '</button>' : '') + '</div>' +
-    '</div></div></div>';
+    '</div>' +
+    '<div class="rail">' + plate2(b, 1) + turnBox() + plate2(m, 0) +
+      '<div class="tools">' + tool('hidehand', IC_EYE, ui.hideHand ? 'ສະແດງມື' : 'ຊ່ອນມື') + tool('log', IC_LOG, 'ບັນທຶກ') + tool('settings', IC_GEAR, 'ຕັ້ງຄ່າ') + tool('menu', IC_EXIT, 'ອອກ', !canExit) + '</div>' +
+    '</div></div>';
+}
+// whose turn it is, the big end-turn button and the latest event, between the two plates
+function turnBox(){
+  const mine = S.turn === 0 && !S.over && !S.auto, me = S.p[0];
+  const moves = mine && (me.hand.some(h => !playBlock(me, h)) || me.field.some(c => canAttack(me, c)));
+  const chip = '<span class="tchip2 ' + (mine ? '' : 'bot') + '">ຕາທີ ' + Math.ceil(S.T / 2) + ' · ' + (S.over ? 'ຈົບເກມ' : (mine ? 'ຕາຂອງເຈົ້າ' : (S.auto ? cur().name : 'ຕາບອດ'))) + '</span>';
+  const btn = (mine && !S.busy)
+    ? '<button class="medal go ' + (moves ? '' : 'glow') + '" data-a="end"><b>ຈົບຕາ</b><small>' + (moves ? 'ຍັງລົງກາດ ຫຼື ໂຈມຕີໄດ້' : 'ກົດເພື່ອສົ່ງຕາ') + '</small></button>'
+    : '<button class="medal" disabled><b>' + (S.over ? 'ຈົບເກມ' : (mine ? '…' : 'ລໍຖ້າບອດ')) + '</b></button>';
+  return '<div class="rturn">' + chip + btn + '<button class="logb" data-a="log">' + (S.log[0] || '') + '</button></div>';
 }
 function whoLabel(p, i){ return S.auto ? p.name : (i ? 'ບອດ · ' + LEVELS[S.level] : 'ເຈົ້າ'); }
 function plate2(p, i){
@@ -2060,15 +2179,7 @@ function half2(p, i){
     '<div class="row" style="--n:' + p.field.length + '">' + p.field.map(c => miniHTML(p, c)).join('') + '</div></div>';
   return '<div class="half2 ' + (i ? 'opp' : 'me') + '" data-k="mat:' + i + '">' + strip + lane + pcol + '</div>';
 }
-function mid2(){
-  const mine = S.turn === 0 && !S.over && !S.auto, me = S.p[0];
-  const moves = mine && (me.hand.some(h => !playBlock(me, h)) || me.field.some(c => canAttack(me, c)));
-  const chip = '<span class="tchip2 ' + (mine ? '' : 'bot') + '">ຕາທີ ' + Math.ceil(S.T / 2) + ' · ' + (S.over ? 'ຈົບເກມ' : (mine ? 'ຕາຂອງເຈົ້າ' : (S.auto ? cur().name : 'ຕາບອດ'))) + '</span>';
-  const medal = (mine && !S.busy)
-    ? '<button class="medal go endbig ' + (moves ? '' : 'glow') + '" data-a="end"><span><span>ຕາຂອງເຈົ້າ</span><b>ຈົບຕາ</b></span></button>'
-    : '<button class="medal endbig" disabled><span><span>' + (S.over ? 'ຈົບເກມ' : 'ລໍຖ້າ') + '</span><b>' + (S.over ? '' : (mine ? '…' : 'ບອດ')) + '</b></span></button>';
-  return '<div class="mid2">' + chip + '<button class="logb" data-a="log">' + (S.log[0] || '') + '</button><span></span>' + medal + '</div>';
-}
+function mid2(){ return '<div class="mid2"><span class="vs">VS</span></div>'; }
 function promptHTML(){
   if(!S.targeting) return '';
   return '<div class="tprompt2"><b>' + S.targeting.prompt + '</b><button class="btn2" data-a="cancel">ຍົກເລີກ</button></div>';
