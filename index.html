@@ -368,6 +368,20 @@ body{background:
 .tut .tb button.sk{background:#fff}
 .tut .step{font:700 11px var(--f-d);color:#8a7a60}
 .tutpulse{animation:tutp 1s infinite;border-radius:14px}
+.tutarrow{position:fixed;z-index:46;width:40px;height:46px;margin-left:-20px;transform:translateY(-100%);pointer-events:none;animation:tuta .8s ease-in-out infinite;
+  background:no-repeat center/contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 46'%3E%3Cpath d='M13 2h14v20h10L20 44 3 22h10z' fill='%23ffd23d' stroke='%231b1b1b' stroke-width='3' stroke-linejoin='round'/%3E%3C/svg%3E");filter:drop-shadow(0 3px 0 #0006)}
+.tutarrow.up{transform:rotate(180deg)}
+@keyframes tuta{50%{margin-top:-10px}}
+.tutarrow.up{animation-name:tutau}
+@keyframes tutau{50%{margin-top:10px}}
+/* the bubble sits over the empty card panel on wide screens, and on the half away from the target on narrow ones */
+@media (min-width:1001px) and (min-height:561px){
+  .tut{left:16px;top:auto;bottom:16px;transform:none;width:min(256px,18vw);flex-direction:column;align-items:center;text-align:center}
+  .tut .tb{justify-content:center}
+}
+@media (max-width:1000px),(max-height:560px){
+  .tut.low{top:auto;bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+}
 @keyframes tutp{50%{box-shadow:0 0 0 4px #ffd23d,0 0 26px #ffd23d}}
 
 /* ---------- big effects: particle canvas, shatter, legend cut-in ---------- */
@@ -922,6 +936,18 @@ body{background:
   .arena.v6 .mid2 .vs{font-size:10px;line-height:16px}
   .arena.v6 .fan{--cw:clamp(52px,min(8vw,22dvh),110px)}
 }
+/* dark themes (ແມ່ນ້ຳຂອງ, ປ່າຫິມະພານ): brighter red and blue sides and readable side names on the dark field */
+.arena.v6[data-theme="mekong"],.arena.v6[data-theme="himma"]{--op-hi:#ff7a6a;--me-hi:#7fa6ff}
+.arena.v6[data-theme="mekong"] .half2.opp .lane.chars,.arena.v6[data-theme="himma"] .half2.opp .lane.chars{background:linear-gradient(180deg,#ff5a4a33,#ff5a4a0d);border:2px solid var(--op-hi)}
+.arena.v6[data-theme="mekong"] .half2.me .lane.chars,.arena.v6[data-theme="himma"] .half2.me .lane.chars{background:linear-gradient(0deg,#4f86ff3d,#4f86ff0d);border:2px solid var(--me-hi)}
+.arena.v6[data-theme="mekong"] .half2.opp .lane.chars.hasloc,.arena.v6[data-theme="himma"] .half2.opp .lane.chars.hasloc{background:linear-gradient(180deg,#c8312b80,#00000040),var(--locimg) center/cover}
+.arena.v6[data-theme="mekong"] .half2.me .lane.chars.hasloc,.arena.v6[data-theme="himma"] .half2.me .lane.chars.hasloc{background:linear-gradient(0deg,#2c63c980,#00000040),var(--locimg) center/cover}
+.arena.v6[data-theme="mekong"] .half2.opp .lane.chars .wm,.arena.v6[data-theme="himma"] .half2.opp .lane.chars .wm{color:#ff9a8f4d}
+.arena.v6[data-theme="mekong"] .half2.me .lane.chars .wm,.arena.v6[data-theme="himma"] .half2.me .lane.chars .wm{color:#a9c2ff52}
+.arena.v6[data-theme="mekong"] .half2.opp .slot,.arena.v6[data-theme="himma"] .half2.opp .slot{border-color:#ff7a6aaa}
+.arena.v6[data-theme="mekong"] .half2.me .slot,.arena.v6[data-theme="himma"] .half2.me .slot{border-color:#7fa6ffaa}
+.arena.v6[data-theme="mekong"] .slot::after,.arena.v6[data-theme="himma"] .slot::after{color:#ffffffb0}
+.arena.v6[data-theme="mekong"] .mid2 .vs,.arena.v6[data-theme="himma"] .mid2 .vs{box-shadow:0 0 0 2px #ffffffcc,0 0 14px #0008}
 /* ---------- discard pile on the field and the ກອງຖິ້ມ viewer ---------- */
 .card .art{background:linear-gradient(160deg,#4a5a8a,#232a48)}
 .card .art img.broken{visibility:hidden}
@@ -1103,7 +1129,7 @@ def('maenamkhong',{name:'ແມ່ນ້ຳຂອງ',type:'loc',cost:2,buff:'na
 def('phihuean',{name:'ຜີເຮືອນ',tribe:'ghost',cost:1,power:1,tag:'ແອບເບິ່ງ',skill:'ເມື່ອລົງສະໜາມ ເບິ່ງກາດໃນມືຄູ່ແຂ່ງທັງໝົດ',lore:'ຜີນ້ອຍຜູ້ເຝົ້າເຮືອນ ມັກຫຼິ້ນຊົນ'});
 def('phikongkoy',{name:'ຜີກອງກອຍ',tribe:'ghost',cost:2,power:2,tag:'ສຽງຮ້ອງກາງຄືນ',skill:'ເມື່ອໃບນີ້ຖືກທຳລາຍ ຄູ່ແຂ່ງເສຍ 1 ບຸນ ໃນຕາຕໍ່ໄປ',lore:'ຜີປ່າ ຮ້ອງ «ກອງ ກອຍ» ຍາມກາງຄືນ'});
 def('yaknoy',{name:'ຍັກນ້ອຍ',tribe:'giant',cost:2,power:2,kw:{noFace:1},tag:'ຫິວເຂົ້າ',skill:'ໂຈມຕີຕົວລະຄອນໄດ້ ແຕ່ໂຈມຕີຂວັນຄູ່ແຂ່ງບໍ່ໄດ້',lore:'ລູກຍັກນ້ອຍ ຫິວເຂົ້າຕະຫຼອດເວລາ'});
-def('phikrasue',{name:'ຜີກະສື',tribe:'ghost',cost:3,power:3,tag:'ແສງໄຟລອຍ',skill:'ເມື່ອລົງສະໜາມ ຕົວລະຄອນຂອງຄູ່ແຂ່ງ 1 ໃບ ພະລັງ -2 ຈົນຈົບຕາ. ຖ້າມີ «ຄືນເດືອນມືດ» ພະລັງ +1',lore:'ຫົວລອຍຢູ່ກາງອາກາດ ມີແສງໄຟສີຂຽວຕາມຫຼັງ'});
+def('phikrasue',{name:'ຜີກະສື',tribe:'ghost',cost:3,power:2,tag:'ແສງໄຟລອຍ',skill:'ເມື່ອລົງສະໜາມ ຕົວລະຄອນຂອງຄູ່ແຂ່ງ 1 ໃບ ພະລັງ -2 ຈົນຈົບຕາ. ຖ້າມີ «ຄືນເດືອນມືດ» ພະລັງ +1',lore:'ຫົວລອຍຢູ່ກາງອາກາດ ມີແສງໄຟສີຂຽວຕາມຫຼັງ'});
 def('yakfaopatu',{name:'ຍັກເຝົ້າປະຕູ',tribe:'giant',cost:4,power:4,kw:{taunt:1},tag:'ກັນໄພ',skill:TAUNT,lore:'ຍັກໃຫຍ່ ຜູ້ເຝົ້າປະຕູວັດ'});
 def('phikrahang',{name:'ຜີກະຫັງ',tribe:'ghost',cost:4,power:3,kw:{fly:1},tag:'ບິນ',skill:FLY,lore:'ຜີບິນດ້ວຍກະດົ້ງ ຍາມເດືອນເພັງ'});
 def('kumphan',{name:'ຍັກກຸມພັນ',tribe:'giant',cost:6,power:6,tag:'ລັກຕົວ',skill:'ເມື່ອລົງສະໜາມ ສົ່ງຕົວລະຄອນຂອງຄູ່ແຂ່ງ ທີ່ມີບຸນ 3 ລົງມາ 1 ໃບ ກັບຄືນມື',lore:'ຍັກໃຫຍ່ ຜູ້ລັກເອົານາງສຸມົນທາໄປ'});
@@ -2057,14 +2083,15 @@ async function botTurnHard(G, p){
 
 /* ---------- tutorial: ຊຽງໝ້ຽງ walks a first game step by step ---------- */
 const TUT = [
-  {t:'ສະບາຍດີ! ຂ້ອຍ ຊຽງໝ້ຽງ ຈະສອນຫຼິ້ນ. ເປົ້າໝາຍ: ເຮັດໃຫ້ <b>ຂວັນ</b> ຂອງບອດ ເຫຼືອ 0. ຂວັນຢູ່ຖັນສີແດງທາງຊ້າຍ (ໂທລະສັບ: ຮູບຫົວໃຈ).', next:1},
-  {t:'ທຸກຕາ ເຈົ້າໄດ້ <b>ບຸນ</b> ເພີ່ມ 1 (ເມັດສີຟ້າ). ລົງກາດ ຕ້ອງຈ່າຍບຸນ ຕາມເລກໃນກ່ອງສີຂຽວ ມຸມຊ້າຍເທິງຂອງກາດ.', next:1},
-  {t:'ລອງເລີຍ: ແຕະກາດທີ່ <b>ຍົກຂຶ້ນ ແລະ ມີແສງຂຽວ</b> ແລ້ວກົດ «ລົງກາດ».', wait:'play', hl:'.hand'},
-  {t:'ດີຫຼາຍ! ຕົວລະຄອນທີ່ຫາກໍລົງ ຕ້ອງ <b>ລໍຖ້າ 1 ຕາ</b> ຈຶ່ງໂຈມຕີໄດ້. ກົດປຸ່ມສີທອງ «ຈົບຕາ».', wait:'end', hl:'.medal'},
-  {t:'ຕອນນີ້ເປັນຕາຂອງບອດ. ເບິ່ງວ່າບອດລົງກາດຫຍັງ…', wait:'myturn'},
-  {t:'ຕາເຈົ້າແລ້ວ! ແຕະ <b>ຕົວລະຄອນຂອບຂຽວ</b> ຂອງເຈົ້າ ແລ້ວແຕະ <b>ເປົ້າໝາຍຂອບແດງ</b> ເພື່ອໂຈມຕີ. ຖ້າຍັງບໍ່ມີ ໃຫ້ລົງກາດ ແລ້ວຈົບຕາກ່ອນ.', wait:'attack', hl:'.lane.chars'},
-  {t:'ເກັ່ງ! <b>ພະລັງໃຜຫຼາຍກວ່າ ຊະນະ</b>, ເທົ່າກັນ ຕາຍທັງຄູ່. ຖ້າບອດບໍ່ມີ «ກັນໄພ» ເຈົ້າໂຈມຕີຂວັນບອດໂດຍກົງໄດ້.', next:1},
-  {t:'ກາດຂອບ <b>ສີຟ້າ</b> ແມ່ນຄາຖາ, ຂອງວິເສດ ແລະ ສະຖານທີ່. <b>ຄຳສີຂຽວ</b> ໃນກາດ ບອກວ່າສະກິນເຮັດວຽກຕອນໃດ. ແຕະກາດໃດກໍໄດ້ ເພື່ອອ່ານໃຫ້ລະອຽດ.', next:1},
+  {t:'ສະບາຍດີ! ຂ້ອຍ ຊຽງໝ້ຽງ ຈະສອນຫຼິ້ນ. ເປົ້າໝາຍ: ເຮັດໃຫ້ <b>ຂວັນ ❤</b> ຂອງບອດ ເຫຼືອ 0. ຂວັນບອດຢູ່ປ້າຍ<b>ສີແດງ</b>, ຂວັນເຈົ້າຢູ່ປ້າຍ<b>ສີຟ້າ</b>.', next:1, hl:'.lplate.opp'},
+  {t:'ທຸກຕາ ເຈົ້າໄດ້ <b>ບຸນ</b> ເພີ່ມ 1 (ເມັດສີຟ້າ ໃນປ້າຍຂອງເຈົ້າ). ລົງກາດ ຕ້ອງຈ່າຍບຸນ ຕາມເລກໃນ<b>ກ່ອງສີຂຽວ</b> ມຸມຊ້າຍເທິງຂອງກາດ.', next:1, hl:'.lplate.me'},
+  {t:'ລອງເລີຍ: ແຕະກາດໃນມື ທີ່<b>ຍົກຂຶ້ນ ແລະ ມີແສງຂຽວ</b> ແລ້ວກົດ «ລົງກາດ».', wait:'play', hl:'.fan.hand .hc.ok,.fan.hand'},
+  {t:'ດີຫຼາຍ! ຕົວລະຄອນທີ່ຫາກໍລົງ ຕ້ອງ<b>ລໍຖ້າ 1 ຕາ</b> ຈຶ່ງໂຈມຕີໄດ້. ກົດປຸ່ມ<b>ສີທອງ «ຈົບຕາ»</b>.', wait:'end', hl:'.medal'},
+  {t:'ຕອນນີ້ເປັນຕາຂອງບອດ (ຝ່າຍສີແດງ). ເບິ່ງວ່າບອດລົງກາດຫຍັງ…', wait:'myturn', hl:'.half2.opp .lane.chars'},
+  {t:'ຕາເຈົ້າແລ້ວ! ແຕະ<b>ຕົວລະຄອນຂອງເຈົ້າ ທີ່ມີຂອບຂຽວ</b> ແລ້ວແຕະ<b>ເປົ້າໝາຍຂອບແດງ</b> ເພື່ອໂຈມຕີ. ຖ້າຍັງບໍ່ມີ ໃຫ້ລົງກາດ ແລ້ວຈົບຕາກ່ອນ.', wait:'attack', hl:'.half2.me .mini.can,.half2.me .lane.chars'},
+  {t:'ເກັ່ງ! <b>ພະລັງໃຜຫຼາຍກວ່າ ຊະນະ</b>, ເທົ່າກັນ ຕາຍທັງຄູ່. ຕົວເລກໃຫຍ່ເທິງກາດ ຄືພະລັງຕອນນີ້. ຖ້າບອດບໍ່ມີ «ກັນໄພ» ເຈົ້າໂຈມຕີຂວັນບອດໂດຍກົງໄດ້.', next:1, hl:'.half2.opp .lane.chars'},
+  {t:'ກາດທີ່ຖືກທຳລາຍ ຫຼື ໃຊ້ແລ້ວ ຈະໄປຢູ່<b>ກອງຖິ້ມ</b>. ແຕະ «ກອງຖິ້ມ» ເພື່ອເບິ່ງກາດທັງໝົດ ທີ່ອອກຈາກເກມແລ້ວ.', next:1, hl:'.half2.me .slot.gy'},
+  {t:'ກາດຂອບ<b>ສີຟ້າ</b> ແມ່ນຄາຖາ, ຂອງວິເສດ ແລະ ສະຖານທີ່. <b>ຄຳສີຂຽວ</b> ບອກວ່າສະກິນເຮັດວຽກຕອນໃດ. ຊີ້ ຫຼື ແຕະກາດໃດກໍໄດ້ ເພື່ອອ່ານໃຫ້ລະອຽດ.', next:1, hl:'.fan.hand'},
   {t:'ເຈົ້າພ້ອມແລ້ວ! ຫຼິ້ນຕໍ່ຈົນຊະນະບອດເລີຍ. ໂຊກດີເດີ້!', next:'done'}
 ];
 function tutEvent(ev){
@@ -2079,12 +2106,23 @@ function tutHTML(){
   if(st.next === 'done') btns = '<button data-a="tutdone">ເລີ່ມສູ້!</button>';
   else if(st.next) btns = '<button data-a="tutnext">ຕໍ່ໄປ</button>';
   btns = '<button class="sk" data-a="tutskip">ຂ້າມ</button>' + btns;
-  return '<div class="tut" role="dialog" aria-label="ສອນຫຼິ້ນ"><div class="face2"><img src="' + ART + 'xiengmieng.jpg" alt=""></div><div class="tx"><b class="who2">ຊຽງໝ້ຽງ ສອນຫຼິ້ນ <span class="step">' + (i + 1) + '/' + TUT.length + '</span></b><p>' + st.t + '</p><div class="tb">' + btns + '</div></div></div>';
+  return '<div class="tutarrow" aria-hidden="true"></div><div class="tut" role="dialog" aria-label="ສອນຫຼິ້ນ"><div class="face2"><img src="' + ART + 'xiengmieng.jpg" alt=""></div><div class="tx"><b class="who2">ຊຽງໝ້ຽງ ສອນຫຼິ້ນ <span class="step">' + (i + 1) + '/' + TUT.length + '</span></b><p>' + st.t + '</p><div class="tb">' + btns + '</div></div></div>';
 }
+// glow the thing this step talks about, point a gold arrow at it, and keep the bubble on the other half of the screen
 function tutHighlight(){
   document.querySelectorAll('.tutpulse').forEach(e => e.classList.remove('tutpulse'));
   if(!S || !S.tut || S.over) return; const st = TUT[S.tut.step];
-  if(st && st.hl){ const e = document.querySelector(st.hl); if(e) e.classList.add('tutpulse'); }
+  const arrow = document.querySelector('.tutarrow'), box = document.querySelector('.tut');
+  const e = st && st.hl && st.hl.split(',').map(q => document.querySelector(q)).find(x => x && x.getBoundingClientRect().width > 0);
+  if(!e){ if(arrow) arrow.style.display = 'none'; return; }
+  e.classList.add('tutpulse');
+  const r = e.getBoundingClientRect(), up = r.top < 90;  // too close to the top: point up from below instead
+  if(arrow){
+    arrow.classList.toggle('up', up);
+    arrow.style.left = (r.left + r.width / 2) + 'px';
+    arrow.style.top = (up ? r.bottom + 6 : r.top - 6) + 'px';
+  }
+  if(box) box.classList.toggle('low', r.top + r.height / 2 < innerHeight * .45);
 }
 
 /* ---------- player actions ---------- */
