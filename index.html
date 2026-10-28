@@ -1201,7 +1201,7 @@ body{background:
 .dpk .dpc{grid-row:1/3;width:54px}
 .dpk b{font:800 13px/1.35 var(--f-d)}.dpk small{color:var(--dim);font:600 11px/1.4 var(--f-d)}
 .dpk.on{border-color:var(--gold);background:#f2b63222}
-.dpk.lk .dpc .card{filter:grayscale(.9) brightness(.55)}
+.dpk.lk .dpc .card,.dpk.lk .dpc .dbox{filter:grayscale(.9) brightness(.55)}
 @media (max-width:860px){
   .hmain{grid-template-columns:minmax(0,1fr);gap:12px}
   .hlogo .logoimg{width:min(230px,60vw)}
@@ -1220,26 +1220,36 @@ body{background:
 @media (max-width:480px){ .htop .wallet{order:3;flex-basis:100%;justify-content:flex-start} }
 
 /* ---------- foil booster packs ---------- */
-.booster{--c1:#3f8f3a;--c2:#1f4f1c;--band:#2f6b1e;position:relative;width:132px;aspect-ratio:5/8;margin:4px auto;filter:drop-shadow(0 12px 18px #000a);transition:transform .2s}
+.booster{--bink:#fff;--bsh:#000c;position:relative;width:132px;aspect-ratio:5/8;margin:4px auto;filter:drop-shadow(0 12px 18px #000a);transition:transform .2s}
 .pack:hover .booster{transform:translateY(-6px) rotate(-2deg)}
-.booster.deck{--c1:#4a8fe0;--c2:#1d2b6b;--band:#2459b8}
-.booster.gold{--c1:#ffe48a;--c2:#b07a0c;--band:#b07a0c}
-.bcrimp{position:absolute;left:0;right:0;height:9%;z-index:2;background:repeating-linear-gradient(90deg,#ffffffcc 0 2px,transparent 2px 5px),linear-gradient(180deg,var(--c1),var(--c2))}
-.bcrimp.t{top:0}.bcrimp.b{bottom:0}
-.bfoil{position:absolute;left:0;right:0;top:8%;bottom:8%;overflow:hidden;border-radius:4px;background:linear-gradient(135deg,var(--c1),var(--c2));box-shadow:inset 0 0 0 3px var(--c1),inset 0 0 0 5px #0006}
-.bfoil > img:first-child{position:absolute;inset:5px;width:calc(100% - 10px);height:calc(100% - 10px);object-fit:cover;object-position:50% 20%;border-radius:2px}
-.bshade{position:absolute;inset:0;background:linear-gradient(180deg,#0000 45%,#000a 100%)}
-.blogo{position:absolute;left:8%;right:8%;top:5%;width:84%;filter:drop-shadow(0 3px 4px #000)}
-.bband{position:absolute;left:0;right:0;bottom:7%;padding:5px 4px;text-align:center;background:linear-gradient(90deg,transparent,var(--band) 15%,var(--band) 85%,transparent);color:#fff;text-shadow:0 1px 2px #000}
-.bband b{display:block;font:800 13px/1.2 var(--f-d)}.bband small{display:block;font:700 10px var(--f-d);opacity:.9}
-.bshine{position:absolute;inset:-40%;background:linear-gradient(105deg,transparent 40%,#ffffff70 50%,transparent 60%);animation:bshine 3.2s ease-in-out infinite;mix-blend-mode:overlay}
-@keyframes bshine{0%,55%{transform:translateX(-60%)}100%{transform:translateX(60%)}}
-.booster.gold .bfoil{box-shadow:inset 0 0 0 3px #fff3b0,inset 0 0 0 6px #b07a0c,0 0 24px #ffd23d88}
+.booster.pk-deck{--bink:#16245e;--bsh:#ffffffb0}
+.booster.pk-gold{--bink:#4a2f04;--bsh:#fff3b0b0;filter:drop-shadow(0 12px 18px #000a) drop-shadow(0 0 14px #ffd23d55)}
+.bpack{position:absolute;inset:0;width:100%;height:100%;display:block}
+/* the strip that tears off: the same picture, cut at the crimp line */
+.btear{position:absolute;inset:0;background:var(--pk) 0 0/100% 100%;clip-path:inset(0 0 88% 0)}
+.blogo{position:absolute;left:28%;width:44%;top:4.5%;filter:drop-shadow(0 2px 3px #0009)}
+.bband{position:absolute;left:20%;right:20%;top:75.4%;height:7.6%;display:grid;place-items:center;text-align:center;color:var(--bink);text-shadow:0 1px 1px var(--bsh)}
+.bband b{font:800 11px/1 var(--f-d);white-space:nowrap}
+.bband small{position:absolute;left:-20%;right:-20%;top:calc(100% + 3px);font:700 9px var(--f-d);color:#fff;text-shadow:0 1px 2px #000,0 0 6px #000}
+.bshine{position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,#ffffff70 50%,transparent 60%) 0 0/250% 100%;animation:bshine 3.2s ease-in-out infinite;mix-blend-mode:overlay;
+  -webkit-mask:var(--pk) 0 0/100% 100%;mask:var(--pk) 0 0/100% 100%}
+@keyframes bshine{0%,55%{background-position:120% 0}100%{background-position:-20% 0}}
 .booster.big{width:min(240px,58vw)}
-.booster.big .bband b{font-size:20px}.booster.big .bband small{font-size:13px}
+.booster.big .bband b{font-size:19px}.booster.big .bband small{font-size:13px}
+/* starter-deck boxes; other decks use the blank box with their legend in the window */
+.dbox{position:relative;display:block;width:100%;aspect-ratio:3/4;filter:drop-shadow(0 8px 14px #000a)}
+.dbox > img{position:absolute;inset:0;width:100%;height:100%;display:block}
+.dbox .dbwin{left:24.5%;top:30.5%;width:43%;height:39%;object-fit:cover;object-position:50% 18%;border-radius:46% 46% 18% 18% / 30% 30% 12% 12%;box-shadow:inset 0 0 0 2px #e2b54a}
+.dbox .dblogo{left:var(--ll,24%);top:var(--lt,7%);width:var(--lw,40%);height:auto;filter:drop-shadow(0 2px 3px #0009)}
+.dbox b{position:absolute;left:var(--rl);right:var(--rr);top:var(--rt);height:6%;display:grid;place-items:center;font:800 clamp(8px,6cqw,15px)/1 var(--f-d);color:#4a2f04;text-shadow:0 1px 1px #fff3b0b0;white-space:nowrap;overflow:hidden}
+.dbox{container-type:inline-size}
+.dpk .dbox b,.dpk .dbox .dblogo{display:none}
+.shophero{display:block;width:min(300px,70%);margin:-6px auto -14px;filter:drop-shadow(0 14px 22px #000a)}
 .bigwrap{cursor:pointer;animation:pshake 1s ease-in-out infinite}
 .bigwrap.tearing{animation:none}
-.bigwrap.tearing .bcrimp.t{animation:ptear .6s ease-in forwards}
+.bigwrap.tearing .btear{animation:ptear .6s ease-in forwards}
+.bigwrap.tearing .bpack{clip-path:inset(12% 0 0 0)}
+.bigwrap.tearing .blogo{opacity:0;transition:opacity .15s}
 .bigwrap.tearing .booster{animation:pdrop .7s .2s ease-in forwards}
 @keyframes ptear{to{transform:translate(40px,-120px) rotate(18deg);opacity:0}}
 @keyframes pdrop{30%{transform:scale(1.06);filter:drop-shadow(0 0 40px #ffe48a)}100%{transform:translateY(60px) scale(.9);opacity:0}}
@@ -3289,7 +3299,7 @@ function menuHTML(){
     '<header class="htop"><div class="hprof" role="button" tabindex="0" data-a="ach" aria-label="ຜົນງານ"><span class="hav fr-' + (c.frame || 'none') + '"><img src="' + art + '" alt=""></span><div class="hlv"><b>⭐ ລະດັບ ' + L + ' <small>' + (L >= LEVEL_MAX ? 'ສູງສຸດ' : into + '/' + LEVEL_XP + ' XP') + '</small></b><div class="pbar"><i style="width:' + (L >= LEVEL_MAX ? 100 : into) + '%"></i></div></div><span class="hach">🏆 ' + Object.keys(c.ach || {}).length + '/' + ACH.length + '</span></div>' +
       walletHTML('sm') + '<button class="hset" data-a="settings" aria-label="ຕັ້ງຄ່າ">' + IC_GEAR + '</button></header>' +
     '<div class="hmain"><div class="hlogo"><img class="logoimg" src="art/logo.webp" alt="Lao Legend Wars" width="960" height="640"><p>ສົງຄາມຕຳນານລາວ · ເກມກາດນິທານລາວ · ຫຼິ້ນຟຣີ</p></div>' +
-      '<div class="hdeck"><div class="hcard" role="button" tabindex="0" data-a="decks" aria-label="ປ່ຽນເດັກ">' + cardHTML(info.cover) + '<span class="hswap">🔄 ປ່ຽນເດັກ</span></div>' +
+      '<div class="hdeck"><div class="hcard" role="button" tabindex="0" data-a="decks" aria-label="ປ່ຽນເດັກ">' + boxHTML(typeof sel === 'string' ? sel : (DECKS[sel] ? sel : 0), info.cover, typeof sel === 'string' ? info.name : 'ເດັກ ' + (DECKS[sel] || DECKS[0]).no) + '<span class="hswap">🔄 ປ່ຽນເດັກ</span></div>' +
         '<div class="hdinfo"><small>ເດັກທີ່ເລືອກ</small><h2>' + escH(info.name) + '</h2><p>' + info.sub + '</p>' +
           '<div class="hbtns"><button class="btn2" data-a="decks">🔄 ປ່ຽນເດັກ</button><button class="btn2" data-a="edsel">✏️ ' + (typeof sel === 'string' ? 'ແກ້ເດັກນີ້' : 'ກັອບໄປແກ້') + '</button></div>' +
           '<div class="levels"><span>ບອດ</span>' + LEVELS.map((l, i) => '<button class="lv ' + (ui.level === i ? 'on' : '') + '" data-a="lvl" data-v="' + i + '">' + l + '</button>').join('') + '</div>' +
@@ -3302,7 +3312,7 @@ function menuHTML(){
 }
 function deckPickHTML(){
   const c = col(), sel = ui.deck;
-  const tile = (key, cover, name, sub, lk) => '<button class="dpk' + (key === String(sel) ? ' on' : '') + (lk ? ' lk' : '') + '" data-a="pickdeck" data-v="' + key + '"><span class="dpc">' + cardHTML(cover) + '</span><b>' + escH(name) + '</b><small>' + sub + '</small></button>';
+  const tile = (key, cover, name, sub, lk) => '<button class="dpk' + (key === String(sel) ? ' on' : '') + (lk ? ' lk' : '') + '" data-a="pickdeck" data-v="' + key + '"><span class="dpc">' + boxHTML(/^\d+$/.test(key) ? +key : key, cover, name) + '</span><b>' + escH(name) + '</b><small>' + sub + '</small></button>';
   const mine = c.decks.map(d => { const iss = deckIssues(d.list); return tile('c:' + d.id, coverOf(d.list), d.name, iss.length ? '⚠️ ' + iss[0] : '30 ໃບ · ພ້ອມຫຼິ້ນ', iss.length); }).join('');
   const built = DORDER.map(i => { const d = DECKS[i], ok = deckOwned(d.list); return tile(String(i), d.legend, 'ເດັກ ' + d.no + ' · ' + d.name, ok ? (STARTERS.includes(i) ? '⭐ ເລີ່ມຕົ້ນ · ' : '') + d.style : '🔒 ' + ownedOf(d.list) + '/30', !ok); }).join('');
   return '<p class="q">ເລືອກເດັກ</p>' + (mine ? '<p class="subh2">ເດັກຂອງຂ້ອຍ</p><div class="dpick">' + mine + '</div>' : '') +
@@ -3429,11 +3439,20 @@ function rollPack(kind, di){
 // a foil booster: the art of the pack, the logo, a ribbon with the name, crimped ends and a moving shine
 const CRIMP_T = 'polygon(' + Array.from({length:25}, (_, i) => (i * 100 / 24).toFixed(2) + '% ' + (i % 2 ? '0' : '45%')).join(',') + ',100% 100%,0 100%)';
 const CRIMP_B = 'polygon(0 0,100% 0,' + Array.from({length:25}, (_, i) => ((24 - i) * 100 / 24).toFixed(2) + '% ' + (i % 2 ? '100%' : '55%')).join(',') + ')';
+const PACK_ART = {basic:'pack-basic', deck:'pack-deck', gold:'pack-gold'};
 function boosterHTML(kind, di, big){
-  const art = kind === 'deck' ? C[DECKS[di].legend].img : kind === 'gold' ? ALT.phayanak : 'baci';
-  return '<div class="booster ' + kind + (big ? ' big' : '') + '"><div class="bcrimp t" style="clip-path:' + CRIMP_T + '"></div><div class="bfoil"><img src="' + ART + art + '.jpg" alt=""><span class="bshade"></span>' +
-    '<img class="blogo" src="art/logo.webp" alt=""><div class="bband"><b>' + PACKS[kind].name + '</b><small>' + (kind === 'deck' ? 'ເດັກ ' + DECKS[di].no + ' · ' : kind === 'gold' ? '✦ ' : '') + '5 ໃບ</small></div><i class="bshine"></i></div>' +
-    '<div class="bcrimp b" style="clip-path:' + CRIMP_B + '"></div></div>';
+  const src = 'art/' + PACK_ART[kind] + '.webp';
+  return '<div class="booster pk-' + kind + (big ? ' big' : '') + '" style="--pk:url(' + src + ')"><img class="bpack" src="' + src + '" alt=""><span class="btear" aria-hidden="true"></span>' +
+    '<img class="blogo" src="art/logo.webp" alt=""><div class="bband"><b>' + PACKS[kind].name + '</b><small>' + (kind === 'deck' ? 'ເດັກ ' + DECKS[di].no + ' · ' : kind === 'gold' ? '✦ ' : '') + '5 ໃບ</small></div><i class="bshine"></i></div>';
+}
+// deck boxes: the three starter decks have their own; any other deck shows its legend in the window of the blank box
+// rt/rl/rr place the name on each box's ribbon, measured from the art
+const BOXES = {0:{img:'box-d1', rt:'78.4%', rl:'25%', rr:'28%'}, 4:{img:'box-d4', rt:'82.6%', rl:'23%', rr:'27%'}, 2:{img:'box-d3', rt:'84.2%', rl:'20%', rr:'28%'}};
+function boxHTML(key, cover, name){
+  const b = BOXES[key], blank = !b;
+  const st = blank ? '--rt:77.6%;--rl:27%;--rr:35%' : '--rt:' + b.rt + ';--rl:' + b.rl + ';--rr:' + b.rr;
+  return '<span class="dbox' + (blank ? ' blank' : '') + '" style="' + st + '"><img src="art/' + (blank ? 'box-blank' : b.img) + '.webp" alt="">' +
+    (blank ? '<img class="dbwin" src="' + ART + C[cover].img + '.jpg" alt="">' : '') + '<img class="dblogo" src="art/logo.webp" alt=""><b>' + escH(name) + '</b></span>';
 }
 function shopHTML(){
   const c = col(), tab = ui.shopTab || 'packs', sd = ui.shopDeck != null ? ui.shopDeck : 1;
@@ -3449,7 +3468,7 @@ function shopHTML(){
       '<div class="tabs">' + [['all', 'ທັງໝົດ']].concat(DORDER.map(i => ['d' + i, 'ເດັກ ' + DECKS[i].no]), [['neutral', 'ກາດກາງ']]).map(([k, l]) => '<button class="' + (f === k ? 'on' : '') + '" data-a="crafttab" data-v="' + k + '">' + l + '</button>').join('') + '</div>' +
       '<div class="bgrid2 cgrid">' + (ids.map(id => '<div class="pc' + (owned(id) ? '' : ' nown') + '" role="button" tabindex="0" data-a="craftsel" data-v="' + id + '">' + cardHTML(id) + '<span class="cnt3">✨' + DUST_MAKE[rarityOf(id)] + ' · ມີ ' + owned(id) + '</span></div>').join('') || '<p class="empty">ມີກາດຄົບ 3 ໃບ ທຸກແບບແລ້ວ!</p>') + '</div>';
   } else {
-    body = (c.freePacks ? '<div class="freebar"><div class="fbmini">' + boosterHTML('basic', sd) + '</div><b>🎁 ຊອງຟຣີ ' + c.freePacks + ' ຊອງ</b><button class="btn-main sm" data-a="freeopen">ເປີດເລີຍ</button></div>' : '') +
+    body = '<img class="shophero" src="art/pack-display.webp" alt="ກ່ອງຊອງກາດ Lao Legend Wars">' + (c.freePacks ? '<div class="freebar"><div class="fbmini">' + boosterHTML('basic', sd) + '</div><b>🎁 ຊອງຟຣີ ' + c.freePacks + ' ຊອງ</b><button class="btn-main sm" data-a="freeopen">ເປີດເລີຍ</button></div>' : '') +
       '<div class="packs">' + card('basic') + card('deck') + card('gold') + '</div>' +
       '<p class="pity">🎯 ຮັບປະກັນຕຳນານ: ອີກ <b>' + Math.max(1, PITY - c.pity) + '</b> ຊອງ · ເປີດໄປແລ້ວ ' + c.packs + ' ຊອງ</p>' +
       '<p class="lore2">ເພັດໄດ້ຈາກການຫຼິ້ນເທົ່ານັ້ນ: ຊະນະບອດ ງ່າຍ/ກາງ/ຍາກ = 10/20/35 · ຊະນະທຳອິດຂອງມື້ +50 · ພາລະກິດປະຈຳວັນ. ບໍ່ມີການຈ່າຍເງິນແທ້.</p>';
