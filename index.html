@@ -1435,6 +1435,7 @@ body{background:
 .avopt img{width:100%;height:100%;object-fit:cover;object-position:50% 15%}.avopt.on{border-color:var(--gold);box-shadow:0 0 12px var(--gold)}
 .profhead{display:flex;align-items:center;gap:14px;text-align:left}.profhead b{display:block;font:800 22px var(--f-d)}.profhead small{color:var(--dim);font:700 13px var(--f-d)}
 .hav.big{width:72px;height:72px}
+.tabs button small{display:block;font:700 11px/1.2 var(--f-d);opacity:.75;max-width:8.5em;margin:1px auto 0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.tabs button b{font-weight:800}
 .mmspin{font-size:44px;animation:mmspin 1.4s ease-in-out infinite}@keyframes mmspin{50%{transform:scale(1.18) rotate(-8deg)}}
 .tclock{margin-left:8px;font-variant-numeric:tabular-nums}.tclock.low{color:#c8312b;animation:tlow 1s steps(2) infinite}@keyframes tlow{50%{opacity:.45}}
 #netwarn{position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:90;display:flex;gap:10px;align-items:center;background:#1b1b1bee;color:#fff;border:2px solid #e2b54a;border-radius:999px;padding:8px 16px;font:700 14px var(--f-d);box-shadow:0 6px 18px #0008}
@@ -3582,7 +3583,7 @@ function edPanel(){
 }
 function builderHTML(){
   const f = ui.bf, tot = listTotal(ui.ed.list);
-  const tabs = [['all', 'ທັງໝົດ']].concat(DORDER.map(i => ['d' + i, 'ເດັກ ' + DECKS[i].no]), [['neutral', 'ກາດກາງ']]);
+  const tabs = [['all', 'ທັງໝົດ']].concat(DORDER.map(i => ['d' + i, deckTab(i)]), [['neutral', 'ກາດກາງ']]);
   return '<div class="builder"><div class="bhead"><button class="btn2" data-a="edback">← ເມນູ</button><h2>ຈັດເດັກ</h2>' + walletHTML('sm') + '</div>' +
     '<div class="bwrap"><section class="bpool"><div class="bfil"><div class="tabs">' + tabs.map(([k, l]) => '<button class="' + ((f.tab || 'all') === k ? 'on' : '') + '" data-a="edtab" data-v="' + k + '">' + l + '</button>').join('') + '</div>' +
     '<div class="costs">' + [0,1,2,3,4,5,6,7].map(n => '<button class="' + ((f.cost || 0) === n ? 'on' : '') + '" data-a="edcost" data-v="' + n + '">' + (n === 0 ? 'ບຸນທັງໝົດ' : n === 7 ? '7+' : n) + '</button>').join('') +
@@ -3668,7 +3669,7 @@ function shopHTML(){
     const f = ui.craftTab || 'all';
     const ids = bookIds(f).filter(id => owned(id) < RULE.copies);
     body = '<p class="lore2">ໃຊ້ ✨ ຜົງແກ້ວ ສ້າງກາດທີ່ຢາກໄດ້. ຜົງແກ້ວ ໄດ້ຈາກກາດທີ່ຊ້ຳເກີນ 3 ໃບ. ສາມັນ ✨40 · ຫາຍາກ ✨100 · ຕຳນານ ✨400</p>' +
-      '<div class="tabs">' + [['all', 'ທັງໝົດ']].concat(DORDER.map(i => ['d' + i, 'ເດັກ ' + DECKS[i].no]), [['neutral', 'ກາດກາງ']]).map(([k, l]) => '<button class="' + (f === k ? 'on' : '') + '" data-a="crafttab" data-v="' + k + '">' + l + '</button>').join('') + '</div>' +
+      '<div class="tabs">' + [['all', 'ທັງໝົດ']].concat(DORDER.map(i => ['d' + i, deckTab(i)]), [['neutral', 'ກາດກາງ']]).map(([k, l]) => '<button class="' + (f === k ? 'on' : '') + '" data-a="crafttab" data-v="' + k + '">' + l + '</button>').join('') + '</div>' +
       '<div class="bgrid2 cgrid">' + (ids.map(id => '<div class="pc' + (owned(id) ? '' : ' nown') + '" role="button" tabindex="0" data-a="craftsel" data-v="' + id + '">' + cardHTML(id) + '<span class="cnt3">✨' + DUST_MAKE[rarityOf(id)] + ' · ມີ ' + owned(id) + '</span></div>').join('') || '<p class="empty">ມີກາດຄົບ 3 ໃບ ທຸກແບບແລ້ວ!</p>') + '</div>';
   } else {
     body = '<img class="shophero" src="art/pack-display.webp" alt="ກ່ອງຊອງກາດ Lao Legend Wars">' + (c.freePacks ? '<div class="freebar"><div class="fbmini">' + boosterHTML('basic', sd) + '</div><b>🎁 ຊອງຟຣີ ' + c.freePacks + ' ຊອງ</b><button class="btn-main sm" data-a="freeopen">ເປີດເລີຍ</button></div>' : '') +
@@ -3742,7 +3743,9 @@ function shopClick(a, v){
   return true;
 }
 
-const BOOKTABS = [['all','ທັງໝົດ']].concat(DORDER.map(i => ['d' + i, 'ເດັກ ' + DECKS[i].no]), [['neutral','ກາດກາງ'],['alt','✦ ອາດພິເສດ']]);
+// a deck tab: its number and a short name (the part before 'ແລະ')
+const deckTab = i => '<b>ເດັກ ' + DECKS[i].no + '</b><small>' + DECKS[i].name.split(' ແລະ ')[0] + '</small>';
+const BOOKTABS = [['all','ທັງໝົດ']].concat(DORDER.map(i => ['d' + i, deckTab(i)]), [['neutral','ກາດກາງ'],['alt','✦ ອາດພິເສດ']]);
 function bookIds(tab){
   const neutral = Object.keys(C).filter(id => C[id].tribe === 'villager' || ['baci','khaoniao','phukkhaen','tikong','faphaa','satnam','haingeun','lowai','wao','katip','thonghai','talatsao','khonephapheng'].includes(id));
   const byDeck = i => Object.keys(DECKS[i].list).filter(id => !neutral.includes(id));
@@ -5166,7 +5169,7 @@ $app.addEventListener('click', e => {
   if(a === 'passok' && S.modal && S.modal.type === 'pass'){ const r = S.modal.resolve; S.modal = null; render(); r(); return; }
   if(a === 'yes' || a === 'no'){ const r = S.modal.resolve; S.modal = null; render(); r(a === 'yes'); return; }
   if(a === 'discard'){ const r = S.modal.resolve; const h = S.p[0].hand.find(x => x.uid === +v); S.modal = null; render(); r(h); return; }
-  if(a === 'menu'){ if(S.online && !S.over){ netSend({t:'quit'}); netClose(); liveClear(); S = null; ui.grave = null; render(); return; } if(S.over || (S.turn === 0 && !S.busy)){ if(S.online) netClose(); S = null; ui.grave = null; render(); } return; }
+  if(a === 'menu'){ if(S.online && !S.over){ netSend({t:'quit'}); const bye = NET.close; NET.close = null; netClose(); setTimeout(() => bye && bye(), 800); liveClear(); S = null; ui.grave = null; render(); return; } if(S.over || (S.turn === 0 && !S.busy)){ if(S.online) netClose(); S = null; ui.grave = null; render(); } return; }
   if(a === 'replay'){ if(S.online){ netClose(); S = null; ui.mmodal = {type:'online', step:'menu'}; render(); return; } if(S.pvp && typeof pvpReplay === 'function') pvpReplay(); else if(S.adv != null) advStart(S.adv); else startSelected(); return; }
   if(S.modal) return;
   if(S.targeting){
