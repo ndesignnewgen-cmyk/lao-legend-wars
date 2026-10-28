@@ -639,6 +639,8 @@ body{background:
 .arena .lane.chars .wm{color:#e2b54a1f;font-size:clamp(16px,5cqw,56px)}
 .arena .lane.chars .maxb{display:none}
 .arena .lane.chars .row{padding:0 10px;gap:min(18px,2cqw);align-items:center}
+/* Safari sizes height:100% inside a container-type:size lane far too tall, which pushed the top lane's cards down into the bottom lane: pin the row to the lane instead */
+.arena .lane.chars .row{position:absolute;inset:0;height:auto}
 .arena .lane.chars .mini{--w:min(200px,calc((100cqh - 34px) * .716),calc((100cqw - 100px) / 5.2))}
 .mid2{position:relative;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px}
 .mid2::before{content:"";position:absolute;left:0;right:0;top:50%;height:1.5px;background:linear-gradient(90deg,#e2b54a00,#e2b54a 20%,#e2b54a 80%,#e2b54a00)}
@@ -1453,7 +1455,8 @@ body{background:
 /* ---------- modal ---------- */
 .modal-bg{position:fixed;inset:0;z-index:50;background:#000c;display:grid;place-items:center;padding:16px}
 .modal{background:var(--mat-2);border:1px solid #ffffff1c;border-radius:18px;padding:18px;width:min(560px,100%);max-height:92%;overflow:auto;display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center}
-.modal > .card{width:min(290px,66vw)}
+/* sized by the screen height too, so the play button below the card always fits (Safari does not shrink it) */
+.modal > .card{width:min(290px,66vw,calc((100dvh - 230px) * .716));flex:none}
 .modal .lore{margin:0;color:var(--dim);font-style:italic}
 .modal .q{margin:0;font:700 16px/1.6 var(--f-d)}
 .modal .why{margin:0;color:var(--bad);font:700 14px var(--f-d)}
