@@ -1510,6 +1510,8 @@ body{background:
 'use strict';
 const REDUCE = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 const ART = 'art/';
+// in-game card pictures: 560px WebP copies made by tools/webp.sh (about 1/4 the size); the full JPEGs stay as the masters
+const PIC = f => ART + 'w/' + f + '.webp';
 const RULES_URL = 'https://claude.ai/artifact/4LMD4PNy7TDVP3w1ciKUb3';
 const CARDS_URL = 'https://claude.ai/artifact/Q5Whqx9JteTnTcbfAAvkHs';
 const $app = document.getElementById('app'), $fx = document.getElementById('fx');
@@ -2214,7 +2216,7 @@ function mkPlayer(name, di, bot, level, list){
 // keep every picture of both decks in memory, so re-drawing the board never shows a blank card
 const IMG_KEEP = new Map();
 function preloadArt(files){
-  for(const f of files){ if(IMG_KEEP.has(f)) continue; const im = new Image(); im.decoding = 'async'; im.src = ART + f + '.jpg'; IMG_KEEP.set(f, im); }
+  for(const f of files){ if(IMG_KEEP.has(f)) continue; const im = new Image(); im.decoding = 'async'; im.src = PIC(f); IMG_KEEP.set(f, im); }
 }
 function deckArt(di, list){ return Object.keys(list || DECKS[di].list).flatMap(id => ALT[id] ? [C[id].img, ALT[id]] : [C[id].img]); }
 // a picture that failed (slow or dropped connection) gets two more tries before it gives up
@@ -2222,6 +2224,8 @@ document.addEventListener('keydown', e => { if(e.key === 'Escape' && ui.grave){ 
 document.addEventListener('error', e => {
   const im = e.target; if(!(im instanceof HTMLImageElement)) return;
   const src = im.getAttribute('src') || ''; if(!src.startsWith(ART)) return;
+  // no WebP copy yet (new art not run through tools/webp.sh): use the JPEG master
+  if(src.startsWith(ART + 'w/')){ im.src = ART + src.slice(ART.length + 2).split('?')[0].replace(/\.webp$/, '.jpg'); return; }
   const n = +(im.dataset.retry || 0); if(n >= 2){ im.classList.add('broken'); return; }
   im.dataset.retry = n + 1;
   setTimeout(() => { im.src = src.split('?')[0] + '?r=' + (n + 1); }, 600 * (n + 1));
@@ -3339,7 +3343,7 @@ function tutHTML(){
   if(st.next === 'done') btns = '<button data-a="tutdone">ເລີ່ມສູ້!</button>';
   else if(st.next) btns = '<button data-a="tutnext">ຕໍ່ໄປ</button>';
   btns = '<button class="sk" data-a="tutskip">ຂ້າມ</button>' + btns;
-  return '<div class="tutarrow" aria-hidden="true"></div><div class="tut" role="dialog" aria-label="ສອນຫຼິ້ນ"><div class="face2"><img src="' + ART + 'xiengmieng.jpg" alt=""></div><div class="tx"><b class="who2">ຊຽງໝ້ຽງ ສອນຫຼິ້ນ <span class="step">' + (i + 1) + '/' + TUT.length + '</span></b><p>' + st.t + '</p><div class="tb">' + btns + '</div></div></div>';
+  return '<div class="tutarrow" aria-hidden="true"></div><div class="tut" role="dialog" aria-label="ສອນຫຼິ້ນ"><div class="face2"><img src="' + PIC('xiengmieng') + '" alt=""></div><div class="tx"><b class="who2">ຊຽງໝ້ຽງ ສອນຫຼິ້ນ <span class="step">' + (i + 1) + '/' + TUT.length + '</span></b><p>' + st.t + '</p><div class="tb">' + btns + '</div></div></div>';
 }
 // glow the thing this step talks about, point a gold arrow at it, and keep the bubble on the other half of the screen
 function tutHighlight(){
@@ -3420,7 +3424,7 @@ function fmtSkill(t){
 function cardHTML(id, cs, alt, pv, form){
   const d = C[id]; const isAlt = !!(alt && ALT[id]); const cls = (d.legend ? 'legend' : (d.type === 'char' ? 'hero' : 'spell')) + (isAlt ? ' alt' : '') + (d.cy ? ' cy' : '') + (d.idf ? ' idf' : '') + (d.type === 'trap' ? ' trap' : '') + (d.fusion ? ' fusion' : '') + (d.ritual || RITES[id] ? ' ritual' : '');
   const cost = cs != null ? cs : d.cost;
-  return '<div class="card ' + cls + '"><div class="face"><div class="art">' + (d.ph && !isAlt ? '<span class="phart">' + d.ph + '<small>ຮູບກຳລັງມາ</small></span>' : '<img src="' + ART + (isAlt ? ALT[id] : (form && d.tf && d.tf.img) || d.img) + '.jpg" alt=""' + (S ? '' : ' loading="lazy"') + '>') + '</div>' + (isAlt ? '<span class="altbadge">✦ ອາດພິເສດ</span>' : '') +
+  return '<div class="card ' + cls + '"><div class="face"><div class="art">' + (d.ph && !isAlt ? '<span class="phart">' + d.ph + '<small>ຮູບກຳລັງມາ</small></span>' : '<img src="' + PIC((isAlt ? ALT[id] : (form && d.tf && d.tf.img) || d.img)) + '" alt=""' + (S ? '' : ' loading="lazy"') + '>') + '</div>' + (isAlt ? '<span class="altbadge">✦ ອາດພິເສດ</span>' : '') +
     '<div class="cost"><span class="lbl">ບຸນ</span><span class="num">' + cost + '</span></div>' +
     (d.fusion ? '<span class="xtype">🤝 ຮ່ວມຮ່າງ</span>' : d.ritual ? '<span class="xtype">🕯️ ກາດພິທີ</span>' : RITES[id] ? '<span class="xtype">🕯️ ຄາຖາພິທີ</span>' : '') +
     '<div class="sym">' + SYM[d.type === 'char' ? d.tribe : 'spell'] + '</div>' +
@@ -3453,7 +3457,7 @@ function menuHTML(){
   const c = col(), sel = ui.deck, info = selInfo(sel), L = levelOf(c.xp), into = c.xp - (L - 1) * LEVEL_XP;
   const qn = quests().filter(q => q.p >= q.n && !q.claimed).length;
   const tile = (a, ic, label, badge) => '<button class="htile" data-a="' + a + '"><span class="hic" aria-hidden="true">' + ic + '</span><b>' + label + '</b>' + (badge ? '<em class="badge">' + badge + '</em>' : '') + '</button>';
-  const art = ART + C[info.cover].img + '.jpg';
+  const art = PIC(C[info.cover].img);
   return '<div class="home" style="--bg:url(' + art + ')"><div class="hbg" aria-hidden="true"></div>' +
     '<header class="htop"><div class="hprof" role="button" tabindex="0" data-a="ach" aria-label="ຜົນງານ"><span class="hav fr-' + (c.frame || 'none') + '"><img src="' + art + '" alt=""></span><div class="hlv"><b>⭐ ລະດັບ ' + L + ' <small>' + (L >= LEVEL_MAX ? 'ສູງສຸດ' : into + '/' + LEVEL_XP + ' XP') + '</small></b><div class="pbar"><i style="width:' + (L >= LEVEL_MAX ? 100 : into) + '%"></i></div></div><span class="hach">🏆 ' + Object.keys(c.ach || {}).length + '/' + ACH.length + '</span></div>' +
       walletHTML('sm') + '<button class="hset" data-a="settings" aria-label="ຕັ້ງຄ່າ">' + IC_GEAR + '</button></header>' +
@@ -3615,7 +3619,7 @@ function boxHTML(key, cover, name){
   const b = BOXES[key], blank = !b;
   const st = blank ? '--rt:77.6%;--rl:27%;--rr:35%' : '--rt:' + b.rt + ';--rl:' + b.rl + ';--rr:' + b.rr;
   return '<span class="dbox' + (blank ? ' blank' : '') + '" style="' + st + '"><img src="art/' + (blank ? 'box-blank' : b.img) + '.webp" alt="">' +
-    (blank ? '<img class="dbwin" src="' + ART + C[cover].img + '.jpg" alt="">' : '') + '<img class="dblogo" src="art/logo.webp" alt=""><b>' + escH(name) + '</b></span>';
+    (blank ? '<img class="dbwin" src="' + PIC(C[cover].img) + '" alt="">' : '') + '<img class="dblogo" src="art/logo.webp" alt=""><b>' + escH(name) + '</b></span>';
 }
 function shopHTML(){
   const c = col(), tab = ui.shopTab || 'packs', sd = ui.shopDeck != null ? ui.shopDeck : 1;
@@ -3793,7 +3797,7 @@ function half7(p, i, hand, tools){
   const grave = '<div class="slot gy' + (top ? ' has' : '') + '" data-a="grave" data-v="' + i + '" data-l="ກອງຖິ້ມ" role="button" tabindex="0" aria-label="ເບິ່ງກອງຖິ້ມ ' + p.grave.length + ' ໃບ">' +
     last.map((id, j) => '<div class="gyc" style="--j:' + (last.length - 1 - j) + '">' + cardHTML(id) + '</div>').join('') + '<span class="cnt">' + p.grave.length + '</span></div>';
   const bar = '<div class="sbar ' + (i ? 'opp' : 'me') + '">' + plate2(p, i) + (hand || '') + '<div class="slots">' + loc + trapSlot(p, mg) + grave + deck + exSlot(p, i) + '</div>' + (tools || '') + '</div>';
-  const lane = '<div class="lane chars' + (p.loc ? ' hasloc' : '') + '" data-k="side:' + i + '"' + (p.loc ? ' style="--locimg:url(' + ART + C[p.loc].img + '.jpg)"' : '') + '><span class="wm">' + (S.auto || S.pvp ? p.name : (i ? 'ຝ່າຍ' + foe() : 'ຝ່າຍເຈົ້າ')) + '</span>' +
+  const lane = '<div class="lane chars' + (p.loc ? ' hasloc' : '') + '" data-k="side:' + i + '"' + (p.loc ? ' style="--locimg:url(' + PIC(C[p.loc].img) + ')"' : '') + '><span class="wm">' + (S.auto || S.pvp ? p.name : (i ? 'ຝ່າຍ' + foe() : 'ຝ່າຍເຈົ້າ')) + '</span>' +
     (p.loc ? '<span class="locname" data-a="info" data-v="' + p.loc + '">📍 ' + C[p.loc].name + '</span>' : '') +
     (p.water ? '<span class="waterlv" style="--wl:' + p.water + '"><b>🌊 ' + p.water + '/5</b></span>' : '') + (p.fans ? '<span class="fanlv"><b>💖 ' + Math.min(p.fans, encoreAt(p)) + '/' + encoreAt(p) + '</b><i style="width:' + Math.round(Math.min(1, p.fans / encoreAt(p)) * 100) + '%"></i></span>' : '') +
     '<div class="row" style="--n:' + p.field.length + '">' + p.field.map(c => miniHTML(p, c)).join('') + '</div></div>';
@@ -3841,7 +3845,7 @@ function whoLabel(p, i){ return S.auto || S.pvp || S.online ? p.name : i && S.ad
 function plate2(p, i){
   const k = 'h:' + i, tg = S.targeting && S.targeting.list.some(x => tkey(x) === k);
   let gems = ''; for(let j=0;j<10;j++) gems += '<i class="gem ' + (j < p.mana ? 'full' : (j < p.maxMana ? 'spent' : '')) + '"></i>';
-  return '<div class="lplate ' + (i ? 'opp' : 'me') + ' ' + (tg ? 'tgt' : '') + '" data-a="hero" data-k="' + k + '"><div class="lav"><img src="' + ART + C[p.cover || DECKS[p.di].legend].img + '.jpg" alt=""></div>' +
+  return '<div class="lplate ' + (i ? 'opp' : 'me') + ' ' + (tg ? 'tgt' : '') + '" data-a="hero" data-k="' + k + '"><div class="lav"><img src="' + PIC(C[p.cover || DECKS[p.di].legend].img) + '" alt=""></div>' +
     '<div><div class="lnm">' + whoLabel(p, i) + ' · ເດັກ ' + p.deck.length + '</div><div class="llife">' + HEART + Math.max(0, p.life) + '</div>' +
     '<div class="lsub"><div class="gems">' + gems + '</div><em>ບຸນ ' + p.mana + '/' + p.maxMana + (p.water ? ' · 🌊' + p.water + '/5' : '') + (p.fans ? ' · 💖' + Math.min(p.fans, encoreAt(p)) + '/' + encoreAt(p) : '') + taleTag(p) + '</em></div></div>' +
     (i === 0 && petOn() ? '<span class="lpet" id="mypet" aria-hidden="true">' + petFace() + '</span>' : '') + '</div>';
@@ -3869,7 +3873,7 @@ function half2(p, i){
     last.map((id, j) => '<div class="gyc" style="--j:' + (last.length - 1 - j) + '">' + cardHTML(id) + '</div>').join('') +
     '<span class="cnt">' + p.grave.length + '</span><span class="gyl">' + IC_EYE + 'ກອງຖິ້ມ</span></div>';
   const pcol = '<div class="pcol">' + (i ? deck + grave : grave + deck) + '</div>';
-  const lane = '<div class="lane chars' + (p.loc ? ' hasloc' : '') + '" data-k="side:' + i + '"' + (p.loc ? ' style="--locimg:url(' + ART + C[p.loc].img + '.jpg)"' : '') + '><span class="wm">' + (S.auto || S.pvp ? p.name : (i ? 'ຝ່າຍ' + foe() : 'ຝ່າຍເຈົ້າ')) + '</span>' +
+  const lane = '<div class="lane chars' + (p.loc ? ' hasloc' : '') + '" data-k="side:' + i + '"' + (p.loc ? ' style="--locimg:url(' + PIC(C[p.loc].img) + ')"' : '') + '><span class="wm">' + (S.auto || S.pvp ? p.name : (i ? 'ຝ່າຍ' + foe() : 'ຝ່າຍເຈົ້າ')) + '</span>' +
     (p.water ? '<span class="waterlv" style="--wl:' + p.water + '"><b>🌊 ' + p.water + '/5</b></span>' : '') + (p.fans ? '<span class="fanlv"><b>💖 ' + Math.min(p.fans, encoreAt(p)) + '/' + encoreAt(p) + '</b><i style="width:' + Math.round(Math.min(1, p.fans / encoreAt(p)) * 100) + '%"></i></span>' : '') + '<div class="row" style="--n:' + p.field.length + '">' + p.field.map(c => miniHTML(p, c)).join('') + '</div></div>';
   return '<div class="half2 ' + (i ? 'opp' : 'me') + '" data-k="mat:' + i + '">' + strip + lane + pcol + '</div>';
 }
@@ -4185,7 +4189,7 @@ async function fxShowcase(id, alt){
   if(S.fast) return; const d = C[id], T = TFX[d.tribe] || TFX.hero, legend = !!d.legend;
   const dur = (legend ? 2300 : 1500) * SET.speed;
   sfx(legend ? 'legend' : 'spell');
-  const im = alt && ALT[id] ? ALT[id] : d.img, img = ART + im + '.jpg', cut = CUTS[im];
+  const im = alt && ALT[id] ? ALT[id] : d.img, img = PIC(im), cut = CUTS[im];
   const label = (alt && ALT[id] ? '✦ ອາດພິເສດ · ' : '') + (legend ? 'ກາດຕຳນານ · ' : '') + TRIBE_NAME[d.tribe] + ' · ບຸນ ' + d.cost;
   let body = '<div class="sbg" style="background-image:url(' + img + ')"></div><div class="stint"></div>', fr = null;
   if(cut){
@@ -4417,7 +4421,7 @@ async function fxLoc(i, id){
     const rr = [...m.querySelectorAll('.srow, .lane.chars')].map(x => x.getBoundingClientRect());
     const r = rr.length ? {left:Math.min(...rr.map(x => x.left)), top:Math.min(...rr.map(x => x.top)), width:Math.max(...rr.map(x => x.right)) - Math.min(...rr.map(x => x.left)), height:Math.max(...rr.map(x => x.bottom)) - Math.min(...rr.map(x => x.top))} : m.getBoundingClientRect();
     const w = document.createElement('div'); w.className = 'locwipe';
-    Object.assign(w.style, {left:r.left + 'px', top:r.top + 'px', width:r.width + 'px', height:r.height + 'px', backgroundImage:'url(' + ART + C[id].img + '.jpg)'});
+    Object.assign(w.style, {left:r.left + 'px', top:r.top + 'px', width:r.width + 'px', height:r.height + 'px', backgroundImage:'url(' + PIC(C[id].img) + ')'});
     $fx.appendChild(w);
     const an = w.animate([{clipPath:'circle(0% at 50% 50%)', filter:'brightness(2)'}, {clipPath:'circle(75% at 50% 50%)', filter:'brightness(1.1)', offset:.6}, {clipPath:'circle(75% at 50% 50%)', filter:'brightness(1)', opacity:0}], {duration:1100 * SET.speed, easing:'ease-out', fill:'forwards'});
     const c = {x:r.left + r.width / 2, y:r.top + r.height / 2}; if(c){ const d = addFx('locban', c.x, c.y); d.textContent = C[id].name; setTimeout(() => d.remove(), 1100); rainbowBurst(c.x, c.y, 30); }
@@ -4444,7 +4448,7 @@ async function fxFest(f){
 }
 async function fxTale(ti){
   if(S.fast) return; sfx('heal');
-  const T = TALES[ti], d = addFx('talefx', null, null, '<div class="tbook"><small>📖 ຕອນນິທານ</small><h3>' + T.name + '</h3><div class="tarts">' + T.ids.map(id => '<img src="' + ART + C[id].img + '.jpg" alt="">').join('') + '</div><p>' + T.story + '</p><b>🎁 ' + TALE_GIFT + '</b></div>');
+  const T = TALES[ti], d = addFx('talefx', null, null, '<div class="tbook"><small>📖 ຕອນນິທານ</small><h3>' + T.name + '</h3><div class="tarts">' + T.ids.map(id => '<img src="' + PIC(C[id].img) + '" alt="">').join('') + '</div><p>' + T.story + '</p><b>🎁 ' + TALE_GIFT + '</b></div>');
   d.style.setProperty('--d', 2800 * SET.speed + 'ms'); await sleep(2800); d.remove();
 }
 const petOn = () => !!(S && !S.auto && !S.pvp && col().pet);
