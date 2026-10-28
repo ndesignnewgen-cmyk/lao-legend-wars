@@ -1733,6 +1733,20 @@ def('songphi',{name:'ສອງພີ່ນ້ອງ ພະລັກພະລາ�
 def('hungxang',{name:'ທ້າວຮຸ່ງຂີ່ຊ້າງເສິກ',tribe:'warrior',cost:10,power:13,fusion:['thaohung','xangsuek'],kw:{rush:1},ph:'🐘',tag:'ຮ່ວມຮ່າງ · ບຸກໄວ',skill:'ຮ່ວມຮ່າງ: «ທ້າວຮຸ່ງ» + «ຊ້າງເສິກ». ໂຈມຕີໄດ້ທັນທີ',lore:'ທ້າວຮຸ່ງຂຶ້ນຂີ່ຊ້າງເສິກ ນຳທັບບຸກໄປໜ້າ'});
 def('khurak',{name:'ຄູ່ຮັກແຫ່ງໜອງຫານ',tribe:'naga',cost:7,power:8,fusion:['phadaeng','nangai'],kw:{tide:1},ph:'💞',tag:'ຮ່ວມຮ່າງ · ນ້ຳຂຶ້ນ',skill:'ຮ່ວມຮ່າງ: «ທ້າວຜາແດງ» + «ນາງໄອ່ຄຳ». ນ້ຳຂຶ້ນ. ເມື່ອຮ່ວມຮ່າງ ນ້ຳຂຶ້ນ 2',lore:'ຜາແດງ ແລະ ນາງໄອ່ ຈັບມືກັນ ບໍ່ພາກຈາກກັນອີກ'});
 def('yaknak',{name:'ຫຸ່ນຍົນຍັກນາກ',tribe:'cyborg',cy:1,cost:10,power:13,fusion:['nagax','mechyak'],kw:{fly:1},ph:'🤖',tag:'ຮ່ວມຮ່າງ · ບິນ',skill:'ຮ່ວມຮ່າງ: «ນາກາ-X» + «ຍັກຈັກກົນ». ບິນ',lore:'ນາກ ແລະ ຍັກ ຕໍ່ກັນເປັນຫຸ່ນຍົນຍັກໃຫຍ່ ປົກປ້ອງເມືອງ'});
+// ກາດກາງຊຸດ 2: new keywords and reactions, any deck may add them (placeholder art until the pictures arrive)
+const DRAIN = 'ດູດຂວັນ: ໂຈມຕີສຳເລັດ ຟື້ນຂວັນ 2';
+const GROW = 'ສະສົມພະລັງ: ເລີ່ມຕາຂອງເຈົ້າ ໃບນີ້ພະລັງ +1 (ສູງສຸດ +4)';
+const POISON = 'ພິດ: ສູ້ກັບຕົວລະຄອນໃດ ໃບນັ້ນຖືກທຳລາຍສະເໝີ';
+const BLOCK = 'ສະກັດ: ຕົວລະຄອນບິນຂອງຄູ່ແຂ່ງ ຕ້ອງໂຈມຕີໃບນີ້ກ່ອນ';
+def('yungnoy',{name:'ຍຸງນ້ອຍ',tribe:'villager',cost:1,power:1,kw:{drain:1},ph:'🦟',tag:'ດູດຂວັນ',skill:DRAIN,lore:'ຍຸງນ້ອຍ ບິນວົນ ຫາເລືອດກິນ'});
+def('tontan',{name:'ຕົ້ນຕານ້ອຍ',tribe:'villager',cost:2,power:1,kw:{grow:1},ph:'🌱',tag:'ສະສົມພະລັງ',skill:GROW,lore:'ຕົ້ນຕານ້ອຍ ໃຫຍ່ຂຶ້ນທຸກມື້'});
+def('nguhao',{name:'ງູເຫົ່າ',tribe:'villager',cost:3,power:1,kw:{poison:1},ph:'🐍',tag:'ພິດ',skill:POISON,lore:'ງູເຫົ່າ ຢູ່ໃນທົ່ງນາ ຢ່າໄປແຫຍ່'});
+def('nokinsee',{name:'ນົກອິນຊີເຝົ້າຟ້າ',tribe:'villager',cost:3,power:3,kw:{block:1},ph:'🦅',tag:'ສະກັດ',skill:BLOCK,lore:'ນົກອິນຊີ ບິນສູງ ເບິ່ງເຫັນທຸກຢ່າງ'});
+def('kwangthong',{name:'ກວາງທອງ',tribe:'villager',cost:4,power:3,kw:{drain:1, grow:1},ph:'🦌',tag:'ດູດຂວັນ · ສະສົມພະລັງ',skill:DRAIN + '. ' + GROW,lore:'ກວາງທອງ ແລ່ນໄວ ຂົນເຫຼືອງເຫຼື້ອມ'});
+def('romban',{name:'ຮົ່ມບັງ',type:'spell',tribe:'villager',cost:1,react:1,ph:'☂️',tag:'ຄາຖາ · ຕອບໂຕ້',skill:'ໃຊ້ຕອນຄູ່ແຂ່ງໂຈມຕີຕົວລະຄອນຂອງເຈົ້າ: ໃບນັ້ນພະລັງ +3 ຈົນຈົບຕາ',lore:'ກາງຮົ່ມ ບັງແດດ ບັງຝົນ ບັງພັຍ'});
+def('konglai',{name:'ກອງໄລ່',type:'spell',tribe:'villager',cost:1,react:1,ph:'🥁',tag:'ຄາຖາ · ຕອບໂຕ້',skill:'ໃຊ້ຕອນຄູ່ແຂ່ງໂຈມຕີຂວັນຂອງເຈົ້າ: ໃບທີ່ໂຈມຕີ ກັບຄືນມືເຈົ້າຂອງ',lore:'ຕີກອງດັງໆ ໄລ່ສັດຮ້າຍໜີໄປ'});
+// which reaction fits this attack: ກົນຊຽງໝ້ຽງ any, ຮົ່ມບັງ only on a character, ກອງໄລ່ only on ຂວັນ
+const reactFits = (id, t) => id === 'romban' ? t.kind === 'char' : (id === 'konglai' ? t.kind === 'hero' : true);
 // ພິທີອັນເຊີນ: a ritual spell offers your weakest characters whose power adds up to the need, then calls one ritual card onto the field
 def('phitibangfai',{name:'ພິທີບຸນບັ້ງໄຟ',type:'spell',tribe:'villager',cost:3,ph:'🕯️',tag:'ຄາຖາ · ພິທີອັນເຊີນ',skill:'ຖວາຍຕົວລະຄອນຂອງເຈົ້າ ພະລັງລວມ 6 ຂຶ້ນໄປ → ອັນເຊີນ «ພະຍານາກເຈັດຫົວ» ຫຼື «ພະຍາແຖນທອງຟ້າ»',lore:'ຈູດທຽນ ຖວາຍດອກໄມ້ ຂໍຝົນຈາກຟ້າ'});
 def('phitisukhuan',{name:'ພິທີສູ່ຂວັນ',type:'spell',tribe:'villager',cost:3,ph:'🧵',tag:'ຄາຖາ · ພິທີອັນເຊີນ',skill:'ຖວາຍຕົວລະຄອນຂອງເຈົ້າ ພະລັງລວມ 5 ຂຶ້ນໄປ → ອັນເຊີນ «ເທວີສັງຂານ» ຫຼື «ຍັກສິບຫົວຄືນຊີບ»',lore:'ຜູກແຂນ ເອີ້ນຂວັນ ໃຫ້ກັບມາຢູ່ນຳກັນ'});
@@ -1740,6 +1754,7 @@ def('nakjet',{name:'ພະຍານາກເຈັດຫົວ',tribe:'naga',cos
 def('thaentong',{name:'ພະຍາແຖນທອງຟ້າ',tribe:'thewada',cost:8,power:9,ritual:1,kw:{fly:1},ph:'⚡',tag:'ພິທີອັນເຊີນ · ບິນ',skill:'ອັນເຊີນດ້ວຍພິທີເທົ່ານັ້ນ. ບິນ. ເມື່ອມາ ທຳລາຍຕົວລະຄອນຄູ່ແຂ່ງ 1 ໃບ ທີ່ພະລັງ 4 ລົງມາ',lore:'ແຖນທອງ ລົງມາພ້ອມຟ້າແມບ'});
 def('sangkhanthewi',{name:'ເທວີສັງຂານ',tribe:'thewada',cost:7,power:7,ritual:1,kw:{taunt:1},ph:'🌸',tag:'ພິທີອັນເຊີນ · ກັນໄພ',skill:'ອັນເຊີນດ້ວຍພິທີເທົ່ານັ້ນ. ກັນໄພ. ເມື່ອມາ ຟື້ນຂວັນ +5 ແລະ ຈົ່ວກາດ 1 ໃບ',lore:'ເທວີປີໃໝ່ ນຳພອນມາໃຫ້ທຸກຄົນ'});
 def('yaksip',{name:'ຍັກສິບຫົວຄືນຊີບ',tribe:'giant',cost:8,power:11,ritual:1,ph:'👹',tag:'ພິທີອັນເຊີນ',skill:'ອັນເຊີນດ້ວຍພິທີເທົ່ານັ້ນ. ແຮງທີ່ສຸດ ໃນບັນດາກາດພິທີ',lore:'ຍັກສິບຫົວ ຕື່ນຂຶ້ນມາອີກເທື່ອ'});
+const GIFT_CARDS = ['phitibangfai', 'phitisukhuan', 'yungnoy', 'tontan', 'nguhao', 'nokinsee', 'kwangthong', 'romban', 'konglai'];
 const RITES = {phitibangfai:{need:6, opts:['nakjet', 'thaentong']}, phitisukhuan:{need:5, opts:['sangkhanthewi', 'yaksip']}};
 const FUSE_COST = 2;
 const FUSIONS = Object.keys(C).filter(id => C[id].fusion);
@@ -1789,11 +1804,11 @@ let COL = null;
 function col(){
   if(COL) return COL;
   COL = loadJ(COL_KEY, null);
-  if(COL && COL.v) for(const id in RITES) if(!COL.cards[id]) COL.cards[id] = 1;
+  if(COL && COL.v) for(const id of GIFT_CARDS) if(!COL.cards[id]) COL.cards[id] = 1;
   if(!COL || !COL.v){
     COL = {v:1, cards:{}, alts:{}, gems:300, dust:0, decks:[], day:'', dayGems:0, firstWinDay:'', tutGems:false, freePacks:0, pity:0, packs:0, xp:0, quests:null, made:Date.now()};
     for(const di of STARTERS) for(const [id, n] of Object.entries(DECKS[di].list)) COL.cards[id] = Math.min(RULE.copies, (COL.cards[id] || 0) + n);
-    for(const id in RITES) COL.cards[id] = 1;
+    for(const id of GIFT_CARDS) COL.cards[id] = 1;
     saveJ(COL_KEY, COL);
   }
   return COL;
@@ -2194,6 +2209,8 @@ function attackTargets(p, c){
   const taunts = c.items.includes('hokwiset') ? [] : q.field.filter(hasTaunt);
   const list = (taunts.length ? taunts : q.field).map(x => ({kind:'char', owner:q, c:x}));
   if(!d.kw.noFace && (hasFly(c) || !taunts.length)) list.push({kind:'hero', owner:q});
+  const blk = q.field.filter(x => C[x.id].kw.block);
+  if(hasFly(c) && blk.length) return blk.map(x => ({kind:'char', owner:q, c:x}));
   return list;
 }
 function targetsFor(p, id){
@@ -2680,29 +2697,34 @@ async function attack(p, c, t){
   render();
   await fxLunge('c:' + c.uid, tkey(t), C[c.id].tribe, t.kind === 'hero' ? pow(p, c, null, true) : pow(p, c, t.c, true));
   if(!S || S.over) return;
-  const ri = q.hand.findIndex(h => C[h.id].react);
+  const ri = q.hand.findIndex(h => C[h.id].react && reactFits(h.id, t));
   if(ri >= 0 && q.mana >= 1 && !S.over){
+    const rid = q.hand[ri].id;
     const what = t.kind === 'hero' ? 'ຂວັນຂອງເຈົ້າ' : '«' + C[t.c.id].name + '»';
     const use = isBot(q) ? botReact(q, p, c, t)
-      : await new Promise(r => { S.modal = {type:'ask', text:(S.pvp ? q.name + ' ຮັບເຄື່ອງ: ' : '') + '«' + C[c.id].name + '» ກຳລັງໂຈມຕີ ' + what + '. ໃຊ້ «ກົນຊຽງໝ້ຽງ» ຍົກເລີກບໍ?', html:cardHTML('konxiengmieng'), resolve:r}; render(); });
+      : await new Promise(r => { S.modal = {type:'ask', text:(S.pvp ? q.name + ' ຮັບເຄື່ອງ: ' : '') + '«' + C[c.id].name + '» ກຳລັງໂຈມຕີ ' + what + '. ໃຊ້ «' + C[rid].name + '» ບໍ? (' + C[rid].skill.replace(/^ໃຊ້ຕອນ[^:]*: /, '') + ')', html:cardHTML(rid), resolve:r}; render(); });
     if(use){
       const h = q.hand[ri]; q.hand.splice(ri, 1); q.mana -= 1; q.grave.push(h.id);
       await fxActivate(h.id, null, pi(q));
-      floatAt('c:' + c.uid, 'ສະດຸດ!', 'hit'); await fxTrip('c:' + c.uid);
-      log(q.name + ' ໃຊ້ «ກົນຊຽງໝ້ຽງ» ຍົກເລີກການໂຈມຕີ');
-      render(); return;
+      log(q.name + ' ໃຊ້ «' + C[rid].name + '»');
+      if(rid === 'romban'){ t.c.mods.push({amt:3, exp:S.T}); floatAt('c:' + t.c.uid, '+3', 'heal'); render(); }
+      else if(rid === 'konglai'){ floatAt('c:' + c.uid, 'ກັບບ້ານ!', 'hit'); bounce(p, c); render(); return; }
+      else { floatAt('c:' + c.uid, 'ສະດຸດ!', 'hit'); await fxTrip('c:' + c.uid); render(); return; }
     }
   }
   const cheers = () => (c.id === 'nakhong' ? 2 : 0) + c.items.filter(x => x === 'micthong').length;   // fans for a successful attack
-  if(t.kind === 'hero'){ damageHero(q, pow(p, c, null, true)); if(cheers() && !S.over) await addFans(p, cheers()); }
+  if(t.kind === 'hero'){ damageHero(q, pow(p, c, null, true)); if(cheers() && !S.over) await addFans(p, cheers()); if(C[c.id].kw.drain && !S.over) heal(p, 2); }
   else {
     const tc = t.c; if(!q.field.includes(tc) || !p.field.includes(c)) return;
     const a = pow(p, c, tc, true), b = pow(q, tc, c, false);
     log('«' + C[c.id].name + '» (' + a + ') ໂຈມຕີ «' + C[tc.id].name + '» (' + b + ')');
     floatAt('c:' + tc.uid, String(a), a >= 6 ? 'hit crit' : 'hit');
-    if(a > b){ await destroy(q, tc); if(cheers() && !S.over) await addFans(p, cheers()); if(c.id === 'singhimma') draw(p, 1); if(c.id === 'xangsuek' && !S.over){ log('ຊ້າງເສິກ ບຸກທະລຸ'); damageHero(q, a - b); } }
+    if(a > b){ await destroy(q, tc); if(C[c.id].kw.drain) heal(p, 2); if(cheers() && !S.over) await addFans(p, cheers()); if(c.id === 'singhimma') draw(p, 1); if(c.id === 'xangsuek' && !S.over){ log('ຊ້າງເສິກ ບຸກທະລຸ'); damageHero(q, a - b); } }
     else if(b > a){ await destroy(p, c); if(tc.id === 'singhimma') draw(q, 1); }
     else { await Promise.all([destroy(q, tc), destroy(p, c)]); if(c.id === 'singhimma') draw(p, 1); if(tc.id === 'singhimma') draw(q, 1); }
+    // ພິດ: whoever touches a poisonous card falls too
+    if(C[c.id].kw.poison && q.field.includes(tc)){ log('ພິດ «' + C[c.id].name + '»'); await destroy(q, tc); }
+    if(C[tc.id].kw.poison && p.field.includes(c)){ log('ພິດ «' + C[tc.id].name + '»'); await destroy(p, c); }
   }
   await checkDeaths();
   render();
@@ -2711,6 +2733,7 @@ async function attack(p, c, t){
 // start-of-turn effects that need waiting: Phaya Thaen strikes, seasons move on
 async function turnStartEffects(p){
   const q = opp(p);
+  for(const c of p.field) if(C[c.id].kw.grow && (c.grown || 0) < 4){ c.grown = (c.grown || 0) + 1; c.mods.push({amt:1, exp:1e9}); if(!S.fast) floatAt('c:' + c.uid, '+1', 'heal'); }
   const rain = p.field.filter(x => x.id === 'thaenfon').length; if(rain) heal(p, rain);
   for(const th of p.field.filter(x => x.id === 'phayathaen')){
     const weak = q.field.filter(c => pow(q, c) <= 2); if(!weak.length || S.over) continue;
@@ -2997,6 +3020,9 @@ function botTargetEasy(p, c){
 }
 function botReact(q, p, c, t){
   if(q.level === 0) return false;
+  const rid = (q.hand.find(h => C[h.id].react && reactFits(h.id, t)) || {}).id;
+  if(rid === 'romban') return pow(p, c, t.c, true) > pow(q, t.c, c) && pow(q, t.c, c) + 3 >= pow(p, c, t.c, true);
+  if(rid === 'konglai') return pow(p, c, null, true) >= 3;
   if(t.kind === 'hero'){ const d = pow(p, c, null, true); return d >= q.life || d >= 4; }
   return pow(p, c, t.c, true) > pow(q, t.c, c) && C[t.c.id].cost >= 3;
 }
@@ -3006,7 +3032,7 @@ function botReact(q, p, c, t){
 function cloneState(hideIdx){
   const cp = (p, i) => ({name:p.name, bot:true, di:p.di, level:p.level, life:p.life, maxMana:p.maxMana, mana:p.mana, penalty:p.penalty,
     deck:null, hand:null,
-    field:p.field.map(c => ({uid:c.uid, id:c.id, sick:c.sick, atk:c.atk, x2:c.x2, frz:c.frz, tf:c.tf, age:c.age, guard:c.guard, hacked:c.hacked, shield:c.shield, items:c.items.slice(), mods:c.mods.map(m => ({amt:m.amt, exp:m.exp}))})),
+    field:p.field.map(c => ({uid:c.uid, id:c.id, sick:c.sick, atk:c.atk, x2:c.x2, frz:c.frz, tf:c.tf, age:c.age, guard:c.guard, hacked:c.hacked, shield:c.shield, grown:c.grown, items:c.items.slice(), mods:c.mods.map(m => ({amt:m.amt, exp:m.exp}))})),
     loc:p.loc, locAge:p.locAge, water:p.water, fans:p.fans, encoreReady:p.encoreReady, traps:(p.traps || []).slice(), extra:p.extra, fused:(p.fused || []).slice(), combo:p.combo, mulled:true, tales:(p.tales || []).map(t => ({i:t.i, got:t.got.slice(), done:t.done})), grave:p.grave.slice(), lastMagic:p.lastMagic, _src:p, _i:i});
   const ps = S.p.map(cp);
   for(const q of ps){
@@ -3208,7 +3234,7 @@ function fmtSkill(t){
     [/ເມື່ອລົງສະໜາມ|ທຸກຕາ|ຢູ່ສະໜາມ|ເມື່ອໃບນີ້ຖືກທຳລາຍ|ເມື່ອທຳລາຍຕົວລະຄອນຂອງຄູ່ແຂ່ງໄດ້|ໃຊ້ຕອນຄູ່ແຂ່ງໂຈມຕີ|ເວລາໂຈມຕີ|ຕິດໃສ່ຕົວລະຄອນ(?:ເຜົ່າຍັກ)? 1 ໃບ/g, 'kt'],
     [/ກັນໄພ|ບິນ|ຮວມພົນ|ຄືນຊີບ|ປົກປັກ|ປ່ຽນຮ່າງ|ນ້ຳຂຶ້ນ|ນ້ຳຖ້ວມ|ແຮັກ|ກັບດັກ|ໂລ່ທິບ|ອັງກໍ/g, 'kk'],
     [/ເຜົ່າ(?:ນາກ|ຍັກ|ຜີ|ວິລະບຸລຸດ|ຫິມະພານ|ນັກປາດ|ເທວະດາ|ຊາວບ້ານ|ນັກຮົບ|ຜູ້ປົກປັກ|ໄຊບອກ|ສັດປ່າ|ນັກສະແດງ)/g, 'tr'],
-    [/ແຟນ \+\d+/g, 'hp'], [/ຕໍ່ເນື່ອງ \d+/g, 'kk'],
+    [/ແຟນ \+\d+/g, 'hp'], [/ຕໍ່ເນື່ອງ \d+/g, 'kk'], [/ດູດຂວັນ|ສະສົມພະລັງ|ພິດ|ສະກັດ/g, 'kk'],
     [/ພະລັງ \+\d+/g, 'up'], [/ພະລັງ -\d+/g, 'dn'], [/ຟື້ນຂວັນ \+\d+/g, 'hp'],
     [/ຈົ່ວກາດ \d+ ໃບ/g, 'dr'], [/ໂຈມຕີໄດ້ 2 ເທື່ອ(?:ຕໍ່ຕາ)?|ໂຈມຕີ \d+/g, 'dm']
   ];
