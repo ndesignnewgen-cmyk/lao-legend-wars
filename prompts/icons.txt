@@ -1,0 +1,40 @@
+LAO LEGEND WARS · GAME UI ICONS (24 images) — lobby tiles, buttons, wallet and in-game tools
+One matching set, all in the same style:
+- premium mobile game icon, glossy 3D cartoon, chunky and readable at small size, bold dark outline
+- warm Lao royal palette: gold, crimson red, royal blue, jade green; small Lao kranok flame ornaments in gold
+- soft top light, a little shine, cute and kid-friendly, never scary
+- one object only, centred, filling about 80% of the frame, no frame or tile behind it
+Square 1024x1024. Plain flat light grey background (#d9d9d9), no shadow on the background, nothing else in the picture.
+No text, no letters, no numbers. Save as numbered files 1-24 in this order.
+
+--- A. LOBBY TILES ---
+1. Deck builder: a fan of three Lao-style playing cards with gold borders, a small golden naga emblem on the front card, a tiny pencil tucked beside them.
+2. Card shop: a shiny foil booster pack, red and gold with a Lao temple roof pattern, sparkles bursting from its torn top.
+3. Daily quests: a rolled royal scroll tied with a red ribbon, a golden star medal hanging from it.
+4. Card book: a thick open album book with gold corners and card slots on its pages, a glowing card rising from it.
+5. Two players: two cute chibi Lao kids in traditional clothes giving a high five, a small sword and shield between them.
+6. Tutorial: a wise friendly old Lao sage's scroll and a golden lightbulb, or a small graduation cap with a Lao gold pattern.
+7. Stats: a golden trophy stand with three rising bar columns in red, blue and green, a small laurel wreath.
+8. Buddy pet: a big golden egg with jade green Lao patterns and a small crack with light shining out.
+
+--- B. LOBBY BUTTONS ---
+9. Fight the bot: two crossed golden Lao swords over a small red shield, sparks where they cross.
+10. Online play: a glowing blue globe with a golden ring around it and two tiny flags, Lao gold ornaments on the ring.
+11. Adventure map: an old treasure map of Laos rolled half open, a red pin and a dotted path, a small compass.
+12. Change deck: a closed card deck box in gold and blue with two circular golden arrows around it.
+13. Edit deck: a golden quill pen writing on a small card.
+
+--- C. WALLET AND PROFILE ---
+14. Gems: a large faceted blue diamond gem with a gold setting, bright sparkles.
+15. Crystal dust: a small glass bottle full of glowing golden-pink magic dust with sparkles floating out.
+16. Card collection: a neat stack of cards with gold edges, the top card shining.
+17. Settings: a golden gear with a Lao flower carved in its centre.
+18. Achievements: a golden trophy cup with two small naga handles and a red gem.
+19. Level: a big golden star with a ribbon underneath and a soft glow.
+
+--- D. IN-GAME TOOLS ---
+20. Show or hide hand: a cute stylised golden eye with long lashes inside a blue circle.
+21. Game log: a small open notebook with a red bookmark ribbon and a quill.
+22. Emotes: a round smiling yellow face with rosy cheeks and a small speech bubble beside it.
+23. Leave game: a wooden temple door slightly open with golden light and a small arrow pointing out.
+24. Friends: three cute chibi heads of Lao kids side by side, smiling, with a small heart above them.
