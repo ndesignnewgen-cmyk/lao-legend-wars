@@ -1944,7 +1944,7 @@ const LEVELS = ['ງ່າຍ','ກາງ','ຍາກ'];
 const COL_KEY = 'lao-legend-collection';
 // the saved game that follows the player's account to the cloud (phase F1); settings stay on each device
 const SYNC_KEYS = [COL_KEY, 'lao-legend-stats', 'lao-legend-alts', 'lao-legend-tut'];
-const ACCT = {user:null, prof:null, state:'off', at:0, timer:null, quiet:false, eco:false};   // state: off · conn · on · err
+const ACCT = {user:null, prof:null, state:'off', at:0, timer:null, quiet:false, eco:false, achPending:new Set()};   // state: off · conn · on · err
 const STARTERS = [0, 4, 2];   // DECKS index of deck 1 (ສາຍນ້ຳ), deck 4 (ທ້າວຮຸ່ງ), deck 3 (ພະລາມ)
 const NEUTRAL = new Set(Object.keys(C).filter(id => C[id].tribe === 'villager' || ['baci','khaoniao','phukkhaen','tikong','faphaa','satnam','haingeun','lowai','wao','katip','thonghai','talatsao','khonephapheng'].includes(id)));
 // one deck ruleset for every game, like Yu-Gi-Oh: 30–40 cards, at most 3 of a name, legends limited to one copy each, any tribes and any neutral cards.
@@ -4510,7 +4510,7 @@ function achCheck(){
   const c = col(), st = loadJ('lao-legend-stats', {}), got = []; c.ach = c.ach || {};
   for(const a of ACH) if(!c.ach[a.id] && a.t(c, st)){
     c.ach[a.id] = Date.now(); got.push(a);
-    if(ACCT.eco) ecoClaim('ach', a.id).then(() => render()).catch(() => {}); else c.gems += a.g;
+    if(ACCT.eco){ ACCT.achPending.add(a.id); ecoClaim('ach', a.id).then(() => render()).catch(() => {}).finally(() => ACCT.achPending.delete(a.id)); } else c.gems += a.g;
   }
   if(got.length) saveCol();
   return got;
@@ -4608,7 +4608,8 @@ function ecoApply(st){
   c.cards = {...st.cards};
   c.alts = Object.fromEntries((st.alts || []).map(id => [id, true]));
   c.hardBeat = Object.fromEntries((st.hardBeat || []).map(i => [i, true]));
-  const had = c.ach || {}; c.ach = Object.fromEntries((st.ach || []).map(id => [id, had[id] || Date.now()]));
+  // achievements still being claimed stay, so they are not found (and paid) twice
+  const had = c.ach || {}; c.ach = Object.fromEntries([...new Set([...(st.ach || []), ...ACCT.achPending])].map(id => [id, had[id] || Date.now()]));
   saveCol();
 }
 async function ecoSync(){
