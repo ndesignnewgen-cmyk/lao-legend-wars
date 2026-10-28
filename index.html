@@ -1436,6 +1436,13 @@ body{background:
 .profhead{display:flex;align-items:center;gap:14px;text-align:left}.profhead b{display:block;font:800 22px var(--f-d)}.profhead small{color:var(--dim);font:700 13px var(--f-d)}
 .hav.big{width:72px;height:72px}
 .tabs button small{display:block;font:700 11px/1.2 var(--f-d);opacity:.75;max-width:8.5em;margin:1px auto 0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.tabs button b{font-weight:800}
+.fcode{display:flex;flex-direction:column;align-items:center;gap:2px;font:700 13px var(--f-d);color:var(--dim)}.fcode b{font:800 28px var(--f-d);letter-spacing:2px;color:#ffe48a;user-select:all}.fcode small{font-size:12px}
+.faddrow{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap}.pname.fin{font-size:16px;width:min(230px,70vw);text-transform:uppercase}
+.slist{display:flex;flex-direction:column;gap:6px;width:100%;max-height:46vh;overflow:auto}
+.srow2{display:flex;align-items:center;gap:10px;background:#ffffff0d;border:1px solid #ffffff1a;border-radius:12px;padding:6px 10px;text-align:left}.srow2.me{border-color:var(--gold);background:#e2b54a22}
+.sname{flex:1;min-width:0}.sname b{display:block;font:800 15px var(--f-d);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.sname small{font:700 12px var(--f-d);color:var(--dim)}
+.spos{width:28px;text-align:center;font:800 15px var(--f-d)}.hav.sm{width:36px;height:36px;flex:none}
+.btn2.sm{padding:6px 10px;font-size:13px}.soctabs{margin:0;justify-content:center}.soctabs.sub button{font-size:12px;padding:5px 10px}
 .rankcard{display:flex;flex-direction:column;gap:2px;align-items:center;background:#0006;border:2px solid #e2b54a;border-radius:14px;padding:10px 18px}.rankcard b{font:800 20px var(--f-d);color:#ffe48a}.rankcard small{font:700 12px var(--f-d);color:var(--dim)}
 .mmspin{font-size:44px;animation:mmspin 1.4s ease-in-out infinite}@keyframes mmspin{50%{transform:scale(1.18) rotate(-8deg)}}
 .tclock{margin-left:8px;font-variant-numeric:tabular-nums}.tclock.low{color:#c8312b;animation:tlow 1s steps(2) infinite}@keyframes tlow{50%{opacity:.45}}
@@ -3020,7 +3027,11 @@ function gameOver(winner, reason){
   if(!S || S.over || !S.p.includes(winner)) return;   // a leftover step of a finished game must not end the next one
   if(S.sim){ S.over = {winner:pi(winner), reason}; return; }
   S.over = {winner:pi(winner), reason}; S.busy = false; S.targeting = null;
-  if(S.online){ liveClear(); netWarn(0); if(S.online.ranked && S.online.room && ACCT.eco) rankReport(S.over.winner, reason); }
+  if(S.online){
+    liveClear(); netWarn(0); if(S.online.ranked && S.online.room && ACCT.eco) rankReport(S.over.winner, reason);
+    const O = S.online, them = O.me === 'guest' ? O.host : O.guest;
+    if(ACCT.prof) SB.rpc('history_add', {opp_name:S.p[1].name, opp_id:them.pid || null, won:S.over.winner === 0, mode:O.ranked ? 'ranked' : 'casual', reason, turns:Math.ceil(S.T / 2), deck:S.p[0].di}).then(() => {}, () => {});
+  }
   if(!S.auto){
     const won = S.over.winner === 0; sfx(won ? 'win' : 'lose'); if(won) fxConfetti(); botSay(won ? 'losegame' : 'win', true);
     if(!S.tut && !S.pvp && !S.online){ recordGame(won); if(ACCT.eco) ecoGameEnd(won); else { S.reward = gameGems(won); afterGame(won); } }
@@ -3797,6 +3808,8 @@ function menuModalHTML(){
   else if(m.type === 'online') inner = onlineHTML(m);
   else if(m.type === 'prof') inner = profHTML(m);
   else if(m.type === 'resume') inner = resumeHTML(m);
+  else if(m.type === 'invite') inner = inviteHTML(m);
+  else if(m.type === 'social') inner = socialHTML(m);
   else if(m.type === 'adv'){
     const c = col(), done = c.adv || 0;
     inner = '<p class="q">🗺️ ຜະຈົນໄພທົ່ວລາວ</p><p class="lore">ເດີນທາງຈາກເໜືອໄປໃຕ້ ໃຊ້ເດັກທີ່ເລືອກໄວ້. ຜ່ານດ່ານໄດ້ເພັດ, ບອສໄດ້ຊອງຟຣີ</p><ol class="advmap">' +
@@ -4587,7 +4600,7 @@ async function cloudPull(){
 async function acctLoad(){
   const {data} = await SB.from('profiles').select('*').eq('id', ACCT.user.id).maybeSingle();
   ACCT.prof = data || null;
-  if(ACCT.prof){ await cloudPull(); await ecoSync(); }
+  if(ACCT.prof){ await cloudPull(); await ecoSync(); socStart(); }
   else try{ localStorage.removeItem(RCODE_KEY); }catch(e){}   // the account moved to another device with its code
 }
 // on start: only players who already made an account load the Supabase library
@@ -4618,7 +4631,7 @@ async function acctSave(name, avatar){
                                     : await SB.from('profiles').insert(row).select().single();
     if(error){ m.err = NAME_ERR[error.code] || 'ບັນທຶກບໍ່ໄດ້ ລອງໃໝ່'; return; }
     const first = !ACCT.prof; ACCT.prof = data; m.edit = false;
-    if(first){ await cloudPull(); await ecoSync(); toast('ສະບາຍດີ ' + name + '! ບັນທຶກເກມຂຶ້ນ cloud ແລ້ວ ☁️'); }
+    if(first){ await cloudPull(); await ecoSync(); socStart(); ACCT.prof = (await SB.from('profiles').select('*').eq('id', ACCT.user.id).single()).data || ACCT.prof; toast('ສະບາຍດີ ' + name + '! ບັນທຶກເກມຂຶ້ນ cloud ແລ້ວ ☁️'); }
   }catch(e){ m.err = 'ຕໍ່ອິນເຕີເນັດບໍ່ໄດ້ ລອງໃໝ່'; ACCT.state = 'err'; window.__errs.push('acct: ' + (e && e.message || e)); }
   finally{ m.busy = false; render(); }
 }
@@ -4794,7 +4807,7 @@ function profHTML(m){
     (mailOf() ? '<p class="lore">📧 ຜູກກັບ ' + escH(maskMail(mailOf())) + ' ແລ້ວ · ເຂົ້າຈາກເຄື່ອງອື່ນໄດ້</p>'
               : loadJ(RCODE_KEY, '') ? '<p class="lore">🔑 ມີລະຫັດກູ້ບັນຊີແລ້ວ · ໃຊ້ເຂົ້າຈາກເຄື່ອງອື່ນໄດ້</p>'
               : '<p class="lore">⚠️ ບັນຊີຢູ່ໃນ browser ນີ້ເທົ່ານັ້ນ. ສ້າງລະຫັດກູ້ບັນຊີໄວ້ ເພື່ອບໍ່ໃຫ້ຫາຍ ແລະ ໃຊ້ເຄື່ອງອື່ນໄດ້</p>') +
-    '<div class="mbtns"><button class="' + (loadJ(RCODE_KEY, '') ? 'btn2' : 'btn-main sm') + '" data-a="rmake">🔑 ລະຫັດກູ້ບັນຊີ</button>' + (mailOf() || !MAIL_ON ? '' : '<button class="btn2" data-a="mlink">🔗 ຜູກອີເມວ</button>') + '<button class="btn2" data-a="pedit">✏️ ແກ້ຊື່ ແລະ ຮູບ</button><button class="btn2" data-a="ach">🏆 ຜົນງານ</button><button class="btn2" data-a="mmclose">ປິດ</button></div>' +
+    '<div class="mbtns"><button class="' + (loadJ(RCODE_KEY, '') ? 'btn2' : 'btn-main sm') + '" data-a="rmake">🔑 ລະຫັດກູ້ບັນຊີ</button>' + (mailOf() || !MAIL_ON ? '' : '<button class="btn2" data-a="mlink">🔗 ຜູກອີເມວ</button>') + '<button class="btn2" data-a="social">👥 ໝູ່</button><button class="btn2" data-a="pedit">✏️ ແກ້ຊື່ ແລະ ຮູບ</button><button class="btn2" data-a="ach">🏆 ຜົນງານ</button><button class="btn2" data-a="mmclose">ປິດ</button></div>' +
     (mailOf() ? '<button class="linkbtn" data-a="mout">🚪 ອອກຈາກບັນຊີ (ໃນເຄື່ອງນີ້)</button>' : '');
 }
 /* ---------- online play with a room code ----------
@@ -4886,7 +4899,7 @@ function netFail(){ netClose(); ui.mmodal = {type:'online', step:'menu'}; render
 function netClose(){ if(NET.close) NET.close(); clearInterval(NET.timer); clearInterval(NET.clock); netWarn(0); NET.send = null; NET.close = null; NET.hello = null; }
 function mySpec(){
   const k = typeof ui.deck === 'string' ? 'c' + ui.deck.slice(2) : 'b' + ui.deck, sp = pvpSpec(k);
-  return {di:sp.di, list:sp.list || {...DECKS[sp.di].list}, cover:sp.cover || null, name:ACCT.prof ? ACCT.prof.name : null};
+  return {di:sp.di, list:sp.list || {...DECKS[sp.di].list}, cover:sp.cover || null, name:ACCT.prof ? ACCT.prof.name : null, pid:ACCT.user && ACCT.prof ? ACCT.user.id : null};
 }
 function onlineHost(){
   const code = Array.from({length:4}, () => 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'[Math.floor(Math.random() * 31)]).join('');
@@ -5095,6 +5108,75 @@ async function rankReport(winIdx, reason){
     show((data.result === data.side ? (up ? '🎉 ຂຶ້ນຂັ້ນ! ' : '⭐ +1 ດາວ · ') : '💔 ແພ້ · ') + rankLine(data.rank));
   }catch(e){ show('⚠️ ບັນທຶກຜົນແຣງບໍ່ໄດ້'); window.__errs.push('rank report: ' + (e && (e.code || e.message) || e)); }
 }
+// ໝູ່ ແລະ ອັນດັບ (phase F6, supabase/f6.sql): friend codes, requests, the green online dot, challenges (a room code
+// sent to a friend, checked every 12 s while the lobby is open), the history of online games and two leaderboards.
+const SOC = {timer:null, seen:new Set()};
+function socStart(){ clearInterval(SOC.timer); SOC.timer = setInterval(invitePoll, 12000); invitePoll(); }
+async function invitePoll(){
+  if(!ACCT.prof || !SB) return;
+  try{
+    const {data, error} = await SB.rpc('invite_poll'); if(error) throw error;
+    const inv = (data || []).find(x => !SOC.seen.has(x.id));
+    // only in the lobby, and never over a room that is being set up
+    if(inv && !S && !(ui.mmodal && (ui.mmodal.type === 'online' || ui.mmodal.type === 'invite' || ui.mmodal.type === 'resume'))){
+      SOC.seen.add(inv.id); ui.mmodal = {type:'invite', inv}; sfx('turn'); render();
+    }
+  }catch(e){}
+}
+function inviteHTML(m){
+  const v = m.inv;
+  return '<p class="q">⚔️ ' + escH(v.from) + ' ທ້າເຈົ້າຫຼິ້ນ!</p><span class="hav big"><img src="' + PIC(C[v.avatar] ? C[v.avatar].img : C[DECKS[0].legend].img) + '" alt=""></span>' +
+    '<p class="lore">ໃຊ້ເດັກທີ່ເລືອກໄວ້ໃນໜ້າຫຼັກ · ເກມທຳມະດາ ບໍ່ເສຍແຣງ</p>' +
+    '<div class="mbtns"><button class="btn-main sm" data-a="invyes">⚔️ ຮັບຄຳທ້າ</button><button class="btn2" data-a="invno">ບໍ່ແມ່ນຕອນນີ້</button></div>';
+}
+// open a room and send its code to a friend
+function friendChallenge(id, name){
+  const code = Array.from({length:4}, () => 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'[Math.floor(Math.random() * 31)]).join('');
+  ui.mmodal = {type:'online', step:'conn'}; render();
+  netOpen(code, 'host').then(async () => {
+    ui.mmodal = {type:'online', step:'host', code, spec:mySpec(), invited:name}; render();
+    const {error} = await SB.rpc('invite_send', {friend:id, rm:code}); if(error) throw error;
+  }).catch(() => netFail());
+}
+async function socLoad(m){
+  const call = m.tab === 'friends' ? SB.rpc('friend_list') : m.tab === 'hist' ? SB.rpc('history_list') : SB.rpc('board', {kind:m.board || 'season'});
+  m.busy = true; render();
+  try{ const {data, error} = await call; if(error) throw error; m.data = data; m.err = ''; }
+  catch(e){ m.err = 'ໂຫຼດບໍ່ໄດ້ · ກວດອິນເຕີເນັດ'; }
+  m.busy = false; if(ui.mmodal === m) render();
+}
+function socOpen(tab){ if(!ACCT.prof){ ui.mmodal = {type:'prof'}; render(); toast('ສ້າງຜູ້ຫຼິ້ນກ່ອນ'); return; } const m = {type:'social', tab:tab || 'friends', board:'season'}; ui.mmodal = m; socLoad(m); }
+const avImg = id => '<span class="hav sm"><img src="' + PIC(C[id] ? C[id].img : C[DECKS[0].legend].img) + '" alt=""></span>';
+function socialHTML(m){
+  const tabs = '<div class="tabs soctabs">' + [['friends', '👥 ໝູ່'], ['board', '📊 ອັນດັບ'], ['hist', '🕘 ປະຫວັດ']].map(([k, l]) => '<button class="' + (m.tab === k ? 'on' : '') + '" data-a="soctab" data-v="' + k + '">' + l + '</button>').join('') + '</div>';
+  let body = m.busy && !m.data ? '<p class="lore">ກຳລັງໂຫຼດ…</p>' : m.err ? '<p class="why">' + m.err + '</p>' : '';
+  const d = m.data;
+  if(m.tab === 'friends'){
+    body = '<div class="fcode">ລະຫັດໝູ່ຂອງເຈົ້າ<b>' + escH(ACCT.prof.fcode || '…') + '</b><small>ບອກລະຫັດນີ້ໃຫ້ໝູ່ ເພື່ອເພີ່ມກັນ</small></div>' +
+      '<div class="faddrow"><input id="fadd" class="pname fin" maxlength="16" placeholder="ລະຫັດໝູ່ ເຊັ່ນ NAGA-4821" autocomplete="off" autocapitalize="characters"><button class="btn-main sm" data-a="fadd">➕ ເພີ່ມ</button></div>' + body;
+    if(Array.isArray(d)) body += d.length ? '<div class="slist">' + d.map(f => '<div class="srow2">' + avImg(f.avatar) +
+        '<div class="sname"><b>' + escH(f.name) + '</b><small>' + (f.status === 'ok' ? (f.online ? '🟢 ອອນລາຍ' : '⚪ ອອບລາຍ') + (f.tier != null ? ' · ' + RANKS[f.tier][0] + ' ' + RANKS[f.tier][1] : '') : f.status === 'in' ? '📩 ຂໍເປັນໝູ່ກັບເຈົ້າ' : '⏳ ລໍຖ້າລາວຮັບ') + '</small></div>' +
+        (f.status === 'in' ? '<button class="btn-main sm" data-a="fyes" data-v="' + f.id + '">✓ ຮັບ</button><button class="btn2 sm" data-a="fno" data-v="' + f.id + '">✕</button>'
+          : f.status === 'ok' ? '<button class="btn2 sm" data-a="fduel" data-v="' + f.id + '" data-n="' + escH(f.name) + '"' + (f.online ? '' : ' disabled') + '>⚔️ ທ້າ</button><button class="btn2 sm fdel" data-a="fdel" data-v="' + f.id + '" title="ລຶບໝູ່">🗑</button>'
+          : '<button class="btn2 sm fdel" data-a="fdel" data-v="' + f.id + '" title="ຍົກເລີກ">✕</button>') + '</div>').join('') + '</div>'
+      : '<p class="lore">ຍັງບໍ່ມີໝູ່ · ໃສ່ລະຫັດໝູ່ຂ້າງເທິງ</p>';
+  } else if(m.tab === 'board'){
+    body = '<div class="tabs soctabs sub">' + [['season', '🏆 ' + seasonInfo().name], ['week', '📅 ຊະນະແຣງ 7 ມື້']].map(([k, l]) => '<button class="' + (m.board === k ? 'on' : '') + '" data-a="socboard" data-v="' + k + '">' + l + '</button>').join('') + '</div>' + body;
+    if(d && d.rows) body += (d.rows.length ? '<div class="slist">' + d.rows.map(r => '<div class="srow2' + (r.me ? ' me' : '') + '"><span class="spos">' + (r.pos <= 3 ? ['🥇', '🥈', '🥉'][r.pos - 1] : r.pos) + '</span>' + avImg(r.avatar) +
+        '<div class="sname"><b>' + escH(r.name) + '</b><small>' + (m.board === 'week' ? 'ຊະນະ ' + r.wins + ' ເກມ' : rankLine(r) + ' · ຊະນະ ' + r.wins) + '</small></div></div>').join('') + '</div>' : '<p class="lore">ຍັງບໍ່ມີໃຜຫຼິ້ນແຣງ · ເປັນຄົນທຳອິດເລີຍ!</p>') +
+      '<p class="lore">' + (d.mine ? 'ເຈົ້າຢູ່ອັນດັບ ' + d.mine : 'ຫຼິ້ນແຣງ ເພື່ອຂຶ້ນຕາຕະລາງ') + '</p>';
+  } else if(Array.isArray(d)){
+    body += d.length ? '<div class="slist">' + d.map(g => '<div class="srow2"><span class="spos">' + (g.won ? '✅' : '❌') + '</span><div class="sname"><b>' + (g.won ? 'ຊະນະ' : 'ແພ້') + ' · ' + escH(g.opp || 'ໝູ່') + '</b><small>' +
+        (g.mode === 'ranked' ? '🏆 ແຣງ' : '🔍 ທຳມະດາ') + ' · ' + (g.turns || 0) + ' ຕາ' + (DECKS[g.deck] ? ' · ເດັກ ' + DECKS[g.deck].no : '') + ' · ' + new Date(g.at).toLocaleDateString('lo-LA', {day:'numeric', month:'short'}) + '</small></div></div>').join('') + '</div>'
+      : '<p class="lore">ຍັງບໍ່ໄດ້ຫຼິ້ນອອນລາຍ</p>';
+  }
+  return '<p class="q">👥 ໝູ່ ແລະ ອັນດັບ</p>' + tabs + body + '<div class="mbtns"><button class="btn2" data-a="mmclose">ປິດ</button></div>';
+}
+async function socAct(fn, okMsg){
+  try{ const {data, error} = await fn(); if(error) throw error; if(okMsg) toast(typeof okMsg === 'function' ? okMsg(data) : okMsg); }
+  catch(e){ toast({P0008:'ບໍ່ພົບລະຫັດນີ້', P0009:'ອັນນີ້ແມ່ນລະຫັດຂອງເຈົ້າເອງ', P0010:'ມີໝູ່ຄົບ 100 ຄົນແລ້ວ'}[e && e.code] || 'ບໍ່ສຳເລັດ ລອງໃໝ່'); }
+  const m = ui.mmodal; if(m && m.type === 'social') socLoad(m);
+}
 function mmHTML(m){
   const sec = Math.floor((Date.now() - m.at) / 1000);
   return '<p class="q">' + (m.mode === 'ranked' ? '🏆 ກຳລັງຊອກຄູ່ແຣງ…' : '🔍 ກຳລັງຊອກຄູ່ຫຼິ້ນ…') + '</p><div class="mmspin">⚔️</div>' +
@@ -5105,10 +5187,11 @@ function onlineHTML(m){
   const head = '<p class="q">🌐 ຫຼິ້ນອອນລາຍກັບໝູ່</p>' + (SB_URL ? '' : '<p class="lore">ໂໝດທົດລອງ: ເປີດເກມ 2 ແທັບໃນເຄື່ອງດຽວກັນ (ຍັງບໍ່ໄດ້ຕໍ່ Supabase)</p>');
   if(m.step === 'mm') return mmHTML(m);
   if(m.mm && (m.step === 'host' || m.step === 'wait' || m.step === 'conn')) return '<p class="q">🎉 ພົບຄູ່ແລ້ວ!</p><p class="lore">ກຳລັງເຊື່ອມຕໍ່…</p><div class="mmspin">🤝</div>';
+  if(m.step === 'host' && m.invited) return '<p class="q">⚔️ ສົ່ງຄຳທ້າໄປຫາ ' + escH(m.invited) + ' ແລ້ວ</p><div class="mmspin">⏳</div><p class="lore">ລໍໝູ່ຮັບຄຳທ້າ… (ຫ້ອງ ' + m.code + ')</p><div class="mbtns"><button class="btn2" data-a="onclose">ຍົກເລີກ</button></div>';
   if(m.step === 'host') return head + '<p class="lore">ບອກລະຫັດນີ້ໃຫ້ໝູ່ ແລ້ວລໍຖ້າ…</p><div class="roomcode">' + m.code + '</div><p class="lore">ໃຊ້ເດັກທີ່ເລືອກໄວ້ໃນໜ້າຫຼັກ</p><div class="mbtns"><button class="btn2" data-a="onclose">ຍົກເລີກ</button></div>';
   if(m.step === 'conn') return head + '<p class="lore">ກຳລັງຕໍ່ອິນເຕີເນັດ…</p>';
   if(m.step === 'wait') return head + '<p class="lore">ກຳລັງເຂົ້າຫ້ອງ ' + m.code + '…</p><div class="mbtns"><button class="btn2" data-a="onclose">ຍົກເລີກ</button></div>';
-  return head + rankCardHTML() + '<div class="mbtns"><button class="btn-main sm" data-a="mmrank">🏆 ຫຼິ້ນແຣງ</button><button class="btn2" data-a="mmgo">🔍 ຫຼິ້ນທຳມະດາ</button></div><p class="lore">ແຣງ: ໃຊ້ແຕ່ກາດທີ່ມີແທ້ · ທຳມະດາ: ເດັກໃດກໍໄດ້ ບໍ່ເສຍແຣງ</p><p class="lore">ຫຼິ້ນກັບໝູ່ທີ່ຮູ້ຈັກ</p><div class="mbtns"><button class="btn2" data-a="onhost">🏠 ສ້າງຫ້ອງ</button></div><p class="lore">ຫຼື ໃສ່ລະຫັດຫ້ອງຂອງໝູ່</p>' +
+  return head + rankCardHTML() + '<div class="mbtns"><button class="btn-main sm" data-a="mmrank">🏆 ຫຼິ້ນແຣງ</button><button class="btn2" data-a="mmgo">🔍 ຫຼິ້ນທຳມະດາ</button></div><p class="lore">ແຣງ: ໃຊ້ແຕ່ກາດທີ່ມີແທ້ · ທຳມະດາ: ເດັກໃດກໍໄດ້ ບໍ່ເສຍແຣງ</p><p class="lore">ຫຼິ້ນກັບໝູ່ທີ່ຮູ້ຈັກ</p><div class="mbtns"><button class="btn2" data-a="social">👥 ໝູ່ ແລະ ອັນດັບ</button></div><div class="mbtns"><button class="btn2" data-a="onhost">🏠 ສ້າງຫ້ອງ</button></div><p class="lore">ຫຼື ໃສ່ລະຫັດຫ້ອງຂອງໝູ່</p>' +
     '<input id="roomin" class="roomin" maxlength="4" placeholder="ABCD" autocomplete="off"><div class="mbtns"><button class="btn2" data-a="onjoin">🚪 ເຂົ້າຫ້ອງ</button><button class="btn2" data-a="onclose">ປິດ</button></div>';
 }
 function closeModal(){ const r = S && S.modal && S.modal.resolve; if(S) S.modal = null; render(); if(r) r(); }
@@ -5139,6 +5222,21 @@ $app.addEventListener('click', e => {
     if(a === 'prof'){ ui.mmodal = {type:'prof'}; render(); return; }
     if(a === 'resgo' && ui.mmodal && ui.mmodal.L){ resumeGo(ui.mmodal.L); return; }
     if(a === 'resdrop'){ liveClear(); ui.mmodal = null; render(); return; }
+    if(a === 'social'){ socOpen('friends'); return; }
+    if(ui.mmodal && ui.mmodal.type === 'social'){
+      const m = ui.mmodal;
+      if(a === 'soctab'){ m.tab = v; m.data = null; socLoad(m); return; }
+      if(a === 'socboard'){ m.board = v; m.data = null; socLoad(m); return; }
+      if(a === 'fadd'){ const code = ((document.getElementById('fadd') || {}).value || '').trim(); if(code.length < 6){ toast('ໃສ່ລະຫັດໝູ່ ເຊັ່ນ NAGA-4821'); return; } socAct(() => SB.rpc('friend_add', {code}), d => ({sent:'ສົ່ງຄຳຂໍເປັນໝູ່ແລ້ວ', ok:'ເປັນໝູ່ກັນແລ້ວ 🎉', already:'ເປັນໝູ່ກັນຢູ່ແລ້ວ'}[d] || 'ແລ້ວ')); return; }
+      if(a === 'fyes' || a === 'fno'){ socAct(() => SB.rpc('friend_answer', {other:v, yes:a === 'fyes'}), a === 'fyes' ? 'ເປັນໝູ່ກັນແລ້ວ 🎉' : ''); return; }
+      if(a === 'fdel'){ if(confirm('ລຶບໝູ່ຄົນນີ້?')) socAct(() => SB.rpc('friend_remove', {other:v}), 'ລຶບແລ້ວ'); return; }
+      if(a === 'fduel'){ friendChallenge(v, el.dataset.n); return; }
+    }
+    if(ui.mmodal && ui.mmodal.type === 'invite'){
+      const inv = ui.mmodal.inv;
+      if(a === 'invyes'){ SB.rpc('invite_answer', {inv:inv.id}).then(() => {}, () => {}); onlineJoin(inv.room); return; }
+      if(a === 'invno'){ SB.rpc('invite_answer', {inv:inv.id}).then(() => {}, () => {}); ui.mmodal = null; render(); return; }
+    }
     if(ui.mmodal && ui.mmodal.type === 'prof'){
       const m = ui.mmodal, nameNow = () => (document.getElementById('pname') || {}).value;
       if(a === 'avpick'){ m.name = nameNow(); m.av = v; render(); return; }
