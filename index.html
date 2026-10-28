@@ -1435,6 +1435,7 @@ body{background:
 .avopt img{width:100%;height:100%;object-fit:cover;object-position:50% 15%}.avopt.on{border-color:var(--gold);box-shadow:0 0 12px var(--gold)}
 .profhead{display:flex;align-items:center;gap:14px;text-align:left}.profhead b{display:block;font:800 22px var(--f-d)}.profhead small{color:var(--dim);font:700 13px var(--f-d)}
 .hav.big{width:72px;height:72px}
+.mmspin{font-size:44px;animation:mmspin 1.4s ease-in-out infinite}@keyframes mmspin{50%{transform:scale(1.18) rotate(-8deg)}}
 .tclock{margin-left:8px;font-variant-numeric:tabular-nums}.tclock.low{color:#c8312b;animation:tlow 1s steps(2) infinite}@keyframes tlow{50%{opacity:.45}}
 #netwarn{position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:90;display:flex;gap:10px;align-items:center;background:#1b1b1bee;color:#fff;border:2px solid #e2b54a;border-radius:999px;padding:8px 16px;font:700 14px var(--f-d);box-shadow:0 6px 18px #0008}
 #netwarn button{font:800 13px var(--f-d);border:0;border-radius:999px;padding:6px 12px;background:#e2b54a;color:#1a0806;cursor:pointer}
@@ -4888,7 +4889,7 @@ function onlineHost(){
   netOpen(code, 'host').then(() => { ui.mmodal = {type:'online', step:'host', code, spec:mySpec()}; render(); }).catch(netFail);
 }
 function onlineJoin(code){
-  code = (code || '').trim().toUpperCase(); if(code.length !== 4){ toast('ລະຫັດຫ້ອງມີ 4 ຕົວ'); return; }
+  code = (code || '').trim().toUpperCase(); if(code.length < 4){ toast('ລະຫັດຫ້ອງມີ 4 ຕົວ'); return; }
   ui.mmodal = {type:'online', step:'wait', code}; render();
   netOpen(code, 'guest').then(() => { NET.hello = {t:'hello', from:'guest', spec:mySpec()}; NET.send(NET.hello); }).catch(netFail);
 }
@@ -5000,12 +5001,52 @@ function emoShow(side, i){
   const d = addFx('emob ' + (side ? 'opp' : 'me'), c.x, side ? c.y + 46 : c.y - 46); d.textContent = EMOS[i]; sfx('turn');
   setTimeout(() => d.remove(), 2600);
 }
+// ຊອກຄູ່ຫຼິ້ນ (phase F4, supabase/f4.sql): join the queue with your level, poll every 2 s; once paired, the one who
+// waited longer opens the room as host and the other joins it, then the game starts exactly like a room code game.
+const MM = {timer:null, watch:null};
+async function mmStart(){
+  if(!ACCT.prof){ ui.mmodal = {type:'prof'}; render(); toast('ສ້າງຜູ້ຫຼິ້ນກ່ອນ ຈຶ່ງຊອກຄູ່ໄດ້'); return; }
+  mmStop(false);
+  ui.mmodal = {type:'online', step:'mm', at:Date.now(), n:1}; render();
+  try{ const {data, error} = await SB.rpc('mm_join', {lvl:levelOf(col().xp)}); if(error) throw error; mmGot(data); }
+  catch(e){ mmStop(true); ui.mmodal = {type:'online', step:'menu'}; render(); toast('ຊອກຄູ່ບໍ່ໄດ້ · ກວດອິນເຕີເນັດ'); window.__errs.push('mm: ' + (e && (e.code || e.message) || e)); return; }
+  if(ui.mmodal && ui.mmodal.step === 'mm') MM.timer = setInterval(mmPoll, 2000);
+}
+async function mmPoll(){
+  const m = ui.mmodal; if(!m || m.type !== 'online' || m.step !== 'mm'){ mmStop(true); return; }
+  render();
+  try{ const {data, error} = await SB.rpc('mm_poll'); if(error) throw error; mmGot(data); }catch(e){}
+}
+function mmGot(d){
+  const m = ui.mmodal; if(!m || m.type !== 'online' || m.step !== 'mm' || !d) return;
+  if(d.gone){ mmStart(); return; }
+  if(!d.room){ m.n = d.waiting || 1; render(); return; }
+  mmStop(true);   // paired: the queue row is no longer needed
+  if(d.role === 'host'){
+    ui.mmodal = {type:'online', step:'conn', mm:true}; render();
+    netOpen(d.room, 'host').then(() => { ui.mmodal = {type:'online', step:'host', code:d.room, spec:mySpec(), mm:true}; render(); }).catch(netFail);
+  } else { onlineJoin(d.room); if(ui.mmodal) ui.mmodal.mm = true; }
+  // the partner never showed up: search again
+  MM.watch = setTimeout(() => { const mm = ui.mmodal; if(!S && mm && mm.type === 'online' && mm.mm){ netClose(); toast('ຄູ່ຫາຍໄປ · ຊອກໃໝ່…'); mmStart(); } }, 20000);
+}
+function mmStop(leave){
+  clearInterval(MM.timer); MM.timer = null; clearTimeout(MM.watch); MM.watch = null;
+  if(leave && SB && ACCT.user) SB.rpc('mm_leave').then(() => {}, () => {});
+}
+function mmHTML(m){
+  const sec = Math.floor((Date.now() - m.at) / 1000);
+  return '<p class="q">🔍 ກຳລັງຊອກຄູ່ຫຼິ້ນ…</p><div class="mmspin">⚔️</div>' +
+    '<p class="lore">' + sec + ' ວິ · ຄົນກຳລັງຊອກ ' + m.n + ' ຄົນ · ຊອກຄົນທີ່ລະດັບໃກ້ກັບເຈົ້າກ່ອນ</p>' +
+    '<div class="mbtns">' + (sec >= 40 ? '<button class="btn-main sm" data-a="mmbot">🤖 ຫຼິ້ນກັບບອດໄປກ່ອນ</button>' : '') + '<button class="btn2" data-a="mmcancel">ຍົກເລີກ</button></div>';
+}
 function onlineHTML(m){
   const head = '<p class="q">🌐 ຫຼິ້ນອອນລາຍກັບໝູ່</p>' + (SB_URL ? '' : '<p class="lore">ໂໝດທົດລອງ: ເປີດເກມ 2 ແທັບໃນເຄື່ອງດຽວກັນ (ຍັງບໍ່ໄດ້ຕໍ່ Supabase)</p>');
+  if(m.step === 'mm') return mmHTML(m);
+  if(m.mm && (m.step === 'host' || m.step === 'wait' || m.step === 'conn')) return '<p class="q">🎉 ພົບຄູ່ແລ້ວ!</p><p class="lore">ກຳລັງເຊື່ອມຕໍ່…</p><div class="mmspin">🤝</div>';
   if(m.step === 'host') return head + '<p class="lore">ບອກລະຫັດນີ້ໃຫ້ໝູ່ ແລ້ວລໍຖ້າ…</p><div class="roomcode">' + m.code + '</div><p class="lore">ໃຊ້ເດັກທີ່ເລືອກໄວ້ໃນໜ້າຫຼັກ</p><div class="mbtns"><button class="btn2" data-a="onclose">ຍົກເລີກ</button></div>';
   if(m.step === 'conn') return head + '<p class="lore">ກຳລັງຕໍ່ອິນເຕີເນັດ…</p>';
   if(m.step === 'wait') return head + '<p class="lore">ກຳລັງເຂົ້າຫ້ອງ ' + m.code + '…</p><div class="mbtns"><button class="btn2" data-a="onclose">ຍົກເລີກ</button></div>';
-  return head + '<div class="mbtns"><button class="btn-main sm" data-a="onhost">🏠 ສ້າງຫ້ອງ</button></div><p class="lore">ຫຼື ໃສ່ລະຫັດຫ້ອງຂອງໝູ່</p>' +
+  return head + '<div class="mbtns"><button class="btn-main sm" data-a="mmgo">🔍 ຊອກຄູ່ຫຼິ້ນ</button></div><p class="lore">ຫຼິ້ນກັບໝູ່ທີ່ຮູ້ຈັກ</p><div class="mbtns"><button class="btn2" data-a="onhost">🏠 ສ້າງຫ້ອງ</button></div><p class="lore">ຫຼື ໃສ່ລະຫັດຫ້ອງຂອງໝູ່</p>' +
     '<input id="roomin" class="roomin" maxlength="4" placeholder="ABCD" autocomplete="off"><div class="mbtns"><button class="btn2" data-a="onjoin">🚪 ເຂົ້າຫ້ອງ</button><button class="btn2" data-a="onclose">ປິດ</button></div>';
 }
 function closeModal(){ const r = S && S.modal && S.modal.resolve; if(S) S.modal = null; render(); if(r) r(); }
@@ -5055,7 +5096,10 @@ $app.addEventListener('click', e => {
     if(ui.mmodal && ui.mmodal.type === 'online'){
       if(a === 'onhost'){ onlineHost(); return; }
       if(a === 'onjoin'){ onlineJoin((document.getElementById('roomin') || {}).value); return; }
-      if(a === 'onclose'){ netClose(); ui.mmodal = null; render(); return; }
+      if(a === 'onclose'){ netClose(); mmStop(true); ui.mmodal = null; render(); return; }
+      if(a === 'mmgo'){ mmStart(); return; }
+      if(a === 'mmcancel'){ mmStop(true); ui.mmodal = {type:'online', step:'menu'}; render(); return; }
+      if(a === 'mmbot'){ mmStop(true); ui.mmodal = null; startSelected(); return; }
     }
     if(a === 'advgo' && ui.mmodal && ui.mmodal.type === 'adv'){ advStart(+v); return; }
     if(a === 'frame' && ui.mmodal && ui.mmodal.type === 'ach'){ col().frame = v; saveCol(); render(); return; }
