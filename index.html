@@ -1521,6 +1521,13 @@ body{background:
 .lane .fanlv{position:absolute;left:10px;right:10px;top:6px;height:8px;z-index:0;border-radius:999px;background:#ffffff26;overflow:visible;pointer-events:none}
 .lane .fanlv i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#ff7ad9,#ffd23d);box-shadow:0 0 10px #ff7ad9}
 .lane .fanlv b{position:absolute;right:0;top:12px;font:800 12px var(--f-d);color:#fff;background:#e0409f;border-radius:999px;padding:2px 8px}
+/* ---------- deck 14: sword-spirit gauge ---------- */
+.lane .bladelv{position:absolute;left:10px;right:10px;top:6px;height:8px;z-index:0;border-radius:999px;background:#ffffff26;overflow:visible;pointer-events:none}
+.lane .bladelv i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#c9d6ea,#fff 55%,#ffd23d);box-shadow:0 0 10px #ffe9a8}
+.lane .bladelv.full i{animation:bladeGlow 1s ease-in-out infinite alternate}
+.lane .bladelv b{position:absolute;right:0;top:12px;font:800 12px var(--f-d);color:#2a2340;background:linear-gradient(90deg,#e6ecf7,#ffe08a);border-radius:999px;padding:2px 8px}
+@keyframes bladeGlow{to{box-shadow:0 0 18px #ffd23d}}
+.mini .kw .qk{background:linear-gradient(90deg,#8796b0,#c9d6ea);color:#1b1b2e}
 /* ---------- festivals, tales, buddy pet ---------- */
 .festchip{display:flex;align-items:center;gap:8px;background:linear-gradient(100deg,#fff6dc,#ffe2a6);color:#5a3a00;border-radius:14px;padding:6px 10px;box-shadow:0 0 0 1.5px #e0a52e,0 4px 10px #0003;font:700 12px/1.35 var(--f-d);text-align:left}
 .festchip .fic{font-size:24px;line-height:1}
@@ -1806,6 +1813,7 @@ const SYM = {
   thewada:'<svg viewBox="0 0 24 24"><path d="M12 9c-3-4-7-5-10-4 2 1 3 3 3 5 2-1 4-1 7-1zM12 9c3-4 7-5 10-4-2 1-3 3-3 5-2-1-4-1-7-1z" fill="#cdeeff" stroke="#1b1b1b" stroke-width="1.2" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.4" fill="#ffd23d" stroke="#1b1b1b" stroke-width="1.2"/><path d="M9.5 8.5 10.5 5 12 7 13.5 5 14.5 8.5z" fill="#ffd23d" stroke="#1b1b1b" stroke-width="1" stroke-linejoin="round"/><path d="M10 19l2-3 2 3" fill="none" stroke="#9fe0ff" stroke-width="1.6" stroke-linecap="round"/></svg>',
   villager:'<svg viewBox="0 0 24 24"><path d="M2.5 11 12 3l9.5 8" fill="none" stroke="#1b1b1b" stroke-width="2" stroke-linejoin="round"/><path d="M4.5 10.5 12 4.5l7.5 6V13h-15z" fill="#d9342b" stroke="#1b1b1b" stroke-width="1.3" stroke-linejoin="round"/><path d="M6 13h12v5H6z" fill="#e8c48a" stroke="#1b1b1b" stroke-width="1.3"/><path d="M7 18v3M17 18v3M12 18v3" stroke="#1b1b1b" stroke-width="1.6"/><path d="M10.5 13h3v5h-3z" fill="#8a4a1f" stroke="#1b1b1b" stroke-width="1"/></svg>',
   beast:'<svg viewBox="0 0 24 24"><ellipse cx="12" cy="15.5" rx="5" ry="4.2" fill="#c98a4a" stroke="#1b1b1b" stroke-width="1.3"/><circle cx="6" cy="9.5" r="2.2" fill="#c98a4a" stroke="#1b1b1b" stroke-width="1.2"/><circle cx="10" cy="6.5" r="2.2" fill="#c98a4a" stroke="#1b1b1b" stroke-width="1.2"/><circle cx="14" cy="6.5" r="2.2" fill="#c98a4a" stroke="#1b1b1b" stroke-width="1.2"/><circle cx="18" cy="9.5" r="2.2" fill="#c98a4a" stroke="#1b1b1b" stroke-width="1.2"/></svg>',
+  blade:'<svg viewBox="0 0 24 24"><path d="M5.5 19.5C9 13 13.5 7.5 20 3.5c-2.5 6.2-7.5 11-12.6 14.6z" fill="#e6ecf7" stroke="#1b1b1b" stroke-width="1.3" stroke-linejoin="round"/><path d="M4 16.5l4.5 4.5M3.5 21.5l2.6-2.6" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/><circle cx="6.6" cy="7" r="2.6" fill="#fff6d8" stroke="#1b1b1b" stroke-width="1.1"/><circle cx="6.6" cy="7" r="1" fill="#ffd23d"/></svg>',
   idol:'<svg viewBox="0 0 24 24"><rect x="9" y="2.5" width="6" height="10" rx="3" fill="#ff7ad9" stroke="#1b1b1b" stroke-width="1.3"/><path d="M6.5 10.5a5.5 5.5 0 0 0 11 0" fill="none" stroke="#1b1b1b" stroke-width="1.6" stroke-linecap="round"/><path d="M12 16v4M8.5 21h7" stroke="#1b1b1b" stroke-width="1.6" stroke-linecap="round"/><path d="M3 5l1 2 2 .5-1.5 1.5.3 2L3 10l-1.8 1 .3-2L0 7.5 2 7z" fill="#ffd23d" transform="translate(1 0) scale(.9)"/></svg>',
   cyborg:'<svg viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2.5" fill="#1de9ff" stroke="#1b1b1b" stroke-width="1.4"/><rect x="9" y="9" width="6" height="6" rx="1" fill="#ff2fb3" stroke="#1b1b1b" stroke-width="1.2"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3" stroke="#1b1b1b" stroke-width="1.6" stroke-linecap="round"/></svg>',
   guardian:'<svg viewBox="0 0 24 24"><path d="M12 2.5 20 5.5v6c0 5-3.4 8.6-8 10-4.6-1.4-8-5-8-10v-6z" fill="#ff7a6a" stroke="#1b1b1b" stroke-width="1.4" stroke-linejoin="round"/><circle cx="12" cy="11.5" r="3.4" fill="#ffe08a" stroke="#1b1b1b" stroke-width="1.2"/><path d="M12 6.2v2M12 14.8v2M7.2 11.5h2M14.8 11.5h2" stroke="#1b1b1b" stroke-width="1.3" stroke-linecap="round"/></svg>',
@@ -1826,7 +1834,7 @@ const DECKICON = '<svg viewBox="0 0 24 24"><rect x="5" y="3" width="13" height="
 const BACK = '<img src="art/back.jpg" alt="">';
 const FLAG = '<svg viewBox="0 0 24 24"><path d="M5 21V4" stroke="#1a1206" stroke-width="2.4" stroke-linecap="round"/><path d="M5 4h11l-2 4 2 4H5" fill="#1a1206"/></svg>';
 const TAP = '<svg viewBox="0 0 24 24"><path d="M9 11V5a2 2 0 0 1 4 0v5l4.5.9a2 2 0 0 1 1.6 2.3L18 19a3 3 0 0 1-3 2.5h-3.3a3 3 0 0 1-2.4-1.2L6 16a1.6 1.6 0 0 1 2.4-2.1L9 14.5" fill="#ffd23d" stroke="#1b1b1b" stroke-width="1.6" stroke-linejoin="round"/></svg>';
-const TC = {thewada:'#9fe0ff', villager:'#e8c48a', naga:'#3aa0ff', giant:'#ff5a3c', ghost:'#a77bff', himma:'#ffcf3a', hero:'#ffffff', nakpat:'#7be36a', warrior:'#ff9f43', guardian:'#ff7a6a', cyborg:'#1de9ff', beast:'#c98a4a', idol:'#ff7ad9'};
+const TC = {thewada:'#9fe0ff', villager:'#e8c48a', naga:'#3aa0ff', giant:'#ff5a3c', ghost:'#a77bff', himma:'#ffcf3a', hero:'#ffffff', nakpat:'#7be36a', warrior:'#ff9f43', guardian:'#ff7a6a', cyborg:'#1de9ff', beast:'#c98a4a', idol:'#ff7ad9', blade:'#b8c7dc'};
 
 /* ---------- card data ---------- */
 const C = {};
@@ -2041,6 +2049,27 @@ def('livestream',{name:'ໄລຟ໌ສົດ',type:'spell',idf:1,cost:2,tag:'�
 def('micthong',{name:'ໄມໂຄຣໂຟນທອງ',type:'item',idf:1,cost:2,bonus:1,tag:'ຂອງວິເສດ · ໄມ',skill:'ຕິດໃສ່ຕົວລະຄອນ 1 ໃບ: ພະລັງ +1. ເມື່ອໂຈມຕີສຳເລັດ ແຟນ +1',lore:'ໄມທອງ ຫົວນາກ'});
 def('stage',{name:'ເວທີແສງສີ',type:'loc',idf:1,cost:2,tag:'ສະຖານທີ່',skill:'ຢູ່ສະໜາມ: ທຸກຕາ ແຟນ +1',lore:'ເວທີເລເຊີ ຈໍລາຍລາວ'});
 
+// deck 14: ນັກດາບສາວ ມໍປາຍ. ຈິດດາບ = a gauge: +1 for every sword-girl attack and every sword equipped;
+// full (10, or 7 with ນາງຈຳປາ) = ຟ້ອນດາບດອກຈຳປາ, the strongest enemy of power 5 or less falls. ph = placeholder art until the pictures arrive
+const QUICK = 'ຟັນໄວ: ຕອນໂຈມຕີ ຖ້າພະລັງເທົ່າກັນ ໃບນີ້ຊະນະ';
+const BLADE = 'ຈິດດາບ: ນັກດາບໂຈມຕີ ຫຼື ຕິດດາບ ໄດ້ +1. ຄົບ 10 = ຟ້ອນດາບດອກຈຳປາ! ທຳລາຍຕົວລະຄອນຄູ່ແຂ່ງ ທີ່ແຮງສຸດ ພະລັງ 5 ລົງມາ';
+def('dappi1',{name:'ນັກດາບປີ 1',tribe:'blade',cost:1,power:1,kw:{quick:1},ph:'🗡️',tag:'ຟັນໄວ',skill:QUICK,lore:'ນັກຮຽນປີ 1 ຈັບດາບໄມ້ສອງມື ຕື່ນເຕັ້ນ ແຕ່ບໍ່ຍອມແພ້'});
+def('daphangma',{name:'ນັກດາບຫາງມ້າ',tribe:'blade',cost:2,power:2,kw:{rush:1},ph:'💨',tag:'ບຸກໄວ',skill:'ໂຈມຕີໄດ້ທັນທີ ໃນຕາທີ່ລົງສະໜາມ',lore:'ຜົມຫາງມ້າຍາວ ແລ່ນໄວກວ່າລົມ'});
+def('dapkhu',{name:'ສາວຟ້ອນດາບຄູ່',tribe:'blade',cost:2,power:2,ph:'💃',tag:'ຟ້ອນດາບ',skill:'ເມື່ອລົງສະໜາມ ຈິດດາບ +1. ຖ້າຕິດດາບຢູ່ ໂຈມຕີໄດ້ 2 ເທື່ອ',lore:'ຟ້ອນດາບສອງມື ເທິງເວທີງານບຸນໂຮງຮຽນ'});
+def('dapjaidi',{name:'ນັກດາບໃຈດີ',tribe:'blade',cost:2,power:2,ph:'🪷',tag:'ໃຈດີ',skill:'ເມື່ອລົງສະໜາມ ຟື້ນຂວັນ 2',lore:'ພົກດາບໄວ້ຫຼັງ ພົກກະເປົາຢາໄວ້ມື'});
+def('dapwaen',{name:'ສາວແວ່ນນັກວິເຄາະ',tribe:'blade',cost:3,power:2,ph:'👓',tag:'ວິເຄາະ',skill:'ເມື່ອລົງສະໜາມ ຈົ່ວກາດ 1 ໃບ',lore:'ຈົດທ່າດາບທຸກທ່າ ໄວ້ໃນປຶ້ມນ້ອຍ'});
+def('daphuana',{name:'ຫົວໜ້າຊົມລົມດາບ',tribe:'blade',cost:3,power:3,kw:{taunt:1},ph:'🎌',tag:'ກັນໄພ',skill:TAUNT,lore:'ປັກດາບໄວ້ຂ້າງໜ້າ ຢືນປົກປ້ອງນ້ອງໆໃນຊົມລົມ'});
+def('dapolo',{name:'ນັກດາບໂລ່ໄມ້',tribe:'blade',cost:3,power:3,kw:{shield:1},ph:'🛡️',tag:'ໂລ່ທິບ',skill:SHIELD,lore:'ໂລ່ໄມ້ກົມ ແຕ້ມດອກຈຳປາ'});
+def('ajandap',{name:'ອາຈານສອນດາບ',tribe:'blade',cost:5,power:4,kw:{guard:1},ph:'👩‍🏫',tag:'ປົກປັກ · ສອນດາບ',skill:GUARD + '. ເມື່ອລົງສະໜາມ ມອບ «ດາບໄມ້ຊ້ອມ» ໃຫ້ນັກດາບ 1 ໃບ',lore:'ອາຈານໃຈດີ ສອນທັງດາບ ທັງຄວາມອົດທົນ'});
+def('dapsongmue',{name:'ສາວດາບສອງມື',tribe:'blade',cost:6,power:4,kw:{quick:1},ph:'⚔️',tag:'ຟັນໄວ · ໂຈມຕີ 2 ເທື່ອ',skill:QUICK + '. ໂຈມຕີໄດ້ 2 ເທື່ອ ໃນ 1 ຕາ',lore:'ດາບສອງມື ໝຸນເປັນວົງແສງສີທອງ ໃຕ້ເດືອນເພັງ'});
+def('nangchampa',{name:'ນາງຈຳປາ ດາບດອກໄມ້',tribe:'blade',cost:8,power:7,legend:1,ph:'🌸',tag:'ຕຳນານຊົມລົມດາບ',skill:'ເມື່ອລົງສະໜາມ ຈິດດາບ +3. ຢູ່ສະໜາມ: ຟ້ອນດາບດອກຈຳປາ ໃຊ້ຈິດດາບພຽງ 7',lore:'ດາບທອງຫົວດອກຈຳປາ ກັບກີບດອກໄມ້ ໝຸນທົ່ວຟ້າ'});
+def('dapmai',{name:'ດາບໄມ້ຊ້ອມ',type:'item',cost:1,bonus:1,ph:'🗡️',tag:'ຂອງວິເສດ · ດາບ',skill:'ຕິດໃສ່ຕົວລະຄອນ 1 ໃບ: ພະລັງ +1 ແລະ ຟັນໄວ',lore:'ດາບໄມ້ຂັດເງົາ ດ້າມພັນເຊືອກແດງ'});
+def('dapngoen',{name:'ດາບເງິນລາຍກະໜົກ',type:'item',cost:3,bonus:2,ph:'⚔️',tag:'ຂອງວິເສດ · ດາບ',skill:'ຕິດໃສ່ຕົວລະຄອນ 1 ໃບ: ພະລັງ +2. ໂຈມຕີຊະນະ ຈິດດາບ +1',lore:'ດາບເງິນ ລາຍກະໜົກສີທອງ'});
+def('fondap',{name:'ຟ້ອນດາບຕ້ອນຮັບ',type:'spell',cost:2,ph:'💃',tag:'ຄາຖາ · ຟ້ອນດາບ',skill:'ນັກດາບຂອງເຈົ້າທຸກໃບ ພະລັງ +1 ຈົນຈົບຕາ. ຈິດດາບ +1',lore:'ຟ້ອນດາບເປັນແຖວ ໃນງານບຸນໂຮງຮຽນ'});
+def('tatlom',{name:'ທ່າຕັດລົມ',type:'spell',cost:3,ph:'🌪️',tag:'ຄາຖາ · ທ່າດາບ',skill:'ທຳລາຍຕົວລະຄອນຄູ່ແຂ່ງ 1 ໃບ ພະລັງ 3 ລົງມາ (5 ລົງມາ ຖ້າຈິດດາບ 5 ຂຶ້ນໄປ)',lore:'ຟັນດຽວ ລົມແຍກເປັນສອງ'});
+def('hofuek',{name:'ຫໍຝຶກດາບໂຮງຮຽນ',type:'loc',cost:3,buff:'blade',ph:'🏯',tag:'ສະຖານທີ່',skill:'ຢູ່ສະໜາມ: ເຜົ່ານັກດາບທຸກໃບ ພະລັງ +1. ຕິດດາບ ຈິດດາບ +1 ເພີ່ມອີກ',lore:'ຫໍໄມ້ຫຼັງຄາລາວ ມີດາບຮຽງຢູ່ຝາ'});
+def('khudapphen',{name:'ຄູ່ດາບເດືອນເພັງ',tribe:'blade',cost:7,power:8,fusion:['dapkhu','daphangma'],kw:{fly:1, quick:1},ph:'🌕',tag:'ຮ່ວມຮ່າງ · ບິນ · ຟັນໄວ',skill:'ຮ່ວມຮ່າງ: «ສາວຟ້ອນດາບຄູ່» + «ນັກດາບຫາງມ້າ». ບິນ. ' + QUICK,lore:'ສອງນັກດາບ ຫັນຫຼັງຊົນກັນ ກາງເດືອນເພັງ'});
+
 const ALT = {sinxay:'alt-sinxay', phayanak:'alt-phayanak', hapkhanasouane:'alt-hapkhanasouane', phralam:'alt-phralam', phayathaen:'alt-phayathaen',
              thaohung:'alt-thaohung', xangsuek:'alt-xangsuek', maethap:'alt-maethap',
              phutthasen:'alt-phutthasen', kangli:'alt-kangli', santhaman:'alt-santhaman',
@@ -2061,6 +2090,7 @@ const TALES = [
   {ids:['phadaeng','nangai','phangkhi'], name:'ຜາແດງ ນາງໄອ່', story:'ທ້າວຜາແດງ ນາງໄອ່ຄຳ ແລະ ພັງຄີ ພົບກັນ ໃນງານບຸນບັ້ງໄຟ'},
   {ids:['drone','cyberpolice','neonninja'], name:'ທີມຮັກສາເມືອງ 2099', story:'ໂດຣນນ້ອຍ ຕຳຫຼວດ ແລະ ນິນຈາ ຮ່ວມທີມ ປົກປ້ອງນະຄອນນາກ'},
   {ids:['nokhuk','tao','xangjaidi'], name:'ສັດປ່າຊ່ວຍກັນ', story:'ນົກຮູກເຝົ້າຍາມ ເຕົ່າອົດທົນ ຊ້າງໃຈດີ ຊ່ວຍກັນຮັກສາປ່າ'},
+  {ids:['dappi1','ajandap','nangchampa'], name:'ຄືນເດືອນເພັງ', story:'ນັກດາບປີ 1 ຝຶກກັບອາຈານ ຈົນໄດ້ຟ້ອນດາບຄູ່ກັບນາງຈຳປາ ປົກປ້ອງເມືອງຍາມເດືອນເພັງ'},
   {ids:['khaendj','nakhong','leader'], name:'ວົງໝໍລຳ', story:'ມືແຄນ ນັກຮ້ອງ ແລະ ລີດເດີ ຂຶ້ນເວທີພ້ອມກັນ ແຟນໆມ່ວນທົ່ວງານ'},
 ];
 const TALE_OF = {}; TALES.forEach((t, i) => t.ids.forEach(id => TALE_OF[id] = i));
@@ -2089,6 +2119,7 @@ const ADV = [
   {place:'ວັດພູ ຈຳປາສັກ', ic:'⛰️', di:6, lv:2, story:'ກາລະເກດ ເຝົ້າສົມບັດເກົ່າ ຢູ່ເທິງພູ'},
   {place:'ສີພັນດອນ', ic:'🌊', di:9, lv:2, story:'ນ້ຳຕົກຄອນພະເພັງ ພະຍານາກລໍຖ້າຢູ່ໃຕ້ນ້ຳ'},
   {place:'ເມືອງຟ້າ', ic:'⛈️', di:3, lv:2, boss:10, story:'ບອສໃຫຍ່: ພະຍາແຖນ ຜູ້ຄຸມຟ້າ ແລະ ຝົນ'},
+  {place:'ວຽງຈັນ · ໂຮງຮຽນຍາມກາງຄືນ', ic:'🏫', di:13, lv:2, story:'ດ່ານພິເສດ: ຊົມລົມດາບ ທ້າປະລອງ ໃຕ້ແສງເດືອນເພັງ'},
 ];
 const ADV_GEMS = 40, ADV_BOSS_GEMS = 100;
 // ຜົນງານ: badges that pay gems once; some open a profile frame
@@ -2191,7 +2222,9 @@ const DECKS = [
   {no:11, name:'ກະຕ່າຍຫົວໃສ ແລະ ສັດປ່າ', legend:'kratai', aggr:1.2, style:'ກັບດັກ, ຫຼອກຄູ່ແຂ່ງ',
    list:{nokkaew:2,nokhuk:2,tao:3,lingkhidue:2,kwangwai:2,mupa:3,xangjaidi:2,kratai:1,khumphang:2,tanang:3,ngaonam:1,buangdak:2,papai:1,khaoniao:1,baci:1,phukkhaen:1,molam:1,tikong:1,naiphan:1}},
   {no:12, name:'ໄອດໍ ໝໍລຳ', legend:'nangkaew', aggr:1.3, style:'ແຟນຄລັບ, ອັງກໍ!',
-   list:{bodyguard:2,fannoy:3,kinnaridance:3,rappers:2,khaendj:2,nakhong:3,manager:2,leader:2,nangkaew:1,concert:2,livestream:2,micthong:1,stage:1,baci:1,molam:1,satnam:1,tikong:1,khaoniao:1,konglai:1}}
+   list:{bodyguard:2,fannoy:3,kinnaridance:3,rappers:2,khaendj:2,nakhong:3,manager:2,leader:2,nangkaew:1,concert:2,livestream:2,micthong:1,stage:1,baci:1,molam:1,satnam:1,tikong:1,khaoniao:1,konglai:1}},
+  {no:14, name:'ນັກດາບສາວ ມໍປາຍ', legend:'nangchampa', aggr:1.4, style:'ຟັນໄວ, ຈິດດາບ, ຟ້ອນດາບດອກຈຳປາ',
+   list:{dappi1:3,daphangma:3,dapkhu:3,dapjaidi:2,dapwaen:2,daphuana:2,dapolo:2,ajandap:2,dapsongmue:1,nangchampa:1,dapmai:2,dapngoen:1,fondap:2,tatlom:2,hofuek:1,baci:1,khaoniao:1,molam:1}}
 ];
 const DORDER = DECKS.map((_, i) => i).sort((a, b) => DECKS[a].no - DECKS[b].no);
 const LEVELS = ['ງ່າຍ','ກາງ','ຍາກ'];
@@ -2833,7 +2866,9 @@ function pow(p, c, vs, att){
 const hasTaunt = c => !!C[c.id].kw.taunt || c.items.includes('lowai');
 const hasFly = c => !!C[c.id].kw.fly || c.items.includes('wao') || c.items.includes('kepbin') || c.items.includes('chipfly') || !!(c.tf && C[c.id].tf && C[c.id].tf.fly);
 const isGuard = c => !!C[c.id].kw.guard || !!c.guard || c.items.includes('dokchampa');
-const maxAtk = c => c.id === 'hapkhanasouane' || c.x2 === S.T || (c.id === 'neonninja' && c.items.some(isChip)) ? 2 : (c.id === 'sinxay' && c.items.includes('sonsin') ? 2 : 1);
+const isSword = id => id === 'dapmai' || id === 'dapngoen';
+const isQuick = c => !!C[c.id].kw.quick || c.items.includes('dapmai');
+const maxAtk = c => c.id === 'hapkhanasouane' || c.id === 'dapsongmue' || c.x2 === S.T || (c.id === 'neonninja' && c.items.some(isChip)) || (c.id === 'dapkhu' && c.items.some(isSword)) ? 2 : (c.id === 'sinxay' && c.items.includes('sonsin') ? 2 : 1);
 // ທ້າວຮຸ່ງ lets every warrior beside him attack on the turn it lands
 const isSick = (p, c) => c.sick && !(C[c.id].tribe === 'warrior' && p.field.some(x => x.id === 'thaohung'));
 const canAttack = (p, c) => !S.over && S.turn === pi(p) && !isSick(p, c) && !(c.frz && c.frz >= S.T) && c.atk < maxAtk(c);
@@ -2872,6 +2907,8 @@ function targetsFor(p, id){
     case 'chippower': case 'chipfly': return chars(p, c => c.id === 'nagax' || c.items.filter(isChip).length < 3);
     case 'hackxm': return chars(q, c => pow(q, c) <= 3);
     case 'virus': return chars(q);
+    case 'tatlom': { const lim = (p.blade || 0) >= 5 ? 5 : 3; return chars(q, c => notImm(c) && pow(q, c) <= lim); }
+    case 'dapmai': case 'dapngoen': return chars(p);
   }
   return null;
 }
@@ -2905,7 +2942,7 @@ async function playCard(p, h, t, trib){
     const c = {uid:++U, id:h.id, alt:h.alt, sick:!d.kw.rush, atk:0, items:[], mods:[]};
     if(d.kw.shield) c.shield = true;
     p.field.push(c); placed = c;
-    if(d.legend || d.cost >= 5 || (h.alt && ALT[h.id])) await fxShowcase(h.id, h.alt);
+    if((d.legend || d.cost >= 5 || (h.alt && ALT[h.id])) && !d.ph) await fxShowcase(h.id, h.alt);
     render();
     if(isBot(p) && !S.auto) botSay(d.legend ? 'legend' : 'play', d.legend);
     await fxEnter(c);
@@ -2930,6 +2967,7 @@ async function playCard(p, h, t, trib){
     sfx('spell'); fxBuff('c:' + t.c.uid, 16);
     await fxRing('c:' + t.c.uid, '#ffd23d', true);
     log('«' + d.name + '» ຕິດໃສ່ «' + C[t.c.id].name + '»');
+    if(isSword(h.id)) await addBlade(p, swordGain(p));
   } else if(d.type === 'loc'){
     await fxActivate(h.id, h.alt, pi(p));
     if(p.loc) p.grave.push(p.loc);
@@ -3139,6 +3177,17 @@ async function onPlay(p, c, t){
     case 'phangkhi': await addWater(p, 1); break;
     case 'fannoy': await addFans(p, 2); break;
     case 'nangkaew': await addFans(p, 5); break;
+    case 'dapkhu': await addBlade(p, 1); break;
+    case 'dapjaidi': heal(p, 2); break;
+    case 'dapwaen': draw(p, 1); break;
+    case 'nangchampa': await addBlade(p, 3); break;
+    case 'ajandap': {
+      const bl = p.field.filter(x => C[x.id].tribe === 'blade');
+      const g = maxBy(bl.filter(x => x !== c && !x.items.includes('dapmai')), x => pow(p, x)) || c;
+      g.items.push('dapmai'); log('ອາຈານສອນດາບ ມອບ «ດາບໄມ້ຊ້ອມ» ໃຫ້ «' + C[g.id].name + '»');
+      if(!S.fast){ render(); sfx('spell'); await fxRing('c:' + g.uid, '#e6ecf7', true); }
+      await addBlade(p, swordGain(p)); break;
+    }
     case 'khaendj': for(const x of p.field){ x.mods.push({amt:1, exp:S.T}); if(!S.fast) particlesAt('c:' + x.uid, '#ff7ad9', 8); } log('ມືແຄນ DJ ເປີດເພງ: ທຸກໃບ ພະລັງ +1'); break;
     case 'nokkaew': { const top = p.deck[p.deck.length - 1]; if(top && C[top].type === 'trap'){ p.deck.pop(); p.hand.push({uid:++U, id:top}); log('ນົກແກ້ວ ເຫັນກັບດັກ ເອົາມາໃສ່ມື'); } break; }
     case 'nokhuk': tutor(p, id => C[id].type === 'trap'); break;
@@ -3269,6 +3318,17 @@ async function castSpell(p, id, t){
     case 'thotkhap': await transform(t.owner, t.c); draw(p, 1); break;
     case 'khuenyai': await addWater(p, 2); draw(p, 1); break;
     case 'concert': await addFans(p, 4); break;
+    case 'fondap': {
+      const bl = p.field.filter(x => C[x.id].tribe === 'blade');
+      for(const x of bl){ x.mods.push({amt:1, exp:S.T}); if(!S.fast) particlesAt('c:' + x.uid, '#ffe9a8', 8); }
+      log('ຟ້ອນດາບຕ້ອນຮັບ: ນັກດາບ ' + bl.length + ' ໃບ ພະລັງ +1'); await addBlade(p, 1); break;
+    }
+    case 'tatlom': {
+      const lim = (p.blade || 0) >= 5 ? 5 : 3;
+      if(t && t.owner.field.includes(t.c) && pow(t.owner, t.c) <= lim){ if(!S.fast) await fxSlash(tkey(t)); await destroy(t.owner, t.c); }
+      else if(t){ log('«' + C[t.c.id].name + '» ທົນໄດ້'); floatAt(tkey(t), 'ທົນໄດ້!', 'hit'); }
+      break;
+    }
     case 'livestream': draw(p, 1 + Math.min(2, Math.floor((p.fans || 0) / 4))); break;
     case 'virus':
       if(t.owner.field.includes(t.c)){ t.c.mods.push({amt:-2, exp:S.T + 1}); t.owner.grave.push(...t.c.items); t.c.items = []; if(!S.fast){ flashScreen('#b388ff', .2); await fxRing(tkey(t), '#b388ff', true); } log('ໄວຣັສ ໂຈມຕີ «' + C[t.c.id].name + '» ພະລັງ -2 ແລະ ລຶບຂອງວິເສດ'); }
@@ -3320,6 +3380,34 @@ async function encore(p){
   for(const c of p.field){ c.x2 = S.T; c.sick = false; }
   log(p.name + ' ອັງກໍ! ຕົວລະຄອນທຸກໃບ ໂຈມຕີໄດ້ 2 ເທື່ອ');
   if(!S.fast){ toast('🎤 ອັງກໍ!'); flashScreen('#ff7ad9', .3); sfx('win'); for(const c of p.field) particlesAt('c:' + c.uid, '#ff7ad9', 12); render(); }
+}
+// ຈິດດາບ: the sword-spirit gauge. Full = ຟ້ອນດາບດອກຈຳປາ; with no enemy to cut it waits, full, for the next chance
+const BLADE_AT = 10, BLADE_CUT = 5;
+const bladeAt = p => p.field.some(x => x.id === 'nangchampa') ? BLADE_AT - 3 : BLADE_AT;
+const swordGain = p => 1 + (p.loc === 'hofuek' ? 1 : 0);
+async function addBlade(p, n){
+  if(S.over || !n) return;
+  p.blade = Math.min(BLADE_AT, (p.blade || 0) + n); log(p.name + ' ຈິດດາບ +' + n + ' (' + Math.min(p.blade, bladeAt(p)) + '/' + bladeAt(p) + ')');
+  if(p.blade >= bladeAt(p)) await bladeDance(p); else if(!S.fast) render();
+}
+async function bladeDance(p){
+  const q = opp(p), v = q.field.filter(c => pow(q, c) <= BLADE_CUT && c.id !== 'phayanak' && !c.items.includes('khapka') && c.id !== 'holokinnari');
+  if(!v.length || S.over){ if(!S.fast) render(); return; }
+  const k = maxBy(v, c => pow(q, c) * 10 + C[c.id].cost);
+  p.blade = 0; log('🌸 ' + p.name + ' ຟ້ອນດາບດອກຈຳປາ! ຟັນ «' + C[k.id].name + '»');
+  if(!S.fast){ toast('🌸 ຟ້ອນດາບດອກຈຳປາ!'); fxPetals(30); sfx('legend'); render(); await fxSlash('c:' + k.uid, true); }
+  await destroy(q, k);
+  render();
+}
+// a bright sword arc across a card, with champa petals
+async function fxSlash(key, big){
+  if(S.fast || REDUCE) return; const o = centerOf(key); if(!o) return;
+  const sz = big ? 260 : 190;
+  const d = addFx('threads', o.x, o.y, '<svg viewBox="-100 -60 200 120"><path d="M-90 40 Q0 -70 90 -40" pathLength="1" style="stroke:#fff;stroke-width:7"/><path d="M-80 46 Q0 -54 84 -30" pathLength="1" style="stroke:#ffd23d;stroke-width:3;animation-delay:60ms"/></svg>');
+  d.style.setProperty('--s', sz + 'px'); d.style.setProperty('--d', 520 * SET.speed + 'ms'); setTimeout(() => d.remove(), 520 * SET.speed + 50);
+  sfx('hit'); shockAt(o.x, o.y, '#fff3c4', big ? 120 : 80);
+  for(let i = 0; i < (big ? 26 : 14); i++){ const a = Math.random() * 6.283; emit({x:o.x, y:o.y, vx:Math.cos(a) * (80 + Math.random() * 160), vy:Math.sin(a) * (80 + Math.random() * 120) - 40, g:140, drag:.96, life:1.1, size:5 + Math.random() * 4, kind:'petal', color:pick(['#ffffff', '#fff6d8', '#ffe08a']), rot:Math.random() * 6.283}); }
+  await sleep(380 * SET.speed);
 }
 // take the first matching card out of the deck into the hand (the deck is shuffled, so it is a random one)
 function tutor(p, f){
@@ -3460,19 +3548,24 @@ async function attack(p, c, t){
     }
   }
   const cheers = () => (c.id === 'nakhong' ? 2 : 0) + c.items.filter(x => x === 'micthong').length;   // fans for a successful attack
+  let won = t.kind === 'hero';
   if(t.kind === 'hero'){ damageHero(q, Math.max(0, pow(p, c, null, true))); if(cheers() && !S.over) await addFans(p, cheers()); if(C[c.id].kw.drain && !S.over) heal(p, 2); }
   else {
     const tc = t.c; if(!q.field.includes(tc) || !p.field.includes(c)) return;
     const a = pow(p, c, tc, true), b = pow(q, tc, c, false);
     log('«' + C[c.id].name + '» (' + a + ') ໂຈມຕີ «' + C[tc.id].name + '» (' + b + ')');
     floatAt('c:' + tc.uid, String(a), a >= 6 ? 'hit crit' : 'hit');
-    if(a > b){ await destroy(q, tc); if(C[c.id].kw.drain) heal(p, 2); if(cheers() && !S.over) await addFans(p, cheers()); if(c.id === 'singhimma') draw(p, 1); if(c.id === 'xangsuek' && !S.over){ log('ຊ້າງເສິກ ບຸກທະລຸ'); damageHero(q, a - b); } }
+    if(a === b && isQuick(c)){ log('ຟັນໄວ! «' + C[c.id].name + '» ຟັນກ່ອນ'); if(!S.fast) floatAt('c:' + c.uid, 'ຟັນໄວ!', 'heal'); }
+    if(a > b || (a === b && isQuick(c))){ won = true; await destroy(q, tc); if(C[c.id].kw.drain) heal(p, 2); if(cheers() && !S.over) await addFans(p, cheers()); if(c.id === 'singhimma') draw(p, 1); if(c.id === 'xangsuek' && !S.over){ log('ຊ້າງເສິກ ບຸກທະລຸ'); damageHero(q, a - b); } }
     else if(b > a){ await destroy(p, c); if(tc.id === 'singhimma') draw(q, 1); }
     else { await Promise.all([destroy(q, tc), destroy(p, c)]); if(c.id === 'singhimma') draw(p, 1); if(tc.id === 'singhimma') draw(q, 1); }
     // ພິດ: whoever touches a poisonous card falls too
     if(C[c.id].kw.poison && q.field.includes(tc)){ log('ພິດ «' + C[c.id].name + '»'); await destroy(q, tc); }
     if(C[tc.id].kw.poison && p.field.includes(c)){ log('ພິດ «' + C[tc.id].name + '»'); await destroy(p, c); }
   }
+  // ຈິດດາບ: every sword-girl attack, and every win with the silver sword
+  const bl = (C[c.id].tribe === 'blade' ? 1 : 0) + (won ? c.items.filter(x => x === 'dapngoen').length : 0);
+  if(bl && !S.over) await addBlade(p, bl);
   await checkDeaths();
   render();
 }
@@ -3491,6 +3584,7 @@ async function turnStartEffects(p){
   for(const c of [...p.field]) if(C[c.id].tf && !c.tf){ c.age = (c.age || 0) + 1; if(c.age >= C[c.id].tf.after - (p.loc === 'banna' ? 1 : 0)) await transform(p, c); }
   const wave = (p.field.some(c => C[c.id].kw.tide) ? 1 : 0) + (p.loc === 'nonghan' ? 1 : 0); if(wave) await addWater(p, wave);
   if(p.encoreReady) await encore(p);
+  if((p.blade || 0) >= bladeAt(p)) await bladeDance(p);
   const cheer = p.field.filter(c => c.id === 'kinnaridance').length + (p.loc === 'stage' ? 1 : 0); if(cheer) await addFans(p, cheer);
   if(S.over) return;
   if(p.loc === 'suanmuang' && p.grave.filter(id => C[id].type === 'char').length >= 4){ draw(p, 1); log('ສວນມ່ວງ: ' + p.name + ' ຈົ່ວກາດ 1 ໃບ'); }
@@ -3670,6 +3764,11 @@ function botPick(p, q){
       if(h.id === 'kratai') s += 2;
       if(h.id === 'nangkaew' || h.id === 'fannoy') s += ((p.fans || 0) + (h.id === 'nangkaew' ? 5 : 2) >= encoreAt(p) ? 4 : 1);
       if(h.id === 'khaendj') s += p.field.filter(c => canAttack(p, c)).length * .8;
+      if(h.id === 'dapkhu') s += 1 + ((p.blade || 0) + 1 >= bladeAt(p) ? 3 : 0);
+      if(h.id === 'dapjaidi' && p.life < 14) s += 2;
+      if(h.id === 'dapwaen') s += 1.5;
+      if(h.id === 'ajandap' && p.field.some(c => C[c.id].tribe === 'blade')) s += 2;
+      if(h.id === 'nangchampa') s += 4;
       if(h.id === 'moya'){ const r = reviveList(p, 3)[0]; if(r && p.field.length < 4) s += C[r].cost * 2 + 1; }
       if(h.id === 'phutthasen') s += reviveList(p, 4).slice(0, Math.min(2, 4 - p.field.length)).reduce((a, id) => a + C[id].cost * 2, 0);
       if(h.id === 'santhaman'){
@@ -3717,6 +3816,10 @@ function botPick(p, q){
     } else if(h.id === 'khongsuek'){
       const ws = p.field.filter(c => C[c.id].tribe === 'warrior' && canAttack(p, c));
       s = ws.length >= 2 ? ws.reduce((a, c) => a + pow(p, c), 0) * .8 : 0;
+    } else if(h.id === 'fondap'){
+      const n = p.field.filter(c => C[c.id].tribe === 'blade' && canAttack(p, c)).length; s = n ? 1.5 + n * .9 + ((p.blade || 0) + 1 >= bladeAt(p) ? 3 : 0) : ((p.blade || 0) + 1 >= bladeAt(p) ? 3 : 0);
+    } else if(h.id === 'tatlom'){
+      if(en.length){ t = maxBy(en, x => C[x.c.id].cost + pow(q, x.c)); s = 3 + C[t.c.id].cost; }
     } else if(h.id === 'concert'){
       s = 2.5 + ((p.fans || 0) + 4 >= encoreAt(p) ? 4 : 0);
     } else if(h.id === 'livestream'){
@@ -3765,7 +3868,7 @@ function botTarget(p, c){
     const a = pow(p, c, t.c, true), b = pow(q, t.c, c);
     const tv = C[t.c.id].cost + b, mv = C[c.id].cost + pow(p, c);
     let s = -1;
-    if(a > b) s = tv + 2; else if(a === b && tv >= mv) s = tv - mv + 1;
+    if(a > b || (a === b && isQuick(c))) s = tv + 2; else if(a === b && tv >= mv) s = tv - mv + 1;
     if(s > bs){ bs = s; best = t; }
   }
   // hitting ຂວັນ wins games; only a clearly better trade beats it
@@ -3798,7 +3901,7 @@ function cloneState(hideIdx){
   const cp = (p, i) => ({name:p.name, bot:true, di:p.di, level:p.level, life:p.life, maxMana:p.maxMana, mana:p.mana, penalty:p.penalty,
     deck:null, hand:null,
     field:p.field.map(c => ({uid:c.uid, id:c.id, sick:c.sick, atk:c.atk, x2:c.x2, frz:c.frz, tf:c.tf, age:c.age, guard:c.guard, hacked:c.hacked, shield:c.shield, grown:c.grown, items:c.items.slice(), mods:c.mods.map(m => ({amt:m.amt, exp:m.exp}))})),
-    loc:p.loc, locAge:p.locAge, water:p.water, fans:p.fans, encoreReady:p.encoreReady, traps:(p.traps || []).slice(), blessed:p.blessed, extra:p.extra, fused:(p.fused || []).slice(), combo:p.combo, mulled:true, tales:(p.tales || []).map(t => ({i:t.i, got:t.got.slice(), done:t.done})), grave:p.grave.slice(), lastMagic:p.lastMagic, _src:p, _i:i});
+    loc:p.loc, locAge:p.locAge, water:p.water, fans:p.fans, blade:p.blade, encoreReady:p.encoreReady, traps:(p.traps || []).slice(), blessed:p.blessed, extra:p.extra, fused:(p.fused || []).slice(), combo:p.combo, mulled:true, tales:(p.tales || []).map(t => ({i:t.i, got:t.got.slice(), done:t.done})), grave:p.grave.slice(), lastMagic:p.lastMagic, _src:p, _i:i});
   const ps = S.p.map(cp);
   for(const q of ps){
     const src = q._src;
@@ -3848,6 +3951,7 @@ function evalState(me){
   const myPow = P.field.reduce((a, c) => a + pow(P, c), 0), opPow = Q.field.reduce((a, c) => a + pow(Q, c), 0);
   let e = (P.life - Q.life) * 1.2 + myPow * 1.5 - opPow * 1.7 + (P.field.length - Q.field.length) + (P.hand.length - Q.hand.length) * .6;
   e += P.field.filter(hasTaunt).length * 1.5;
+  e += (P.blade || 0) * .6;
   e -= Q.life * ((DECKS[P.di].aggr || 1.3) - 1);
   if(opPow >= P.life) e -= 60;
   if(myPow >= Q.life) e += 25;
@@ -4417,10 +4521,11 @@ function half7(p, i, hand, tools){
   const bar = '<div class="sbar ' + (i ? 'opp' : 'me') + '">' + plate2(p, i) + (hand || '') + '<div class="slots">' + loc + trapSlot(p, mg) + grave + deck + exSlot(p, i) + '</div>' + (tools || '') + '</div>';
   const lane = '<div class="lane chars' + (p.loc ? ' hasloc' : '') + '" data-k="side:' + i + '"' + (p.loc ? ' style="--locimg:url(' + PIC(C[p.loc].img) + ')"' : '') + '><span class="wm">' + (S.auto || S.pvp ? p.name : (i ? 'ຝ່າຍ' + foe() : 'ຝ່າຍເຈົ້າ')) + '</span>' +
     (p.loc ? '<span class="locname" data-a="info" data-v="' + p.loc + '">📍 ' + C[p.loc].name + '</span>' : '') +
-    (p.water ? '<span class="waterlv" style="--wl:' + p.water + '"><b>🌊 ' + p.water + '/5' + (p.water >= 3 ? ' · 🛡+1' : '') + '</b></span>' : '') + (p.fans ? '<span class="fanlv"><b>💖 ' + Math.min(p.fans, encoreAt(p)) + '/' + encoreAt(p) + '</b><i style="width:' + Math.round(Math.min(1, p.fans / encoreAt(p)) * 100) + '%"></i></span>' : '') +
+    (p.water ? '<span class="waterlv" style="--wl:' + p.water + '"><b>🌊 ' + p.water + '/5' + (p.water >= 3 ? ' · 🛡+1' : '') + '</b></span>' : '') + (p.fans ? '<span class="fanlv"><b>💖 ' + Math.min(p.fans, encoreAt(p)) + '/' + encoreAt(p) + '</b><i style="width:' + Math.round(Math.min(1, p.fans / encoreAt(p)) * 100) + '%"></i></span>' : '') + bladeLv(p) +
     '<div class="row" style="--n:' + p.field.length + '">' + p.field.map(c => miniHTML(p, c)).join('') + '</div></div>';
   return '<div class="half2 ' + (i ? 'opp' : 'me') + '" data-k="mat:' + i + '">' + (i ? bar + lane : lane + bar) + '</div>';
 }
+const bladeLv = p => p.blade ? '<span class="bladelv' + (p.blade >= bladeAt(p) ? ' full' : '') + '"><b>⚔️ ຈິດດາບ ' + Math.min(p.blade, bladeAt(p)) + '/' + bladeAt(p) + '</b><i style="width:' + Math.round(Math.min(1, p.blade / bladeAt(p)) * 100) + '%"></i></span>' : '';
 // ກອງພິເສດ: this side's fusion cards and the cards its rites can call; glows when one is ready right now
 const exCards = p => (p.extra || []).concat((p.rites || []).flatMap(r => RITES[r].opts));
 function exReady(p){ return (p.extra || []).some(f => canFuse(p, f)) || (p.rites || []).some(r => p.hand.some(h => h.id === r && !playBlock(p, h))); }
@@ -4492,7 +4597,7 @@ function half2(p, i){
     '<span class="cnt">' + p.grave.length + '</span><span class="gyl">' + IC_EYE + 'ກອງຖິ້ມ</span></div>';
   const pcol = '<div class="pcol">' + (i ? deck + grave : grave + deck) + '</div>';
   const lane = '<div class="lane chars' + (p.loc ? ' hasloc' : '') + '" data-k="side:' + i + '"' + (p.loc ? ' style="--locimg:url(' + PIC(C[p.loc].img) + ')"' : '') + '><span class="wm">' + (S.auto || S.pvp ? p.name : (i ? 'ຝ່າຍ' + foe() : 'ຝ່າຍເຈົ້າ')) + '</span>' +
-    (p.water ? '<span class="waterlv" style="--wl:' + p.water + '"><b>🌊 ' + p.water + '/5' + (p.water >= 3 ? ' · 🛡+1' : '') + '</b></span>' : '') + (p.fans ? '<span class="fanlv"><b>💖 ' + Math.min(p.fans, encoreAt(p)) + '/' + encoreAt(p) + '</b><i style="width:' + Math.round(Math.min(1, p.fans / encoreAt(p)) * 100) + '%"></i></span>' : '') + '<div class="row" style="--n:' + p.field.length + '">' + p.field.map(c => miniHTML(p, c)).join('') + '</div></div>';
+    (p.water ? '<span class="waterlv" style="--wl:' + p.water + '"><b>🌊 ' + p.water + '/5' + (p.water >= 3 ? ' · 🛡+1' : '') + '</b></span>' : '') + (p.fans ? '<span class="fanlv"><b>💖 ' + Math.min(p.fans, encoreAt(p)) + '/' + encoreAt(p) + '</b><i style="width:' + Math.round(Math.min(1, p.fans / encoreAt(p)) * 100) + '%"></i></span>' : '') + bladeLv(p) + '<div class="row" style="--n:' + p.field.length + '">' + p.field.map(c => miniHTML(p, c)).join('') + '</div></div>';
   return '<div class="half2 ' + (i ? 'opp' : 'me') + '" data-k="mat:' + i + '">' + strip + lane + pcol + '</div>';
 }
 function mid2(){ return '<div class="mid2"><span class="vs">VS</span></div>'; }
@@ -4504,7 +4609,7 @@ function promptHTML(){
 const KW_HELP = [
   ['ກັນໄພ', TAUNT], ['ບິນ', FLY], ['ຮວມພົນ', RALLY.replace('ຮວມພົນ: ', '')], ['ປົກປັກ', GUARD.replace('ປົກປັກ: ', '')], ['ນ້ຳຂຶ້ນ', TIDE.replace('ນ້ຳຂຶ້ນ: ', '')],
   ['ໂລ່ທິບ', SHIELD.replace('ໂລ່ທິບ: ', '')], ['ອັງກໍ', ENCORE], ['ດູດຂວັນ', DRAIN.replace('ດູດຂວັນ: ', '')], ['ສະສົມພະລັງ', GROW.replace('ສະສົມພະລັງ: ', '')],
-  ['ພິດ', POISON.replace('ພິດ: ', '')], ['ສະກັດ', BLOCK.replace('ສະກັດ: ', '')],
+  ['ພິດ', POISON.replace('ພິດ: ', '')], ['ສະກັດ', BLOCK.replace('ສະກັດ: ', '')], ['ຟັນໄວ', QUICK.replace('ຟັນໄວ: ', '')], ['ຈິດດາບ', BLADE.replace('ຈິດດາບ: ', '')],
   ['ຄືນຊີບ', 'ເອົາຕົວລະຄອນຈາກກອງຖິ້ມຂອງເຈົ້າ ກັບມາລົງສະໜາມ'], ['ປ່ຽນຮ່າງ', 'ຢູ່ສະໜາມຄົບຈຳນວນຕາທີ່ບອກ ໃບນີ້ຈະປ່ຽນເປັນຮ່າງທີ່ແຮງກວ່າ'],
   ['ແຮັກ', 'ຢືມຕົວລະຄອນຂອງຄູ່ແຂ່ງມາໃຊ້ 1 ຕາ ແລ້ວມັນກັບຄືນເມື່ອຈົບຕາ'], ['ກັບດັກ', 'ວາງຄວ່ຳໄວ້ ຄູ່ແຂ່ງເບິ່ງບໍ່ເຫັນ ແລ້ວເປີດເອງເມື່ອເງື່ອນໄຂຄົບ'],
   ['ຕໍ່ເນື່ອງ', 'ຖ້າລົງກາດໃນຕາດຽວກັນ ຄົບຈຳນວນທີ່ບອກ (ນັບໃບນີ້) ຈະໄດ້ຜົນພິເສດ'], ['ນ້ຳຖ້ວມ', 'ນ້ຳຂຶ້ນຮອດ 5 ທຳລາຍຕົວລະຄອນຂອງຄູ່ແຂ່ງທີ່ອ່ອນ'],
@@ -4613,6 +4718,7 @@ function miniHTML(p, c){
   if(c.shield) kw.push('<span class="sh">ໂລ່ທິບ</span>');
   if(c.hacked) kw.push('<span class="hk">ຖືກແຮັກ</span>');
   if(C[c.id].tf) kw.push(c.tf ? '<span class="tfok">✨ຮ່າງແທ້</span>' : '<span class="tfw">⏳' + Math.max(1, C[c.id].tf.after - (p.loc === 'banna' ? 1 : 0) - (c.age || 0)) + '</span>');
+  if(isQuick(c)) kw.push('<span class="qk">ຟັນໄວ</span>');
   if(maxAtk(c) > 1) kw.push('<span>×2</span>');
   if(c.frz && c.frz >= S.T) kw.push('<span class="dn">ໝອກ</span>');
   for(const it of c.items) kw.push('<span class="it">' + C[it].name + '</span>');
@@ -4852,7 +4958,7 @@ async function fxBanner(txt, bot){
   setTimeout(() => { for(let k = 0; k < 40; k++) emit({x:Math.random() * innerWidth, y:y + (Math.random() - .5) * 120, vx:300 + Math.random() * 500, vy:(Math.random() - .5) * 60, drag:.97, life:.6, size:2.5, kind:'spark', color:pick(col)}); }, 200);
   await sleep(dur - 80); d.remove();
 }
-const TRIBE_NAME = {naga:'ເຜົ່ານາກ', giant:'ເຜົ່າຍັກ', ghost:'ເຜົ່າຜີ', himma:'ເຜົ່າຫິມະພານ', hero:'ເຜົ່າວິລະບຸລຸດ', nakpat:'ເຜົ່ານັກປາດ', villager:'ເຜົ່າຊາວບ້ານ', thewada:'ເຜົ່າເທວະດາ', warrior:'ເຜົ່ານັກຮົບ', guardian:'ເຜົ່າຜູ້ປົກປັກ', cyborg:'ເຜົ່າໄຊບອກ', beast:'ເຜົ່າສັດປ່າ', idol:'ເຜົ່ານັກສະແດງ'};
+const TRIBE_NAME = {naga:'ເຜົ່ານາກ', giant:'ເຜົ່າຍັກ', ghost:'ເຜົ່າຜີ', himma:'ເຜົ່າຫິມະພານ', hero:'ເຜົ່າວິລະບຸລຸດ', nakpat:'ເຜົ່ານັກປາດ', villager:'ເຜົ່າຊາວບ້ານ', thewada:'ເຜົ່າເທວະດາ', warrior:'ເຜົ່ານັກຮົບ', guardian:'ເຜົ່າຜູ້ປົກປັກ', cyborg:'ເຜົ່າໄຊບອກ', beast:'ເຜົ່າສັດປ່າ', idol:'ເຜົ່ານັກສະແດງ', blade:'ເຜົ່ານັກດາບ'};
 // full-screen reveal of the character art with a name band, for legends, big characters and alt-art cards
 /* ---------- G4: each legend's own entrance, layered into its showcase (removed with it, skipped with it) ---------- */
 // a layer inside the showcase element; tiny helpers so each legend below reads as a short recipe
@@ -5011,7 +5117,8 @@ const TFX = {
   guardian:{c:['#ff7a6a','#ffe08a','#ffffff'], kind:'spark', g:200},
   cyborg:{c:['#1de9ff','#ff2fb3','#b388ff'], kind:'spark', g:-40},
   beast:{c:['#c98a4a','#9be38a','#ffffff'], kind:'dot', g:500},
-  idol:{c:['#ff7ad9','#ffd23d','#ffffff'], kind:'star', g:-80}
+  idol:{c:['#ff7ad9','#ffd23d','#ffffff'], kind:'star', g:-80},
+  blade:{c:['#ffffff','#ffe9a8','#c9d6ea'], kind:'petal', g:140}
 };
 /* ---------- effect art (phase G8, prompts/fx-art.txt): painted yantras, light, candles, the baci tray and marigolds ---------- */
 const FXA = ART + 'fx/', FXI = {};
@@ -6396,7 +6503,7 @@ $app.addEventListener('contextmenu', e => {
 
 /* ---------- self-test: bot vs bot, no animation ---------- */
 // local dev only: poke at live game state from the console
-if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__dbg = {fx:{show:(id, alt) => fxShowcase(id, alt), motif:(id, x, y) => fxFuseMotif(id, {x:x || innerWidth / 2, y:y || innerHeight / 2}), cutin:(f) => fxFuseCutin(C[f].fusion, f), rite:(i, id) => { const p = S.p[i || 0]; return fxRite(p, id || 'phitibangfai', p.field.slice(0, 3)); }, rays:fxRays, yantra:fxYantra, orb:fxOrb, petals:fxPetals, marigolds:fxMarigolds, baci:(i) => fxBaci(S.p[i || 0]), burst:burstAt, big:fxBig, wait:fxWait, get state(){ return FX; }},get S(){ return S; }, get net(){ return NET; },
+if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__dbg = {fx:{show:(id, alt) => fxShowcase(id, alt), motif:(id, x, y) => fxFuseMotif(id, {x:x || innerWidth / 2, y:y || innerHeight / 2}), cutin:(f) => fxFuseCutin(C[f].fusion, f), rite:(i, id) => { const p = S.p[i || 0]; return fxRite(p, id || 'phitibangfai', p.field.slice(0, 3)); }, rays:fxRays, yantra:fxYantra, orb:fxOrb, petals:fxPetals, marigolds:fxMarigolds, baci:(i) => fxBaci(S.p[i || 0]), blade:(i, n) => addBlade(S.p[i || 0], n), slash:fxSlash, burst:burstAt, big:fxBig, wait:fxWait, get state(){ return FX; }},get S(){ return S; }, get net(){ return NET; },
   music:{want:m => { MUS.want = m; }, sting:musicSting, sfx:n => sfx(n), get state(){ return MUS; }, level:async (mood, secs) => {
     const sr = 22050, oc = new OfflineAudioContext(1, sr * (secs || 20), sr), keep = Object.assign({}, SND), out = oc.createGain(); out.connect(oc.destination);
     SND.ctx = oc; SND.sfx = out; musicBus(oc, out);
