@@ -1848,46 +1848,46 @@ def('konglai',{name:'ກອງໄລ່',type:'spell',tribe:'villager',cost:1,re
 // which reaction fits this attack: ກົນຊຽງໝ້ຽງ any, ຮົ່ມບັງ only on a character, ກອງໄລ່ only on ຂວັນ
 const reactFits = (id, t) => id === 'romban' ? t.kind === 'char' : (id === 'konglai' ? t.kind === 'hero' : true);
 // ພິທີອັນເຊີນ: a ritual spell offers your weakest characters whose power adds up to the need, then calls one ritual card onto the field
-def('phitibangfai',{name:'ພິທີບຸນບັ້ງໄຟ',type:'spell',tribe:'villager',cost:3,tag:'ຄາຖາ · ພິທີອັນເຊີນ',skill:'ຖວາຍຕົວລະຄອນຂອງເຈົ້າ ພະລັງລວມ 6 ຂຶ້ນໄປ → ອັນເຊີນ «ພະຍານາກເຈັດຫົວ» ຫຼື «ພະຍາແຖນທອງຟ້າ»',lore:'ຈູດທຽນ ຖວາຍດອກໄມ້ ຂໍຝົນຈາກຟ້າ'});
+def('phitibangfai',{name:'ພິທີບຸນບັ້ງໄຟ',type:'spell',tribe:'villager',cost:3,tag:'ຄາຖາ · ພິທີອັນເຊີນ',skill:'ຖວາຍຕົວລະຄອນຂອງເຈົ້າ ພະລັງລວມ 7 ຂຶ້ນໄປ → ອັນເຊີນ «ພະຍານາກເຈັດຫົວ» ຫຼື «ພະຍາແຖນທອງຟ້າ»',lore:'ຈູດທຽນ ຖວາຍດອກໄມ້ ຂໍຝົນຈາກຟ້າ'});
 def('phitisukhuan',{name:'ພິທີສູ່ຂວັນ',type:'spell',tribe:'villager',cost:3,tag:'ຄາຖາ · ພິທີອັນເຊີນ',skill:'ຖວາຍຕົວລະຄອນຂອງເຈົ້າ ພະລັງລວມ 5 ຂຶ້ນໄປ → ອັນເຊີນ «ເທວີສັງຂານ» ຫຼື «ຍັກສິບຫົວຄືນຊີບ»',lore:'ຜູກແຂນ ເອີ້ນຂວັນ ໃຫ້ກັບມາຢູ່ນຳກັນ'});
 def('nakjet',{name:'ພະຍານາກເຈັດຫົວ',tribe:'naga',cost:8,power:10,ritual:1,kw:{taunt:1},tag:'ພິທີອັນເຊີນ · ກັນໄພ',skill:'ອັນເຊີນດ້ວຍພິທີເທົ່ານັ້ນ. ກັນໄພ. ເມື່ອມາ ຟື້ນຂວັນ +3',lore:'ນາກເຈັດຫົວ ຂຶ້ນມາຈາກແມ່ນ້ຳ ເມື່ອໄດ້ຍິນສຽງບັ້ງໄຟ'});
 def('thaentong',{name:'ພະຍາແຖນທອງຟ້າ',tribe:'thewada',cost:8,power:9,ritual:1,kw:{fly:1},tag:'ພິທີອັນເຊີນ · ບິນ',skill:'ອັນເຊີນດ້ວຍພິທີເທົ່ານັ້ນ. ບິນ. ເມື່ອມາ ທຳລາຍຕົວລະຄອນຄູ່ແຂ່ງ 1 ໃບ ທີ່ພະລັງ 4 ລົງມາ',lore:'ແຖນທອງ ລົງມາພ້ອມຟ້າແມບ'});
 def('sangkhanthewi',{name:'ເທວີສັງຂານ',tribe:'thewada',cost:7,power:7,ritual:1,kw:{taunt:1},tag:'ພິທີອັນເຊີນ · ກັນໄພ',skill:'ອັນເຊີນດ້ວຍພິທີເທົ່ານັ້ນ. ກັນໄພ. ເມື່ອມາ ຟື້ນຂວັນ +5 ແລະ ຈົ່ວກາດ 1 ໃບ',lore:'ເທວີປີໃໝ່ ນຳພອນມາໃຫ້ທຸກຄົນ'});
 def('yaksip',{name:'ຍັກສິບຫົວຄືນຊີບ',tribe:'giant',cost:8,power:11,ritual:1,tag:'ພິທີອັນເຊີນ',skill:'ອັນເຊີນດ້ວຍພິທີເທົ່ານັ້ນ. ແຮງທີ່ສຸດ ໃນບັນດາກາດພິທີ',lore:'ຍັກສິບຫົວ ຕື່ນຂຶ້ນມາອີກເທື່ອ'});
 const GIFT_CARDS = ['phitibangfai', 'phitisukhuan', 'yungnoy', 'tontan', 'nguhao', 'nokinsee', 'kwangthong', 'romban', 'konglai'];
-const RITES = {phitibangfai:{need:6, opts:['nakjet', 'thaentong']}, phitisukhuan:{need:5, opts:['sangkhanthewi', 'yaksip']}};
+const RITES = {phitibangfai:{need:7, opts:['nakjet', 'thaentong']}, phitisukhuan:{need:5, opts:['sangkhanthewi', 'yaksip']}};
 const FUSE_COST = 2;
 const FUSIONS = Object.keys(C).filter(id => C[id].fusion);
 const FUSE_OF = {}; for(const f of FUSIONS) for(const m of C[f].fusion) FUSE_OF[m] = f;
 const fusionsOf = list => FUSIONS.filter(f => C[f].fusion.every(id => list[id]));
 const DECKS = [
   {no:1, name:'ສາຍນ້ຳ ແລະ ວິລະບຸລຸດ', legend:'phayanak', aggr:1.1, style:'ຕັ້ງຮັບ, ຟື້ນຂວັນ, ຕິດອາວຸດ',
-   list:{babynaga:2,sangthong:2,nagaprincess:2,siho:3,sinxay:2,khankhaak:2,khunborom:2,phayanak:1,bangfai:3,sonsin:2,namthuam:1,maenamkhong:2,baci:2,faphaa:1,sangpheuak:1,khwai:2}},
+   list:{babynaga:2,sangthong:2,nagaprincess:2,siho:3,sinxay:2,khankhaak:2,khunborom:2,phayanak:1,bangfai:3,sonsin:2,namthuam:1,maenamkhong:2,baci:2,sangpheuak:1,khwai:2,phitibangfai:1}},
   {no:2, name:'ຍັກ ແລະ ຜີ', legend:'hapkhanasouane', aggr:1.6, style:'ພະລັງແຮງ, ກົນອຸບາຍ',
-   list:{phihuean:3,phikongkoy:3,yaknoy:2,phikrasue:3,yakfaopatu:2,phikrahang:2,kumphan:2,hapkhanasouane:1,khamsap:2,kabongyak:2,khuenduenmuet:1,pasatyak:1,tikong:2,naiphan:2,khwai:1,haingeun:1}},
+   list:{phihuean:3,phikongkoy:3,yaknoy:2,phikrasue:3,yakfaopatu:2,phikrahang:2,kumphan:2,hapkhanasouane:1,khamsap:2,kabongyak:2,khuenduenmuet:1,pasatyak:1,tikong:1,naiphan:2,khwai:1,phitisukhuan:1,yungnoy:1}},
   {no:3, name:'ພະລັກພະລາມ ແລະ ຫິມະພານ', legend:'phralam', aggr:1.3, style:'ບິນ, ໄວ, ຫຼອກຄູ່ແຂ່ງ',
-   list:{hongthong:3,xiengmieng:2,kinnari:2,phralak:2,singhimma:2,hanuman:2,khrut:2,phralam:1,sonphralam:2,lomphayu:2,konxiengmieng:3,pahimmaphan:1,wao:1,satnam:1,talatsao:1,phukkhaen:1,khaoniao:1,molam:1}},
+   list:{hongthong:3,xiengmieng:2,kinnari:2,phralak:2,singhimma:2,hanuman:2,khrut:2,phralam:1,sonphralam:2,lomphayu:2,konxiengmieng:3,pahimmaphan:1,wao:1,satnam:1,phukkhaen:1,khaoniao:1,molam:1,kwangthong:1}},
   {no:5, name:'ພະຍາແຖນ', legend:'phayathaen', aggr:1.2, style:'ຄວບຄຸມ ດິນຟ້າອາກາດ, ລະດູປ່ຽນເອງ',
-   list:{thewadanoi:3,thahanthaen:3,thaenfahong:3,thaenfon:2,nanghung:2,thaenlom:2,phayathaen:1,phayufa:2,mokseo:2,lodufon:2,loduhnao:1,loduhon:1,faphaa:2,wao:1,baci:1,khaoniao:1,haingeun:1}},
+   list:{thewadanoi:3,thahanthaen:3,thaenfahong:3,thaenfon:2,nanghung:2,thaenlom:2,phayathaen:1,phayufa:2,mokseo:2,lodufon:2,loduhnao:1,loduhon:1,faphaa:1,wao:1,baci:1,khaoniao:1,phitibangfai:1,nguhao:1}},
   // added after deck 5, so it sits last here to keep saved per-deck stats in place; DORDER shows it in number order
   {no:4, name:'ທ້າວຮຸ່ງ ແລະ ກອງທັບ', legend:'thaohung', aggr:1.5, style:'ຮວມພົນ, ບຸກໄວ, ລົງຫຼາຍໃບ',
-   list:{phonthahan:3,naktanu:3,masuek:2,nakrobto:3,maethap:2,xangsuek:2,thaohung:1,pasumthap:2,khongsuek:2,hokwiset:2,muangphuan:1,khaithahan:1,khwai:1,phukkhaen:1,lowai:1,molam:1,faphaa:1,baci:1}},
+   list:{phonthahan:3,naktanu:3,masuek:2,nakrobto:3,maethap:2,xangsuek:2,thaohung:1,pasumthap:2,khongsuek:2,hokwiset:2,muangphuan:1,khaithahan:1,khwai:1,phukkhaen:1,lowai:1,molam:1,baci:1,nokinsee:1}},
   {no:6, name:'ນາງສິບສອງ', legend:'phutthasen', aggr:1.2, style:'ຄືນຊີບ, ຕາຍແລ້ວກັບມາໃໝ່',
    list:{nangnoy:3,phinong:3,lukyak:3,moya:2,maneekap:2,kangli:2,santhaman:2,phutthasen:1,namtamae:2,dokbuathip:2,thammuet:1,suanmuang:1,katip:2,khaoniao:1,satnam:1,molam:1,naiphan:1}},
   {no:7, name:'ກາລະເກດ', legend:'kalaket', aggr:1.3, style:'ສົມບັດ, ຕິດຂອງວິເສດຈົນແຮງ',
    list:{khonsai:3,phokha:2,nakdap:3,makaew:2,chaoying:2,yaksombat:2,kalaket:1,dapkaew:2,kepbin:2,waenwiset:2,hipsombat:2,wangthong:1,lowai:1,wao:1,phukkhaen:1,katip:1,baci:1,khaoniao:1}},
   {no:8, name:'ປູ່ເຍີ້ຍ່າເຍີ້', legend:'punyeu', aggr:1.0, style:'ປົກປັກ, ຕັ້ງຮັບແໜ້ນ, ຟື້ນຂວັນ',
-   list:{thewadahuean:3,deknoydokmai:3,phuthao:2,singkaew:2,singkham:2,xangphueak:2,nangsangkhan:2,punyeu:1,hotnampon:2,dokchampa:2,khanmakbeng:2,luangprabang:1,khaoniao:2,baci:1,lowai:1,satnam:1,molam:1}},
+   list:{thewadahuean:3,deknoydokmai:3,phuthao:2,singkaew:2,singkham:2,xangphueak:2,nangsangkhan:2,punyeu:1,hotnampon:2,dokchampa:2,khanmakbeng:2,luangprabang:1,khaoniao:1,baci:1,lowai:1,satnam:1,molam:1,phitisukhuan:1}},
   {no:9, name:'ທ້າວກ່ຳກາດຳ', legend:'kamkadam', aggr:1.2, style:'ປ່ຽນຮ່າງ, ອ່ອນກ່ອນ ແຮງທີຫຼັງ',
-   list:{kanoy:3,maejaidi:3,xaobanhua:3,ueaysong:2,luksaolao:2,setthi:2,thewadapon:2,kamkadam:1,thotkhap:3,khapka:2,banna:1,khaoniao:1,baci:1,faphaa:1,phukkhaen:1,tikong:1,molam:1}},
+   list:{kanoy:3,maejaidi:3,xaobanhua:3,ueaysong:2,luksaolao:2,setthi:2,thewadapon:2,kamkadam:1,thotkhap:3,khapka:2,banna:1,khaoniao:1,baci:1,faphaa:1,phukkhaen:1,molam:1,tontan:1}},
   {no:10, name:'ຜາແດງ ນາງໄອ່', legend:'suttharo', aggr:1.4, style:'ນ້ຳຂຶ້ນ, ນ້ຳຖ້ວມ, ບຸກໄວ',
-   list:{krarokdon:3,thahannak:3,nangai:2,mabaksam:2,phadaeng:2,phayakhom:2,phangkhi:2,suttharo:1,bangfaikaeng:2,khuenyai:2,khaimuknak:2,nonghan:1,wao:1,baci:1,khaoniao:1,molam:1,satnam:1,tikong:1}},
+   list:{krarokdon:3,thahannak:3,nangai:2,mabaksam:2,phadaeng:2,phayakhom:2,phangkhi:2,suttharo:1,bangfaikaeng:2,khuenyai:2,khaimuknak:2,nonghan:1,wao:1,baci:1,khaoniao:1,molam:1,satnam:1,romban:1}},
   {no:13, name:'ໄຊເບີພັງ ນະຄອນນາກ 2099', legend:'nagax', aggr:1.4, style:'ຊິບ ແລະ ແຮັກ, ຫຸ່ນຍົນແຮງ',
    list:{drone:3,hackxm:3,repairbot:2,cyberpolice:2,neonninja:2,holokinnari:2,mechyak:2,nagax:1,chippower:2,chipfly:2,virus:2,neoncity:1,faphaa:2,tikong:1,baci:1,molam:1,talatsao:1}},
   {no:11, name:'ກະຕ່າຍຫົວໃສ ແລະ ສັດປ່າ', legend:'kratai', aggr:1.2, style:'ກັບດັກ, ຫຼອກຄູ່ແຂ່ງ',
-   list:{nokkaew:2,nokhuk:2,tao:3,lingkhidue:2,kwangwai:2,mupa:3,xangjaidi:2,kratai:1,khumphang:2,tanang:3,ngaonam:1,papai:1,khaoniao:1,baci:1,phukkhaen:1,naiphan:1,tikong:1,molam:1}},
+   list:{nokkaew:2,nokhuk:2,tao:3,lingkhidue:2,kwangwai:2,mupa:3,xangjaidi:2,kratai:1,khumphang:2,tanang:3,ngaonam:1,papai:1,khaoniao:1,baci:1,phukkhaen:1,molam:1,tikong:1,naiphan:1}},
   {no:12, name:'ໄອດໍ ໝໍລຳ', legend:'nangkaew', aggr:1.3, style:'ແຟນຄລັບ, ອັງກໍ!',
-   list:{fannoy:3,kinnaridance:3,rappers:2,khaendj:2,nakhong:3,manager:2,leader:2,nangkaew:1,concert:2,livestream:2,micthong:1,stage:1,baci:1,molam:1,satnam:1,tikong:1,khaoniao:1,haingeun:1}}
+   list:{fannoy:3,kinnaridance:3,rappers:2,khaendj:2,nakhong:3,manager:2,leader:2,nangkaew:1,concert:2,livestream:2,micthong:1,stage:1,baci:1,molam:1,satnam:1,tikong:1,khaoniao:1,konglai:1}}
 ];
 const DORDER = DECKS.map((_, i) => i).sort((a, b) => DECKS[a].no - DECKS[b].no);
 const LEVELS = ['ງ່າຍ','ກາງ','ຍາກ'];
@@ -2451,10 +2451,20 @@ async function fuse(p, f){
   await checkDeaths(); render();
 }
 const ritePower = p => p.field.filter(c => !c.hacked).reduce((a, c) => a + pow(p, c), 0);
+// the characters a rite takes: of every set that reaches the need, the one giving up the least power (then the least ບຸນ and fewest cards)
+function riteMats(p, need){
+  const f = p.field.filter(x => !x.hacked); let best = [], bs = Infinity;
+  for(let m = 1; m < 1 << f.length; m++){
+    let sum = 0, cost = 0, n = 0;
+    for(let i = 0; i < f.length; i++) if(m >> i & 1){ sum += pow(p, f[i]); cost += C[f[i].id].cost; n++; }
+    const sc = sum * 100 + cost * 4 + n;
+    if(sum >= need && sc < bs){ bs = sc; best = f.filter((_, i) => m >> i & 1); }
+  }
+  return best;
+}
 async function rite(p, id){
-  const R = RITES[id], mats = [];
-  for(const c of p.field.filter(x => !x.hacked).sort((a, b) => pow(p, a) - pow(p, b))){ if(mats.reduce((a, x) => a + pow(p, x), 0) >= R.need) break; mats.push(c); }
-  if(mats.reduce((a, x) => a + pow(p, x), 0) < R.need) return;
+  const R = RITES[id], mats = riteMats(p, R.need);
+  if(!mats.length) return;
   const pickId = isBot(p) || S.auto ? maxBy(R.opts, x => C[x].power) : await new Promise(r => { S.modal = {type:'rite', opts:R.opts, resolve:r}; render(); });
   if(!S.fast){ for(const c of mats) particlesAt('c:' + c.uid, '#ffb0d0', 18); sfx('heal'); }
   feat(p, 'rite');
@@ -3078,6 +3088,11 @@ function botPick(p, q){
       else { const k = en.filter(x => pow(q, x.c) <= dmg); if(k.length){ t = maxBy(k, x => C[x.c.id].cost + pow(q, x.c)); s = 3 + C[t.c.id].cost; } else { t = {kind:'hero', owner:q}; s = dmg >= 4 ? 3 : 1; } }
     } else if(h.id === 'namtamae'){
       const r = reviveList(p, 99)[0]; s = r ? C[r].cost * 2 + C[r].power - 3 : 0;
+    } else if(RITES[h.id]){
+      // a rite is worth it when what comes in clearly beats what it takes
+      const R = RITES[h.id], mats = riteMats(p, R.need);
+      const got = maxBy(R.opts, x => C[x].power), lost = mats.reduce((a, x) => a + pow(p, x) + C[x.id].cost * .5, 0);
+      s = C[got].power * 1.5 + 3 - lost; if(s < 2) s = 0;
     } else if(h.id === 'haingeun'){
       s = .5;
     } else if(h.id === 'lomphayu'){
