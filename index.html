@@ -1,6 +1,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ສະໜາມຕຳນານລາວ</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<meta name="theme-color" content="#6e1712">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2013,9 +2019,9 @@ function toggleSetting(k){
 function settingsHTML(){
   if(!ui.settingsOpen) return '';
   const row = (k, label, on, txt) => '<button class="setrow" data-a="set" data-v="' + k + '"><span>' + label + '</span><b class="' + (on ? 'on' : '') + '">' + txt + '</b></button>';
-  return '<div class="modal-bg"><div class="modal"><p class="q">ຕັ້ງຄ່າ</p>' + (S ? '' : '<p class="themelbl">ໜ້າຕາສະໜາມ</p>' + themePicker()) + '<div class="setlist">' +
+  return '<div class="modal-bg"><div class="modal"><p class="q">ຕັ້ງຄ່າ</p><p class="themelbl">ໜ້າຕາສະໜາມ</p>' + themePicker() + '<div class="setlist">' +
     row('sfx', 'ສຽງເອັບເຟັກ', SET.sfx, SET.sfx ? 'ເປີດ' : 'ປິດ') + row('music', 'ດົນຕີ', SET.music, SET.music ? 'ເປີດ' : 'ປິດ') +
-    row('speed', 'ຄວາມໄວເອັບເຟັກ', SET.speed < 1, SET.speed < 1 ? 'ໄວ' : 'ປົກກະຕິ') + row('fest', 'ງານບຸນ ຮີດສິບສອງ (ເກມໃໝ່)', SET.fest, SET.fest ? 'ເປີດ' : 'ປິດ') + '<p class="themelbl">ໜ້າຕາສະໜາມ</p>' + themePicker() +
+    row('speed', 'ຄວາມໄວເອັບເຟັກ', SET.speed < 1, SET.speed < 1 ? 'ໄວ' : 'ປົກກະຕິ') + row('fest', 'ງານບຸນ ຮີດສິບສອງ (ເກມໃໝ່)', SET.fest, SET.fest ? 'ເປີດ' : 'ປິດ') +
     '</div><div class="mbtns"><button class="btn2" data-a="setclose">ປິດ</button></div></div></div>';
 }
 document.addEventListener('pointerdown', () => { audioInit(); musicStart(); }, {once:true});
@@ -4304,6 +4310,9 @@ window.__sim = async function(n, level, levels){
   S = null; render();
   return res;
 };
+
+// installable app: offline cache on the real (https) site; add ?sw to try it on localhost
+if('serviceWorker' in navigator && (location.protocol === 'https:' || /[?&]sw\b/.test(location.search))) navigator.serviceWorker.register('sw.js').catch(err => window.__errs.push('sw: ' + err));
 
 render();
 })();
