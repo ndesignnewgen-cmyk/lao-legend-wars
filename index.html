@@ -422,6 +422,32 @@ body{background:
 .shard .card{width:100%}
 .float{font-size:44px;-webkit-text-stroke:2px #000;paint-order:stroke fill}
 .float.crit{font-size:64px;color:#ffd23d}
+/* G6: damage numbers pop in with a bounce and a glow; big hits glow orange */
+.float{text-shadow:0 4px 0 #0007,0 0 18px #000c;animation:floatPop 1.05s cubic-bezier(.2,1.6,.4,1) forwards!important}
+.float.hit{text-shadow:0 4px 0 #0007,0 0 16px #ffb02e}
+.float.crit{text-shadow:0 5px 0 #0007,0 0 22px #ff7a1a,0 0 44px #ffd23d}
+.float.heal{-webkit-text-stroke:4px #0b4a2a;text-shadow:0 0 16px #4fd18b}
+@keyframes floatPop{0%{transform:translate(-50%,-50%) scale(.3) rotate(-8deg);opacity:0}14%{transform:translate(-50%,-75%) scale(1.35) rotate(4deg);opacity:1}26%{transform:translate(-50%,-80%) scale(1) rotate(0)}75%{opacity:1}100%{transform:translate(-50%,-190%) scale(.95);opacity:0}}
+.streak{position:absolute;height:12px;width:var(--w);margin-top:-6px;transform-origin:0 50%;transform:rotate(var(--a));pointer-events:none;border-radius:6px;
+  background:linear-gradient(90deg,transparent,var(--tc) 40%,#fff);box-shadow:0 0 14px var(--tc),0 0 30px var(--tc);animation:streak2 var(--d) ease-out both}
+@keyframes streak2{0%{clip-path:inset(0 100% 0 0);opacity:1}45%{clip-path:inset(0 0 0 0);opacity:1}100%{clip-path:inset(0 0 0 100%);opacity:0}}
+.flycard.glow{filter:drop-shadow(0 0 8px #ffe48a) drop-shadow(0 0 16px #9fe0ff)}
+.gems.brim .gem.full{animation:gembrim 1s ease-in-out infinite alternate}
+.gems.brim .gem.full:nth-child(2n){animation-delay:.25s}.gems.brim .gem.full:nth-child(3n){animation-delay:.5s}
+@keyframes gembrim{from{box-shadow:0 0 4px var(--mana)}to{box-shadow:0 0 12px #fff,0 0 18px var(--mana);filter:brightness(1.4)}}
+.tb2 .tbb::before,.tb2 .tbb::after{content:"";position:absolute;left:8%;right:8%;height:6px;background:radial-gradient(circle,#ffe48a 0 2px,transparent 2.5px) 0 0/14px 6px repeat-x;opacity:.9}
+.tb2 .tbb::before{top:8px}.tb2 .tbb::after{bottom:8px}
+.overpose{position:relative;margin:0 auto -6px;pointer-events:none}
+.overpose img{position:absolute;max-width:none;filter:drop-shadow(0 0 3px #fff) drop-shadow(0 8px 16px #0009)}
+.overpose .oprays{position:absolute;left:50%;top:55%;width:150%;aspect-ratio:1;translate:-50% -50%;border-radius:50%;
+  background:repeating-conic-gradient(from 0deg,#ffe48a55 0 8deg,transparent 8deg 20deg);mask:radial-gradient(circle,#000 30%,transparent 70%);animation:oprays 8s linear infinite}
+@keyframes oprays{to{rotate:360deg}}
+.overpose.win img{animation:posewin 1s cubic-bezier(.2,1.5,.4,1) both,posebob 1.6s 1s ease-in-out infinite alternate}
+@keyframes posewin{from{transform:translateY(40%) scale(.6);opacity:0}to{transform:none;opacity:1}}
+@keyframes posebob{from{transform:translateY(0)}to{transform:translateY(-6px) rotate(1deg)}}
+.overpose.lose .oprays{background:repeating-conic-gradient(from 0deg,#9fb8e855 0 8deg,transparent 8deg 20deg);animation-duration:16s}
+.overpose.lose img{filter:saturate(.6) brightness(.85) drop-shadow(0 0 3px #cfe0ff) drop-shadow(0 8px 16px #0009);transform-origin:50% 100%;animation:poselose 2.4s ease-in-out infinite alternate}
+@keyframes poselose{from{transform:rotate(-2deg)}to{transform:rotate(2deg) translateY(3px)}}
 .cutin2{position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:10px;overflow:hidden;perspective:900px;
   background:radial-gradient(circle at 50% 45%,#2a1640e6,#000f 70%);animation:fadeio 2s forwards}
 .cutin2 .lgcard{position:relative;width:min(300px,58vw);animation:lgin .65s cubic-bezier(.2,1.2,.3,1) both}
@@ -4182,7 +4208,7 @@ function plate2(p, i){
   let gems = ''; for(let j=0;j<10;j++) gems += '<i class="gem ' + (j < p.mana ? 'full' : (j < p.maxMana ? 'spent' : '')) + '"></i>';
   return '<div class="lplate ' + (i ? 'opp' : 'me') + ' ' + (tg ? 'tgt' : '') + '" data-a="hero" data-k="' + k + '"><div class="lav"><img src="' + PIC(C[p.cover || DECKS[p.di].legend].img) + '" alt=""></div>' +
     '<div><div class="lnm">' + whoLabel(p, i) + ' · ເດັກ ' + p.deck.length + '</div><div class="llife">' + HEART + Math.max(0, p.life) + '</div>' +
-    '<div class="lsub"><div class="gems">' + gems + '</div><em>ບຸນ ' + p.mana + '/' + p.maxMana + (p.water ? ' · 🌊' + p.water + '/5' : '') + (p.fans ? ' · 💖' + Math.min(p.fans, encoreAt(p)) + '/' + encoreAt(p) : '') + taleTag(p) + '</em></div></div>' +
+    '<div class="lsub"><div class="gems' + (p.maxMana && p.mana === p.maxMana && S.turn === i ? ' brim' : '') + '">' + gems + '</div><em>ບຸນ ' + p.mana + '/' + p.maxMana + (p.water ? ' · 🌊' + p.water + '/5' : '') + (p.fans ? ' · 💖' + Math.min(p.fans, encoreAt(p)) + '/' + encoreAt(p) : '') + taleTag(p) + '</em></div></div>' +
     (i === 0 && petOn() ? '<span class="lpet" id="mypet" aria-hidden="true">' + petFace() + '</span>' : '') + '</div>';
 }
 function piles2(p, i){
@@ -4377,7 +4403,7 @@ function modalHTML(){
       '</div><div class="mbtns"><button class="btn-main sm" data-a="mgo">' + (m.sel.length ? '🔄 ປ່ຽນ ' + m.sel.length + ' ໃບ' : '✓ ເກັບໄວ້ທັງໝົດ') + '</button></div>';
   } else if(m.type === 'over'){
     const win = S.over.winner === 0;
-    inner = '<div class="over ' + (win || S.pvp ? 'win' : 'lose') + '">' + (S.pvp ? S.p[S.over.winner].name + ' ຊະນະ!' : (win ? 'ເຈົ້າຊະນະ!' : (S.online ? 'ໝູ່ຊະນະ' : 'ບອດຊະນະ'))) + '</div><div style="width:min(200px,50vw)">' + cardHTML(S.p[S.over.winner].cover || DECKS[S.p[S.over.winner].di].legend) + '</div>' +
+    inner = '<div class="over ' + (win || S.pvp ? 'win' : 'lose') + '">' + (S.pvp ? S.p[S.over.winner].name + ' ຊະນະ!' : (win ? 'ເຈົ້າຊະນະ!' : (S.online ? 'ໝູ່ຊະນະ' : 'ບອດຊະນະ'))) + '</div>' + overPose(S.pvp ? S.over.winner : 0, win || S.pvp) +
       '<p class="q">' + ({deck:'ເດັກໝົດ', quit:'ໝູ່ອອກຈາກເກມ', left:'ໝູ່ຫຼຸດການເຊື່ອມຕໍ່', dropped:'ເຈົ້າຂາດການເຊື່ອມຕໍ່ດົນເກີນ', afk:'ໝົດເວລາ 3 ຕາຕິດກັນ'}[S.over.reason] || 'ຂວັນເຫຼືອ 0') + ' · ຫຼິ້ນໄປ ' + Math.ceil(S.T / 2) + ' ຕາ</p>' +
       (S.reward ? '<p class="reward">💎 +' + S.reward.base + (S.reward.first ? ' <span>+' + S.reward.first + ' ຊະນະທຳອິດຂອງມື້</span>' : '') + (S.reward.capped ? ' <small>(ຮອດເພດານເພັດຂອງມື້ນີ້ແລ້ວ)</small>' : '') + '</p>' : '') +
       (S.afterNote || '') + (S.advNote ? '<p class="reward">' + S.advNote + '</p>' : '') + (S.rankNote ? '<p class="reward">' + S.rankNote + '</p>' : '') +
@@ -4387,6 +4413,14 @@ function modalHTML(){
   return '<div class="modal-bg"><div class="modal' + (m.type === 'extra' ? ' wide' : '') + '">' + inner + '</div></div>';
 }
 
+// the win or lose screen: the deck's legend steps out and poses, framed by its cutout box (the card if it has no cutout)
+function overPose(i, win){
+  const p = S.p[i], id = p.cover || DECKS[p.di].legend, im = C[id] && C[id].img, cut = im && CUTS[im];
+  if(!cut || REDUCE) return '<div style="width:min(200px,50vw)">' + cardHTML(id) + '</div>';
+  const W = Math.min(300, innerWidth * .7), H = Math.min(250, innerHeight * .34), bw = cut[2] * 760, bh = cut[3] * 1060, k = Math.min(H / bh, W / bw, 2.4);
+  const iw = 760 * k, left = W / 2 - (cut[0] + cut[2] / 2) * iw, top = H - (cut[1] + cut[3]) * 1060 * k;
+  return '<div class="overpose ' + (win ? 'win' : 'lose') + '" style="width:' + W + 'px;height:' + H + 'px"><i class="oprays"></i><img src="' + ART + 'cut/' + im + '.webp" alt="" style="width:' + iw + 'px;left:' + left + 'px;top:' + top + 'px"></div>';
+}
 /* ---------- effects ---------- */
 // wait for an animation, but never longer than its own length: a hidden tab can hold 'finished' back forever
 function animDone(an){
@@ -4531,8 +4565,10 @@ async function fxLunge(a, b, tribe, dmg){
   // 2) it dashes into the target, leaving fading afterimages
   const tx = dx * .8, ty = dy * .8, dur = 170 * sp, r0 = e.getBoundingClientRect(), html = e.innerHTML, t0 = performance.now();
   const dash = e.animate([{transform:lift}, {transform:'translate(' + tx + 'px,' + ty + 'px) scale(1.16)'}], {duration:dur, easing:'cubic-bezier(.7,0,1,.4)', fill:'forwards'});
+  const st = addFx('streak', A.x, A.y); st.style.setProperty('--w', (dist * .8) + 'px'); st.style.setProperty('--a', Math.atan2(dy, dx) + 'rad'); st.style.setProperty('--tc', col); st.style.setProperty('--d', (dur + 260) + 'ms'); setTimeout(() => st.remove(), dur + 300);
   const ghosts = setInterval(() => {
     const k = Math.min(1, (performance.now() - t0) / dur), g = document.createElement('div'); g.className = 'ghost'; g.innerHTML = html;
+    for(let j = 0; j < 3; j++) emit({x:A.x + tx * k + (Math.random() - .5) * 30, y:A.y + ty * k + (Math.random() - .5) * 30, vx:-ux * 60 + (Math.random() - .5) * 40, vy:-uy * 60 + (Math.random() - .5) * 40, g:T.g * .2, drag:.94, life:.45, size:T.kind === 'spark' ? 2.5 : 4, kind:T.kind, color:pick(T.c), rot:Math.random() * 6});
     Object.assign(g.style, {left:(r0.left + tx * k) + 'px', top:(r0.top + ty * k) + 'px', width:r0.width + 'px', height:r0.height + 'px'});
     $fx.appendChild(g); g.animate([{opacity:.5}, {opacity:0}], {duration:280, fill:'forwards'}); setTimeout(() => g.remove(), 300);
   }, 34);
@@ -4552,6 +4588,7 @@ async function fxBanner(txt, bot){
   if(S.fast) return; sfx('turn');
   const d = addFx('tb2 ' + (bot ? 'red' : 'blue'), null, null, '<div class="tbb"><small>ຕາທີ ' + Math.ceil(S.T / 2) + '</small><b>' + txt + '</b></div>');
   const dur = 1150 * SET.speed; d.style.setProperty('--d', dur + 'ms');
+  fxYantra(innerWidth / 2, innerHeight * .46, Math.min(innerWidth, innerHeight) * .42, bot ? '#ffb0a6' : '#bcd0ff', 1150);
   flashScreen(bot ? '#ffd6d0' : '#d6e2ff', .22);
   const y = innerHeight * .46, col = bot ? ['#ff8a7a', '#ffd23d', '#fff'] : ['#8fb4ff', '#ffd23d', '#fff'];
   setTimeout(() => { for(let k = 0; k < 40; k++) emit({x:Math.random() * innerWidth, y:y + (Math.random() - .5) * 120, vx:300 + Math.random() * 500, vy:(Math.random() - .5) * 60, drag:.97, life:.6, size:2.5, kind:'spark', color:pick(col)}); }, 200);
@@ -4878,7 +4915,9 @@ function fxShatter(el, tribe){
       setTimeout(() => d.remove(), 660);
     }
     const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-    for(let i = 0; i < 14; i++) emit({x:cx + (Math.random() - .5) * r.width, y:cy + (Math.random() - .3) * r.height, vx:(Math.random() - .5) * 120, vy:-60 - Math.random() * 80, g:200, drag:.96, life:.7, size:3 + Math.random() * 4, kind:'dot', color:pick(['#d9d2c3', '#ffffff', (TFX[tribe] || TFX.hero).c[0]])});
+    const T = TFX[tribe] || TFX.hero;
+    for(let i = 0; i < 18; i++) emit({x:cx + (Math.random() - .5) * r.width, y:cy + (Math.random() - .3) * r.height, vx:(Math.random() - .5) * 160, vy:-70 - Math.random() * 110, g:T.g > 0 ? 320 : T.g, drag:.95, life:.8, size:T.kind === 'spark' ? 2.5 : 4 + Math.random() * 4, kind:T.kind, color:pick(T.c.concat('#d9d2c3')), rot:Math.random() * 6, vr:(Math.random() - .5) * 18, solid:T.solid});
+    shockAt(cx, cy, T.c[0], 90);
   }, 140);
 }
 
@@ -5003,7 +5042,8 @@ function fxConfetti(){
 }
 function fxDraw(i){
   if(S.fast || REDUCE) return; const A = centerOf('deck:' + i), B = centerOf('hand:' + i); if(!A || !B) return;
-  sfx('draw'); const d = addFx('flycard', A.x, A.y, '<span class="cback">' + BACK + '</span>');
+  sfx('draw'); const d = addFx('flycard glow', A.x, A.y, '<span class="cback">' + BACK + '</span>');
+  setTimeout(() => { for(let k = 0; k < 10; k++){ const a = Math.random() * 6.283; emit({x:B.x, y:B.y, vx:Math.cos(a) * 120, vy:Math.sin(a) * 120 - 40, g:120, drag:.93, life:.5, size:2 + Math.random() * 2, kind:'star', color:pick(['#ffe48a', '#ffffff', '#9fe0ff'])}); } }, 470);
   d.animate([{left:A.x + 'px', top:A.y + 'px', transform:'translate(-50%,-50%) rotate(0)'}, {left:B.x + 'px', top:B.y + 'px', transform:'translate(-50%,-50%) rotate(' + (i ? -12 : 12) + 'deg)'}], {duration:480, easing:'ease-in-out', fill:'forwards'});
   setTimeout(() => d.remove(), 520);
 }
