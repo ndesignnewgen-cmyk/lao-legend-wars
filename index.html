@@ -1944,7 +1944,7 @@ const LEVELS = ['ງ່າຍ','ກາງ','ຍາກ'];
 const COL_KEY = 'lao-legend-collection';
 // the saved game that follows the player's account to the cloud (phase F1); settings stay on each device
 const SYNC_KEYS = [COL_KEY, 'lao-legend-stats', 'lao-legend-alts', 'lao-legend-tut'];
-const ACCT = {user:null, prof:null, state:'off', at:0, timer:null, quiet:false};   // state: off · conn · on · err
+const ACCT = {user:null, prof:null, state:'off', at:0, timer:null, quiet:false, eco:false};   // state: off · conn · on · err
 const STARTERS = [0, 4, 2];   // DECKS index of deck 1 (ສາຍນ້ຳ), deck 4 (ທ້າວຮຸ່ງ), deck 3 (ພະລາມ)
 const NEUTRAL = new Set(Object.keys(C).filter(id => C[id].tribe === 'villager' || ['baci','khaoniao','phukkhaen','tikong','faphaa','satnam','haingeun','lowai','wao','katip','thonghai','talatsao','khonephapheng'].includes(id)));
 // one deck ruleset for every game, like Yu-Gi-Oh: 30–40 cards, at most 3 of a name, legends limited to one copy each, any tribes and any neutral cards.
@@ -2065,6 +2065,7 @@ function addXP(n){
   for(let L = before + 1; L <= after; L++){ c.gems += 100; if(L % 5 === 0){ c.freePacks += 1; c.gems += 100; } gift = 'ຂຶ້ນລະດັບ ' + L + '! 💎' + (L % 5 === 0 ? '200 + ຊອງຟຣີ 1' : '100'); }
   saveCol(); return gift;
 }
+const dropNote = (id, res, why) => '<div class="dropnew"><b>🎁 ' + (res === 'new' ? 'ໄດ້ກາດ' : 'ກາດຊ້ຳ → ✨ ຜົງແກ້ວ') + '</b><small>' + why + '</small><div class="dcard">' + cardHTML(id) + '</div></div>';
 function giveCard(id){ const c = col(); if(owned(id) < RULE.copies){ c.cards[id] = owned(id) + 1; saveCol(); return 'new'; } c.dust += DUST_GET[rarityOf(id)]; saveCol(); return 'dust'; }
 // after a game against the bot: quest progress, XP, a chance to keep a card from the beaten deck
 function afterGame(won){
@@ -2076,7 +2077,7 @@ function afterGame(won){
     let drop = null, why = '';
     if(S.level === 2 && !c.hardBeat[opp.di]){ c.hardBeat[opp.di] = true; drop = DECKS[opp.di].legend; why = 'ຊະນະບອດຍາກ ເດັກ ' + DECKS[opp.di].no + ' ເທື່ອທຳອິດ!'; }
     else if(Math.random() < .3){ const ids = Object.keys(DECKS[opp.di].list).filter(id => !C[id].legend); drop = pick(ids); why = 'ຍຶດໄດ້ຈາກເດັກຂອງບອດ'; }
-    if(drop){ const res = giveCard(drop); notes.push('<div class="dropnew"><b>🎁 ' + (res === 'new' ? 'ໄດ້ກາດ' : 'ກາດຊ້ຳ → ✨ ຜົງແກ້ວ') + '</b><small>' + why + '</small><div class="dcard">' + cardHTML(drop) + '</div></div>'); }
+    if(drop) notes.push(dropNote(drop, giveCard(drop), why));
     saveCol();
   }
   S.afterNote = notes.join('');
@@ -2090,7 +2091,8 @@ function questsHTML(){
     '<p class="lore">ພາລະກິດໃໝ່ທຸກມື້ · ປ່ຽນພາລະກິດໄດ້ມື້ລະ 1 ເທື່ອ</p><div class="mbtns"><button class="btn2" data-a="mmclose">ປິດ</button></div>';
 }
 function tutReward(){
-  const c = col(); if(c.tutGems) return; c.tutGems = true; c.gems += 300; c.freePacks += 3; saveCol();
+  const c = col(); if(c.tutGems) return;
+  if(ACCT.eco){ ecoClaim('tut').then(() => { toast('ຈົບບົດສອນ: ໄດ້ 💎300 ແລະ ຊອງຟຣີ 3 ຊອງ!'); render(); }).catch(() => {}); return; } c.tutGems = true; c.gems += 300; c.freePacks += 3; saveCol();
   setTimeout(() => toast('ຈົບບົດສອນ: ໄດ້ 💎300 ແລະ ຊອງຟຣີ 3 ຊອງ!'), 400);
 }
 
@@ -3002,10 +3004,10 @@ function gameOver(winner, reason){
   S.over = {winner:pi(winner), reason}; S.busy = false; S.targeting = null;
   if(!S.auto){
     const won = S.over.winner === 0; sfx(won ? 'win' : 'lose'); if(won) fxConfetti(); botSay(won ? 'losegame' : 'win', true);
-    if(!S.tut && !S.pvp && !S.online){ recordGame(won); S.reward = gameGems(won); if(typeof afterGame === 'function') afterGame(won); }
+    if(!S.tut && !S.pvp && !S.online){ recordGame(won); if(ACCT.eco) ecoGameEnd(won); else { S.reward = gameGems(won); afterGame(won); } }
     else if(S.tut){ saveJ('lao-legend-tut', 1); S.tut = null; tutReward(); }
     if(!S.tut) petGrow();
-    if(S.adv != null && won){ const c = col(), first = (c.adv || 0) === S.adv; if(first){ c.adv = S.adv + 1; const g = ADV[S.adv].boss ? ADV_BOSS_GEMS : ADV_GEMS; c.gems += g; if(ADV[S.adv].boss) c.freePacks = (c.freePacks || 0) + 1; saveCol(); S.advNote = '🗺️ ຜ່ານດ່ານ «' + ADV[S.adv].place + '»! 💎 +' + g + (ADV[S.adv].boss ? ' ແລະ ຊອງຟຣີ 1 ຊອງ' : ''); } }
+    if(S.adv != null && won && !ACCT.eco){ const c = col(), first = (c.adv || 0) === S.adv; if(first){ c.adv = S.adv + 1; const g = ADV[S.adv].boss ? ADV_BOSS_GEMS : ADV_GEMS; c.gems += g; if(ADV[S.adv].boss) c.freePacks = (c.freePacks || 0) + 1; saveCol(); S.advNote = '🗺️ ຜ່ານດ່ານ «' + ADV[S.adv].place + '»! 💎 +' + g + (ADV[S.adv].boss ? ' ແລະ ຊອງຟຣີ 1 ຊອງ' : ''); } }
     S.achGot = S.pvp ? [] : achCheck();
     S.modal = {type:'over'};
   }
@@ -3670,8 +3672,21 @@ function packOpenHTML(){
       : '<div class="pcard down r-' + (x.alt ? 'alt' : x.r) + '" role="button" tabindex="0" data-a="flip" data-v="' + i + '"><span class="cback">' + BACK + '</span></div>').join('') + '</div>' +
     '<div class="mbtns">' + (done ? '<button class="btn-main sm" data-a="opendone">ຕົກລົງ</button>' + (col().gems >= PACKS[o.kind].cost ? '<button class="btn2" data-a="buy" data-v="' + o.kind + '">ເປີດອີກ 💎' + PACKS[o.kind].cost + '</button>' : '') : '<button class="btn2" data-a="flipall">ເປີດທັງໝົດ</button>') + '</div></div>';
 }
-function openPack(kind, free){
+async function openPack(kind, free){
   const c = col();
+  if(ACCT.eco){
+    if(free ? !c.freePacks : c.gems < PACKS[kind].cost){ toast('ເພັດບໍ່ພໍ'); return; }
+    if(ui.packBusy) return; ui.packBusy = true;
+    const di = ui.shopDeck != null ? ui.shopDeck : 1;
+    try{
+      const {data, error} = await SB.rpc('eco_pack', {kind, di, free:!!free}); if(error) throw error;
+      ecoApply(data.state); for(const x of data.cards) if(x.alt && x.isNew) markAltSeen(x.id);
+      questEvent('pack', 1);
+      ui.open = {kind, di, cards:data.cards, flip:{}, torn:false}; sfx('spell'); render();
+    }catch(e){ toast(ecoErr(e)); }
+    finally{ ui.packBusy = false; }
+    return;
+  }
   if(free){ if(!c.freePacks) return; c.freePacks--; }
   else { if(c.gems < PACKS[kind].cost){ toast('ເພັດບໍ່ພໍ'); return; } c.gems -= PACKS[kind].cost; }
   const di = ui.shopDeck != null ? ui.shopDeck : 1;
@@ -3696,6 +3711,7 @@ function shopClick(a, v){
   if(a === 'craftdo'){
     const id = v, cost = DUST_MAKE[rarityOf(id)], c = col();
     if(owned(id) >= RULE.copies || c.dust < cost){ toast('ຜົງແກ້ວບໍ່ພໍ'); return true; }
+    if(ACCT.eco){ SB.rpc('eco_craft', {card:id}).then(({data, error}) => { if(error) throw error; ecoApply(data); ui.mmodal = null; sfx('win'); render(); toast('ສ້າງ «' + C[id].name + '» ແລ້ວ'); }).catch(e => toast(ecoErr(e))); return true; }
     c.dust -= cost; c.cards[id] = owned(id) + 1; saveCol(); ui.mmodal = null; sfx('win'); render(); toast('ສ້າງ «' + C[id].name + '» ແລ້ວ'); return true;
   }
   if(ui.mmodal) return false;
@@ -3715,7 +3731,7 @@ function bookIds(tab){
   const byDeck = i => Object.keys(DECKS[i].list).filter(id => !neutral.includes(id));
   const sortc = a => a.sort((x, y) => C[x].cost - C[y].cost);
   if(tab === 'neutral') return sortc(neutral);
-  if(tab[0] === 'd') return sortc(byDeck(+tab[1]));
+  if(tab[0] === 'd') return sortc(byDeck(+tab.slice(1)));
   return DORDER.flatMap(i => sortc(byDeck(i))).concat(sortc(neutral));
 }
 function bookHTML(){
@@ -4492,7 +4508,10 @@ function petSay(kind, chance){
 function feat(p, k){ if(!S || S.auto || isBot(p) || p !== S.p[0]) return; const c = col(); c.cnt = c.cnt || {}; c.cnt[k] = (c.cnt[k] || 0) + 1; saveCol(); }
 function achCheck(){
   const c = col(), st = loadJ('lao-legend-stats', {}), got = []; c.ach = c.ach || {};
-  for(const a of ACH) if(!c.ach[a.id] && a.t(c, st)){ c.ach[a.id] = Date.now(); c.gems += a.g; got.push(a); }
+  for(const a of ACH) if(!c.ach[a.id] && a.t(c, st)){
+    c.ach[a.id] = Date.now(); got.push(a);
+    if(ACCT.eco) ecoClaim('ach', a.id).then(() => render()).catch(() => {}); else c.gems += a.g;
+  }
   if(got.length) saveCol();
   return got;
 }
@@ -4545,7 +4564,7 @@ async function cloudPull(){
 async function acctLoad(){
   const {data} = await SB.from('profiles').select('*').eq('id', ACCT.user.id).maybeSingle();
   ACCT.prof = data || null;
-  if(ACCT.prof) await cloudPull();
+  if(ACCT.prof){ await cloudPull(); await ecoSync(); }
   else try{ localStorage.removeItem(RCODE_KEY); }catch(e){}   // the account moved to another device with its code
 }
 // on start: only players who already made an account load the Supabase library
@@ -4576,9 +4595,62 @@ async function acctSave(name, avatar){
                                     : await SB.from('profiles').insert(row).select().single();
     if(error){ m.err = NAME_ERR[error.code] || 'ບັນທຶກບໍ່ໄດ້ ລອງໃໝ່'; return; }
     const first = !ACCT.prof; ACCT.prof = data; m.edit = false;
-    if(first){ await cloudPull(); toast('ສະບາຍດີ ' + name + '! ບັນທຶກເກມຂຶ້ນ cloud ແລ້ວ ☁️'); }
+    if(first){ await cloudPull(); await ecoSync(); toast('ສະບາຍດີ ' + name + '! ບັນທຶກເກມຂຶ້ນ cloud ແລ້ວ ☁️'); }
   }catch(e){ m.err = 'ຕໍ່ອິນເຕີເນັດບໍ່ໄດ້ ລອງໃໝ່'; ACCT.state = 'err'; window.__errs.push('acct: ' + (e && e.message || e)); }
   finally{ m.busy = false; render(); }
+}
+// ເສດຖະກິດຢູ່ເຊີບເວີ (phase F2, supabase/f2.sql): with an account, gems, dust, cards, XP and the level track live in the
+// 'wallets' and 'owned_cards' tables and change only through the eco_* functions. COL keeps a copy for the screens.
+// Without an account (or before f2.sql is run) everything stays on this device as before.
+function ecoApply(st){
+  if(!st) return; const c = col();
+  Object.assign(c, {gems:st.gems, dust:st.dust, xp:st.xp, freePacks:st.freePacks, pity:st.pity, packs:st.packs, tutGems:st.tutGems, adv:st.adv});
+  c.cards = {...st.cards};
+  c.alts = Object.fromEntries((st.alts || []).map(id => [id, true]));
+  c.hardBeat = Object.fromEntries((st.hardBeat || []).map(i => [i, true]));
+  const had = c.ach || {}; c.ach = Object.fromEntries((st.ach || []).map(id => [id, had[id] || Date.now()]));
+  saveCol();
+}
+async function ecoSync(){
+  try{
+    let {data, error} = await SB.rpc('eco_state'); if(error) throw error;
+    if(!data){   // first time on F2: bring in what this device already has
+      const c = col();
+      ({data, error} = await SB.rpc('eco_import', {snap:{gems:c.gems, dust:c.dust, xp:c.xp, freePacks:c.freePacks, pity:c.pity, packs:c.packs, tutGems:c.tutGems,
+        adv:c.adv || 0, hardBeat:c.hardBeat || {}, ach:c.ach || {}, cards:c.cards, alts:c.alts || {}}}));
+      if(error) throw error;
+    }
+    ACCT.eco = true; ecoApply(data);
+  }catch(e){ ACCT.eco = false; window.__errs.push('eco: ' + (e && (e.code || e.message) || e)); }
+}
+const ecoErr = e => e && e.code === 'P0004' ? 'ເພັດ ຫຼື ຜົງແກ້ວບໍ່ພໍ' : 'ຕໍ່ເຊີບເວີບໍ່ໄດ້ ລອງໃໝ່';
+function levelGift(from, to){
+  let gift = ''; for(let L = (from || 0) + 1; L <= (to || 0); L++) gift = 'ຂຶ້ນລະດັບ ' + L + '! 💎' + (L % 5 === 0 ? '200 + ຊອງຟຣີ 1' : '100');
+  return gift;
+}
+// the end of a game against the bot, with an account: the server decides gems, XP, the drop and the adventure stage
+async function ecoGameEnd(won){
+  const G = S, oppDi = S.p[1].di, level = S.level;
+  questEvent('game'); if(won){ questEvent('win'); if(level === 2) questEvent('winhard'); }
+  G.reward = null; G.afterNote = '<p class="lore">☁️ ກຳລັງຮັບລາງວັນ…</p>';
+  try{
+    const {data, error} = await SB.rpc('eco_game', {won, lvl:level, opp:oppDi, stage:won && G.adv != null ? G.adv : null}); if(error) throw error;
+    ecoApply(data.state);
+    const notes = [], lv = levelGift(data.lvFrom, data.lvTo);
+    if(lv) notes.push('<p class="lvup">⭐ ' + lv + '</p>');
+    if(data.drop) notes.push(dropNote(data.drop, data.dropRes, level === 2 && data.drop === DECKS[oppDi].legend ? 'ຊະນະບອດຍາກ ເດັກ ' + DECKS[oppDi].no + ' ເທື່ອທຳອິດ!' : 'ຍຶດໄດ້ຈາກເດັກຂອງບອດ'));
+    G.reward = {base:data.base, first:data.first, capped:data.capped}; G.afterNote = notes.join('');
+    if(data.advGems) G.advNote = '🗺️ ຜ່ານດ່ານ «' + ADV[G.adv].place + '»! 💎 +' + data.advGems + (ADV[G.adv].boss ? ' ແລະ ຊອງຟຣີ 1 ຊອງ' : '');
+    const more = achCheck(); if(more.length) G.achGot = (G.achGot || []).concat(more);
+  }catch(e){
+    G.afterNote = '<p class="lore">' + (e && e.code === 'P0003' ? 'ເກມສັ້ນເກີນ ບໍ່ໄດ້ລາງວັນ' : '⚠️ ຕໍ່ເຊີບເວີບໍ່ໄດ້ ບໍ່ໄດ້ລາງວັນເກມນີ້') + '</p>';
+    window.__errs.push('eco game: ' + (e && (e.code || e.message) || e));
+  }
+  if(S === G) render();
+}
+async function ecoClaim(kind, key){
+  const {data, error} = await SB.rpc('eco_claim', {kind, key:key || null}); if(error) throw error;
+  ecoApply(data.state); return data;
 }
 // ຜູກອີເມວ: a guest account gets an email (confirmed with a code sent there), so it can be opened on another device
 // and is never lost with the browser's data. ເຂົ້າດ້ວຍອີເມວ: another device signs in with that email and a code.
@@ -4663,7 +4735,7 @@ async function mailStep(kind){
 }
 async function acctSignOut(){
   try{ await SB.auth.signOut(); }catch(e){}
-  ACCT.user = null; ACCT.prof = null; ACCT.state = 'off'; ui.mmodal = null; render(); toast('ອອກຈາກບັນຊີແລ້ວ');
+  ACCT.user = null; ACCT.prof = null; ACCT.state = 'off'; ACCT.eco = false; ui.mmodal = null; render(); toast('ອອກຈາກບັນຊີແລ້ວ');
 }
 const mailOf = () => ACCT.user && !ACCT.user.is_anonymous ? ACCT.user.email : '';
 const maskMail = e => e ? e.replace(/^(.{2})[^@]*(@.*)$/, '$1•••$2') : '';
@@ -4832,7 +4904,9 @@ $app.addEventListener('click', e => {
       for(const [id, n] of Object.entries(l)){ const k = Math.min(n, owned(id)); if(k) ui.ed.list[id] = k; }
       ui.mmodal = null; render(); toast(miss ? 'ນຳເຂົ້າແລ້ວ · ຂາດກາດ ' + miss + ' ແບບ ທີ່ເຈົ້າຍັງບໍ່ມີ' : 'ນຳເຂົ້າແລ້ວ'); return;
     }
-    if(a === 'qclaim' && ui.mmodal && ui.mmodal.type === 'quests'){ const q = quests()[+v], c = col(); if(q && q.p >= q.n && !q.claimed){ q.claimed = true; c.gems += q.g; saveCol(); const lv = addXP(30); sfx('win'); toast('💎 +' + q.g + (lv ? ' · ' + lv : '')); } render(); return; }
+    if(a === 'qclaim' && ui.mmodal && ui.mmodal.type === 'quests'){ const q = quests()[+v], c = col(); if(q && q.p >= q.n && !q.claimed){
+      if(ACCT.eco){ ecoClaim('quest', q.k).then(d => { q.claimed = true; saveCol(); sfx('win'); const lv = levelGift(d.lvFrom, d.lvTo); toast('💎 +' + d.gems + (lv ? ' · ' + lv : '')); render(); }).catch(e => toast(e && e.code === 'P0005' ? 'ຮັບພາລະກິດຄົບ 3 ອັນແລ້ວມື້ນີ້' : ecoErr(e))); return; }
+      q.claimed = true; c.gems += q.g; saveCol(); const lv = addXP(30); sfx('win'); toast('💎 +' + q.g + (lv ? ' · ' + lv : '')); } render(); return; }
     if(a === 'qreroll' && ui.mmodal && ui.mmodal.type === 'quests'){ const c = col(), list = quests(); if(!c.quests.rerolled){ const pool = QUEST_POOL.filter(x => !list.some(y => y.k === x.k)); list[+v] = {...pick(pool), p:0, claimed:false}; c.quests.rerolled = true; saveCol(); } render(); return; }
     if(a === 'pickdeck'){ ui.deck = v.startsWith('c:') ? v : +v; ui.mmodal = null; render(); return; }
     if(a === 'pknew'){ ui.mmodal = null; openEditor(null, {}); return; }
