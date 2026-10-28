@@ -1,0 +1,34 @@
+LAO LEGEND WARS · EFFECT ART (13 images) — yantra circles, baci tray, marigolds, light patterns
+These are not cards: they are pieces the game layers into its effects (summons, rituals, fusions, turn banners).
+Make each image square 1024x1024 unless the item says otherwise. No text, no letters, no numbers, no watermark, no frame.
+Two kinds of background, as each item says:
+  · LIGHT pieces (1-3, 10-13): glowing gold or coloured lines on a PURE BLACK background (#000000), nothing else in the picture. The game blends the black away, so keep the black clean and solid.
+  · OBJECT pieces (4-9): one object only, centered, on a PLAIN PURE WHITE background, no shadow on the ground. The game cuts the object out.
+Style: the same Lao look as the cards — rich gold, warm colours, Lao temple ornament (kranok flame scrolls, lotus petals, naga curves). Light pieces are clean and glowing with no dark outlines; object pieces may have soft bold outlines like the card art.
+Save as numbered files 1-13 in this order and send them as one zip.
+
+--- YANTRA CIRCLES (ວົງຍັນລາວ) — light pieces, perfectly round, perfectly symmetrical, seen flat from straight above ---
+1. Golden Lao yantra circle: a round sacred diagram drawn in thin glowing gold lines. From the outside in: a double outer ring with a band of small dots, a ring of 16 pointed lotus petals with kranok flame tips, two interlocking squares forming an 8-pointed star, an inner ring of small abstract sacred marks (not real letters), and a small lotus at the centre. Fine, even line weight, warm gold glow, pure black background.
+2. Water yantra circle for the naga: the same round sacred layout but in glowing pale blue and silver lines, with two thin naga serpents coiling around the outer ring head to tail, wave scrolls between the lotus petals, and a small water-drop lotus at the centre. Pure black background.
+3. Fire yantra circle for the Bang Fai rocket festival: the same round layout in glowing red, orange and gold lines, with 8 small rocket shapes pointing outward like rays from the outer ring, flame scrolls between the petals, and a small sun at the centre. Pure black background.
+
+--- BACI TRAY (ພາຂວັນ) — object pieces, white background ---
+4. Lao phakhuan (baci centrepiece), front view: a tall cone of folded green banana leaves rising from a silver bowl on a small stand, decorated with orange and yellow marigolds and white jasmine, with many white cotton strings hanging from a thin stick at the top, two small lit candles at the base. Bright, festive, kid-friendly, clean edges.
+5. A loose bundle of white cotton blessing strings (sai sin) for tying on wrists: about ten thin white strings looped together and tied in the middle, ends trailing softly, a few tiny marigold petals caught in them. Clean edges, nothing else in the picture.
+6. A single lit Lao temple candle: a slim beeswax candle, pale honey colour, standing straight, a bright teardrop flame with a soft warm halo, a little melted wax at the top edge. Nothing else in the picture.
+
+--- MARIGOLDS (ດອກດາວເຮືອງ) — object pieces, white background ---
+7. One orange marigold flower seen straight from above: round, full, many ruffled petals, deep orange at the edges and golden at the centre, crisp and bright.
+8. One yellow marigold flower seen from the side at a slight angle, with a short green stem and two small leaves, golden yellow, crisp and bright.
+9. Eight loose marigold petals scattered with space between them so each can be cut out on its own: a mix of orange and golden yellow, each petal a little curled, seen from above, no stems, nothing overlapping.
+
+--- LIGHT PATTERNS (ລາຍແສງ) — light pieces, black background ---
+10. A burst of golden light rays from the exact centre: about 24 long rays of different lengths and widths, bright white-gold near the centre fading to warm gold and then to black at the ends, soft and clean, perfectly centered. Pure black background.
+11. One soft glowing orb of light at the centre: a bright white core, a warm golden glow around it, a gentle round halo, and a faint horizontal lens-flare streak through it. Pure black background.
+12. A sheet of 9 separate sparkles arranged in a 3x3 grid with plenty of space between them: 4-pointed star twinkles in white and gold, different sizes, each with a small soft glow. Pure black background.
+13. Wide image 2048x256: a long seamless horizontal border of Lao kranok flame ornament in glowing gold — repeating flame scrolls and small lotus buds along a thin centre line, the left and right ends matching so it can repeat without a seam. Pure black background.
+
+How the game will use them:
+1-3 the ritual and fusion circles and the turn banner (instead of the yantra drawn in code) · 4-5 the baci rite and the baci card · 6 the rite candles ·
+7-9 falling marigolds in rites, festivals and the Phutthasen and Pu Nyeu entrances · 10-11 summon showcases, fusion reveals and win screens ·
+12 star particles and stage sparkles · 13 the edges of the turn banner and the name bands.

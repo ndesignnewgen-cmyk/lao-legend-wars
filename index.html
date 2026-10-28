@@ -39,20 +39,28 @@ button{font:inherit;color:inherit}
 #app{height:100%}
 #fx{position:fixed;inset:0;pointer-events:none;z-index:60;overflow:hidden}
 #fx .rays{position:absolute;width:var(--s);height:var(--s);transform:translate(-50%,-50%);border-radius:50%;
-  background:repeating-conic-gradient(from 0deg,transparent 0 9deg,color-mix(in srgb,var(--c) 55%,transparent) 11deg 14deg,transparent 16deg 22.5deg);
-  -webkit-mask:radial-gradient(circle,#000 18%,transparent 70%);mask:radial-gradient(circle,#000 18%,transparent 70%);animation:rays var(--d) ease-out forwards;mix-blend-mode:screen}
+  background:url(art/fx/rays.webp) center/100% no-repeat,repeating-conic-gradient(from 0deg,transparent 0 9deg,color-mix(in srgb,var(--c) 45%,transparent) 11deg 14deg,transparent 16deg 22.5deg);
+  -webkit-mask:radial-gradient(circle,#000 30%,transparent 72%);mask:radial-gradient(circle,#000 30%,transparent 72%);animation:rays var(--d) ease-out forwards;mix-blend-mode:screen}
 @keyframes rays{0%{opacity:0;transform:translate(-50%,-50%) rotate(0) scale(.4)}20%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) rotate(70deg) scale(1.15)}}
 #fx .yantra{position:absolute;width:var(--s);height:var(--s);transform:translate(-50%,-50%);animation:ytr var(--d) ease-out forwards}
 #fx .yantra::before{content:'';position:absolute;inset:-4%;border-radius:50%;background:radial-gradient(circle,rgba(26,10,40,.78) 0 58%,rgba(26,10,40,.45) 68%,transparent 72%)}
 #fx .yantra svg{position:relative;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 0 6px var(--c)) drop-shadow(0 0 16px var(--c))}
 #fx .yantra .yd *{fill:none;stroke:var(--c);stroke-width:2.2;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:ydraw calc(var(--d) * .45) ease-out forwards}
 #fx .yantra .ydots circle{fill:var(--c);opacity:0;animation:ydots calc(var(--d) * .3) calc(var(--d) * .35) ease-out forwards}
+#fx .yantra.art img{position:relative;display:block;width:100%;height:100%;animation:yopen calc(var(--d) * .4) ease-out both}
+@keyframes yopen{from{clip-path:circle(0 at 50% 50%);filter:brightness(2.4)}to{clip-path:circle(71% at 50% 50%);filter:brightness(1)}}
 @keyframes ydraw{to{stroke-dashoffset:0}}@keyframes ydots{to{opacity:1}}
 @keyframes ytr{0%{opacity:0;transform:translate(-50%,-50%) rotate(-30deg) scale(.6)}15%{opacity:1}80%{opacity:1;transform:translate(-50%,-50%) rotate(25deg) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) rotate(35deg) scale(1.15)}}
-#fx .orb{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:radial-gradient(circle,#fff 0 25%,var(--c) 45%,transparent 72%);box-shadow:0 0 18px 6px var(--c)}
-#fx .candle{position:absolute;width:13px;height:30px;margin:-30px 0 0 -6px;border-radius:3px;background:linear-gradient(#fff6dc,#f1d39a);box-shadow:0 0 0 1.5px #1b1b1b;opacity:0;animation:candle .35s ease-out forwards}
-#fx .candle i{position:absolute;left:50%;bottom:100%;width:14px;height:22px;margin-left:-7px;border-radius:50% 50% 45% 45%/60% 60% 40% 40%;background:radial-gradient(circle at 50% 70%,#fff 0 20%,#ffd23d 40%,#ff7a1a 75%,transparent 80%);box-shadow:0 0 14px 4px #ffb34799;animation:flame .18s ease-in-out infinite alternate;transform-origin:50% 100%}
-@keyframes candle{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}@keyframes flame{to{transform:scaleY(1.18) rotate(4deg)}}
+#fx .orb{position:absolute;width:64px;height:64px;margin:-32px 0 0 -32px;background:url(art/fx/orb.webp) center/100% no-repeat,radial-gradient(circle,#fff 0 12%,var(--c) 24%,transparent 46%)}
+#fx .candle{position:absolute;width:12px;height:62px;margin:-58px 0 0 -6px;background:url(art/fx/candle.webp) center bottom/contain no-repeat;filter:drop-shadow(0 2px 2px #0008);opacity:0;animation:candle .35s ease-out forwards}
+#fx .candle i{position:absolute;left:50%;top:-12px;width:36px;height:36px;margin-left:-18px;border-radius:50%;background:radial-gradient(circle,#fff8d8 0 10%,#ffd23d80 30%,#ff9a3d00 68%);mix-blend-mode:screen;animation:flame .2s ease-in-out infinite alternate}
+@keyframes candle{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}@keyframes flame{to{transform:scale(1.22);opacity:.75}}
+/* ພາຂວັນ: the baci centrepiece rises in the middle of the rite, and over the hand for the ບາສີ card */
+#fx .phakhuan{position:absolute;height:var(--s);transform:translate(-50%,-62%);animation:pkin var(--d) ease-out forwards}
+#fx .phakhuan img{display:block;height:100%;filter:drop-shadow(0 0 8px #fff6c8) drop-shadow(0 0 22px #ffd23d)}
+@keyframes pkin{0%{opacity:0;transform:translate(-50%,-48%) scale(.55)}18%{opacity:1;transform:translate(-50%,-64%) scale(1.06)}26%{transform:translate(-50%,-62%) scale(1)}82%{opacity:1}100%{opacity:0;transform:translate(-50%,-66%) scale(1.04)}}
+#fx .sasin{position:absolute;width:var(--s);margin:calc(var(--s) * -.45) 0 0 calc(var(--s) * -.5);filter:drop-shadow(0 0 6px #fff) drop-shadow(0 0 14px #ffe48a)}
+#fx .sasin img{display:block;width:100%}
 #fx .pillar{position:absolute;width:10px;height:var(--h);transform:translate(-50%,-100%);margin-top:30px;border-radius:999px;background:linear-gradient(to bottom,transparent,color-mix(in srgb,var(--c) 70%,#fff) 30%,#fff 85%,color-mix(in srgb,var(--c) 60%,transparent));
   box-shadow:0 0 40px 18px color-mix(in srgb,var(--c) 70%,transparent);mix-blend-mode:screen;animation:pillar var(--d) ease-out forwards}
 @keyframes pillar{0%{width:6px;opacity:0}25%{width:120px;opacity:1}70%{width:80px;opacity:.9}100%{width:4px;opacity:0}}
@@ -435,12 +443,14 @@ body{background:
 .gems.brim .gem.full{animation:gembrim 1s ease-in-out infinite alternate}
 .gems.brim .gem.full:nth-child(2n){animation-delay:.25s}.gems.brim .gem.full:nth-child(3n){animation-delay:.5s}
 @keyframes gembrim{from{box-shadow:0 0 4px var(--mana)}to{box-shadow:0 0 12px #fff,0 0 18px var(--mana);filter:brightness(1.4)}}
-.tb2 .tbb::before,.tb2 .tbb::after{content:"";position:absolute;left:8%;right:8%;height:6px;background:radial-gradient(circle,#ffe48a 0 2px,transparent 2.5px) 0 0/14px 6px repeat-x;opacity:.9}
-.tb2 .tbb::before{top:8px}.tb2 .tbb::after{bottom:8px}
+.tb2 .kr,.show .sband::before,.show .sband::after{content:"";position:absolute;left:0;right:0;height:16px;background:url(art/fx/kranok.webp) 0 50%/auto 100% repeat-x;
+  -webkit-mask:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);animation:krl 1.4s linear infinite;pointer-events:none}
+.tb2 .kr.t{top:4px}.tb2 .kr.b{bottom:4px;animation-direction:reverse}
+@keyframes krl{to{background-position:-128px 50%}}
 .overpose{position:relative;margin:0 auto -6px;pointer-events:none}
 .overpose img{position:absolute;max-width:none;filter:drop-shadow(0 0 3px #fff) drop-shadow(0 8px 16px #0009)}
 .overpose .oprays{position:absolute;left:50%;top:55%;width:150%;aspect-ratio:1;translate:-50% -50%;border-radius:50%;
-  background:repeating-conic-gradient(from 0deg,#ffe48a55 0 8deg,transparent 8deg 20deg);mask:radial-gradient(circle,#000 30%,transparent 70%);animation:oprays 8s linear infinite}
+  background:url(art/fx/rays.webp) center/100% no-repeat,repeating-conic-gradient(from 0deg,#ffe48a44 0 8deg,transparent 8deg 20deg);mask:radial-gradient(circle,#000 30%,transparent 70%);animation:oprays 8s linear infinite}
 @keyframes oprays{to{rotate:360deg}}
 .overpose.win img{animation:posewin 1s cubic-bezier(.2,1.5,.4,1) both,posebob 1.6s 1s ease-in-out infinite alternate}
 @keyframes posewin{from{transform:translateY(40%) scale(.6);opacity:0}to{transform:none;opacity:1}}
@@ -490,6 +500,7 @@ body{background:
 @keyframes streak{to{transform:translate(-140px,66px)}}
 .show .sband{position:absolute;left:0;right:0;bottom:11%;padding:12px 16px;text-align:center;background:linear-gradient(90deg,transparent,#000000dd 18%,#000000dd 82%,transparent);
   border-top:2px solid #f2b632b0;border-bottom:2px solid #f2b632b0;animation:bandin .45s .3s cubic-bezier(.2,1,.3,1) both}
+.show .sband::before{top:-9px;left:10%;right:10%;animation-duration:2.4s}.show .sband::after{bottom:-9px;left:10%;right:10%;animation-duration:2.4s;animation-direction:reverse}
 .show .sband small{display:block;font:700 14px var(--f-d);letter-spacing:.14em;color:var(--gold)}
 .show .sband b{display:block;font:800 clamp(30px,7vw,62px)/1.25 var(--f-d);color:#fff;text-shadow:0 0 20px var(--tc),0 3px 0 #000}
 .show .sband span{display:inline-block;margin-top:4px;padding:2px 20px;border-radius:4px;background:#ffffff1f;border:1px solid #ffffff33;font:800 17px var(--f-d);color:#fff;font-variant-numeric:tabular-nums}
@@ -573,7 +584,7 @@ body{background:
 .show .sbg.mx-glitchbg{animation:kbcut var(--dur) cubic-bezier(.2,.7,.3,1) forwards,mxhue 1.6s steps(4) infinite}
 @keyframes mxhue{to{filter:blur(7px) brightness(.5) saturate(1.6) hue-rotate(40deg)}}
 /* ກະຕ່າຍ: clever stars twinkling */
-.show .mx-twinkle{left:var(--x);top:var(--y);font-size:min(6vmin,44px);color:#fff3b0;text-shadow:0 0 10px #ffd23d,0 0 24px #fff;animation:mxtw .9s var(--d) ease-in-out infinite alternate both}
+.show .mx-twinkle{left:var(--x);top:var(--y);width:min(17vmin,124px);aspect-ratio:1;background:url(art/fx/sparks.webp) var(--bx) var(--by)/300% 300% no-repeat;mix-blend-mode:screen;animation:mxtw .9s var(--d) ease-in-out infinite alternate both}
 @keyframes mxtw{from{transform:scale(.3) rotate(0);opacity:0}to{transform:scale(1) rotate(45deg);opacity:1}}
 /* ນາງແກ້ວ: stage spotlights sweeping */
 .show .mx-spot{top:-10%;width:40%;height:120%;transform-origin:50% 0;background:conic-gradient(from 165deg at 50% 0,transparent 0deg,#ffd6f0aa 12deg,#ffffffcc 15deg,#ffd6f0aa 18deg,transparent 30deg);mix-blend-mode:screen;animation:mxspot 1.4s ease-in-out infinite alternate}
@@ -942,7 +953,7 @@ body{background:
   .half2.me .pcol{margin-right:0}
   .half2{grid-template-columns:auto minmax(0,1fr) auto}
   .fan{--cw:clamp(58px,19vw,112px)}
-  .tb2{height:92px}
+  .tb2{height:100px}
 }
 /* short, wide screens (laptops, side panes, phones held sideways): your hand peeks up from the bottom edge and rises on hover,
    plates and the detail panel slim down, and the height they free goes to the field */
@@ -2533,7 +2544,7 @@ function newGame(di, level, opts){
   }
   if(S.pvp){ if(S.turn === 1){ S.p.reverse(); S.turn = 0; } log(S.p[0].name + ' ໄດ້ໄປກ່ອນ'); const G = S; render(); passScreen().then(() => { if(S === G) startTurn(); }); return; }
   log(S.turn === 0 ? 'ເຈົ້າໄດ້ໄປກ່ອນ' : foe() + 'ໄດ້ໄປກ່ອນ');
-  if(!S.fast) preloadCuts(new Set(S.p.flatMap(pl => pl.deck.concat(pl.hand.map(h => h.id), pl.extra || []))));
+  if(!S.fast){ preloadCuts(new Set(S.p.flatMap(pl => pl.deck.concat(pl.hand.map(h => h.id), pl.extra || [])))); preloadFx(); }
   render();
   startTurn();
 }
@@ -2788,7 +2799,7 @@ function fxWhirl(o, r, ms, colors){
     if(performance.now() - t0 > ms){ clearInterval(iv); return; }
     for(let i = 0; i < 2; i++){ const a = Math.random() * 6.283, rr = r * (.8 + Math.random() * .4);
       emit({x:o.x + Math.cos(a) * rr, y:o.y + Math.sin(a) * rr * .55, vx:-Math.sin(a) * 160 - Math.cos(a) * 40, vy:Math.cos(a) * 90 - Math.sin(a) * 20, g:0, drag:.97, life:.9,
-        size:5 + Math.random() * 4, kind:'petal', color:pick(colors), rot:Math.random() * 6}); }
+        size:5 + Math.random() * 4, kind:'petal', color:pick(colors), rot:Math.random() * 6, mg:true}); }
   }, 40);
   return iv;
 }
@@ -2812,6 +2823,8 @@ async function fxRiteRocket(o){
 }
 // ບາສີ: three white cotton threads wind round the centre while marigolds fall
 async function fxRiteBaci(o, sz){
+  const pk = addFx('phakhuan', o.x, o.y, '<img alt="" src="' + FXA + 'phakhuan.webp">'); pk.style.setProperty('--s', sz * .6 + 'px'); pk.style.setProperty('--d', 1700 * SET.speed + 'ms');
+  setTimeout(() => pk.remove(), 1700 * SET.speed + 50);
   const d = addFx('threads', o.x, o.y, '<svg viewBox="-100 -60 200 120">' + [0, 1, 2].map(k => {
     let path = ''; for(let i = 0; i <= 60; i++){ const t = i / 60, a = t * 6.283 * 1.5 + k * 2.09, r = 92 - t * 70; path += (i ? 'L' : 'M') + (Math.cos(a) * r).toFixed(1) + ' ' + (Math.sin(a) * r * .55).toFixed(1); }
     return '<path d="' + path + '" pathLength="1" style="animation-delay:' + k * 120 + 'ms"/>'; }).join('') + '</svg>');
@@ -2819,6 +2832,20 @@ async function fxRiteBaci(o, sz){
   fxPetals(36); sfx('heal');
   for(let i = 0; i < 18; i++) emit({x:o.x + (Math.random() - .5) * sz * .5, y:o.y + (Math.random() - .5) * sz * .25, vx:(Math.random() - .5) * 40, vy:-40 - Math.random() * 60, g:-30, drag:.98, life:1.2, size:3 + Math.random() * 3, kind:'ember', color:'#fff7d6'});
   await fxWait(750);
+}
+async function fxBaci(p){
+  if(S.fast || REDUCE) return; const h = centerOf('h:' + pi(p)); if(!h) return;
+  const sz = Math.min(innerHeight * .34, 260), o = {x:innerWidth / 2, y:innerHeight * .5};
+  const pk = addFx('phakhuan', o.x, o.y, '<img alt="" src="' + FXA + 'phakhuan.webp">'); pk.style.setProperty('--s', sz + 'px'); pk.style.setProperty('--d', 1300 * SET.speed + 'ms');
+  setTimeout(() => pk.remove(), 1300 * SET.speed + 50); fxMarigolds(7); fxPetals(14);
+  for(let i = 0; i < 14; i++) emit({x:o.x + (Math.random() - .5) * sz * .5, y:o.y - sz * .2 + (Math.random() - .5) * sz * .4, vx:(Math.random() - .5) * 50, vy:-30 - Math.random() * 50, g:-20, drag:.98, life:1.1, size:3 + Math.random() * 3, kind:'ember', color:'#fff7d6'});
+  await sleep(560 * SET.speed);
+  // the blessing strings leave the tray and land on your side
+  const ss = addFx('sasin', o.x, o.y - sz * .25, '<img alt="" src="' + FXA + 'sasin.webp">'); ss.style.setProperty('--s', Math.round(sz * .48) + 'px');
+  const sx = o.x + 'px', sy = o.y - sz * .25 + 'px';
+  const an = ss.animate([{left:sx, top:sy, transform:'scale(.4) rotate(-20deg)', opacity:0}, {left:sx, top:sy, transform:'scale(1.1) rotate(0)', opacity:1, offset:.3}, {left:h.x + 'px', top:h.y + 'px', transform:'scale(.5) rotate(25deg)', opacity:.9}],
+    {duration:620 * SET.speed, easing:'cubic-bezier(.5,0,.3,1)', fill:'forwards'});
+  await animDone(an); ss.remove(); shockAt(h.x, h.y, '#fff3c4', 70);
 }
 async function fxRite(p, id, mats){
   if(S.fast || REDUCE) return;
@@ -2832,7 +2859,7 @@ async function fxRite(p, id, mats){
     // 2) the yantra, candles and a whirl of marigolds
     fxYantra(lane.x, lane.y, sz, T.c, 2600 * Math.max(.6, SET.speed));
     const candles = fxCandles(lane, sz * .46, 8), whirl = fxWhirl(lane, sz * .42, 1500 * SET.speed, ['#ffb02e', '#ffd23d', '#ff7a1a']);
-    burstAt(lane.x, lane.y, 'thewada', 18, .7);
+    burstAt(lane.x, lane.y, 'thewada', 18, .7); fxMarigolds(8);
     await fxWait(450);
     // 3) the ritual's own moment
     if(id === 'phitibangfai') await fxRiteRocket(lane); else await fxRiteBaci(lane, sz);
@@ -2991,7 +3018,7 @@ async function castSpell(p, id, t){
     case 'lomphayu':
       await fxTornado(tkey(t)); bounce(t.owner, t.c); log('ລົມພາຍຸ ພັດ «' + C[t.c.id].name + '» ກັບຄືນມື');
       break;
-    case 'baci': sfx('heal'); particlesAt('h:' + pi(p), '#ffffff', 16); draw(p, 2); log(p.name + ' ສູ່ຂວັນ ຈົ່ວກາດ 2 ໃບ'); break;
+    case 'baci': sfx('heal'); await fxBaci(p); particlesAt('h:' + pi(p), '#ffffff', 16); draw(p, 2); log(p.name + ' ສູ່ຂວັນ ຈົ່ວກາດ 2 ໃບ'); break;
     case 'khaoniao': heal(p, 3); break;
     case 'phukkhaen':
       t.c.mods.push({amt:2, exp:S.T}); sfx('spell'); fxBuff(tkey(t)); await fxRing(tkey(t), '#ffd23d', true); log('«' + C[t.c.id].name + '» ຜູກແຂນ ພະລັງ +2');
@@ -4586,9 +4613,10 @@ async function fxLunge(a, b, tribe, dmg){
 }
 async function fxBanner(txt, bot){
   if(S.fast) return; sfx('turn');
-  const d = addFx('tb2 ' + (bot ? 'red' : 'blue'), null, null, '<div class="tbb"><small>ຕາທີ ' + Math.ceil(S.T / 2) + '</small><b>' + txt + '</b></div>');
-  const dur = 1150 * SET.speed; d.style.setProperty('--d', dur + 'ms');
+  // the yantra turns behind the banner (fire for the opponent, water for you), so the text stays readable
   fxYantra(innerWidth / 2, innerHeight * .46, Math.min(innerWidth, innerHeight) * .42, bot ? '#ffb0a6' : '#bcd0ff', 1150);
+  const d = addFx('tb2 ' + (bot ? 'red' : 'blue'), null, null, '<div class="tbb"><i class="kr t"></i><i class="kr b"></i><small>ຕາທີ ' + Math.ceil(S.T / 2) + '</small><b>' + txt + '</b></div>');
+  const dur = 1150 * SET.speed; d.style.setProperty('--d', dur + 'ms');
   flashScreen(bot ? '#ffd6d0' : '#d6e2ff', .22);
   const y = innerHeight * .46, col = bot ? ['#ff8a7a', '#ffd23d', '#fff'] : ['#8fb4ff', '#ffd23d', '#fff'];
   setTimeout(() => { for(let k = 0; k < 40; k++) emit({x:Math.random() * innerWidth, y:y + (Math.random() - .5) * 120, vx:300 + Math.random() * 500, vy:(Math.random() - .5) * 60, drag:.97, life:.6, size:2.5, kind:'spark', color:pick(col)}); }, 200);
@@ -4626,12 +4654,12 @@ const LEGEND_FX = {
     [200, 700, 1200].forEach(t => mxAt(el, t, () => { sfx('hit'); shockAt(c.x, gy, '#f2b632', fr.gs * .7); })); },
   // ດອກບົວ ແລະ ແສງເມດຕາ
   phutthasen(el){ el.classList.add('mx-lotus'); mxLayer(el, 'mx-lotus-bloom', '<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>');
-    fxRays(innerWidth / 2, innerHeight * .39, '#ffd6ec', 2000, 640); fxPetals(30, ['#ff9ac8', '#ffd6ec', '#ffffff', '#ffb6d9']); },
+    fxRays(innerWidth / 2, innerHeight * .39, '#ffd6ec', 2000, 640); fxPetals(24, ['#ff9ac8', '#ffd6ec', '#ffffff', '#ffb6d9']); mxAt(el, 350, () => fxMarigolds(10)); },
   // ສົມບັດ ເງິນຄຳລອຍ
   kalaket(el){ el.classList.add('mx-gold'); for(let k = 0; k < 14; k++) mxLayer(el, 'mx-coin', '', {'--x':(4 + Math.random() * 92) + '%', '--d':(Math.random() * 900) + 'ms', '--r':(Math.random() * 2 - 1).toFixed(2)});
     mxEvery(el, 70, 24, () => emit({x:Math.random() * innerWidth, y:-10, vx:(Math.random() - .5) * 40, vy:120 + Math.random() * 160, g:200, drag:.99, life:1.6, size:3 + Math.random() * 3, kind:'star', color:pick(['#ffe48a', '#ffd23d', '#ffffff'])})); },
   // ໜ້າກາກ ແລະ ໃບໄມ້ຫຼວງພະບາງ
-  punyeu(el){ el.classList.add('mx-forest'); mxLayer(el, 'mx-mask l', '<span>👺</span>'); mxLayer(el, 'mx-mask r', '<span>👹</span>');
+  punyeu(el){ el.classList.add('mx-forest'); mxLayer(el, 'mx-mask l', '<span>👺</span>'); mxLayer(el, 'mx-mask r', '<span>👹</span>'); fxMarigolds(12); fxPetals(20);
     mxEvery(el, 50, 34, () => emit({x:-10 + Math.random() * 40, y:Math.random() * innerHeight * .7, vx:220 + Math.random() * 200, vy:30 + Math.random() * 60, g:30, drag:.99, life:2, size:6 + Math.random() * 5, kind:'leaf', color:pick(['#3f8f3a', '#7bc24a', '#c9e265', '#e2b54a'])})); },
   // ຖ່ານໄຟ → ຮ່າງແທ້ທອງ
   kamkadam(el){ el.classList.add('mx-ember', 'mx-reveal'); const c = MX_C(), c2 = CUTS.kamkadam2, sc = el.querySelector('.scut');
@@ -4648,7 +4676,7 @@ const LEGEND_FX = {
     mxEvery(el, 45, 36, () => emit({x:Math.random() * innerWidth, y:Math.random() * innerHeight * .8, vx:0, vy:-40, g:0, drag:1, life:.5, size:2 + Math.random() * 2, kind:'spark', color:pick(['#1de9ff', '#ff2fb3', '#ffffff'])})); },
   // ດາວສະຫຼາດ ແລະ ສັດປ່າ
   kratai(el, fr){ el.classList.add('mx-forest'); const c = MX_C();
-    for(let k = 0; k < 9; k++) mxLayer(el, 'mx-twinkle', '✦', {'--x':(8 + Math.random() * 84) + '%', '--y':(6 + Math.random() * 50) + '%', '--d':(Math.random() * 1200) + 'ms'});
+    for(let k = 0; k < 9; k++) mxLayer(el, 'mx-twinkle', '', {'--x':(8 + Math.random() * 84) + '%', '--y':(6 + Math.random() * 50) + '%', '--d':(Math.random() * 1200) + 'ms', '--bx':k % 3 * 50 + '%', '--by':Math.floor(k / 3) * 50 + '%'});
     mxAt(el, 300, () => { for(let k = 0; k < 30; k++){ const a = Math.random() * 6.283; emit({x:c.x, y:c.y - fr.gs * .3, vx:Math.cos(a) * 260, vy:Math.sin(a) * 260, g:60, drag:.94, life:1.2, size:4 + Math.random() * 3, kind:'star', color:pick(['#ffe48a', '#ffffff', '#9fe0ff'])}); } });
     mxEvery(el, 80, 20, () => emit({x:Math.random() * innerWidth, y:innerHeight + 10, vx:(Math.random() - .5) * 80, vy:-140 - Math.random() * 120, g:40, drag:.99, life:1.8, size:6 + Math.random() * 4, kind:'leaf', color:pick(['#3f8f3a', '#7bc24a', '#c9e265'])})); },
   // ໄຟເວທີ ແລະ ແສງສີບົວ
@@ -4685,6 +4713,8 @@ async function fxShowcase(id, alt){
     for(let i = 0; i < (legend ? 6 : 3); i++) emit({x:Math.random() * innerWidth, y:innerHeight + 10, vx:(Math.random() - .5) * 40, vy:-220 - Math.random() * 260, g:-40, drag:.99, life:1.1, size:3 + Math.random() * 5, kind:'dot', color:pick(T.c)});
     if(fr) for(let i = 0; i < 2; i++){ const a = Math.random() * 6.283, r = fr.gs * (.25 + Math.random() * .2);
       emit({x:innerWidth / 2 + Math.cos(a) * r, y:innerHeight * .39 + Math.sin(a) * r * .8, vx:(Math.random() - .5) * 60, vy:-120 - Math.random() * 120, g:-30, drag:.98, life:.8, size:2 + Math.random() * 2.5, kind:'spark', color:pick(T.c)}); }
+    if(fr && legend && Math.random() < .35){ const a = Math.random() * 6.283, r = fr.gs * (.3 + Math.random() * .25);
+      emit({x:innerWidth / 2 + Math.cos(a) * r, y:innerHeight * .39 + Math.sin(a) * r * .8, vx:0, vy:-20, g:0, drag:1, life:.7, size:5 + Math.random() * 5, kind:'star', color:'#fff3b0', rot:Math.random() * 6}); }
   }, 40);
   if(fr) setTimeout(() => { if(el.isConnected){ shockAt(innerWidth / 2, innerHeight * .39, T.c[0], fr.gs * .55); burstAt(innerWidth / 2, innerHeight * .39, d.tribe, legend ? 50 : 28, 1); } }, dur * .12);
   if(alt && ALT[id]) setTimeout(() => rainbowBurst(innerWidth / 2, innerHeight * .45, 90), 300);
@@ -4745,7 +4775,7 @@ const TFX = {
   himma:{c:['#ffd23d','#fff3b0','#ff9a3d'], kind:'leaf', g:250},
   hero:{c:['#ffffff','#ffd23d','#9fe0ff'], kind:'spark', g:350},
   nakpat:{c:['#7be36a','#ffffff','#ffd23d'], kind:'spark', g:350},
-  villager:{c:['#ffb02e','#ffd23d','#ff7a1a'], kind:'petal', g:160},
+  villager:{c:['#ffb02e','#ffd23d','#ff7a1a'], kind:'petal', g:160, mg:true},
   thewada:{c:['#9fe0ff','#ffffff','#ffd23d'], kind:'star', g:-60},
   warrior:{c:['#ff9f43','#ffd23d','#ffffff'], kind:'shard', g:800},
   guardian:{c:['#ff7a6a','#ffe08a','#ffffff'], kind:'spark', g:200},
@@ -4753,8 +4783,18 @@ const TFX = {
   beast:{c:['#c98a4a','#9be38a','#ffffff'], kind:'dot', g:500},
   idol:{c:['#ff7ad9','#ffd23d','#ffffff'], kind:'star', g:-80}
 };
+/* ---------- effect art (phase G8, prompts/fx-art.txt): painted yantras, light, candles, the baci tray and marigolds ---------- */
+const FXA = ART + 'fx/', FXI = {};
+function preloadFx(){
+  if(FXI.on) return; FXI.on = true;
+  const ld = n => { const i = new Image(); i.decoding = 'async'; i.src = FXA + n + '.webp'; return i; };
+  FXI.petals = [1, 2, 3, 4, 5, 6, 7, 8].map(k => ld('petal-' + k)); FXI.flowers = [ld('marigold'), ld('marigold-side')]; FXI.sparks = ld('sparks');
+  for(const n of ['yantra-gold', 'yantra-water', 'yantra-fire', 'rays', 'orb', 'kranok', 'candle', 'phakhuan', 'sasin']) ld(n);
+}
+const fxOk = i => i && i.complete && i.naturalWidth > 0;
 function fxCanvas(){
   if(FX.cv) return;
+  setTimeout(preloadFx, 1500);   // after the menu's own pictures
   const cv = document.createElement('canvas'); cv.id = 'fxc'; cv.setAttribute('aria-hidden', 'true'); document.body.appendChild(cv);
   FX.cv = cv; FX.ctx = cv.getContext('2d');
   const rs = () => { FX.dpr = Math.min(2, window.devicePixelRatio || 1); cv.width = innerWidth * FX.dpr; cv.height = innerHeight * FX.dpr; };
@@ -4764,6 +4804,7 @@ function fxLoop(){ if(FX.run) return; FX.run = true; FX.last = performance.now()
 function emit(o){
   if((S && S.fast) || REDUCE) return; fxCanvas();
   if(FX.lite && (FX.ps.length > 400 || Math.random() < .5)) return;   // a slow device gets half the particles
+  if(o.kind === 'star' && o.tw === undefined) o.tw = /^#ff[def]/i.test(o.color || '');
   if(FX.ps.length < 900) FX.ps.push(Object.assign({t:0, life:.8, g:0, drag:.97, size:4, kind:'dot', color:'#fff', rot:0, vr:0, vx:0, vy:0}, o));
   fxLoop();
 }
@@ -4779,13 +4820,20 @@ function fxTick(now){
     const k = Math.min(1, 1 - p.t / p.life);
     try{
     p.vx *= p.drag; p.vy = p.vy * p.drag + p.g * dt; p.x += p.vx * dt; p.y += p.vy * dt; p.rot += p.vr * dt;
-    c.globalCompositeOperation = p.solid || p.kind === 'smoke' ? 'source-over' : 'lighter';   // smoke and dust are matter, not light
+    c.globalCompositeOperation = p.solid || p.mg || p.kind === 'smoke' || p.kind === 'flower' ? 'source-over' : 'lighter';   // smoke, dust and flowers are matter, not light
     c.globalAlpha = Math.max(0, Math.min(1, k * 1.4)); c.fillStyle = p.color; c.strokeStyle = p.color;
     if(p.kind === 'dot'){ c.beginPath(); c.arc(p.x, p.y, Math.max(.5, p.size * (.4 + k * .6)), 0, 6.283); c.fill(); }
     else if(p.kind === 'spark'){ c.lineWidth = p.size; c.lineCap = 'round'; c.beginPath(); c.moveTo(p.x, p.y); c.lineTo(p.x - p.vx * .045, p.y - p.vy * .045); c.stroke(); }
-    else if(p.kind === 'petal'){   // a marigold petal that flutters as it falls
+    else if(p.kind === 'petal'){   // a marigold petal that flutters as it falls (a painted one when it is loaded)
       c.save(); c.translate(p.x + Math.sin(p.t * 6 + p.rot) * 6, p.y); c.rotate(p.rot); c.scale(1, .45 + .55 * Math.abs(Math.sin(p.t * 5 + p.rot)));
-      c.beginPath(); c.ellipse(0, 0, p.size, p.size * .55, 0, 0, 6.283); c.fill(); c.restore();
+      const im = p.mg && FXI.petals && FXI.petals[Math.floor(p.rot * 10) % 8];
+      if(fxOk(im)){ const w = p.size * 2.6, h = w * im.naturalHeight / im.naturalWidth; c.drawImage(im, -w / 2, -h / 2, w, h); }
+      else { c.beginPath(); c.ellipse(0, 0, p.size, p.size * .55, 0, 0, 6.283); c.fill(); }
+      c.restore();
+    }
+    else if(p.kind === 'flower'){   // a whole marigold tumbling down
+      const im = FXI.flowers && FXI.flowers[p.f || 0];
+      if(fxOk(im)){ const w = p.size, h = w * im.naturalHeight / im.naturalWidth; c.save(); c.translate(p.x + Math.sin(p.t * 3 + p.rot) * 10, p.y); c.rotate(p.rot); c.drawImage(im, -w / 2, -h / 2, w, h); c.restore(); }
     }
     else if(p.kind === 'drop'){   // a water drop pointing the way it flies
       const a = Math.atan2(p.vy, p.vx); c.save(); c.translate(p.x, p.y); c.rotate(a);
@@ -4798,6 +4846,10 @@ function fxTick(now){
     }
     else if(p.kind === 'smoke'){   // a big faint puff that grows
       c.globalAlpha = Math.max(0, k * .35); c.beginPath(); c.arc(p.x, p.y, Math.max(1, p.size * (1.6 - k)), 0, 6.283); c.fill();
+    }
+    else if(p.kind === 'star' && p.tw && fxOk(FXI.sparks)){   // a painted sparkle from the 3×3 sheet
+      const r = Math.max(.5, p.size * (.5 + .5 * Math.abs(Math.sin(p.t * 9 + p.rot)))), cell = Math.floor(p.rot * 10) % 9, cw = FXI.sparks.naturalWidth / 3, w = r * 4.4;
+      c.drawImage(FXI.sparks, cell % 3 * cw, Math.floor(cell / 3) * cw, cw, cw, p.x - w / 2, p.y - w / 2, w, w);
     }
     else if(p.kind === 'star'){   // a four-point twinkle
       const r = Math.max(.5, p.size * (.5 + .5 * Math.abs(Math.sin(p.t * 9 + p.rot))));
@@ -4851,9 +4903,15 @@ function yantraSVG(color){
     '<path d="' + pet.join(' ') + '" pathLength="1"/>' + sq(Math.PI / 4).replace('<polygon', '<polygon pathLength="1"') + sq(0).replace('<polygon', '<polygon pathLength="1"') +
     '<circle cx="100" cy="100" r="34" pathLength="1"/><circle cx="100" cy="100" r="12" pathLength="1"/></g><g class="ydots">' + dots + '</g></svg>';
 }
-function fxYantra(x, y, size, color, ms){
+function yantraArt(color){
+  const h = String(color || '').replace('#', ''); if(h.length < 6) return 'gold';
+  const r = parseInt(h.slice(0, 2), 16), g = parseInt(h.slice(2, 4), 16), b = parseInt(h.slice(4, 6), 16);
+  return b > r ? 'water' : r > g * 1.25 ? 'fire' : 'gold';
+}
+function fxYantra(x, y, size, color, ms, kind){
   if(S && S.fast || REDUCE) return null;
-  const d = addFx('yantra', x, y, yantraSVG(color)); d.style.setProperty('--s', (size || 300) + 'px'); d.style.setProperty('--d', (ms || 1800) * SET.speed + 'ms');
+  const d = addFx('yantra art', x, y, '<img alt="" src="' + FXA + 'yantra-' + (kind || yantraArt(color)) + '.webp">');
+  d.firstChild.onerror = () => { d.classList.remove('art'); d.innerHTML = yantraSVG(color); }; d.style.setProperty('--s', (size || 300) + 'px'); d.style.setProperty('--d', (ms || 1800) * SET.speed + 'ms');
   setTimeout(() => d.remove(), (ms || 1800) * SET.speed + 50); return d;
 }
 // a glowing orb flying from one point to another along a curve, leaving embers behind
@@ -4870,14 +4928,20 @@ async function fxOrb(a, b, color, ms){
 function fxPetals(n, colors){
   if(S && S.fast || REDUCE) return;
   for(let i = 0; i < (n || 40); i++) emit({x:Math.random() * innerWidth, y:-20 - Math.random() * 200, vx:(Math.random() - .5) * 60, vy:60 + Math.random() * 90, g:40, drag:.995, life:2.4 + Math.random() * 1.2,
-    size:6 + Math.random() * 5, kind:'petal', color:pick(colors || ['#ffb02e', '#ffd23d', '#ff7a1a', '#ffe48a']), rot:Math.random() * 6});
+    size:6 + Math.random() * 5, kind:'petal', color:pick(colors || ['#ffb02e', '#ffd23d', '#ff7a1a', '#ffe48a']), rot:Math.random() * 6, mg:!colors});
+}
+// whole marigolds tumbling down from the top (rites, the ບາສີ card, Phutthasen and Pu Nyeu)
+function fxMarigolds(n){
+  if(S && S.fast || REDUCE) return;
+  for(let i = 0; i < (n || 10); i++) emit({x:Math.random() * innerWidth, y:-40 - Math.random() * 260, vx:(Math.random() - .5) * 50, vy:70 + Math.random() * 90, g:60, drag:.995, life:2.6 + Math.random(),
+    size:26 + Math.random() * 22, kind:'flower', f:Math.random() < .35 ? 1 : 0, rot:Math.random() * 6, vr:(Math.random() - .5) * 3, color:'#ffb02e'});
 }
 function burstAt(x, y, tribe, n, power){
   const T = TFX[tribe] || TFX.hero;
   for(let i = 0; i < n; i++){
     const a = Math.random() * 6.283, sp = (160 + Math.random() * 480) * (power || 1);
     emit({x, y, vx:Math.cos(a) * sp, vy:Math.sin(a) * sp - (T.g > 0 ? 140 : 0), g:T.g, drag:.93, life:.45 + Math.random() * .6,
-      size:T.kind === 'spark' ? 2 + Math.random() * 2.5 : T.kind === 'petal' ? 5 + Math.random() * 4 : T.kind === 'drop' ? 3 + Math.random() * 3 : 3 + Math.random() * 6, kind:T.kind, color:pick(T.c), rot:Math.random() * 6, vr:(Math.random() - .5) * 22, solid:T.solid});
+      size:T.kind === 'spark' ? 2 + Math.random() * 2.5 : T.kind === 'petal' ? 5 + Math.random() * 4 : T.kind === 'drop' ? 3 + Math.random() * 3 : 3 + Math.random() * 6, kind:T.kind, color:pick(T.c), rot:Math.random() * 6, vr:(Math.random() - .5) * 22, solid:T.solid, mg:T.mg});
   }
 }
 function rainbowBurst(x, y, n){
@@ -6102,7 +6166,7 @@ $app.addEventListener('contextmenu', e => {
 
 /* ---------- self-test: bot vs bot, no animation ---------- */
 // local dev only: poke at live game state from the console
-if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__dbg = {fx:{show:(id, alt) => fxShowcase(id, alt), motif:(id, x, y) => fxFuseMotif(id, {x:x || innerWidth / 2, y:y || innerHeight / 2}), cutin:(f) => fxFuseCutin(C[f].fusion, f), rite:(i, id) => { const p = S.p[i || 0]; return fxRite(p, id || 'phitibangfai', p.field.slice(0, 3)); }, rays:fxRays, yantra:fxYantra, orb:fxOrb, petals:fxPetals, burst:burstAt, big:fxBig, wait:fxWait, get state(){ return FX; }},get S(){ return S; }, get net(){ return NET; }, render: () => render(), C, win: i => gameOver(S.p[i], 'life'),
+if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__dbg = {fx:{show:(id, alt) => fxShowcase(id, alt), motif:(id, x, y) => fxFuseMotif(id, {x:x || innerWidth / 2, y:y || innerHeight / 2}), cutin:(f) => fxFuseCutin(C[f].fusion, f), rite:(i, id) => { const p = S.p[i || 0]; return fxRite(p, id || 'phitibangfai', p.field.slice(0, 3)); }, rays:fxRays, yantra:fxYantra, orb:fxOrb, petals:fxPetals, marigolds:fxMarigolds, baci:(i) => fxBaci(S.p[i || 0]), burst:burstAt, big:fxBig, wait:fxWait, get state(){ return FX; }},get S(){ return S; }, get net(){ return NET; }, render: () => render(), C, win: i => gameOver(S.p[i], 'life'),
   // play one move for the local side the way a person would (sends it online), answering any open question with a default
   step: async () => { const m = S.modal; if(m && m.resolve){ S.modal = null; m.resolve(m.type === 'mull' ? [] : m.type === 'rite' ? m.opts[0] : m.type === 'discard' ? S.p[0].hand[0] : false); return 'answered ' + m.type; }
     if(S.over || S.turn !== 0 || S.busy) return 'wait'; const p = S.p[0], q = S.p[1];
