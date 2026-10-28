@@ -38,6 +38,19 @@ body{margin:0;overflow:hidden;color:var(--ink);font-family:var(--f-b);
 button{font:inherit;color:inherit}
 #app{height:100%}
 #fx{position:fixed;inset:0;pointer-events:none;z-index:60;overflow:hidden}
+#fx .rays{position:absolute;width:var(--s);height:var(--s);transform:translate(-50%,-50%);border-radius:50%;
+  background:repeating-conic-gradient(from 0deg,transparent 0 9deg,color-mix(in srgb,var(--c) 55%,transparent) 11deg 14deg,transparent 16deg 22.5deg);
+  -webkit-mask:radial-gradient(circle,#000 18%,transparent 70%);mask:radial-gradient(circle,#000 18%,transparent 70%);animation:rays var(--d) ease-out forwards;mix-blend-mode:screen}
+@keyframes rays{0%{opacity:0;transform:translate(-50%,-50%) rotate(0) scale(.4)}20%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) rotate(70deg) scale(1.15)}}
+#fx .yantra{position:absolute;width:var(--s);height:var(--s);transform:translate(-50%,-50%);animation:ytr var(--d) ease-out forwards}
+#fx .yantra svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 0 6px var(--c)) drop-shadow(0 0 16px var(--c))}
+#fx .yantra .yd *{fill:none;stroke:var(--c);stroke-width:2.2;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:ydraw calc(var(--d) * .45) ease-out forwards}
+#fx .yantra .ydots circle{fill:var(--c);opacity:0;animation:ydots calc(var(--d) * .3) calc(var(--d) * .35) ease-out forwards}
+@keyframes ydraw{to{stroke-dashoffset:0}}@keyframes ydots{to{opacity:1}}
+@keyframes ytr{0%{opacity:0;transform:translate(-50%,-50%) rotate(-30deg) scale(.6)}15%{opacity:1}80%{opacity:1;transform:translate(-50%,-50%) rotate(25deg) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) rotate(35deg) scale(1.15)}}
+#fx .orb{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:radial-gradient(circle,#fff 0 25%,var(--c) 45%,transparent 72%);box-shadow:0 0 18px 6px var(--c)}
+#fx .skiphint{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);font:700 12px var(--f-d);color:#fff;background:#0008;border-radius:999px;padding:4px 12px;opacity:0;animation:skiph .4s .6s forwards;z-index:3}
+@keyframes skiph{to{opacity:.85}}
 
 /* ---------- full card face (same design as the card set) ---------- */
 .card{position:relative;width:100%;aspect-ratio:63/88;border-radius:4.4%/3.2%;container-type:inline-size;background:var(--edge);box-shadow:0 6px 16px #0009}
@@ -1573,7 +1586,13 @@ body{background:
 <script>
 (function(){
 'use strict';
-const REDUCE = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const SYS_REDUCE = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+let REDUCE = SYS_REDUCE;
+// ເອັບເຟັກ: 'full', 'short' (quicker, skips the long cut-ins) or 'off' (like the system's reduce-motion)
+function fxApply(){
+  if(!SET.fx) SET.fx = SET.speed < 1 ? 'short' : 'full';
+  REDUCE = SYS_REDUCE || SET.fx === 'off'; SET.speed = SET.fx === 'short' ? .55 : 1;
+}
 const ART = 'art/';
 // in-game card pictures: 560px WebP copies made by tools/webp.sh (about 1/4 the size); the full JPEGs stay as the masters
 const PIC = f => ART + 'w/' + f + '.webp';
@@ -1590,6 +1609,7 @@ const SET = {sfx:true, music:true, speed:1, theme:'sinh', fest:true};
 const THEMES = [['mekong','ແມ່ນ້ຳຂອງ'],['sinh','ຜ້າຊິ່ນ'],['himma','ປ່າຫິມະພານ']];
 const themePicker = () => '<div class="themes">' + THEMES.map(([k, n]) => '<button class="thb ' + (SET.theme === k ? 'on' : '') + '" data-a="theme" data-v="' + k + '"><i></i>' + n + '</button>').join('') + '</div>';
 try{ Object.assign(SET, JSON.parse(localStorage.getItem('lao-legend-settings') || '{}')); }catch(e){}
+fxApply();
 const sleep = ms => S && S.fast ? Promise.resolve() : new Promise(r => setTimeout(r, REDUCE ? Math.min(ms, 120) : ms * SET.speed));
 const pick = a => a[Math.floor(Math.random() * a.length)];
 const maxBy = (a, f) => a.reduce((b, x) => f(x) > f(b) ? x : b, a[0]);
@@ -2223,7 +2243,7 @@ function musicStart(){
 function musicStop(){ clearInterval(SND.timer); SND.timer = null; }
 function saveSet(){ try{ localStorage.setItem('lao-legend-settings', JSON.stringify(SET)); }catch(e){} }
 function toggleSetting(k){
-  if(k === 'speed') SET.speed = SET.speed === 1 ? .55 : 1; else SET[k] = !SET[k];
+  if(k === 'fx'){ SET.fx = {full:'short', short:'off', off:'full'}[SET.fx] || 'full'; fxApply(); } else SET[k] = !SET[k];
   saveSet(); audioInit(); if(SET.music) musicStart(); else musicStop();
 }
 function settingsHTML(){
@@ -2231,7 +2251,7 @@ function settingsHTML(){
   const row = (k, label, on, txt) => '<button class="setrow" data-a="set" data-v="' + k + '"><span>' + label + '</span><b class="' + (on ? 'on' : '') + '">' + txt + '</b></button>';
   return '<div class="modal-bg"><div class="modal"><p class="q">ຕັ້ງຄ່າ</p><p class="themelbl">ໜ້າຕາສະໜາມ</p>' + themePicker() + '<div class="setlist">' +
     row('sfx', 'ສຽງເອັບເຟັກ', SET.sfx, SET.sfx ? 'ເປີດ' : 'ປິດ') + row('music', 'ດົນຕີ', SET.music, SET.music ? 'ເປີດ' : 'ປິດ') +
-    row('speed', 'ຄວາມໄວເອັບເຟັກ', SET.speed < 1, SET.speed < 1 ? 'ໄວ' : 'ປົກກະຕິ') + row('fest', 'ງານບຸນ ຮີດສິບສອງ (ເກມໃໝ່)', SET.fest, SET.fest ? 'ເປີດ' : 'ປິດ') +
+    row('fx', 'ເອັບເຟັກ', SET.fx !== 'off', {full:'ເຕັມ', short:'ສັ້ນ', off:'ປິດ'}[SET.fx] || 'ເຕັມ') + row('fest', 'ງານບຸນ ຮີດສິບສອງ (ເກມໃໝ່)', SET.fest, SET.fest ? 'ເປີດ' : 'ປິດ') +
     '</div>' + (S ? '' : '<div class="mbtns"><button class="btn2" data-a="parent">👪 ສຳລັບພໍ່ແມ່</button>' + (ACCT.admin ? '<button class="btn2" data-a="admin">🛠 ຜູ້ດູແລ</button>' : '') + '</div>') + '<div class="mbtns"><button class="btn2" data-a="setclose">ປິດ</button></div></div></div>';
 }
 document.addEventListener('pointerdown', () => { audioInit(); musicStart(); }, {once:true});
@@ -4209,7 +4229,7 @@ async function fxFuseGather(p, mats, f){
 }
 // ຮ່ວມຮ່າງ, part 2: the parts' cards fly in from all sides, collide, and the fused card bursts out with its name
 async function fxFuseCutin(ids, f){
-  if(S.fast || REDUCE) return;
+  if(S.fast || REDUCE || SET.fx === 'short') return;
   const d = C[f], T = TFX[d.tribe] || TFX.hero, n = ids.length, dur = 2100 * SET.speed, far = Math.max(innerWidth, innerHeight) * .62;
   const mats = ids.map((id, i) => { const a = Math.PI + i * 6.283 / n + (n === 2 ? 0 : -Math.PI / 2 + Math.PI);
     return '<div class="fzm" style="--sx:' + Math.round(Math.cos(a) * far) + 'px;--sy:' + Math.round(Math.sin(a) * far * .6) + 'px;--rz:' + (i % 2 ? 18 : -18) + 'deg">' + cardHTML(id) + '</div>'; }).join('');
@@ -4218,7 +4238,7 @@ async function fxFuseCutin(ids, f){
   el.style.setProperty('--dur', dur + 'ms'); el.style.setProperty('--tc', T.c[0]);
   setTimeout(() => { if(!el.isConnected) return; const x = innerWidth / 2, y = innerHeight * .46;
     sfx('legend'); flashScreen('#ffffff', .9); shockAt(x, y, T.c[0], 260); shockAt(x, y, '#ffffff', 160); burstAt(x, y, d.tribe, 70, 1.4); rainbowBurst(x, y, 70); }, dur * .6);
-  await sleep(2100);
+  await fxBig(() => fxWait(2100));
   el.remove();
 }
 // ຮ່ວມຮ່າງ, part 3: the fused card grows out of the point where the parts met, into its place in the row
@@ -4327,7 +4347,7 @@ async function fxShowcase(id, alt){
   }, 40);
   if(fr) setTimeout(() => { if(el.isConnected){ shockAt(innerWidth / 2, innerHeight * .39, T.c[0], fr.gs * .55); burstAt(innerWidth / 2, innerHeight * .39, d.tribe, legend ? 50 : 28, 1); } }, dur * .12);
   if(alt && ALT[id]) setTimeout(() => rainbowBurst(innerWidth / 2, innerHeight * .45, 90), 300);
-  await sleep(legend ? 2300 : 1500);
+  await fxBig(() => fxWait(legend ? 2300 : 1500));
   clearInterval(iv); el.remove();
 }
 // a spell, item or location is shown big with a golden glow, then flies into its slot
@@ -4360,21 +4380,36 @@ async function fxWave(){ if(S.fast) return; sfx('wind'); const d = addFx('wave')
 
 
 /* ---------- particle canvas: sparks, debris, shockwaves, screen flash ---------- */
-const FX = {cv:null, ctx:null, ps:[], run:false, dpr:1, flash:0, flashColor:'#fff', last:0};
+const FX = {cv:null, ctx:null, ps:[], run:false, dpr:1, flash:0, flashColor:'#fff', last:0, big:0, waits:[], ema:.016, slow:0, lite:false};
+// a wait inside a big effect (showcase, fusion, festival, tale): a tap ends it early; the game itself goes on the same
+function fxWait(ms){
+  if(S && S.fast) return Promise.resolve();
+  return new Promise(r => { let done = false; const fin = () => { if(done) return; done = true; clearTimeout(t); FX.waits = FX.waits.filter(f => f !== fin); r(); };
+    const t = setTimeout(fin, REDUCE ? Math.min(ms, 120) : ms * SET.speed); FX.waits.push(fin); });
+}
+async function fxBig(fn){
+  FX.big++; const hint = addFx('skiphint'); hint.textContent = 'ແຕະເພື່ອຂ້າມ';
+  try{ return await fn(); } finally{ FX.big--; hint.remove(); }
+}
+// while a big effect runs, a tap skips it and does not reach the board underneath
+for(const ev of ['pointerdown', 'click']) document.addEventListener(ev, e => {
+  if(!FX.big) return; e.stopPropagation(); e.preventDefault();
+  if(ev === 'pointerdown') [...FX.waits].forEach(f => f());
+}, true);
 const TFX = {
-  naga:{c:['#3aa0ff','#bfe9ff','#ffffff'], kind:'dot', g:700},
+  naga:{c:['#3aa0ff','#bfe9ff','#ffffff'], kind:'drop', g:700},
   giant:{c:['#ff5a3c','#ffb347','#7a4a2c'], kind:'shard', g:1000, solid:true},
-  ghost:{c:['#b06bff','#e6d2ff','#8dff9e'], kind:'dot', g:-90},
+  ghost:{c:['#b06bff','#e6d2ff','#8dff9e'], kind:'ember', g:-90},
   himma:{c:['#ffd23d','#fff3b0','#ff9a3d'], kind:'leaf', g:250},
   hero:{c:['#ffffff','#ffd23d','#9fe0ff'], kind:'spark', g:350},
   nakpat:{c:['#7be36a','#ffffff','#ffd23d'], kind:'spark', g:350},
-  villager:{c:['#e8c48a','#ffffff','#c08a4a'], kind:'dot', g:500},
-  thewada:{c:['#9fe0ff','#ffffff','#ffd23d'], kind:'spark', g:-60},
+  villager:{c:['#ffb02e','#ffd23d','#ff7a1a'], kind:'petal', g:160},
+  thewada:{c:['#9fe0ff','#ffffff','#ffd23d'], kind:'star', g:-60},
   warrior:{c:['#ff9f43','#ffd23d','#ffffff'], kind:'shard', g:800},
   guardian:{c:['#ff7a6a','#ffe08a','#ffffff'], kind:'spark', g:200},
   cyborg:{c:['#1de9ff','#ff2fb3','#b388ff'], kind:'spark', g:-40},
   beast:{c:['#c98a4a','#9be38a','#ffffff'], kind:'dot', g:500},
-  idol:{c:['#ff7ad9','#ffd23d','#ffffff'], kind:'spark', g:-80}
+  idol:{c:['#ff7ad9','#ffd23d','#ffffff'], kind:'star', g:-80}
 };
 function fxCanvas(){
   if(FX.cv) return;
@@ -4386,12 +4421,15 @@ function fxCanvas(){
 function fxLoop(){ if(FX.run) return; FX.run = true; FX.last = performance.now(); requestAnimationFrame(fxTick); }
 function emit(o){
   if((S && S.fast) || REDUCE) return; fxCanvas();
+  if(FX.lite && (FX.ps.length > 400 || Math.random() < .5)) return;   // a slow device gets half the particles
   if(FX.ps.length < 900) FX.ps.push(Object.assign({t:0, life:.8, g:0, drag:.97, size:4, kind:'dot', color:'#fff', rot:0, vr:0, vx:0, vy:0}, o));
   fxLoop();
 }
 function fxTick(now){
   // Safari's frame time can be a little earlier than the performance.now() taken when the loop started: never step backwards
   const dt = Math.max(0, Math.min(.05, (now - FX.last) / 1000)); FX.last = now;
+  // frames slower than ~30 fps for two seconds while particles fly: switch to the light mode for this visit
+  if(FX.ps.length > 60){ FX.ema = FX.ema * .95 + dt * .05; FX.slow = FX.ema > .034 ? FX.slow + dt : 0; if(FX.slow > 2 && !FX.lite){ FX.lite = true; window.__errs && window.__errs.push('fx: light mode'); } }
   const c = FX.ctx, d = FX.dpr; c.setTransform(d, 0, 0, d, 0, 0); c.clearRect(0, 0, innerWidth, innerHeight);
   if(FX.flash > 0){ c.globalAlpha = Math.min(1, FX.flash); c.fillStyle = FX.flashColor; c.fillRect(0, 0, innerWidth, innerHeight); FX.flash -= dt * 3.5; }
   for(let i = FX.ps.length - 1; i >= 0; i--){
@@ -4403,6 +4441,26 @@ function fxTick(now){
     c.globalAlpha = Math.max(0, Math.min(1, k * 1.4)); c.fillStyle = p.color; c.strokeStyle = p.color;
     if(p.kind === 'dot'){ c.beginPath(); c.arc(p.x, p.y, Math.max(.5, p.size * (.4 + k * .6)), 0, 6.283); c.fill(); }
     else if(p.kind === 'spark'){ c.lineWidth = p.size; c.lineCap = 'round'; c.beginPath(); c.moveTo(p.x, p.y); c.lineTo(p.x - p.vx * .045, p.y - p.vy * .045); c.stroke(); }
+    else if(p.kind === 'petal'){   // a marigold petal that flutters as it falls
+      c.save(); c.translate(p.x + Math.sin(p.t * 6 + p.rot) * 6, p.y); c.rotate(p.rot); c.scale(1, .45 + .55 * Math.abs(Math.sin(p.t * 5 + p.rot)));
+      c.beginPath(); c.ellipse(0, 0, p.size, p.size * .55, 0, 0, 6.283); c.fill(); c.restore();
+    }
+    else if(p.kind === 'drop'){   // a water drop pointing the way it flies
+      const a = Math.atan2(p.vy, p.vx); c.save(); c.translate(p.x, p.y); c.rotate(a);
+      c.beginPath(); c.moveTo(p.size * 1.6, 0); c.quadraticCurveTo(0, p.size, -p.size, 0); c.quadraticCurveTo(0, -p.size, p.size * 1.6, 0); c.fill(); c.restore();
+    }
+    else if(p.kind === 'ember'){   // a soft glowing dot
+      const r = Math.max(.5, p.size * (.6 + k * .6)), g = c.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * 2.6);
+      g.addColorStop(0, '#ffffff'); g.addColorStop(.25, p.color); g.addColorStop(1, 'rgba(0,0,0,0)');
+      c.fillStyle = g; c.beginPath(); c.arc(p.x, p.y, r * 2.6, 0, 6.283); c.fill();
+    }
+    else if(p.kind === 'smoke'){   // a big faint puff that grows
+      c.globalAlpha = Math.max(0, k * .35); c.beginPath(); c.arc(p.x, p.y, Math.max(1, p.size * (1.6 - k)), 0, 6.283); c.fill();
+    }
+    else if(p.kind === 'star'){   // a four-point twinkle
+      const r = Math.max(.5, p.size * (.5 + .5 * Math.abs(Math.sin(p.t * 9 + p.rot))));
+      c.beginPath(); for(let j = 0; j < 8; j++){ const rr = j % 2 ? r * .28 : r * 1.6, a = j * Math.PI / 4 + p.rot; c.lineTo(p.x + Math.cos(a) * rr, p.y + Math.sin(a) * rr); } c.closePath(); c.fill();
+    }
     else if(p.kind === 'ring'){ const r = Math.max(0, p.r0 + (p.r1 - p.r0) * (1 - k * k)); c.lineWidth = p.size * k + 1; c.beginPath(); c.arc(p.x, p.y, r, 0, 6.283); c.stroke(); }
     else if(p.kind === 'shard' || p.kind === 'leaf'){
       c.save(); c.translate(p.x, p.y); c.rotate(p.rot);
@@ -4432,12 +4490,52 @@ function fxTick(now){
   c.globalCompositeOperation = 'source-over'; c.globalAlpha = 1;
   if(FX.ps.length || FX.flash > 0) requestAnimationFrame(fxTick); else { FX.run = false; c.clearRect(0, 0, innerWidth, innerHeight); }
 }
+/* ---------- effect toolkit (phase G1): building blocks for the summon, fusion, legend and spell effects ---------- */
+// light rays turning behind a point
+function fxRays(x, y, color, ms, size){
+  if(S && S.fast || REDUCE) return null;
+  const d = addFx('rays', x, y); d.style.setProperty('--c', color || '#ffe48a'); d.style.setProperty('--s', (size || 520) + 'px');
+  d.style.setProperty('--d', (ms || 1400) * SET.speed + 'ms'); setTimeout(() => d.remove(), (ms || 1400) * SET.speed + 50); return d;
+}
+// a Lao yantra circle (ຍັນ) that draws itself: rings, a lotus of 16 petals, two crossed squares, dots for the letters
+function yantraSVG(color){
+  const R = 100, pet = [];
+  for(let i = 0; i < 16; i++){ const a = i * Math.PI / 8, a1 = a - .17, a2 = a + .17, r0 = 66, r1 = 86;
+    pet.push('M' + (R + Math.cos(a1) * r0).toFixed(1) + ' ' + (R + Math.sin(a1) * r0).toFixed(1) + ' Q' + (R + Math.cos(a) * (r1 + 10)).toFixed(1) + ' ' + (R + Math.sin(a) * (r1 + 10)).toFixed(1) + ' ' + (R + Math.cos(a2) * r0).toFixed(1) + ' ' + (R + Math.sin(a2) * r0).toFixed(1)); }
+  const sq = rot => { const pts = [0, 1, 2, 3].map(j => { const a = rot + j * Math.PI / 2; return (R + Math.cos(a) * 60).toFixed(1) + ',' + (R + Math.sin(a) * 60).toFixed(1); }); return '<polygon points="' + pts.join(' ') + '"/>'; };
+  const dots = Array.from({length:24}, (_, i) => { const a = i * Math.PI / 12; return '<circle cx="' + (R + Math.cos(a) * 93).toFixed(1) + '" cy="' + (R + Math.sin(a) * 93).toFixed(1) + '" r="1.8"/>'; }).join('');
+  return '<svg viewBox="0 0 200 200" style="--c:' + (color || '#ffe48a') + '"><g class="yd" pathLength="1">' +
+    '<circle cx="100" cy="100" r="97" pathLength="1"/><circle cx="100" cy="100" r="89" pathLength="1"/>' +
+    '<path d="' + pet.join(' ') + '" pathLength="1"/>' + sq(Math.PI / 4).replace('<polygon', '<polygon pathLength="1"') + sq(0).replace('<polygon', '<polygon pathLength="1"') +
+    '<circle cx="100" cy="100" r="34" pathLength="1"/><circle cx="100" cy="100" r="12" pathLength="1"/></g><g class="ydots">' + dots + '</g></svg>';
+}
+function fxYantra(x, y, size, color, ms){
+  if(S && S.fast || REDUCE) return null;
+  const d = addFx('yantra', x, y, yantraSVG(color)); d.style.setProperty('--s', (size || 300) + 'px'); d.style.setProperty('--d', (ms || 1800) * SET.speed + 'ms');
+  setTimeout(() => d.remove(), (ms || 1800) * SET.speed + 50); return d;
+}
+// a glowing orb flying from one point to another along a curve, leaving embers behind
+async function fxOrb(a, b, color, ms){
+  if(S && S.fast || REDUCE || !a || !b) return;
+  const dur = (ms || 600) * SET.speed, cx = (a.x + b.x) / 2 + (b.y - a.y) * .25, cy = (a.y + b.y) / 2 - Math.abs(b.x - a.x) * .25 - 40;
+  const o = addFx('orb', a.x, a.y); o.style.setProperty('--c', color || '#ffe48a');
+  const kf = []; for(let i = 0; i <= 12; i++){ const t = i / 12, v = 1 - t; kf.push({left:(v * v * a.x + 2 * v * t * cx + t * t * b.x) + 'px', top:(v * v * a.y + 2 * v * t * cy + t * t * b.y) + 'px'}); }
+  const an = o.animate(kf, {duration:dur, easing:'cubic-bezier(.45,0,.55,1)', fill:'forwards'});
+  const tr = setInterval(() => { const r = o.getBoundingClientRect(); emit({x:r.left + r.width / 2, y:r.top + r.height / 2, vx:(Math.random() - .5) * 60, vy:(Math.random() - .5) * 60, g:-20, drag:.95, life:.45, size:3 + Math.random() * 2, kind:'ember', color:color || '#ffe48a'}); }, 30);
+  await animDone(an); clearInterval(tr); o.remove();
+}
+// marigold petals drifting down over the whole screen (ພິທີ, ບຸນ)
+function fxPetals(n, colors){
+  if(S && S.fast || REDUCE) return;
+  for(let i = 0; i < (n || 40); i++) emit({x:Math.random() * innerWidth, y:-20 - Math.random() * 200, vx:(Math.random() - .5) * 60, vy:60 + Math.random() * 90, g:40, drag:.995, life:2.4 + Math.random() * 1.2,
+    size:6 + Math.random() * 5, kind:'petal', color:pick(colors || ['#ffb02e', '#ffd23d', '#ff7a1a', '#ffe48a']), rot:Math.random() * 6});
+}
 function burstAt(x, y, tribe, n, power){
   const T = TFX[tribe] || TFX.hero;
   for(let i = 0; i < n; i++){
     const a = Math.random() * 6.283, sp = (160 + Math.random() * 480) * (power || 1);
     emit({x, y, vx:Math.cos(a) * sp, vy:Math.sin(a) * sp - (T.g > 0 ? 140 : 0), g:T.g, drag:.93, life:.45 + Math.random() * .6,
-      size:T.kind === 'spark' ? 2 + Math.random() * 2.5 : 3 + Math.random() * 6, kind:T.kind, color:pick(T.c), rot:Math.random() * 6, vr:(Math.random() - .5) * 22, solid:T.solid});
+      size:T.kind === 'spark' ? 2 + Math.random() * 2.5 : T.kind === 'petal' ? 5 + Math.random() * 4 : T.kind === 'drop' ? 3 + Math.random() * 3 : 3 + Math.random() * 6, kind:T.kind, color:pick(T.c), rot:Math.random() * 6, vr:(Math.random() - .5) * 22, solid:T.solid});
   }
 }
 function rainbowBurst(x, y, n){
@@ -4561,12 +4659,12 @@ function fxDraw(i){
 async function fxFest(f){
   if(S.fast || !f) return; sfx('spell');
   const d = addFx('festfx', null, null, '<div class="fbox"><div class="fbig">' + f.ic + '</div><small>ງານບຸນມາແລ້ວ!</small><h3>' + f.name + '</h3><p>' + f.rule + '</p><em>ໃຊ້ກັບທັງສອງຝ່າຍ · ' + FEST_ROUNDS + ' ຕາ</em></div>');
-  d.style.setProperty('--d', 2000 * SET.speed + 'ms'); await sleep(2000); d.remove();
+  d.style.setProperty('--d', 2000 * SET.speed + 'ms'); await fxBig(() => fxWait(2000)); d.remove();
 }
 async function fxTale(ti){
   if(S.fast) return; sfx('heal');
   const T = TALES[ti], d = addFx('talefx', null, null, '<div class="tbook"><small>📖 ຕອນນິທານ</small><h3>' + T.name + '</h3><div class="tarts">' + T.ids.map(id => '<img src="' + PIC(C[id].img) + '" alt="">').join('') + '</div><p>' + T.story + '</p><b>🎁 ' + TALE_GIFT + '</b></div>');
-  d.style.setProperty('--d', 2800 * SET.speed + 'ms'); await sleep(2800); d.remove();
+  d.style.setProperty('--d', 2800 * SET.speed + 'ms'); await fxBig(() => fxWait(2800)); d.remove();
 }
 const petOn = () => !!(S && !S.auto && !S.pvp && col().pet);
 const petStage = g => g >= PET_STEPS[2] ? 2 : (g >= PET_STEPS[1] ? 1 : 0);
@@ -5613,7 +5711,7 @@ $app.addEventListener('contextmenu', e => {
 
 /* ---------- self-test: bot vs bot, no animation ---------- */
 // local dev only: poke at live game state from the console
-if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__dbg = {get S(){ return S; }, get net(){ return NET; }, render: () => render(), C, win: i => gameOver(S.p[i], 'life'),
+if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__dbg = {fx:{rays:fxRays, yantra:fxYantra, orb:fxOrb, petals:fxPetals, burst:burstAt, big:fxBig, wait:fxWait, get state(){ return FX; }},get S(){ return S; }, get net(){ return NET; }, render: () => render(), C, win: i => gameOver(S.p[i], 'life'),
   // play one move for the local side the way a person would (sends it online), answering any open question with a default
   step: async () => { const m = S.modal; if(m && m.resolve){ S.modal = null; m.resolve(m.type === 'mull' ? [] : m.type === 'rite' ? m.opts[0] : m.type === 'discard' ? S.p[0].hand[0] : false); return 'answered ' + m.type; }
     if(S.over || S.turn !== 0 || S.busy) return 'wait'; const p = S.p[0], q = S.p[1];
