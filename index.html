@@ -1436,6 +1436,7 @@ body{background:
 .profhead{display:flex;align-items:center;gap:14px;text-align:left}.profhead b{display:block;font:800 22px var(--f-d)}.profhead small{color:var(--dim);font:700 13px var(--f-d)}
 .hav.big{width:72px;height:72px}
 .pname.mail{font-size:18px}.pname.code{letter-spacing:10px;font-size:28px}
+.rcode{font-size:clamp(26px,8vw,40px);letter-spacing:4px;user-select:all}.pname.rc{letter-spacing:3px;font-size:22px;text-transform:uppercase}
 .linkbtn{background:none;border:0;color:#9fd0ff;font:700 13px var(--f-d);text-decoration:underline;cursor:pointer;padding:4px}
 .hprof{cursor:pointer}
 .hav.fr-gold{box-shadow:0 0 0 3px #ffd23d,0 0 14px #ffd23d}
@@ -4545,6 +4546,7 @@ async function acctLoad(){
   const {data} = await SB.from('profiles').select('*').eq('id', ACCT.user.id).maybeSingle();
   ACCT.prof = data || null;
   if(ACCT.prof) await cloudPull();
+  else try{ localStorage.removeItem(RCODE_KEY); }catch(e){}   // the account moved to another device with its code
 }
 // on start: only players who already made an account load the Supabase library
 const hasSession = () => { try{ return Object.keys(localStorage).some(k => /^sb-.*-auth-token$/.test(k)); }catch(e){ return false; } };
@@ -4581,6 +4583,43 @@ async function acctSave(name, avatar){
 // ຜູກອີເມວ: a guest account gets an email (confirmed with a code sent there), so it can be opened on another device
 // and is never lost with the browser's data. ເຂົ້າດ້ວຍອີເມວ: another device signs in with that email and a code.
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+// the email buttons stay hidden until Supabase has custom SMTP and {{ .Token }} in its Magic Link and Change Email templates
+const MAIL_ON = false;
+// ລະຫັດກູ້ບັນຊີ (supabase/f1b.sql): a code the player writes down; entering it on another device moves the account there
+const RCODE_KEY = 'lao-legend-rcode';
+async function recoveryStep(kind){
+  const m = ui.mmodal, code = ((document.getElementById('rcode') || {}).value || '').toUpperCase().replace(/[^A-Z0-9]/g, '');   // read before the re-render clears the box
+  m.busy = true; m.err = ''; render();
+  try{
+    await sbLoad();
+    if(kind === 'make'){
+      const {data, error} = await SB.rpc('make_recovery_code'); if(error) throw error;
+      saveJ(RCODE_KEY, data); m.code = data; m.step = 'rshow';
+    } else {
+      if(code.length !== 12){ m.err = 'ລະຫັດມີ 12 ຕົວ ເຊັ່ນ K7QM-2XPA-9DRT'; return; }
+      if(!ACCT.user){ const {data, error} = await SB.auth.signInAnonymously(); if(error) throw error; ACCT.user = data.user; }
+      const {error} = await SB.rpc('claim_recovery_code', {code}); if(error) throw error;
+      saveJ(RCODE_KEY, code.replace(/(.{4})(?=.)/g, '$1-'));
+      // this device now holds that account: its cloud copy replaces what is here
+      ACCT.quiet = true; saveJ('lao-legend-sync', {at:0}); ACCT.quiet = false;
+      await acctLoad();
+      toast(ACCT.prof ? 'ສະບາຍດີ ' + ACCT.prof.name + '! ຍ້າຍບັນຊີມາເຄື່ອງນີ້ແລ້ວ ☁️' : 'ຍ້າຍບັນຊີແລ້ວ');
+      m.step = null; m.edit = false;
+    }
+  }catch(e){
+    m.err = e && e.code === 'P0002' ? 'ລະຫັດບໍ່ຖືກ ກວດອີກເທື່ອ' : 'ບໍ່ສຳເລັດ ລອງໃໝ່';
+    window.__errs.push('rcode: ' + (e && (e.code || e.message) || e));
+  }
+  finally{ m.busy = false; render(); }
+}
+function recoveryHTML(m){
+  if(m.step === 'rshow') return '<p class="q">🔑 ລະຫັດກູ້ບັນຊີ</p><div class="roomcode rcode">' + escH(m.code || loadJ(RCODE_KEY, '')) + '</div>' +
+    '<p class="lore">ຂຽນໃສ່ເຈ້ຍ ຫຼື ຖ່າຍຮູບເກັບໄວ້. ຢ່າບອກຄົນອື່ນ.<br>ຢູ່ເຄື່ອງອື່ນ ກົດ "ມີບັນຊີແລ້ວ? ໃສ່ລະຫັດກູ້ບັນຊີ" ແລ້ວໃສ່ລະຫັດນີ້ ບັນຊີຈະຍ້າຍໄປເຄື່ອງນັ້ນ</p>' + (m.err ? '<p class="why">' + m.err + '</p>' : '') +
+    '<div class="mbtns"><button class="btn2" data-a="rnew"' + (m.busy ? ' disabled' : '') + '>🔄 ສ້າງລະຫັດໃໝ່</button><button class="btn-main sm" data-a="mback">✓ ຈົດແລ້ວ</button></div>';
+  return '<p class="q">🔑 ເຂົ້າບັນຊີທີ່ມີແລ້ວ</p><p class="lore">ໃສ່ລະຫັດກູ້ບັນຊີ 12 ຕົວ. ບັນຊີຈະຍ້າຍມາເຄື່ອງນີ້ ແລະ ຂໍ້ມູນໃນເຄື່ອງນີ້ຈະຖືກແທນດ້ວຍຂໍ້ມູນຂອງບັນຊີນັ້ນ</p>' +
+    '<input id="rcode" class="pname code rc" maxlength="14" placeholder="XXXX-XXXX-XXXX" autocomplete="off" autocapitalize="characters">' + (m.err ? '<p class="why">' + m.err + '</p>' : '') +
+    '<div class="mbtns"><button class="btn-main sm" data-a="rclaim"' + (m.busy ? ' disabled' : '') + '>' + (m.busy ? 'ກຳລັງກວດ…' : '✓ ເຂົ້າບັນຊີ') + '</button><button class="btn2" data-a="mback">ກັບຄືນ</button></div>';
+}
 function mailErr(e){
   const t = String(e && (e.code || e.message) || '');
   if(/rate|429|seconds/i.test(t) || (e && e.status === 429)) return 'ສົ່ງຖີ່ເກີນ ລໍຖ້າ 1 ນາທີ ແລ້ວລອງໃໝ່';
@@ -4641,6 +4680,7 @@ function mailHTML(m){
 }
 function agoText(t){ const s = Math.round((Date.now() - t) / 1000); return s < 60 ? 'ຫາກໍ່' : s < 3600 ? Math.round(s / 60) + ' ນາທີກ່ອນ' : Math.round(s / 3600) + ' ຊົ່ວໂມງກ່ອນ'; }
 function profHTML(m){
+  if(m.step === 'rshow' || m.step === 'rclaim') return recoveryHTML(m);
   if(m.step) return mailHTML(m);
   const P = ACCT.prof, av = m.av || (P && P.avatar) || DECKS[0].legend, c = col();
   const pick = '<div class="avgrid">' + AVATARS().map(id => '<button class="avopt' + (id === av ? ' on' : '') + '" data-a="avpick" data-v="' + id + '"><img src="' + PIC(C[id].img) + '" alt="' + C[id].name + '"></button>').join('') + '</div>';
@@ -4648,15 +4688,16 @@ function profHTML(m){
     return '<p class="q">' + (P ? '✏️ ແກ້ໂປຣໄຟລ໌' : '👤 ສ້າງຜູ້ຫຼິ້ນ') + '</p>' +
       '<input id="pname" class="pname" maxlength="16" placeholder="ຊື່ຫຼິ້ນ" autocomplete="off" value="' + escH(m.name != null ? m.name : (P ? P.name : '')) + '">' +
       '<p class="lore">ເລືອກຮູບໂປຣໄຟລ໌</p>' + pick + (m.err ? '<p class="why">' + m.err + '</p>' : '') +
-      (P ? '' : '<p class="lore">ບໍ່ຕ້ອງໃຊ້ອີເມວ. ກາດ, ເພັດ ແລະ ເດັກ ຈະບັນທຶກຂຶ້ນ cloud ໃຫ້ເອງ</p><button class="linkbtn" data-a="mlogin">📧 ມີບັນຊີແລ້ວ? ເຂົ້າດ້ວຍອີເມວ</button>') +
+      (P ? '' : '<p class="lore">ບໍ່ຕ້ອງໃຊ້ອີເມວ. ກາດ, ເພັດ ແລະ ເດັກ ຈະບັນທຶກຂຶ້ນ cloud ໃຫ້ເອງ</p><button class="linkbtn" data-a="rhave">🔑 ມີບັນຊີແລ້ວ? ໃສ່ລະຫັດກູ້ບັນຊີ</button>' + (MAIL_ON ? '<button class="linkbtn" data-a="mlogin">📧 ເຂົ້າດ້ວຍອີເມວ</button>' : '')) +
       '<div class="mbtns"><button class="btn-main sm" data-a="psave"' + (m.busy ? ' disabled' : '') + '>' + (m.busy ? 'ກຳລັງບັນທຶກ…' : '✓ ບັນທຶກ') + '</button><button class="btn2" data-a="' + (P ? 'pcancel' : 'mmclose') + '">' + (P ? 'ຍົກເລີກ' : 'ໄວ້ກ່ອນ') + '</button></div>';
   }
   const cloud = ACCT.state === 'on' ? '☁️ ບັນທຶກແລ້ວ ' + agoText(ACCT.at) : ACCT.state === 'err' ? '⚠️ ຕໍ່ cloud ບໍ່ໄດ້ (ບັນທຶກໃນເຄື່ອງໄວ້ກ່ອນ)' : '☁️ ກຳລັງຕໍ່…';
   return '<div class="profhead"><span class="hav big fr-' + (c.frame || 'none') + '"><img src="' + PIC(C[P.avatar] ? C[P.avatar].img : C[DECKS[0].legend].img) + '" alt=""></span><div><b>' + escH(P.name) + '</b><small>⭐ ລະດັບ ' + levelOf(c.xp) + ' · 🏆 ' + Object.keys(c.ach || {}).length + '/' + ACH.length + '</small></div></div>' +
     '<p class="lore">' + cloud + '</p>' +
     (mailOf() ? '<p class="lore">📧 ຜູກກັບ ' + escH(maskMail(mailOf())) + ' ແລ້ວ · ເຂົ້າຈາກເຄື່ອງອື່ນໄດ້</p>'
-              : '<p class="lore">⚠️ ບັນຊີແຂກຢູ່ໃນ browser ນີ້ເທົ່ານັ້ນ. ຜູກອີເມວໄວ້ ເພື່ອບໍ່ໃຫ້ຫາຍ</p>') +
-    '<div class="mbtns">' + (mailOf() ? '' : '<button class="btn-main sm" data-a="mlink">🔗 ຜູກອີເມວ</button>') + '<button class="btn2" data-a="pedit">✏️ ແກ້ຊື່ ແລະ ຮູບ</button><button class="btn2" data-a="ach">🏆 ຜົນງານ</button><button class="btn2" data-a="mmclose">ປິດ</button></div>' +
+              : loadJ(RCODE_KEY, '') ? '<p class="lore">🔑 ມີລະຫັດກູ້ບັນຊີແລ້ວ · ໃຊ້ເຂົ້າຈາກເຄື່ອງອື່ນໄດ້</p>'
+              : '<p class="lore">⚠️ ບັນຊີຢູ່ໃນ browser ນີ້ເທົ່ານັ້ນ. ສ້າງລະຫັດກູ້ບັນຊີໄວ້ ເພື່ອບໍ່ໃຫ້ຫາຍ ແລະ ໃຊ້ເຄື່ອງອື່ນໄດ້</p>') +
+    '<div class="mbtns"><button class="' + (loadJ(RCODE_KEY, '') ? 'btn2' : 'btn-main sm') + '" data-a="rmake">🔑 ລະຫັດກູ້ບັນຊີ</button>' + (mailOf() || !MAIL_ON ? '' : '<button class="btn2" data-a="mlink">🔗 ຜູກອີເມວ</button>') + '<button class="btn2" data-a="pedit">✏️ ແກ້ຊື່ ແລະ ຮູບ</button><button class="btn2" data-a="ach">🏆 ຜົນງານ</button><button class="btn2" data-a="mmclose">ປິດ</button></div>' +
     (mailOf() ? '<button class="linkbtn" data-a="mout">🚪 ອອກຈາກບັນຊີ (ໃນເຄື່ອງນີ້)</button>' : '');
 }
 /* ---------- online play with a room code ----------
@@ -4805,7 +4846,11 @@ $app.addEventListener('click', e => {
       if(a === 'mlink' || a === 'mlogin'){ m.step = a === 'mlink' ? 'link' : 'login'; m.err = ''; m.email = ''; render(); return; }
       if(a === 'msend' || a === 'mresend'){ if(a === 'mresend'){ m.step = m.step === 'logincode' ? 'login' : 'link'; render(); } mailStep('send'); return; }   // the email box keeps m.email
       if(a === 'mverify'){ mailStep('verify'); return; }
-      if(a === 'mback'){ m.step = m.step === 'logincode' ? 'login' : m.step === 'linkcode' ? 'link' : null; m.err = ''; render(); return; }
+      if(a === 'rmake'){ if(loadJ(RCODE_KEY, '')){ m.code = loadJ(RCODE_KEY, ''); m.step = 'rshow'; render(); } else recoveryStep('make'); return; }
+      if(a === 'rnew'){ recoveryStep('make'); return; }
+      if(a === 'rhave'){ m.step = 'rclaim'; m.err = ''; render(); return; }
+      if(a === 'rclaim'){ recoveryStep('claim'); return; }
+      if(a === 'mback'){ m.step = m.step === 'logincode' ? 'login' : m.step === 'linkcode' ? 'link' : null; m.err = ''; render(); return; }   // from the recovery screens too
       if(a === 'mout'){ acctSignOut(); return; }
     }
     if(ui.mmodal && ui.mmodal.type === 'online'){
