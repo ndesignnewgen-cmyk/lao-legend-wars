@@ -1451,6 +1451,28 @@ body{background:
 /* special cards get their own frames: fusion is emerald with a gold rim, ritual is pearl and sky blue with candle gold */
 .card.fusion{--edge:linear-gradient(150deg,#ffe48a,#2fd08a 18%,#0f8a6a 52%,#075a46 80%,#ffe48a);--tag:#0f8a6a;box-shadow:0 0 0 1px #ffe48aaa,0 0 16px #2fd08a77,0 6px 16px #0009}
 .card.ritual{--edge:linear-gradient(150deg,#fff8e0,#d8f0ff 22%,#7cc6ff 52%,#3f86d6 78%,#ffe7a3);--tag:#3f86d6;box-shadow:0 0 0 1px #fff3c8cc,0 0 16px #ffd98a88,0 6px 16px #0009}
+.zap{position:absolute;transform:translateX(-50%);pointer-events:none;animation:mxbolt .55s ease-out forwards}
+.zap path{fill:none;stroke:#f4fbff;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 6px #fff) drop-shadow(0 0 18px #6fc8ff)}
+.buffarrow,.weakarrow{position:absolute;transform:translate(-50%,-50%);font:900 22px/1 var(--f-d);pointer-events:none;-webkit-text-stroke:2px #1b1b1b;paint-order:stroke fill}
+.buffarrow{color:#ffe48a;text-shadow:0 0 10px #ffd23d;animation:buffup .9s ease-out both}
+@keyframes buffup{0%{opacity:0;translate:0 10px}25%{opacity:1}100%{opacity:0;translate:0 -46px}}
+.weakarrow{color:#c48bff;font-size:28px;text-shadow:0 0 10px #7a2cff;animation:weakdn .85s ease-in both}
+@keyframes weakdn{0%{opacity:0;translate:0 -18px}30%{opacity:1}100%{opacity:0;translate:0 26px}}
+.aura{position:absolute;width:120px;height:120px;margin:-60px 0 0 -60px;border-radius:50%;pointer-events:none;background:radial-gradient(circle,#ffe48a66,transparent 65%);box-shadow:0 0 0 3px #ffe48a88;animation:aura .8s ease-out both}
+@keyframes aura{from{transform:scale(.3);opacity:1}to{transform:scale(1.4);opacity:0}}
+.trapsnap{position:absolute;width:min(190px,42vw);transform:translate(-50%,-50%);pointer-events:none;perspective:800px;animation:tsin 1.05s ease both}
+@keyframes tsin{0%{opacity:0;scale:.6}12%{opacity:1;scale:1.05}20%{scale:1}85%{opacity:1}100%{opacity:0;scale:.92}}
+.trapsnap .tsf{position:relative;aspect-ratio:63/88;transform-style:preserve-3d;animation:tsflip .5s .1s cubic-bezier(.3,1.4,.5,1) both}
+.trapsnap .tsb,.trapsnap .tsc{position:absolute;inset:0;backface-visibility:hidden}.trapsnap .tsb .cback,.trapsnap .tsb img{display:block;width:100%;height:100%;border-radius:6%}
+.trapsnap .tsc{transform:rotateY(180deg)}.trapsnap .tsc .card{box-shadow:0 0 0 3px #b06bff,0 0 30px #7a2cff}
+@keyframes tsflip{from{transform:rotateY(0)}to{transform:rotateY(180deg)}}
+.trapsnap .chain{position:absolute;left:-30%;right:-30%;top:40%;height:12px;border-radius:6px;background:repeating-linear-gradient(90deg,#d9d2c3 0 14px,#6d665c 14px 17px,#b4ab9c 17px 30px,#6d665c 30px 33px);
+  box-shadow:0 2px 6px #000a;transform:scaleX(0);animation:tschain .3s .38s cubic-bezier(.3,1.6,.6,1) both}
+.trapsnap .chain.a{rotate:-24deg}.trapsnap .chain.b{rotate:24deg;animation-delay:.45s}
+@keyframes tschain{to{transform:scaleX(1)}}
+.trapsnap .snap{position:absolute;left:50%;top:-18%;transform:translateX(-50%);font:900 clamp(26px,6vw,44px)/1 var(--f-d);color:#fff;-webkit-text-stroke:3px #3a1660;paint-order:stroke fill;text-shadow:0 0 18px #b06bff;animation:tssnap .5s .4s cubic-bezier(.2,1.8,.4,1) both}
+@keyframes tssnap{from{scale:0;rotate:-20deg}to{scale:1;rotate:-6deg}}
+.locwipe .locedge{position:absolute;top:0;bottom:0;right:0;width:24px;background:linear-gradient(90deg,transparent,#fff,transparent);filter:blur(2px);opacity:.9}
 .card .xtype{position:absolute;left:50%;top:2.2%;transform:translateX(-50%);z-index:3;white-space:nowrap;font:800 6.2cqw/1.4 var(--f-d);color:#fff;padding:0 3.5cqw;border-radius:99px;
   box-shadow:0 0 0 .6cqw #fff8,0 1cqw 2cqw #0006}
 .card.fusion .xtype{background:linear-gradient(90deg,#0f8a6a,#2fd08a);text-shadow:0 1px 0 #074a3a}
@@ -2648,14 +2670,15 @@ async function playCard(p, h, t, trib){
     p.lastMagic = h.id; p.mh = [h.id].concat(p.mh || []).slice(0, 5);
     render();
     if(await springTrap(opp(p), 'ngaonam')){ log('«' + d.name + '» ຖືກຍົກເລີກ'); p.grave.push(h.id); render(); return; }
+    if(t && SPELL_FX[h.id]) await fxCast(pi(p), t, SPELL_FX[h.id]);
     await castSpell(p, h.id, t);
     p.grave.push(h.id);
   } else if(d.type === 'item'){
-    await fxActivate(h.id, h.alt, pi(p));
+    await fxActivate(h.id, h.alt, pi(p), 'c:' + t.c.uid);
     t.c.items.push(h.id);
     p.lastMagic = h.id; p.mh = [h.id].concat(p.mh || []).slice(0, 5);
     render();
-    sfx('spell'); particlesAt('c:' + t.c.uid, '#ffd23d', 16);
+    sfx('spell'); fxBuff('c:' + t.c.uid, 16);
     await fxRing('c:' + t.c.uid, '#ffd23d', true);
     log('«' + d.name + '» ຕິດໃສ່ «' + C[t.c.id].name + '»');
   } else if(d.type === 'loc'){
@@ -2676,7 +2699,7 @@ async function comboFx(p, id, c){
   floatAt(c && p.field.includes(c) ? 'c:' + c.uid : 'h:' + pi(p), 'ຕໍ່ເນື່ອງ!', 'heal');
   if(k === 'draw') draw(p, 1);
   else if(k === 'heal') heal(p, 2);
-  else if(k === 'pow' && c && p.field.includes(c)) c.mods.push({amt:2, exp:1e9});
+  else if(k === 'pow' && c && p.field.includes(c)){ c.mods.push({amt:2, exp:1e9}); fxBuff('c:' + c.uid); }
   else if(k === 'fans') await addFans(p, 2);
   else if(k === 'water') await addWater(p, 1);
 }
@@ -2874,7 +2897,7 @@ async function onPlay(p, c, t){
       break;
     case 'nanghung': { const n = Math.min(3, p.grave.filter(id => C[id].type === 'spell').length); if(n){ draw(p, n); log('ນາງຮຸ້ງ: ' + p.name + ' ຈົ່ວກາດ ' + n + ' ໃບ'); } break; }
     case 'naiphan':
-      if(t && t.owner.field.includes(t.c)){ t.c.mods.push({amt:-1, exp:Infinity}); await fxRing(tkey(t), '#c08a4a', true); log('ນາຍພານ ຍິງ «' + C[t.c.id].name + '» ພະລັງ -1'); }
+      if(t && t.owner.field.includes(t.c)){ t.c.mods.push({amt:-1, exp:Infinity}); fxWeak(tkey(t)); await fxRing(tkey(t), '#c08a4a', true); log('ນາຍພານ ຍິງ «' + C[t.c.id].name + '» ພະລັງ -1'); }
       break;
     case 'khankhaak': {
       const i = p.deck.indexOf('bangfai');
@@ -2945,10 +2968,10 @@ async function castSpell(p, id, t){
     case 'baci': sfx('heal'); particlesAt('h:' + pi(p), '#ffffff', 16); draw(p, 2); log(p.name + ' ສູ່ຂວັນ ຈົ່ວກາດ 2 ໃບ'); break;
     case 'khaoniao': heal(p, 3); break;
     case 'phukkhaen':
-      t.c.mods.push({amt:2, exp:S.T}); sfx('spell'); particlesAt(tkey(t), '#ffffff', 14); await fxRing(tkey(t), '#ffd23d', true); log('«' + C[t.c.id].name + '» ຜູກແຂນ ພະລັງ +2');
+      t.c.mods.push({amt:2, exp:S.T}); sfx('spell'); fxBuff(tkey(t)); await fxRing(tkey(t), '#ffd23d', true); log('«' + C[t.c.id].name + '» ຜູກແຂນ ພະລັງ +2');
       break;
     case 'tikong':
-      sfx('turn'); for(const c of p.field){ c.mods.push({amt:1, exp:S.T}); particlesAt('c:' + c.uid, '#ffd23d', 8); }
+      sfx('turn'); for(const c of p.field){ c.mods.push({amt:1, exp:S.T}); fxBuff('c:' + c.uid, 6); }
       await fxRing('side:' + pi(p), '#ffd23d', true); log(p.name + ' ຕີກອງ ຕົວລະຄອນທຸກໃບ ພະລັງ +1');
       break;
     case 'faphaa':
@@ -2971,7 +2994,7 @@ async function castSpell(p, id, t){
     case 'pasumthap': { const n = p.field.filter(c => C[c.id].tribe === 'warrior').length >= 2 ? 2 : 1; sfx('heal'); draw(p, n); log(p.name + ' ປະຊຸມທັບ ຈົ່ວກາດ ' + n + ' ໃບ'); break; }
     case 'khongsuek': {
       sfx('turn'); const ws = p.field.filter(c => C[c.id].tribe === 'warrior');
-      for(const c of ws){ c.x2 = S.T; particlesAt('c:' + c.uid, '#ff9f43', 10); }
+      for(const c of ws){ c.x2 = S.T; fxBuff('c:' + c.uid, 6); }
       await fxRing('side:' + pi(p), '#ff9f43', true); log(p.name + ' ຕີຄ້ອງເສິກ ນັກຮົບ ' + ws.length + ' ໃບ ໂຈມຕີໄດ້ 2 ເທື່ອ');
       break;
     }
@@ -3006,7 +3029,7 @@ async function springTrap(q, id, c){
   if(!q || !q.traps || !q.traps.includes(id) || S.over) return false;
   q.traps.splice(q.traps.indexOf(id), 1); q.grave.push(id);
   log(q.name + ' ເປີດກັບດັກ «' + C[id].name + '»!');
-  if(!S.fast){ toast('🪤 ຕົກກັບດັກ! «' + C[id].name + '»'); await fxActivate(id, null, pi(q)); }
+  if(!S.fast){ toast('🪤 ຕົກກັບດັກ! «' + C[id].name + '»'); await fxTrapSnap(id, pi(q)); }
   if(id === 'tanang' && c){ c.frz = S.T + 2; if(!S.fast) floatAt('c:' + c.uid, 'ຕິດໜ່າງ!', 'hit'); }
   for(const x of q.field) if(x.id === 'xangjaidi') x.mods.push({amt:1, exp:Infinity});
   const k = q.field.filter(x => x.id === 'kratai').length; if(k) draw(q, k);
@@ -3149,7 +3172,7 @@ async function attack(p, c, t){
       const h = q.hand[ri]; q.hand.splice(ri, 1); q.mana -= 1; q.grave.push(h.id);
       await fxActivate(h.id, null, pi(q));
       log(q.name + ' ໃຊ້ «' + C[rid].name + '»');
-      if(rid === 'romban'){ t.c.mods.push({amt:3, exp:S.T}); floatAt('c:' + t.c.uid, '+3', 'heal'); render(); }
+      if(rid === 'romban'){ t.c.mods.push({amt:3, exp:S.T}); floatAt('c:' + t.c.uid, '+3', 'heal'); fxBuff('c:' + t.c.uid); render(); }
       else if(rid === 'konglai'){ floatAt('c:' + c.uid, 'ກັບບ້ານ!', 'hit'); bounce(p, c); render(); return; }
       else { floatAt('c:' + c.uid, 'ສະດຸດ!', 'hit'); await fxTrip('c:' + c.uid); render(); return; }
     }
@@ -4632,14 +4655,15 @@ async function fxShowcase(id, alt){
   clearInterval(iv); el.remove();
 }
 // a spell, item or location is shown big with a golden glow, then flies into its slot
-async function fxActivate(id, alt, side){
+async function fxActivate(id, alt, side, toK){
   if(S.fast) return; const d = C[id];
   const tag = d.type === 'loc' ? 'ສະຖານທີ່' : (d.type === 'item' ? 'ຂອງວິເສດ' : 'ຄາຖາ');
   const el = addFx('activate', null, null, '<div class="glow"></div>' + cardHTML(id, null, alt) + '<span class="acttag">' + tag + ' · ' + d.name + '</span>');
   sfx('spell'); flashScreen('#fff3c4', .2);
   const r = el.getBoundingClientRect(); for(let i = 0; i < 18; i++){ const a = Math.random() * 6.283; emit({x:r.left + r.width / 2 + Math.cos(a) * r.width * .6, y:r.top + r.height / 2 + Math.sin(a) * r.height * .5, vx:Math.cos(a) * 60, vy:Math.sin(a) * 60 - 40, drag:.97, life:.9, size:2.5, kind:'spark', color:pick(['#ffd23d', '#fff6c8', '#ffffff'])}); }
   await sleep(780);
-  const slot = document.querySelector('[data-k="mat:' + side + '"] .slot.' + (d.type === 'loc' ? 'loc' : 'magic'));
+  // an item flies onto the card it goes on; anything else settles into its slot
+  const slot = toK ? elOf(toK) : document.querySelector('[data-k="mat:' + side + '"] .slot.' + (d.type === 'loc' ? 'loc' : 'magic'));
   if(slot && !REDUCE){
     const s2 = slot.getBoundingClientRect(), c0 = el.getBoundingClientRect();
     const k = Math.min(1, (s2.height * .8) / c0.height), mx = s2.left + s2.width / 2 - (c0.left + c0.width / 2), my = s2.top + s2.height / 2 - (c0.top + c0.height / 2);
@@ -4866,9 +4890,53 @@ function particlesAt(k, color, n){
     setTimeout(() => e.remove(), 760);
   }
 }
+/* ---------- G5: spells reach their target, healing grows leaves, power up and down read at a glance, traps snap shut, items fly on ---------- */
+// what a targeted spell sends at its target: lightning comes down from the sky, the rest travel as a glowing orb with a trail
+const SPELL_FX = {faphaa:'bolt', phayufa:'bolt', khamsap:'dark', virus:'dark', mokseo:'mist', phukkhaen:'light', thotkhap:'light', lomphayu:'wind'};
+const CAST_COL = {bolt:'#bfe9ff', dark:'#b06bff', mist:'#e8e8f4', light:'#ffe48a', wind:'#c9f2d8'};
+async function fxCast(side, t, kind){
+  if(S.fast || REDUCE) return; const B = centerOf(tkey(t)); if(!B) return;
+  if(kind === 'bolt'){ await fxZap(B.x, B.y); return; }
+  const A = {x:innerWidth / 2, y:innerHeight * (side ? .3 : .7)}, col = CAST_COL[kind] || '#ffe48a';
+  await fxOrb(A, B, col, 520);
+  const sm = kind === 'dark' || kind === 'mist', lf = kind === 'wind';
+  for(let i = 0; i < 18; i++){ const a = Math.random() * 6.283, sp = 60 + Math.random() * 180;
+    emit({x:B.x, y:B.y, vx:Math.cos(a) * sp, vy:Math.sin(a) * sp - (sm ? 40 : 0), g:sm ? -30 : 120, drag:.93, life:sm ? 1 : .6, size:sm ? 10 + Math.random() * 10 : 3 + Math.random() * 3,
+      kind:sm ? 'smoke' : lf ? 'leaf' : 'star', color:pick(kind === 'dark' ? ['#7a2cff', '#b06bff', '#3a1660'] : kind === 'mist' ? ['#ffffff', '#e8e8f4', '#c9d3e6'] : lf ? ['#7bc24a', '#c9f2d8', '#ffffff'] : ['#ffe48a', '#ffffff', '#ffd23d'])}); }
+  shockAt(B.x, B.y, col, 110);
+}
+// a forked bolt from above the screen onto the target
+async function fxZap(x, y){
+  if(S.fast || REDUCE) return; let d = 'M0 0', px = 0; const h = y + 40;
+  for(let k = 1; k <= 9; k++){ px += (Math.random() - .5) * 70; d += ' L' + px.toFixed(0) + ' ' + (k * h / 9).toFixed(0); }
+  const z = addFx('zap', x, 0, '<svg viewBox="-90 0 180 ' + h + '" width="180" height="' + h + '"><path d="' + d + '"/></svg>');
+  sfx('boom'); flashScreen('#e6f6ff', .3); shockAt(x, y, '#9fe0ff', 140); burstAt(x, y, 'thewada', 22, .9);
+  await sleep(260); setTimeout(() => z.remove(), 300);
+}
+// power up: a gold aura with arrows rising · power down: purple smoke sinking with an arrow down
+function fxBuff(k, n){
+  if(S.fast || REDUCE) return; const c = centerOf(k); if(!c) return;
+  for(let i = 0; i < 3; i++){ const a = addFx('buffarrow', c.x + (i - 1) * 22, c.y + 10); a.style.animationDelay = (i * 90) + 'ms'; a.textContent = '▲'; setTimeout(() => a.remove(), 1000); }
+  for(let i = 0; i < (n || 12); i++) emit({x:c.x + (Math.random() - .5) * 60, y:c.y + 30, vx:(Math.random() - .5) * 30, vy:-90 - Math.random() * 90, g:-20, drag:.97, life:.9, size:2 + Math.random() * 3, kind:'star', color:pick(['#ffe48a', '#ffd23d', '#ffffff'])});
+  const ring = addFx('aura', c.x, c.y); setTimeout(() => ring.remove(), 800);
+}
+function fxWeak(k){
+  if(S.fast || REDUCE) return; const c = centerOf(k); if(!c) return;
+  const a = addFx('weakarrow', c.x, c.y - 10); a.textContent = '▼'; setTimeout(() => a.remove(), 900);
+  for(let i = 0; i < 12; i++) emit({x:c.x + (Math.random() - .5) * 50, y:c.y - 20, vx:(Math.random() - .5) * 40, vy:20 + Math.random() * 40, g:-10, drag:.96, life:1.1, size:9 + Math.random() * 9, kind:'smoke', color:pick(['#7a2cff', '#b06bff', '#3a1660'])});
+}
+// a trap: the face-down card flips open, two chains snap across it and it calls out
+async function fxTrapSnap(id, side){
+  if(S.fast) return; const x = innerWidth / 2, y = innerHeight * (side ? .32 : .62);
+  const d = addFx('trapsnap', x, y, '<div class="tsf"><div class="tsb"><span class="cback">' + BACK + '</span></div><div class="tsc">' + cardHTML(id) + '</div></div><i class="chain a"></i><i class="chain b"></i><b class="snap">ແກັບ!</b>');
+  sfx('trip'); setTimeout(() => { if(d.isConnected){ sfx('hit'); shockAt(x, y, '#b06bff', 160); burstAt(x, y, 'ghost', 24, .9); } }, 380 * SET.speed);
+  await sleep(1050); d.remove();
+}
 function fxHeal(k){
   if(S.fast || REDUCE) return; const c = centerOf(k); if(!c) return; sfx('heal');
-  for(let i=0;i<14;i++){ const e = addFx('pt up', c.x + (Math.random() - .5) * 70, c.y + 20); e.style.background = '#6dffa8'; e.style.animationDelay = (i * 40) + 'ms'; setTimeout(() => e.remove(), 1400); }
+  // green leaves float up and a soft green ring opens
+  for(let i = 0; i < 16; i++) emit({x:c.x + (Math.random() - .5) * 70, y:c.y + 24, vx:(Math.random() - .5) * 50, vy:-70 - Math.random() * 90, g:-15, drag:.98, life:1.3, size:6 + Math.random() * 5, kind:'leaf', color:pick(['#4fd18b', '#7bc24a', '#c9f2d8', '#2fae6a'])});
+  shockAt(c.x, c.y, '#6dffa8', 90);
 }
 async function fxCurse(k){
   if(S.fast) return; sfx('curse'); const c = centerOf(k);
@@ -4919,7 +4987,9 @@ async function fxLoc(i, id){
     const w = document.createElement('div'); w.className = 'locwipe';
     Object.assign(w.style, {left:r.left + 'px', top:r.top + 'px', width:r.width + 'px', height:r.height + 'px', backgroundImage:'url(' + PIC(C[id].img) + ')'});
     $fx.appendChild(w);
-    const an = w.animate([{clipPath:'circle(0% at 50% 50%)', filter:'brightness(2)'}, {clipPath:'circle(75% at 50% 50%)', filter:'brightness(1.1)', offset:.6}, {clipPath:'circle(75% at 50% 50%)', filter:'brightness(1)', opacity:0}], {duration:1100 * SET.speed, easing:'ease-out', fill:'forwards'});
+    // the new scene sweeps across the lane behind a bright edge, then settles
+    const edge = document.createElement('i'); edge.className = 'locedge'; w.appendChild(edge);
+    const an = w.animate([{clipPath:'inset(0 100% 0 0 round 16px)', filter:'brightness(1.8)'}, {clipPath:'inset(0 0% 0 0 round 16px)', filter:'brightness(1.15)', offset:.55}, {clipPath:'inset(0 0% 0 0 round 16px)', filter:'brightness(1)', opacity:0}], {duration:1100 * SET.speed, easing:'ease-out', fill:'forwards'});
     const c = {x:r.left + r.width / 2, y:r.top + r.height / 2}; if(c){ const d = addFx('locban', c.x, c.y); d.textContent = C[id].name; setTimeout(() => d.remove(), 1100); rainbowBurst(c.x, c.y, 30); }
     await animDone(an)
     w.remove();
