@@ -2226,6 +2226,8 @@ document.addEventListener('error', e => {
   im.dataset.retry = n + 1;
   setTimeout(() => { im.src = src.split('?')[0] + '?r=' + (n + 1); }, 600 * (n + 1));
 }, true);
+// the other side: a friend in online games, otherwise the bot
+const foe = () => S && S.online ? 'ໝູ່' : 'ບອດ';
 function newGame(di, level, opts){
   opts = opts || {};
   RNG = opts.online ? seeded(opts.online.seed) : Math.random; if(opts.online){ U = 1000; opts.botDeck = 0; }
@@ -2267,7 +2269,7 @@ function newGame(di, level, opts){
     }
   }
   if(S.pvp){ if(S.turn === 1){ S.p.reverse(); S.turn = 0; } log(S.p[0].name + ' ໄດ້ໄປກ່ອນ'); const G = S; render(); passScreen().then(() => { if(S === G) startTurn(); }); return; }
-  log(S.turn === 0 ? 'ເຈົ້າໄດ້ໄປກ່ອນ' : 'ບອດໄດ້ໄປກ່ອນ');
+  log(S.turn === 0 ? 'ເຈົ້າໄດ້ໄປກ່ອນ' : foe() + 'ໄດ້ໄປກ່ອນ');
   if(!S.fast) preloadCuts(new Set(S.p.flatMap(pl => pl.deck.concat(pl.hand.map(h => h.id), pl.extra || []))));
   render();
   startTurn();
@@ -3791,7 +3793,7 @@ function half7(p, i, hand, tools){
   const grave = '<div class="slot gy' + (top ? ' has' : '') + '" data-a="grave" data-v="' + i + '" data-l="ກອງຖິ້ມ" role="button" tabindex="0" aria-label="ເບິ່ງກອງຖິ້ມ ' + p.grave.length + ' ໃບ">' +
     last.map((id, j) => '<div class="gyc" style="--j:' + (last.length - 1 - j) + '">' + cardHTML(id) + '</div>').join('') + '<span class="cnt">' + p.grave.length + '</span></div>';
   const bar = '<div class="sbar ' + (i ? 'opp' : 'me') + '">' + plate2(p, i) + (hand || '') + '<div class="slots">' + loc + trapSlot(p, mg) + grave + deck + exSlot(p, i) + '</div>' + (tools || '') + '</div>';
-  const lane = '<div class="lane chars' + (p.loc ? ' hasloc' : '') + '" data-k="side:' + i + '"' + (p.loc ? ' style="--locimg:url(' + ART + C[p.loc].img + '.jpg)"' : '') + '><span class="wm">' + (S.auto || S.pvp ? p.name : (i ? 'ຝ່າຍບອດ' : 'ຝ່າຍເຈົ້າ')) + '</span>' +
+  const lane = '<div class="lane chars' + (p.loc ? ' hasloc' : '') + '" data-k="side:' + i + '"' + (p.loc ? ' style="--locimg:url(' + ART + C[p.loc].img + '.jpg)"' : '') + '><span class="wm">' + (S.auto || S.pvp ? p.name : (i ? 'ຝ່າຍ' + foe() : 'ຝ່າຍເຈົ້າ')) + '</span>' +
     (p.loc ? '<span class="locname" data-a="info" data-v="' + p.loc + '">📍 ' + C[p.loc].name + '</span>' : '') +
     (p.water ? '<span class="waterlv" style="--wl:' + p.water + '"><b>🌊 ' + p.water + '/5</b></span>' : '') + (p.fans ? '<span class="fanlv"><b>💖 ' + Math.min(p.fans, encoreAt(p)) + '/' + encoreAt(p) + '</b><i style="width:' + Math.round(Math.min(1, p.fans / encoreAt(p)) * 100) + '%"></i></span>' : '') +
     '<div class="row" style="--n:' + p.field.length + '">' + p.field.map(c => miniHTML(p, c)).join('') + '</div></div>';
@@ -3821,10 +3823,10 @@ function extraHTML(side){
 function mid7(){
   const mine = S.turn === 0 && !S.over && !S.auto, me = S.p[0];
   const moves = mine && (me.hand.some(h => !playBlock(me, h)) || me.field.some(c => canAttack(me, c)));
-  const chip = '<span class="tchip2 ' + (mine ? '' : 'bot') + '">ຕາທີ ' + Math.ceil(S.T / 2) + '<span class="tcw"> · ' + (S.over ? 'ຈົບເກມ' : (mine ? (S.pvp ? S.p[0].name : 'ຕາຂອງເຈົ້າ') : (S.auto ? cur().name : 'ຕາບອດ'))) + '</span></span>';
+  const chip = '<span class="tchip2 ' + (mine ? '' : 'bot') + '">ຕາທີ ' + Math.ceil(S.T / 2) + '<span class="tcw"> · ' + (S.over ? 'ຈົບເກມ' : (mine ? (S.pvp ? S.p[0].name : 'ຕາຂອງເຈົ້າ') : (S.auto ? cur().name : 'ຕາ' + foe()))) + '</span></span>';
   const btn = (mine && !S.busy)
     ? '<button class="medal go ' + (moves ? '' : 'glow') + '" data-a="end"><b>ຈົບຕາ</b><small>' + (moves ? 'ຍັງລົງກາດ ຫຼື ໂຈມຕີໄດ້' : 'ກົດເພື່ອສົ່ງຕາ') + '</small></button>'
-    : '<button class="medal" disabled><b>' + (S.over ? 'ຈົບເກມ' : (mine ? '…' : 'ລໍຖ້າບອດ')) + '</b></button>';
+    : '<button class="medal" disabled><b>' + (S.over ? 'ຈົບເກມ' : (mine ? '…' : 'ລໍຖ້າ' + foe())) + '</b></button>';
   const fz = mine && !S.busy ? (me.extra || []).filter(f => canFuse(me, f)) : [];
   const fb = fz.map(f => '<button class="fusebtn" data-a="fuse" data-v="' + f + '" title="ຮ່ວມຮ່າງ «' + C[f].name + '»">🤝 <span class="fzn">' + C[f].name + '</span><span class="fzs">ຮ່ວມຮ່າງ</span> · ' + FUSE_COST + ' ບຸນ</button>').join('');
   return '<div class="mid7"><div class="mleft">' + chip + festChip() + '</div><button class="logb" data-a="log">' + (S.log[0] || '') + '</button><div class="mright">' + fb + btn + '</div></div>';
@@ -3867,7 +3869,7 @@ function half2(p, i){
     last.map((id, j) => '<div class="gyc" style="--j:' + (last.length - 1 - j) + '">' + cardHTML(id) + '</div>').join('') +
     '<span class="cnt">' + p.grave.length + '</span><span class="gyl">' + IC_EYE + 'ກອງຖິ້ມ</span></div>';
   const pcol = '<div class="pcol">' + (i ? deck + grave : grave + deck) + '</div>';
-  const lane = '<div class="lane chars' + (p.loc ? ' hasloc' : '') + '" data-k="side:' + i + '"' + (p.loc ? ' style="--locimg:url(' + ART + C[p.loc].img + '.jpg)"' : '') + '><span class="wm">' + (S.auto || S.pvp ? p.name : (i ? 'ຝ່າຍບອດ' : 'ຝ່າຍເຈົ້າ')) + '</span>' +
+  const lane = '<div class="lane chars' + (p.loc ? ' hasloc' : '') + '" data-k="side:' + i + '"' + (p.loc ? ' style="--locimg:url(' + ART + C[p.loc].img + '.jpg)"' : '') + '><span class="wm">' + (S.auto || S.pvp ? p.name : (i ? 'ຝ່າຍ' + foe() : 'ຝ່າຍເຈົ້າ')) + '</span>' +
     (p.water ? '<span class="waterlv" style="--wl:' + p.water + '"><b>🌊 ' + p.water + '/5</b></span>' : '') + (p.fans ? '<span class="fanlv"><b>💖 ' + Math.min(p.fans, encoreAt(p)) + '/' + encoreAt(p) + '</b><i style="width:' + Math.round(Math.min(1, p.fans / encoreAt(p)) * 100) + '%"></i></span>' : '') + '<div class="row" style="--n:' + p.field.length + '">' + p.field.map(c => miniHTML(p, c)).join('') + '</div></div>';
   return '<div class="half2 ' + (i ? 'opp' : 'me') + '" data-k="mat:' + i + '">' + strip + lane + pcol + '</div>';
 }
@@ -3896,7 +3898,7 @@ function detailState(d0){
   if(!S) return out;
   if(d0.uid != null){
     for(const pl of S.p){ const c = pl.field.find(x => x.uid === d0.uid); if(!c) continue;
-      out.push(['side', pi(pl) === 0 && !S.auto ? '🔵 ຢູ່ສະໜາມຝ່າຍເຈົ້າ' : '🔴 ຢູ່ສະໜາມຝ່າຍ' + (S.pvp || S.auto ? pl.name : 'ບອດ')]);
+      out.push(['side', pi(pl) === 0 && !S.auto ? '🔵 ຢູ່ສະໜາມຝ່າຍເຈົ້າ' : '🔴 ຢູ່ສະໜາມຝ່າຍ' + (S.pvp || S.auto ? pl.name : foe())]);
       for(const it of c.items) out.push(['up', '🗡️ ຕິດ «' + C[it].name + '»' + (C[it].bonus ? ' ພະລັງ +' + C[it].bonus : '')]);
       const dn = c.mods.filter(m => m.amt < 0).reduce((a, m) => a + m.amt, 0), up = c.mods.filter(m => m.amt > 0).reduce((a, m) => a + m.amt, 0);
       if(up) out.push(['up', '⬆️ ພະລັງ +' + up + ' ຊົ່ວຄາວ']);
@@ -3948,7 +3950,7 @@ function graveHTML(){
   const nChar = p.grave.filter(id => C[id].type === 'char').length;
   const revive = DECKS[p.di].no === 6;  // the ນາງສິບສອງ deck brings characters back, so point out which ones can return
   const sel = g.sel && list.some(x => x.id === g.sel) ? g.sel : (list[0] && list[0].id);
-  const tabs = [0, 1].map(i => '<button class="gtab ' + (i ? 'opp' : 'me') + (g.side === i ? ' on' : '') + '" data-a="gtab" data-v="' + i + '">' + (i ? 'ຂອງບອດ' : 'ຂອງເຈົ້າ') + ' <b>' + S.p[i].grave.length + '</b></button>').join('');
+  const tabs = [0, 1].map(i => '<button class="gtab ' + (i ? 'opp' : 'me') + (g.side === i ? ' on' : '') + '" data-a="gtab" data-v="' + i + '">' + (i ? 'ຂອງ' + foe() : 'ຂອງເຈົ້າ') + ' <b>' + S.p[i].grave.length + '</b></button>').join('');
   const fil = [['all', 'ທັງໝົດ', p.grave.length], ['char', 'ຕົວລະຄອນ', nChar], ['magic', 'ຄາຖາ · ຂອງວິເສດ', p.grave.length - nChar]]
     .map(([k, l, n]) => '<button class="gfil' + (f === k ? ' on' : '') + '" data-a="gfil" data-v="' + k + '">' + l + ' ' + n + '</button>').join('');
   const prev = sel ? '<div class="gprev">' + cardHTML(sel) + '<div class="gptxt"><b>' + C[sel].name + '</b><p>' + fmtSkill(C[sel].skill) + '</p></div></div>' : '';
@@ -4702,7 +4704,7 @@ $app.addEventListener('click', e => {
   if(a === 'info'){ S.modal = {type:'info', id:v}; render(); return; }
   if(a === 'grave'){ ui.grave = {side:+v, f:'all'}; render(); return; }
   if(a === 'extra'){ S.modal = {type:'extra', side:+v}; render(); return; }
-  if(a === 'deckinfo'){ toast((+v ? 'ເດັກບອດ' : 'ເດັກເຈົ້າ') + ' ເຫຼືອ ' + S.p[+v].deck.length + ' ໃບ'); return; }
+  if(a === 'deckinfo'){ toast((+v ? 'ເດັກ' + foe() : 'ເດັກເຈົ້າ') + ' ເຫຼືອ ' + S.p[+v].deck.length + ' ໃບ'); return; }
   if(a === 'log'){ S.modal = {type:'log'}; render(); return; }
   const myMove = S.turn === 0 && !S.busy && !S.over && !S.auto;
   if(a === 'fuse'){ if(myMove && canFuse(S.p[0], v)){ netSend({t:'fuse', f:v}); S.busy = true; localAct(() => fuse(S.p[0], v)).then(() => { if(S && !S.over){ S.busy = false; render(); } }); } return; }
