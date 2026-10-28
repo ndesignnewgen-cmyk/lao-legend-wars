@@ -4476,8 +4476,16 @@ function toast(m){ const d = addFx('toast'); d.textContent = m; setTimeout(() =>
 
 /* ---------- online play with a room code ----------
    Both screens run the same seeded game. Only moves and answers travel: {t:'play'|'atk'|'trib'|'fuse'|'end'|'quit'|'ans', from}.
-   Transport: Firebase Realtime Database over REST + EventSource when FB_URL is set, otherwise BroadcastChannel (two tabs on one device, for testing). */
-const FB_URL = '';   // e.g. 'https://lao-legend-wars-default-rtdb.asia-southeast1.firebasedatabase.app'
+   Transport: Supabase Realtime broadcast (no database table needed) when SB_URL and SB_KEY are set,
+   otherwise BroadcastChannel (two tabs on one device, for testing). */
+const SB_URL = '', SB_KEY = '';   // Supabase project URL and its anon public key; both are meant to ship in the page
+let SB = null;
+function sbLoad(){
+  return SB ? Promise.resolve(SB) : new Promise((ok, no) => {
+    const sc = document.createElement('script'); sc.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js';
+    sc.onload = () => { SB = window.supabase.createClient(SB_URL, SB_KEY); ok(SB); }; sc.onerror = no; document.head.appendChild(sc);
+  });
+}
 const NET = {chain:Promise.resolve(), ans:[], waiters:[], me:null, code:null, send:null, close:null, seen:new Set()};
 const netKey = t => !t ? null : (t.kind === 'hero' ? (t.owner === S.p[0] ? 'H:s' : 'H:o') : 'c:' + t.c.uid);
 function netT(k){   // read a target key written by the other screen ('s' = the sender, who is our S.p[1])
@@ -4514,26 +4522,22 @@ async function netApply(m){
   else if(m.t === 'quit') gameOver(S.p[0], 'quit');
   if(S) render();
 }
-function netOpen(code, role){
+async function netOpen(code, role){
   netClose(); Object.assign(NET, {chain:Promise.resolve(), ans:[], waiters:[], me:role, code, seen:new Set()});
-  if(FB_URL){
-    const base = FB_URL.replace(/\/$/, '') + '/rooms/' + code;
-    NET.send = m => fetch(base + '/msgs.json', {method:'POST', body:JSON.stringify(m)}).catch(() => toast('ສົ່ງບໍ່ໄດ້ · ກວດອິນເຕີເນັດ'));
-    const go = () => {
-      const es = new EventSource(base + '/msgs.json');
-      const take = (key, m) => { if(NET.seen.has(key)) return; NET.seen.add(key); netRecv(m); };
-      es.addEventListener('put', e => { const d = JSON.parse(e.data); if(!d.data) return;
-        if(d.path === '/') Object.keys(d.data).sort().forEach(k => take(k, d.data[k])); else take(d.path.slice(1), d.data); });
-      es.addEventListener('patch', e => { const d = JSON.parse(e.data); Object.keys(d.data || {}).sort().forEach(k => take(k, d.data[k])); });
-      NET.close = () => es.close();
-    };
-    if(role === 'host') fetch(base + '.json', {method:'DELETE'}).finally(go); else go();
+  if(SB_URL && SB_KEY){
+    const sb = await sbLoad();
+    const ch = sb.channel('llw-' + code, {config:{broadcast:{self:false, ack:true}}});
+    ch.on('broadcast', {event:'m'}, e => netRecv(e.payload));
+    await new Promise((ok, no) => ch.subscribe(st => { if(st === 'SUBSCRIBED') ok(); else if(st === 'CHANNEL_ERROR' || st === 'TIMED_OUT') no(new Error(st)); }));
+    NET.send = m => ch.send({type:'broadcast', event:'m', payload:m}).catch(() => toast('ສົ່ງບໍ່ໄດ້ · ກວດອິນເຕີເນັດ'));
+    NET.close = () => sb.removeChannel(ch);
   } else {
     const bc = new BroadcastChannel('lao-legend-room-' + code);
     bc.onmessage = e => netRecv(e.data);
     NET.send = m => bc.postMessage(m); NET.close = () => bc.close();
   }
 }
+function netFail(){ netClose(); ui.mmodal = {type:'online', step:'menu'}; render(); toast('ຕໍ່ອິນເຕີເນັດບໍ່ໄດ້ · ລອງໃໝ່'); }
 function netClose(){ if(NET.close) NET.close(); NET.send = null; NET.close = null; }
 function mySpec(){
   const k = typeof ui.deck === 'string' ? 'c' + ui.deck.slice(2) : 'b' + ui.deck, sp = pvpSpec(k);
@@ -4541,12 +4545,13 @@ function mySpec(){
 }
 function onlineHost(){
   const code = Array.from({length:4}, () => 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'[Math.floor(Math.random() * 31)]).join('');
-  netOpen(code, 'host'); ui.mmodal = {type:'online', step:'host', code, spec:mySpec()}; render();
+  ui.mmodal = {type:'online', step:'conn'}; render();
+  netOpen(code, 'host').then(() => { ui.mmodal = {type:'online', step:'host', code, spec:mySpec()}; render(); }).catch(netFail);
 }
 function onlineJoin(code){
   code = (code || '').trim().toUpperCase(); if(code.length !== 4){ toast('ລະຫັດຫ້ອງມີ 4 ຕົວ'); return; }
-  netOpen(code, 'guest'); ui.mmodal = {type:'online', step:'wait', code};
-  NET.send({t:'hello', from:'guest', spec:mySpec()}); render();
+  ui.mmodal = {type:'online', step:'wait', code}; render();
+  netOpen(code, 'guest').then(() => NET.send({t:'hello', from:'guest', spec:mySpec()})).catch(netFail);
 }
 function onlineLobby(m){
   const mm = ui.mmodal;
@@ -4560,8 +4565,9 @@ function onlineStart(O, me){
   newGame(O.host.di, 1, {online:{...O, me}});   // the same arguments on both screens, so both build the same game
 }
 function onlineHTML(m){
-  const head = '<p class="q">🌐 ຫຼິ້ນອອນລາຍກັບໝູ່</p>' + (FB_URL ? '' : '<p class="lore">ໂໝດທົດລອງ: ເປີດເກມ 2 ແທັບໃນເຄື່ອງດຽວກັນ (ຍັງບໍ່ໄດ້ຕໍ່ Firebase)</p>');
+  const head = '<p class="q">🌐 ຫຼິ້ນອອນລາຍກັບໝູ່</p>' + (SB_URL ? '' : '<p class="lore">ໂໝດທົດລອງ: ເປີດເກມ 2 ແທັບໃນເຄື່ອງດຽວກັນ (ຍັງບໍ່ໄດ້ຕໍ່ Supabase)</p>');
   if(m.step === 'host') return head + '<p class="lore">ບອກລະຫັດນີ້ໃຫ້ໝູ່ ແລ້ວລໍຖ້າ…</p><div class="roomcode">' + m.code + '</div><p class="lore">ໃຊ້ເດັກທີ່ເລືອກໄວ້ໃນໜ້າຫຼັກ</p><div class="mbtns"><button class="btn2" data-a="onclose">ຍົກເລີກ</button></div>';
+  if(m.step === 'conn') return head + '<p class="lore">ກຳລັງຕໍ່ອິນເຕີເນັດ…</p>';
   if(m.step === 'wait') return head + '<p class="lore">ກຳລັງເຂົ້າຫ້ອງ ' + m.code + '…</p><div class="mbtns"><button class="btn2" data-a="onclose">ຍົກເລີກ</button></div>';
   return head + '<div class="mbtns"><button class="btn-main sm" data-a="onhost">🏠 ສ້າງຫ້ອງ</button></div><p class="lore">ຫຼື ໃສ່ລະຫັດຫ້ອງຂອງໝູ່</p>' +
     '<input id="roomin" class="roomin" maxlength="4" placeholder="ABCD" autocomplete="off"><div class="mbtns"><button class="btn2" data-a="onjoin">🚪 ເຂົ້າຫ້ອງ</button><button class="btn2" data-a="onclose">ປິດ</button></div>';
