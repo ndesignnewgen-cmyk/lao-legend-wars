@@ -1435,6 +1435,8 @@ body{background:
 .avopt img{width:100%;height:100%;object-fit:cover;object-position:50% 15%}.avopt.on{border-color:var(--gold);box-shadow:0 0 12px var(--gold)}
 .profhead{display:flex;align-items:center;gap:14px;text-align:left}.profhead b{display:block;font:800 22px var(--f-d)}.profhead small{color:var(--dim);font:700 13px var(--f-d)}
 .hav.big{width:72px;height:72px}
+.pname.mail{font-size:18px}.pname.code{letter-spacing:10px;font-size:28px}
+.linkbtn{background:none;border:0;color:#9fd0ff;font:700 13px var(--f-d);text-decoration:underline;cursor:pointer;padding:4px}
 .hprof{cursor:pointer}
 .hav.fr-gold{box-shadow:0 0 0 3px #ffd23d,0 0 14px #ffd23d}
 .hav.fr-royal{box-shadow:0 0 0 3px #ffd23d,0 0 0 6px #c8312b,0 0 18px #ffd23d}
@@ -4576,22 +4578,86 @@ async function acctSave(name, avatar){
   }catch(e){ m.err = 'ຕໍ່ອິນເຕີເນັດບໍ່ໄດ້ ລອງໃໝ່'; ACCT.state = 'err'; window.__errs.push('acct: ' + (e && e.message || e)); }
   finally{ m.busy = false; render(); }
 }
+// ຜູກອີເມວ: a guest account gets an email (confirmed with a code sent there), so it can be opened on another device
+// and is never lost with the browser's data. ເຂົ້າດ້ວຍອີເມວ: another device signs in with that email and a code.
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+function mailErr(e){
+  const t = String(e && (e.code || e.message) || '');
+  if(/rate|429|seconds/i.test(t) || (e && e.status === 429)) return 'ສົ່ງຖີ່ເກີນ ລໍຖ້າ 1 ນາທີ ແລ້ວລອງໃໝ່';
+  if(/exists|already been registered|email_exists/i.test(t)) return 'ອີເມວນີ້ຜູກກັບບັນຊີອື່ນແລ້ວ';
+  if(/signups? not allowed|otp_disabled|user_not_found/i.test(t)) return 'ບໍ່ພົບບັນຊີຂອງອີເມວນີ້';
+  if(/expired|invalid|otp/i.test(t)) return 'ລະຫັດບໍ່ຖືກ ຫຼື ໝົດອາຍຸ ລອງໃໝ່';
+  if(/smtp|sending|email/i.test(t)) return 'ສົ່ງອີເມວບໍ່ໄດ້ (ເຊີບເວີອີເມວຍັງບໍ່ພ້ອມ)';
+  return 'ບໍ່ສຳເລັດ ລອງໃໝ່';
+}
+async function mailStep(kind){
+  const m = ui.mmodal, val = id => ((document.getElementById(id) || {}).value || '').trim();
+  if(kind === 'send'){
+    const email = val('pmail').toLowerCase();
+    if(!EMAIL_RE.test(email)){ m.err = 'ອີເມວບໍ່ຖືກຕ້ອງ'; render(); return; }
+    m.email = email;
+  }
+  const code = kind === 'verify' ? val('pcode').replace(/\D/g, '') : '';
+  if(kind === 'verify' && code.length < 6){ m.err = 'ໃສ່ລະຫັດທີ່ໄດ້ຮັບທາງອີເມວ'; render(); return; }
+  m.busy = true; m.err = ''; render();
+  try{
+    await sbLoad(); const login = m.step === 'login' || m.step === 'logincode';
+    if(kind === 'send'){
+      const {error} = login ? await SB.auth.signInWithOtp({email:m.email, options:{shouldCreateUser:false}})
+                            : await SB.auth.updateUser({email:m.email});
+      if(error) throw error;
+      m.step = login ? 'logincode' : 'linkcode';
+    } else {
+      const {data, error} = await SB.auth.verifyOtp({email:m.email, token:code, type:login ? 'email' : 'email_change'});
+      if(error) throw error;
+      ACCT.user = data.user || (await SB.auth.getUser()).data.user;
+      if(login){
+        // this device now opens that account: its cloud copy replaces what is here
+        ACCT.quiet = true; saveJ('lao-legend-sync', {at:0}); ACCT.quiet = false;
+        await acctLoad();
+        toast(ACCT.prof ? 'ສະບາຍດີ ' + ACCT.prof.name + '! ໂຫຼດຂໍ້ມູນຈາກ cloud ແລ້ວ ☁️' : 'ເຂົ້າບັນຊີແລ້ວ');
+      } else toast('ຜູກອີເມວແລ້ວ ✅ ໃຊ້ອີເມວນີ້ເຂົ້າຈາກເຄື່ອງອື່ນໄດ້');
+      m.step = null; m.edit = false;
+    }
+  }catch(e){ m.err = mailErr(e); window.__errs.push('mail: ' + (e && (e.code || e.message) || e)); }
+  finally{ m.busy = false; render(); }
+}
+async function acctSignOut(){
+  try{ await SB.auth.signOut(); }catch(e){}
+  ACCT.user = null; ACCT.prof = null; ACCT.state = 'off'; ui.mmodal = null; render(); toast('ອອກຈາກບັນຊີແລ້ວ');
+}
+const mailOf = () => ACCT.user && !ACCT.user.is_anonymous ? ACCT.user.email : '';
+const maskMail = e => e ? e.replace(/^(.{2})[^@]*(@.*)$/, '$1•••$2') : '';
+function mailHTML(m){
+  const login = m.step === 'login' || m.step === 'logincode', codeStep = m.step === 'linkcode' || m.step === 'logincode';
+  const head = login ? '📧 ເຂົ້າບັນຊີທີ່ມີແລ້ວ' : '🔗 ຜູກອີເມວ';
+  const body = codeStep
+    ? '<p class="lore">ສົ່ງລະຫັດໄປທີ່ <b>' + escH(m.email) + '</b> ແລ້ວ. ເປີດອີເມວ ແລ້ວໃສ່ລະຫັດ (ຖ້າບໍ່ເຫັນ ເບິ່ງໃນ Spam)</p><input id="pcode" class="pname code" inputmode="numeric" maxlength="8" placeholder="••••••" autocomplete="one-time-code">'
+    : '<p class="lore">' + (login ? 'ໃສ່ອີເມວທີ່ຜູກໄວ້ ລະບົບຈະສົ່ງລະຫັດໄປໃຫ້. ຂໍ້ມູນໃນເຄື່ອງນີ້ ຈະຖືກແທນດ້ວຍຂໍ້ມູນຂອງບັນຊີນັ້ນ' : 'ໃຊ້ອີເມວຂອງພໍ່ແມ່ໄດ້. ຜູກແລ້ວ ບັນຊີບໍ່ຫາຍ ແລະ ເຂົ້າຈາກເຄື່ອງອື່ນໄດ້') + '</p>' +
+      '<input id="pmail" class="pname mail" type="email" inputmode="email" placeholder="email@gmail.com" autocomplete="email" value="' + escH(m.email || '') + '">';
+  return '<p class="q">' + head + '</p>' + body + (m.err ? '<p class="why">' + m.err + '</p>' : '') +
+    '<div class="mbtns"><button class="btn-main sm" data-a="' + (codeStep ? 'mverify' : 'msend') + '"' + (m.busy ? ' disabled' : '') + '>' + (m.busy ? 'ກຳລັງສົ່ງ…' : codeStep ? '✓ ຢືນຢັນ' : '📨 ສົ່ງລະຫັດ') + '</button>' +
+    (codeStep ? '<button class="btn2" data-a="mresend">ສົ່ງໃໝ່</button>' : '') + '<button class="btn2" data-a="mback">ກັບຄືນ</button></div>';
+}
 function agoText(t){ const s = Math.round((Date.now() - t) / 1000); return s < 60 ? 'ຫາກໍ່' : s < 3600 ? Math.round(s / 60) + ' ນາທີກ່ອນ' : Math.round(s / 3600) + ' ຊົ່ວໂມງກ່ອນ'; }
 function profHTML(m){
+  if(m.step) return mailHTML(m);
   const P = ACCT.prof, av = m.av || (P && P.avatar) || DECKS[0].legend, c = col();
   const pick = '<div class="avgrid">' + AVATARS().map(id => '<button class="avopt' + (id === av ? ' on' : '') + '" data-a="avpick" data-v="' + id + '"><img src="' + PIC(C[id].img) + '" alt="' + C[id].name + '"></button>').join('') + '</div>';
   if(!P || m.edit){
     return '<p class="q">' + (P ? '✏️ ແກ້ໂປຣໄຟລ໌' : '👤 ສ້າງຜູ້ຫຼິ້ນ') + '</p>' +
       '<input id="pname" class="pname" maxlength="16" placeholder="ຊື່ຫຼິ້ນ" autocomplete="off" value="' + escH(m.name != null ? m.name : (P ? P.name : '')) + '">' +
       '<p class="lore">ເລືອກຮູບໂປຣໄຟລ໌</p>' + pick + (m.err ? '<p class="why">' + m.err + '</p>' : '') +
-      (P ? '' : '<p class="lore">ບໍ່ຕ້ອງໃຊ້ອີເມວ. ກາດ, ເພັດ ແລະ ເດັກ ຈະບັນທຶກຂຶ້ນ cloud ໃຫ້ເອງ</p>') +
+      (P ? '' : '<p class="lore">ບໍ່ຕ້ອງໃຊ້ອີເມວ. ກາດ, ເພັດ ແລະ ເດັກ ຈະບັນທຶກຂຶ້ນ cloud ໃຫ້ເອງ</p><button class="linkbtn" data-a="mlogin">📧 ມີບັນຊີແລ້ວ? ເຂົ້າດ້ວຍອີເມວ</button>') +
       '<div class="mbtns"><button class="btn-main sm" data-a="psave"' + (m.busy ? ' disabled' : '') + '>' + (m.busy ? 'ກຳລັງບັນທຶກ…' : '✓ ບັນທຶກ') + '</button><button class="btn2" data-a="' + (P ? 'pcancel' : 'mmclose') + '">' + (P ? 'ຍົກເລີກ' : 'ໄວ້ກ່ອນ') + '</button></div>';
   }
   const cloud = ACCT.state === 'on' ? '☁️ ບັນທຶກແລ້ວ ' + agoText(ACCT.at) : ACCT.state === 'err' ? '⚠️ ຕໍ່ cloud ບໍ່ໄດ້ (ບັນທຶກໃນເຄື່ອງໄວ້ກ່ອນ)' : '☁️ ກຳລັງຕໍ່…';
   return '<div class="profhead"><span class="hav big fr-' + (c.frame || 'none') + '"><img src="' + PIC(C[P.avatar] ? C[P.avatar].img : C[DECKS[0].legend].img) + '" alt=""></span><div><b>' + escH(P.name) + '</b><small>⭐ ລະດັບ ' + levelOf(c.xp) + ' · 🏆 ' + Object.keys(c.ach || {}).length + '/' + ACH.length + '</small></div></div>' +
     '<p class="lore">' + cloud + '</p>' +
-    '<p class="lore">ບັນຊີນີ້ຢູ່ໃນ browser ນີ້. ຢ່າລຶບຂໍ້ມູນ browser (ການຜູກອີເມວ ເພື່ອໃຊ້ຫຼາຍເຄື່ອງ ຈະມາເທື່ອໜ້າ)</p>' +
-    '<div class="mbtns"><button class="btn2" data-a="pedit">✏️ ແກ້ຊື່ ແລະ ຮູບ</button><button class="btn2" data-a="ach">🏆 ຜົນງານ</button><button class="btn2" data-a="mmclose">ປິດ</button></div>';
+    (mailOf() ? '<p class="lore">📧 ຜູກກັບ ' + escH(maskMail(mailOf())) + ' ແລ້ວ · ເຂົ້າຈາກເຄື່ອງອື່ນໄດ້</p>'
+              : '<p class="lore">⚠️ ບັນຊີແຂກຢູ່ໃນ browser ນີ້ເທົ່ານັ້ນ. ຜູກອີເມວໄວ້ ເພື່ອບໍ່ໃຫ້ຫາຍ</p>') +
+    '<div class="mbtns">' + (mailOf() ? '' : '<button class="btn-main sm" data-a="mlink">🔗 ຜູກອີເມວ</button>') + '<button class="btn2" data-a="pedit">✏️ ແກ້ຊື່ ແລະ ຮູບ</button><button class="btn2" data-a="ach">🏆 ຜົນງານ</button><button class="btn2" data-a="mmclose">ປິດ</button></div>' +
+    (mailOf() ? '<button class="linkbtn" data-a="mout">🚪 ອອກຈາກບັນຊີ (ໃນເຄື່ອງນີ້)</button>' : '');
 }
 /* ---------- online play with a room code ----------
    Both screens run the same seeded game. Only moves and answers travel: {t:'play'|'atk'|'trib'|'fuse'|'end'|'quit'|'ans', from}.
@@ -4736,6 +4802,11 @@ $app.addEventListener('click', e => {
       if(a === 'psave'){ m.name = nameNow(); acctSave(m.name, m.av || (ACCT.prof && ACCT.prof.avatar) || DECKS[0].legend); return; }
       if(a === 'pedit'){ m.edit = true; m.name = null; m.av = null; m.err = ''; render(); return; }
       if(a === 'pcancel'){ m.edit = false; m.err = ''; render(); return; }
+      if(a === 'mlink' || a === 'mlogin'){ m.step = a === 'mlink' ? 'link' : 'login'; m.err = ''; m.email = ''; render(); return; }
+      if(a === 'msend' || a === 'mresend'){ if(a === 'mresend'){ m.step = m.step === 'logincode' ? 'login' : 'link'; render(); } mailStep('send'); return; }   // the email box keeps m.email
+      if(a === 'mverify'){ mailStep('verify'); return; }
+      if(a === 'mback'){ m.step = m.step === 'logincode' ? 'login' : m.step === 'linkcode' ? 'link' : null; m.err = ''; render(); return; }
+      if(a === 'mout'){ acctSignOut(); return; }
     }
     if(ui.mmodal && ui.mmodal.type === 'online'){
       if(a === 'onhost'){ onlineHost(); return; }
