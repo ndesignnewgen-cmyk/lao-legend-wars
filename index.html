@@ -1448,6 +1448,23 @@ body{background:
   70%{opacity:1;transform:translate(-50%,-50%) scale(1.12) rotate(2deg);filter:brightness(1.4)}78%,100%{opacity:1;transform:translate(-50%,-50%) scale(1);filter:none}}
 .fzband{position:absolute;left:0;right:0;top:calc(46% + min(158px,30vw));display:grid;justify-items:center;gap:2px;padding:8px 0 10px;background:linear-gradient(90deg,#0000,#05030bd9 22%,#05030bd9 78%,#0000);opacity:0;animation:fzband var(--dur) forwards;text-shadow:0 3px 0 #000,0 0 22px var(--tc)}
 .fzband small{font:800 14px var(--f-d);letter-spacing:.12em;color:#f2d48a}
+.fzband::before,.fzband::after{content:'';position:absolute;left:50%;width:min(520px,80vw);height:10px;transform:translateX(-50%);
+  background:radial-gradient(circle,#ffe48a 0 3px,transparent 4px) center/14px 10px repeat-x,linear-gradient(90deg,transparent,#e2b54a 15%,#fff3b0 50%,#e2b54a 85%,transparent) center/100% 2px no-repeat}
+.fzband::before{top:-4px}.fzband::after{bottom:-4px}
+.fzband b{text-shadow:0 0 14px var(--tc),0 2px 0 #3a2402}
+.fzyan{position:absolute;left:50%;top:46%;width:min(460px,86vw);height:min(460px,86vw);transform:translate(-50%,-50%);opacity:0;animation:fzyan var(--dur) linear forwards}
+.fzyan svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 0 8px var(--c))}.fzyan .yd *{fill:none;stroke:var(--c);stroke-width:1.6}.fzyan .ydots circle{fill:var(--c)}
+@keyframes fzyan{0%,52%{opacity:0;transform:translate(-50%,-50%) rotate(0) scale(.6)}62%{opacity:.85}100%{opacity:.5;transform:translate(-50%,-50%) rotate(60deg) scale(1)}}
+#fx .links{position:absolute;inset:0}#fx .links svg{width:100%;height:100%;overflow:visible}
+#fx .links line{stroke:var(--c);stroke-width:4;stroke-linecap:round;stroke-dasharray:6 10;filter:drop-shadow(0 0 6px var(--c)) drop-shadow(0 0 12px var(--c));animation:links .5s linear infinite,linkin .25s ease-out}
+@keyframes links{to{stroke-dashoffset:-32}}@keyframes linkin{from{opacity:0}}
+#fx .farrow{position:absolute;left:0;top:var(--y);width:120px;height:6px;margin-top:-3px;border-radius:3px;background:linear-gradient(90deg,transparent,var(--c));box-shadow:0 0 12px var(--c);animation:farrow .6s cubic-bezier(.5,0,.8,.6) forwards;opacity:0}
+#fx .farrow::after{content:'';position:absolute;right:-12px;top:-6px;border:9px solid transparent;border-left:14px solid var(--c);border-right:0}
+#fx .farrow.back{transform:scaleX(-1);left:auto;right:0;animation-name:farrowb}
+@keyframes farrow{0%{opacity:1;left:-140px}100%{opacity:1;left:calc(100% + 20px)}}@keyframes farrowb{0%{opacity:1;right:-140px}100%{opacity:1;right:calc(100% + 20px)}}
+#fx .fscan{position:absolute;width:260px;height:260px;transform:translate(-50%,-50%);border-radius:50%;background:repeating-linear-gradient(0deg,#1de9ff55 0 2px,transparent 2px 7px),radial-gradient(circle,#ff2fb344,transparent 65%);
+  -webkit-mask:radial-gradient(circle,#000 40%,transparent 70%);mask:radial-gradient(circle,#000 40%,transparent 70%);animation:fscan .8s ease-out forwards;mix-blend-mode:screen}
+@keyframes fscan{0%{opacity:0;transform:translate(-50%,-50%) scale(.3)}30%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(1.4)}}
 .fzband b{font:800 clamp(26px,5vw,46px)/1.2 var(--f-d);color:#fff}
 @keyframes fzband{0%,68%{opacity:0;transform:translateY(16px)}78%,100%{opacity:1;transform:none}}
 .card .art .phart{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:radial-gradient(circle at 50% 35%,#fff6d8,#ffc46b 55%,#d9772b);font-size:min(64px,40cqw);line-height:1}
@@ -4293,6 +4310,8 @@ async function fxFuseGather(p, mats, f){
   if(REDUCE){ cl.forEach(d => d.animate([{opacity:1}, {opacity:0}], {duration:200, fill:'forwards'})); await sleep(200); cl.forEach(d => d.remove()); return M; }
   // lift
   await Promise.all(cl.map(d => animDone(d.animate([{transform:'none'}, {transform:'translateY(-26px) scale(1.12)'}], {duration:320 * SET.speed, easing:'cubic-bezier(.2,.8,.3,1)', fill:'forwards'}))));
+  const links = fxLinks(rs.map(ctr), M, T.c[0]);
+  await sleep(260);
   // spiral in: each copy circles the centre on a shrinking radius, faster as it closes
   const pull = setInterval(() => { for(let k = 0; k < 5; k++){ const a = Math.random() * 6.283, R = 150 + Math.random() * 130, sp = 520 + Math.random() * 260;
     emit({x:M.x + Math.cos(a) * R, y:M.y + Math.sin(a) * R, vx:-Math.cos(a) * sp, vy:-Math.sin(a) * sp, g:0, drag:1, life:R / sp, size:2 + Math.random() * 2.5, kind:'spark', color:pick(T.c)}); } fxLoop(); }, 30);
@@ -4303,10 +4322,41 @@ async function fxFuseGather(p, mats, f){
       kf.push({transform:'translate(' + (M.x + Math.cos(a) * R - c0.x) + 'px,' + (M.y + Math.sin(a) * R - c0.y) + 'px) rotate(' + (t * 300 * (i % 2 ? -1 : 1)) + 'deg) scale(' + (1.12 - t * .62) + ')', filter:'brightness(' + (1 + t * 2.2) + ')', offset:t}); }
     return animDone(d.animate(kf, {duration:820 * SET.speed, easing:'cubic-bezier(.55,0,.85,.35)', fill:'forwards'}));
   }));
-  clearInterval(pull); cl.forEach(d => d.remove());
+  clearInterval(pull); cl.forEach(d => d.remove()); if(links) links.remove();
+  fxRays(M.x, M.y, T.c[0], 1000, 460);
   sfx('boom'); flashScreen('#ffffff', .75); shockAt(M.x, M.y, T.c[0], 200); burstAt(M.x, M.y, C[f].tribe, 46, 1.1); rainbowBurst(M.x, M.y, 40);
   await sleep(220);
   return M;
+}
+/* ---------- ຮ່ວມຮ່າງ, extra touches (phase G3) ---------- */
+// glowing threads of power from each part to the meeting point
+function fxLinks(pts, M, color){
+  if(S.fast || REDUCE) return null;
+  const svg = '<svg width="100%" height="100%">' + pts.map(a => '<line x1="' + a.x + '" y1="' + a.y + '" x2="' + M.x + '" y2="' + M.y + '"/>').join('') + '</svg>';
+  const d = addFx('links', null, null, svg); d.style.setProperty('--c', color); return d;
+}
+// each fused card brings a small touch of its own story where it appears
+const FUSE_MOTIF = {
+  sinxaysam:{arrows:3, c:['#ffd23d', '#fff3b0', '#ffffff'], k:'star'},     // three brothers: three golden arrows
+  songphi:{arrows:2, c:['#9fe0ff', '#ffd23d', '#ffffff'], k:'spark'},      // ພະລັກ ພະລາມ: two arrows crossing
+  hungxang:{dust:true, c:['#c98a4a', '#ffd23d', '#7a4a2c'], k:'shard'},    // the war elephant stamps up dust
+  khurak:{lanterns:true, c:['#3aa0ff', '#ffb347', '#ffffff'], k:'drop'},    // the lake of Nong Han and its lanterns
+  yaknak:{scan:true, c:['#1de9ff', '#ff2fb3', '#b388ff'], k:'spark'},      // robot giant: a neon scan
+  singkhu:{twin:true, c:['#ffd23d', '#7be36a', '#ffffff'], k:'star'}        // twin lions, gold and jade
+};
+function fxFuseMotif(id, o){
+  const m = FUSE_MOTIF[id]; if(!m || S.fast || REDUCE || !o) return;
+  if(m.arrows) for(let i = 0; i < m.arrows; i++){
+    const a = addFx('farrow', null, null); const y = o.y + (i - (m.arrows - 1) / 2) * 34, back = m.arrows === 2 && i === 1;
+    a.style.setProperty('--y', y + 'px'); a.style.setProperty('--c', m.c[i % m.c.length]); if(back) a.classList.add('back');
+    a.style.animationDelay = i * 90 + 'ms'; setTimeout(() => a.remove(), 900);
+  }
+  if(m.dust) for(let i = 0; i < 16; i++){ const a = Math.PI + Math.random() * Math.PI; emit({x:o.x + (Math.random() - .5) * 80, y:o.y + 50, vx:Math.cos(a) * (80 + Math.random() * 140), vy:-30 - Math.random() * 60, g:30, drag:.95, life:1.1, size:20 + Math.random() * 16, kind:'smoke', color:'#b98a5a'}); }
+  if(m.lanterns) for(let i = 0; i < 9; i++) emit({x:o.x + (Math.random() - .5) * 160, y:o.y + 40, vx:(Math.random() - .5) * 30, vy:-60 - Math.random() * 50, g:-25, drag:.99, life:1.8, size:6 + Math.random() * 3, kind:'ember', color:'#ffb347'});
+  if(m.scan){ const sc = addFx('fscan', o.x, o.y); setTimeout(() => sc.remove(), 800); }
+  if(m.twin){ shockAt(o.x - 30, o.y, '#ffd23d', 120); shockAt(o.x + 30, o.y, '#7be36a', 120); }
+  for(let i = 0; i < 22; i++){ const a = Math.random() * 6.283, sp = 120 + Math.random() * 260;
+    emit({x:o.x, y:o.y, vx:Math.cos(a) * sp, vy:Math.sin(a) * sp, g:m.k === 'drop' ? 500 : 80, drag:.94, life:.7 + Math.random() * .4, size:m.k === 'smoke' ? 14 : 2.5 + Math.random() * 3, kind:m.k, color:pick(m.c), rot:Math.random() * 6}); }
 }
 // ຮ່ວມຮ່າງ, part 2: the parts' cards fly in from all sides, collide, and the fused card bursts out with its name
 async function fxFuseCutin(ids, f){
@@ -4314,7 +4364,7 @@ async function fxFuseCutin(ids, f){
   const d = C[f], T = TFX[d.tribe] || TFX.hero, n = ids.length, dur = 2100 * SET.speed, far = Math.max(innerWidth, innerHeight) * .62;
   const mats = ids.map((id, i) => { const a = Math.PI + i * 6.283 / n + (n === 2 ? 0 : -Math.PI / 2 + Math.PI);
     return '<div class="fzm" style="--sx:' + Math.round(Math.cos(a) * far) + 'px;--sy:' + Math.round(Math.sin(a) * far * .6) + 'px;--rz:' + (i % 2 ? 18 : -18) + 'deg">' + cardHTML(id) + '</div>'; }).join('');
-  const el = addFx('fzcut', null, null, '<div class="fzrays"></div>' + mats + '<div class="fzres">' + cardHTML(f) + '</div>' +
+  const el = addFx('fzcut', null, null, '<div class="fzrays"></div><div class="fzyan" style="--c:' + T.c[0] + '">' + yantraSVG(T.c[0]) + '</div>' + mats + '<div class="fzres">' + cardHTML(f) + '</div>' +
     '<div class="fzband"><small>🤝 ຮ່ວມຮ່າງ · ' + TRIBE_NAME[d.tribe] + ' · ພະລັງ ' + d.power + '</small><b>' + d.name + '</b></div>');
   el.style.setProperty('--dur', dur + 'ms'); el.style.setProperty('--tc', T.c[0]);
   setTimeout(() => { if(!el.isConnected) return; const x = innerWidth / 2, y = innerHeight * .46;
@@ -4327,9 +4377,13 @@ async function fxFuseEmerge(c, M){
   if(S.fast) return;
   const e = elOf('c:' + c.uid); if(!e) return;
   const r = e.getBoundingClientRect(), pt = {x:r.left + r.width / 2, y:r.top + r.height / 2}, from = M || pt, tribe = C[c.id].tribe;
-  if(!REDUCE) await animDone(e.animate([{transform:'translate(' + (from.x - pt.x) + 'px,' + (from.y - pt.y) + 'px) scale(.12)', opacity:0, filter:'brightness(3)'},
-    {transform:'translate(0,0) scale(1.18)', opacity:1, filter:'brightness(1.6)', offset:.68}, {transform:'none', opacity:1, filter:'none'}], {duration:640 * SET.speed, easing:'cubic-bezier(.2,.9,.3,1.15)'}));
-  sfx('play'); shockAt(pt.x, pt.y, TC[tribe], 150); burstAt(pt.x, pt.y, tribe, 30, .8);
+  const glow = (TFX[tribe] || TFX.hero).c[0];
+  if(!REDUCE){
+    await animDone(e.animate([{transform:'translate(' + (from.x - pt.x) + 'px,' + (from.y - pt.y) + 'px) scale(.12)', opacity:0, filter:'brightness(0) drop-shadow(0 0 14px ' + glow + ')'},
+      {transform:'translate(0,0) scale(1.18)', opacity:1, filter:'brightness(0) drop-shadow(0 0 18px ' + glow + ')', offset:.55},
+      {transform:'translate(0,0) scale(1.08)', opacity:1, filter:'brightness(2.2) drop-shadow(0 0 22px ' + glow + ')', offset:.78}, {transform:'none', opacity:1, filter:'none'}], {duration:900 * SET.speed, easing:'cubic-bezier(.2,.9,.3,1.1)'}));
+  }
+  sfx('play'); shockAt(pt.x, pt.y, TC[tribe], 150); burstAt(pt.x, pt.y, tribe, 30, .8); fxFuseMotif(c.id, pt);
   await sleep(220);
 }
 async function fxEnter(c){
@@ -4518,7 +4572,7 @@ function fxTick(now){
     const k = Math.min(1, 1 - p.t / p.life);
     try{
     p.vx *= p.drag; p.vy = p.vy * p.drag + p.g * dt; p.x += p.vx * dt; p.y += p.vy * dt; p.rot += p.vr * dt;
-    c.globalCompositeOperation = p.solid ? 'source-over' : 'lighter';
+    c.globalCompositeOperation = p.solid || p.kind === 'smoke' ? 'source-over' : 'lighter';   // smoke and dust are matter, not light
     c.globalAlpha = Math.max(0, Math.min(1, k * 1.4)); c.fillStyle = p.color; c.strokeStyle = p.color;
     if(p.kind === 'dot'){ c.beginPath(); c.arc(p.x, p.y, Math.max(.5, p.size * (.4 + k * .6)), 0, 6.283); c.fill(); }
     else if(p.kind === 'spark'){ c.lineWidth = p.size; c.lineCap = 'round'; c.beginPath(); c.moveTo(p.x, p.y); c.lineTo(p.x - p.vx * .045, p.y - p.vy * .045); c.stroke(); }
@@ -5792,7 +5846,7 @@ $app.addEventListener('contextmenu', e => {
 
 /* ---------- self-test: bot vs bot, no animation ---------- */
 // local dev only: poke at live game state from the console
-if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__dbg = {fx:{rite:(i, id) => { const p = S.p[i || 0]; return fxRite(p, id || 'phitibangfai', p.field.slice(0, 3)); }, rays:fxRays, yantra:fxYantra, orb:fxOrb, petals:fxPetals, burst:burstAt, big:fxBig, wait:fxWait, get state(){ return FX; }},get S(){ return S; }, get net(){ return NET; }, render: () => render(), C, win: i => gameOver(S.p[i], 'life'),
+if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__dbg = {fx:{motif:(id, x, y) => fxFuseMotif(id, {x:x || innerWidth / 2, y:y || innerHeight / 2}), cutin:(f) => fxFuseCutin(C[f].fusion, f), rite:(i, id) => { const p = S.p[i || 0]; return fxRite(p, id || 'phitibangfai', p.field.slice(0, 3)); }, rays:fxRays, yantra:fxYantra, orb:fxOrb, petals:fxPetals, burst:burstAt, big:fxBig, wait:fxWait, get state(){ return FX; }},get S(){ return S; }, get net(){ return NET; }, render: () => render(), C, win: i => gameOver(S.p[i], 'life'),
   // play one move for the local side the way a person would (sends it online), answering any open question with a default
   step: async () => { const m = S.modal; if(m && m.resolve){ S.modal = null; m.resolve(m.type === 'mull' ? [] : m.type === 'rite' ? m.opts[0] : m.type === 'discard' ? S.p[0].hand[0] : false); return 'answered ' + m.type; }
     if(S.over || S.turn !== 0 || S.busy) return 'wait'; const p = S.p[0], q = S.p[1];
