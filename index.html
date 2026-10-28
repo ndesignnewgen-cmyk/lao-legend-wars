@@ -854,147 +854,184 @@ body{background:
   .arena .fan .hc:hover{--lift:calc(var(--hw) * 1.4 * -.3 - 10px)}
   .btns2 .gbtn{width:30px;height:30px}.btns2 .gbtn svg{width:15px;height:15px}
 }
-/* ---------- v6: right rail for plates, turn and tools; field, hand and the bot's backs never overlap ---------- */
-.arena.v6{grid-template-columns:minmax(0,280px) minmax(0,1fr) 212px;grid-template-rows:minmax(0,1fr);gap:12px;padding-block:8px}
-.arena.v6 .amain{grid-template-rows:auto minmax(0,1fr) auto;gap:8px}
-/* bot hand: a slim strip of backs hanging from the top edge, the count sits beside it */
-.arena.v6 .ofan{--ow:clamp(38px,min(4.6vw,8dvh),72px);height:calc(var(--ow) * 1.4 * .5);margin:0;overflow:hidden}
-.arena.v6 .ofan .ob{top:calc(var(--ow) * 1.4 * -.5)}
-.arena.v6 .ofan .ocnt{left:auto;right:0;bottom:auto;top:50%;transform:translateY(-50%);font-size:13px;padding:2px 12px}
-/* field: the turn chip and the end button moved out, so the middle is just a line */
-.arena.v6 .field2{grid-template-rows:minmax(0,1fr) 20px minmax(0,1fr);padding:12px 14px;gap:6px}
-.arena.v6 .half2.me .pcol{margin-right:0}
-/* on tall, narrow screens the slot columns stop growing, so the character lane keeps the room */
-.arena.v6 .half2 .strip,.arena.v6 .half2 .pcol{width:min(calc((100cqh - 6px) / 2 * .716),max(13cqw,48px))}
-/* fewer characters on a side get bigger cards; five always fit */
-.arena.v6 .lane.chars .row{align-items:flex-end;padding-bottom:6px}
-/* card height plus the power number above it always fit inside the lane */
-.arena.v6 .lane.chars .mini{--w:min(200px,calc((100cqh - 14px) * .58),calc((100cqw - 24px) / (max(var(--n), 3) + .3)))}
-.arena.v6 .mid2{display:flex;justify-content:center}
-.arena.v6 .mid2 .vs{position:relative;font:800 12px/20px var(--f-d);letter-spacing:.12em;color:#fff;background:linear-gradient(90deg,var(--op),var(--me));padding:0 12px;border-radius:999px;box-shadow:0 0 0 2px #fff}
-/* your hand: fully in view, no peeking off the bottom edge */
-.arena.v6 .fan{--cw:clamp(68px,min(8.6vw,18.5dvh),138px);height:calc(var(--cw) * 1.4 + 20px)}
-.arena.v6 .fan .hc{width:var(--cw);bottom:calc(14px - var(--o) * var(--o) * .5px);--step:min(calc(var(--cw) * 1.02),calc((100cqw - var(--cw) - 16px) / max(var(--n) - 1, 1)));
-  transform:translateX(calc(-50% + var(--o) * var(--step))) translateY(var(--lift)) rotate(calc(var(--o) * 1deg))!important}
-.arena.v6 .fan .hc.ok{--lift:-8px}
-.arena.v6 .fan .hc:hover{--lift:-26px}
-/* the rail */
-.arena.v6 .rail{min-height:0;display:flex;flex-direction:column;gap:10px}
-.arena.v6 .rail .lplate{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:4px 10px;padding:10px;border-radius:18px}
-.arena.v6 .rail .lplate .lav{width:54px;height:54px}
-.arena.v6 .rail .lplate .lnm{font-size:12px;line-height:1.4}
-.arena.v6 .rail .lplate .llife{font-size:30px}
-.arena.v6 .rail .lplate .lsub{flex-wrap:wrap;gap:4px 8px}
-.arena.v6 .rail .lplate .gems{display:flex;flex-wrap:wrap}
-.arena.v6 .rail .lplate.opp{order:0}.arena.v6 .rail .rturn{order:1}.arena.v6 .rail .lplate.me{order:2}.arena.v6 .rail .tools{order:3}
-.arena.v6 .rturn{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:10px}
-.arena.v6 .rturn .tchip2{align-self:center;font:800 14px var(--f-d);color:#fff;background:var(--me);border-radius:999px;padding:4px 16px;white-space:nowrap;box-shadow:0 0 0 2px #fff,0 0 16px var(--me)}
-.arena.v6 .rturn .tchip2.bot{background:var(--op);box-shadow:0 0 0 2px #fff,0 0 16px var(--op)}
-.arena.v6[data-theme] .rturn .medal{position:relative;inset:auto;transform:none;width:100%;height:auto;min-height:74px;border-radius:20px;padding:10px 8px;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:linear-gradient(180deg,#d9d2c4,#a9a093);box-shadow:inset 0 -4px 0 #0002,0 4px 0 #6d665c;cursor:default}
-.arena.v6[data-theme] .rturn .medal b{font:800 24px/1.15 var(--f-d);color:#4a4338}
-.arena.v6[data-theme] .rturn .medal small{font:700 12px var(--f-d);color:#5a3a06}
-.arena.v6[data-theme] .rturn .medal.go{background:linear-gradient(180deg,#ffe48a,#f2b632 55%,#d8920f);box-shadow:inset 0 -5px 0 #b4740a,0 5px 0 #7a4a06,0 10px 22px #f2b63266;cursor:pointer}
-.arena.v6[data-theme] .rturn .medal.go b{color:#3a2402;font-size:28px}
-.arena.v6[data-theme] .rturn .medal.go:hover{filter:brightness(1.06)}
-.arena.v6[data-theme] .rturn .medal.go:active{transform:translateY(3px);box-shadow:inset 0 -2px 0 #b4740a,0 2px 0 #7a4a06}
-.arena.v6 .rturn .logb{position:relative;max-width:none;width:100%;white-space:normal;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
-  text-align:left;font:700 12.5px/1.5 var(--f-d);padding:8px 12px;border-radius:12px;border:1px solid var(--ring);background:var(--log-bg);color:var(--log-ink);cursor:pointer}
-.arena.v6 .tools{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .tbtn{display:flex;align-items:center;justify-content:center;gap:6px;min-height:46px;padding:6px 8px;border:0;border-radius:14px;cursor:pointer;
   background:var(--btn-bg,#1d2b6b);box-shadow:inset 0 0 0 1.5px var(--ring,#fff6),0 3px 0 #0003;color:#fff;font:700 13px var(--f-d)}
 .tbtn svg{width:20px;height:20px;flex:none}
 .tbtn:hover{filter:brightness(1.12)}
 .tbtn:disabled{opacity:.4;cursor:default;filter:none}
-.tbtn:focus-visible,.arena.v6 .rturn .medal:focus-visible{outline:3px solid #fff;outline-offset:2px}
-@media (min-width:1001px) and (max-height:820px){
-  .arena.v6{grid-template-columns:minmax(0,236px) minmax(0,1fr) 196px;gap:10px;padding-block:6px}
-  .arena.v6 .rail{gap:8px}
-  .arena.v6 .rail .lplate{padding:8px}.arena.v6 .rail .lplate .lav{width:44px;height:44px}.arena.v6 .rail .lplate .llife{font-size:24px}
-  .arena.v6[data-theme] .rturn .medal{min-height:62px}
-  .tbtn{min-height:42px}
+.tbtn:focus-visible{outline:3px solid #fff;outline-offset:2px}
+/* ---------- v7: one mat, top to bottom: bot bar, bot lane, the middle, your lane, your bar. Lanes run full width so cards are sized by height ---------- */
+.arena.v7{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr);gap:0;padding:6px max(10px,env(safe-area-inset-right,0px)) 6px max(10px,env(safe-area-inset-left,0px))}
+.arena.v7 .mat7{width:100%;max-width:1480px;margin:0 auto;min-height:0;display:grid;grid-template-columns:minmax(0,1fr);
+  grid-template-rows:auto minmax(0,1fr) auto minmax(0,1fr) auto;gap:6px;padding:10px 14px}
+.arena.v7 .half2{display:contents}
+/* the bars along the outer edges */
+.arena.v7 .sbar{--sw:clamp(36px,min(3.8vw,7.5dvh),54px);display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;gap:12px;min-height:0;min-width:0}
+.arena.v7 .sbar .slots{display:flex;gap:6px;align-items:center}
+.arena.v7 .sbar .slot{width:var(--sw);height:auto;aspect-ratio:63/88;flex:none;border-radius:6px}
+.arena.v7 .sbar .slot .cnt{position:absolute;top:-7px;right:-7px;z-index:3}
+.arena.v7 .sbar .slot::after{font-size:9px}
+.arena.v7 .sbar .slot.gy{cursor:pointer}
+.arena.v7 .sbar .trapl{font-size:9px}
+.arena.v7 .lplate{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:2px 10px;padding:6px 16px 6px 6px;border-radius:999px;min-width:0;max-width:300px}
+.arena.v7 .lplate .lav{width:48px;height:48px}
+.arena.v7 .lplate .lnm{font-size:11.5px;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.arena.v7 .lplate .llife{font-size:26px}
+.arena.v7 .lplate .lsub{flex-wrap:wrap;gap:2px 8px;margin-top:0}
+.arena.v7 .lplate .gems{display:flex;flex-wrap:wrap}
+/* the bot's hand: backs hanging from the top edge of the mat */
+.arena.v7 .ofan{--ow:clamp(34px,min(4vw,7dvh),60px);height:calc(var(--ow) * 1.4 * .55);align-self:start;margin:-10px 0 0;overflow:hidden}
+.arena.v7 .ofan .ob{top:calc(var(--ow) * 1.4 * -.45)}
+.arena.v7 .ofan .ocnt{left:50%;right:auto;top:auto;bottom:0;transform:translateX(-50%);font-size:11.5px;padding:1px 10px}
+/* your hand, in your bar between your plate and your piles */
+.arena.v7 .fan{--cw:clamp(64px,min(8.2vw,17dvh),132px);height:calc(var(--cw) * 1.4 + 14px);align-self:end}
+.arena.v7 .fan .hc{width:var(--cw);bottom:calc(6px - var(--o) * var(--o) * .4px);--step:min(calc(var(--cw) * 1.02),calc((100cqw - var(--cw) - 12px) / max(var(--n) - 1, 1)));
+  transform:translateX(calc(-50% + var(--o) * var(--step))) translateY(var(--lift)) rotate(calc(var(--o) * 1deg))!important}
+.arena.v7 .fan .hc.ok{--lift:-8px}
+.arena.v7 .fan .hc:hover{--lift:-30px;z-index:20}
+.arena.v7 .tools{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.arena.v7 .tbtn{width:38px;min-height:38px;padding:0;border-radius:12px}
+.arena.v7 .tbtn svg{width:18px;height:18px}
+/* the lanes */
+.arena.v7 .lane.chars{min-height:0;border-radius:16px}
+.arena.v7 .lane.chars .row{align-items:center;justify-content:center;padding:0 16px;gap:min(16px,1.6cqw)}
+.arena.v7 .lane.chars .mini{--w:min(176px,calc((100cqh - 14px) * .58),calc((100cqw - 40px) / (max(var(--n), 3) + .4)))}
+.arena.v7 .lane .locname{position:absolute;left:10px;z-index:2;font:800 11px/1 var(--f-d);color:#fff;background:#0009;border:1px solid #ffffff40;border-radius:999px;padding:4px 10px;cursor:pointer;backdrop-filter:blur(3px)}
+.arena.v7 .half2.opp .locname{top:8px}.arena.v7 .half2.me .locname{bottom:8px}
+/* the middle: whose turn on the left, the latest event in the centre, fusions and the end-turn button on the right */
+.arena.v7 .mid7{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,auto) minmax(0,1fr);align-items:center;gap:12px;min-height:46px}
+.arena.v7 .mid7::before{content:"";position:absolute;left:0;right:0;top:50%;height:3px;transform:translateY(-50%);background:linear-gradient(90deg,#0000,var(--op) 15%,#f2b632 50%,var(--me) 85%,#0000);pointer-events:none}
+.arena.v7 .mid7 > *{position:relative}
+.arena.v7 .mleft{display:flex;align-items:center;gap:8px;min-width:0}
+.arena.v7 .mright{display:flex;align-items:center;justify-content:flex-end;gap:8px;min-width:0}
+.arena.v7 .tchip2{font:800 13px var(--f-d);color:#fff;background:var(--me);border-radius:999px;padding:4px 14px;white-space:nowrap;box-shadow:0 0 0 2px #fff,0 0 16px var(--me)}
+.arena.v7 .tchip2.bot{background:var(--op);box-shadow:0 0 0 2px #fff,0 0 16px var(--op)}
+.arena.v7 .festchip{max-width:260px}
+.arena.v7 .logb{max-width:min(460px,40vw);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font:700 12.5px/1.4 var(--f-d);padding:5px 14px;border-radius:999px;border:1px solid var(--ring);background:var(--log-bg);color:var(--log-ink);cursor:pointer}
+.arena.v7 .fusebtn{align-self:center;white-space:nowrap;padding:8px 14px}
+.arena.v7 .fusebtn .fzs{display:none}
+.arena.v7[data-theme] .medal{position:relative;inset:auto;transform:none;width:auto;height:auto;min-width:150px;min-height:46px;border-radius:999px;padding:6px 22px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;background:linear-gradient(180deg,#d9d2c4,#a9a093);box-shadow:inset 0 -4px 0 #0002,0 4px 0 #6d665c;cursor:default}
+.arena.v7[data-theme] .medal b{font:800 18px/1.15 var(--f-d);color:#4a4338}
+.arena.v7[data-theme] .medal small{font:700 10.5px var(--f-d);color:#5a3a06}
+.arena.v7[data-theme] .medal.go{background:linear-gradient(180deg,#ffe48a,#f2b632 55%,#d8920f);box-shadow:inset 0 -5px 0 #b4740a,0 5px 0 #7a4a06,0 10px 22px #f2b63266;cursor:pointer}
+.arena.v7[data-theme] .medal.go b{color:#3a2402;font-size:21px}
+.arena.v7[data-theme] .medal.go:hover{filter:brightness(1.06)}
+.arena.v7[data-theme] .medal.go:active{transform:translateY(3px);box-shadow:inset 0 -2px 0 #b4740a,0 2px 0 #7a4a06}
+.arena.v7 .medal:focus-visible{outline:3px solid #fff;outline-offset:2px}
+/* card details: a floating panel beside the hovered card (hidden on touch screens, where a tap opens the card) */
+.arena.v7 .spanel{position:fixed;z-index:45;width:250px;max-height:calc(100dvh - 16px);visibility:hidden;opacity:0;pointer-events:none;transition:opacity .12s;padding-bottom:12px;gap:8px}
+.arena.v7 .spanel.on{visibility:visible;opacity:1}
+.arena.v7 .spanel .pc{width:min(150px,60%)}
+.arena.v7 .spanel .ptip{display:none}
+@media (hover:none),(pointer:coarse){.arena.v7 .spanel{display:none}}
+/* desktop and tablets: in your bar the plate sits above your four slots, so the hand gets the whole middle */
+@media (min-width:761px) and (min-height:561px){
+  .arena.v7 .sbar.me{grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"plate fan tools" "slots fan tools";row-gap:6px;align-items:end}
+  .arena.v7 .sbar.me .lplate{grid-area:plate;align-self:end;max-width:calc(var(--sw) * 4 + 18px + 24px);min-width:calc(var(--sw) * 4 + 18px)}.arena.v7 .sbar.me .slots{grid-area:slots;align-self:start}
+  .arena.v7 .sbar.me .fan{grid-area:fan}.arena.v7 .sbar.me .tools{grid-area:tools;align-self:center}
 }
-/* tablets and phones: the rail splits into a bar above the field and a bar below the hand */
-@media (max-width:1000px){
-  .arena.v6{grid-template-columns:auto minmax(0,1fr) auto;grid-template-rows:auto minmax(0,1fr) auto;
-    grid-template-areas:"opp . tools" "main main main" "me turn turn";gap:8px;padding-block:6px}
-  .arena.v6 .amain{grid-area:main}
-  .arena.v6 .rail{display:contents}
-  .arena.v6 .rail .lplate{display:flex;padding:4px 14px 4px 4px;border-radius:999px;gap:8px}
-  .arena.v6 .rail .lplate.opp{grid-area:opp}.arena.v6 .rail .lplate.me{grid-area:me}
-  .arena.v6 .rail .lplate .lav{width:42px;height:42px}
-  .arena.v6 .rail .lplate .llife{font-size:22px}
-  .arena.v6 .rail .lplate .gems{display:none}
-  .arena.v6 .rturn{grid-area:turn;flex-direction:row;align-items:center;justify-content:flex-end;gap:10px}
-  .arena.v6 .rturn .logb{display:none}
-  .arena.v6[data-theme] .rturn .medal{width:auto;min-width:150px;min-height:54px;padding:6px 18px}
-  .arena.v6[data-theme] .rturn .medal small{display:none}
-  .arena.v6 .tools{grid-area:tools;display:flex;gap:8px;align-self:center}
-  .tbtn{min-height:44px;min-width:44px;padding:6px 10px}
-  .arena.v6 .fan{--cw:clamp(60px,min(11.5vw,16dvh),130px)}
+/* the panel's content: big card, live state, the skill, a glossary of its keywords and the lore */
+.arena.v7 .spanel .ptop{margin:12px 14px 0;font:700 12px/1.6 var(--f-d);color:var(--p-soft)}
+.arena.v7 .spanel .pchips .up b{color:#0b7a3b}.arena.v7 .spanel .pchips .dn b{color:#c0261c}
+.arena.v7 .spanel .pchips small{font-weight:600;opacity:.8}
+.arena.v7 .spanel .pstate{margin:0 14px;padding:0;list-style:none;display:flex;flex-direction:column;gap:4px}
+.arena.v7 .spanel .pstate li{font:700 12.5px/1.45 var(--f-d);padding:5px 10px;border-radius:8px;background:var(--chip-bg);color:var(--p-ink)}
+.arena.v7 .spanel .pstate li.up{background:#1f9d6b22;color:#0b6b3b}.arena.v7 .spanel .pstate li.dn{background:#c0261c1c;color:#9b1d15}
+.arena.v7 .spanel .pstate li.side{background:transparent;padding:0 2px;color:var(--p-soft)}
+.arena.v7 .spanel .pkw{margin:0 14px;padding:10px 12px;border-radius:10px;background:var(--chip-bg);display:flex;flex-direction:column;gap:7px}
+.arena.v7 .spanel .pkh{font:800 11px var(--f-d);letter-spacing:.12em;color:var(--p-soft)}
+.arena.v7 .spanel .pkw div{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px;align-items:baseline}
+.arena.v7 .spanel .pkw dt:not(.pkh){font:800 11.5px/1.5 var(--f-d);color:#fff;background:#d0342c;border-radius:6px;padding:0 7px;white-space:nowrap}
+.arena.v7 .spanel .pkw dd{margin:0;font:600 12.5px/1.6 var(--f-d);color:var(--p-ink)}
+.arena.v7 .spanel .ptale{margin:0 14px;font:700 12.5px/1.6 var(--f-d);color:var(--p-ink)}
+/* desktop: the panel is the left column, always showing the card you last pointed at */
+@media (min-width:980px) and (hover:hover){
+  .arena.v7{grid-template-columns:clamp(250px,21vw,320px) minmax(0,1fr);gap:10px}
+  .arena.v7 .mat7{grid-column:2;grid-row:1}
+  .arena.v7 .spanel,.arena.v7 .spanel.on{grid-column:1;grid-row:1;position:relative;left:auto!important;top:auto!important;width:auto;max-height:none;min-height:0;
+    visibility:visible;opacity:1;pointer-events:auto;overflow-y:auto;scrollbar-width:thin}
+  .arena.v7 .spanel .pc{width:min(88%,calc(46dvh * .716))}
+  .arena.v7 .spanel .ph{font-size:18px}
+  .arena.v7 .spanel .pskill{font-size:14.5px;line-height:1.75}
 }
-@media (max-width:640px){
-  .arena.v6{gap:6px}
-  .tbtn span{display:none}
-  .tbtn{padding:0;width:44px}
-  .arena.v6 .rturn .tchip2{display:none}
-  .arena.v6[data-theme] .rturn .medal{min-width:132px}
-  .arena.v6[data-theme] .rturn .medal.go b{font-size:22px}
-  .arena.v6 .fan{--cw:clamp(56px,18.5vw,110px)}
-  .arena.v6 .field2{padding:8px;grid-template-rows:minmax(0,1fr) 18px minmax(0,1fr)}
+/* short screens */
+@media (max-height:820px) and (min-width:761px){
+  .arena.v7{padding-block:4px}
+  .arena.v7 .mat7{padding:6px 12px;gap:4px}
+  .arena.v7 .lplate .lav{width:40px;height:40px}.arena.v7 .lplate .llife{font-size:22px}
+  .arena.v7 .fan{--cw:clamp(60px,min(8vw,16dvh),120px)}
+  .arena.v7 .mid7{min-height:40px}
+  .arena.v7[data-theme] .medal{min-height:40px;padding:4px 18px}.arena.v7[data-theme] .medal small{display:none}
+  .arena.v7 .tbtn{width:34px;min-height:34px}
 }
-/* short landscape screens (phones held sideways, small laptop windows): keep the side rail, compact, so the field keeps its height */
-@media (max-height:560px) and (min-aspect-ratio:3/2){
-  .arena.v6{grid-template-columns:minmax(0,1fr) 158px;grid-template-rows:minmax(0,1fr);grid-template-areas:none;gap:8px;padding-block:4px}
-  .arena.v6 .spanel{display:none}
-  .arena.v6 .amain{grid-area:auto;gap:4px}
-  .arena.v6 .rail{display:flex;flex-direction:column;gap:6px}
-  .arena.v6 .rail .lplate{display:grid;grid-template-columns:auto minmax(0,1fr);padding:6px;border-radius:14px;gap:2px 8px}
-  .arena.v6 .rail .lplate .lav{width:34px;height:34px}
-  .arena.v6 .rail .lplate .lnm{font-size:10px}
-  .arena.v6 .rail .lplate .llife{font-size:19px}
-  .arena.v6 .rail .lplate .lsub{margin-top:0}
-  .arena.v6 .rturn{flex-direction:column;justify-content:center;gap:6px}
-  .arena.v6 .rturn .tchip2{display:block;font-size:11px;padding:2px 10px}
-  .arena.v6[data-theme] .rturn .medal{width:100%;min-width:0;min-height:50px;padding:4px}
-  .arena.v6[data-theme] .rturn .medal.go b{font-size:21px}
-  .arena.v6 .tools{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-  .tbtn span{display:none}
-  .tbtn{width:auto;min-height:38px;padding:0}
-  .arena.v6 .ofan{--ow:clamp(30px,8dvh,48px)}
-  .arena.v6 .field2{padding:6px 8px;gap:3px;grid-template-rows:minmax(0,1fr) 16px minmax(0,1fr)}
-  .arena.v6 .mid2 .vs{font-size:10px;line-height:16px}
-  .arena.v6 .fan{--cw:clamp(52px,min(8vw,22dvh),110px)}
+@media (max-height:560px) and (min-width:761px){
+  .arena.v7 .lplate{padding:3px 12px 3px 3px}.arena.v7 .lplate .lav{width:30px;height:30px}.arena.v7 .lplate .llife{font-size:17px}.arena.v7 .lplate .lnm{font-size:10px}.arena.v7 .lplate .gems{display:none}
+  .arena.v7 .sbar{--sw:clamp(26px,7dvh,40px);gap:8px}
+  .arena.v7 .ofan{--ow:clamp(26px,7dvh,40px)}
+  /* the hand peeks up from the bottom edge and rises on hover, so the lanes keep their height */
+  .arena.v7 .fan{--cw:clamp(54px,min(7.4vw,22dvh),100px);height:calc(var(--cw) * 1.4 * .58)}
+  .arena.v7 .fan .hc{bottom:calc(var(--cw) * 1.4 * -.42 - 6px)}
+  .arena.v7 .fan .hc.ok{--lift:-6px}
+  .arena.v7 .fan .hc:hover{--lift:calc(var(--cw) * 1.4 * -.42 - 12px)}
+  .arena.v7 .mat7{padding-bottom:0}
+  .arena.v7 .mid7{min-height:32px}.arena.v7 .tchip2{font-size:11px;padding:2px 10px}.arena.v7 .logb{font-size:11px;padding:3px 10px}
+  .arena.v7[data-theme] .medal{min-height:32px;min-width:110px}.arena.v7[data-theme] .medal.go b{font-size:16px}
+  .arena.v7 .tools{grid-template-columns:repeat(4,auto)}
+  .arena.v7 .tbtn{width:30px;min-height:30px}
+}
+/* phones and narrow windows: the bot's backs give way to a count in the plate, your bar puts the hand on its own row */
+@media (max-width:760px){
+  .arena.v7{padding:4px 6px}
+  .arena.v7 .mat7{padding:6px;gap:4px;border-radius:14px}
+  .arena.v7 .sbar{--sw:clamp(26px,8.2vw,40px);grid-template-columns:minmax(0,1fr) auto;gap:6px}
+  .arena.v7 .sbar.opp .ofan{display:none}
+  .arena.v7 .sbar.me{grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"plate slots tools" "fan fan fan";row-gap:4px}
+  .arena.v7 .sbar.me .lplate{grid-area:plate}.arena.v7 .sbar.me .slots{grid-area:slots}.arena.v7 .sbar.me .tools{grid-area:tools}.arena.v7 .sbar.me .fan{grid-area:fan}
+  .arena.v7 .sbar .slots{gap:4px}
+  .arena.v7 .lplate{padding:3px 12px 3px 3px;max-width:none}
+  .arena.v7 .lplate .lav{width:34px;height:34px}.arena.v7 .lplate .llife{font-size:19px}.arena.v7 .lplate .lnm{font-size:10px}.arena.v7 .lplate .gems{display:none}
+  .arena.v7 .tools{grid-template-columns:repeat(2,auto);gap:4px}
+  .arena.v7 .tbtn{width:32px;min-height:32px;border-radius:10px}.arena.v7 .tbtn svg{width:16px;height:16px}
+  .arena.v7 .fan{--cw:clamp(54px,17vw,96px);height:calc(var(--cw) * 1.4 + 10px)}
+  .arena.v7 .lane.chars .row{padding:0 6px;gap:4px}
+  .arena.v7 .lane.chars .mini{--w:min(130px,calc((100cqh - 12px) * .58),calc((100cqw - 14px) / (max(var(--n), 3) + .2)))}
+  .arena.v7 .mid7{grid-template-columns:auto minmax(0,1fr) auto;gap:6px;min-height:40px}
+  .arena.v7 .logb{display:none}.arena.v7 .festchip small{display:none}
+  .arena.v7 .tchip2{font-size:11px;padding:3px 10px}.arena.v7 .tchip2 .tcw{display:none}
+  .arena.v7 .fusebtn{font-size:11px;padding:6px 10px}.arena.v7 .fusebtn .fzn{display:none}.arena.v7 .fusebtn .fzs{display:inline}
+  .arena.v7 .festchip > span:not(.fic){display:none}.arena.v7 .festchip{padding:4px 8px}
+  .arena.v7[data-theme] .medal{min-width:112px;min-height:40px;padding:4px 14px}.arena.v7[data-theme] .medal small{display:none}.arena.v7[data-theme] .medal.go b{font-size:17px}
 }
 /* dark themes (ແມ່ນ້ຳຂອງ, ປ່າຫິມະພານ): brighter red and blue sides and readable side names on the dark field */
-.arena.v6[data-theme="mekong"],.arena.v6[data-theme="himma"]{--op-hi:#ff7a6a;--me-hi:#7fa6ff}
-.arena.v6[data-theme="mekong"] .half2.opp .lane.chars,.arena.v6[data-theme="himma"] .half2.opp .lane.chars{background:linear-gradient(180deg,#ff5a4a33,#ff5a4a0d);border:2px solid var(--op-hi)}
-.arena.v6[data-theme="mekong"] .half2.me .lane.chars,.arena.v6[data-theme="himma"] .half2.me .lane.chars{background:linear-gradient(0deg,#4f86ff3d,#4f86ff0d);border:2px solid var(--me-hi)}
-.arena.v6[data-theme="mekong"] .half2.opp .lane.chars.hasloc,.arena.v6[data-theme="himma"] .half2.opp .lane.chars.hasloc{background:linear-gradient(180deg,#c8312b80,#00000040),var(--locimg) center/cover}
-.arena.v6[data-theme="mekong"] .half2.me .lane.chars.hasloc,.arena.v6[data-theme="himma"] .half2.me .lane.chars.hasloc{background:linear-gradient(0deg,#2c63c980,#00000040),var(--locimg) center/cover}
-.arena.v6[data-theme="mekong"] .half2.opp .lane.chars .wm,.arena.v6[data-theme="himma"] .half2.opp .lane.chars .wm{color:#ff9a8f4d}
-.arena.v6[data-theme="mekong"] .half2.me .lane.chars .wm,.arena.v6[data-theme="himma"] .half2.me .lane.chars .wm{color:#a9c2ff52}
-.arena.v6[data-theme="mekong"] .half2.opp .slot,.arena.v6[data-theme="himma"] .half2.opp .slot{border-color:#ff7a6aaa}
-.arena.v6[data-theme="mekong"] .half2.me .slot,.arena.v6[data-theme="himma"] .half2.me .slot{border-color:#7fa6ffaa}
-.arena.v6[data-theme="mekong"] .slot::after,.arena.v6[data-theme="himma"] .slot::after{color:#ffffffb0}
-.arena.v6[data-theme="mekong"] .mid2 .vs,.arena.v6[data-theme="himma"] .mid2 .vs{box-shadow:0 0 0 2px #ffffffcc,0 0 14px #0008}
+.arena[data-theme="mekong"],.arena[data-theme="himma"]{--op-hi:#ff7a6a;--me-hi:#7fa6ff}
+.arena[data-theme="mekong"] .half2.opp .lane.chars,.arena[data-theme="himma"] .half2.opp .lane.chars{background:linear-gradient(180deg,#ff5a4a33,#ff5a4a0d);border:2px solid var(--op-hi)}
+.arena[data-theme="mekong"] .half2.me .lane.chars,.arena[data-theme="himma"] .half2.me .lane.chars{background:linear-gradient(0deg,#4f86ff3d,#4f86ff0d);border:2px solid var(--me-hi)}
+.arena[data-theme="mekong"] .half2.opp .lane.chars.hasloc,.arena[data-theme="himma"] .half2.opp .lane.chars.hasloc{background:linear-gradient(180deg,#c8312b80,#00000040),var(--locimg) center/cover}
+.arena[data-theme="mekong"] .half2.me .lane.chars.hasloc,.arena[data-theme="himma"] .half2.me .lane.chars.hasloc{background:linear-gradient(0deg,#2c63c980,#00000040),var(--locimg) center/cover}
+.arena[data-theme="mekong"] .half2.opp .lane.chars .wm,.arena[data-theme="himma"] .half2.opp .lane.chars .wm{color:#ff9a8f4d}
+.arena[data-theme="mekong"] .half2.me .lane.chars .wm,.arena[data-theme="himma"] .half2.me .lane.chars .wm{color:#a9c2ff52}
+.arena[data-theme="mekong"] .half2.opp .slot,.arena[data-theme="himma"] .half2.opp .slot{border-color:#ff7a6aaa}
+.arena[data-theme="mekong"] .half2.me .slot,.arena[data-theme="himma"] .half2.me .slot{border-color:#7fa6ffaa}
+.arena[data-theme="mekong"] .slot::after,.arena[data-theme="himma"] .slot::after{color:#ffffffb0}
+.arena[data-theme="mekong"] .mid2 .vs,.arena[data-theme="himma"] .mid2 .vs{box-shadow:0 0 0 2px #ffffffcc,0 0 14px #0008}
 /* ---------- discard pile on the field and the ກອງຖິ້ມ viewer ---------- */
 .card .art{background:linear-gradient(160deg,#4a5a8a,#232a48)}
 .card .art img.broken{visibility:hidden}
 /* every card in a side slot (location, spell, deck, discard) fits the slot by width and height, centred, so piles never spill */
-.arena.v6 .half2 .slot{container-type:size}
-.arena.v6 .half2 .slot .card,.arena.v6 .half2 .slot .cback{position:absolute;inset:auto;left:50%;top:50%;width:min(100cqw,calc(100cqh * .716));height:auto;transform:translate(-50%,-50%)}
-.arena.v6 .slot.dk{cursor:pointer}
-.arena.v6 .slot.gy{cursor:pointer;transition:transform .15s}
-.arena.v6 .slot.gy:hover{transform:scale(1.05);z-index:4}
-.arena.v6 .slot.gy:hover,.arena.v6 .slot.gy:focus-visible{outline:3px solid #f2b632;outline-offset:2px}
-.arena.v6 .half2 .slot.gy .gyc .card{width:min(88cqw,calc(88cqh * .716))}
-.arena.v6 .slot.gy .gyc{position:absolute;inset:0;transform:translate(calc(var(--j) * -1px),calc(var(--j) * -1px)) rotate(calc(var(--j) * -3deg));filter:brightness(calc(1 - var(--j) * .12))}
-.arena.v6 .slot.gy .gyl{position:absolute;left:50%;bottom:6px;transform:translateX(-50%);z-index:3;display:flex;align-items:center;gap:4px;
+.arena:is(.v6,.v7) .half2 .slot{container-type:size}
+.arena:is(.v6,.v7) .half2 .slot .card,.arena:is(.v6,.v7) .half2 .slot .cback{position:absolute;inset:auto;left:50%;top:50%;width:min(100cqw,calc(100cqh * .716));height:auto;transform:translate(-50%,-50%)}
+.arena:is(.v6,.v7) .slot.dk{cursor:pointer}
+.arena:is(.v6,.v7) .slot.gy{cursor:pointer;transition:transform .15s}
+.arena:is(.v6,.v7) .slot.gy:hover{transform:scale(1.05);z-index:4}
+.arena:is(.v6,.v7) .slot.gy:hover,.arena:is(.v6,.v7) .slot.gy:focus-visible{outline:3px solid #f2b632;outline-offset:2px}
+.arena:is(.v6,.v7) .half2 .slot.gy .gyc .card{width:min(88cqw,calc(88cqh * .716))}
+.arena:is(.v6,.v7) .slot.gy .gyc{position:absolute;inset:0;transform:translate(calc(var(--j) * -1px),calc(var(--j) * -1px)) rotate(calc(var(--j) * -3deg));filter:brightness(calc(1 - var(--j) * .12))}
+.arena:is(.v6,.v7) .slot.gy .gyl{position:absolute;left:50%;bottom:6px;transform:translateX(-50%);z-index:3;display:flex;align-items:center;gap:4px;
   background:#000000c4;color:#fff;font:800 11px/1 var(--f-d);padding:5px 9px 5px 7px;border-radius:999px;white-space:nowrap;box-shadow:0 0 0 1.5px #ffffff88}
-.arena.v6 .slot.gy .gyl svg{width:13px;height:13px}
-.arena.v6 .slot.gy:not(.has) .gyl{bottom:auto;top:50%;transform:translate(-50%,-50%)}
-.arena.v6 .slot.gy::after{display:none}
+.arena:is(.v6,.v7) .slot.gy .gyl svg{width:13px;height:13px}
+.arena:is(.v6,.v7) .slot.gy:not(.has) .gyl{bottom:auto;top:50%;transform:translate(-50%,-50%)}
+.arena:is(.v6,.v7) .slot.gy::after{display:none}
 .gview-bg{position:fixed;inset:0;z-index:55;background:#0b0710d9;display:grid;place-items:center;padding:16px;animation:fadein .18s}
 @keyframes fadein{from{opacity:0}}
 .gview{width:min(1080px,100%);max-height:100%;display:flex;flex-direction:column;gap:12px;background:#fffaf0;color:#2b2014;border-radius:22px;padding:18px 20px;
@@ -3651,31 +3688,43 @@ function menuModalHTML(){
   return '<div class="modal-bg"><div class="modal' + (m.type === 'decks' || m.type === 'pvp' || m.type === 'ach' ? ' wide' : '') + '">' + inner + '</div></div>';
 }
 function boardHTML(){
-  const m = S.p[0], b = S.p[1], canExit = S.over || (S.turn === 0 && !S.busy && !S.targeting);
-  const tool = (a, ic, label, off) => '<button class="tbtn" data-a="' + a + '"' + (off ? ' disabled' : '') + ' aria-label="' + label + '">' + ic + '<span>' + label + '</span></button>';
-  return '<div class="arena v6" data-theme="' + (THEMES.some(t => t[0] === SET.theme) ? SET.theme : 'sinh') + '">' +
-    '<aside class="spanel" id="dpanel" aria-live="polite">' + detailHTML() + '</aside>' +
-    '<div class="amain">' +
-      '<div class="ofan" data-k="hand:1" style="--n:' + b.hand.length + '" aria-label="ກາດໃນມືບອດ ' + b.hand.length + ' ໃບ">' +
-        b.hand.map((h, i) => '<span class="ob cback" style="--i:' + i + '">' + BACK + '</span>').join('') + '<span class="ocnt">ມືບອດ ' + b.hand.length + '</span></div>' +
-      '<div class="field2">' + half2(b, 1) + mid2() + half2(m, 0) + promptHTML() + '</div>' +
-      '<div class="fan hand ' + (ui.hideHand ? 'hidden' : '') + '" data-k="hand:0" style="--n:' + m.hand.length + '">' + m.hand.map((h, i) => handHTML(h, i)).join('') + '</div>' +
-    '</div>' +
-    '<div class="rail">' + plate2(b, 1) + turnBox() + plate2(m, 0) +
-      '<div class="tools">' + tool('hidehand', IC_EYE, ui.hideHand ? 'ສະແດງມື' : 'ຊ່ອນມື') + tool('log', IC_LOG, 'ບັນທຶກ') + tool('settings', IC_GEAR, 'ຕັ້ງຄ່າ') + tool('menu', IC_EXIT, 'ອອກ', !canExit) + '</div>' +
-    '</div></div>';
+  const m = S.p[0], b = S.p[1], canExit = S.over || (S.turn === 0 && !S.busy && !S.targeting), dp = ui.dp;
+  const tool = (a, ic, label, off) => '<button class="tbtn" data-a="' + a + '"' + (off ? ' disabled' : '') + ' aria-label="' + label + '" title="' + label + '">' + ic + '</button>';
+  const ofan = '<div class="ofan" data-k="hand:1" style="--n:' + b.hand.length + '" aria-label="ກາດໃນມືບອດ ' + b.hand.length + ' ໃບ">' +
+    b.hand.map((h, i) => '<span class="ob cback" style="--i:' + i + '">' + BACK + '</span>').join('') + '<span class="ocnt">ມືບອດ ' + b.hand.length + '</span></div>';
+  const fan = '<div class="fan hand ' + (ui.hideHand ? 'hidden' : '') + '" data-k="hand:0" style="--n:' + m.hand.length + '">' + m.hand.map((h, i) => handHTML(h, i)).join('') + '</div>';
+  const tools = '<div class="tools">' + tool('hidehand', IC_EYE, ui.hideHand ? 'ສະແດງມື' : 'ຊ່ອນມື') + tool('log', IC_LOG, 'ບັນທຶກ') + tool('settings', IC_GEAR, 'ຕັ້ງຄ່າ') + tool('menu', IC_EXIT, 'ອອກ', !canExit) + '</div>';
+  return '<div class="arena v7" data-theme="' + (THEMES.some(t => t[0] === SET.theme) ? SET.theme : 'sinh') + '">' +
+    '<div class="field2 mat7">' + half7(b, 1, ofan) + mid7() + half7(m, 0, fan, tools) + promptHTML() + '</div>' +
+    // card details float beside whatever the pointer is on, instead of taking a column of their own
+    '<aside class="spanel' + (dp ? ' on' : '') + '" id="dpanel" aria-live="polite"' + (dp ? ' style="left:' + dp.x + 'px;top:' + dp.y + 'px"' : '') + '>' + detailHTML() + '</aside>' +
+  '</div>';
 }
-// whose turn it is, the big end-turn button and the latest event, between the two plates
-function turnBox(){
+// one side of the mat: its bar (plate, hand, location, spell, deck, discard) on the outer edge and the character lane toward the middle
+function half7(p, i, hand, tools){
+  const mg = p.lastMagic, top = p.grave.length ? p.grave[p.grave.length - 1] : null, last = p.grave.slice(-3);
+  const loc = '<div class="slot loc' + (p.loc ? ' has' : '') + '" data-l="ສະຖານທີ່"' + (p.loc ? ' data-a="info" data-v="' + p.loc + '"' : '') + '>' + (p.loc ? cardHTML(p.loc) : '') + '</div>';
+  const deck = '<div class="slot dk' + (p.deck.length ? ' has' : '') + '" data-k="deck:' + i + '" data-a="deckinfo" data-v="' + i + '" data-l="ເດັກ">' + (p.deck.length ? '<span class="cback">' + BACK + '</span>' : '') + '<span class="cnt">' + p.deck.length + '</span></div>';
+  const grave = '<div class="slot gy' + (top ? ' has' : '') + '" data-a="grave" data-v="' + i + '" data-l="ກອງຖິ້ມ" role="button" tabindex="0" aria-label="ເບິ່ງກອງຖິ້ມ ' + p.grave.length + ' ໃບ">' +
+    last.map((id, j) => '<div class="gyc" style="--j:' + (last.length - 1 - j) + '">' + cardHTML(id) + '</div>').join('') + '<span class="cnt">' + p.grave.length + '</span></div>';
+  const bar = '<div class="sbar ' + (i ? 'opp' : 'me') + '">' + plate2(p, i) + (hand || '') + '<div class="slots">' + loc + trapSlot(p, mg) + grave + deck + '</div>' + (tools || '') + '</div>';
+  const lane = '<div class="lane chars' + (p.loc ? ' hasloc' : '') + '" data-k="side:' + i + '"' + (p.loc ? ' style="--locimg:url(' + ART + C[p.loc].img + '.jpg)"' : '') + '><span class="wm">' + (S.auto || S.pvp ? p.name : (i ? 'ຝ່າຍບອດ' : 'ຝ່າຍເຈົ້າ')) + '</span>' +
+    (p.loc ? '<span class="locname" data-a="info" data-v="' + p.loc + '">📍 ' + C[p.loc].name + '</span>' : '') +
+    (p.water ? '<span class="waterlv" style="--wl:' + p.water + '"><b>🌊 ' + p.water + '/5</b></span>' : '') + (p.fans ? '<span class="fanlv"><b>💖 ' + Math.min(p.fans, encoreAt(p)) + '/' + encoreAt(p) + '</b><i style="width:' + Math.round(Math.min(1, p.fans / encoreAt(p)) * 100) + '%"></i></span>' : '') +
+    '<div class="row" style="--n:' + p.field.length + '">' + p.field.map(c => miniHTML(p, c)).join('') + '</div></div>';
+  return '<div class="half2 ' + (i ? 'opp' : 'me') + '" data-k="mat:' + i + '">' + (i ? bar + lane : lane + bar) + '</div>';
+}
+// the middle of the mat: whose turn, the latest event, fusions you can make and the end-turn button
+function mid7(){
   const mine = S.turn === 0 && !S.over && !S.auto, me = S.p[0];
   const moves = mine && (me.hand.some(h => !playBlock(me, h)) || me.field.some(c => canAttack(me, c)));
-  const chip = '<span class="tchip2 ' + (mine ? '' : 'bot') + '">ຕາທີ ' + Math.ceil(S.T / 2) + ' · ' + (S.over ? 'ຈົບເກມ' : (mine ? (S.pvp ? S.p[0].name : 'ຕາຂອງເຈົ້າ') : (S.auto ? cur().name : 'ຕາບອດ'))) + '</span>';
+  const chip = '<span class="tchip2 ' + (mine ? '' : 'bot') + '">ຕາທີ ' + Math.ceil(S.T / 2) + '<span class="tcw"> · ' + (S.over ? 'ຈົບເກມ' : (mine ? (S.pvp ? S.p[0].name : 'ຕາຂອງເຈົ້າ') : (S.auto ? cur().name : 'ຕາບອດ'))) + '</span></span>';
   const btn = (mine && !S.busy)
     ? '<button class="medal go ' + (moves ? '' : 'glow') + '" data-a="end"><b>ຈົບຕາ</b><small>' + (moves ? 'ຍັງລົງກາດ ຫຼື ໂຈມຕີໄດ້' : 'ກົດເພື່ອສົ່ງຕາ') + '</small></button>'
     : '<button class="medal" disabled><b>' + (S.over ? 'ຈົບເກມ' : (mine ? '…' : 'ລໍຖ້າບອດ')) + '</b></button>';
   const fz = mine && !S.busy ? (me.extra || []).filter(f => canFuse(me, f)) : [];
-  const fb = fz.map(f => '<button class="fusebtn" data-a="fuse" data-v="' + f + '">🤝 ຮ່ວມຮ່າງ «' + C[f].name + '» · ' + FUSE_COST + ' ບຸນ</button>').join('');
-  return '<div class="rturn">' + festChip() + chip + fb + btn + '<button class="logb" data-a="log">' + (S.log[0] || '') + '</button></div>';
+  const fb = fz.map(f => '<button class="fusebtn" data-a="fuse" data-v="' + f + '" title="ຮ່ວມຮ່າງ «' + C[f].name + '»">🤝 <span class="fzn">' + C[f].name + '</span><span class="fzs">ຮ່ວມຮ່າງ</span> · ' + FUSE_COST + ' ບຸນ</button>').join('');
+  return '<div class="mid7"><div class="mleft">' + chip + festChip() + '</div><button class="logb" data-a="log">' + (S.log[0] || '') + '</button><div class="mright">' + fb + btn + '</div></div>';
 }
 const taleTag = p => (p.tales || []).map(t => ' · 📖' + (t.done ? '✓' : t.got.length + '/' + TALES[t.i].ids.length)).join('');
 function festChip(){
@@ -3724,14 +3773,59 @@ function promptHTML(){
   if(!S.targeting) return '';
   return '<div class="tprompt2"><b>' + S.targeting.prompt + '</b><button class="btn2" data-a="cancel">ຍົກເລີກ</button></div>';
 }
+// every keyword the cards use, explained in plain words for the detail panel
+const KW_HELP = [
+  ['ກັນໄພ', TAUNT], ['ບິນ', FLY], ['ຮວມພົນ', RALLY.replace('ຮວມພົນ: ', '')], ['ປົກປັກ', GUARD.replace('ປົກປັກ: ', '')], ['ນ້ຳຂຶ້ນ', TIDE.replace('ນ້ຳຂຶ້ນ: ', '')],
+  ['ໂລ່ທິບ', SHIELD.replace('ໂລ່ທິບ: ', '')], ['ອັງກໍ', ENCORE], ['ດູດຂວັນ', DRAIN.replace('ດູດຂວັນ: ', '')], ['ສະສົມພະລັງ', GROW.replace('ສະສົມພະລັງ: ', '')],
+  ['ພິດ', POISON.replace('ພິດ: ', '')], ['ສະກັດ', BLOCK.replace('ສະກັດ: ', '')],
+  ['ຄືນຊີບ', 'ເອົາຕົວລະຄອນຈາກກອງຖິ້ມຂອງເຈົ້າ ກັບມາລົງສະໜາມ'], ['ປ່ຽນຮ່າງ', 'ຢູ່ສະໜາມຄົບຈຳນວນຕາທີ່ບອກ ໃບນີ້ຈະປ່ຽນເປັນຮ່າງທີ່ແຮງກວ່າ'],
+  ['ແຮັກ', 'ຢືມຕົວລະຄອນຂອງຄູ່ແຂ່ງມາໃຊ້ 1 ຕາ ແລ້ວມັນກັບຄືນເມື່ອຈົບຕາ'], ['ກັບດັກ', 'ວາງຄວ່ຳໄວ້ ຄູ່ແຂ່ງເບິ່ງບໍ່ເຫັນ ແລ້ວເປີດເອງເມື່ອເງື່ອນໄຂຄົບ'],
+  ['ຕໍ່ເນື່ອງ', 'ຖ້າລົງກາດໃນຕາດຽວກັນ ຄົບຈຳນວນທີ່ບອກ (ນັບໃບນີ້) ຈະໄດ້ຜົນພິເສດ'], ['ນ້ຳຖ້ວມ', 'ນ້ຳຂຶ້ນຮອດ 5 ທຳລາຍຕົວລະຄອນຂອງຄູ່ແຂ່ງທີ່ອ່ອນ'],
+  ['ໂຈມຕີໄດ້ທັນທີ', 'ບໍ່ຕ້ອງລໍຖ້າ 1 ຕາ ຫຼັງລົງສະໜາມ'], ['ຮ່ວມຮ່າງ', 'ເມື່ອຄູ່ຂອງມັນຢູ່ສະໜາມຄົບ ຈ່າຍ ' + FUSE_COST + ' ບຸນ ລວມເປັນກາດໃບດຽວທີ່ແຮງກວ່າ']
+];
+function kwHelp(d){
+  const t = d.skill + ' ' + (d.tag || '') + (d.kw.taunt ? ' ກັນໄພ' : '') + (d.kw.fly ? ' ບິນ' : '') + (d.kw.rush ? ' ໂຈມຕີໄດ້ທັນທີ' : '');
+  return KW_HELP.filter(([k]) => t.includes(k) && !(k === 'ນ້ຳຖ້ວມ' && t.includes('ນ້ຳຂຶ້ນ:')));
+}
+// what the panel knows about this copy: its place on the field (items, weakened, waiting) or in your hand (cost now, can you play it)
+function detailState(d0){
+  const out = [];
+  if(!S) return out;
+  if(d0.uid != null){
+    for(const pl of S.p){ const c = pl.field.find(x => x.uid === d0.uid); if(!c) continue;
+      out.push(['side', pi(pl) === 0 && !S.auto ? '🔵 ຢູ່ສະໜາມຝ່າຍເຈົ້າ' : '🔴 ຢູ່ສະໜາມຝ່າຍ' + (S.pvp || S.auto ? pl.name : 'ບອດ')]);
+      for(const it of c.items) out.push(['up', '🗡️ ຕິດ «' + C[it].name + '»' + (C[it].bonus ? ' ພະລັງ +' + C[it].bonus : '')]);
+      const dn = c.mods.filter(m => m.amt < 0).reduce((a, m) => a + m.amt, 0), up = c.mods.filter(m => m.amt > 0).reduce((a, m) => a + m.amt, 0);
+      if(up) out.push(['up', '⬆️ ພະລັງ +' + up + ' ຊົ່ວຄາວ']);
+      if(dn) out.push(['dn', '⬇️ ອ່ອນແຮງ ' + dn]);
+      if(c.shield) out.push(['up', '🛡️ ມີໂລ່ທິບ']);
+      if(c.frz && c.frz >= S.T) out.push(['dn', '🌫️ ຫຼົງໝອກ ໂຈມຕີບໍ່ໄດ້']);
+      if(S.turn === pi(pl)){ if(isSick(pl, c)) out.push(['dn', '⏳ ຫາກໍລົງ ລໍຖ້າ 1 ຕາ']); else if(c.atk >= maxAtk(c)) out.push(['dn', '✔️ ໂຈມຕີແລ້ວໃນຕານີ້']); else if(canAttack(pl, c)) out.push(['up', '⚔️ ໂຈມຕີໄດ້' + (maxAtk(c) > 1 ? ' ' + (maxAtk(c) - c.atk) + ' ເທື່ອ' : '')]); }
+    }
+  } else if(d0.hand != null){
+    const me = S.p[0], h = me.hand.find(x => x.uid === d0.hand);
+    if(h){ const cost = costOf(me, h.id), why = playBlock(me, h);
+      if(cost !== C[h.id].cost) out.push([cost < C[h.id].cost ? 'up' : 'dn', '💎 ຕອນນີ້ໃຊ້ ' + cost + ' ບຸນ (ປົກກະຕິ ' + C[h.id].cost + ')']);
+      out.push(why ? ['dn', '✋ ' + why] : ['up', '✅ ລົງໄດ້ຕອນນີ້']); }
+  }
+  return out;
+}
 function detailHTML(){
-  const d0 = ui.detail; if(!d0 || !C[d0.id]) return '<p class="ptip"><b>✦</b>ຊີ້ ຫຼື ແຕະກາດໃດກໍໄດ້<br>ເພື່ອເບິ່ງກາດໃຫຍ່ ແລະ ອ່ານສະກິນຢູ່ບ່ອນນີ້</p>';
+  let d0 = ui.detail;
+  // nothing pointed at yet: show your deck's legend with a short tip
+  const tip = !d0 || !C[d0.id];
+  if(tip){ const lg = S && S.p[0] ? (S.p[0].cover || DECKS[S.p[0].di].legend) : null; if(!lg || !C[lg]) return '<p class="ptip"><b>✦</b>ຊີ້ ຫຼື ແຕະກາດໃດກໍໄດ້<br>ເພື່ອເບິ່ງກາດໃຫຍ່ ແລະ ອ່ານສະກິນຢູ່ບ່ອນນີ້</p>'; d0 = {id:lg}; }
   const d = C[d0.id], isChar = d.type === 'char', pw = d0.pw != null ? d0.pw : d.power;
   const type = isChar ? (d.legend ? 'ກາດຕຳນານ · ' : 'ຕົວລະຄອນ · ') + TRIBE_NAME[d.tribe] : (d.type === 'loc' ? 'ກາດສະຖານທີ່' : (d.type === 'item' ? 'ຂອງວິເສດ' : (d.type === 'trap' ? 'ກາດກັບດັກ' : 'ກາດຄາຖາ')));
-  return '<div class="ph">' + SYM[isChar ? d.tribe : 'spell'] + '<span>' + d.name + (d0.alt && ALT[d0.id] ? ' ✦' : '') + '</span></div>' +
+  const st = tip ? [] : detailState(d0), kws = kwHelp(d);
+  return (tip ? '<p class="ptop">✦ ຊີ້ໃສ່ກາດໃດກໍໄດ້ ເພື່ອເບິ່ງລາຍລະອຽດ · ນີ້ແມ່ນກາດຕຳນານຂອງເດັກເຈົ້າ</p>' : '') +
+    '<div class="ph">' + SYM[isChar ? d.tribe : 'spell'] + '<span>' + d.name + (d0.alt && ALT[d0.id] ? ' ✦' : '') + '</span></div>' +
     '<div class="pc">' + cardHTML(d0.id, null, d0.alt, isChar ? pw : null) + '</div>' +
-    '<div class="pchips"><span>ບຸນ <b>' + d.cost + '</b></span>' + (isChar ? '<span>ພະລັງ <b>' + pw + '</b>' + (pw !== d.power ? ' (' + d.power + ')' : '') + '</span>' : '') + '</div>' +
-    '<div class="ptype">' + type + '</div><p class="pskill">' + fmtSkill(d.skill) + '</p>' +
+    '<div class="pchips"><span>ບຸນ <b>' + d.cost + '</b></span>' + (isChar ? '<span class="' + (pw > d.power ? 'up' : pw < d.power ? 'dn' : '') + '">ພະລັງ <b>' + pw + '</b>' + (pw !== d.power ? ' <small>(ເດີມ ' + d.power + ')</small>' : '') + '</span>' : '') + '</div>' +
+    '<div class="ptype">' + type + '</div>' +
+    (st.length ? '<ul class="pstate">' + st.map(([k, t]) => '<li class="' + k + '">' + t + '</li>').join('') + '</ul>' : '') +
+    '<p class="pskill">' + fmtSkill(d.skill) + '</p>' +
+    (kws.length ? '<dl class="pkw"><dt class="pkh">ຄຳສັບ</dt>' + kws.map(([k, t]) => '<div><dt>' + k + '</dt><dd>' + t + '</dd></div>').join('') + '</dl>' : '') +
     (FUSE_OF[d0.id] ? '<p class="ptale">🤝 ຮ່ວມຮ່າງ «' + C[FUSE_OF[d0.id]].name + '»: ' + C[FUSE_OF[d0.id]].fusion.map(x => C[x].name).join(' + ') + '</p>' : '') +
     (TALE_OF[d0.id] != null ? '<p class="ptale">📖 ຕອນນິທານ «' + TALES[TALE_OF[d0.id]].name + '»: ' + TALES[TALE_OF[d0.id]].ids.map(x => C[x].name).join(' + ') + '</p>' : '') + '<p class="plore">' + d.lore + '</p>';
 }
@@ -3763,8 +3857,19 @@ function graveHTML(){
     '<div class="gtabs">' + tabs + '</div><div class="gfils">' + fil + '</div>' +
     '<div class="gbody">' + prev + '<div class="ggrid">' + grid + '</div></div></div></div>';
 }
+// the floating detail panel goes beside the card under the pointer: to its right on the left half of the screen, to its left otherwise
+const HOVER = matchMedia('(hover: hover) and (pointer: fine)'), SIDEP = matchMedia('(min-width: 980px) and (hover: hover)');
+function placeDetail(el){
+  const d = document.getElementById('dpanel'); if(!d || !HOVER.matches || SIDEP.matches || el.closest('.spanel')) return;
+  const r = el.getBoundingClientRect(), W = innerWidth, H = innerHeight, w = d.offsetWidth || 250, h = d.offsetHeight || 420, gap = 14;
+  let x = r.left + r.width / 2 < W / 2 ? r.right + gap : r.left - w - gap;
+  if(x < 8 || x + w > W - 8) x = Math.min(Math.max(8, r.left + r.width / 2 - w / 2), W - w - 8);
+  let y = el.dataset.a === 'hand' ? r.top - h - gap : r.top + r.height / 2 - h / 2;
+  y = Math.min(Math.max(8, y), H - h - 8);
+  ui.dp = {x:Math.round(x), y:Math.round(y)}; d.style.left = ui.dp.x + 'px'; d.style.top = ui.dp.y + 'px'; d.classList.add('on');
+}
 function setDetail(o){
-  if(!o || (ui.detail && ui.detail.id === o.id && ui.detail.alt === o.alt && ui.detail.pw === o.pw)) return;
+  if(!o || (ui.detail && ui.detail.id === o.id && ui.detail.alt === o.alt && ui.detail.pw === o.pw && ui.detail.uid === o.uid && ui.detail.hand === o.hand)) return;
   ui.detail = o; const el = document.getElementById('dpanel'); if(el) el.innerHTML = detailHTML();
 }
 function miniHTML(p, c){
@@ -4202,7 +4307,7 @@ async function fxLoc(i, id){
   const m = elOf('mat:' + i);
   if(m && !REDUCE){
     // the new place spreads over this side's field from the centre (the side box itself has no box, so measure its rows)
-    const rr = [...m.querySelectorAll('.srow')].map(x => x.getBoundingClientRect());
+    const rr = [...m.querySelectorAll('.srow, .lane.chars')].map(x => x.getBoundingClientRect());
     const r = rr.length ? {left:Math.min(...rr.map(x => x.left)), top:Math.min(...rr.map(x => x.top)), width:Math.max(...rr.map(x => x.right)) - Math.min(...rr.map(x => x.left)), height:Math.max(...rr.map(x => x.bottom)) - Math.min(...rr.map(x => x.top))} : m.getBoundingClientRect();
     const w = document.createElement('div'); w.className = 'locwipe';
     Object.assign(w.style, {left:r.left + 'px', top:r.top + 'px', width:r.width + 'px', height:r.height + 'px', backgroundImage:'url(' + ART + C[id].img + '.jpg)'});
@@ -4399,9 +4504,15 @@ $app.addEventListener('click', e => {
 $app.addEventListener('pointerover', e => {
   if(!S || S.screen !== 'game') return;
   const el = e.target.closest('[data-a="field"],[data-a="hand"],[data-a="info"]'); if(!el) return;
-  if(el.dataset.a === 'hand'){ const h = S.p[0].hand.find(x => x.uid === +el.dataset.v); if(h) setDetail({id:h.id, alt:h.alt}); }
-  else if(el.dataset.a === 'field'){ for(const pl of S.p){ const c = pl.field.find(x => 'c:' + x.uid === el.dataset.k); if(c){ setDetail({id:c.id, alt:c.alt, pw:pow(pl, c)}); break; } } }
+  if(el.dataset.a === 'hand'){ const h = S.p[0].hand.find(x => x.uid === +el.dataset.v); if(h) setDetail({id:h.id, alt:h.alt, hand:h.uid}); }
+  else if(el.dataset.a === 'field'){ for(const pl of S.p){ const c = pl.field.find(x => 'c:' + x.uid === el.dataset.k); if(c){ setDetail({id:c.id, alt:c.alt, pw:pow(pl, c), uid:c.uid}); break; } } }
   else if(el.dataset.v && C[el.dataset.v]) setDetail({id:el.dataset.v});
+  placeDetail(el);
+});
+$app.addEventListener('pointerout', e => {
+  if(!S || S.screen !== 'game' || !ui.dp || SIDEP.matches) return;
+  const to = e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest('[data-a="field"],[data-a="hand"],[data-a="info"]');
+  if(!to){ ui.dp = null; const d = document.getElementById('dpanel'); if(d) d.classList.remove('on'); }
 });
 $app.addEventListener('input', e => {
   if(!ui.ed || ui.screen !== 'builder') return;
