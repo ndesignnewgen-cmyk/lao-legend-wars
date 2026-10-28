@@ -2027,7 +2027,7 @@ def('papai',{name:'ປ່າໄຜ່',type:'loc',cost:2,tag:'ສະຖານທ
 
 // deck 12: ໄອດໍ ໝໍລຳ. ແຟນຄລັບ = a fan gauge; at 10 (8 with the manager) comes ອັງກໍ: every character may attack twice this turn
 const ENCORE = 'ແຟນຄົບ 8 = ອັງກໍ! ຕົວລະຄອນເຈົ້າທຸກໃບ ໂຈມຕີໄດ້ 2 ເທື່ອ ໃນຕານັ້ນ';
-def('bodyguard',{name:'ບໍດີ້ການ໌ດ',tribe:'idol',idf:1,cost:3,power:3,kw:{taunt:1},ph:'🕶️',tag:'ກັນໄພ',skill:TAUNT,lore:'ແວ່ນດຳ ສູດຢືນ ປົກປ້ອງນັກຮ້ອງຂອງເພິ່ນ'});
+def('bodyguard',{name:'ບໍດີ້ການ໌ດ',tribe:'idol',idf:1,cost:3,power:3,kw:{taunt:1},tag:'ກັນໄພ',skill:TAUNT,lore:'ແວ່ນດຳ ສູດຢືນ ປົກປ້ອງນັກຮ້ອງຂອງເພິ່ນ'});
 def('fannoy',{name:'ແຟນຄລັບນ້ອຍ',tribe:'idol',idf:1,cost:1,power:1,tag:'ແຟນຄລັບ',combo:'fans',skill:'ເມື່ອລົງສະໜາມ ແຟນ +2' + '. ຕໍ່ເນື່ອງ 2: ແຟນ +2',lore:'ແຟນນ້ອຍ ຖືແທ່ງໄຟຮູບແຄນ'});
 def('kinnaridance',{name:'ນັກເຕັ້ນ ກິນນະລີ',tribe:'idol',idf:1,cost:2,power:3,tag:'ແຟນຄລັບ',skill:'ທຸກຕາ ແຟນ +1',lore:'ນັກເຕັ້ນປີກຂົນນົກ ໝຸນຢູ່ເທິງເວທີ'});
 def('rappers',{name:'ແຝດແຣັບເປີ',tribe:'idol',idf:1,cost:2,power:3,tag:'ແຣັບ',skill:'ຖ້າແຟນ 5 ຂຶ້ນໄປ ພະລັງ +2',lore:'ແຝດຄູ່ ໃສ່ຊຸດລາຍສິ້ນ'});
@@ -2145,9 +2145,9 @@ def('nokinsee',{name:'ນົກອິນຊີເຝົ້າຟ້າ',tribe:'v
 def('kwangthong',{name:'ກວາງທອງ',tribe:'villager',cost:4,power:3,kw:{drain:1, grow:1},tag:'ດູດຂວັນ · ສະສົມພະລັງ',skill:DRAIN + '. ' + GROW,lore:'ກວາງທອງ ແລ່ນໄວ ຂົນເຫຼືອງເຫຼື້ອມ'});
 def('romban',{name:'ຮົ່ມບັງ',type:'spell',tribe:'villager',cost:1,react:1,tag:'ຄາຖາ · ຕອບໂຕ້',skill:'ໃຊ້ຕອນຄູ່ແຂ່ງໂຈມຕີຕົວລະຄອນຂອງເຈົ້າ: ໃບນັ້ນພະລັງ +3 ຈົນຈົບຕາ',lore:'ກາງຮົ່ມ ບັງແດດ ບັງຝົນ ບັງພັຍ'});
 // ກາດກາງຊຸດ 3 (balance): a cheap neutral taunt anyone may add, and two neutral traps against a fast rush
-def('huaphai',{name:'ຮົ້ວໄມ້ໄຜ່',tribe:'villager',cost:2,power:2,kw:{taunt:1},ph:'🎋',tag:'ກັນໄພ',skill:TAUNT,lore:'ຮົ້ວໄມ້ໄຜ່ລ້ອມບ້ານ ກັນສັດປ່າເຂົ້າສວນ'});
-def('buangdak',{name:'ບ້ວງດັກ',type:'trap',tribe:'villager',cost:2,ph:'🪢',tag:'ກັບດັກ',skill:'ກັບດັກ: ເມື່ອຄູ່ແຂ່ງໂຈມຕີຂວັນຂອງເຈົ້າ ໃບທີ່ໂຈມຕີ ພະລັງ −3 ຈົນຈົບຕາ',lore:'ບ້ວງເຊືອກຫວາຍ ດັກໄວ້ຂ້າງທາງ'});
-def('saisin',{name:'ສາຍສິນ',type:'trap',tribe:'villager',cost:1,ph:'🧶',tag:'ກັບດັກ',skill:'ກັບດັກ: ເມື່ອຄູ່ແຂ່ງລົງຕົວລະຄອນ ເຈົ້າຟື້ນຂວັນ 3',lore:'ສາຍສິນຂາວ ລ້ອມບ້ານໄວ້ ກັນສິ່ງບໍ່ດີ'});
+def('huaphai',{name:'ຮົ້ວໄມ້ໄຜ່',tribe:'villager',cost:2,power:2,kw:{taunt:1},tag:'ກັນໄພ',skill:TAUNT,lore:'ຮົ້ວໄມ້ໄຜ່ລ້ອມບ້ານ ກັນສັດປ່າເຂົ້າສວນ'});
+def('buangdak',{name:'ບ້ວງດັກ',type:'trap',tribe:'villager',cost:2,tag:'ກັບດັກ',skill:'ກັບດັກ: ເມື່ອຄູ່ແຂ່ງໂຈມຕີຂວັນຂອງເຈົ້າ ໃບທີ່ໂຈມຕີ ພະລັງ −3 ຈົນຈົບຕາ',lore:'ບ້ວງເຊືອກຫວາຍ ດັກໄວ້ຂ້າງທາງ'});
+def('saisin',{name:'ສາຍສິນ',type:'trap',tribe:'villager',cost:1,tag:'ກັບດັກ',skill:'ກັບດັກ: ເມື່ອຄູ່ແຂ່ງລົງຕົວລະຄອນ ເຈົ້າຟື້ນຂວັນ 3',lore:'ສາຍສິນຂາວ ລ້ອມບ້ານໄວ້ ກັນສິ່ງບໍ່ດີ'});
 def('konglai',{name:'ກອງໄລ່',type:'spell',tribe:'villager',cost:1,react:1,tag:'ຄາຖາ · ຕອບໂຕ້',skill:'ໃຊ້ຕອນຄູ່ແຂ່ງໂຈມຕີຂວັນຂອງເຈົ້າ: ໃບທີ່ໂຈມຕີ ກັບຄືນມືເຈົ້າຂອງ',lore:'ຕີກອງດັງໆ ໄລ່ສັດຮ້າຍໜີໄປ'});
 // which reaction fits this attack: ກົນຊຽງໝ້ຽງ any, ຮົ່ມບັງ only on a character, ກອງໄລ່ only on ຂວັນ
 const reactFits = (id, t) => id === 'romban' ? t.kind === 'char' : (id === 'konglai' ? t.kind === 'hero' : true);
