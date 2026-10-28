@@ -1677,6 +1677,14 @@ def('songphi',{name:'ສອງພີ່ນ້ອງ ພະລັກພະລາ�
 def('hungxang',{name:'ທ້າວຮຸ່ງຂີ່ຊ້າງເສິກ',tribe:'warrior',cost:10,power:13,fusion:['thaohung','xangsuek'],kw:{rush:1},ph:'🐘',tag:'ຮ່ວມຮ່າງ · ບຸກໄວ',skill:'ຮ່ວມຮ່າງ: «ທ້າວຮຸ່ງ» + «ຊ້າງເສິກ». ໂຈມຕີໄດ້ທັນທີ',lore:'ທ້າວຮຸ່ງຂຶ້ນຂີ່ຊ້າງເສິກ ນຳທັບບຸກໄປໜ້າ'});
 def('khurak',{name:'ຄູ່ຮັກແຫ່ງໜອງຫານ',tribe:'naga',cost:7,power:8,fusion:['phadaeng','nangai'],kw:{tide:1},ph:'💞',tag:'ຮ່ວມຮ່າງ · ນ້ຳຂຶ້ນ',skill:'ຮ່ວມຮ່າງ: «ທ້າວຜາແດງ» + «ນາງໄອ່ຄຳ». ນ້ຳຂຶ້ນ. ເມື່ອຮ່ວມຮ່າງ ນ້ຳຂຶ້ນ 2',lore:'ຜາແດງ ແລະ ນາງໄອ່ ຈັບມືກັນ ບໍ່ພາກຈາກກັນອີກ'});
 def('yaknak',{name:'ຫຸ່ນຍົນຍັກນາກ',tribe:'cyborg',cy:1,cost:10,power:13,fusion:['nagax','mechyak'],kw:{fly:1},ph:'🤖',tag:'ຮ່ວມຮ່າງ · ບິນ',skill:'ຮ່ວມຮ່າງ: «ນາກາ-X» + «ຍັກຈັກກົນ». ບິນ',lore:'ນາກ ແລະ ຍັກ ຕໍ່ກັນເປັນຫຸ່ນຍົນຍັກໃຫຍ່ ປົກປ້ອງເມືອງ'});
+// ພິທີອັນເຊີນ: a ritual spell offers your weakest characters whose power adds up to the need, then calls one ritual card onto the field
+def('phitibangfai',{name:'ພິທີບຸນບັ້ງໄຟ',type:'spell',tribe:'villager',cost:3,ph:'🕯️',tag:'ຄາຖາ · ພິທີອັນເຊີນ',skill:'ຖວາຍຕົວລະຄອນຂອງເຈົ້າ ພະລັງລວມ 6 ຂຶ້ນໄປ → ອັນເຊີນ «ພະຍານາກເຈັດຫົວ» ຫຼື «ພະຍາແຖນທອງຟ້າ»',lore:'ຈູດທຽນ ຖວາຍດອກໄມ້ ຂໍຝົນຈາກຟ້າ'});
+def('phitisukhuan',{name:'ພິທີສູ່ຂວັນ',type:'spell',tribe:'villager',cost:3,ph:'🧵',tag:'ຄາຖາ · ພິທີອັນເຊີນ',skill:'ຖວາຍຕົວລະຄອນຂອງເຈົ້າ ພະລັງລວມ 5 ຂຶ້ນໄປ → ອັນເຊີນ «ເທວີສັງຂານ» ຫຼື «ຍັກສິບຫົວຄືນຊີບ»',lore:'ຜູກແຂນ ເອີ້ນຂວັນ ໃຫ້ກັບມາຢູ່ນຳກັນ'});
+def('nakjet',{name:'ພະຍານາກເຈັດຫົວ',tribe:'naga',cost:8,power:10,ritual:1,kw:{taunt:1},ph:'🐉',tag:'ພິທີອັນເຊີນ · ກັນໄພ',skill:'ອັນເຊີນດ້ວຍພິທີເທົ່ານັ້ນ. ກັນໄພ. ເມື່ອມາ ຟື້ນຂວັນ +3',lore:'ນາກເຈັດຫົວ ຂຶ້ນມາຈາກແມ່ນ້ຳ ເມື່ອໄດ້ຍິນສຽງບັ້ງໄຟ'});
+def('thaentong',{name:'ພະຍາແຖນທອງຟ້າ',tribe:'thewada',cost:8,power:9,ritual:1,kw:{fly:1},ph:'⚡',tag:'ພິທີອັນເຊີນ · ບິນ',skill:'ອັນເຊີນດ້ວຍພິທີເທົ່ານັ້ນ. ບິນ. ເມື່ອມາ ທຳລາຍຕົວລະຄອນຄູ່ແຂ່ງ 1 ໃບ ທີ່ພະລັງ 4 ລົງມາ',lore:'ແຖນທອງ ລົງມາພ້ອມຟ້າແມບ'});
+def('sangkhanthewi',{name:'ເທວີສັງຂານ',tribe:'thewada',cost:7,power:7,ritual:1,kw:{taunt:1},ph:'🌸',tag:'ພິທີອັນເຊີນ · ກັນໄພ',skill:'ອັນເຊີນດ້ວຍພິທີເທົ່ານັ້ນ. ກັນໄພ. ເມື່ອມາ ຟື້ນຂວັນ +5 ແລະ ຈົ່ວກາດ 1 ໃບ',lore:'ເທວີປີໃໝ່ ນຳພອນມາໃຫ້ທຸກຄົນ'});
+def('yaksip',{name:'ຍັກສິບຫົວຄືນຊີບ',tribe:'giant',cost:8,power:11,ritual:1,ph:'👹',tag:'ພິທີອັນເຊີນ',skill:'ອັນເຊີນດ້ວຍພິທີເທົ່ານັ້ນ. ແຮງທີ່ສຸດ ໃນບັນດາກາດພິທີ',lore:'ຍັກສິບຫົວ ຕື່ນຂຶ້ນມາອີກເທື່ອ'});
+const RITES = {phitibangfai:{need:6, opts:['nakjet', 'thaentong']}, phitisukhuan:{need:5, opts:['sangkhanthewi', 'yaksip']}};
 const FUSE_COST = 2;
 const FUSIONS = Object.keys(C).filter(id => C[id].fusion);
 const FUSE_OF = {}; for(const f of FUSIONS) for(const m of C[f].fusion) FUSE_OF[m] = f;
@@ -1725,9 +1733,11 @@ let COL = null;
 function col(){
   if(COL) return COL;
   COL = loadJ(COL_KEY, null);
+  if(COL && COL.v) for(const id in RITES) if(!COL.cards[id]) COL.cards[id] = 1;
   if(!COL || !COL.v){
     COL = {v:1, cards:{}, alts:{}, gems:300, dust:0, decks:[], day:'', dayGems:0, firstWinDay:'', tutGems:false, freePacks:0, pity:0, packs:0, xp:0, quests:null, made:Date.now()};
     for(const di of STARTERS) for(const [id, n] of Object.entries(DECKS[di].list)) COL.cards[id] = Math.min(RULE.copies, (COL.cards[id] || 0) + n);
+    for(const id in RITES) COL.cards[id] = 1;
     saveJ(COL_KEY, COL);
   }
   return COL;
@@ -2163,6 +2173,7 @@ function playBlock(p, h){
   if(d.react) return 'ໃບນີ້ໃຊ້ໄດ້ຕອນຄູ່ແຂ່ງໂຈມຕີເທົ່ານັ້ນ';
   if(d.type === 'trap' && (p.traps || []).length >= (p.loc === 'papai' ? 2 : 1)) return 'ວາງກັບດັກໄດ້ ' + (p.loc === 'papai' ? 2 : 1) + ' ໃບ';
   if(costOf(p, h.id) > p.mana) return 'ບຸນບໍ່ພໍ';
+  if(RITES[h.id] && ritePower(p) < RITES[h.id].need) return 'ຕົວລະຄອນຂອງເຈົ້າ ພະລັງລວມຕ້ອງຮອດ ' + RITES[h.id].need;
   if(d.type === 'char' && p.field.length >= 5) return 'ສະໜາມເຕັມແລ້ວ (5 ໃບ)';
   if(h.id === 'namtamae'){ if(p.field.length >= 5) return 'ສະໜາມເຕັມແລ້ວ (5 ໃບ)'; if(!reviveList(p, 99).length) return 'ບໍ່ມີຕົວລະຄອນໃນກອງຖິ້ມ'; }
   const tl = targetsFor(p, h.id);
@@ -2260,6 +2271,23 @@ async function fuse(p, f){
   else if(f === 'khurak') await addWater(p, 2);
   if(p === S.p[0]) petSay('legend');
   await checkDeaths(); render();
+}
+const ritePower = p => p.field.filter(c => !c.hacked).reduce((a, c) => a + pow(p, c), 0);
+async function rite(p, id){
+  const R = RITES[id], mats = [];
+  for(const c of p.field.filter(x => !x.hacked).sort((a, b) => pow(p, a) - pow(p, b))){ if(mats.reduce((a, x) => a + pow(p, x), 0) >= R.need) break; mats.push(c); }
+  if(mats.reduce((a, x) => a + pow(p, x), 0) < R.need) return;
+  const pickId = isBot(p) || S.auto ? maxBy(R.opts, x => C[x].power) : await new Promise(r => { S.modal = {type:'rite', opts:R.opts, resolve:r}; render(); });
+  if(!S.fast){ for(const c of mats) particlesAt('c:' + c.uid, '#ffb0d0', 18); sfx('heal'); }
+  await offer(p, mats);
+  const d = C[pickId], c = {uid:++U, id:pickId, sick:true, atk:0, items:[], mods:[]}; p.field.push(c);
+  log('🕯️ ' + p.name + ' ອັນເຊີນ «' + d.name + '» ດ້ວຍ «' + C[id].name + '»');
+  if(!S.fast){ render(); flashScreen('#fff2c4', .35); if(!d.ph) await fxShowcase(pickId); }
+  await fxEnter(c);
+  if(pickId === 'nakjet') heal(p, 3);
+  else if(pickId === 'sangkhanthewi'){ heal(p, 5); draw(p, 1); }
+  else if(pickId === 'thaentong'){ const q = opp(p), weak = q.field.filter(x => pow(q, x) <= 4 && !x.items.includes('khapka') && x.id !== 'holokinnari'); if(weak.length) await destroy(q, maxBy(weak, x => pow(q, x))); }
+  if(p === S.p[0]) petSay('legend');
 }
 async function taleStep(p, id){
   for(const t of p.tales || []){
@@ -2368,6 +2396,7 @@ async function onPlay(p, c, t){
 }
 async function castSpell(p, id, t){
   switch(id){
+    case 'phitibangfai': case 'phitisukhuan': await rite(p, id); break;
     case 'bangfai': {
       const k = p.field.some(x => x.id === 'khankhaak'); const dmg = k ? 5 : 3;
       await fxRocket(tkey(t));
@@ -3272,7 +3301,7 @@ const PITY = 10;
 function packOdds(kind){ const k = PACKS[kind], l = 1 - (1 - k.legend) * (1 - k.legend); return {legend:Math.round(l * 100), alt:Math.round((1 - Math.pow(1 - k.alt, 5)) * 100)}; }
 function rollPack(kind, di){
   const c = col(), k = PACKS[kind];
-  let pool = Object.keys(C).filter(id => !C[id].fusion);
+  let pool = Object.keys(C).filter(id => !C[id].fusion && !C[id].ritual);
   if(kind === 'deck'){ const L = DECKS[di].list; pool = pool.filter(id => L[id] || NEUTRAL.has(id)); }
   const by = r => pool.filter(id => rarityOf(id) === r);
   const pickOf = r => {
@@ -3609,6 +3638,8 @@ function modalHTML(){
     inner = '<p class="q">ບັນທຶກເຫດການ</p><ol class="loglist">' + S.log.map(l => '<li>' + l + '</li>').join('') + '</ol><div class="mbtns"><button class="btn2" data-a="mclose">ປິດ</button></div>';
   } else if(m.type === 'pass'){
     return '<div class="modal-bg pass"><div class="modal"><div class="passic">🤝</div><p class="q">ສົ່ງເຄື່ອງໃຫ້</p><div class="over win">' + m.name + '</div><p class="lore">ຄົນອື່ນຢ່າແນມເບິ່ງກາດໃນມືເດີ້!</p><div class="mbtns"><button class="btn-main" data-a="passok">ຂ້ອຍແມ່ນ ' + m.name + ' · ເລີ່ມເລີຍ</button></div></div></div>';
+  } else if(m.type === 'rite'){
+    inner = '<p class="q">🕯️ ເລືອກກາດທີ່ຈະອັນເຊີນ</p><div class="pick">' + m.opts.map(id => '<div class="hc" data-a="ritepick" data-v="' + id + '">' + cardHTML(id) + '</div>').join('') + '</div>';
   } else if(m.type === 'mull'){
     inner = '<p class="q">🔄 ປ່ຽນໄພ້ເລີ່ມຕົ້ນ</p><p class="lore">ແຕະກາດທີ່ບໍ່ມັກ ແລ້ວກົດປ່ຽນ. ໄດ້ກາດໃໝ່ເທົ່າຈຳນວນທີ່ປ່ຽນ. ປ່ຽນໄດ້ 1 ເທື່ອ</p><div class="pick mull">' +
       S.p[0].hand.map(h => '<div class="hc' + (m.sel.includes(h.uid) ? ' msel' : '') + '" data-a="mtog" data-v="' + h.uid + '">' + cardHTML(h.id, null, h.alt) + '</div>').join('') +
@@ -4059,6 +4090,7 @@ $app.addEventListener('click', e => {
   if(a === 'tutnext'){ if(S.tut){ S.tut.step++; render(); } return; }
   if(a === 'tutdone' || a === 'tutskip'){ if(a === 'tutdone') tutReward(); S.tut = null; saveJ('lao-legend-tut', 1); render(); return; }
   if(a === 'mclose'){ closeModal(); return; }
+  if(a === 'ritepick' && S.modal && S.modal.type === 'rite'){ const r = S.modal.resolve; S.modal = null; r(v); return; }
   if(a === 'mtog' && S.modal && S.modal.type === 'mull'){ const sel = S.modal.sel, i = sel.indexOf(+v); if(i < 0) sel.push(+v); else sel.splice(i, 1); render(); return; }
   if(a === 'mgo' && S.modal && S.modal.type === 'mull'){ const m = S.modal; S.modal = null; m.resolve(m.sel); return; }
   if(a === 'passok' && S.modal && S.modal.type === 'pass'){ const r = S.modal.resolve; S.modal = null; render(); r(); return; }
