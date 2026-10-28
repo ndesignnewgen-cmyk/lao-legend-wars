@@ -1448,6 +1448,8 @@ body{background:
 .frm{display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:0;color:inherit;cursor:pointer;font:700 12px var(--f-d)}
 .frm .hav{width:52px;height:52px}.frm.on small{color:#ffd23d}.frm:disabled{opacity:.45;cursor:default}
 .achnew{display:flex;flex-direction:column;gap:4px;align-items:center}.achnew span{background:#ffd23d22;border:1px solid #ffd23d;border-radius:999px;padding:4px 12px;font:800 13px var(--f-d)}
+.roomcode{font:800 54px/1 var(--f-d);letter-spacing:12px;color:#ffe48a;background:#0006;border:2px dashed #ffd23d;border-radius:16px;padding:14px 22px}
+.roomin{font:800 30px var(--f-d);letter-spacing:10px;text-align:center;text-transform:uppercase;width:min(220px,70vw);padding:10px;border-radius:12px;border:2px solid #ffffff44;background:#0005;color:#fff}
 /* ---------- modal ---------- */
 .modal-bg{position:fixed;inset:0;z-index:50;background:#000c;display:grid;place-items:center;padding:16px}
 .modal{background:var(--mat-2);border:1px solid #ffffff1c;border-radius:18px;padding:18px;width:min(560px,100%);max-height:92%;overflow:auto;display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center}
@@ -1525,7 +1527,11 @@ const sleep = ms => S && S.fast ? Promise.resolve() : new Promise(r => setTimeou
 const pick = a => a[Math.floor(Math.random() * a.length)];
 const maxBy = (a, f) => a.reduce((b, x) => f(x) > f(b) ? x : b, a[0]);
 const minBy = (a, f) => a.reduce((b, x) => f(x) < f(b) ? x : b, a[0]);
-function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+// game randomness goes through rnd(): an online game seeds it the same on both screens, so both play the same game
+let RNG = Math.random;
+const rnd = () => RNG();
+function seeded(a){ return () => { a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(rnd()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 
 /* ---------- icons ---------- */
 const SYM = {
@@ -2222,6 +2228,7 @@ document.addEventListener('error', e => {
 }, true);
 function newGame(di, level, opts){
   opts = opts || {};
+  RNG = opts.online ? seeded(opts.online.seed) : Math.random; if(opts.online){ U = 1000; opts.botDeck = 0; }
   ui.grave = null;
   const others = DECKS.map((_, i) => i).filter(x => x !== di);
   const bi = opts.pvp ? opts.pvp.di : (opts.botDeck != null ? opts.botDeck : pick(others));
@@ -2232,14 +2239,20 @@ function newGame(di, level, opts){
     S.pvp = opts.pvp; S.p[0].name = 'ຜູ້ຫຼິ້ນ 1'; S.p[1] = mkPlayer('ຜູ້ຫຼິ້ນ 2', bi, false, level, opts.pvp.list); if(opts.pvp.cover) S.p[1].cover = opts.pvp.cover;
   }
   if(S.auto){ S.p[0].name = 'ບອດ A'; S.p[1].name = 'ບອດ B'; }
-  S.fest = opts.tut || (!SET.fest && !S.auto) ? null : shuffle(FESTS.map((_, i) => i)).slice(0, 4);
+  if(opts.online){ const O = opts.online; S.online = O; S.p[0] = mkPlayer('host', O.host.di, false, level, O.host.list); S.p[1] = mkPlayer('guest', O.guest.di, false, level, O.guest.list);
+    if(O.host.cover) S.p[0].cover = O.host.cover; if(O.guest.cover) S.p[1].cover = O.guest.cover; }
+  S.fest = opts.tut || (!SET.fest && !S.auto && !opts.online) ? null : shuffle(FESTS.map((_, i) => i)).slice(0, 4);
   if(opts.tut) for(const p of S.p) p.tales = [];
   if(opts.adv != null){ S.adv = opts.adv; S.p[1].life += opts.boss || 0; }
   if(!S.fast && petOn()) setTimeout(() => petSay('start'), 1400);
   if(!S.fast) preloadArt(['back', ...deckArt(di, opts.list), ...deckArt(bi)]);
   if(opts.levels){ S.p[0].level = opts.levels[0]; S.p[1].level = opts.levels[1]; }
   for(const p of S.p) for(let i=0;i<5;i++) drawRaw(p);
-  S.turn = opts.first != null ? opts.first : (Math.random() < .5 ? 0 : 1);
+  S.turn = opts.first != null ? opts.first : (rnd() < .5 ? 0 : 1);
+  if(opts.online){   // both screens built the same game with the host first; the guest flips it so its own side is at the bottom
+    if(opts.online.me === 'guest'){ S.p.reverse(); S.turn = 1 - S.turn; }
+    S.p[0].name = 'ເຈົ້າ'; S.p[1].name = 'ໝູ່'; S.p[1].remote = true;
+  }
   if(opts.tut){
     S.tut = {step:0};
     // make sure the first two turns have something to play: ນາກນ້ອຍ (1 ບຸນ) and ແມ່ນ້ຳຂອງ (2 ບຸນ)
@@ -2496,7 +2509,7 @@ function riteMats(p, need){
 async function rite(p, id){
   const R = RITES[id], mats = riteMats(p, R.need);
   if(!mats.length) return;
-  const pickId = isBot(p) || S.auto ? maxBy(R.opts, x => C[x].power) : await new Promise(r => { S.modal = {type:'rite', opts:R.opts, resolve:r}; render(); });
+  const pickId = isBot(p) || S.auto ? maxBy(R.opts, x => C[x].power) : await decide(p, () => new Promise(r => { S.modal = {type:'rite', opts:R.opts, resolve:r}; render(); }));
   if(!S.fast){ for(const c of mats) particlesAt('c:' + c.uid, '#ffb0d0', 18); sfx('heal'); }
   feat(p, 'rite');
   await offer(p, mats);
@@ -2554,7 +2567,7 @@ async function onPlay(p, c, t){
     case 'khaendj': for(const x of p.field){ x.mods.push({amt:1, exp:S.T}); if(!S.fast) particlesAt('c:' + x.uid, '#ff7ad9', 8); } log('ມືແຄນ DJ ເປີດເພງ: ທຸກໃບ ພະລັງ +1'); break;
     case 'nokkaew': { const top = p.deck[p.deck.length - 1]; if(top && C[top].type === 'trap'){ p.deck.pop(); p.hand.push({uid:++U, id:top}); log('ນົກແກ້ວ ເຫັນກັບດັກ ເອົາມາໃສ່ມື'); } break; }
     case 'nokhuk': tutor(p, id => C[id].type === 'trap'); break;
-    case 'lingkhidue': { const q = opp(p); if(q.hand.length){ const h = q.hand.splice(Math.floor(Math.random() * q.hand.length), 1)[0]; q.grave.push(h.id); log('ລີງຂີ້ດື້ ລັກ «' + C[h.id].name + '» ຈາກມື' + q.name); } break; }
+    case 'lingkhidue': { const q = opp(p); if(q.hand.length){ const h = q.hand.splice(Math.floor(rnd() * q.hand.length), 1)[0]; q.grave.push(h.id); log('ລີງຂີ້ດື້ ລັກ «' + C[h.id].name + '» ຈາກມື' + q.name); } break; }
     case 'hackxm':
       if(t && t.owner.field.includes(t.c) && p.field.length < 5){
         const q = t.owner; q.field.splice(q.field.indexOf(t.c), 1); t.c.hacked = true; t.c.sick = false; t.c.atk = 0; p.field.push(t.c);
@@ -2582,13 +2595,13 @@ async function onPlay(p, c, t){
       break;
     }
     case 'phihuean':
-      if(isBot(p)) log(p.name + ' ແອບເບິ່ງກາດໃນມື' + opp(p).name);
+      if(isBot(p) || p.remote) log(p.name + ' ແອບເບິ່ງກາດໃນມື' + opp(p).name);
       else { await new Promise(r => { S.modal = {type:'peek', resolve:r}; render(); }); }
       break;
     case 'xiengmieng': {
       draw(p, 2); if(S.over) break;
       const h = isBot(p) ? minBy(p.hand, x => C[x.id].cost + (C[x.id].legend ? 20 : 0))
-                         : await new Promise(r => { S.modal = {type:'discard', resolve:r}; render(); });
+                         : (u => p.hand.find(x => x.uid === u))(await decide(p, async () => { const x = await new Promise(r => { S.modal = {type:'discard', resolve:r}; render(); }); return x ? x.uid : null; }));
       if(h){ p.hand.splice(p.hand.indexOf(h), 1); p.grave.push(h.id); log(p.name + ' ຖິ້ມ «' + C[h.id].name + '»'); }
       break;
     }
@@ -2844,7 +2857,7 @@ async function attack(p, c, t){
     const rid = q.hand[ri].id;
     const what = t.kind === 'hero' ? 'ຂວັນຂອງເຈົ້າ' : '«' + C[t.c.id].name + '»';
     const use = isBot(q) ? botReact(q, p, c, t)
-      : await new Promise(r => { S.modal = {type:'ask', text:(S.pvp ? q.name + ' ຮັບເຄື່ອງ: ' : '') + '«' + C[c.id].name + '» ກຳລັງໂຈມຕີ ' + what + '. ໃຊ້ «' + C[rid].name + '» ບໍ? (' + C[rid].skill.replace(/^ໃຊ້ຕອນ[^:]*: /, '') + ')', html:cardHTML(rid), resolve:r}; render(); });
+      : await decide(q, () => new Promise(r => { S.modal = {type:'ask', text:(S.pvp ? q.name + ' ຮັບເຄື່ອງ: ' : '') + '«' + C[c.id].name + '» ກຳລັງໂຈມຕີ ' + what + '. ໃຊ້ «' + C[rid].name + '» ບໍ? (' + C[rid].skill.replace(/^ໃຊ້ຕອນ[^:]*: /, '') + ')', html:cardHTML(rid), resolve:r}; render(); }));
     if(use){
       const h = q.hand[ri]; q.hand.splice(ri, 1); q.mana -= 1; q.grave.push(h.id);
       await fxActivate(h.id, null, pi(q));
@@ -2916,12 +2929,12 @@ async function startTurn(){
   if(isFest('pimai')) heal(p, 1);
   if(S.fest && (S.T - 1) % (2 * FEST_ROUNDS) === 0){ const f = festOf(); log('🎉 ງານບຸນ: ' + f.name + ' · ' + f.rule); render(); await fxFest(f); if(S !== G || S.over) return; }
   await turnStartEffects(p); if(S !== G || S.over) return;
-  S.sel = null; S.busy = isBot(p);
+  S.sel = null; S.busy = isBot(p) || !!p.remote;
   render();
   if(S.T > 1) fxDraw(pi(p));
-  await fxBanner(isBot(p) ? (S.auto ? p.name : 'ຕາຂອງບອດ') : (S.pvp ? 'ຕາຂອງ ' + p.name : 'ຕາຂອງເຈົ້າ'), isBot(p));
+  await fxBanner(isBot(p) ? (S.auto ? p.name : 'ຕາຂອງບອດ') : (p.remote ? 'ຕາຂອງໝູ່' : (S.pvp ? 'ຕາຂອງ ' + p.name : 'ຕາຂອງເຈົ້າ')), isBot(p) || !!p.remote);
   if(S !== G || G.over) return;
-  if(isBot(p)) botTurn(); else { S.busy = false; render(); tutEvent('myturn'); }
+  if(isBot(p)) botTurn(); else if(p.remote) render(); else { S.busy = false; render(); tutEvent('myturn'); }
 }
 // ປ່ຽນໄພ້: once, before your first draw, swap any cards of the opening hand for new ones
 function swapHand(p, uids){
@@ -2931,7 +2944,7 @@ function swapHand(p, uids){
   log(p.name + ' ປ່ຽນໄພ້ ' + out.length + ' ໃບ');
 }
 function botMull(p){ swapHand(p, p.hand.filter(h => C[h.id].cost >= 6 || (C[h.id].type !== 'char' && C[h.id].cost >= 4)).map(h => h.uid)); }
-function mulligan(p){ return new Promise(r => { S.modal = {type:'mull', sel:[], resolve:sel => { swapHand(p, sel); render(); r(); }}; render(); }); }
+async function mulligan(p){ const sel = await decide(p, () => new Promise(r => { S.modal = {type:'mull', sel:[], resolve:r}; render(); })); swapHand(p, sel || []); render(); }
 async function endTurn(){
   if(!S || S.over) return;
   const G = S, p = cur(); if(p === S.p[0]) tutEvent('end'); S.busy = true; S.targeting = null; S.sel = null;
@@ -2957,7 +2970,7 @@ function gameOver(winner, reason){
   S.over = {winner:pi(winner), reason}; S.busy = false; S.targeting = null;
   if(!S.auto){
     const won = S.over.winner === 0; sfx(won ? 'win' : 'lose'); if(won) fxConfetti(); botSay(won ? 'losegame' : 'win', true);
-    if(!S.tut && !S.pvp){ recordGame(won); S.reward = gameGems(won); if(typeof afterGame === 'function') afterGame(won); }
+    if(!S.tut && !S.pvp && !S.online){ recordGame(won); S.reward = gameGems(won); if(typeof afterGame === 'function') afterGame(won); }
     else if(S.tut){ saveJ('lao-legend-tut', 1); S.tut = null; tutReward(); }
     if(!S.tut) petGrow();
     if(S.adv != null && won){ const c = col(), first = (c.adv || 0) === S.adv; if(first){ c.adv = S.adv + 1; const g = ADV[S.adv].boss ? ADV_BOSS_GEMS : ADV_GEMS; c.gems += g; if(ADV[S.adv].boss) c.freePacks = (c.freePacks || 0) + 1; saveCol(); S.advNote = '🗺️ ຜ່ານດ່ານ «' + ADV[S.adv].place + '»! 💎 +' + g + (ADV[S.adv].boss ? ' ແລະ ຊອງຟຣີ 1 ຊອງ' : ''); } }
@@ -3353,7 +3366,8 @@ async function tryPlay(uid){
   const why = playBlock(p, h); if(why){ toast(why); render(); return; }
   let t = null; const tl = targetsFor(p, h.id);
   if(tl && tl.length){ t = await pickTarget(tl, promptOf(h.id)); if(t === undefined){ render(); return; } }
-  S.busy = true; await playCard(p, h, t); if(!S || S.over) return; S.busy = false; render(); tutEvent('play');
+  netSend({t:'play', uid:h.uid, tk:netKey(t)});
+  S.busy = true; await localAct(() => playCard(p, h, t)); if(!S || S.over) return; S.busy = false; render(); tutEvent('play');
 }
 async function tryTribute(uid){
   const p = S.p[0], h = p.hand.find(x => x.uid === uid); if(!h || !canTribute(p, h)) return;
@@ -3363,14 +3377,16 @@ async function tryTribute(uid){
     const t = await pickTarget(list, '🙏 ເລືອກຕົວລະຄອນ ' + k + '/2 ທີ່ຈະຖວາຍພະລັງ'); if(!t){ render(); return; }
     picked.push(t.c);
   }
-  S.busy = true; await playCard(p, h, null, picked); if(!S || S.over) return; S.busy = false; render();
+  netSend({t:'trib', uid:h.uid, a:picked[0].uid, b:picked[1].uid});
+  S.busy = true; await localAct(() => playCard(p, h, null, picked)); if(!S || S.over) return; S.busy = false; render();
 }
 async function attackFlow(c){
   const p = S.p[0]; const ts = attackTargets(p, c);
   if(!ts.length){ toast('ບໍ່ມີເປົ້າໝາຍທີ່ໂຈມຕີໄດ້'); return; }
   const t = await pickTarget(ts, '«' + C[c.id].name + '» ຈະໂຈມຕີໃຜ?', c.uid);
   if(!t){ render(); return; }
-  S.busy = true; await attack(p, c, t); if(!S || S.over) return; S.busy = false; render(); tutEvent('attack');
+  netSend({t:'atk', uid:c.uid, tk:netKey(t)});
+  S.busy = true; await localAct(() => attack(p, c, t)); if(!S || S.over) return; S.busy = false; render(); tutEvent('attack');
 }
 
 /* ---------- rendering ---------- */
@@ -3436,7 +3452,7 @@ function menuHTML(){
           '<div class="hbtns"><button class="btn2" data-a="decks">🔄 ປ່ຽນເດັກ</button><button class="btn2" data-a="edsel">✏️ ' + (typeof sel === 'string' ? 'ແກ້ເດັກນີ້' : 'ກັອບໄປແກ້') + '</button></div>' +
           '<div class="levels"><span>ບອດ</span>' + LEVELS.map((l, i) => '<button class="lv ' + (ui.level === i ? 'on' : '') + '" data-a="lvl" data-v="' + i + '">' + l + '</button>').join('') + '</div>' +
           '<button class="btn-main hplay" data-a="start"' + (info.locked ? ' disabled' : '') + '>⚔️ ສູ້ກັບບອດ</button>' +
-          '<button class="btn2 hadv" data-a="adv">🗺️ ຜະຈົນໄພທົ່ວລາວ · ' + (Math.min(c.adv || 0, ADV.length)) + '/' + ADV.length + ' ດ່ານ</button></div></div></div>' +
+          '<button class="btn2 hadv" data-a="online">🌐 ຫຼິ້ນອອນລາຍກັບໝູ່</button><button class="btn2 hadv" data-a="adv">🗺️ ຜະຈົນໄພທົ່ວລາວ · ' + (Math.min(c.adv || 0, ADV.length)) + '/' + ADV.length + ' ດ່ານ</button></div></div></div>' +
     '<nav class="hnav" aria-label="ເມນູ">' + tile('ednew', '🃏', 'ຈັດເດັກ') + tile('shop', '🎴', 'ຮ້ານຊອງ', c.freePacks) + tile('quests', '⭐', 'ພາລະກິດ', qn) + tile('book', '📖', 'ປຶ້ມກາດ') +
       tile('pvpstart', '👥', '2 ຄົນ') + tile('tutstart', '🎓', 'ສອນຫຼິ້ນ', loadJ('lao-legend-tut', 0) ? '' : '!') + tile('stats', '📊', 'ສະຖິຕິ') + tile('pet', c.pet ? petFace() : '🥚', 'ຄູ່ຫູ', c.pet ? '' : '!') + '</nav>' +
     '<p class="hlinks"><a href="' + RULES_URL + '" target="_blank" rel="noopener">ອ່ານກົດການຫຼິ້ນ</a> · <a href="' + CARDS_URL + '" target="_blank" rel="noopener">ເບິ່ງກາດທັງໝົດ</a> · ກາດ ແລະ ເພັດ ເກັບໄວ້ໃນເຄື່ອງນີ້ · ບໍ່ມີການຈ່າຍເງິນແທ້</p>' +
@@ -3709,6 +3725,7 @@ function menuModalHTML(){
       '<div class="mbtns"><button class="btn-main sm" data-a="craftdo" data-v="' + m.id + '"' + (can ? '' : ' disabled') + '>ສ້າງ ✨' + cost + '</button><button class="btn2" data-a="mmclose">ປິດ</button></div>';
   }
   else if(m.type === 'quests') inner = questsHTML();
+  else if(m.type === 'online') inner = onlineHTML(m);
   else if(m.type === 'adv'){
     const c = col(), done = c.adv || 0;
     inner = '<p class="q">🗺️ ຜະຈົນໄພທົ່ວລາວ</p><p class="lore">ເດີນທາງຈາກເໜືອໄປໃຕ້ ໃຊ້ເດັກທີ່ເລືອກໄວ້. ຜ່ານດ່ານໄດ້ເພັດ, ບອສໄດ້ຊອງຟຣີ</p><ol class="advmap">' +
@@ -3809,7 +3826,7 @@ function festChip(){
   const left = FEST_ROUNDS - Math.floor((S.T - 1) / 2) % FEST_ROUNDS;
   return '<div class="festchip" title="ງານບຸນ ໃຊ້ກັບທັງສອງຝ່າຍ"><span class="fic">' + f.ic + '</span><span><b>' + f.name + '</b><small>' + f.rule + ' · ເຫຼືອ ' + left + ' ຕາ</small></span></div>';
 }
-function whoLabel(p, i){ return S.auto || S.pvp ? p.name : i && S.adv != null ? (ADV[S.adv].boss ? '👑 ບອສ · ' : '🗺️ ') + ADV[S.adv].place : (i ? 'ບອດ · ' + LEVELS[S.level] : 'ເຈົ້າ'); }
+function whoLabel(p, i){ return S.auto || S.pvp || S.online ? p.name : i && S.adv != null ? (ADV[S.adv].boss ? '👑 ບອສ · ' : '🗺️ ') + ADV[S.adv].place : (i ? 'ບອດ · ' + LEVELS[S.level] : 'ເຈົ້າ'); }
 function plate2(p, i){
   const k = 'h:' + i, tg = S.targeting && S.targeting.list.some(x => tkey(x) === k);
   let gems = ''; for(let j=0;j<10;j++) gems += '<i class="gem ' + (j < p.mana ? 'full' : (j < p.maxMana ? 'spent' : '')) + '"></i>';
@@ -4008,8 +4025,8 @@ function modalHTML(){
       '</div><div class="mbtns"><button class="btn-main sm" data-a="mgo">' + (m.sel.length ? '🔄 ປ່ຽນ ' + m.sel.length + ' ໃບ' : '✓ ເກັບໄວ້ທັງໝົດ') + '</button></div>';
   } else if(m.type === 'over'){
     const win = S.over.winner === 0;
-    inner = '<div class="over ' + (win || S.pvp ? 'win' : 'lose') + '">' + (S.pvp ? S.p[S.over.winner].name + ' ຊະນະ!' : (win ? 'ເຈົ້າຊະນະ!' : 'ບອດຊະນະ')) + '</div><div style="width:min(200px,50vw)">' + cardHTML(S.p[S.over.winner].cover || DECKS[S.p[S.over.winner].di].legend) + '</div>' +
-      '<p class="q">' + (S.over.reason === 'deck' ? 'ເດັກໝົດ' : 'ຂວັນເຫຼືອ 0') + ' · ຫຼິ້ນໄປ ' + Math.ceil(S.T / 2) + ' ຕາ</p>' +
+    inner = '<div class="over ' + (win || S.pvp ? 'win' : 'lose') + '">' + (S.pvp ? S.p[S.over.winner].name + ' ຊະນະ!' : (win ? 'ເຈົ້າຊະນະ!' : (S.online ? 'ໝູ່ຊະນະ' : 'ບອດຊະນະ'))) + '</div><div style="width:min(200px,50vw)">' + cardHTML(S.p[S.over.winner].cover || DECKS[S.p[S.over.winner].di].legend) + '</div>' +
+      '<p class="q">' + (S.over.reason === 'deck' ? 'ເດັກໝົດ' : (S.over.reason === 'quit' ? 'ໝູ່ອອກຈາກເກມ' : 'ຂວັນເຫຼືອ 0')) + ' · ຫຼິ້ນໄປ ' + Math.ceil(S.T / 2) + ' ຕາ</p>' +
       (S.reward ? '<p class="reward">💎 +' + S.reward.base + (S.reward.first ? ' <span>+' + S.reward.first + ' ຊະນະທຳອິດຂອງມື້</span>' : '') + (S.reward.capped ? ' <small>(ຮອດເພດານເພັດຂອງມື້ນີ້ແລ້ວ)</small>' : '') + '</p>' : '') +
       (S.afterNote || '') + (S.advNote ? '<p class="reward">' + S.advNote + '</p>' : '') +
       (S.achGot && S.achGot.length ? '<div class="achnew">' + S.achGot.map(a => '<span>' + a.ic + ' ' + a.name + ' · 💎+' + a.g + '</span>').join('') + '</div>' : '') + petOverHTML(win) +
@@ -4456,6 +4473,99 @@ function petOverHTML(win){
 function toast(m){ const d = addFx('toast'); d.textContent = m; setTimeout(() => d.remove(), 1900); }
 
 /* ---------- input ---------- */
+
+/* ---------- online play with a room code ----------
+   Both screens run the same seeded game. Only moves and answers travel: {t:'play'|'atk'|'trib'|'fuse'|'end'|'quit'|'ans', from}.
+   Transport: Firebase Realtime Database over REST + EventSource when FB_URL is set, otherwise BroadcastChannel (two tabs on one device, for testing). */
+const FB_URL = '';   // e.g. 'https://lao-legend-wars-default-rtdb.asia-southeast1.firebasedatabase.app'
+const NET = {chain:Promise.resolve(), ans:[], waiters:[], me:null, code:null, send:null, close:null, seen:new Set()};
+const netKey = t => !t ? null : (t.kind === 'hero' ? (t.owner === S.p[0] ? 'H:s' : 'H:o') : 'c:' + t.c.uid);
+function netT(k){   // read a target key written by the other screen ('s' = the sender, who is our S.p[1])
+  if(!k) return null;
+  if(k === 'H:s') return {kind:'hero', owner:S.p[1]};
+  if(k === 'H:o') return {kind:'hero', owner:S.p[0]};
+  const u = +k.slice(2); for(const pl of S.p){ const c = pl.field.find(x => x.uid === u); if(c) return {kind:'char', owner:pl, c}; }
+  return null;
+}
+function netSend(m){ if(S && S.online && NET.send) NET.send({...m, from:NET.me}); }
+async function decide(p, local){
+  if(!S.online) return local();
+  if(p.remote) return NET.ans.length ? NET.ans.shift() : new Promise(r => NET.waiters.push(r));
+  const v = await local(); netSend({t:'ans', v:v == null ? null : v}); return v;
+}
+function netRecv(m){
+  if(!m || m.from === NET.me) return;
+  if(m.t === 'hello' || m.t === 'start'){ onlineLobby(m); return; }
+  if(!S || !S.online) return;
+  if(m.t === 'ans'){ const w = NET.waiters.shift(); if(w) w(m.v); else NET.ans.push(m.v); return; }
+  NET.chain = NET.chain.then(() => netApply(m)).catch(e => console.error(e));
+}
+// a local move still running (its animations, an end of turn) must finish before the other screen's next move starts
+async function localAct(fn){ if(!S || !S.online) return fn(); S.lbusy = (S.lbusy || 0) + 1; try{ return await fn(); } finally{ if(S) S.lbusy--; } }
+async function netApply(m){
+  while(S && S.online && S.lbusy) await new Promise(r => setTimeout(r, 80));
+  if(!S || !S.online || S.over) return;
+  const p = S.p[1];
+  if(m.t === 'play'){ const h = p.hand.find(x => x.uid === m.uid); if(h){ await fxShowCard(h.id, h.alt); await playCard(p, h, netT(m.tk)); } }
+  else if(m.t === 'atk'){ const c = p.field.find(x => x.uid === m.uid), t = netT(m.tk); if(c && t) await attack(p, c, t); }
+  else if(m.t === 'trib'){ const h = p.hand.find(x => x.uid === m.uid), a = p.field.find(x => x.uid === m.a), b = p.field.find(x => x.uid === m.b); if(h && a && b) await playCard(p, h, null, [a, b]); }
+  else if(m.t === 'fuse') await fuse(p, m.f);
+  else if(m.t === 'end') await endTurn();
+  else if(m.t === 'quit') gameOver(S.p[0], 'quit');
+  if(S) render();
+}
+function netOpen(code, role){
+  netClose(); Object.assign(NET, {chain:Promise.resolve(), ans:[], waiters:[], me:role, code, seen:new Set()});
+  if(FB_URL){
+    const base = FB_URL.replace(/\/$/, '') + '/rooms/' + code;
+    NET.send = m => fetch(base + '/msgs.json', {method:'POST', body:JSON.stringify(m)}).catch(() => toast('ສົ່ງບໍ່ໄດ້ · ກວດອິນເຕີເນັດ'));
+    const go = () => {
+      const es = new EventSource(base + '/msgs.json');
+      const take = (key, m) => { if(NET.seen.has(key)) return; NET.seen.add(key); netRecv(m); };
+      es.addEventListener('put', e => { const d = JSON.parse(e.data); if(!d.data) return;
+        if(d.path === '/') Object.keys(d.data).sort().forEach(k => take(k, d.data[k])); else take(d.path.slice(1), d.data); });
+      es.addEventListener('patch', e => { const d = JSON.parse(e.data); Object.keys(d.data || {}).sort().forEach(k => take(k, d.data[k])); });
+      NET.close = () => es.close();
+    };
+    if(role === 'host') fetch(base + '.json', {method:'DELETE'}).finally(go); else go();
+  } else {
+    const bc = new BroadcastChannel('lao-legend-room-' + code);
+    bc.onmessage = e => netRecv(e.data);
+    NET.send = m => bc.postMessage(m); NET.close = () => bc.close();
+  }
+}
+function netClose(){ if(NET.close) NET.close(); NET.send = null; NET.close = null; }
+function mySpec(){
+  const k = typeof ui.deck === 'string' ? 'c' + ui.deck.slice(2) : 'b' + ui.deck, sp = pvpSpec(k);
+  return {di:sp.di, list:sp.list || {...DECKS[sp.di].list}, cover:sp.cover || null};
+}
+function onlineHost(){
+  const code = Array.from({length:4}, () => 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'[Math.floor(Math.random() * 31)]).join('');
+  netOpen(code, 'host'); ui.mmodal = {type:'online', step:'host', code, spec:mySpec()}; render();
+}
+function onlineJoin(code){
+  code = (code || '').trim().toUpperCase(); if(code.length !== 4){ toast('ລະຫັດຫ້ອງມີ 4 ຕົວ'); return; }
+  netOpen(code, 'guest'); ui.mmodal = {type:'online', step:'wait', code};
+  NET.send({t:'hello', from:'guest', spec:mySpec()}); render();
+}
+function onlineLobby(m){
+  const mm = ui.mmodal;
+  if(m.t === 'hello' && NET.me === 'host' && mm && mm.type === 'online' && mm.step === 'host'){
+    const O = {seed:Math.floor(Math.random() * 2 ** 31), host:mm.spec, guest:m.spec};
+    NET.send({t:'start', from:'host', online:O}); onlineStart(O, 'host');
+  } else if(m.t === 'start' && NET.me === 'guest' && mm && mm.type === 'online') onlineStart(m.online, 'guest');
+}
+function onlineStart(O, me){
+  ui.mmodal = null; ui.screen = null;
+  newGame(O.host.di, 1, {online:{...O, me}});   // the same arguments on both screens, so both build the same game
+}
+function onlineHTML(m){
+  const head = '<p class="q">🌐 ຫຼິ້ນອອນລາຍກັບໝູ່</p>' + (FB_URL ? '' : '<p class="lore">ໂໝດທົດລອງ: ເປີດເກມ 2 ແທັບໃນເຄື່ອງດຽວກັນ (ຍັງບໍ່ໄດ້ຕໍ່ Firebase)</p>');
+  if(m.step === 'host') return head + '<p class="lore">ບອກລະຫັດນີ້ໃຫ້ໝູ່ ແລ້ວລໍຖ້າ…</p><div class="roomcode">' + m.code + '</div><p class="lore">ໃຊ້ເດັກທີ່ເລືອກໄວ້ໃນໜ້າຫຼັກ</p><div class="mbtns"><button class="btn2" data-a="onclose">ຍົກເລີກ</button></div>';
+  if(m.step === 'wait') return head + '<p class="lore">ກຳລັງເຂົ້າຫ້ອງ ' + m.code + '…</p><div class="mbtns"><button class="btn2" data-a="onclose">ຍົກເລີກ</button></div>';
+  return head + '<div class="mbtns"><button class="btn-main sm" data-a="onhost">🏠 ສ້າງຫ້ອງ</button></div><p class="lore">ຫຼື ໃສ່ລະຫັດຫ້ອງຂອງໝູ່</p>' +
+    '<input id="roomin" class="roomin" maxlength="4" placeholder="ABCD" autocomplete="off"><div class="mbtns"><button class="btn2" data-a="onjoin">🚪 ເຂົ້າຫ້ອງ</button><button class="btn2" data-a="onclose">ປິດ</button></div>';
+}
 function closeModal(){ const r = S && S.modal && S.modal.resolve; if(S) S.modal = null; render(); if(r) r(); }
 $app.addEventListener('click', e => {
   const el = e.target.closest('[data-a]'); if(!el) return;
@@ -4479,6 +4589,11 @@ $app.addEventListener('click', e => {
     if(a === 'qreroll' && ui.mmodal && ui.mmodal.type === 'quests'){ const c = col(), list = quests(); if(!c.quests.rerolled){ const pool = QUEST_POOL.filter(x => !list.some(y => y.k === x.k)); list[+v] = {...pick(pool), p:0, claimed:false}; c.quests.rerolled = true; saveCol(); } render(); return; }
     if(a === 'pickdeck'){ ui.deck = v.startsWith('c:') ? v : +v; ui.mmodal = null; render(); return; }
     if(a === 'pknew'){ ui.mmodal = null; openEditor(null, {}); return; }
+    if(ui.mmodal && ui.mmodal.type === 'online'){
+      if(a === 'onhost'){ onlineHost(); return; }
+      if(a === 'onjoin'){ onlineJoin((document.getElementById('roomin') || {}).value); return; }
+      if(a === 'onclose'){ netClose(); ui.mmodal = null; render(); return; }
+    }
     if(a === 'advgo' && ui.mmodal && ui.mmodal.type === 'adv'){ advStart(+v); return; }
     if(a === 'frame' && ui.mmodal && ui.mmodal.type === 'ach'){ col().frame = v; saveCol(); render(); return; }
     if(a === 'petpick' && ui.mmodal && ui.mmodal.type === 'pet'){ col().pet = v; saveCol(); sfx('heal'); render(); return; }
@@ -4520,6 +4635,7 @@ $app.addEventListener('click', e => {
     if(a === 'stats'){ ui.mmodal = {type:'stats'}; render(); return; }
     if(a === 'pet'){ ui.mmodal = {type:'pet'}; render(); return; }
     if(a === 'adv'){ ui.mmodal = {type:'adv'}; render(); return; }
+    if(a === 'online'){ ui.mmodal = {type:'online', step:'menu'}; render(); return; }
     if(a === 'ach'){ achCheck(); ui.mmodal = {type:'ach'}; render(); return; }
     if(a === 'tutstart'){ ui.screen = null; newGame(0, 0, {botDeck:1, first:0, tut:true}); return; }
     if(a === 'deck'){ ui.deck = v.startsWith('c:') ? v : +v; render(); }
@@ -4543,8 +4659,8 @@ $app.addEventListener('click', e => {
   if(a === 'passok' && S.modal && S.modal.type === 'pass'){ const r = S.modal.resolve; S.modal = null; render(); r(); return; }
   if(a === 'yes' || a === 'no'){ const r = S.modal.resolve; S.modal = null; render(); r(a === 'yes'); return; }
   if(a === 'discard'){ const r = S.modal.resolve; const h = S.p[0].hand.find(x => x.uid === +v); S.modal = null; render(); r(h); return; }
-  if(a === 'menu'){ if(S.over || (S.turn === 0 && !S.busy)){ S = null; ui.grave = null; render(); } return; }
-  if(a === 'replay'){ if(S.pvp && typeof pvpReplay === 'function') pvpReplay(); else if(S.adv != null) advStart(S.adv); else startSelected(); return; }
+  if(a === 'menu'){ if(S.online && !S.over){ netSend({t:'quit'}); netClose(); S = null; ui.grave = null; render(); return; } if(S.over || (S.turn === 0 && !S.busy)){ if(S.online) netClose(); S = null; ui.grave = null; render(); } return; }
+  if(a === 'replay'){ if(S.online){ netClose(); S = null; ui.mmodal = {type:'online', step:'menu'}; render(); return; } if(S.pvp && typeof pvpReplay === 'function') pvpReplay(); else if(S.adv != null) advStart(S.adv); else startSelected(); return; }
   if(S.modal) return;
   if(S.targeting){
     if(a === 'cancel'){ const r = S.targeting.resolve; S.targeting = null; S.sel = null; render(); r(undefined); return; }
@@ -4559,7 +4675,7 @@ $app.addEventListener('click', e => {
   if(a === 'deckinfo'){ toast((+v ? 'ເດັກບອດ' : 'ເດັກເຈົ້າ') + ' ເຫຼືອ ' + S.p[+v].deck.length + ' ໃບ'); return; }
   if(a === 'log'){ S.modal = {type:'log'}; render(); return; }
   const myMove = S.turn === 0 && !S.busy && !S.over && !S.auto;
-  if(a === 'fuse'){ if(myMove && canFuse(S.p[0], v)){ S.busy = true; fuse(S.p[0], v).then(() => { if(S && !S.over){ S.busy = false; render(); } }); } return; }
+  if(a === 'fuse'){ if(myMove && canFuse(S.p[0], v)){ netSend({t:'fuse', f:v}); S.busy = true; localAct(() => fuse(S.p[0], v)).then(() => { if(S && !S.over){ S.busy = false; render(); } }); } return; }
   if(a === 'hand'){
     const h = S.p[0].hand.find(x => x.uid === +v); if(!h) return;
     S.modal = myMove ? {type:'hand', uid:h.uid} : {type:'info', id:h.id, alt:h.alt}; render(); return;
@@ -4572,7 +4688,7 @@ $app.addEventListener('click', e => {
     if(any){ S.modal = {type:'info', id:any.id, alt:any.alt}; render(); }
     return;
   }
-  if(a === 'end'){ if(myMove) endTurn(); return; }
+  if(a === 'end'){ if(myMove){ netSend({t:'end'}); localAct(endTurn); } return; }
 });
 // the play button lives inside the hand modal, which blocks the generic handler above; route it here
 $app.addEventListener('click', e => {
@@ -4620,7 +4736,14 @@ $app.addEventListener('contextmenu', e => {
 
 /* ---------- self-test: bot vs bot, no animation ---------- */
 // local dev only: poke at live game state from the console
-if(location.hostname === 'localhost') window.__dbg = {get S(){ return S; }, render: () => render(), C, win: i => gameOver(S.p[i], 'life')};
+if(location.hostname === 'localhost') window.__dbg = {get S(){ return S; }, render: () => render(), C, win: i => gameOver(S.p[i], 'life'),
+  // play one move for the local side the way a person would (sends it online), answering any open question with a default
+  step: async () => { const m = S.modal; if(m && m.resolve){ S.modal = null; m.resolve(m.type === 'mull' ? [] : m.type === 'rite' ? m.opts[0] : m.type === 'discard' ? S.p[0].hand[0] : false); return 'answered ' + m.type; }
+    if(S.over || S.turn !== 0 || S.busy) return 'wait'; const p = S.p[0], q = S.p[1];
+    const ch = botPick(p, q); if(ch && !ch.trib){ netSend({t:'play', uid:ch.h.uid, tk:netKey(ch.t)}); S.busy = true; await localAct(() => playCard(p, ch.h, ch.t)); S.busy = false; render(); return 'play ' + ch.h.id; }
+    for(const c of p.field) if(canAttack(p, c)){ const t = botTarget(p, c); if(t){ netSend({t:'atk', uid:c.uid, tk:netKey(t)}); S.busy = true; await localAct(() => attack(p, c, t)); S.busy = false; render(); return 'atk ' + c.id; } }
+    netSend({t:'end'}); await localAct(endTurn); return 'end'; },
+  sig: () => S.p.map(p => [p.life, p.deck.length, p.hand.map(h => h.id).sort().join(','), p.field.map(c => c.id + ':' + pow(p, c)).sort().join(','), p.grave.length].join('|'))};
 window.__sim = async function(n, level, levels){
   n = n || 30; const D = DECKS.length; const res = {games:0, wins:DECKS.map(() => 0), plays:DECKS.map(() => 0), seat:[0,0], avgTurns:0, reasons:{life:0, deck:0}, errors:[]};
   window.__errs.length = 0; let turns = 0;
