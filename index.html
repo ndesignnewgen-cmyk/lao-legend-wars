@@ -1181,7 +1181,7 @@ body{background:
 .hbtns{display:flex;gap:8px;flex-wrap:wrap}
 .hdinfo .levels{margin:0}
 .hplay{font-size:22px;padding:16px 30px;width:100%}
-.hnav{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px;max-width:1100px;width:100%;margin:0 auto}
+.hnav{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:10px;max-width:1100px;width:100%;margin:0 auto}
 .htile{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;min-height:84px;justify-content:center;border-radius:18px;cursor:pointer;color:var(--ink);
   background:linear-gradient(180deg,#2a2236ee,#17121fee);border:1px solid #ffffff22;box-shadow:0 8px 20px #0007,inset 0 1px 0 #ffffff1a;transition:transform .15s}
 .htile:hover{transform:translateY(-3px);border-color:var(--gold)}
@@ -1249,6 +1249,49 @@ body{background:
 .lane .fanlv{position:absolute;left:10px;right:10px;top:6px;height:8px;z-index:0;border-radius:999px;background:#ffffff26;overflow:visible;pointer-events:none}
 .lane .fanlv i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#ff7ad9,#ffd23d);box-shadow:0 0 10px #ff7ad9}
 .lane .fanlv b{position:absolute;right:0;top:12px;font:800 12px var(--f-d);color:#fff;background:#e0409f;border-radius:999px;padding:2px 8px}
+/* ---------- festivals, tales, buddy pet ---------- */
+.festchip{display:flex;align-items:center;gap:8px;background:linear-gradient(100deg,#fff6dc,#ffe2a6);color:#5a3a00;border-radius:14px;padding:6px 10px;box-shadow:0 0 0 1.5px #e0a52e,0 4px 10px #0003;font:700 12px/1.35 var(--f-d);text-align:left}
+.festchip .fic{font-size:24px;line-height:1}
+.festchip b{display:block;font-size:14px}
+.festchip small{display:block;color:#7a5410;font-weight:600}
+@media (max-width:1000px){.festchip{padding:4px 9px;gap:5px;align-self:center}.festchip .fic{font-size:18px}.festchip b{font-size:12px;white-space:nowrap}.festchip small{display:none}}
+.festfx,.talefx{position:absolute;inset:0;display:grid;place-items:center;padding:16px}
+.festfx .fbox,.talefx .tbook{text-align:center;border-radius:24px;box-shadow:0 20px 60px #0009;animation:festIn var(--d,2000ms) ease forwards}
+.festfx .fbox{background:radial-gradient(circle at 50% 25%,#fffbe8,#ffd98a);border:3px solid #e0a52e;padding:16px 30px;color:#5a3a00}
+.festfx .fbig{font-size:64px;line-height:1.1}
+.festfx small,.talefx small{font:700 13px var(--f-d);opacity:.8}
+.festfx h3,.talefx h3{margin:2px 0 4px;font:800 28px/1.3 var(--f-d)}
+.festfx p{margin:0;font:800 17px/1.5 var(--f-d)}
+.festfx em{display:block;margin-top:4px;font:600 12px var(--f-d);opacity:.75}
+.talefx .tbook{background:#fffaf0;color:#3a2410;border:3px solid #b8862b;padding:14px 22px;max-width:min(520px,94vw)}
+.talefx .tarts{display:flex;justify-content:center;margin:10px 0 8px}
+.talefx .tarts img{width:min(112px,26vw);aspect-ratio:760/1060;object-fit:cover;border-radius:10px;border:3px solid #fff;box-shadow:0 6px 14px #0006;margin:0 -6px}
+.talefx .tarts img:nth-child(1){transform:rotate(-8deg) translateY(8px)}.talefx .tarts img:nth-child(3){transform:rotate(8deg) translateY(8px)}.talefx .tarts img:nth-child(2){position:relative;z-index:1}
+.talefx p{margin:0 0 6px;font:600 15px/1.6 var(--f-d)}
+.talefx b{font:800 15px var(--f-d);color:#2c7a3a}
+@keyframes festIn{0%{opacity:0;transform:scale(.7)}12%{opacity:1;transform:scale(1.04)}20%{transform:scale(1)}86%{opacity:1}100%{opacity:0;transform:scale(.96)}}
+.ptale{margin:6px 0 0;padding:6px 10px;border-radius:10px;background:#fff3d6;color:#6b4310;font:700 13px/1.5 var(--f-d)}
+.lplate{position:relative}
+.lpet{position:absolute;right:-8px;top:-16px;z-index:4;pointer-events:none}
+.pemo{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#fff,#ffe9b8);box-shadow:0 0 0 2px #fff,0 4px 10px #0005;font-size:24px;line-height:1}
+.pemo.s1{width:48px;height:48px;font-size:30px}
+.pemo.s2{width:56px;height:56px;font-size:36px;background:radial-gradient(circle at 40% 35%,#fff8d0,#ffd23d);box-shadow:0 0 0 2px #fff,0 0 18px #ffd23d,0 4px 10px #0005}
+.pimg{width:48px;height:48px;object-fit:contain}.pimg.s1{width:58px;height:58px}.pimg.s2{width:68px;height:68px;filter:drop-shadow(0 0 8px #ffd23d)}
+.lpet .pemo{width:34px;height:34px;font-size:20px}.lpet .pemo.s1{width:38px;height:38px;font-size:23px}.lpet .pemo.s2{width:42px;height:42px;font-size:26px}
+.lpet .pimg{width:40px;height:40px}
+.hop{animation:petHop .45s ease 2}
+@keyframes petHop{0%,100%{transform:translateY(0)}45%{transform:translateY(-10px)}}
+.petsay{position:absolute;transform:translate(-50%,-112%);background:#fff;color:#2a1a08;font:800 14px var(--f-d);padding:6px 12px;border-radius:14px;box-shadow:0 4px 12px #0006;white-space:nowrap;animation:petSay 1.8s ease forwards}
+.petsay::after{content:'';position:absolute;left:50%;bottom:-6px;border:6px solid transparent;border-top-color:#fff;border-bottom:0;transform:translateX(-50%)}
+@keyframes petSay{0%{opacity:0;transform:translate(-50%,-92%)}12%{opacity:1;transform:translate(-50%,-112%)}86%{opacity:1}100%{opacity:0}}
+.htile .hic .pemo{width:34px;height:34px;font-size:21px;box-shadow:0 0 0 2px #fff}
+.petgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;width:100%}
+@media (max-width:520px){.petgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.petopt{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 6px;border-radius:14px;background:#ffffff10;border:2px solid #ffffff22;color:inherit;font:700 14px var(--f-d);cursor:pointer}
+.petopt.on{border-color:#ffd23d;background:#ffd23d22;box-shadow:0 0 14px #ffd23d55}
+.petbar{width:100%}
+.petover{display:flex;align-items:center;gap:10px;justify-content:center}
+.petover .bub{background:#fff;color:#2a1a08;padding:6px 12px;border-radius:14px;font:800 14px var(--f-d)}
 /* ---------- modal ---------- */
 .modal-bg{position:fixed;inset:0;z-index:50;background:#000c;display:grid;place-items:center;padding:16px}
 .modal{background:var(--mat-2);border:1px solid #ffffff1c;border-radius:18px;padding:18px;width:min(560px,100%);max-height:92%;overflow:auto;display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center}
@@ -1318,7 +1361,7 @@ window.__errs = [];
 window.addEventListener('error', e => window.__errs.push(String(e.message)));
 window.addEventListener('unhandledrejection', e => window.__errs.push(String(e.reason && e.reason.stack || e.reason)));
 
-const SET = {sfx:true, music:true, speed:1, theme:'sinh'};
+const SET = {sfx:true, music:true, speed:1, theme:'sinh', fest:true};
 const THEMES = [['mekong','ແມ່ນ້ຳຂອງ'],['sinh','ຜ້າຊິ່ນ'],['himma','ປ່າຫິມະພານ']];
 const themePicker = () => '<div class="themes">' + THEMES.map(([k, n]) => '<button class="thb ' + (SET.theme === k ? 'on' : '') + '" data-a="theme" data-v="' + k + '"><i></i>' + n + '</button>').join('') + '</div>';
 try{ Object.assign(SET, JSON.parse(localStorage.getItem('lao-legend-settings') || '{}')); }catch(e){}
@@ -1363,7 +1406,7 @@ function def(id, o){ C[id] = Object.assign({id, img:id, type:'char', kw:{}}, o);
 const TAUNT = 'ຄູ່ແຂ່ງຕ້ອງໂຈມຕີໃບນີ້ກ່ອນ ຈຶ່ງໂຈມຕີໃບອື່ນໄດ້';
 const FLY = 'ໂຈມຕີຂວັນຄູ່ແຂ່ງໄດ້ໂດຍກົງ ເຖິງວ່າມີຕົວລະຄອນກັນຢູ່';
 // deck 1
-def('babynaga',{name:'ນາກນ້ອຍ',tribe:'naga',cost:1,power:2,tag:'ນ້ຳໃຈ',skill:'ເມື່ອລົງສະໜາມ ຟື້ນຂວັນ +1',lore:'ລູກນາກນ້ອຍ ອາໄສຢູ່ໃນໜອງບົວ'});
+def('babynaga',{name:'ນາກນ້ອຍ',tribe:'naga',cost:1,power:1,tag:'ນ້ຳໃຈ',skill:'ເມື່ອລົງສະໜາມ ຟື້ນຂວັນ +1',lore:'ລູກນາກນ້ອຍ ອາໄສຢູ່ໃນໜອງບົວ'});
 def('sangthong',{name:'ສັງທອງ',tribe:'hero',cost:3,power:3,kw:{taunt:1},tag:'ກັນໄພ',skill:TAUNT,lore:'ນ້ອງສິນໄຊ ຜູ້ເກີດມາໃນຫອຍສັງ'});
 def('nagaprincess',{name:'ນາງນາກ',tribe:'naga',cost:3,power:3,tag:'ພອນແມ່ນ້ຳ',skill:'ເມື່ອລົງສະໜາມ ຈົ່ວກາດ 1 ໃບ',lore:'ເຈົ້າຍິງແຫ່ງແມ່ນ້ຳຂອງ'});
 def('siho',{name:'ສີໂຫ',tribe:'hero',cost:4,power:4,tag:'ຊ້າງສານ',skill:'ເວລາໂຈມຕີ ພະລັງ +2',lore:'ນ້ອງສິນໄຊ ຫົວເປັນຊ້າງ ຕົວເປັນສິງ'});
@@ -1428,7 +1471,7 @@ def('thewadanoi',{name:'ເທວະດານ້ອຍ',tribe:'thewada',cost:1,p
 def('thahanthaen',{name:'ທະຫານແຖນ',tribe:'thewada',cost:2,power:3,kw:{taunt:1},tag:'ກັນໄພ',skill:TAUNT,lore:'ທະຫານ ຜູ້ເຝົ້າປະຕູເມືອງແຖນ'});
 def('thaenfahong',{name:'ແຖນຟ້າຮ້ອງ',tribe:'thewada',cost:3,power:2,tag:'ຟ້າຮ້ອງ',skill:'ເມື່ອລົງສະໜາມ ໂຈມຕີ 3 ໃສ່ຕົວລະຄອນຂອງຄູ່ແຂ່ງ 1 ໃບ',lore:'ແຖນຜູ້ຖືສາຍຟ້າໄວ້ໃນມື'});
 def('thaenfon',{name:'ແຖນຝົນ',tribe:'thewada',cost:3,power:2,tag:'ສາຍຝົນ',skill:'ທຸກຕາ ຟື້ນຂວັນ +1',lore:'ນາງແຖນ ຜູ້ຖອກຝົນລົງນາ'});
-def('nanghung',{name:'ນາງຮຸ້ງ',tribe:'thewada',cost:4,power:3,tag:'ຮຸ້ງເຈັດສີ',skill:'ເມື່ອລົງສະໜາມ ຈົ່ວກາດ 1 ໃບ ຕໍ່ຄາຖາໃນກອງຖິ້ມ (ສູງສຸດ 3)',lore:'ຜ້າແພເຈັດສີ ກາຍເປັນຮຸ້ງ'});
+def('nanghung',{name:'ນາງຮຸ້ງ',tribe:'thewada',cost:4,power:4,tag:'ຮຸ້ງເຈັດສີ',skill:'ເມື່ອລົງສະໜາມ ຈົ່ວກາດ 1 ໃບ ຕໍ່ຄາຖາໃນກອງຖິ້ມ (ສູງສຸດ 3)',lore:'ຜ້າແພເຈັດສີ ກາຍເປັນຮຸ້ງ'});
 def('thaenlom',{name:'ແຖນລົມ',tribe:'thewada',cost:5,power:4,tag:'ລົມແຮງ',skill:'ກາດຄາຖາຂອງເຈົ້າ ໃຊ້ບຸນໜ້ອຍລົງ 1',lore:'ເປົ່າເຂົາ ລົມກໍພັດທົ່ວຟ້າ'});
 def('phayathaen',{name:'ພະຍາແຖນ',tribe:'thewada',cost:9,power:8,legend:1,kw:{fly:1},tag:'ກະສັດແຫ່ງຟ້າ',skill:'ບິນ. ທຸກຕາ ທຳລາຍຕົວລະຄອນຂອງຄູ່ແຂ່ງ 1 ໃບ ທີ່ມີພະລັງ 2 ລົງມາ',lore:'ຜູ້ປົກຄອງເມືອງແຖນ ເທິງຟ້າ'});
 def('phayufa',{name:'ພາຍຸຟ້າ',type:'spell',cost:4,tag:'ຄາຖາ · ພາຍຸ',skill:'ໂຈມຕີ 2 ໃສ່ຕົວລະຄອນຂອງຄູ່ແຂ່ງທຸກໃບ',lore:'ຟ້າຜ່າລົງມາ ພ້ອມກັນທົ່ວສະໜາມ'});
@@ -1455,7 +1498,7 @@ def('khaithahan',{name:'ຄ້າຍທະຫານ',type:'loc',cost:3,tag:'ສ�
 
 // deck: ນາງສິບສອງ. ຄືນຊີບ = bring a character back from the discard pile onto the field
 def('nangnoy',{name:'ນາງນ້ອຍ',tribe:'hero',cost:1,power:1,tag:'ນ້ອງສຸດທ້ອງ',skill:'ເມື່ອໃບນີ້ຖືກທຳລາຍ ຈົ່ວກາດ 1 ໃບ',lore:'ນ້ອງສຸດທ້ອງ ໃນພີ່ນ້ອງສິບສອງ ຖືໂຄມໄຟນ້ອຍໆ'});
-def('phinong',{name:'ພີ່ນ້ອງສິບສອງ',tribe:'hero',cost:2,power:2,tag:'ຮັກພີ່ນ້ອງ',skill:'ພະລັງ +1 ຕໍ່ «ພີ່ນ້ອງສິບສອງ» ແຕ່ລະໃບ ໃນກອງຖິ້ມຂອງເຈົ້າ',lore:'ຈັບມືກັນໄວ້ ບໍ່ປະກັນ'});
+def('phinong',{name:'ພີ່ນ້ອງສິບສອງ',tribe:'hero',cost:2,power:3,tag:'ຮັກພີ່ນ້ອງ',skill:'ພະລັງ +1 ຕໍ່ «ພີ່ນ້ອງສິບສອງ» ແຕ່ລະໃບ ໃນກອງຖິ້ມຂອງເຈົ້າ',lore:'ຈັບມືກັນໄວ້ ບໍ່ປະກັນ'});
 def('lukyak',{name:'ລູກຍັກ',tribe:'giant',cost:2,power:3,kw:{taunt:1},tag:'ກັນໄພ',skill:TAUNT,lore:'ຍັກນ້ອຍ ເຝົ້າປາກຖ້ຳ ດື້ແຕ່ໜ້າຮັກ'});
 def('moya',{name:'ໝໍຢາ',tribe:'hero',cost:3,power:2,tag:'ຢາວິເສດ',skill:'ເມື່ອລົງສະໜາມ ຄືນຊີບ ຕົວລະຄອນທີ່ມີບຸນ 3 ລົງມາ 1 ໃບ',lore:'ແມ່ເຖົ້າໝໍຢາ ຕົ້ມຢາສະໝຸນໄພ'});
 def('maneekap',{name:'ມ້າມະນີກາບ',tribe:'himma',cost:3,power:3,kw:{fly:1},tag:'ບິນ',skill:FLY,lore:'ມ້າຂາວວິເສດ ບິນເທິງເມກ'});
@@ -1574,6 +1617,48 @@ const ALT = {sinxay:'alt-sinxay', phayanak:'alt-phayanak', hapkhanasouane:'alt-h
              phutthasen:'alt-phutthasen', kangli:'alt-kangli', santhaman:'alt-santhaman',
              kalaket:'alt-kalaket', makaew:'alt-makaew', punyeu:'alt-punyeu', singkaew:'alt-singkaew', kamkadam:'alt-kamkadam', luksaolao:'alt-luksaolao',
              suttharo:'alt-suttharo', phadaeng:'alt-phadaeng', nagax:'alt-nagax', hackxm:'alt-hackxm', mechyak:'alt-mechyak', kratai:'alt-kratai', ngaonam:'alt-ngaonam', nangkaew:'alt-nangkaew', khaendj:'alt-khaendj'};
+// ຕອນນິທານ: play all 3 cards of one tale in a game (any order) to open its story page, once per game
+const TALE_GIFT = 'ຈົ່ວກາດ 1 ໃບ ແລະ ຟື້ນຂວັນ 3';
+const TALES = [
+  {ids:['sangthong','siho','sinxay'], name:'ສິນໄຊ ສາມພີ່ນ້ອງ', story:'ສາມພີ່ນ້ອງຮ່ວມໃຈກັນ ຂ້າມປ່າຂ້າມເຂົາ ໄປພາອາສຸມົນທາກັບບ້ານ'},
+  {ids:['phikongkoy','phikrasue','phikrahang'], name:'ຄືນຜີອອກຫຼິ້ນ', story:'ຄືນເດືອນມືດ ຜີນ້ອຍຜີໃຫຍ່ ອອກມາຫຼິ້ນກັນ ຈົນໝາທັງບ້ານເຫົ່າບໍ່ຢຸດ'},
+  {ids:['hongthong','phralak','hanuman'], name:'ພະລັກພະລາມ', story:'ຫົງທອງບິນນຳທາງ ພະລັກ ແລະ ຫະນຸມານ ຂ້າມທະເລໄປຊ່ວຍນາງສີດາ'},
+  {ids:['thaenfahong','thaenfon','thaenlom'], name:'ແຖນສົ່ງຝົນ', story:'ພະຍາແຖນ ສົ່ງຟ້າຮ້ອງ ລົມ ແລະ ຝົນ ລົງມາ ໃຫ້ທົ່ງນາຂຽວງາມ'},
+  {ids:['nakrobto','masuek','hokwiset'], name:'ທ້າວຮຸ່ງຍົກທັບ', story:'ນັກຮົບຖືໂລ່ ແລະ ມ້າເສິກ ອອກນຳໜ້າ ຫອກວິເສດສ່ອງແສງ ກອງທັບບຸກໄປ'},
+  {ids:['phinong','maneekap','kangli'], name:'ນາງສິບສອງ', story:'ພີ່ນ້ອງສິບສອງ ຂີ່ມ້າມະນີກາບ ໄປພົບນາງກັງຣີ ຜູ້ມີໃຈດີ'},
+  {ids:['chaoying','makaew','dapkaew'], name:'ກາລະເກດ ຕາມຫາເຈົ້າຍິງ', story:'ຂີ່ມ້າແກ້ວ ຖືດາບແກ້ວ ບິນຂ້າມຟ້າ ໄປພົບເຈົ້າຍິງເມືອງໄກ'},
+  {ids:['singkaew','singkham','nangsangkhan'], name:'ປີໃໝ່ລາວ', story:'ສິງແກ້ວ ສິງຄຳ ແຫ່ນາງສັງຂານ ລົງມາອວຍພອນປີໃໝ່ໃຫ້ທຸກຄົນ'},
+  {ids:['ueaysong','luksaolao','setthi'], name:'ເສດຖີ ແລະ ລູກສາວສາມຄົນ', story:'ເອື້ອຍທັງສອງຫົວເລາະ ແຕ່ລູກສາວຫຼ້າໃຈດີ ເຫັນຄວາມດີຂອງທ້າວກ່ຳກາດຳ'},
+  {ids:['phadaeng','nangai','phangkhi'], name:'ຜາແດງ ນາງໄອ່', story:'ທ້າວຜາແດງ ນາງໄອ່ຄຳ ແລະ ພັງຄີ ພົບກັນ ໃນງານບຸນບັ້ງໄຟ'},
+  {ids:['drone','cyberpolice','neonninja'], name:'ທີມຮັກສາເມືອງ 2099', story:'ໂດຣນນ້ອຍ ຕຳຫຼວດ ແລະ ນິນຈາ ຮ່ວມທີມ ປົກປ້ອງນະຄອນນາກ'},
+  {ids:['nokhuk','tao','xangjaidi'], name:'ສັດປ່າຊ່ວຍກັນ', story:'ນົກຮູກເຝົ້າຍາມ ເຕົ່າອົດທົນ ຊ້າງໃຈດີ ຊ່ວຍກັນຮັກສາປ່າ'},
+  {ids:['khaendj','nakhong','leader'], name:'ວົງໝໍລຳ', story:'ມືແຄນ ນັກຮ້ອງ ແລະ ລີດເດີ ຂຶ້ນເວທີພ້ອມກັນ ແຟນໆມ່ວນທົ່ວງານ'},
+];
+const TALE_OF = {}; TALES.forEach((t, i) => t.ids.forEach(id => TALE_OF[id] = i));
+const talesOf = list => TALES.map((t, i) => t.ids.every(id => list[id]) ? {i, got:[], done:false} : null).filter(Boolean);
+// ຮີດສິບສອງ: a Lao festival rules the field for 3 rounds, then the next one comes; the same rule for both sides
+const FESTS = [
+  {id:'pimai', ic:'💦', name:'ບຸນປີໃໝ່', rule:'ເລີ່ມຕາ ຟື້ນຂວັນ 1'},
+  {id:'bangfai', ic:'🚀', name:'ບຸນບັ້ງໄຟ', rule:'ກາດຄາຖາ ໃຊ້ບຸນໜ້ອຍລົງ 1'},
+  {id:'xuanghuea', ic:'🚣', name:'ບຸນຊ່ວງເຮືອ', rule:'ຕົວລະຄອນ ບຸນ 1–2 ພະລັງ +1'},
+  {id:'thatluang', ic:'🛕', name:'ບຸນທາດຫຼວງ', rule:'ກາດ ບຸນ 6 ຂຶ້ນໄປ ໃຊ້ບຸນໜ້ອຍລົງ 1'},
+  {id:'okphansa', ic:'🪔', name:'ບຸນອອກພັນສາ', rule:'ເລີ່ມຕາ ມືມີ 2 ໃບລົງມາ ຈົ່ວເພີ່ມ 1'},
+  {id:'khaosak', ic:'🍚', name:'ບຸນຂ້າວສາກ', rule:'ຕົວລະຄອນເຈົ້າຖືກທຳລາຍ ຟື້ນຂວັນ 1'},
+];
+const FEST_ROUNDS = 3;
+const festOf = () => S && S.fest ? FESTS[S.fest[Math.floor((S.T - 1) / (2 * FEST_ROUNDS)) % S.fest.length]] : null;
+const isFest = id => { const f = festOf(); return !!f && f.id === id; };
+// ສັດຄູ່ຫູ: a buddy by your plate that cheers and grows with the games you play; looks only, no effect on play
+const PETS = [
+  {id:'naga', ic:'🐍', stages:['ລູກນາກ', 'ນາກໜຸ່ມ', 'ນາກທອງ']},
+  {id:'xang', ic:'🐘', stages:['ລູກຊ້າງ', 'ຊ້າງໜຸ່ມ', 'ຊ້າງເຜືອກ']},
+  {id:'hong', ic:'🦢', stages:['ລູກຫົງ', 'ຫົງໜຸ່ມ', 'ຫົງທອງ']},
+  {id:'sing', ic:'🦁', stages:['ລູກສິງ', 'ສິງໜຸ່ມ', 'ສິງແກ້ວ']},
+];
+const PET_STEPS = [0, 10, 30];   // games played to reach each stage
+const PET_ART = false;           // true once art/pet-<id>-<1..3>.webp exist
+const PET_LINES = {start:['ສູ້ໆ!', 'ພ້ອມແລ້ວ!', 'ໄປກັນເລີຍ!'], kill:['ເກັ່ງຫຼາຍ!', 'ວ້າວ!', 'ສຸດຍອດ!'], legend:['ຕຳນານມາແລ້ວ!', 'ແຮງຫຼາຍ!'],
+  tale:['ນິທານຄົບແລ້ວ!', 'ມ່ວນຫຼາຍ!'], win:['ຊະນະແລ້ວ! 🎉', 'ເຮົາເກັ່ງທີ່ສຸດ!'], lose:['ບໍ່ເປັນຫຍັງ ເທື່ອໜ້າເອົາໃໝ່!', 'ສູ້ໃໝ່ເດີ້!']};
 const ALT_CHANCE = location.hash === '#altall' ? 1 : .25;  // #altall makes every one alt, for showing the cards off
 
 const DECKS = [
@@ -1829,7 +1914,7 @@ function settingsHTML(){
   const row = (k, label, on, txt) => '<button class="setrow" data-a="set" data-v="' + k + '"><span>' + label + '</span><b class="' + (on ? 'on' : '') + '">' + txt + '</b></button>';
   return '<div class="modal-bg"><div class="modal"><p class="q">ຕັ້ງຄ່າ</p>' + (S ? '' : '<p class="themelbl">ໜ້າຕາສະໜາມ</p>' + themePicker()) + '<div class="setlist">' +
     row('sfx', 'ສຽງເອັບເຟັກ', SET.sfx, SET.sfx ? 'ເປີດ' : 'ປິດ') + row('music', 'ດົນຕີ', SET.music, SET.music ? 'ເປີດ' : 'ປິດ') +
-    row('speed', 'ຄວາມໄວເອັບເຟັກ', SET.speed < 1, SET.speed < 1 ? 'ໄວ' : 'ປົກກະຕິ') + '<p class="themelbl">ໜ້າຕາສະໜາມ</p>' + themePicker() +
+    row('speed', 'ຄວາມໄວເອັບເຟັກ', SET.speed < 1, SET.speed < 1 ? 'ໄວ' : 'ປົກກະຕິ') + row('fest', 'ງານບຸນ ຮີດສິບສອງ (ເກມໃໝ່)', SET.fest, SET.fest ? 'ເປີດ' : 'ປິດ') + '<p class="themelbl">ໜ້າຕາສະໜາມ</p>' + themePicker() +
     '</div><div class="mbtns"><button class="btn2" data-a="setclose">ປິດ</button></div></div></div>';
 }
 document.addEventListener('pointerdown', () => { audioInit(); musicStart(); }, {once:true});
@@ -1886,7 +1971,7 @@ function mkPlayer(name, di, bot, level, list){
   const deck = [];
   for(const [id, n] of Object.entries(list || DECKS[di].list)) for(let i=0;i<n;i++) deck.push(id);
   shuffle(deck);
-  return {name, bot, di, level, life:20, maxMana:0, mana:0, penalty:0, deck, hand:[], field:[], loc:null, grave:[]};
+  return {name, bot, di, level, life:20, maxMana:0, mana:0, penalty:0, deck, hand:[], field:[], loc:null, grave:[], tales:talesOf(list || DECKS[di].list)};
 }
 // keep every picture of both decks in memory, so re-drawing the board never shows a blank card
 const IMG_KEEP = new Map();
@@ -1915,6 +2000,9 @@ function newGame(di, level, opts){
     S.pvp = opts.pvp; S.p[0].name = 'ຜູ້ຫຼິ້ນ 1'; S.p[1] = mkPlayer('ຜູ້ຫຼິ້ນ 2', bi, false, level, opts.pvp.list); if(opts.pvp.cover) S.p[1].cover = opts.pvp.cover;
   }
   if(S.auto){ S.p[0].name = 'ບອດ A'; S.p[1].name = 'ບອດ B'; }
+  S.fest = opts.tut || (!SET.fest && !S.auto) ? null : shuffle(FESTS.map((_, i) => i)).slice(0, 4);
+  if(opts.tut) for(const p of S.p) p.tales = [];
+  if(!S.fast && petOn()) setTimeout(() => petSay('start'), 1400);
   if(!S.fast) preloadArt(['back', ...deckArt(di, opts.list), ...deckArt(bi)]);
   if(opts.levels){ S.p[0].level = opts.levels[0]; S.p[1].level = opts.levels[1]; }
   for(const p of S.p) for(let i=0;i<5;i++) drawRaw(p);
@@ -1963,6 +2051,7 @@ function costOf(p, id){
   if(d.type === 'spell') c -= (p.loc === 'loduhon' ? 1 : 0) + p.field.filter(x => x.id === 'thaenlom').length;
   if(d.type === 'item' && p.field.some(x => x.id === 'phokha')) c -= 1;
   if(d.type === 'trap' && p.field.some(x => x.id === 'kratai')) c = 0;
+  if(c > 1 && ((isFest('bangfai') && d.type === 'spell') || (isFest('thatluang') && d.cost >= 6))) c -= 1;
   c = Math.max(0, c);
   return c;
 }
@@ -1970,6 +2059,7 @@ function pow(p, c, vs, att){
   const d = C[c.id]; let v = c.tf && d.tf ? d.tf.power : d.power;
   for(const i of c.items) v += C[i].bonus;
   for(const m of c.mods) v += m.amt;
+  if(d.cost <= 2 && isFest('xuanghuea')) v++;
   if(p.loc && C[p.loc].buff === d.tribe) v++;
   if(d.tribe === 'hero') v += p.field.filter(x => x.id === 'khunborom').length;
   if(d.tribe === 'naga') v += p.field.filter(x => x.id === 'phayanak').length;
@@ -2101,8 +2191,23 @@ async function playCard(p, h, t){
     render();
     await fxLoc(pi(p), h.id);
   }
+  if(d.legend && p === S.p[0]) petSay('legend');
+  await taleStep(p, h.id);
   await checkDeaths();
   render();
+}
+async function taleStep(p, id){
+  for(const t of p.tales || []){
+    const T = TALES[t.i];
+    if(t.done || !T.ids.includes(id) || t.got.includes(id)) continue;
+    t.got.push(id);
+    if(t.got.length < T.ids.length){ floatAt('h:' + pi(p), '📖 ' + t.got.length + '/' + T.ids.length, 'heal'); continue; }
+    t.done = true;
+    log('📖 ຕອນນິທານ «' + T.name + '»: ' + p.name + ' ' + TALE_GIFT);
+    await fxTale(t.i);
+    draw(p, 1); heal(p, 3);
+    if(p === S.p[0]) petSay('tale');
+  }
 }
 async function onPlay(p, c, t){
   switch(c.id){
@@ -2368,6 +2473,8 @@ async function destroy(p, c, quick){
   const i = p.field.indexOf(c); if(i < 0) return;
   p.field.splice(i, 1); (c.hacked ? opp(p) : p).grave.push(...c.items, c.id);
   log('«' + C[c.id].name + '» ຖືກທຳລາຍ');
+  if(isFest('khaosak')) heal(c.hacked ? opp(p) : p, 1);
+  if(p === S.p[1]) petSay('kill', .45);
   if(p === S.p[1] && !S.p[0].bot) questEvent('kill');
   if(c.items.includes('katip')){ draw(p, 1); log('ກະຕິບເຂົ້າ: ' + p.name + ' ຈົ່ວກາດ 1 ໃບ'); }
   if(c.id === 'phikongkoy'){ opp(p).penalty++; log('ສຽງຜີກອງກອຍ: ' + opp(p).name + ' ເສຍ 1 ບຸນ ຕາໜ້າ'); }
@@ -2480,9 +2587,12 @@ async function startTurn(){
   if(S.T > 1) draw(p, 1);
   if(S.over) return;
   if(p.loc === 'talatsao' && p.hand.length <= 2){ draw(p, 1); log('ຕະຫຼາດເຊົ້າ: ' + p.name + ' ຈົ່ວເພີ່ມ 1 ໃບ'); if(S.over) return; }
+  if(isFest('okphansa') && p.hand.length <= 2){ draw(p, 1); log('ບຸນອອກພັນສາ: ' + p.name + ' ຈົ່ວເພີ່ມ 1 ໃບ'); if(S.over) return; }
   p.maxMana = Math.min(10, p.maxMana + 1);
   p.mana = Math.max(0, p.maxMana - p.penalty); p.penalty = 0;
   const nk = p.field.filter(x => x.id === 'phayanak').length; if(nk) heal(p, 2 * nk);
+  if(isFest('pimai')) heal(p, 1);
+  if(S.fest && (S.T - 1) % (2 * FEST_ROUNDS) === 0){ const f = festOf(); log('🎉 ງານບຸນ: ' + f.name + ' · ' + f.rule); render(); await fxFest(f); if(S !== G || S.over) return; }
   await turnStartEffects(p); if(S !== G || S.over) return;
   S.sel = null; S.busy = isBot(p);
   render();
@@ -2517,6 +2627,7 @@ function gameOver(winner, reason){
   if(!S.auto){
     const won = S.over.winner === 0; sfx(won ? 'win' : 'lose'); if(won) fxConfetti(); botSay(won ? 'losegame' : 'win', true);
     if(!S.tut && !S.pvp){ recordGame(won); S.reward = gameGems(won); if(typeof afterGame === 'function') afterGame(won); }
+    if(!S.tut) petGrow();
     else if(S.tut){ saveJ('lao-legend-tut', 1); S.tut = null; tutReward(); }
     S.modal = {type:'over'};
   }
@@ -2673,10 +2784,13 @@ function botPick(p, q){
       const big = en.filter(x => C[x.c.id].cost >= 4 || x.c.items.length);
       if(big.length){ t = maxBy(big, x => C[x.c.id].cost + x.c.items.length * 2); s = C[t.c.id].cost; }
     }
+    if(s > 0) s += taleWant(p, h.id);
     if(s > bs){ bs = s; best = {h, t}; }
   }
   return best;
 }
+// medium bot leans toward finishing its tale
+const taleWant = (p, id) => (p.tales || []).reduce((a, t) => { const T = TALES[t.i]; return a + (t.done || t.got.includes(id) || !T.ids.includes(id) ? 0 : (t.got.length === T.ids.length - 1 ? 3 : 1)); }, 0);
 function botTarget(p, c){
   const q = opp(p); const ts = attackTargets(p, c); if(!ts.length) return null;
   const hero = ts.find(x => x.kind === 'hero');
@@ -2717,7 +2831,7 @@ function cloneState(hideIdx){
   const cp = (p, i) => ({name:p.name, bot:true, di:p.di, level:p.level, life:p.life, maxMana:p.maxMana, mana:p.mana, penalty:p.penalty,
     deck:null, hand:null,
     field:p.field.map(c => ({uid:c.uid, id:c.id, sick:c.sick, atk:c.atk, x2:c.x2, frz:c.frz, tf:c.tf, age:c.age, guard:c.guard, hacked:c.hacked, shield:c.shield, items:c.items.slice(), mods:c.mods.map(m => ({amt:m.amt, exp:m.exp}))})),
-    loc:p.loc, locAge:p.locAge, water:p.water, fans:p.fans, encoreReady:p.encoreReady, traps:(p.traps || []).slice(), grave:p.grave.slice(), lastMagic:p.lastMagic, _src:p, _i:i});
+    loc:p.loc, locAge:p.locAge, water:p.water, fans:p.fans, encoreReady:p.encoreReady, traps:(p.traps || []).slice(), tales:(p.tales || []).map(t => ({i:t.i, got:t.got.slice(), done:t.done})), grave:p.grave.slice(), lastMagic:p.lastMagic, _src:p, _i:i});
   const ps = S.p.map(cp);
   for(const q of ps){
     const src = q._src;
@@ -2728,7 +2842,7 @@ function cloneState(hideIdx){
     } else { q.hand = src.hand.map(h => ({uid:h.uid, id:h.id})); q.deck = shuffle(src.deck.slice()); }
     delete q._src; delete q._i;
   }
-  return {screen:'game', p:ps, turn:S.turn, T:S.T, level:S.level, log:[], over:null, busy:true, targeting:null, sel:null, modal:null, fast:true, auto:true, sim:true};
+  return {screen:'game', p:ps, turn:S.turn, T:S.T, fest:S.fest, level:S.level, log:[], over:null, busy:true, targeting:null, sel:null, modal:null, fast:true, auto:true, sim:true};
 }
 function resolveT(tk){
   if(!tk) return null;
@@ -2956,7 +3070,7 @@ function menuHTML(){
           '<div class="levels"><span>ບອດ</span>' + LEVELS.map((l, i) => '<button class="lv ' + (ui.level === i ? 'on' : '') + '" data-a="lvl" data-v="' + i + '">' + l + '</button>').join('') + '</div>' +
           '<button class="btn-main hplay" data-a="start"' + (info.locked ? ' disabled' : '') + '>⚔️ ສູ້ກັບບອດ</button></div></div></div>' +
     '<nav class="hnav" aria-label="ເມນູ">' + tile('ednew', '🃏', 'ຈັດເດັກ') + tile('shop', '🎴', 'ຮ້ານຊອງ', c.freePacks) + tile('quests', '⭐', 'ພາລະກິດ', qn) + tile('book', '📖', 'ປຶ້ມກາດ') +
-      tile('pvpstart', '👥', '2 ຄົນ') + tile('tutstart', '🎓', 'ສອນຫຼິ້ນ', loadJ('lao-legend-tut', 0) ? '' : '!') + tile('stats', '📊', 'ສະຖິຕິ') + '</nav>' +
+      tile('pvpstart', '👥', '2 ຄົນ') + tile('tutstart', '🎓', 'ສອນຫຼິ້ນ', loadJ('lao-legend-tut', 0) ? '' : '!') + tile('stats', '📊', 'ສະຖິຕິ') + tile('pet', c.pet ? petFace() : '🥚', 'ຄູ່ຫູ', c.pet ? '' : '!') + '</nav>' +
     '<p class="hlinks"><a href="' + RULES_URL + '" target="_blank" rel="noopener">ອ່ານກົດການຫຼິ້ນ</a> · <a href="' + CARDS_URL + '" target="_blank" rel="noopener">ເບິ່ງກາດທັງໝົດ</a> · ກາດ ແລະ ເພັດ ເກັບໄວ້ໃນເຄື່ອງນີ້ · ບໍ່ມີການຈ່າຍເງິນແທ້</p>' +
   '</div>';
 }
@@ -3208,6 +3322,14 @@ function menuModalHTML(){
       '<div class="mbtns"><button class="btn-main sm" data-a="craftdo" data-v="' + m.id + '"' + (can ? '' : ' disabled') + '>ສ້າງ ✨' + cost + '</button><button class="btn2" data-a="mmclose">ປິດ</button></div>';
   }
   else if(m.type === 'quests') inner = questsHTML();
+  else if(m.type === 'pet'){
+    const c = col(), g = c.petGames || 0, st = petStage(g), nx = PET_STEPS[st + 1];
+    const pct = nx ? Math.round((g - PET_STEPS[st]) / (nx - PET_STEPS[st]) * 100) : 100;
+    inner = '<p class="q">🐾 ສັດຄູ່ຫູ</p><p class="lore">ເລືອກໝູ່ 1 ໂຕ ມານັ່ງຂ້າງເຈົ້າ. ມັນຈະເຊຍເຈົ້າ ແລະ ເຕີບໃຫຍ່ ທຸກເທື່ອທີ່ຫຼິ້ນຈົບ 1 ເກມ</p>' +
+      '<div class="petgrid">' + PETS.map(pt => '<button class="petopt' + (c.pet === pt.id ? ' on' : '') + '" data-a="petpick" data-v="' + pt.id + '">' + petFace(pt.id, st) + '<b>' + pt.stages[st] + '</b></button>').join('') + '</div>' +
+      '<p class="q">' + (nx ? 'ຫຼິ້ນອີກ ' + (nx - g) + ' ເກມ ຈະເຕີບໃຫຍ່ເປັນຂັ້ນ ' + (st + 2) : 'ເຕີບໃຫຍ່ສຸດແລ້ວ ✨') + '</p><div class="pbar petbar"><i style="width:' + pct + '%"></i></div>' +
+      '<p class="lore">ສັດຄູ່ຫູ ບໍ່ມີຜົນກັບການຫຼິ້ນ ເປັນໝູ່ເຊຍຢ່າງດຽວ</p><div class="mbtns"><button class="btn2" data-a="mmclose">ປິດ</button></div>';
+  }
   else if(m.type === 'card') inner = '<div style="width:min(290px,66vw)">' + cardHTML(m.id, null, m.alt) + '</div><p class="lore">' + C[m.id].lore + '</p><div class="mbtns"><button class="btn2" data-a="mmclose">ປິດ</button></div>';
   else if(m.type === 'stats'){
     const st = loadJ('lao-legend-stats', {played:0, won:0}), pct = (w, p) => p ? Math.round(w / p * 100) + '%' : '–';
@@ -3243,7 +3365,13 @@ function turnBox(){
   const btn = (mine && !S.busy)
     ? '<button class="medal go ' + (moves ? '' : 'glow') + '" data-a="end"><b>ຈົບຕາ</b><small>' + (moves ? 'ຍັງລົງກາດ ຫຼື ໂຈມຕີໄດ້' : 'ກົດເພື່ອສົ່ງຕາ') + '</small></button>'
     : '<button class="medal" disabled><b>' + (S.over ? 'ຈົບເກມ' : (mine ? '…' : 'ລໍຖ້າບອດ')) + '</b></button>';
-  return '<div class="rturn">' + chip + btn + '<button class="logb" data-a="log">' + (S.log[0] || '') + '</button></div>';
+  return '<div class="rturn">' + festChip() + chip + btn + '<button class="logb" data-a="log">' + (S.log[0] || '') + '</button></div>';
+}
+const taleTag = p => (p.tales || []).map(t => ' · 📖' + (t.done ? '✓' : t.got.length + '/' + TALES[t.i].ids.length)).join('');
+function festChip(){
+  const f = festOf(); if(!f) return '';
+  const left = FEST_ROUNDS - Math.floor((S.T - 1) / 2) % FEST_ROUNDS;
+  return '<div class="festchip" title="ງານບຸນ ໃຊ້ກັບທັງສອງຝ່າຍ"><span class="fic">' + f.ic + '</span><span><b>' + f.name + '</b><small>' + f.rule + ' · ເຫຼືອ ' + left + ' ຕາ</small></span></div>';
 }
 function whoLabel(p, i){ return S.auto || S.pvp ? p.name : (i ? 'ບອດ · ' + LEVELS[S.level] : 'ເຈົ້າ'); }
 function plate2(p, i){
@@ -3251,7 +3379,8 @@ function plate2(p, i){
   let gems = ''; for(let j=0;j<10;j++) gems += '<i class="gem ' + (j < p.mana ? 'full' : (j < p.maxMana ? 'spent' : '')) + '"></i>';
   return '<div class="lplate ' + (i ? 'opp' : 'me') + ' ' + (tg ? 'tgt' : '') + '" data-a="hero" data-k="' + k + '"><div class="lav"><img src="' + ART + C[p.cover || DECKS[p.di].legend].img + '.jpg" alt=""></div>' +
     '<div><div class="lnm">' + whoLabel(p, i) + ' · ເດັກ ' + p.deck.length + '</div><div class="llife">' + HEART + Math.max(0, p.life) + '</div>' +
-    '<div class="lsub"><div class="gems">' + gems + '</div><em>ບຸນ ' + p.mana + '/' + p.maxMana + (p.water ? ' · 🌊' + p.water + '/5' : '') + (p.fans ? ' · 💖' + Math.min(p.fans, encoreAt(p)) + '/' + encoreAt(p) : '') + '</em></div></div></div>';
+    '<div class="lsub"><div class="gems">' + gems + '</div><em>ບຸນ ' + p.mana + '/' + p.maxMana + (p.water ? ' · 🌊' + p.water + '/5' : '') + (p.fans ? ' · 💖' + Math.min(p.fans, encoreAt(p)) + '/' + encoreAt(p) : '') + taleTag(p) + '</em></div></div>' +
+    (i === 0 && petOn() ? '<span class="lpet" id="mypet" aria-hidden="true">' + petFace() + '</span>' : '') + '</div>';
 }
 function piles2(p, i){
   const top = p.grave.length ? p.grave[p.grave.length - 1] : null;
@@ -3292,7 +3421,8 @@ function detailHTML(){
   return '<div class="ph">' + SYM[isChar ? d.tribe : 'spell'] + '<span>' + d.name + (d0.alt && ALT[d0.id] ? ' ✦' : '') + '</span></div>' +
     '<div class="pc">' + cardHTML(d0.id, null, d0.alt, isChar ? pw : null) + '</div>' +
     '<div class="pchips"><span>ບຸນ <b>' + d.cost + '</b></span>' + (isChar ? '<span>ພະລັງ <b>' + pw + '</b>' + (pw !== d.power ? ' (' + d.power + ')' : '') + '</span>' : '') + '</div>' +
-    '<div class="ptype">' + type + '</div><p class="pskill">' + fmtSkill(d.skill) + '</p><p class="plore">' + d.lore + '</p>';
+    '<div class="ptype">' + type + '</div><p class="pskill">' + fmtSkill(d.skill) + '</p>' +
+    (TALE_OF[d0.id] != null ? '<p class="ptale">📖 ຕອນນິທານ «' + TALES[TALE_OF[d0.id]].name + '»: ' + TALES[TALE_OF[d0.id]].ids.map(x => C[x].name).join(' + ') + '</p>' : '') + '<p class="plore">' + d.lore + '</p>';
 }
 // ກອງຖິ້ມ viewer: every card that has left the game, per side, newest first, repeats stacked as ×N
 function graveGroups(p, f){
@@ -3378,7 +3508,7 @@ function modalHTML(){
     inner = '<div class="over ' + (win || S.pvp ? 'win' : 'lose') + '">' + (S.pvp ? S.p[S.over.winner].name + ' ຊະນະ!' : (win ? 'ເຈົ້າຊະນະ!' : 'ບອດຊະນະ')) + '</div><div style="width:min(200px,50vw)">' + cardHTML(S.p[S.over.winner].cover || DECKS[S.p[S.over.winner].di].legend) + '</div>' +
       '<p class="q">' + (S.over.reason === 'deck' ? 'ເດັກໝົດ' : 'ຂວັນເຫຼືອ 0') + ' · ຫຼິ້ນໄປ ' + Math.ceil(S.T / 2) + ' ຕາ</p>' +
       (S.reward ? '<p class="reward">💎 +' + S.reward.base + (S.reward.first ? ' <span>+' + S.reward.first + ' ຊະນະທຳອິດຂອງມື້</span>' : '') + (S.reward.capped ? ' <small>(ຮອດເພດານເພັດຂອງມື້ນີ້ແລ້ວ)</small>' : '') + '</p>' : '') +
-      (S.afterNote || '') +
+      (S.afterNote || '') + petOverHTML(win) +
       '<div class="mbtns"><button class="btn-main sm" data-a="replay">ຫຼິ້ນອີກ</button><button class="btn2" data-a="menu">ປ່ຽນເດັກ</button></div>';
   }
   return '<div class="modal-bg"><div class="modal">' + inner + '</div></div>';
@@ -3706,6 +3836,41 @@ function fxDraw(i){
   d.animate([{left:A.x + 'px', top:A.y + 'px', transform:'translate(-50%,-50%) rotate(0)'}, {left:B.x + 'px', top:B.y + 'px', transform:'translate(-50%,-50%) rotate(' + (i ? -12 : 12) + 'deg)'}], {duration:480, easing:'ease-in-out', fill:'forwards'});
   setTimeout(() => d.remove(), 520);
 }
+async function fxFest(f){
+  if(S.fast || !f) return; sfx('spell');
+  const d = addFx('festfx', null, null, '<div class="fbox"><div class="fbig">' + f.ic + '</div><small>ງານບຸນມາແລ້ວ!</small><h3>' + f.name + '</h3><p>' + f.rule + '</p><em>ໃຊ້ກັບທັງສອງຝ່າຍ · ' + FEST_ROUNDS + ' ຕາ</em></div>');
+  d.style.setProperty('--d', 2000 * SET.speed + 'ms'); await sleep(2000); d.remove();
+}
+async function fxTale(ti){
+  if(S.fast) return; sfx('heal');
+  const T = TALES[ti], d = addFx('talefx', null, null, '<div class="tbook"><small>📖 ຕອນນິທານ</small><h3>' + T.name + '</h3><div class="tarts">' + T.ids.map(id => '<img src="' + ART + C[id].img + '.jpg" alt="">').join('') + '</div><p>' + T.story + '</p><b>🎁 ' + TALE_GIFT + '</b></div>');
+  d.style.setProperty('--d', 2800 * SET.speed + 'ms'); await sleep(2800); d.remove();
+}
+const petOn = () => !!(S && !S.auto && !S.pvp && col().pet);
+const petStage = g => g >= PET_STEPS[2] ? 2 : (g >= PET_STEPS[1] ? 1 : 0);
+function petFace(id, st){
+  const c = col(); id = id || c.pet; st = st != null ? st : petStage(c.petGames || 0);
+  const pt = PETS.find(x => x.id === id) || PETS[0];
+  return PET_ART ? '<img class="pimg s' + st + '" src="' + ART + 'pet-' + pt.id + '-' + (st + 1) + '.webp" alt="">' : '<span class="pemo s' + st + '">' + pt.ic + '</span>';
+}
+const petName = (id, st) => { const c = col(), pt = PETS.find(x => x.id === (id || c.pet)) || PETS[0]; return pt.stages[st != null ? st : petStage(c.petGames || 0)]; };
+function petSay(kind, chance){
+  if(!petOn() || S.fast || (chance && Math.random() > chance)) return;
+  const el = document.getElementById('mypet'); if(!el) return;
+  const r = el.getBoundingClientRect(), d = addFx('petsay', Math.min(innerWidth - 90, Math.max(90, r.left + r.width / 2)), r.top, pick(PET_LINES[kind]));
+  el.classList.remove('hop'); void el.offsetWidth; el.classList.add('hop');
+  setTimeout(() => d.remove(), 1800);
+}
+function petGrow(){
+  const c = col(); if(!c.pet) return;
+  const before = petStage(c.petGames || 0); c.petGames = (c.petGames || 0) + 1; saveCol();
+  const now = petStage(c.petGames);
+  S.petUp = now > before ? petName(c.pet, before) + ' ເຕີບໃຫຍ່ເປັນ ' + petName(c.pet, now) + ' ແລ້ວ!' : '';
+}
+function petOverHTML(win){
+  if(!col().pet || S.pvp) return '';
+  return '<div class="petover">' + petFace() + '<span class="bub">' + (S.petUp ? '🎉 ' + S.petUp : pick(PET_LINES[win ? 'win' : 'lose'])) + '</span></div>';
+}
 function toast(m){ const d = addFx('toast'); d.textContent = m; setTimeout(() => d.remove(), 1900); }
 
 /* ---------- input ---------- */
@@ -3731,6 +3896,7 @@ $app.addEventListener('click', e => {
     if(a === 'qreroll' && ui.mmodal && ui.mmodal.type === 'quests'){ const c = col(), list = quests(); if(!c.quests.rerolled){ const pool = QUEST_POOL.filter(x => !list.some(y => y.k === x.k)); list[+v] = {...pick(pool), p:0, claimed:false}; c.quests.rerolled = true; saveCol(); } render(); return; }
     if(a === 'pickdeck'){ ui.deck = v.startsWith('c:') ? v : +v; ui.mmodal = null; render(); return; }
     if(a === 'pknew'){ ui.mmodal = null; openEditor(null, {}); return; }
+    if(a === 'petpick' && ui.mmodal && ui.mmodal.type === 'pet'){ col().pet = v; saveCol(); sfx('heal'); render(); return; }
     if(a === 'pvpsel' && ui.mmodal && ui.mmodal.type === 'pvp'){ ui.mmodal[v[0]] = v.slice(1); render(); return; }
     if(a === 'pvpgo' && ui.mmodal && ui.mmodal.type === 'pvp'){ pvpGo(ui.mmodal.a, ui.mmodal.b); return; }
     if(typeof shopClick === 'function' && shopClick(a, v, el)) return;
@@ -3766,6 +3932,7 @@ $app.addEventListener('click', e => {
     if(a === 'booktab'){ ui.bookTab = v; render(); return; }
     if(a === 'bookcard'){ ui.mmodal = {type:'card', id:v, alt:el.dataset.alt ? 1 : 0}; render(); return; }
     if(a === 'stats'){ ui.mmodal = {type:'stats'}; render(); return; }
+    if(a === 'pet'){ ui.mmodal = {type:'pet'}; render(); return; }
     if(a === 'tutstart'){ ui.screen = null; newGame(0, 0, {botDeck:1, first:0, tut:true}); return; }
     if(a === 'deck'){ ui.deck = v.startsWith('c:') ? v : +v; render(); }
     else if(a === 'lvl'){ ui.level = +v; render(); }
