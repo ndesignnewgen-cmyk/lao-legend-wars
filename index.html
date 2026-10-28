@@ -1295,7 +1295,7 @@ body{background:
   .hdinfo .levels .lv{padding:6px 12px}
   .hplay{font-size:18px;padding:12px 18px}
   .hnav{grid-template-columns:repeat(4,minmax(0,1fr))}
-  .htile{min-height:72px}.hic{font-size:24px}
+  .htile{min-height:72px}.hic{font-size:24px}.htile .hic .uic{width:38px;height:38px}
   .hprof .hlv{min-width:80px}
 }
 @media (max-width:480px){ .htop .wallet{order:3;flex-basis:100%;justify-content:flex-start} }
@@ -1435,6 +1435,13 @@ body{background:
 .avopt img{width:100%;height:100%;object-fit:cover;object-position:50% 15%}.avopt.on{border-color:var(--gold);box-shadow:0 0 12px var(--gold)}
 .profhead{display:flex;align-items:center;gap:14px;text-align:left}.profhead b{display:block;font:800 22px var(--f-d)}.profhead small{color:var(--dim);font:700 13px var(--f-d)}
 .hav.big{width:72px;height:72px}
+.uic{display:inline-block;width:1.5em;height:1.5em;object-fit:contain;vertical-align:middle;margin:-.25em .3em -.2em 0;filter:drop-shadow(0 2px 3px #0007);pointer-events:none}
+.htile .hic .uic{width:48px;height:48px;margin:0}.htile:hover .hic .uic{transform:scale(1.08) rotate(-3deg);transition:transform .15s}
+.wallet .uic{width:24px;height:24px;margin:-4px 3px -4px 0}.hset .uic{width:32px;height:32px;margin:0}
+.hlv .uic{width:20px;height:20px;margin:-4px 2px -3px 0}.hach .uic{width:20px;height:20px;margin:-4px 0 -3px}
+.tbtn .uic{width:28px;height:28px;margin:0}.arena.v7 .tbtn .uic{width:26px;height:26px}
+.btn-main .uic,.hplay .uic{width:1.7em;height:1.7em}
+.rkic{display:inline-block;width:1.35em;height:1.35em;object-fit:contain;vertical-align:middle;margin:-.2em .25em -.15em 0;filter:drop-shadow(0 1px 2px #0008)}
 .tabs button small{display:block;font:700 11px/1.2 var(--f-d);opacity:.75;max-width:8.5em;margin:1px auto 0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.tabs button b{font-weight:800}
 .fcode{display:flex;flex-direction:column;align-items:center;gap:2px;font:700 13px var(--f-d);color:var(--dim)}.fcode b{font:800 28px var(--f-d);letter-spacing:2px;color:#ffe48a;user-select:all}.fcode small{font-size:12px}
 .faddrow{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap}.pname.fin{font-size:16px;width:min(230px,70vw);text-transform:uppercase}
@@ -1446,6 +1453,29 @@ body{background:
 .whylist{display:flex;flex-direction:column;gap:6px;width:min(320px,100%)}.btn2.danger{border-color:#c8312b;color:#ff8f86}
 .admgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;width:100%}.admgrid div{background:#ffffff0d;border:1px solid #ffffff1a;border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:2px}.admgrid b{font:800 20px var(--f-d)}.admgrid small{font:700 12px var(--f-d);color:var(--dim)}
 .wordlist{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}.evribbon{margin-top:8px;display:inline-block;background:linear-gradient(90deg,#ff7ad9,#ffd23d);color:#1a0806;font:800 14px var(--f-d);border-radius:999px;padding:6px 16px;box-shadow:0 4px 14px #0006}
+.onl{display:flex;flex-direction:column;gap:12px;width:100%;text-align:left}
+.onl-top{display:flex;align-items:center;justify-content:space-between}.onl-top h2{margin:0;font:800 22px var(--f-d)}.onl-top .uic{width:34px;height:34px}
+.onl-x{width:36px;height:36px;border-radius:50%;border:1px solid #ffffff2a;background:#0006;color:#fff;font-size:16px;cursor:pointer}
+.onl-hero{display:flex;align-items:center;gap:16px;padding:14px 18px;border-radius:18px;border:2px solid #e2b54a;background:radial-gradient(circle at 15% 50%,#e2b54a33,transparent 60%),linear-gradient(135deg,#2a1810,#16101e)}
+.onl-hero .rkic{width:104px;height:104px;margin:0;filter:drop-shadow(0 6px 14px #000a)}.onl-emb{animation:emb 3s ease-in-out infinite}@keyframes emb{50%{transform:translateY(-4px) rotate(-2deg)}}
+.onl-hero.t5,.onl-hero.t6{border-color:#ffd23d;box-shadow:0 0 24px #ffd23d55}.onl-hero.none .rkic{width:72px;height:72px;filter:grayscale(.6) drop-shadow(0 4px 10px #000a)}
+.onl-info{display:flex;flex-direction:column;gap:3px;min-width:0}.onl-info b,.onl-hero.none b{font:800 28px/1.1 var(--f-d);color:#ffe48a}.onl-info small,.onl-hero.none small{font:700 12px var(--f-d);color:var(--dim)}
+.onl-hero.none div{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.onl-stars{font-size:26px;letter-spacing:2px;line-height:1}.onl-stars span{color:#ffffff30}.onl-stars span.on{color:#ffd23d;text-shadow:0 0 10px #ffd23d}
+.onl-modes{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.onl-mode{display:flex;flex-direction:column;align-items:center;gap:4px;padding:14px 10px;border-radius:18px;cursor:pointer;color:#fff;border:2px solid transparent;transition:transform .12s}
+.onl-mode:hover{transform:translateY(-2px)}.onl-mode:active{transform:scale(.97)}
+.onl-mode .uic{width:64px;height:64px;margin:0}.onl-mode b{font:800 19px var(--f-d)}.onl-mode small{font:700 12px var(--f-d);opacity:.85;text-align:center}
+.onl-mode.rank{background:linear-gradient(160deg,#e2b54a,#a8741c);border-color:#ffe48a;color:#2a1606}.onl-mode.casual{background:linear-gradient(160deg,#3a63c9,#1f2f7a);border-color:#7ea2ff}
+.onl-deck{margin:0;font:700 13px var(--f-d);color:var(--dim)}.onl-deck b{color:#fff}.onl-deck .uic{width:22px;height:22px}
+.onl-row{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:16px;border:1px solid #ffffff22;background:#ffffff0d;color:#fff;cursor:pointer;text-align:left}
+.onl-row .uic{width:44px;height:44px;margin:0}.onl-row span{flex:1;display:flex;flex-direction:column}.onl-row b{font:800 16px var(--f-d)}.onl-row small{font:700 12px var(--f-d);color:var(--dim)}.onl-row i{font-size:26px;font-style:normal;opacity:.6}
+.onl-room{border-top:1px dashed #ffffff26;padding-top:10px}.onl-room p{margin:0 0 8px;font:700 13px var(--f-d);color:var(--dim)}.onl-room p b{color:#fff}.onl-room .uic{width:26px;height:26px}
+.onl-roomrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.onl-or{font:700 12px var(--f-d);color:var(--dim)}
+.roomin.sm{font-size:20px;letter-spacing:6px;width:min(130px,40vw);padding:6px}
+.mmspin.big .uic,.mmspin.big .rkic{width:110px;height:110px;margin:0}
+@media (max-height:720px){.onl{gap:8px}.onl-hero{padding:8px 14px}.onl-hero .rkic{width:76px;height:76px}.onl-info b{font-size:22px}.onl-stars{font-size:20px}.onl-mode{padding:8px}.onl-mode .uic{width:46px;height:46px}.onl-row{padding:6px 12px}.onl-row .uic{width:34px;height:34px}}
+@media (max-width:520px){.roomin.sm{width:96px;font-size:17px;letter-spacing:3px}.onl-roomrow .btn2{padding:8px 12px}.onl-hero .rkic{width:76px;height:76px}.onl-info b{font-size:22px}.onl-mode .uic{width:48px;height:48px}.onl-mode b{font-size:16px}}
 .rankcard{display:flex;flex-direction:column;gap:2px;align-items:center;background:#0006;border:2px solid #e2b54a;border-radius:14px;padding:10px 18px}.rankcard b{font:800 20px var(--f-d);color:#ffe48a}.rankcard small{font:700 12px var(--f-d);color:var(--dim)}
 .mmspin{font-size:44px;animation:mmspin 1.4s ease-in-out infinite}@keyframes mmspin{50%{transform:scale(1.18) rotate(-8deg)}}
 .tclock{margin-left:8px;font-variant-numeric:tabular-nums}.tclock.low{color:#c8312b;animation:tlow 1s steps(2) infinite}@keyframes tlow{50%{opacity:.45}}
@@ -1593,6 +1623,9 @@ const SYM = {
 };
 const HEART = '<svg viewBox="0 0 24 24"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z" fill="#ff5d4d" stroke="#1b1b1b" stroke-width="1.2"/></svg>';
 
+// painted UI icons (art/ui, 192px cutouts from prompts/icons.txt) and rank emblems (art/rank/1–7)
+const UIC = n => '<img class="uic" src="art/ui/' + n + '.webp" alt="" draggable="false">';
+const RKIC = t => '<img class="rkic" src="art/rank/' + (t + 1) + '.webp" alt="" draggable="false">';
 const IC_GEAR = '<svg viewBox="0 0 24 24"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z" fill="none" stroke="#fff" stroke-width="2"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3.9a7 7 0 0 0-2-1.2L14.2 3h-4l-.4 2.6a7 7 0 0 0-2 1.2L5.5 5.9l-2 3.4 2 1.5a7 7 0 0 0 0 2.4l-2 1.5 2 3.4 2.3-.9a7 7 0 0 0 2 1.2l.4 2.6h4l.4-2.6a7 7 0 0 0 2-1.2l2.3.9 2-3.4-2-1.5c.1-.4.1-.8.1-1.2z" fill="none" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>';
 const IC_LOG = '<svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2" fill="none" stroke="#fff" stroke-width="2"/><path d="M8 8h8M8 12h8M8 16h5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>';
 const IC_EXIT = '<svg viewBox="0 0 24 24"><path d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M10 8l-4 4 4 4M6 12h10" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -3492,7 +3525,7 @@ function render(){
 const escH = t => String(t).replace(/[&<>"]/g, ch => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;'}[ch]));
 function walletHTML(cls){
   const c = col(), have = Object.keys(C).filter(id => c.cards[id]).length;
-  return '<div class="wallet ' + (cls || '') + '"><span title="ເພັດ">💎 <b>' + c.gems + '</b></span><span title="ຜົງແກ້ວ">✨ <b>' + c.dust + '</b></span><span title="ກາດທີ່ມີ">🃏 <b>' + have + '/' + Object.keys(C).filter(id => !C[id].fusion && !C[id].ritual).length + '</b></span></div>';
+  return '<div class="wallet ' + (cls || '') + '"><span title="ເພັດ">' + UIC('gem') + '<b>' + c.gems + '</b></span><span title="ຜົງແກ້ວ">' + UIC('dust') + '<b>' + c.dust + '</b></span><span title="ກາດທີ່ມີ">' + UIC('cards') + '<b>' + have + '/' + Object.keys(C).filter(id => !C[id].fusion && !C[id].ritual).length + '</b></span></div>';
 }
 // what the lobby shows for the chosen deck
 function selInfo(sel){
@@ -3510,17 +3543,17 @@ function menuHTML(){
   const tile = (a, ic, label, badge) => '<button class="htile" data-a="' + a + '"><span class="hic" aria-hidden="true">' + ic + '</span><b>' + label + '</b>' + (badge ? '<em class="badge">' + badge + '</em>' : '') + '</button>';
   const art = PIC(C[info.cover].img);
   return '<div class="home" style="--bg:url(' + art + ')"><div class="hbg" aria-hidden="true"></div>' +
-    '<header class="htop"><div class="hprof" role="button" tabindex="0" data-a="prof" aria-label="ໂປຣໄຟລ໌"><span class="hav fr-' + (c.frame || 'none') + '"><img src="' + (ACCT.prof && C[ACCT.prof.avatar] ? PIC(C[ACCT.prof.avatar].img) : art) + '" alt=""></span><div class="hlv">' + (ACCT.prof ? '<em class="hname">' + escH(ACCT.prof.name) + (ACCT.state === 'on' ? ' ☁️' : '') + '</em>' : '<em class="hname new">👤 ສ້າງຜູ້ຫຼິ້ນ</em>') + '<b>⭐ ລະດັບ ' + L + ' <small>' + (L >= LEVEL_MAX ? 'ສູງສຸດ' : into + '/' + LEVEL_XP + ' XP') + '</small></b><div class="pbar"><i style="width:' + (L >= LEVEL_MAX ? 100 : into) + '%"></i></div></div><span class="hach">🏆 ' + Object.keys(c.ach || {}).length + '/' + ACH.length + '</span></div>' +
-      walletHTML('sm') + '<button class="hset" data-a="settings" aria-label="ຕັ້ງຄ່າ">' + IC_GEAR + '</button></header>' +
+    '<header class="htop"><div class="hprof" role="button" tabindex="0" data-a="prof" aria-label="ໂປຣໄຟລ໌"><span class="hav fr-' + (c.frame || 'none') + '"><img src="' + (ACCT.prof && C[ACCT.prof.avatar] ? PIC(C[ACCT.prof.avatar].img) : art) + '" alt=""></span><div class="hlv">' + (ACCT.prof ? '<em class="hname">' + escH(ACCT.prof.name) + (ACCT.state === 'on' ? ' ☁️' : '') + '</em>' : '<em class="hname new">👤 ສ້າງຜູ້ຫຼິ້ນ</em>') + '<b>' + UIC('level') + 'ລະດັບ ' + L + ' <small>' + (L >= LEVEL_MAX ? 'ສູງສຸດ' : into + '/' + LEVEL_XP + ' XP') + '</small></b><div class="pbar"><i style="width:' + (L >= LEVEL_MAX ? 100 : into) + '%"></i></div></div><span class="hach">' + UIC('trophy') + ' ' + Object.keys(c.ach || {}).length + '/' + ACH.length + '</span></div>' +
+      walletHTML('sm') + '<button class="hset" data-a="settings" aria-label="ຕັ້ງຄ່າ">' + UIC('settings') + '</button></header>' +
     '<div class="hmain"><div class="hlogo"><img class="logoimg" src="art/logo.webp" alt="Lao Legend Wars" width="960" height="640"><p>ສົງຄາມຕຳນານລາວ · ເກມກາດນິທານລາວ · ຫຼິ້ນຟຣີ</p>' + (ACCT.cfg && +ACCT.cfg.gem_mult > 1 ? '<div class="evribbon">🎉 ອີເວັ້ນ: ເພັດ x' + ACCT.cfg.gem_mult + ' ຈາກການຊະນະບອດ!</div>' : '') + '</div>' +
-      '<div class="hdeck"><div class="hcard" role="button" tabindex="0" data-a="decks" aria-label="ປ່ຽນເດັກ">' + boxHTML(typeof sel === 'string' ? sel : (DECKS[sel] ? sel : 0), info.cover, typeof sel === 'string' ? info.name : 'ເດັກ ' + (DECKS[sel] || DECKS[0]).no) + '<span class="hswap">🔄 ປ່ຽນເດັກ</span></div>' +
+      '<div class="hdeck"><div class="hcard" role="button" tabindex="0" data-a="decks" aria-label="ປ່ຽນເດັກ">' + boxHTML(typeof sel === 'string' ? sel : (DECKS[sel] ? sel : 0), info.cover, typeof sel === 'string' ? info.name : 'ເດັກ ' + (DECKS[sel] || DECKS[0]).no) + '<span class="hswap">' + UIC('swapdeck') + 'ປ່ຽນເດັກ</span></div>' +
         '<div class="hdinfo"><small>ເດັກທີ່ເລືອກ</small><h2>' + escH(info.name) + '</h2><p>' + info.sub + '</p>' +
-          '<div class="hbtns"><button class="btn2" data-a="decks">🔄 ປ່ຽນເດັກ</button><button class="btn2" data-a="edsel">✏️ ' + (typeof sel === 'string' ? 'ແກ້ເດັກນີ້' : 'ກັອບໄປແກ້') + '</button></div>' +
+          '<div class="hbtns"><button class="btn2" data-a="decks">' + UIC('swapdeck') + 'ປ່ຽນເດັກ</button><button class="btn2" data-a="edsel">' + UIC('edit') + ' ' + (typeof sel === 'string' ? 'ແກ້ເດັກນີ້' : 'ກັອບໄປແກ້') + '</button></div>' +
           '<div class="levels"><span>ບອດ</span>' + LEVELS.map((l, i) => '<button class="lv ' + (ui.level === i ? 'on' : '') + '" data-a="lvl" data-v="' + i + '">' + l + '</button>').join('') + '</div>' +
-          '<button class="btn-main hplay" data-a="start"' + (info.locked ? ' disabled' : '') + '>⚔️ ສູ້ກັບບອດ</button>' +
-          (par().noOnline ? '' : '<button class="btn2 hadv" data-a="online">🌐 ຫຼິ້ນອອນລາຍກັບໝູ່</button>') + '<button class="btn2 hadv" data-a="adv">🗺️ ຜະຈົນໄພທົ່ວລາວ · ' + (Math.min(c.adv || 0, ADV.length)) + '/' + ADV.length + ' ດ່ານ</button></div></div></div>' +
-    '<nav class="hnav" aria-label="ເມນູ">' + tile('ednew', '🃏', 'ຈັດເດັກ') + tile('shop', '🎴', 'ຮ້ານຊອງ', c.freePacks) + tile('quests', '⭐', 'ພາລະກິດ', qn) + tile('book', '📖', 'ປຶ້ມກາດ') +
-      tile('pvpstart', '👥', '2 ຄົນ') + tile('tutstart', '🎓', 'ສອນຫຼິ້ນ', loadJ('lao-legend-tut', 0) ? '' : '!') + tile('stats', '📊', 'ສະຖິຕິ') + tile('pet', c.pet ? petFace() : '🥚', 'ຄູ່ຫູ', c.pet ? '' : '!') + '</nav>' +
+          '<button class="btn-main hplay" data-a="start"' + (info.locked ? ' disabled' : '') + '>' + UIC('fight') + 'ສູ້ກັບບອດ</button>' +
+          (par().noOnline ? '' : '<button class="btn2 hadv" data-a="online">' + UIC('online') + 'ຫຼິ້ນອອນລາຍກັບໝູ່</button>') + '<button class="btn2 hadv" data-a="adv">' + UIC('adventure') + 'ຜະຈົນໄພທົ່ວລາວ · ' + (Math.min(c.adv || 0, ADV.length)) + '/' + ADV.length + ' ດ່ານ</button></div></div></div>' +
+    '<nav class="hnav" aria-label="ເມນູ">' + tile('ednew', UIC('deck'), 'ຈັດເດັກ') + tile('shop', UIC('shop'), 'ຮ້ານຊອງ', c.freePacks) + tile('quests', UIC('quests'), 'ພາລະກິດ', qn) + tile('book', UIC('book'), 'ປຶ້ມກາດ') +
+      tile('pvpstart', UIC('pvp'), '2 ຄົນ') + tile('tutstart', UIC('tutorial'), 'ສອນຫຼິ້ນ', loadJ('lao-legend-tut', 0) ? '' : '!') + tile('stats', UIC('stats'), 'ສະຖິຕິ') + tile('pet', c.pet ? petFace() : UIC('pet'), 'ຄູ່ຫູ', c.pet ? '' : '!') + '</nav>' +
     '<p class="hlinks"><a href="' + RULES_URL + '" target="_blank" rel="noopener">ອ່ານກົດການຫຼິ້ນ</a> · <a href="' + CARDS_URL + '" target="_blank" rel="noopener">ເບິ່ງກາດທັງໝົດ</a> · ກາດ ແລະ ເພັດ ເກັບໄວ້ໃນເຄື່ອງນີ້ · ບໍ່ມີການຈ່າຍເງິນແທ້</p>' +
   '</div>';
 }
@@ -3850,7 +3883,7 @@ function menuModalHTML(){
       '</tbody></table><p class="lore">ຊະນະຕິດກັນ ' + (st.streak || 0) + ' · ສູງສຸດ ' + (st.best || 0) + ' · ອາດພິເສດທີ່ພົບ ' + loadJ('lao-legend-alts', []).length + '/' + Object.keys(ALT).length + '</p>' +
       '<p class="lore">ສະຖິຕິເກັບໄວ້ໃນເຄື່ອງນີ້ເທົ່ານັ້ນ</p><div class="mbtns"><button class="btn2" data-a="mmclose">ປິດ</button></div>';
   }
-  return '<div class="modal-bg"><div class="modal' + (m.type === 'decks' || m.type === 'pvp' || m.type === 'ach' ? ' wide' : '') + '">' + inner + '</div></div>';
+  return '<div class="modal-bg"><div class="modal' + (m.type === 'decks' || m.type === 'pvp' || m.type === 'ach' || (m.type === 'online' && (!m.step || m.step === 'menu')) ? ' wide' : '') + '">' + inner + '</div></div>';
 }
 function boardHTML(){
   const m = S.p[0], b = S.p[1], canExit = S.over || (S.turn === 0 && !S.busy && !S.targeting), dp = ui.dp;
@@ -3859,8 +3892,8 @@ function boardHTML(){
     b.hand.map((h, i) => '<span class="ob cback" style="--i:' + i + '">' + BACK + '</span>').join('') + '<span class="ocnt">ມືບອດ ' + b.hand.length + '</span></div>';
   const fan = '<div class="fan hand ' + (ui.hideHand ? 'hidden' : '') + '" data-k="hand:0" style="--n:' + m.hand.length + '">' + m.hand.map((h, i) => handHTML(h, i)).join('') + '</div>';
   const them = S.online ? (S.online.me === 'guest' ? S.online.host : S.online.guest) : null;
-  const emo = S.online && !par().noEmo ? tool('emo', '<span class="emoic">😊</span>', 'ອີໂມຈິ') + (ui.emo ? '<div class="emopop">' + EMOS.map((e, i) => '<button data-a="emosend" data-v="' + i + '">' + e + '</button>').join('') + '<button class="emomute" data-a="emomute">' + (ui.emoMute ? '🔈 ເປີດອີໂມຈິໝູ່' : '🔇 ປິດອີໂມຈິໝູ່') + '</button>' + (them && them.pid ? '<button class="emomute" data-a="emoplayer">🚫 ບລັອກ / ⚠️ ລາຍງານ ' + escH(S.p[1].name) + '</button>' : '') + '</div>' : '') : '';
-  const tools = '<div class="tools">' + emo + tool('hidehand', IC_EYE, ui.hideHand ? 'ສະແດງມື' : 'ຊ່ອນມື') + tool('log', IC_LOG, 'ບັນທຶກ') + tool('settings', IC_GEAR, 'ຕັ້ງຄ່າ') + tool('menu', IC_EXIT, 'ອອກ', !canExit) + '</div>';
+  const emo = S.online && !par().noEmo ? tool('emo', UIC('emote'), 'ອີໂມຈິ') + (ui.emo ? '<div class="emopop">' + EMOS.map((e, i) => '<button data-a="emosend" data-v="' + i + '">' + e + '</button>').join('') + '<button class="emomute" data-a="emomute">' + (ui.emoMute ? '🔈 ເປີດອີໂມຈິໝູ່' : '🔇 ປິດອີໂມຈິໝູ່') + '</button>' + (them && them.pid ? '<button class="emomute" data-a="emoplayer">🚫 ບລັອກ / ⚠️ ລາຍງານ ' + escH(S.p[1].name) + '</button>' : '') + '</div>' : '') : '';
+  const tools = '<div class="tools">' + emo + tool('hidehand', UIC('eye'), ui.hideHand ? 'ສະແດງມື' : 'ຊ່ອນມື') + tool('log', UIC('log'), 'ບັນທຶກ') + tool('settings', UIC('settings'), 'ຕັ້ງຄ່າ') + tool('menu', UIC('exit'), 'ອອກ', !canExit) + '</div>';
   return '<div class="arena v7" data-theme="' + (THEMES.some(t => t[0] === SET.theme) ? SET.theme : 'sinh') + '">' +
     '<div class="field2 mat7">' + half7(b, 1, ofan) + mid7() + half7(m, 0, fan, tools) + promptHTML() + '</div>' +
     // card details float beside whatever the pointer is on, instead of taking a column of their own
@@ -4775,7 +4808,7 @@ function adminHTML(m){
   const tabs = '<div class="tabs soctabs">' + [['stats', '📈 ສະຖິຕິ'], ['players', '🔎 ຜູ້ຫຼິ້ນ'], ['reports', '⚠️ ລາຍງານ'], ['words', '🚫 ຄຳຫ້າມ'], ['event', '🎉 ອີເວັ້ນ']].map(([k, l]) => '<button class="' + (m.tab === k ? 'on' : '') + '" data-a="admtab" data-v="' + k + '">' + l + '</button>').join('') + '</div>';
   const d = m.data; let body = m.err ? '<p class="why">' + m.err + '</p>' : (m.busy && !d ? '<p class="lore">ກຳລັງໂຫຼດ…</p>' : '');
   const pRow = p => '<div class="srow2">' + avImg(p.avatar) + '<div class="sname"><b>' + escH(p.name) + (p.banned ? ' 🚫' : '') + '</b><small>' +
-    (p.fcode ? p.fcode + ' · ' : '') + (p.gems != null ? '💎' + p.gems + ' · 🃏' + p.cards + ' · ' : '') + (p.tier != null ? RANKS[p.tier][0] + ' · ' : '') + (p.n ? '⚠️ ' + p.n + ' (' + (p.reasons || []).map(r => (REPORT_WHY.find(x => x[0] === r) || [, r])[1]).join(', ') + ')' : (p.reports ? '⚠️ ' + p.reports : '')) + '</small></div>' +
+    (p.fcode ? p.fcode + ' · ' : '') + (p.gems != null ? '💎' + p.gems + ' · 🃏' + p.cards + ' · ' : '') + (p.tier != null ? RKIC(p.tier) + ' · ' : '') + (p.n ? '⚠️ ' + p.n + ' (' + (p.reasons || []).map(r => (REPORT_WHY.find(x => x[0] === r) || [, r])[1]).join(', ') + ')' : (p.reports ? '⚠️ ' + p.reports : '')) + '</small></div>' +
     '<button class="btn2 sm" data-a="admgem" data-v="' + p.id + '" title="ເພີ່ມເພັດ">💎</button><button class="btn2 sm" data-a="admcard" data-v="' + p.id + '" title="ໃຫ້ກາດ">🃏</button>' +
     '<button class="btn2 sm" data-a="admname" data-v="' + p.id + '" title="ປ່ຽນຊື່">✏️</button><button class="btn2 sm" data-a="admban" data-v="' + p.id + '" data-b="' + (p.banned ? 1 : 0) + '" title="ລະງັບ">' + (p.banned ? '✅' : '🚫') + '</button>' +
     (p.n ? '<button class="btn2 sm" data-a="admclose" data-v="' + p.id + '" title="ປິດລາຍງານ">✓</button>' : '') + '</div>';
@@ -5165,7 +5198,7 @@ function seasonInfo(){
   const d = new Date(), k = Math.ceil((d.getMonth() + 1) / 2), end = new Date(d.getFullYear(), 2 * k, 1);
   return {name:'ລະດູ' + RANK_SEASONS[k], left:Math.max(1, Math.ceil((end - d) / 86400000))};
 }
-const rankLine = r => RANKS[r.tier][0] + ' ' + RANKS[r.tier][1] + ' ' + (r.tier >= 6 ? '★×' + r.stars : '★'.repeat(r.stars) + '☆'.repeat(3 - r.stars));
+const rankLine = r => RKIC(r.tier) + RANKS[r.tier][1] + ' ' + (r.tier >= 6 ? '★×' + r.stars : '★'.repeat(r.stars) + '☆'.repeat(3 - r.stars));
 async function rankLoad(){
   if(!ACCT.eco) return;
   try{
@@ -5174,6 +5207,15 @@ async function rankLoad(){
     if(data.reward){ toast('🏆 ລາງວັນລະດູກ່ອນ (' + RANKS[data.oldBest][1] + '): 💎 +' + data.reward); await ecoSync(); }
     render();
   }catch(e){ window.__errs.push('rank: ' + (e && (e.code || e.message) || e)); }
+}
+function rankHeroHTML(){
+  const r = ACCT.rank, si = seasonInfo();
+  if(!ACCT.prof) return '<div class="onl-hero none">' + RKIC(0) + '<div><b>ໂໝດແຣງ</b><small>ສ້າງຜູ້ຫຼິ້ນກ່ອນ ເພື່ອເກັບແຣງ ແລະ ຈັບຄູ່</small><button class="btn-main sm" data-a="prof">👤 ສ້າງຜູ້ຫຼິ້ນ</button></div></div>';
+  const t = r ? r.tier : 0, next = t < 6 ? RANKS[t + 1][1] : '';
+  return '<div class="onl-hero t' + t + '"><div class="onl-emb">' + RKIC(t) + '</div><div class="onl-info">' +
+    '<small>' + si.name + ' · ເຫຼືອ ' + si.left + ' ມື້</small><b>' + RANKS[t][1] + '</b>' +
+    '<div class="onl-stars">' + (r ? (t >= 6 ? '<span class="on">★</span> × ' + r.stars : [0, 1, 2].map(i => '<span class="' + (i < r.stars ? 'on' : '') + '">★</span>').join('')) : '…') + '</div>' +
+    '<small>' + (r ? 'ຊະນະ ' + r.wins + ' · ແພ້ ' + r.losses + (next ? ' · ອີກ ' + (3 - r.stars) + ' ດາວ ຂຶ້ນ ' + next : '') : 'ກຳລັງໂຫຼດ…') + '</small></div></div>';
 }
 function rankCardHTML(){
   const r = ACCT.rank, si = seasonInfo();
@@ -5255,7 +5297,7 @@ function socialHTML(m){
     body = '<div class="fcode">ລະຫັດໝູ່ຂອງເຈົ້າ<b>' + escH(ACCT.prof.fcode || '…') + '</b><small>ບອກລະຫັດນີ້ໃຫ້ໝູ່ ເພື່ອເພີ່ມກັນ</small></div>' +
       '<div class="faddrow"><input id="fadd" class="pname fin" maxlength="16" placeholder="ລະຫັດໝູ່ ເຊັ່ນ NAGA-4821" autocomplete="off" autocapitalize="characters"><button class="btn-main sm" data-a="fadd">➕ ເພີ່ມ</button></div>' + body;
     if(Array.isArray(d)) body += d.length ? '<div class="slist">' + d.map(f => '<div class="srow2">' + avImg(f.avatar) +
-        '<div class="sname"><b>' + escH(f.name) + '</b><small>' + (f.status === 'ok' ? (f.online ? '🟢 ອອນລາຍ' : '⚪ ອອບລາຍ') + (f.tier != null ? ' · ' + RANKS[f.tier][0] + ' ' + RANKS[f.tier][1] : '') : f.status === 'in' ? '📩 ຂໍເປັນໝູ່ກັບເຈົ້າ' : '⏳ ລໍຖ້າລາວຮັບ') + '</small></div>' +
+        '<div class="sname"><b>' + escH(f.name) + '</b><small>' + (f.status === 'ok' ? (f.online ? '🟢 ອອນລາຍ' : '⚪ ອອບລາຍ') + (f.tier != null ? ' · ' + RKIC(f.tier) + RANKS[f.tier][1] : '') : f.status === 'in' ? '📩 ຂໍເປັນໝູ່ກັບເຈົ້າ' : '⏳ ລໍຖ້າລາວຮັບ') + '</small></div>' +
         (f.status === 'in' ? '<button class="btn-main sm" data-a="fyes" data-v="' + f.id + '">✓ ຮັບ</button><button class="btn2 sm" data-a="fno" data-v="' + f.id + '">✕</button>'
           : f.status === 'ok' ? '<button class="btn2 sm" data-a="fduel" data-v="' + f.id + '" data-n="' + escH(f.name) + '"' + (f.online ? '' : ' disabled') + '>⚔️ ທ້າ</button><button class="btn2 sm fdel" data-a="fdel" data-v="' + f.id + '" title="ລຶບໝູ່">🗑</button><button class="btn2 sm" data-a="pmore" data-v="' + f.id + '" data-n="' + escH(f.name) + '">⋯</button>'
           : '<button class="btn2 sm fdel" data-a="fdel" data-v="' + f.id + '" title="ຍົກເລີກ">✕</button>') + '</div>').join('') + '</div>'
@@ -5288,20 +5330,34 @@ async function socAct(fn, okMsg){
 }
 function mmHTML(m){
   const sec = Math.floor((Date.now() - m.at) / 1000);
-  return '<p class="q">' + (m.mode === 'ranked' ? '🏆 ກຳລັງຊອກຄູ່ແຣງ…' : '🔍 ກຳລັງຊອກຄູ່ຫຼິ້ນ…') + '</p><div class="mmspin">⚔️</div>' +
+  return '<p class="q">' + (m.mode === 'ranked' ? '🏆 ກຳລັງຊອກຄູ່ແຣງ…' : '🔍 ກຳລັງຊອກຄູ່ຫຼິ້ນ…') + '</p><div class="mmspin big">' + (m.mode === 'ranked' ? RKIC(ACCT.rank ? ACCT.rank.tier : 0) : UIC('fight')) + '</div>' +
     '<p class="lore">' + sec + ' ວິ · ຄົນກຳລັງຊອກ ' + m.n + ' ຄົນ · ' + (m.mode === 'ranked' ? 'ຊອກຄົນທີ່ຝີມືໃກ້ກັນກ່ອນ' : 'ຊອກຄົນທີ່ລະດັບໃກ້ກັບເຈົ້າກ່ອນ') + '</p>' +
     '<div class="mbtns">' + (sec >= 40 ? '<button class="btn-main sm" data-a="mmbot">🤖 ຫຼິ້ນກັບບອດໄປກ່ອນ</button>' : '') + '<button class="btn2" data-a="mmcancel">ຍົກເລີກ</button></div>';
 }
 function onlineHTML(m){
   const head = '<p class="q">🌐 ຫຼິ້ນອອນລາຍກັບໝູ່</p>' + (SB_URL ? '' : '<p class="lore">ໂໝດທົດລອງ: ເປີດເກມ 2 ແທັບໃນເຄື່ອງດຽວກັນ (ຍັງບໍ່ໄດ້ຕໍ່ Supabase)</p>');
   if(m.step === 'mm') return mmHTML(m);
-  if(m.mm && (m.step === 'host' || m.step === 'wait' || m.step === 'conn')) return '<p class="q">🎉 ພົບຄູ່ແລ້ວ!</p><p class="lore">ກຳລັງເຊື່ອມຕໍ່…</p><div class="mmspin">🤝</div>';
-  if(m.step === 'host' && m.invited) return '<p class="q">⚔️ ສົ່ງຄຳທ້າໄປຫາ ' + escH(m.invited) + ' ແລ້ວ</p><div class="mmspin">⏳</div><p class="lore">ລໍໝູ່ຮັບຄຳທ້າ… (ຫ້ອງ ' + m.code + ')</p><div class="mbtns"><button class="btn2" data-a="onclose">ຍົກເລີກ</button></div>';
+  if(m.mm && (m.step === 'host' || m.step === 'wait' || m.step === 'conn')) return '<p class="q">🎉 ພົບຄູ່ແລ້ວ!</p><div class="mmspin big">' + UIC('pvp') + '</div><p class="lore">ກຳລັງເຊື່ອມຕໍ່…</p>';
+  if(m.step === 'host' && m.invited) return '<p class="q">⚔️ ສົ່ງຄຳທ້າໄປຫາ ' + escH(m.invited) + ' ແລ້ວ</p><div class="mmspin big">' + UIC('friends') + '</div><p class="lore">ລໍໝູ່ຮັບຄຳທ້າ… (ຫ້ອງ ' + m.code + ')</p><div class="mbtns"><button class="btn2" data-a="onclose">ຍົກເລີກ</button></div>';
   if(m.step === 'host') return head + '<p class="lore">ບອກລະຫັດນີ້ໃຫ້ໝູ່ ແລ້ວລໍຖ້າ…</p><div class="roomcode">' + m.code + '</div><p class="lore">ໃຊ້ເດັກທີ່ເລືອກໄວ້ໃນໜ້າຫຼັກ</p><div class="mbtns"><button class="btn2" data-a="onclose">ຍົກເລີກ</button></div>';
   if(m.step === 'conn') return head + '<p class="lore">ກຳລັງຕໍ່ອິນເຕີເນັດ…</p>';
   if(m.step === 'wait') return head + '<p class="lore">ກຳລັງເຂົ້າຫ້ອງ ' + m.code + '…</p><div class="mbtns"><button class="btn2" data-a="onclose">ຍົກເລີກ</button></div>';
-  return head + rankCardHTML() + '<div class="mbtns"><button class="btn-main sm" data-a="mmrank">🏆 ຫຼິ້ນແຣງ</button><button class="btn2" data-a="mmgo">🔍 ຫຼິ້ນທຳມະດາ</button></div><p class="lore">ແຣງ: ໃຊ້ແຕ່ກາດທີ່ມີແທ້ · ທຳມະດາ: ເດັກໃດກໍໄດ້ ບໍ່ເສຍແຣງ</p><p class="lore">ຫຼິ້ນກັບໝູ່ທີ່ຮູ້ຈັກ</p><div class="mbtns"><button class="btn2" data-a="social">👥 ໝູ່ ແລະ ອັນດັບ</button></div><div class="mbtns"><button class="btn2" data-a="onhost">🏠 ສ້າງຫ້ອງ</button></div><p class="lore">ຫຼື ໃສ່ລະຫັດຫ້ອງຂອງໝູ່</p>' +
-    '<input id="roomin" class="roomin" maxlength="4" placeholder="ABCD" autocomplete="off"><div class="mbtns"><button class="btn2" data-a="onjoin">🚪 ເຂົ້າຫ້ອງ</button><button class="btn2" data-a="onclose">ປິດ</button></div>';
+  // the online hub: your rank, the two queues, friends, and a private room
+  const deck = selInfo(ui.deck);
+  return '<div class="onl">' +
+    '<div class="onl-top"><h2>' + UIC('online') + 'ຫຼິ້ນອອນລາຍ</h2><button class="onl-x" data-a="onclose" aria-label="ປິດ">✕</button></div>' +
+    (SB_URL ? '' : '<p class="lore">ໂໝດທົດລອງ: ເປີດເກມ 2 ແທັບໃນເຄື່ອງດຽວກັນ</p>') +
+    rankHeroHTML() +
+    '<div class="onl-modes">' +
+      '<button class="onl-mode rank" data-a="mmrank">' + UIC('trophy') + '<b>ຫຼິ້ນແຣງ</b><small>ເກັບດາວ ຂຶ້ນຂັ້ນ · ໃຊ້ແຕ່ກາດທີ່ມີແທ້</small></button>' +
+      '<button class="onl-mode casual" data-a="mmgo">' + UIC('fight') + '<b>ຫຼິ້ນທຳມະດາ</b><small>ເດັກໃດກໍໄດ້ · ບໍ່ເສຍແຣງ</small></button>' +
+    '</div>' +
+    '<p class="onl-deck">' + UIC('deck') + 'ເດັກທີ່ໃຊ້: <b>' + escH(deck.name) + '</b></p>' +
+    '<button class="onl-row" data-a="social">' + UIC('friends') + '<span><b>ໝູ່ ແລະ ອັນດັບ</b><small>ເພີ່ມໝູ່ · ທ້າຫຼິ້ນ · ຕາຕະລາງອັນດັບ · ປະຫວັດ</small></span><i>›</i></button>' +
+    '<div class="onl-room"><p>' + UIC('pvp') + '<b>ຫ້ອງສ່ວນຕົວ</b> ຫຼິ້ນກັບໝູ່ທີ່ຢູ່ໃກ້ໆ</p>' +
+      '<div class="onl-roomrow"><button class="btn2" data-a="onhost">🏠 ສ້າງຫ້ອງ</button><span class="onl-or">ຫຼື</span>' +
+      '<input id="roomin" class="roomin sm" maxlength="6" placeholder="ABCD" autocomplete="off"><button class="btn2" data-a="onjoin">🚪 ເຂົ້າ</button></div></div>' +
+  '</div>';
 }
 function closeModal(){ const r = S && S.modal && S.modal.resolve; if(S) S.modal = null; render(); if(r) r(); }
 $app.addEventListener('click', e => {
