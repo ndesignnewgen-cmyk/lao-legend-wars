@@ -4280,18 +4280,20 @@ function emit(o){
   fxLoop();
 }
 function fxTick(now){
-  const dt = Math.min(.05, (now - FX.last) / 1000); FX.last = now;
+  // Safari's frame time can be a little earlier than the performance.now() taken when the loop started: never step backwards
+  const dt = Math.max(0, Math.min(.05, (now - FX.last) / 1000)); FX.last = now;
   const c = FX.ctx, d = FX.dpr; c.setTransform(d, 0, 0, d, 0, 0); c.clearRect(0, 0, innerWidth, innerHeight);
   if(FX.flash > 0){ c.globalAlpha = Math.min(1, FX.flash); c.fillStyle = FX.flashColor; c.fillRect(0, 0, innerWidth, innerHeight); FX.flash -= dt * 3.5; }
   for(let i = FX.ps.length - 1; i >= 0; i--){
     const p = FX.ps[i]; p.t += dt; if(p.t >= p.life){ FX.ps.splice(i, 1); continue; }
-    const k = 1 - p.t / p.life;
+    const k = Math.min(1, 1 - p.t / p.life);
+    try{
     p.vx *= p.drag; p.vy = p.vy * p.drag + p.g * dt; p.x += p.vx * dt; p.y += p.vy * dt; p.rot += p.vr * dt;
     c.globalCompositeOperation = p.solid ? 'source-over' : 'lighter';
     c.globalAlpha = Math.max(0, Math.min(1, k * 1.4)); c.fillStyle = p.color; c.strokeStyle = p.color;
     if(p.kind === 'dot'){ c.beginPath(); c.arc(p.x, p.y, Math.max(.5, p.size * (.4 + k * .6)), 0, 6.283); c.fill(); }
     else if(p.kind === 'spark'){ c.lineWidth = p.size; c.lineCap = 'round'; c.beginPath(); c.moveTo(p.x, p.y); c.lineTo(p.x - p.vx * .045, p.y - p.vy * .045); c.stroke(); }
-    else if(p.kind === 'ring'){ const r = p.r0 + (p.r1 - p.r0) * (1 - k * k); c.lineWidth = p.size * k + 1; c.beginPath(); c.arc(p.x, p.y, r, 0, 6.283); c.stroke(); }
+    else if(p.kind === 'ring'){ const r = Math.max(0, p.r0 + (p.r1 - p.r0) * (1 - k * k)); c.lineWidth = p.size * k + 1; c.beginPath(); c.arc(p.x, p.y, r, 0, 6.283); c.stroke(); }
     else if(p.kind === 'shard' || p.kind === 'leaf'){
       c.save(); c.translate(p.x, p.y); c.rotate(p.rot);
       if(p.kind === 'leaf'){ c.beginPath(); c.ellipse(0, 0, p.size, p.size * .38, 0, 0, 6.283); c.fill(); }
@@ -4314,6 +4316,8 @@ function fxTick(now){
       const L = p.len * Math.min(1, p.t / p.life * 5), ca = Math.cos(p.ang), sa = Math.sin(p.ang);
       c.lineCap = 'round'; c.lineWidth = p.size * k + 2; c.beginPath(); c.moveTo(p.x - ca * L / 2, p.y - sa * L / 2); c.lineTo(p.x + ca * L / 2, p.y + sa * L / 2); c.stroke();
     }
+    // a canvas call that throws (e.g. a negative radius) used to stop the loop with the last frame, flash included, frozen on screen
+    }catch(err){ FX.ps.splice(i, 1); c.setTransform(d, 0, 0, d, 0, 0); }
   }
   c.globalCompositeOperation = 'source-over'; c.globalAlpha = 1;
   if(FX.ps.length || FX.flash > 0) requestAnimationFrame(fxTick); else { FX.run = false; c.clearRect(0, 0, innerWidth, innerHeight); }
