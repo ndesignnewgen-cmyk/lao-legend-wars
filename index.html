@@ -2348,7 +2348,7 @@ function tutReward(){
 }
 
 
-/* ---------- sound: everything is synthesized, no audio files ---------- */
+/* ---------- sound: everything is synthesized, no audio files (the music engine is below sfx) ---------- */
 const SND = {ctx:null, sfx:null, mus:null, timer:null};
 function audioInit(){
   if(SND.ctx){ if(SND.ctx.state === 'suspended') SND.ctx.resume(); return; }
@@ -2356,9 +2356,12 @@ function audioInit(){
     const AC = window.AudioContext || window.webkitAudioContext; if(!AC) return;
     SND.ctx = new AC(); const m = SND.ctx.createGain(); m.gain.value = .55; m.connect(SND.ctx.destination);
     SND.sfx = SND.ctx.createGain(); SND.sfx.connect(m);
-    SND.mus = SND.ctx.createGain(); SND.mus.gain.value = .2; SND.mus.connect(m);
+    SND.mus = SND.ctx.createGain(); SND.mus.gain.value = MUS.vol; SND.mus.connect(m);
+    musicBus(SND.ctx, SND.mus);
   }catch(e){ SND.ctx = null; }
 }
+// a sleeping tab makes no sound (and the music does not rush to catch up when it wakes)
+document.addEventListener('visibilitychange', () => { if(!SND.ctx) return; if(document.hidden) SND.ctx.suspend(); else SND.ctx.resume(); });
 function tone(f, dur, type, vol, dest, t0, slide){
   const c = SND.ctx, t = t0 || c.currentTime, o = c.createOscillator(), g = c.createGain();
   o.type = type || 'sine'; o.frequency.setValueAtTime(f, t); if(slide) o.frequency.exponentialRampToValueAtTime(slide, t + dur);
@@ -2382,37 +2385,214 @@ function sfx(name){
       case 'attack': noise(.22, .24, 1500, t, 'bandpass'); break;
       case 'hit': tone(90, .2, 'square', .22, null, t, 50); noise(.12, .3, 800, t); break;
       case 'destroy': noise(.45, .34, 1200, t); tone(300, .4, 'sawtooth', .1, null, t, 60); break;
-      case 'heal': [523, 659, 784, 1047].forEach((f, i) => tone(f, .25, 'sine', .16, null, t + i * .07)); break;
+      case 'heal': [5, 7, 8, 10].forEach((d, i) => iRanat(t + i * .06, pf(d, 440), .12, SND.sfx, 0, .8)); break;
       case 'spell': [880, 1175, 1568].forEach((f, i) => tone(f, .4, 'sine', .11, null, t + i * .05)); noise(.4, .07, 6000, t, 'highpass'); break;
       case 'rocket': noise(.6, .24, 900, t, 'bandpass'); tone(200, .6, 'sawtooth', .07, null, t, 900); break;
       case 'boom': noise(.6, .5, 600, t); tone(60, .5, 'sine', .5, null, t, 30); break;
-      case 'legend': [65, 130, 196].forEach(f => tone(f, 2.2, 'sine', .28, null, t)); tone(392, 1.5, 'triangle', .08, null, t + .1); break;
-      case 'turn': tone(330, .5, 'sine', .16, null, t); tone(495, .5, 'sine', .09, null, t + .08); break;
-      case 'win': [523, 587, 659, 784, 880, 1047].forEach((f, i) => tone(f, .35, 'triangle', .22, null, t + i * .12)); break;
-      case 'lose': [440, 392, 330, 262].forEach((f, i) => tone(f, .45, 'triangle', .2, null, t + i * .18)); break;
+      case 'legend': musicDuck(2400); iGong(t, .4, SND.sfx, 0, 82); [65, 130].forEach(f => tone(f, 2, 'sine', .2, null, t)); tone(392, 1.5, 'triangle', .08, null, t + .1); break;
+      case 'turn': [2, 3, 5].forEach((d, i) => iRanat(t + i * .08, pf(d, 440), .16, SND.sfx)); iChing(t + .16, true, .05, SND.sfx); break;
+      case 'win': [0, 2, 3, 4, 5, 7].forEach((d, i) => iRanat(t + i * .08, pf(d, 440), .18, SND.sfx)); break;
+      case 'lose': [4, 3, 2, 0].forEach((d, i) => iRanat(t + i * .16, pf(d, 440), .14, SND.sfx, 0, .6)); break;
       case 'trip': tone(600, .3, 'square', .09, null, t, 150); noise(.2, .2, 1000, t + .2); break;
       case 'wind': noise(.9, .24, 700, t, 'bandpass'); break;
       case 'curse': tone(110, .8, 'sawtooth', .11, null, t, 80); tone(116, .8, 'sawtooth', .09, null, t, 85); break;
     }
   }catch(e){}
 }
-// a slow loop in a Lao-style pentatonic scale: low khaen-like drone plus a plucked phin melody
-const MEL = [0,2,3,2,0,4,3,2, 1,2,3,5,4,3,2,0], SCALE = [220,262,294,330,392,440,523,587,659,784];
-function musicStart(){
-  if(!SND.ctx || !SET.music || SND.timer) return;
-  let step = 0, next = SND.ctx.currentTime + .1; const beat = .34;
-  SND.timer = setInterval(() => {
-    const c = SND.ctx; if(!c) return;
-    while(next < c.currentTime + .4){
-      if(step % 8 === 0){ tone(110, beat * 8, 'triangle', .16, SND.mus, next); tone(165, beat * 8, 'triangle', .09, SND.mus, next); }
-      const n = MEL[step % 16];
-      if(step % 4 !== 3) tone(SCALE[n + 2], beat * .9, 'triangle', .24, SND.mus, next);
-      if(step % 2 === 0) tone(SCALE[n] * 2, .08, 'sine', .05, SND.mus, next + beat / 2);
-      next += beat; step++;
-    }
-  }, 100);
+/* ---------- music (phase H): Lao instruments built from oscillators, and a score that follows the match ----------
+   ແຄນ chords and drone, ພິນ and ໂປງລາງ melodies, ສິ່ງ cymbals, ກອງ drums and a ຄ້ອງ gong, with a little room reverb.
+   menu 76 BPM · battle, winning and losing share 100 BPM and A minor pentatonic (A C D E G), so the mood changes on
+   the next bar line without a seam · start, victory and defeat are short pieces played once. */
+const MUS = {vol:.28, want:'menu', mood:null, step:0, bar:0, next:0, hold:0, intro:false};
+function musicBus(c, out){
+  const comp = c.createDynamicsCompressor(); comp.threshold.value = -18; comp.ratio.value = 3; comp.attack.value = .01; comp.release.value = .25; comp.connect(out);
+  SND.mbus = c.createGain(); SND.mbus.connect(comp);
+  const n = Math.floor(c.sampleRate * 2.2), ir = c.createBuffer(2, n, c.sampleRate);
+  for(let ch = 0; ch < 2; ch++){ const d = ir.getChannelData(ch); for(let i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / n, 3.2); }
+  SND.rev = c.createConvolver(); SND.rev.buffer = ir; SND.rev.connect(comp);
+  const nb = c.createBuffer(1, c.sampleRate, c.sampleRate), nd = nb.getChannelData(0); for(let i = 0; i < nd.length; i++) nd[i] = Math.random() * 2 - 1; SND.nb = nb;
 }
-function musicStop(){ clearInterval(SND.timer); SND.timer = null; }
+// an instrument's output: straight to its bus, plus a share sent to the reverb when it plays in the music
+function busTo(dest, wet){ const g = SND.ctx.createGain(); g.connect(dest); if(wet && SND.rev && dest === SND.mbus){ const w = SND.ctx.createGain(); w.gain.value = wet; g.connect(w); w.connect(SND.rev); } return g; }
+// a short burst of filtered noise from the shared buffer
+function nsrc(t, dur, freq, type, q, vol, dest){
+  const c = SND.ctx, src = c.createBufferSource(), f = c.createBiquadFilter(), g = c.createGain(); src.buffer = SND.nb; src.loop = true;
+  f.type = type; f.frequency.value = freq; if(q) f.Q.value = q;
+  g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+  src.connect(f); f.connect(g); g.connect(dest); src.start(t, Math.random() * .5); src.stop(t + dur + .02);
+}
+// ແຄນ: a reedy chord, two slightly detuned saws per note through a soft filter, breathing gently
+function iKhaen(t, freqs, dur, vol, dest, wet){
+  const c = SND.ctx, out = busTo(dest, wet), f = c.createBiquadFilter(), g = c.createGain(), a = Math.min(.12, dur * .25);
+  f.type = 'lowpass'; f.frequency.value = 1700; f.Q.value = .8;
+  g.gain.setValueAtTime(.0001, t); g.gain.linearRampToValueAtTime(vol, t + a); g.gain.setValueAtTime(vol, t + Math.max(a, dur - .12)); g.gain.linearRampToValueAtTime(.0001, t + dur);
+  const lfo = c.createOscillator(), lg = c.createGain(); lfo.frequency.value = 5.2; lg.gain.value = vol * .18; lfo.connect(lg); lg.connect(g.gain);
+  f.connect(g); g.connect(out);
+  for(const fr of freqs) for(const d of [-5, 5]){ const o = c.createOscillator(); o.type = 'sawtooth'; o.frequency.value = fr; o.detune.value = d; o.connect(f); o.start(t); o.stop(t + dur + .05); }
+  lfo.start(t); lfo.stop(t + dur + .05);
+}
+// ພິນ: a plucked lute, bright at the pluck and darkening fast, with a tiny pitch drop
+function iPhin(t, fr, vol, dest, wet, len){
+  const c = SND.ctx, out = busTo(dest, wet), o = c.createOscillator(), o2 = c.createOscillator(), f = c.createBiquadFilter(), g = c.createGain(), g2 = c.createGain(), L = len || .6;
+  o.type = 'sawtooth'; o.frequency.setValueAtTime(fr * 1.012, t); o.frequency.exponentialRampToValueAtTime(fr, t + .04); o2.type = 'triangle'; o2.frequency.value = fr * 2; g2.gain.value = .25;
+  f.type = 'lowpass'; f.Q.value = 2; f.frequency.setValueAtTime(5200, t); f.frequency.exponentialRampToValueAtTime(fr * 1.6, t + .25);
+  g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + .006); g.gain.exponentialRampToValueAtTime(vol * .3, t + .12); g.gain.exponentialRampToValueAtTime(.0001, t + L);
+  o.connect(f); o2.connect(g2); g2.connect(f); f.connect(g); g.connect(out); for(const x of [o, o2]){ x.start(t); x.stop(t + L + .05); }
+}
+// ໂປງລາງ / ຄ້ອງວົງ: a struck wooden bar, a sine with the bar's high partials and the mallet's click
+function iRanat(t, fr, vol, dest, wet, len){
+  const c = SND.ctx, out = busTo(dest, wet), L = len || .45;
+  for(const [m, v, d] of [[1, 1, L], [3.93, .28, L * .35], [9.2, .08, L * .15]]){ const o = c.createOscillator(), g = c.createGain(); o.frequency.value = fr * m;
+    g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(vol * v, t + .003); g.gain.exponentialRampToValueAtTime(.0001, t + d); o.connect(g); g.connect(out); o.start(t); o.stop(t + d + .03); }
+  nsrc(t, .02, 3000, 'bandpass', 1, vol * .25, out);
+}
+// ສິ່ງ: the small cymbals, an open "ching" that rings or a closed "chap" tick
+function iChing(t, open, vol, dest, wet){
+  const c = SND.ctx, out = busTo(dest, wet), d = open ? .45 : .06;
+  nsrc(t, d, 7800, 'bandpass', 6, vol, out);
+  for(const fr of [2960, 4110]){ const o = c.createOscillator(), g = c.createGain(); o.type = 'square'; o.frequency.value = fr; g.gain.setValueAtTime(vol * .06, t); g.gain.exponentialRampToValueAtTime(.0001, t + d); o.connect(g); g.connect(out); o.start(t); o.stop(t + d + .02); }
+}
+// ກອງ: a barrel drum, a falling sine for the body and a soft thump for the skin
+function iKlong(t, hi, vol, dest, wet){
+  const c = SND.ctx, out = busTo(dest, wet), o = c.createOscillator(), g = c.createGain(), f0 = hi ? 210 : 120, f1 = hi ? 120 : 52, d = hi ? .22 : .42;
+  o.frequency.setValueAtTime(f0, t); o.frequency.exponentialRampToValueAtTime(f1, t + d * .6);
+  g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + .004); g.gain.exponentialRampToValueAtTime(.0001, t + d);
+  o.connect(g); g.connect(out); o.start(t); o.stop(t + d + .03);
+  nsrc(t, .05, hi ? 1800 : 700, 'lowpass', 0, vol * .35, out);
+}
+// ຄ້ອງ: a big gong, low partials beating slowly against each other and ringing for seconds
+function iGong(t, vol, dest, wet, base){
+  const c = SND.ctx, out = busTo(dest, wet), b = base || 98;
+  for(const [m, v, d] of [[1, 1, 3.2], [1.006, .7, 3], [1.49, .45, 2.2], [2.02, .35, 1.6], [2.76, .18, 1.1], [4.1, .08, .6]]){ const o = c.createOscillator(), g = c.createGain(); o.frequency.value = b * m;
+    g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(vol * v, t + .02); g.gain.exponentialRampToValueAtTime(.0001, t + d); o.connect(g); g.connect(out); o.start(t); o.stop(t + d + .05); }
+  nsrc(t, .25, 500, 'lowpass', 0, vol * .4, out);
+}
+// strings under the band (trembling when the match turns tense)
+function iPad(t, freqs, dur, vol, dest, wet, bright, trem){
+  const c = SND.ctx, out = busTo(dest, wet), f = c.createBiquadFilter(), g = c.createGain(), a = Math.min(.5, dur * .4);
+  f.type = 'lowpass'; f.frequency.value = bright ? 2600 : 1100;
+  g.gain.setValueAtTime(.0001, t); g.gain.linearRampToValueAtTime(vol, t + a); g.gain.setValueAtTime(vol, t + Math.max(a, dur - .2)); g.gain.linearRampToValueAtTime(.0001, t + dur);
+  if(trem){ const l = c.createOscillator(), lg = c.createGain(); l.frequency.value = 7; lg.gain.value = vol * .5; l.connect(lg); lg.connect(g.gain); l.start(t); l.stop(t + dur + .05); }
+  f.connect(g); g.connect(out);
+  for(const fr of freqs) for(const d of [-7, 7]){ const o = c.createOscillator(); o.type = 'sawtooth'; o.frequency.value = fr; o.detune.value = d; o.connect(f); o.start(t); o.stop(t + dur + .05); }
+}
+// a soft brass note whose filter opens as it swells
+function iBrass(t, fr, dur, vol, dest, wet){
+  const c = SND.ctx, out = busTo(dest, wet), o = c.createOscillator(), f = c.createBiquadFilter(), g = c.createGain();
+  o.type = 'sawtooth'; o.frequency.value = fr; f.type = 'lowpass'; f.Q.value = 1; f.frequency.setValueAtTime(fr * 1.5, t); f.frequency.linearRampToValueAtTime(fr * 5, t + .08); f.frequency.linearRampToValueAtTime(fr * 3, t + dur);
+  g.gain.setValueAtTime(.0001, t); g.gain.linearRampToValueAtTime(vol, t + .05); g.gain.setValueAtTime(vol * .8, t + Math.max(.05, dur - .08)); g.gain.linearRampToValueAtTime(.0001, t + dur);
+  o.connect(f); f.connect(g); g.connect(out); o.start(t); o.stop(t + dur + .05);
+}
+// degree n of A minor pentatonic above a base (220 = A3); a fifth above a root is 3 degrees up
+const PENTA = [0, 3, 5, 7, 10];
+const pf = (n, base) => { const o = Math.floor(n / 5), i = ((n % 5) + 5) % 5; return (base || 220) * Math.pow(2, o + PENTA[i] / 12); };
+const chord = (r, base) => [pf(r, base), pf(r + 3, base), pf(r + 5, base)];
+// a melody bar is 8 eighth notes: '=' and '-' are the two degrees below the base, '0'–'9' then 'x', 'y' go up, '.' is a rest;
+// a note rings until the next one
+const MD = '=-0123456789xy';
+function mel(line, s, t, B, fn){ const ch = line[s]; if(!ch || ch === '.') return; let n = 1; while(s + n < line.length && line[s + n] === '.') n++; fn(MD.indexOf(ch) - 2, t, n * B); }
+const BAT = {a:['0.234.32', '0.-02...', '4.543.23', '2.0.0...'], b:['5457.43.', '43234...', '23454320', '1.2.0...'], ra:[0, -1, 1, 0], rb:[2, 1, -1, 0]};
+const LOSE = {a:['0..10.-.', '0...=...', '2..32.0.', '1...0...'], b:['3..43.2.', '2...1...', '0.1.2.3.', '2...0...'], ra:[0, 0, -1, 0], rb:[1, -1, 0, 0]};
+const MENU = {m:['2...3.4.', '3.......', '4.5.4.32', '2.......', '0...2.3.', '2...1...', '-.0.2.10', '0.......'], r:[0, 0, 1, 1, -1, -1, 0, 0]};
+// the battle: phin sings the A phrase, the xylophone answers with B, then both together; winning adds strings, brass, gongs and busier drums
+function batStep(t, s, bar, B, mood){
+  const D = SND.mbus, win = mood === 'winning', sec = Math.floor(bar / 4) % 4, k = bar % 4, isB = sec % 2 === 1, line = (isB ? BAT.b : BAT.a)[k], r = (isB ? BAT.rb : BAT.ra)[k];
+  if(s === 0){ iKhaen(t, chord(r, 110), B * 8, win ? .034 : .028, D, .25);
+    if(win){ iPad(t, chord(r, 220), B * 8, .016, D, .3, true); if(k === 0 && !isB) iGong(t, .2, D, .4); } }
+  if(s === 0 || s === 4) iKlong(t, false, .5, D, .1);
+  if(s === 3 || s === 6 || (win && (s === 1 || s === 5)) || (k === 3 && s === 7)) iKlong(t, true, .28, D, .1);
+  if(s === 2 || s === 6) iChing(t, true, .07, D, .15); else if(s % 2) iChing(t, false, .04, D, .1);
+  if(s === 0 || s === 4) iPhin(t, pf(r, 110), .12, D, .1, B * 2); else if(s === 6) iPhin(t, pf(r + 3, 110), .09, D, .1, B * 2);
+  mel(line, s, t, B, (d, tt, len) => {
+    if(!isB || sec === 3) iPhin(tt, pf(d, 440), .16, D, .25, Math.min(1.2, len + .25));
+    if(isB || sec === 2) iRanat(tt, pf(d, isB ? 440 : 880), isB ? .19 : .07, D, .25);
+    if(win && len >= B * 2) iBrass(tt, pf(d, 440), len, .028, D, .3);
+  });
+}
+// in danger: a low drone, trembling strings, a heartbeat on the drum and a worried phin, still brave
+function loseStep(t, s, bar, B){
+  const D = SND.mbus, sec = Math.floor(bar / 4) % 2, k = bar % 4, line = (sec ? LOSE.b : LOSE.a)[k], r = (sec ? LOSE.rb : LOSE.ra)[k];
+  if(s === 0){ iKhaen(t, [pf(r, 110), pf(r + 3, 110)], B * 8, .026, D, .3); iPad(t, chord(r, 220), B * 8, .014, D, .35, false, true); }
+  if(s === 0) iKlong(t, false, .5, D, .1); else if(s === 1) iKlong(t, false, .3, D, .1); else if(s === 4) iKlong(t, false, .34, D, .1); else if(s === 5) iKlong(t, false, .2, D, .1);
+  if(s === 2 || s === 6) iChing(t, false, .045, D, .2);
+  mel(line, s, t, B, (d, tt, len) => { iPhin(tt, pf(d, 220), .17, D, .3, Math.min(1.4, len + .3)); if(sec) iRanat(tt, pf(d, 440), .05, D, .3); });
+}
+// the menu: a breathing khaen, a slow phin and xylophone ripples, no drums
+function menuStep(t, s, bar, B){
+  const D = SND.mbus, b8 = bar % 8, r = MENU.r[b8];
+  if(s === 0 && b8 % 2 === 0) iKhaen(t, chord(r, 110), B * 16, .036, D, .3);
+  if(s % 2 === 0) iRanat(t, pf(r + [0, 3, 5, 3][s / 2], 440), .065, D, .35, .8);
+  if(s === 0) iChing(t, true, .045, D, .3);
+  mel(MENU.m[b8], s, t, B, (d, tt, len) => iPhin(tt, pf(d, 440), .19, D, .35, Math.min(1.6, len + .3)));
+}
+const SCORE = {menu:{bpm:76, step:menuStep}, battle:{bpm:100, step:batStep}, winning:{bpm:100, step:batStep}, losing:{bpm:100, step:loseStep}};
+// pieces played once; each returns its length in seconds
+const STING = {
+  // a gong, the drums rolling in, a khaen and brass fanfare landing on the battle's first bar
+  start(t){ const D = SND.mbus; iGong(t, .3, D, .4);
+    for(let i = 0; i < 14; i++) iKlong(t + .25 + 1.3 * Math.pow(i / 14, .8), i % 2 === 0, .15 + i * .025, D, .1);
+    [0, 2, 3, 4, 5].forEach((d, i) => iPhin(t + 1.25 + i * .09, pf(d, 440), .14, D, .25, .4));
+    const T = t + 1.7; iKhaen(T, [110, 165, 220, 330], 1.3, .036, D, .3); iBrass(T, 440, 1.1, .035, D, .3); iBrass(T, 659, 1.1, .022, D, .3); iChing(T, true, .1, D, .3); iKlong(T, false, .6, D, .1);
+    return 3; },
+  // a xylophone run up, a gong and a bright C chord (khaen and brass), festival drums
+  victory(t){ const D = SND.mbus;
+    for(let i = 0; i < 8; i++) iRanat(t + i * .07, pf(i, 440), .14, D, .3);
+    iKlong(t, false, .5, D, .1); iKlong(t + .28, true, .35, D, .1); iKlong(t + .42, true, .35, D, .1);
+    const T = t + .7; iGong(T, .26, D, .45, 131); iKhaen(T, [131, 196, 262, 330], 1, .036, D, .3); iChing(T, true, .1, D, .3); iKlong(T, false, .6, D, .1);
+    [262, 330, 392, 523].forEach((f, i) => iBrass(T + i * .2, f, .5, .03, D, .3));
+    const E = t + 1.9; iKhaen(E, [131, 196, 262, 330, 392], 2.2, .04, D, .35); iBrass(E, 523, 1.8, .028, D, .35); iKlong(E, false, .6, D, .1); iChing(E, true, .1, D, .35);
+    [7, 8, 9, 10].forEach((d, i) => iRanat(E + .1 + i * .1, pf(d, 220), .12, D, .35, .9));
+    return 4.6; },
+  // a slow phin phrase down, then a warm hopeful C chord: try again
+  defeat(t){ const D = SND.mbus;
+    iKhaen(t, [110, 165, 220], 1.8, .036, D, .35);
+    [4, 3, 2, 0].forEach((d, i) => iPhin(t + i * .42, pf(d, 440), .24, D, .35, .8));
+    const T = t + 1.9; iKhaen(T, [131, 196, 262, 330], 2.2, .042, D, .4); iRanat(T + .1, 523, .17, D, .4, 1.2); iRanat(T + .35, 659, .14, D, .4, 1.4);
+    return 4.4; }
+};
+function musicStart(){
+  if(!SND.ctx || !SET.music || SND.timer || !SND.mbus) return;
+  MUS.next = SND.ctx.currentTime + .15; MUS.step = 0; MUS.mood = null; MUS.hold = 0;
+  SND.timer = setInterval(musicTick, 90);
+}
+// schedule a little ahead of the clock; the mood (and the piece) only changes on a bar line
+function musicTick(){
+  const c = SND.ctx; if(!c) return;
+  if(MUS.next < c.currentTime) MUS.next = c.currentTime + .05;
+  while(MUS.next < c.currentTime + .35){
+    if(MUS.next < MUS.hold){ MUS.next = MUS.hold; MUS.step = 0; continue; }
+    if(MUS.step % 8 === 0 && musicBar()) continue;
+    const sc = SCORE[MUS.mood];
+    if(!sc){ MUS.next += .3; MUS.step = 0; continue; }   // the end screen: quiet until the menu
+    const B = 30 / sc.bpm;
+    sc.step(MUS.next, MUS.step % 8, MUS.bar, B, MUS.mood);
+    MUS.next += B; MUS.step++; if(MUS.step % 8 === 0) MUS.bar++;
+  }
+}
+// a new bar: take up the wanted mood; true when a piece played once now holds the floor
+function musicBar(){
+  if(MUS.want === MUS.mood) return false;
+  const from = MUS.mood, to = MUS.want, bpm = m => SCORE[m] ? SCORE[m].bpm : 0; MUS.mood = to;
+  if(bpm(from) !== bpm(to)) MUS.bar = 0;   // battle, winning and losing go on in the same bar; anything else starts at its top
+  if(to !== 'end' && to !== 'menu' && MUS.intro){ MUS.intro = false; MUS.bar = 0; MUS.hold = MUS.next + STING.start(MUS.next); return true; }
+  return false;
+}
+// what the music should be doing now: called on every render
+function musicWant(){
+  if(S && S.fast) return;
+  let m = 'menu';
+  if(S){ m = S.over ? 'end' : 'battle';
+    if(!S.over){ const me = S.p[0], op = S.p[1]; if(me.life <= 6 && me.life <= op.life) m = 'losing'; else if(op.life <= 6 && me.life > op.life) m = 'winning'; } }
+  MUS.want = m;
+}
+// the victory or defeat piece right away; false when the music is off (the short sound plays instead)
+function musicSting(name){
+  if(!SND.ctx || !SET.music || !SND.timer) return false;
+  const t = SND.ctx.currentTime + .05; MUS.mood = MUS.want = 'end'; MUS.hold = t + STING[name](t); return true;
+}
+// the music steps back while a big moment speaks
+function musicDuck(ms){ if(!SND.mus) return; const g = SND.mus.gain, t = SND.ctx.currentTime; g.cancelScheduledValues(t); g.setTargetAtTime(MUS.vol * .35, t, .06); g.setTargetAtTime(MUS.vol, t + ms / 1000, .35); }
+function musicStop(){ clearInterval(SND.timer); SND.timer = null; MUS.mood = null; }
 function saveSet(){ try{ localStorage.setItem('lao-legend-settings', JSON.stringify(SET)); }catch(e){} }
 function toggleSetting(k){
   if(k === 'fx'){ SET.fx = {full:'short', short:'off', off:'full'}[SET.fx] || 'full'; fxApply(); } else SET[k] = !SET[k];
@@ -2510,6 +2690,7 @@ function newGame(di, level, opts){
   S = {screen:'game', p:[mkPlayer('ເຈົ້າ', di, false, level, opts.list), mkPlayer('ບອດ', bi, true, level)], turn:0, T:1, level, log:[], over:null,
        busy:false, targeting:null, sel:null, modal:null, fast:!!opts.fast, auto:!!opts.auto, onEnd:opts.onEnd, cdeck:opts.cdeck || null, reward:null, drop:null};
   if(opts.cover) S.p[0].cover = opts.cover;
+  if(!S.fast) MUS.intro = true;
   if(opts.pvp){   // 2 players, one device: whoever's turn it is always sits at the bottom (index 0); the pair swaps at every turn change
     S.pvp = opts.pvp; S.p[0].name = 'ຜູ້ຫຼິ້ນ 1'; S.p[1] = mkPlayer('ຜູ້ຫຼິ້ນ 2', bi, false, level, opts.pvp.list); if(opts.pvp.cover) S.p[1].cover = opts.pvp.cover;
   }
@@ -3345,7 +3526,7 @@ function gameOver(winner, reason){
     histAdd(S.over.winner === 0, reason);
   }
   if(!S.auto){
-    const won = S.over.winner === 0; sfx(won ? 'win' : 'lose'); if(won) fxConfetti(); botSay(won ? 'losegame' : 'win', true);
+    const won = S.over.winner === 0; if(!musicSting(won ? 'victory' : 'defeat')) sfx(won ? 'win' : 'lose'); if(won) fxConfetti(); botSay(won ? 'losegame' : 'win', true);
     if(!S.tut && !S.pvp && !S.online){ recordGame(won); if(ACCT.eco) ecoGameEnd(won); else { S.reward = gameGems(won); afterGame(won); } }
     else if(S.tut){ saveJ('lao-legend-tut', 1); S.tut = null; tutReward(); }
     if(!S.tut) petGrow();
@@ -3795,6 +3976,7 @@ function cardHTML(id, cs, alt, pv, form){
 }
 function render(){
   if(S && S.fast) return;
+  musicWant();
   if(!S){ $app.innerHTML = (ui.screen === 'book' ? bookHTML() : ui.screen === 'builder' ? builderHTML() : ui.screen === 'shop' && typeof shopHTML === 'function' ? shopHTML() : menuHTML()) + menuModalHTML() + settingsHTML(); return; }
   $app.innerHTML = boardHTML() + modalHTML() + graveHTML() + settingsHTML() + tutHTML();
   tutHighlight();
@@ -6166,7 +6348,17 @@ $app.addEventListener('contextmenu', e => {
 
 /* ---------- self-test: bot vs bot, no animation ---------- */
 // local dev only: poke at live game state from the console
-if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__dbg = {fx:{show:(id, alt) => fxShowcase(id, alt), motif:(id, x, y) => fxFuseMotif(id, {x:x || innerWidth / 2, y:y || innerHeight / 2}), cutin:(f) => fxFuseCutin(C[f].fusion, f), rite:(i, id) => { const p = S.p[i || 0]; return fxRite(p, id || 'phitibangfai', p.field.slice(0, 3)); }, rays:fxRays, yantra:fxYantra, orb:fxOrb, petals:fxPetals, marigolds:fxMarigolds, baci:(i) => fxBaci(S.p[i || 0]), burst:burstAt, big:fxBig, wait:fxWait, get state(){ return FX; }},get S(){ return S; }, get net(){ return NET; }, render: () => render(), C, win: i => gameOver(S.p[i], 'life'),
+if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__dbg = {fx:{show:(id, alt) => fxShowcase(id, alt), motif:(id, x, y) => fxFuseMotif(id, {x:x || innerWidth / 2, y:y || innerHeight / 2}), cutin:(f) => fxFuseCutin(C[f].fusion, f), rite:(i, id) => { const p = S.p[i || 0]; return fxRite(p, id || 'phitibangfai', p.field.slice(0, 3)); }, rays:fxRays, yantra:fxYantra, orb:fxOrb, petals:fxPetals, marigolds:fxMarigolds, baci:(i) => fxBaci(S.p[i || 0]), burst:burstAt, big:fxBig, wait:fxWait, get state(){ return FX; }},get S(){ return S; }, get net(){ return NET; },
+  music:{want:m => { MUS.want = m; }, sting:musicSting, get state(){ return MUS; }, level:async (mood, secs) => {
+    const sr = 22050, oc = new OfflineAudioContext(1, sr * (secs || 20), sr), keep = Object.assign({}, SND), out = oc.createGain(); out.connect(oc.destination);
+    SND.ctx = oc; SND.sfx = out; musicBus(oc, out);
+    try{
+      if(STING[mood]) STING[mood](.05);
+      else if(SCORE[mood]){ const B = 30 / SCORE[mood].bpm; for(let t = .05, i = 0; t < (secs || 20) - .6; t += B, i++) SCORE[mood].step(t, i % 8, Math.floor(i / 8), B, mood); }
+      else { const f = mood; f(); }
+      const d = (await oc.startRendering()).getChannelData(0); let sq = 0, pk = 0; for(let i = 0; i < d.length; i++){ sq += d[i] * d[i]; pk = Math.max(pk, Math.abs(d[i])); }
+      return {rms:+(20 * Math.log10(Math.sqrt(sq / d.length) + 1e-9)).toFixed(1), peak:+(20 * Math.log10(pk + 1e-9)).toFixed(1)};
+    } finally { Object.assign(SND, keep); } }}, render: () => render(), C, win: i => gameOver(S.p[i], 'life'),
   // play one move for the local side the way a person would (sends it online), answering any open question with a default
   step: async () => { const m = S.modal; if(m && m.resolve){ S.modal = null; m.resolve(m.type === 'mull' ? [] : m.type === 'rite' ? m.opts[0] : m.type === 'discard' ? S.p[0].hand[0] : false); return 'answered ' + m.type; }
     if(S.over || S.turn !== 0 || S.busy) return 'wait'; const p = S.p[0], q = S.p[1];

@@ -1,0 +1,105 @@
+LAO LEGEND WARS · MUSIC AND SOUND (7 music tracks + 26 sound effects)
+A Lao-folklore card game for children. The game switches music by itself as a match goes (normal → about to win / about to lose)
+and plays the sound effects on cards, attacks, rituals and legends.
+Name each file exactly as below (any format is fine: mp3, wav or m4a). Send two zips: music.zip and sfx.zip.
+You do not need to match the volumes: the game evens them out. Make two or three takes of anything you are unsure of and send them all (name them battle-a, battle-b …).
+
+ALL MUSIC
+· Instrumental only. NO vocals, NO singing, NO humming, NO choir words, NO spoken words.
+· Lao sound: khaen (bamboo mouth organ, the drone and chords), phin (plucked Lao lute, the melody), khong wong / pong lang (wooden xylophone),
+  ching (small finger cymbals keeping time), klong (barrel drum), a large khong (gong) for big moments. A light orchestral bed (strings, soft brass) is welcome under them.
+· Scale: A minor pentatonic (A C D E G), like the khaen's "lai yai" mode. Keep every track in this key so the game can blend one into another.
+· Family-friendly and adventurous, like a cartoon adventure film. Never scary, never horror, no harsh distortion, no sudden very loud hits.
+· The loop tracks (1, 3, 4, 5) must keep the same feel from start to end: no intro build, no fade-out, no ending, no big break in the middle.
+  At least 90 seconds each. I cut the seamless loop myself on bar lines, so steady tempo matters more than anything else.
+
+--- MUSIC ---
+1. menu (loop, 76 BPM, A minor pentatonic, 90–120 s)
+   Calm, warm Lao village morning. Soft khaen chords breathing slowly, a gentle phin melody, light pong lang ripples, ching on every other beat, no heavy drums.
+   Peaceful and inviting, for browsing cards and the shop. Instrumental, no vocals.
+2. start (one-shot, 100 BPM, A minor pentatonic, 6–8 s)
+   The opening of a match: a big khong gong, then klong drums rolling up and a bright khaen fanfare, ending on a strong held chord
+   that leads straight into track 3 at 100 BPM. Exciting, heroic, no vocals.
+3. battle (loop, 100 BPM, A minor pentatonic, 90–150 s)
+   The normal battle. Energetic and playful, steady klong drum groove, ching on the off-beats, phin and khong wong trading a catchy melody,
+   khaen chords pushing forward, light strings underneath. Exciting but not stressful. Instrumental, no vocals.
+4. winning (loop, 100 BPM, A minor pentatonic, 90–120 s)
+   The same battle feel when the player is about to win: brighter and more triumphant, fuller drums, heroic khaen and soft brass playing a rising melody,
+   a gong accent every 8 bars. Must sit at exactly 100 BPM in A minor pentatonic so it can crossfade with track 3. Instrumental, no vocals.
+5. losing (loop, 100 BPM, A minor pentatonic, 90–120 s)
+   The same battle feel when the player is in danger: tense and suspenseful but still brave, lower khaen drone, a pulsing low klong heartbeat,
+   a worried phin melody in the low register, quiet tremolo strings. Exciting, "you can still turn this around" — never sad, never scary.
+   Exactly 100 BPM in A minor pentatonic so it can crossfade with track 3. Instrumental, no vocals.
+6. victory (one-shot, 6–9 s)
+   Celebration fanfare after winning: a joyful khaen and brass phrase, festive klong and ching, a bright gong at the end, ringing out naturally.
+   Proud and happy, like a Lao festival. Instrumental, no vocals.
+7. defeat (one-shot, 5–7 s)
+   Gentle phrase after losing: soft phin and khaen, slow and warm, ending on a hopeful chord that says "try again". Kind, not sad, not dramatic. Instrumental, no vocals.
+
+--- SUNO: READY TO PASTE (Create → Custom, switch Instrumental ON) ---
+Paste "Style" into Styles, "Exclude" into Exclude styles (under More Options), leave Lyrics empty, use the file name as the Title.
+Make 2–4 takes of each and keep the ones that sound most Lao (clear khaen and phin) and keep a steady beat.
+
+menu
+  Style:   instrumental Lao folk, 76 BPM, A minor pentatonic, calm warm village morning, soft khaen mouth organ chords, gentle plucked phin lute melody, light wooden xylophone, small finger cymbals, no drums, peaceful, cinematic, seamless loop, no intro, no ending
+  Exclude: vocals, singing, humming, choir, voice, rap, electric guitar, distortion, fade out
+start
+  Style:   instrumental Lao folk fanfare, 100 BPM, A minor pentatonic, big gong hit, barrel drum roll building up, bright khaen fanfare, heroic, short opening, ends on a strong held chord
+  Exclude: vocals, singing, humming, choir, voice, rap, distortion, long intro
+battle
+  Style:   instrumental Lao folk adventure, 100 BPM, A minor pentatonic, energetic playful battle, steady barrel drum groove, finger cymbals on off-beats, plucked phin lute and wooden xylophone trading a catchy melody, khaen chords, light strings, family-friendly cartoon adventure, seamless loop, no intro, no ending
+  Exclude: vocals, singing, humming, choir, voice, rap, electric guitar, dubstep, distortion, horror, fade out
+winning
+  Style:   instrumental Lao folk adventure, 100 BPM, A minor pentatonic, triumphant heroic battle, fuller drums, heroic khaen and soft brass rising melody, phin lute, gong accents, bright and proud, cartoon adventure film, seamless loop, no intro, no ending
+  Exclude: vocals, singing, humming, choir, voice, rap, electric guitar, distortion, horror, fade out
+losing
+  Style:   instrumental Lao folk adventure, 100 BPM, A minor pentatonic, tense suspenseful but brave, low khaen drone, pulsing low barrel drum heartbeat, worried low phin lute melody, quiet tremolo strings, exciting not scary, seamless loop, no intro, no ending
+  Exclude: vocals, singing, humming, choir, voice, rap, distortion, horror, screams, sad piano, fade out
+victory
+  Style:   instrumental Lao festival victory fanfare, joyful khaen and brass, festive barrel drums and finger cymbals, bright gong at the end, proud and happy, short celebration
+  Exclude: vocals, singing, humming, choir, voice, rap, distortion
+defeat
+  Style:   instrumental Lao folk, slow gentle phrase, soft phin lute and khaen, warm and kind, ends on a hopeful chord, try again, short
+  Exclude: vocals, singing, humming, choir, voice, sad piano, drama
+Suno songs come out 2–4 minutes long: that is fine, I cut what the game needs (a loop for 1, 3, 4, 5 and the first seconds for 2, 6, 7).
+Suno does not make sound effects well: get 1–26 below from ElevenLabs, or free from Kenney.nl (CC0) and Pixabay.
+
+ALL SOUND EFFECTS
+· One sound per file, starting right away with no silence before it, clean ending, no music, no voices, no words.
+· Bright, clear and cartoon-friendly, like a modern mobile card game, with a small Lao touch where it says so. Nothing harsh, nothing scary.
+· Length as given; shorter is better than longer.
+
+--- SOUND EFFECTS ---
+(the game already plays these, so they replace its built-in beeps)
+1. draw (0.3 s) — a single playing card sliding off a deck, a crisp paper swish.
+2. play (0.4 s) — a card slapped down firmly on a wooden table, a soft thud with a tiny sparkle on top.
+3. attack (0.4 s) — a quick whoosh of a cartoon hero lunging forward.
+4. hit (0.4 s) — a punchy cartoon impact, a solid thump with a short crack, no gore.
+5. destroy (0.8 s) — a card shattering into glittering pieces, glass-like break that falls into soft sparkles.
+6. heal (1.0 s) — a gentle rising chime with soft wind chimes and a warm magical shimmer.
+7. spell (0.9 s) — a magic spell cast, a bright swirl of sparkles with a rising glassy tone.
+8. rocket (1.2 s) — a Lao bamboo festival rocket (bang fai) launching, a fizzing whoosh climbing upward.
+9. boom (1.0 s) — a friendly firework explosion, a round boom with crackling sparkles after it, not a war explosion.
+10. legend (2.0 s) — a legendary hero appears: a deep khong gong hit with a shining magical swell and a sparkle tail.
+11. turn (0.8 s) — a turn starts: a short bright pong lang xylophone run of three notes with a light ching.
+12. win (1.5 s) — a short happy reward jingle on xylophone and chimes, going up.
+13. lose (1.2 s) — a short soft "oh no" jingle on xylophone going down, gentle and cute.
+14. trip (0.8 s) — a trap snapping shut: a wooden clack, then a rattling chain, cartoon style.
+15. wind (1.2 s) — a strong magical gust of wind swooshing past.
+16. curse (1.0 s) — a mysterious dark spell, a low wobbling hum with a puff of smoke, spooky-cute not scary.
+(new sounds the game will add)
+17. click (0.1 s) — a soft wooden button tap for menus.
+18. gem (0.6 s) — collecting gems, a bright sparkling ding with tiny glittering echoes.
+19. coin (0.5 s) — a few gold coins clinking together.
+20. pack (1.5 s) — opening a card pack: paper tearing quickly, then a magical shimmering reveal.
+21. fusion (1.8 s) — two heroes merge into one: two magical tones rushing together, a bright golden clash and a shining burst.
+22. rite (2.0 s) — a Lao temple ritual: a soft khong gong with small temple bells ringing and a holy shimmer.
+23. baci (1.5 s) — a Lao baci blessing: gentle small bells and soft wind chimes, warm and kind.
+24. thunder (1.2 s) — a crack of cartoon lightning and a rolling thunder rumble, exciting not frightening.
+25. splash (0.8 s) — a big splash of river water with droplets, for the naga king rising from the Mekong.
+26. elephant (1.2 s) — a proud war elephant trumpeting, friendly and heroic.
+
+How the game will use them:
+menu on the menus · start then battle when a match begins · winning when the opponent is low and you are ahead · losing when your life is low ·
+the music blends between these over 1–2 s and dips under big sounds (legends, rituals, fusions) · victory and defeat on the end screen ·
+sounds 1–16 replace the built-in beeps (the beeps stay as a fallback) · 17–26 are added to menus, rewards, packs, fusions, rituals, the baci card and the legends.
