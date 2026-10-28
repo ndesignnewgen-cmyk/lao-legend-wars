@@ -1292,6 +1292,10 @@ body{background:
 .petbar{width:100%}
 .petover{display:flex;align-items:center;gap:10px;justify-content:center}
 .petover .bub{background:#fff;color:#2a1a08;padding:6px 12px;border-radius:14px;font:800 14px var(--f-d)}
+.pick.mull .hc{position:relative;cursor:pointer;transition:transform .15s}
+.pick.mull .hc.msel{transform:translateY(-8px);opacity:.55;outline:3px solid #e0409f;outline-offset:2px;border-radius:12px}
+.pick.mull .hc.msel::after{content:'🔄';position:absolute;inset:0;display:grid;place-items:center;font-size:44px}
+.tribb{background:linear-gradient(180deg,#fff3c4,#f2c14e);color:#4a2c00;border-color:#d9a21b}
 /* ---------- modal ---------- */
 .modal-bg{position:fixed;inset:0;z-index:50;background:#000c;display:grid;place-items:center;padding:16px}
 .modal{background:var(--mat-2);border:1px solid #ffffff1c;border-radius:18px;padding:18px;width:min(560px,100%);max-height:92%;overflow:auto;display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center}
@@ -1406,9 +1410,9 @@ function def(id, o){ C[id] = Object.assign({id, img:id, type:'char', kw:{}}, o);
 const TAUNT = 'ຄູ່ແຂ່ງຕ້ອງໂຈມຕີໃບນີ້ກ່ອນ ຈຶ່ງໂຈມຕີໃບອື່ນໄດ້';
 const FLY = 'ໂຈມຕີຂວັນຄູ່ແຂ່ງໄດ້ໂດຍກົງ ເຖິງວ່າມີຕົວລະຄອນກັນຢູ່';
 // deck 1
-def('babynaga',{name:'ນາກນ້ອຍ',tribe:'naga',cost:1,power:1,tag:'ນ້ຳໃຈ',skill:'ເມື່ອລົງສະໜາມ ຟື້ນຂວັນ +1',lore:'ລູກນາກນ້ອຍ ອາໄສຢູ່ໃນໜອງບົວ'});
+def('babynaga',{name:'ນາກນ້ອຍ',tribe:'naga',cost:1,power:1,tag:'ນ້ຳໃຈ',combo:'draw',skill:'ເມື່ອລົງສະໜາມ ຟື້ນຂວັນ +1' + '. ຕໍ່ເນື່ອງ 2: ຈົ່ວກາດ 1 ໃບ',lore:'ລູກນາກນ້ອຍ ອາໄສຢູ່ໃນໜອງບົວ'});
 def('sangthong',{name:'ສັງທອງ',tribe:'hero',cost:3,power:3,kw:{taunt:1},tag:'ກັນໄພ',skill:TAUNT,lore:'ນ້ອງສິນໄຊ ຜູ້ເກີດມາໃນຫອຍສັງ'});
-def('nagaprincess',{name:'ນາງນາກ',tribe:'naga',cost:3,power:3,tag:'ພອນແມ່ນ້ຳ',skill:'ເມື່ອລົງສະໜາມ ຈົ່ວກາດ 1 ໃບ',lore:'ເຈົ້າຍິງແຫ່ງແມ່ນ້ຳຂອງ'});
+def('nagaprincess',{name:'ນາງນາກ',tribe:'naga',cost:3,power:4,tag:'ພອນແມ່ນ້ຳ',skill:'ເມື່ອລົງສະໜາມ ຈົ່ວກາດ 1 ໃບ',lore:'ເຈົ້າຍິງແຫ່ງແມ່ນ້ຳຂອງ'});
 def('siho',{name:'ສີໂຫ',tribe:'hero',cost:4,power:4,tag:'ຊ້າງສານ',skill:'ເວລາໂຈມຕີ ພະລັງ +2',lore:'ນ້ອງສິນໄຊ ຫົວເປັນຊ້າງ ຕົວເປັນສິງ'});
 def('khankhaak',{name:'ພະຍາຄັນຄາກ',tribe:'himma',cost:4,power:3,tag:'ເອີ້ນບັ້ງໄຟ',skill:'ເມື່ອລົງສະໜາມ ຊອກ «ບັ້ງໄຟ» 1 ໃບຈາກເດັກ ມາໃສ່ມື',lore:'ກະສັດຄັນຄາກ ຜູ້ທ້າພະຍາແຖນໃຫ້ສົ່ງຝົນ'});
 def('sinxay',{name:'ສິນໄຊ',tribe:'hero',cost:5,power:5,tag:'ທະນູສິນ',skill:'ຖ້າຕິດ «ສອນສິນ» ໂຈມຕີໄດ້ 2 ເທື່ອຕໍ່ຕາ. ເມື່ອສູ້ກັບເຜົ່າຍັກ ພະລັງ +2',lore:'ກຸມານຜູ້ເກີດມາພ້ອມທະນູ ແລະ ດາບວິເສດ'});
@@ -1421,7 +1425,7 @@ def('maenamkhong',{name:'ແມ່ນ້ຳຂອງ',type:'loc',cost:2,buff:'na
 // deck 2
 def('phihuean',{name:'ຜີເຮືອນ',tribe:'ghost',cost:1,power:1,tag:'ແອບເບິ່ງ',skill:'ເມື່ອລົງສະໜາມ ເບິ່ງກາດໃນມືຄູ່ແຂ່ງທັງໝົດ',lore:'ຜີນ້ອຍຜູ້ເຝົ້າເຮືອນ ມັກຫຼິ້ນຊົນ'});
 def('phikongkoy',{name:'ຜີກອງກອຍ',tribe:'ghost',cost:2,power:2,tag:'ສຽງຮ້ອງກາງຄືນ',skill:'ເມື່ອໃບນີ້ຖືກທຳລາຍ ຄູ່ແຂ່ງເສຍ 1 ບຸນ ໃນຕາຕໍ່ໄປ',lore:'ຜີປ່າ ຮ້ອງ «ກອງ ກອຍ» ຍາມກາງຄືນ'});
-def('yaknoy',{name:'ຍັກນ້ອຍ',tribe:'giant',cost:2,power:2,kw:{noFace:1},tag:'ຫິວເຂົ້າ',skill:'ໂຈມຕີຕົວລະຄອນໄດ້ ແຕ່ໂຈມຕີຂວັນຄູ່ແຂ່ງບໍ່ໄດ້',lore:'ລູກຍັກນ້ອຍ ຫິວເຂົ້າຕະຫຼອດເວລາ'});
+def('yaknoy',{name:'ຍັກນ້ອຍ',tribe:'giant',cost:2,power:2,kw:{noFace:1},tag:'ຫິວເຂົ້າ',combo:'pow',skill:'ໂຈມຕີຕົວລະຄອນໄດ້ ແຕ່ໂຈມຕີຂວັນຄູ່ແຂ່ງບໍ່ໄດ້' + '. ຕໍ່ເນື່ອງ 2: ໃບນີ້ພະລັງ +2',lore:'ລູກຍັກນ້ອຍ ຫິວເຂົ້າຕະຫຼອດເວລາ'});
 def('phikrasue',{name:'ຜີກະສື',tribe:'ghost',cost:3,power:2,tag:'ແສງໄຟລອຍ',skill:'ເມື່ອລົງສະໜາມ ຕົວລະຄອນຂອງຄູ່ແຂ່ງ 1 ໃບ ພະລັງ -2 ຈົນຈົບຕາ. ຖ້າມີ «ຄືນເດືອນມືດ» ພະລັງ +1',lore:'ຫົວລອຍຢູ່ກາງອາກາດ ມີແສງໄຟສີຂຽວຕາມຫຼັງ'});
 def('yakfaopatu',{name:'ຍັກເຝົ້າປະຕູ',tribe:'giant',cost:4,power:4,kw:{taunt:1},tag:'ກັນໄພ',skill:TAUNT,lore:'ຍັກໃຫຍ່ ຜູ້ເຝົ້າປະຕູວັດ'});
 def('phikrahang',{name:'ຜີກະຫັງ',tribe:'ghost',cost:4,power:3,kw:{fly:1},tag:'ບິນ',skill:FLY,lore:'ຜີບິນດ້ວຍກະດົ້ງ ຍາມເດືອນເພັງ'});
@@ -1432,7 +1436,7 @@ def('kabongyak',{name:'ກະບອງຍັກ',type:'item',cost:2,bonus:2,tag:
 def('khuenduenmuet',{name:'ຄືນເດືອນມືດ',type:'loc',cost:2,buff:'ghost',tag:'ສະຖານທີ່',skill:'ຢູ່ສະໜາມ: ເຜົ່າຜີທຸກໃບ ພະລັງ +1',lore:'ຄືນທີ່ບໍ່ມີເດືອນ ຜີອອກມາຫຼິ້ນ'});
 def('pasatyak',{name:'ປາສາດຍັກ',type:'loc',cost:2,tag:'ສະຖານທີ່',skill:'ຢູ່ສະໜາມ: ເຜົ່າຍັກທຸກໃບ ໃຊ້ບຸນໜ້ອຍລົງ 1',lore:'ບ້ານຂອງເຫຼົ່າຍັກ ເທິງພູໝອກ'});
 // deck 3
-def('hongthong',{name:'ຫົງທອງ',tribe:'himma',cost:2,power:2,kw:{fly:1},tag:'ບິນ',skill:FLY,lore:'ນົກຫົງສີທອງ ແຫ່ງປ່າຫິມະພານ'});
+def('hongthong',{name:'ຫົງທອງ',tribe:'himma',cost:2,power:2,kw:{fly:1},tag:'ບິນ',combo:'draw',skill:FLY + '. ຕໍ່ເນື່ອງ 2: ຈົ່ວກາດ 1 ໃບ',lore:'ນົກຫົງສີທອງ ແຫ່ງປ່າຫິມະພານ'});
 def('xiengmieng',{name:'ຊຽງໝ້ຽງ',tribe:'nakpat',cost:2,power:2,tag:'ຫົວຄິດ',skill:'ເມື່ອລົງສະໜາມ ຈົ່ວກາດ 2 ໃບ ແລ້ວຖິ້ມ 1 ໃບ',lore:'ຄົນສະຫຼາດ ຜູ້ຫຼອກໄດ້ແມ່ນແຕ່ກະສັດ'});
 def('kinnari',{name:'ກິນນະລີ',tribe:'himma',cost:3,power:4,tag:'ເພງກິນນະລີ',skill:'ເມື່ອລົງສະໜາມ ຟື້ນຂວັນ +3',lore:'ເຄິ່ງຄົນເຄິ່ງນົກ ຟ້ອນງາມທີ່ສຸດໃນປ່າ'});
 def('phralak',{name:'ພະລັກ',tribe:'hero',cost:4,power:4,tag:'ພີ່ນ້ອງ',skill:'ຖ້າມີ «ພະລາມ» ຢູ່ສະໜາມ ພະລັງ +2',lore:'ນ້ອງຊາຍຜູ້ຊື່ສັດ ຂອງພະລາມ'});
@@ -1467,7 +1471,7 @@ def('sangpheuak',{name:"ຊ້າງເຜືອກ",tribe:'villager',cost:7,pow
 // alt-art versions: each draw of these cards has this chance to come out borderless
 
 // deck: ພະຍາແຖນ (sky gods). Seasons rotate by themselves every 2 of their owner's turns
-def('thewadanoi',{name:'ເທວະດານ້ອຍ',tribe:'thewada',cost:1,power:1,kw:{fly:1},tag:'ບິນ',skill:FLY,lore:'ເທວະດານ້ອຍ ຫຼິ້ນຢູ່ໃນໝູ່ເມກ'});
+def('thewadanoi',{name:'ເທວະດານ້ອຍ',tribe:'thewada',cost:1,power:1,kw:{fly:1},tag:'ບິນ',combo:'heal',skill:FLY + '. ຕໍ່ເນື່ອງ 2: ຟື້ນຂວັນ 2',lore:'ເທວະດານ້ອຍ ຫຼິ້ນຢູ່ໃນໝູ່ເມກ'});
 def('thahanthaen',{name:'ທະຫານແຖນ',tribe:'thewada',cost:2,power:3,kw:{taunt:1},tag:'ກັນໄພ',skill:TAUNT,lore:'ທະຫານ ຜູ້ເຝົ້າປະຕູເມືອງແຖນ'});
 def('thaenfahong',{name:'ແຖນຟ້າຮ້ອງ',tribe:'thewada',cost:3,power:2,tag:'ຟ້າຮ້ອງ',skill:'ເມື່ອລົງສະໜາມ ໂຈມຕີ 3 ໃສ່ຕົວລະຄອນຂອງຄູ່ແຂ່ງ 1 ໃບ',lore:'ແຖນຜູ້ຖືສາຍຟ້າໄວ້ໃນມື'});
 def('thaenfon',{name:'ແຖນຝົນ',tribe:'thewada',cost:3,power:2,tag:'ສາຍຝົນ',skill:'ທຸກຕາ ຟື້ນຂວັນ +1',lore:'ນາງແຖນ ຜູ້ຖອກຝົນລົງນາ'});
@@ -1483,7 +1487,7 @@ const SEASONS = ['lodufon', 'loduhnao', 'loduhon'];
 
 // deck: ທ້າວຮຸ່ງ (the army). ຮວມພົນ = stronger while another warrior stands beside it
 const RALLY = 'ຮວມພົນ: ຖ້າມີເຜົ່ານັກຮົບໃບອື່ນຢູ່ສະໜາມ ພະລັງ +1';
-def('phonthahan',{name:'ພົນທະຫານ',tribe:'warrior',cost:1,power:1,kw:{rally:1},tag:'ຮວມພົນ',skill:RALLY,lore:'ທະຫານເດີນເທົ້າ ຜູ້ເດີນໜ້າກ່ອນໝູ່'});
+def('phonthahan',{name:'ພົນທະຫານ',tribe:'warrior',cost:1,power:1,kw:{rally:1},tag:'ຮວມພົນ',combo:'heal',skill:RALLY + '. ຕໍ່ເນື່ອງ 2: ຟື້ນຂວັນ 2',lore:'ທະຫານເດີນເທົ້າ ຜູ້ເດີນໜ້າກ່ອນໝູ່'});
 def('naktanu',{name:'ນັກທະນູ',tribe:'warrior',cost:2,power:1,tag:'ຍິງໄກ',skill:'ເມື່ອລົງສະໜາມ ໂຈມຕີ 1 ໃສ່ຕົວລະຄອນຂອງຄູ່ແຂ່ງ 1 ໃບ. ຮວມພົນ: ຖ້າມີເຜົ່ານັກຮົບໃບອື່ນ ໂຈມຕີ 2 ແທນ',lore:'ນັກຍິງທະນູ ຜູ້ຍິງໄດ້ໄກກວ່າໝູ່'});
 def('masuek',{name:'ມ້າເສິກ',tribe:'warrior',cost:3,power:3,kw:{rush:1},tag:'ບຸກໄວ',skill:'ໂຈມຕີໄດ້ທັນທີ ໃນຕາທີ່ລົງສະໜາມ',lore:'ມ້າເສິກ ຄວບໄວດັ່ງລົມ'});
 def('nakrobto',{name:'ນັກຮົບຖືໂລ່',tribe:'warrior',cost:3,power:2,kw:{taunt:1,rally:1},tag:'ກັນໄພ · ຮວມພົນ',skill:'ກັນໄພ. ' + RALLY,lore:'ຖືໂລ່ໄມ້ ກັນລູກສອນໃຫ້ໝູ່'});
@@ -1499,7 +1503,7 @@ def('khaithahan',{name:'ຄ້າຍທະຫານ',type:'loc',cost:3,tag:'ສ�
 // deck: ນາງສິບສອງ. ຄືນຊີບ = bring a character back from the discard pile onto the field
 def('nangnoy',{name:'ນາງນ້ອຍ',tribe:'hero',cost:1,power:1,tag:'ນ້ອງສຸດທ້ອງ',skill:'ເມື່ອໃບນີ້ຖືກທຳລາຍ ຈົ່ວກາດ 1 ໃບ',lore:'ນ້ອງສຸດທ້ອງ ໃນພີ່ນ້ອງສິບສອງ ຖືໂຄມໄຟນ້ອຍໆ'});
 def('phinong',{name:'ພີ່ນ້ອງສິບສອງ',tribe:'hero',cost:2,power:3,tag:'ຮັກພີ່ນ້ອງ',skill:'ພະລັງ +1 ຕໍ່ «ພີ່ນ້ອງສິບສອງ» ແຕ່ລະໃບ ໃນກອງຖິ້ມຂອງເຈົ້າ',lore:'ຈັບມືກັນໄວ້ ບໍ່ປະກັນ'});
-def('lukyak',{name:'ລູກຍັກ',tribe:'giant',cost:2,power:3,kw:{taunt:1},tag:'ກັນໄພ',skill:TAUNT,lore:'ຍັກນ້ອຍ ເຝົ້າປາກຖ້ຳ ດື້ແຕ່ໜ້າຮັກ'});
+def('lukyak',{name:'ລູກຍັກ',tribe:'giant',cost:2,power:3,kw:{taunt:1},tag:'ກັນໄພ',combo:'pow',skill:TAUNT + '. ຕໍ່ເນື່ອງ 2: ໃບນີ້ພະລັງ +2',lore:'ຍັກນ້ອຍ ເຝົ້າປາກຖ້ຳ ດື້ແຕ່ໜ້າຮັກ'});
 def('moya',{name:'ໝໍຢາ',tribe:'hero',cost:3,power:2,tag:'ຢາວິເສດ',skill:'ເມື່ອລົງສະໜາມ ຄືນຊີບ ຕົວລະຄອນທີ່ມີບຸນ 3 ລົງມາ 1 ໃບ',lore:'ແມ່ເຖົ້າໝໍຢາ ຕົ້ມຢາສະໝຸນໄພ'});
 def('maneekap',{name:'ມ້າມະນີກາບ',tribe:'himma',cost:3,power:3,kw:{fly:1},tag:'ບິນ',skill:FLY,lore:'ມ້າຂາວວິເສດ ບິນເທິງເມກ'});
 def('kangli',{name:'ນາງກັງຣີ',tribe:'hero',cost:4,power:4,tag:'ໃຈດີ',skill:'ເມື່ອໃບນີ້ຖືກທຳລາຍ ຟື້ນຂວັນ +3 ແລະ ຈົ່ວກາດ 1 ໃບ',lore:'ນາງກັງຣີ ຖືດອກບົວ ໃນສວນມ່ວງ'});
@@ -1511,7 +1515,7 @@ def('thammuet',{name:'ຖ້ຳມືດ',type:'loc',cost:2,tag:'ສະຖານ
 def('suanmuang',{name:'ສວນມ່ວງ',type:'loc',cost:2,tag:'ສະຖານທີ່',skill:'ຢູ່ສະໜາມ: ທຸກຕາ ຖ້າກອງຖິ້ມມີຕົວລະຄອນ 4 ໃບຂຶ້ນໄປ ຈົ່ວກາດ 1 ໃບ',lore:'ສວນມ່ວງສຸກ ຍາມແລງ'});
 
 // deck 7: ກາລະເກດ. ສົມບັດ = characters grow with the magic items they carry
-def('khonsai',{name:'ຄົນໃຊ້ຊື່ສັດ',tribe:'hero',cost:1,power:1,tag:'ຮັບໃຊ້',skill:'ເມື່ອລົງສະໜາມ ເອົາຂອງວິເສດ 1 ໃບ ຈາກເດັກມາໃສ່ມື',lore:'ຄົນໃຊ້ນ້ອຍ ຖືຫີບສົມບັດ ດ້ວຍຄວາມພູມໃຈ'});
+def('khonsai',{name:'ຄົນໃຊ້ຊື່ສັດ',tribe:'hero',cost:1,power:1,tag:'ຮັບໃຊ້',combo:'heal',skill:'ເມື່ອລົງສະໜາມ ເອົາຂອງວິເສດ 1 ໃບ ຈາກເດັກມາໃສ່ມື' + '. ຕໍ່ເນື່ອງ 2: ຟື້ນຂວັນ 2',lore:'ຄົນໃຊ້ນ້ອຍ ຖືຫີບສົມບັດ ດ້ວຍຄວາມພູມໃຈ'});
 def('phokha',{name:'ພໍ່ຄ້າ',tribe:'hero',cost:2,power:2,tag:'ຕໍ່ລາຄາ',skill:'ຢູ່ສະໜາມ: ຂອງວິເສດຂອງເຈົ້າ ໃຊ້ບຸນໜ້ອຍລົງ 1',lore:'ພໍ່ຄ້າໜວດງາມ ຂາຍຂອງວິເສດຢູ່ຕະຫຼາດກາງຄືນ'});
 def('nakdap',{name:'ນັກດາບ',tribe:'hero',cost:3,power:2,tag:'ສົມບັດ',skill:'ພະລັງ +1 ຕໍ່ຂອງວິເສດແຕ່ລະອັນ ທີ່ຕິດຢູ່ໃບນີ້',lore:'ດາບມີຊ່ອງແກ້ວສາມຊ່ອງ ລໍຖ້າສົມບັດ'});
 def('makaew',{name:'ມ້າແກ້ວ',tribe:'himma',cost:4,power:2,kw:{fly:1},tag:'ບິນ · ມ້າວິເສດ',skill:'ບິນ. ເມື່ອລົງສະໜາມ ຕິດຂອງວິເສດ 1 ໃບ ຈາກມືໃສ່ໃບນີ້ ໂດຍບໍ່ເສຍບຸນ',lore:'ມ້າຂາວ ແຜງຄໍເປັນແກ້ວ ພາກາລະເກດບິນໄປທົ່ວ'});
@@ -1527,7 +1531,7 @@ def('wangthong',{name:'ວັງທອງ',type:'loc',cost:2,tag:'ສະຖາ�
 // deck 8: ປູ່ເຍີ້ຍ່າເຍີ້. ປົກປັກ = takes the hit when another friendly character is attacked
 const GUARD = 'ປົກປັກ: ເມື່ອຕົວລະຄອນໃບອື່ນຂອງເຈົ້າຖືກໂຈມຕີ ໃບນີ້ຮັບແທນ';
 def('thewadahuean',{name:'ເທວະດາຮັກສາບ້ານ',tribe:'guardian',cost:1,power:1,kw:{guard:1},tag:'ປົກປັກ',skill:GUARD,lore:'ເທວະດານ້ອຍ ຖືໂຄມ ເຝົ້າເຮືອນ'});
-def('deknoydokmai',{name:'ເດັກນ້ອຍຖືດອກໄມ້',tribe:'guardian',cost:1,power:1,tag:'ບຸນປີໃໝ່',skill:'ເມື່ອລົງສະໜາມ ຟື້ນຂວັນ +2',lore:'ເດັກນ້ອຍຖືຂັນດອກໄມ້ ໄປຫົດນ້ຳ'});
+def('deknoydokmai',{name:'ເດັກນ້ອຍຖືດອກໄມ້',tribe:'guardian',cost:1,power:1,tag:'ບຸນປີໃໝ່',combo:'draw',skill:'ເມື່ອລົງສະໜາມ ຟື້ນຂວັນ +2' + '. ຕໍ່ເນື່ອງ 2: ຈົ່ວກາດ 1 ໃບ',lore:'ເດັກນ້ອຍຖືຂັນດອກໄມ້ ໄປຫົດນ້ຳ'});
 def('phuthao',{name:'ຜູ້ເຖົ້າຜູ້ແກ່',tribe:'guardian',cost:2,power:1,tag:'ຜູກແຂນ',skill:'ເມື່ອລົງສະໜາມ ຕົວລະຄອນ 1 ໃບຂອງເຈົ້າ ໄດ້ ປົກປັກ ແລະ ພະລັງ +1',lore:'ຜູ້ເຖົ້າຜູກແຂນ ອວຍພອນໃຫ້ລູກຫຼານ'});
 def('singkaew',{name:'ສິງແກ້ວ',tribe:'himma',cost:3,power:3,kw:{taunt:1},tag:'ກັນໄພ · ຄູ່ສິງ',skill:'ກັນໄພ. ຖ້າມີ «ສິງຄຳ» ຢູ່ສະໜາມ ພະລັງ +1',lore:'ສິງຂາວ ເຕັ້ນລຳໃນບຸນປີໃໝ່'});
 def('singkham',{name:'ສິງຄຳ',tribe:'himma',cost:3,power:3,kw:{taunt:1},tag:'ກັນໄພ · ຄູ່ສິງ',skill:'ກັນໄພ. ຖ້າມີ «ສິງແກ້ວ» ຢູ່ສະໜາມ ພະລັງ +1',lore:'ສິງທອງ ຄູ່ແຝດຂອງສິງແກ້ວ'});
@@ -1541,7 +1545,7 @@ def('luangprabang',{name:'ຫຼວງພະບາງ',type:'loc',cost:2,tag:'�
 
 // deck 9: ທ້າວກ່ຳກາດຳ. ປ່ຽນຮ່າງ = after 2 of your turns on the field the card turns into its true form
 def('kanoy',{name:'ການ້ອຍ',tribe:'himma',cost:1,power:1,kw:{fly:1},tf:{power:4,after:2},tag:'ບິນ · ປ່ຽນຮ່າງ',skill:'ບິນ. ປ່ຽນຮ່າງ (2 ຕາ) → ພະລັງ 4',lore:'ການ້ອຍ ຈັບຮົ້ວໄມ້ໄຜ່ ເອີ້ຍຫົວເບິ່ງ'});
-def('maejaidi',{name:'ແມ່ໃຈດີ',tribe:'hero',cost:2,power:2,tag:'ຄວາມຮັກ',skill:'ເມື່ອລົງສະໜາມ ຟື້ນຂວັນ +2',lore:'ແມ່ກອດລູກ ບໍ່ວ່າລູກຈະເປັນແນວໃດ'});
+def('maejaidi',{name:'ແມ່ໃຈດີ',tribe:'hero',cost:2,power:2,tag:'ຄວາມຮັກ',combo:'draw',skill:'ເມື່ອລົງສະໜາມ ຟື້ນຂວັນ +2' + '. ຕໍ່ເນື່ອງ 2: ຈົ່ວກາດ 1 ໃບ',lore:'ແມ່ກອດລູກ ບໍ່ວ່າລູກຈະເປັນແນວໃດ'});
 def('xaobanhua',{name:'ຊາວບ້ານຫົວເລາະ',tribe:'hero',cost:3,power:3,kw:{taunt:1},tf:{power:4,after:2},tag:'ກັນໄພ · ປ່ຽນຮ່າງ',skill:'ກັນໄພ. ປ່ຽນຮ່າງ (2 ຕາ) → ເລີກຫົວເລາະ ມາຊ່ວຍ ພະລັງ 4',lore:'ຫົວເລາະກ່ອນ ແຕ່ສຸດທ້າຍກໍມາເປັນໝູ່'});
 def('ueaysong',{name:'ເອື້ອຍທັງສອງ',tribe:'hero',cost:3,power:3,tag:'ອິດສາ',skill:'ເມື່ອລົງສະໜາມ ຕົວລະຄອນຂອງຄູ່ແຂ່ງ 1 ໃບ ພະລັງ -1 ຈົນຈົບຕາຕໍ່ໄປ',lore:'ເອື້ອຍສອງຄົນ ເຊີດດັງໃສ່ທຸກຄົນ'});
 def('luksaolao',{name:'ລູກສາວຫຼ້າ',tribe:'hero',cost:2,power:2,tag:'ເຫັນຄວາມງາມແທ້',skill:'ເມື່ອລົງສະໜາມ ຕົວລະຄອນ 1 ໃບຂອງເຈົ້າ ປ່ຽນຮ່າງທັນທີ',lore:'ລາວເຫັນໃຈ ບໍ່ແມ່ນເຫັນແຕ່ຜິວ'});
@@ -1555,7 +1559,7 @@ def('banna',{name:'ບ້ານນາ',type:'loc',cost:2,tag:'ສະຖານທ
 // deck 10: ຜາແດງ ນາງໄອ່. ນ້ຳຂຶ້ນ = a water gauge 0-5; at 5 the flood sweeps away small enemy characters
 const TIDE = 'ນ້ຳຂຶ້ນ: ຢູ່ສະໜາມ ນ້ຳຂຶ້ນ 1 ທຸກຕາ. ນ້ຳຮອດ 5 = ນ້ຳຖ້ວມ ທຳລາຍຕົວລະຄອນຄູ່ແຂ່ງ ທີ່ມີພະລັງ 3 ລົງມາ';
 def('krarokdon',{name:'ກະຮອກດ່ອນ',tribe:'himma',cost:1,power:1,kw:{fly:1},tag:'ບິນ · ພັງຄີ',skill:'ບິນ. ເມື່ອໃບນີ້ຖືກທຳລາຍ ນ້ຳຂຶ້ນ 2',lore:'ກະຮອກຂາວ ມີກະດິ່ງທອງ'});
-def('thahannak',{name:'ທະຫານນາກ',tribe:'naga',cost:2,power:2,kw:{tide:1},tag:'ນ້ຳຂຶ້ນ',skill:'ນ້ຳຂຶ້ນ. ຖ້ານ້ຳ 3 ຂຶ້ນໄປ ພະລັງ +2',lore:'ທະຫານນາກ ຖືຫອກ ຂຶ້ນມາຈາກແມ່ນ້ຳ'});
+def('thahannak',{name:'ທະຫານນາກ',tribe:'naga',cost:2,power:2,kw:{tide:1},tag:'ນ້ຳຂຶ້ນ',combo:'water',skill:'ນ້ຳຂຶ້ນ. ຖ້ານ້ຳ 3 ຂຶ້ນໄປ ພະລັງ +2' + '. ຕໍ່ເນື່ອງ 2: ນ້ຳຂຶ້ນ 1',lore:'ທະຫານນາກ ຖືຫອກ ຂຶ້ນມາຈາກແມ່ນ້ຳ'});
 def('nangai',{name:'ນາງໄອ່ຄຳ',tribe:'hero',cost:3,power:2,tag:'ງາມທີ່ສຸດໃນເມືອງ',skill:'ທຸກຕາ ຟື້ນຂວັນ +1',lore:'ນາງໄອ່ ຂ້າງສະນ້ຳໃນວັງ'});
 def('mabaksam',{name:'ມ້າບັກສາມ',tribe:'himma',cost:3,power:3,kw:{rush:1},tag:'ໄວ',skill:'ໂຈມຕີໄດ້ທັນທີ ໃນຕາທີ່ລົງສະໜາມ',lore:'ມ້າໄວຂອງທ້າວຜາແດງ'});
 def('phadaeng',{name:'ທ້າວຜາແດງ',tribe:'hero',cost:4,power:4,kw:{rush:1},tag:'ໄວ · ຮັກນາງໄອ່',skill:'ໂຈມຕີໄດ້ທັນທີ. ຖ້າມີ «ນາງໄອ່ຄຳ» ຢູ່ສະໜາມ ພະລັງ +2',lore:'ເຈົ້າຊາຍຊຸດແດງ ຂີ່ມ້າຖືຫອກ'});
@@ -1568,7 +1572,7 @@ def('khaimuknak',{name:'ໄຂ່ມຸກນາກ',type:'item',cost:2,bonus:1,
 def('nonghan',{name:'ໜອງຫານ',type:'loc',cost:2,tag:'ສະຖານທີ່',skill:'ຢູ່ສະໜາມ: ທຸກຕາ ນ້ຳຂຶ້ນເພີ່ມ 1',lore:'ໜອງຫານ ຍາມເຊົ້າ ມີເງົານາກໃຕ້ນ້ຳ'});
 
 // deck 13: ໄຊເບີພັງ ນະຄອນນາກ 2099. ຊິບ = upgrade items, up to 3 per character; ແຮັກ = borrow an enemy character until your turn ends
-def('drone',{name:'ໂດຣນນ້ອຍ',tribe:'cyborg',cy:1,cost:1,power:1,kw:{fly:1},tag:'ບິນ',skill:FLY,lore:'ໂດຣນຫົວນາກ ບິນຜ່ານຝົນນີອອນ'});
+def('drone',{name:'ໂດຣນນ້ອຍ',tribe:'cyborg',cy:1,cost:1,power:1,kw:{fly:1},tag:'ບິນ',combo:'draw',skill:FLY + '. ຕໍ່ເນື່ອງ 2: ຈົ່ວກາດ 1 ໃບ',lore:'ໂດຣນຫົວນາກ ບິນຜ່ານຝົນນີອອນ'});
 def('hackxm',{name:'ແຮັກເກີ ຊຽງໝ້ຽງ',tribe:'cyborg',cy:1,cost:2,power:1,tag:'ແຮັກ',skill:'ເມື່ອລົງສະໜາມ ແຮັກ ຕົວລະຄອນຄູ່ແຂ່ງ ທີ່ມີພະລັງ 3 ລົງມາ 1 ໃບ: ມາຢູ່ຝ່າຍເຈົ້າ ໂຈມຕີໄດ້ທັນທີ ແລ້ວກັບຄືນເມື່ອຈົບຕາ',lore:'ຊຽງໝ້ຽງ ປີ 2099 ຫຼອກໄດ້ແມ່ນແຕ່ຄອມພິວເຕີ'});
 def('repairbot',{name:'ໝໍຊ່ອມຫຸ່ນຍົນ',tribe:'cyborg',cy:1,cost:2,power:2,tag:'ຊ່ອມ',skill:'ເມື່ອລົງສະໜາມ ເອົາຊິບ 1 ໃບ ຈາກກອງຖິ້ມມາໃສ່ມື',lore:'ໝໍຫຸ່ນຍົນໃຈດີ ມີແຂນເຄື່ອງມືຫຼາຍແຂນ'});
 def('cyberpolice',{name:'ຕຳຫຼວດໄຊບອກ',tribe:'cyborg',cy:1,cost:3,power:3,kw:{taunt:1},tag:'ກັນໄພ',skill:TAUNT,lore:'ໂລ່ສ່ອງແສງລາຍກະໜົກ'});
@@ -1588,7 +1592,7 @@ def('nokkaew',{name:'ນົກແກ້ວ',tribe:'beast',cost:1,power:1,kw:{fly
 def('nokhuk',{name:'ນົກຮູກ',tribe:'beast',cost:2,power:2,tag:'ຮູ້ທັນ',skill:'ເມື່ອລົງສະໜາມ ເອົາກັບດັກ 1 ໃບ ຈາກເດັກມາໃສ່ມື',lore:'ນົກຮູກຕາໂຕ ເຫັນທຸກຢ່າງຍາມກາງຄືນ'});
 def('tao',{name:'ເຕົ່າ',tribe:'beast',cost:2,power:3,kw:{taunt:1},tag:'ກັນໄພ',skill:TAUNT,lore:'ເຕົ່າໃຈເຢັນ ຖືໃບໄມ້ເປັນໂລ່'});
 def('lingkhidue',{name:'ລີງຂີ້ດື້',tribe:'beast',cost:2,power:2,tag:'ລັກ',skill:'ເມື່ອລົງສະໜາມ ຄູ່ແຂ່ງຖິ້ມກາດໃນມື 1 ໃບ (ສຸ່ມ)',lore:'ລີງນ້ອຍ ຫ້ອຍຫາງ ລັກໝາກໄມ້'});
-def('kwangwai',{name:'ກວາງໄວ',tribe:'beast',cost:3,power:3,kw:{rush:1},tag:'ໄວ',skill:'ໂຈມຕີໄດ້ທັນທີ ໃນຕາທີ່ລົງສະໜາມ',lore:'ກວາງນ້ອຍ ກະໂດດຂ້າມຫ້ວຍ'});
+def('kwangwai',{name:'ກວາງໄວ',tribe:'beast',cost:3,power:3,kw:{rush:1},tag:'ໄວ',combo:'pow',skill:'ໂຈມຕີໄດ້ທັນທີ ໃນຕາທີ່ລົງສະໜາມ' + '. ຕໍ່ເນື່ອງ 2: ໃບນີ້ພະລັງ +2',lore:'ກວາງນ້ອຍ ກະໂດດຂ້າມຫ້ວຍ'});
 def('mupa',{name:'ໝູປ່າ',tribe:'beast',cost:3,power:2,kw:{shield:1},tag:'ໂລ່ທິບ',skill:SHIELD,lore:'ໝູປ່ານ້ອຍ ໃສ່ເກາະໃບໄມ້'});
 def('xangjaidi',{name:'ຊ້າງໃຈດີ',tribe:'beast',cost:5,power:5,tag:'ໃຈດີ',skill:'ທຸກຄັ້ງທີ່ກັບດັກຂອງເຈົ້າເປີດ ໃບນີ້ພະລັງ +1 (ຖາວອນ)',lore:'ຊ້າງໃຫຍ່ ແບກສັດນ້ອຍໄວ້ເທິງຫຼັງ'});
 def('kratai',{name:'ກະຕ່າຍຫົວໃສ',tribe:'beast',cost:6,power:3,legend:1,tag:'ຫົວໃສທີ່ສຸດໃນປ່າ',skill:'ກັບດັກຂອງເຈົ້າ ໃຊ້ບຸນ 0. ທຸກຄັ້ງທີ່ກັບດັກເປີດ ຈົ່ວກາດ 1 ໃບ',lore:'ກະຕ່າຍນ້ອຍຜ້າພັນຄໍແດງ ຫຼອກເສືອໃຫຍ່ໄດ້'});
@@ -1599,7 +1603,7 @@ def('papai',{name:'ປ່າໄຜ່',type:'loc',cost:2,tag:'ສະຖານທ
 
 // deck 12: ໄອດໍ ໝໍລຳ. ແຟນຄລັບ = a fan gauge; at 10 (8 with the manager) comes ອັງກໍ: every character may attack twice this turn
 const ENCORE = 'ແຟນຄົບ 8 = ອັງກໍ! ຕົວລະຄອນເຈົ້າທຸກໃບ ໂຈມຕີໄດ້ 2 ເທື່ອ ໃນຕານັ້ນ';
-def('fannoy',{name:'ແຟນຄລັບນ້ອຍ',tribe:'idol',idf:1,cost:1,power:1,tag:'ແຟນຄລັບ',skill:'ເມື່ອລົງສະໜາມ ແຟນ +2',lore:'ແຟນນ້ອຍ ຖືແທ່ງໄຟຮູບແຄນ'});
+def('fannoy',{name:'ແຟນຄລັບນ້ອຍ',tribe:'idol',idf:1,cost:1,power:1,tag:'ແຟນຄລັບ',combo:'fans',skill:'ເມື່ອລົງສະໜາມ ແຟນ +2' + '. ຕໍ່ເນື່ອງ 2: ແຟນ +2',lore:'ແຟນນ້ອຍ ຖືແທ່ງໄຟຮູບແຄນ'});
 def('kinnaridance',{name:'ນັກເຕັ້ນ ກິນນະລີ',tribe:'idol',idf:1,cost:2,power:3,tag:'ແຟນຄລັບ',skill:'ທຸກຕາ ແຟນ +1',lore:'ນັກເຕັ້ນປີກຂົນນົກ ໝຸນຢູ່ເທິງເວທີ'});
 def('rappers',{name:'ແຝດແຣັບເປີ',tribe:'idol',idf:1,cost:2,power:3,tag:'ແຣັບ',skill:'ຖ້າແຟນ 5 ຂຶ້ນໄປ ພະລັງ +2',lore:'ແຝດຄູ່ ໃສ່ຊຸດລາຍສິ້ນ'});
 def('khaendj',{name:'ມືແຄນ DJ',tribe:'idol',idf:1,cost:3,power:2,tag:'ເປີດເພງ',skill:'ເມື່ອລົງສະໜາມ ຕົວລະຄອນເຈົ້າທຸກໃບ ພະລັງ +1 ຈົນຈົບຕາ',lore:'ແຄນໄຟຟ້າ ກັບແສງເລເຊີ'});
@@ -2150,17 +2154,20 @@ function playBlock(p, h){
   return null;
 }
 
-async function playCard(p, h, t){
-  const d = C[h.id];
+async function playCard(p, h, t, trib){
+  const d = C[h.id]; let placed = null;
+  p.combo = (p.combo || 0) + 1; const before = p.combo - 1;   // cards already played this turn
   if(p === S.p[0] && !isBot(p)){ questEvent('play'); if(d.type === 'char'){ questEvent('tribe:' + d.tribe); if(d.legend) questEvent('legend'); } else if(d.type === 'spell' || d.type === 'item') questEvent('spell'); }
-  p.mana -= costOf(p, h.id);
+  p.mana -= trib ? Math.max(0, costOf(p, h.id) - TRIB_OFF) : costOf(p, h.id);
   p.hand.splice(p.hand.indexOf(h), 1);
+  if(trib) await offer(p, trib);
+  if(p.combo >= 3) floatAt('h:' + pi(p), 'ຄອມໂບ x' + p.combo + '!', 'crit');
   if(d.type === 'trap') log(p.name + ' ວາງກັບດັກ 1 ໃບ');   // the name stays secret
   else { log(p.name + ' ລົງ «' + d.name + '»'); if(!S.fast) ui.detail = {id:h.id, alt:h.alt}; }
   if(d.type === 'char'){
     const c = {uid:++U, id:h.id, alt:h.alt, sick:!d.kw.rush, atk:0, items:[], mods:[]};
     if(d.kw.shield) c.shield = true;
-    p.field.push(c);
+    p.field.push(c); placed = c;
     if(d.legend || d.cost >= 5 || (h.alt && ALT[h.id])) await fxShowcase(h.id, h.alt);
     render();
     if(isBot(p) && !S.auto) botSay(d.legend ? 'legend' : 'play', d.legend);
@@ -2191,9 +2198,32 @@ async function playCard(p, h, t){
     render();
     await fxLoc(pi(p), h.id);
   }
+  if(d.combo && before >= 2) await comboFx(p, h.id, placed);
   if(d.legend && p === S.p[0]) petSay('legend');
   await taleStep(p, h.id);
   await checkDeaths();
+  render();
+}
+async function comboFx(p, id, c){
+  const k = C[id].combo; log('⚡ ຕໍ່ເນື່ອງ: «' + C[id].name + '»');
+  floatAt(c && p.field.includes(c) ? 'c:' + c.uid : 'h:' + pi(p), 'ຕໍ່ເນື່ອງ!', 'heal');
+  if(k === 'draw') draw(p, 1);
+  else if(k === 'heal') heal(p, 2);
+  else if(k === 'pow' && c && p.field.includes(c)) c.mods.push({amt:2, exp:1e9});
+  else if(k === 'fans') await addFans(p, 2);
+  else if(k === 'water') await addWater(p, 1);
+}
+// ຖວາຍພະລັງ: a legend or a 7+ cost character may be played 3 ບຸນ cheaper by sending 2 of your characters to the discard pile
+const TRIB_OFF = 3;
+const canTribute = (p, h) => { const d = C[h.id]; if(d.type !== 'char' || !(d.legend || d.cost >= 7) || S.turn !== pi(p)) return false;
+  return p.field.filter(c => !c.hacked).length >= 2 && Math.max(0, costOf(p, h.id) - TRIB_OFF) <= p.mana && !targetsFor(p, h.id); };
+async function offer(p, list){
+  log('🙏 ' + p.name + ' ຖວາຍພະລັງ «' + list.map(c => C[c.id].name).join('» ແລະ «') + '»');
+  for(const c of list){
+    if(!S.fast){ particlesAt('c:' + c.uid, '#ffd23d', 22); sfx('heal'); await sleep(260); }
+    const i = p.field.indexOf(c); if(i < 0) continue;
+    p.field.splice(i, 1); p.grave.push(...c.items, c.id);
+  }
   render();
 }
 async function taleStep(p, id){
@@ -2583,6 +2613,8 @@ async function startTurn(){
   if(!S || S.over) return;
   const G = S, p = cur();
   if(S.T > 200){ gameOver(S.p[0].life >= S.p[1].life ? S.p[0] : S.p[1], 'life'); return; }
+  if(!p.mulled){ p.mulled = true; if(isBot(p)) botMull(p); else if(!S.tut){ render(); await mulligan(p); if(S !== G || S.over) return; } }
+  p.combo = 0;
   for(const c of p.field){ c.sick = false; c.atk = 0; }
   if(S.T > 1) draw(p, 1);
   if(S.over) return;
@@ -2601,6 +2633,15 @@ async function startTurn(){
   if(S !== G || G.over) return;
   if(isBot(p)) botTurn(); else { S.busy = false; render(); tutEvent('myturn'); }
 }
+// ປ່ຽນໄພ້: once, before your first draw, swap any cards of the opening hand for new ones
+function swapHand(p, uids){
+  const out = p.hand.filter(h => uids.includes(h.uid)); if(!out.length) return;
+  p.hand = p.hand.filter(h => !uids.includes(h.uid)); p.deck.push(...out.map(h => h.id)); shuffle(p.deck);
+  for(let i = 0; i < out.length; i++) drawRaw(p);
+  log(p.name + ' ປ່ຽນໄພ້ ' + out.length + ' ໃບ');
+}
+function botMull(p){ swapHand(p, p.hand.filter(h => C[h.id].cost >= 6 || (C[h.id].type !== 'char' && C[h.id].cost >= 4)).map(h => h.uid)); }
+function mulligan(p){ return new Promise(r => { S.modal = {type:'mull', sel:[], resolve:sel => { swapHand(p, sel); render(); r(); }}; render(); }); }
 async function endTurn(){
   if(!S || S.over) return;
   const G = S, p = cur(); if(p === S.p[0]) tutEvent('end'); S.busy = true; S.targeting = null; S.sel = null;
@@ -2648,7 +2689,7 @@ async function botTurn(){
     if(!ch) break;
     if(!G.auto) await fxShowCard(ch.h.id, ch.h.alt);
     if(!live()) return;
-    await playCard(p, ch.h, ch.t);
+    await playCard(p, ch.h, ch.t, ch.trib);
     await sleep(320);
   }
   const order = [...p.field].sort((a, b) => pow(p, b) - pow(p, a));
@@ -2664,6 +2705,11 @@ async function botTurn(){
   if(live()){ await sleep(280); if(live()) endTurn(); }
 }
 function botPick(p, q){
+  for(const h of p.hand){   // ຖວາຍພະລັງ when the two weakest cost less than what comes in
+    if(costOf(p, h.id) <= p.mana || !canTribute(p, h)) continue;
+    const two = p.field.filter(c => !c.hacked).sort((a, b) => pow(p, a) - pow(p, b)).slice(0, 2);
+    if(pow(p, two[0]) + pow(p, two[1]) <= C[h.id].power - 2) return {h, t:null, trib:two};
+  }
   const reserve = p.hand.some(h => C[h.id].react) ? 1 : 0;
   let best = null, bs = 0;
   for(const h of p.hand){
@@ -2784,7 +2830,7 @@ function botPick(p, q){
       const big = en.filter(x => C[x.c.id].cost >= 4 || x.c.items.length);
       if(big.length){ t = maxBy(big, x => C[x.c.id].cost + x.c.items.length * 2); s = C[t.c.id].cost; }
     }
-    if(s > 0) s += taleWant(p, h.id);
+    if(s > 0) s += taleWant(p, h.id) + (d.combo && p.combo >= 2 ? 3 : 0);
     if(s > bs){ bs = s; best = {h, t}; }
   }
   return best;
@@ -2831,7 +2877,7 @@ function cloneState(hideIdx){
   const cp = (p, i) => ({name:p.name, bot:true, di:p.di, level:p.level, life:p.life, maxMana:p.maxMana, mana:p.mana, penalty:p.penalty,
     deck:null, hand:null,
     field:p.field.map(c => ({uid:c.uid, id:c.id, sick:c.sick, atk:c.atk, x2:c.x2, frz:c.frz, tf:c.tf, age:c.age, guard:c.guard, hacked:c.hacked, shield:c.shield, items:c.items.slice(), mods:c.mods.map(m => ({amt:m.amt, exp:m.exp}))})),
-    loc:p.loc, locAge:p.locAge, water:p.water, fans:p.fans, encoreReady:p.encoreReady, traps:(p.traps || []).slice(), tales:(p.tales || []).map(t => ({i:t.i, got:t.got.slice(), done:t.done})), grave:p.grave.slice(), lastMagic:p.lastMagic, _src:p, _i:i});
+    loc:p.loc, locAge:p.locAge, water:p.water, fans:p.fans, encoreReady:p.encoreReady, traps:(p.traps || []).slice(), combo:p.combo, mulled:true, tales:(p.tales || []).map(t => ({i:t.i, got:t.got.slice(), done:t.done})), grave:p.grave.slice(), lastMagic:p.lastMagic, _src:p, _i:i});
   const ps = S.p.map(cp);
   for(const q of ps){
     const src = q._src;
@@ -2859,6 +2905,10 @@ function hardMoves(p){
     if(tl && tl.length) for(const t of tl) out.push({type:'play', uid:h.uid, tk:tkey(t)});
     else out.push({type:'play', uid:h.uid, tk:null});
   }
+  for(const h of p.hand) if(costOf(p, h.id) > p.mana && canTribute(p, h)){
+    const two = p.field.filter(c => !c.hacked).sort((a, b) => pow(p, a) - pow(p, b)).slice(0, 2);
+    out.push({type:'trib', uid:h.uid, a:two[0].uid, b:two[1].uid});
+  }
   for(const c of p.field) if(canAttack(p, c)) for(const t of attackTargets(p, c)) out.push({type:'atk', uid:c.uid, tk:tkey(t)});
   return out;
 }
@@ -2867,6 +2917,7 @@ async function applyMove(m){
   // a target can vanish mid-rollout (hacked, trapped), so skip moves whose target is gone
   if(m.type === 'play'){ const h = p.hand.find(x => x.uid === m.uid), t = resolveT(m.tk); if(h && (t || !m.tk)) await playCard(p, h, t); }
   else if(m.type === 'atk'){ const c = p.field.find(x => x.uid === m.uid), t = resolveT(m.tk); if(c && t) await attack(p, c, t); }
+  else if(m.type === 'trib'){ const h = p.hand.find(x => x.uid === m.uid), a = p.field.find(x => x.uid === m.a), b = p.field.find(x => x.uid === m.b); if(h && a && b && canTribute(p, h)) await playCard(p, h, null, [a, b]); }
 }
 function evalState(me){
   const P = S.p[me], Q = S.p[1 - me];
@@ -2999,6 +3050,16 @@ async function tryPlay(uid){
   if(tl && tl.length){ t = await pickTarget(tl, promptOf(h.id)); if(t === undefined){ render(); return; } }
   S.busy = true; await playCard(p, h, t); if(!S || S.over) return; S.busy = false; render(); tutEvent('play');
 }
+async function tryTribute(uid){
+  const p = S.p[0], h = p.hand.find(x => x.uid === uid); if(!h || !canTribute(p, h)) return;
+  S.modal = null; const picked = [];
+  for(let k = 1; k <= 2; k++){
+    const list = p.field.filter(c => !c.hacked && !picked.includes(c)).map(c => ({kind:'char', owner:p, c}));
+    const t = await pickTarget(list, '🙏 ເລືອກຕົວລະຄອນ ' + k + '/2 ທີ່ຈະຖວາຍພະລັງ'); if(!t){ render(); return; }
+    picked.push(t.c);
+  }
+  S.busy = true; await playCard(p, h, null, picked); if(!S || S.over) return; S.busy = false; render();
+}
 async function attackFlow(c){
   const p = S.p[0]; const ts = attackTargets(p, c);
   if(!ts.length){ toast('ບໍ່ມີເປົ້າໝາຍທີ່ໂຈມຕີໄດ້'); return; }
@@ -3015,7 +3076,7 @@ function fmtSkill(t){
     [/ເມື່ອລົງສະໜາມ|ທຸກຕາ|ຢູ່ສະໜາມ|ເມື່ອໃບນີ້ຖືກທຳລາຍ|ເມື່ອທຳລາຍຕົວລະຄອນຂອງຄູ່ແຂ່ງໄດ້|ໃຊ້ຕອນຄູ່ແຂ່ງໂຈມຕີ|ເວລາໂຈມຕີ|ຕິດໃສ່ຕົວລະຄອນ(?:ເຜົ່າຍັກ)? 1 ໃບ/g, 'kt'],
     [/ກັນໄພ|ບິນ|ຮວມພົນ|ຄືນຊີບ|ປົກປັກ|ປ່ຽນຮ່າງ|ນ້ຳຂຶ້ນ|ນ້ຳຖ້ວມ|ແຮັກ|ກັບດັກ|ໂລ່ທິບ|ອັງກໍ/g, 'kk'],
     [/ເຜົ່າ(?:ນາກ|ຍັກ|ຜີ|ວິລະບຸລຸດ|ຫິມະພານ|ນັກປາດ|ເທວະດາ|ຊາວບ້ານ|ນັກຮົບ|ຜູ້ປົກປັກ|ໄຊບອກ|ສັດປ່າ|ນັກສະແດງ)/g, 'tr'],
-    [/ແຟນ \+\d+/g, 'hp'],
+    [/ແຟນ \+\d+/g, 'hp'], [/ຕໍ່ເນື່ອງ \d+/g, 'kk'],
     [/ພະລັງ \+\d+/g, 'up'], [/ພະລັງ -\d+/g, 'dn'], [/ຟື້ນຂວັນ \+\d+/g, 'hp'],
     [/ຈົ່ວກາດ \d+ ໃບ/g, 'dr'], [/ໂຈມຕີໄດ້ 2 ເທື່ອ(?:ຕໍ່ຕາ)?|ໂຈມຕີ \d+/g, 'dm']
   ];
@@ -3490,7 +3551,9 @@ function modalHTML(){
     const p = S.p[0], h = p.hand.find(x => x.uid === m.uid); if(!h){ S.modal = null; return ''; }
     const why = playBlock(p, h);
     inner = cardHTML(h.id, costOf(p, h.id), h.alt) + '<p class="lore">' + C[h.id].lore + '</p>' + (why ? '<p class="why">' + why + '</p>' : '') +
-      '<div class="mbtns"><button class="btn-main sm" data-a="play" data-v="' + h.uid + '" ' + (why ? 'disabled' : '') + '>ລົງກາດ · ' + costOf(p, h.id) + ' ບຸນ</button><button class="btn2" data-a="mclose">ປິດ</button></div>';
+      '<div class="mbtns"><button class="btn-main sm" data-a="play" data-v="' + h.uid + '" ' + (why ? 'disabled' : '') + '>ລົງກາດ · ' + costOf(p, h.id) + ' ບຸນ</button>' +
+      (canTribute(p, h) ? '<button class="btn2 tribb" data-a="trib" data-v="' + h.uid + '">🙏 ຖວາຍພະລັງ · ' + Math.max(0, costOf(p, h.id) - TRIB_OFF) + ' ບຸນ</button>' : '') +
+      '<button class="btn2" data-a="mclose">ປິດ</button></div>' + (canTribute(p, h) ? '<p class="lore">ຖວາຍພະລັງ: ສົ່ງຕົວລະຄອນຂອງເຈົ້າ 2 ໃບ ໄປກອງຖິ້ມ ແລ້ວໃບນີ້ໃຊ້ບຸນໜ້ອຍລົງ ' + TRIB_OFF + '</p>' : '');
   } else if(m.type === 'ask'){
     inner = '<div style="width:min(200px,50vw)">' + (m.html || '') + '</div><p class="q">' + m.text + '</p><div class="mbtns"><button class="btn-main sm" data-a="yes">ໃຊ້ເລີຍ</button><button class="btn2" data-a="no">ບໍ່ໃຊ້</button></div>';
   } else if(m.type === 'discard'){
@@ -3503,6 +3566,10 @@ function modalHTML(){
     inner = '<p class="q">ບັນທຶກເຫດການ</p><ol class="loglist">' + S.log.map(l => '<li>' + l + '</li>').join('') + '</ol><div class="mbtns"><button class="btn2" data-a="mclose">ປິດ</button></div>';
   } else if(m.type === 'pass'){
     return '<div class="modal-bg pass"><div class="modal"><div class="passic">🤝</div><p class="q">ສົ່ງເຄື່ອງໃຫ້</p><div class="over win">' + m.name + '</div><p class="lore">ຄົນອື່ນຢ່າແນມເບິ່ງກາດໃນມືເດີ້!</p><div class="mbtns"><button class="btn-main" data-a="passok">ຂ້ອຍແມ່ນ ' + m.name + ' · ເລີ່ມເລີຍ</button></div></div></div>';
+  } else if(m.type === 'mull'){
+    inner = '<p class="q">🔄 ປ່ຽນໄພ້ເລີ່ມຕົ້ນ</p><p class="lore">ແຕະກາດທີ່ບໍ່ມັກ ແລ້ວກົດປ່ຽນ. ໄດ້ກາດໃໝ່ເທົ່າຈຳນວນທີ່ປ່ຽນ. ປ່ຽນໄດ້ 1 ເທື່ອ</p><div class="pick mull">' +
+      S.p[0].hand.map(h => '<div class="hc' + (m.sel.includes(h.uid) ? ' msel' : '') + '" data-a="mtog" data-v="' + h.uid + '">' + cardHTML(h.id, null, h.alt) + '</div>').join('') +
+      '</div><div class="mbtns"><button class="btn-main sm" data-a="mgo">' + (m.sel.length ? '🔄 ປ່ຽນ ' + m.sel.length + ' ໃບ' : '✓ ເກັບໄວ້ທັງໝົດ') + '</button></div>';
   } else if(m.type === 'over'){
     const win = S.over.winner === 0;
     inner = '<div class="over ' + (win || S.pvp ? 'win' : 'lose') + '">' + (S.pvp ? S.p[S.over.winner].name + ' ຊະນະ!' : (win ? 'ເຈົ້າຊະນະ!' : 'ບອດຊະນະ')) + '</div><div style="width:min(200px,50vw)">' + cardHTML(S.p[S.over.winner].cover || DECKS[S.p[S.over.winner].di].legend) + '</div>' +
@@ -3949,6 +4016,8 @@ $app.addEventListener('click', e => {
   if(a === 'tutnext'){ if(S.tut){ S.tut.step++; render(); } return; }
   if(a === 'tutdone' || a === 'tutskip'){ if(a === 'tutdone') tutReward(); S.tut = null; saveJ('lao-legend-tut', 1); render(); return; }
   if(a === 'mclose'){ closeModal(); return; }
+  if(a === 'mtog' && S.modal && S.modal.type === 'mull'){ const sel = S.modal.sel, i = sel.indexOf(+v); if(i < 0) sel.push(+v); else sel.splice(i, 1); render(); return; }
+  if(a === 'mgo' && S.modal && S.modal.type === 'mull'){ const m = S.modal; S.modal = null; m.resolve(m.sel); return; }
   if(a === 'passok' && S.modal && S.modal.type === 'pass'){ const r = S.modal.resolve; S.modal = null; render(); r(); return; }
   if(a === 'yes' || a === 'no'){ const r = S.modal.resolve; S.modal = null; render(); r(a === 'yes'); return; }
   if(a === 'discard'){ const r = S.modal.resolve; const h = S.p[0].hand.find(x => x.uid === +v); S.modal = null; render(); r(h); return; }
@@ -3985,6 +4054,10 @@ $app.addEventListener('click', e => {
 $app.addEventListener('click', e => {
   const el = e.target.closest('[data-a="play"]'); if(!el || !S || !S.modal || S.modal.type !== 'hand') return;
   if(S.turn === 0 && !S.busy && !S.over) tryPlay(+el.dataset.v);
+});
+$app.addEventListener('click', e => {
+  const el = e.target.closest('[data-a="trib"]'); if(!el || !S || !S.modal || S.modal.type !== 'hand') return;
+  if(S.turn === 0 && !S.busy && !S.over) tryTribute(+el.dataset.v);
 });
 $app.addEventListener('pointerover', e => {
   if(!S || S.screen !== 'game') return;
