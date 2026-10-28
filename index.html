@@ -1443,6 +1443,9 @@ body{background:
 .sname{flex:1;min-width:0}.sname b{display:block;font:800 15px var(--f-d);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.sname small{font:700 12px var(--f-d);color:var(--dim)}
 .spos{width:28px;text-align:center;font:800 15px var(--f-d)}.hav.sm{width:36px;height:36px;flex:none}
 .btn2.sm{padding:6px 10px;font-size:13px}.soctabs{margin:0;justify-content:center}.soctabs.sub button{font-size:12px;padding:5px 10px}
+.whylist{display:flex;flex-direction:column;gap:6px;width:min(320px,100%)}.btn2.danger{border-color:#c8312b;color:#ff8f86}
+.admgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;width:100%}.admgrid div{background:#ffffff0d;border:1px solid #ffffff1a;border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:2px}.admgrid b{font:800 20px var(--f-d)}.admgrid small{font:700 12px var(--f-d);color:var(--dim)}
+.wordlist{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}.evribbon{margin-top:8px;display:inline-block;background:linear-gradient(90deg,#ff7ad9,#ffd23d);color:#1a0806;font:800 14px var(--f-d);border-radius:999px;padding:6px 16px;box-shadow:0 4px 14px #0006}
 .rankcard{display:flex;flex-direction:column;gap:2px;align-items:center;background:#0006;border:2px solid #e2b54a;border-radius:14px;padding:10px 18px}.rankcard b{font:800 20px var(--f-d);color:#ffe48a}.rankcard small{font:700 12px var(--f-d);color:var(--dim)}
 .mmspin{font-size:44px;animation:mmspin 1.4s ease-in-out infinite}@keyframes mmspin{50%{transform:scale(1.18) rotate(-8deg)}}
 .tclock{margin-left:8px;font-variant-numeric:tabular-nums}.tclock.low{color:#c8312b;animation:tlow 1s steps(2) infinite}@keyframes tlow{50%{opacity:.45}}
@@ -2196,7 +2199,7 @@ function settingsHTML(){
   return '<div class="modal-bg"><div class="modal"><p class="q">ຕັ້ງຄ່າ</p><p class="themelbl">ໜ້າຕາສະໜາມ</p>' + themePicker() + '<div class="setlist">' +
     row('sfx', 'ສຽງເອັບເຟັກ', SET.sfx, SET.sfx ? 'ເປີດ' : 'ປິດ') + row('music', 'ດົນຕີ', SET.music, SET.music ? 'ເປີດ' : 'ປິດ') +
     row('speed', 'ຄວາມໄວເອັບເຟັກ', SET.speed < 1, SET.speed < 1 ? 'ໄວ' : 'ປົກກະຕິ') + row('fest', 'ງານບຸນ ຮີດສິບສອງ (ເກມໃໝ່)', SET.fest, SET.fest ? 'ເປີດ' : 'ປິດ') +
-    '</div><div class="mbtns"><button class="btn2" data-a="setclose">ປິດ</button></div></div></div>';
+    '</div>' + (S ? '' : '<div class="mbtns"><button class="btn2" data-a="parent">👪 ສຳລັບພໍ່ແມ່</button>' + (ACCT.admin ? '<button class="btn2" data-a="admin">🛠 ຜູ້ດູແລ</button>' : '') + '</div>') + '<div class="mbtns"><button class="btn2" data-a="setclose">ປິດ</button></div></div></div>';
 }
 document.addEventListener('pointerdown', () => { audioInit(); musicStart(); }, {once:true});
 
@@ -3509,13 +3512,13 @@ function menuHTML(){
   return '<div class="home" style="--bg:url(' + art + ')"><div class="hbg" aria-hidden="true"></div>' +
     '<header class="htop"><div class="hprof" role="button" tabindex="0" data-a="prof" aria-label="ໂປຣໄຟລ໌"><span class="hav fr-' + (c.frame || 'none') + '"><img src="' + (ACCT.prof && C[ACCT.prof.avatar] ? PIC(C[ACCT.prof.avatar].img) : art) + '" alt=""></span><div class="hlv">' + (ACCT.prof ? '<em class="hname">' + escH(ACCT.prof.name) + (ACCT.state === 'on' ? ' ☁️' : '') + '</em>' : '<em class="hname new">👤 ສ້າງຜູ້ຫຼິ້ນ</em>') + '<b>⭐ ລະດັບ ' + L + ' <small>' + (L >= LEVEL_MAX ? 'ສູງສຸດ' : into + '/' + LEVEL_XP + ' XP') + '</small></b><div class="pbar"><i style="width:' + (L >= LEVEL_MAX ? 100 : into) + '%"></i></div></div><span class="hach">🏆 ' + Object.keys(c.ach || {}).length + '/' + ACH.length + '</span></div>' +
       walletHTML('sm') + '<button class="hset" data-a="settings" aria-label="ຕັ້ງຄ່າ">' + IC_GEAR + '</button></header>' +
-    '<div class="hmain"><div class="hlogo"><img class="logoimg" src="art/logo.webp" alt="Lao Legend Wars" width="960" height="640"><p>ສົງຄາມຕຳນານລາວ · ເກມກາດນິທານລາວ · ຫຼິ້ນຟຣີ</p></div>' +
+    '<div class="hmain"><div class="hlogo"><img class="logoimg" src="art/logo.webp" alt="Lao Legend Wars" width="960" height="640"><p>ສົງຄາມຕຳນານລາວ · ເກມກາດນິທານລາວ · ຫຼິ້ນຟຣີ</p>' + (ACCT.cfg && +ACCT.cfg.gem_mult > 1 ? '<div class="evribbon">🎉 ອີເວັ້ນ: ເພັດ x' + ACCT.cfg.gem_mult + ' ຈາກການຊະນະບອດ!</div>' : '') + '</div>' +
       '<div class="hdeck"><div class="hcard" role="button" tabindex="0" data-a="decks" aria-label="ປ່ຽນເດັກ">' + boxHTML(typeof sel === 'string' ? sel : (DECKS[sel] ? sel : 0), info.cover, typeof sel === 'string' ? info.name : 'ເດັກ ' + (DECKS[sel] || DECKS[0]).no) + '<span class="hswap">🔄 ປ່ຽນເດັກ</span></div>' +
         '<div class="hdinfo"><small>ເດັກທີ່ເລືອກ</small><h2>' + escH(info.name) + '</h2><p>' + info.sub + '</p>' +
           '<div class="hbtns"><button class="btn2" data-a="decks">🔄 ປ່ຽນເດັກ</button><button class="btn2" data-a="edsel">✏️ ' + (typeof sel === 'string' ? 'ແກ້ເດັກນີ້' : 'ກັອບໄປແກ້') + '</button></div>' +
           '<div class="levels"><span>ບອດ</span>' + LEVELS.map((l, i) => '<button class="lv ' + (ui.level === i ? 'on' : '') + '" data-a="lvl" data-v="' + i + '">' + l + '</button>').join('') + '</div>' +
           '<button class="btn-main hplay" data-a="start"' + (info.locked ? ' disabled' : '') + '>⚔️ ສູ້ກັບບອດ</button>' +
-          '<button class="btn2 hadv" data-a="online">🌐 ຫຼິ້ນອອນລາຍກັບໝູ່</button><button class="btn2 hadv" data-a="adv">🗺️ ຜະຈົນໄພທົ່ວລາວ · ' + (Math.min(c.adv || 0, ADV.length)) + '/' + ADV.length + ' ດ່ານ</button></div></div></div>' +
+          (par().noOnline ? '' : '<button class="btn2 hadv" data-a="online">🌐 ຫຼິ້ນອອນລາຍກັບໝູ່</button>') + '<button class="btn2 hadv" data-a="adv">🗺️ ຜະຈົນໄພທົ່ວລາວ · ' + (Math.min(c.adv || 0, ADV.length)) + '/' + ADV.length + ' ດ່ານ</button></div></div></div>' +
     '<nav class="hnav" aria-label="ເມນູ">' + tile('ednew', '🃏', 'ຈັດເດັກ') + tile('shop', '🎴', 'ຮ້ານຊອງ', c.freePacks) + tile('quests', '⭐', 'ພາລະກິດ', qn) + tile('book', '📖', 'ປຶ້ມກາດ') +
       tile('pvpstart', '👥', '2 ຄົນ') + tile('tutstart', '🎓', 'ສອນຫຼິ້ນ', loadJ('lao-legend-tut', 0) ? '' : '!') + tile('stats', '📊', 'ສະຖິຕິ') + tile('pet', c.pet ? petFace() : '🥚', 'ຄູ່ຫູ', c.pet ? '' : '!') + '</nav>' +
     '<p class="hlinks"><a href="' + RULES_URL + '" target="_blank" rel="noopener">ອ່ານກົດການຫຼິ້ນ</a> · <a href="' + CARDS_URL + '" target="_blank" rel="noopener">ເບິ່ງກາດທັງໝົດ</a> · ກາດ ແລະ ເພັດ ເກັບໄວ້ໃນເຄື່ອງນີ້ · ບໍ່ມີການຈ່າຍເງິນແທ້</p>' +
@@ -3809,6 +3812,11 @@ function menuModalHTML(){
   else if(m.type === 'resume') inner = resumeHTML(m);
   else if(m.type === 'invite') inner = inviteHTML(m);
   else if(m.type === 'social') inner = socialHTML(m);
+  else if(m.type === 'player') inner = playerHTML(m);
+  else if(m.type === 'gate') inner = gateHTML(m);
+  else if(m.type === 'parent') inner = parentHTML();
+  else if(m.type === 'timesup') inner = timesupHTML();
+  else if(m.type === 'admin') inner = adminHTML(m);
   else if(m.type === 'adv'){
     const c = col(), done = c.adv || 0;
     inner = '<p class="q">🗺️ ຜະຈົນໄພທົ່ວລາວ</p><p class="lore">ເດີນທາງຈາກເໜືອໄປໃຕ້ ໃຊ້ເດັກທີ່ເລືອກໄວ້. ຜ່ານດ່ານໄດ້ເພັດ, ບອສໄດ້ຊອງຟຣີ</p><ol class="advmap">' +
@@ -3850,7 +3858,8 @@ function boardHTML(){
   const ofan = '<div class="ofan" data-k="hand:1" style="--n:' + b.hand.length + '" aria-label="ກາດໃນມືບອດ ' + b.hand.length + ' ໃບ">' +
     b.hand.map((h, i) => '<span class="ob cback" style="--i:' + i + '">' + BACK + '</span>').join('') + '<span class="ocnt">ມືບອດ ' + b.hand.length + '</span></div>';
   const fan = '<div class="fan hand ' + (ui.hideHand ? 'hidden' : '') + '" data-k="hand:0" style="--n:' + m.hand.length + '">' + m.hand.map((h, i) => handHTML(h, i)).join('') + '</div>';
-  const emo = S.online ? tool('emo', '<span class="emoic">😊</span>', 'ອີໂມຈິ') + (ui.emo ? '<div class="emopop">' + EMOS.map((e, i) => '<button data-a="emosend" data-v="' + i + '">' + e + '</button>').join('') + '<button class="emomute" data-a="emomute">' + (ui.emoMute ? '🔈 ເປີດອີໂມຈິໝູ່' : '🔇 ປິດອີໂມຈິໝູ່') + '</button></div>' : '') : '';
+  const them = S.online ? (S.online.me === 'guest' ? S.online.host : S.online.guest) : null;
+  const emo = S.online && !par().noEmo ? tool('emo', '<span class="emoic">😊</span>', 'ອີໂມຈິ') + (ui.emo ? '<div class="emopop">' + EMOS.map((e, i) => '<button data-a="emosend" data-v="' + i + '">' + e + '</button>').join('') + '<button class="emomute" data-a="emomute">' + (ui.emoMute ? '🔈 ເປີດອີໂມຈິໝູ່' : '🔇 ປິດອີໂມຈິໝູ່') + '</button>' + (them && them.pid ? '<button class="emomute" data-a="emoplayer">🚫 ບລັອກ / ⚠️ ລາຍງານ ' + escH(S.p[1].name) + '</button>' : '') + '</div>' : '') : '';
   const tools = '<div class="tools">' + emo + tool('hidehand', IC_EYE, ui.hideHand ? 'ສະແດງມື' : 'ຊ່ອນມື') + tool('log', IC_LOG, 'ບັນທຶກ') + tool('settings', IC_GEAR, 'ຕັ້ງຄ່າ') + tool('menu', IC_EXIT, 'ອອກ', !canExit) + '</div>';
   return '<div class="arena v7" data-theme="' + (THEMES.some(t => t[0] === SET.theme) ? SET.theme : 'sinh') + '">' +
     '<div class="field2 mat7">' + half7(b, 1, ofan) + mid7() + half7(m, 0, fan, tools) + promptHTML() + '</div>' +
@@ -4080,6 +4089,8 @@ function modalHTML(){
   const m = S.modal; if(!m) return ''; let inner = '';
   if(m.type === 'info'){
     inner = cardHTML(m.id, null, m.alt) + '<p class="lore">' + C[m.id].lore + '</p><div class="mbtns"><button class="btn2" data-a="mclose">ປິດ</button></div>';
+  } else if(m.type === 'pact'){
+    inner = '<p class="q">' + escH(m.name) + '</p><div class="mbtns"><button class="btn2" data-a="pactblock">🚫 ບລັອກ</button></div><p class="lore">ລາຍງານ:</p><div class="whylist">' + REPORT_WHY.map(([k, l]) => '<button class="btn2 sm" data-a="pactrep" data-v="' + k + '">' + l + '</button>').join('') + '</div><div class="mbtns"><button class="btn2" data-a="mclose">ປິດ</button></div>';
   } else if(m.type === 'hand'){
     const p = S.p[0], h = p.hand.find(x => x.uid === m.uid); if(!h){ S.modal = null; return ''; }
     const why = playBlock(p, h);
@@ -4596,10 +4607,15 @@ async function cloudPull(){
   } else if(!cloud || (here.at || 0) > (cloud.at || 0)) await cloudPush();
   else { ACCT.state = 'on'; ACCT.at = Date.now(); }
 }
+// the admin flag, my block list and game-wide settings (a double-gems event shows a ribbon in the lobby)
+async function acctExtras(){
+  try{ const [a, c] = await Promise.all([SB.rpc('admin_check'), SB.rpc('config_get')]); ACCT.admin = !!a.data; ACCT.cfg = c.data || {}; }catch(e){}
+  await blocksLoad(); if(!S) render();
+}
 async function acctLoad(){
   const {data} = await SB.from('profiles').select('*').eq('id', ACCT.user.id).maybeSingle();
   ACCT.prof = data || null;
-  if(ACCT.prof){ await cloudPull(); await ecoSync(); socStart(); }
+  if(ACCT.prof){ await cloudPull(); await ecoSync(); socStart(); acctExtras(); }
   else try{ localStorage.removeItem(RCODE_KEY); }catch(e){}   // the account moved to another device with its code
 }
 // on start: only players who already made an account load the Supabase library
@@ -4687,6 +4703,91 @@ async function ecoGameEnd(won){
 async function ecoClaim(kind, key){
   const {data, error} = await SB.rpc('eco_claim', {kind, key:key || null}); if(error) throw error;
   ecoApply(data.state); return data;
+}
+/* ---------- safety and the owner's tools (phase F7, supabase/f7.sql) ----------
+   Players: block (never paired again, no requests or challenges, emotes muted) and report with fixed reasons only.
+   Parents: online off, a daily time limit, emotes off, a break reminder every 45 minutes, delete the account; behind a
+   sum only an adult will bother with. Admin (accounts in the 'admins' table): numbers, find a player, gems, cards,
+   rename, ban, reports, banned words and the double-gems event. */
+const REPORT_WHY = [['name', 'ຊື່ບໍ່ສຸພາບ'], ['mean', 'ອີໂມຈິ ຫຼື ການກະທຳບໍ່ດີ'], ['cheat', 'ສົງໄສວ່າໂກງ'], ['quit', 'ອອກກາງເກມເລື້ອຍໆ'], ['other', 'ອື່ນໆ']];
+const PAR_DEF = {noOnline:false, limit:0, noEmo:false, breaks:true};
+const par = () => ({...PAR_DEF, ...(SET.par || {})});
+function playerHTML(m){
+  if(m.step === 'report') return '<p class="q">⚠️ ລາຍງານ ' + escH(m.name) + '</p><p class="lore">ເລືອກເຫດຜົນ</p><div class="whylist">' +
+    REPORT_WHY.map(([k, l]) => '<button class="btn2" data-a="prep" data-v="' + k + '">' + l + '</button>').join('') + '</div><div class="mbtns"><button class="btn2" data-a="pback">ກັບຄືນ</button></div>';
+  return '<p class="q">' + escH(m.name) + '</p>' +
+    '<div class="mbtns"><button class="btn2" data-a="pblock">' + (m.blocked ? '✅ ປົດບລັອກ' : '🚫 ບລັອກ') + '</button><button class="btn2" data-a="preport">⚠️ ລາຍງານ</button><button class="btn2" data-a="pclose">ປິດ</button></div>' +
+    '<p class="lore">ບລັອກແລ້ວ ຈະບໍ່ຈັບຄູ່ກັນອີກ, ບໍ່ຮັບຄຳຂໍເປັນໝູ່ ແລະ ຄຳທ້າ, ແລະ ປິດອີໂມຈິຂອງລາວ</p>';
+}
+function playerOpen(id, name, back){ if(!id || !ACCT.prof) return; ui.mmodal = {type:'player', id, name, back, blocked:(ACCT.blocks || []).some(b => b.id === id)}; render(); }
+async function blocksLoad(){ try{ const {data} = await SB.rpc('block_list'); ACCT.blocks = data || []; }catch(e){} }
+// the parents' gate: a multiplication a young child will not do
+function gateHTML(m){
+  return '<p class="q">👪 ສຳລັບພໍ່ແມ່</p><p class="lore">ກະລຸນາໃຫ້ຜູ້ໃຫຍ່ຕອບ</p><p class="q">' + m.a + ' × ' + m.b + ' = ?</p>' +
+    '<input id="gatein" class="pname" inputmode="numeric" maxlength="4" autocomplete="off">' + (m.err ? '<p class="why">' + m.err + '</p>' : '') +
+    '<div class="mbtns"><button class="btn-main sm" data-a="gateok">ຕົກລົງ</button><button class="btn2" data-a="mmclose">ຍົກເລີກ</button></div>';
+}
+function gateOpen(next){ ui.settingsOpen = false; ui.mmodal = {type:'gate', a:6 + Math.floor(Math.random() * 7), b:6 + Math.floor(Math.random() * 7), next}; render(); }
+function parentHTML(){
+  const P = par(), row = (k, label, txt, on) => '<button class="setrow" data-a="parset" data-v="' + k + '"><span>' + label + '</span><b class="' + (on ? 'on' : '') + '">' + txt + '</b></button>';
+  const pl = playToday();
+  return '<p class="q">👪 ສຳລັບພໍ່ແມ່</p><div class="setlist">' +
+    row('noOnline', 'ຫຼິ້ນອອນລາຍ', P.noOnline ? 'ປິດ' : 'ເປີດ', !P.noOnline) +
+    row('limit', 'ເວລາຫຼິ້ນຕໍ່ມື້', P.limit ? P.limit + ' ນາທີ' : 'ບໍ່ຈຳກັດ', !!P.limit) +
+    row('noEmo', 'ອີໂມຈິໃນເກມອອນລາຍ', P.noEmo ? 'ປິດ' : 'ເປີດ', !P.noEmo) +
+    row('breaks', 'ເຕືອນພັກສາຍຕາ ທຸກ 45 ນາທີ', P.breaks ? 'ເປີດ' : 'ປິດ', P.breaks) +
+    '</div><p class="lore">ມື້ນີ້ຫຼິ້ນໄປແລ້ວ ' + pl.min + ' ນາທີ</p>' +
+    (ACCT.prof ? '<p class="lore">ບັນຊີ: ' + escH(ACCT.prof.name) + '</p><div class="mbtns"><button class="btn2 danger" data-a="pardel">🗑 ລຶບບັນຊີ ແລະ ຂໍ້ມູນທັງໝົດ</button></div>' : '') +
+    '<p class="lore">ເກມນີ້ບໍ່ຂາຍຫຍັງດ້ວຍເງິນແທ້ ແລະ ບໍ່ມີຊ່ອງພິມແຊັດ</p><div class="mbtns"><button class="btn2" data-a="mmclose">ປິດ</button></div>';
+}
+// minutes played today, counted while the game is on screen
+function playToday(){ const p = loadJ('lao-legend-play', {}); return p.day === today() ? p : {day:today(), min:0, run:0}; }
+setInterval(() => {
+  if(document.visibilityState !== 'visible') return;
+  const p = playToday(); p.min++; p.run = (p.run || 0) + 1; saveJ('lao-legend-play', p);
+  const P = par();
+  if(P.breaks && p.run % 45 === 0) toast('👀 ຫຼິ້ນມາ 45 ນາທີແລ້ວ · ພັກສາຍຕາ ຍືດເສັ້ນຍືດສາຍແດ່');
+  if(P.limit && p.min >= P.limit && !S && !(ui.mmodal && (ui.mmodal.type === 'timesup' || ui.mmodal.type === 'gate' || ui.mmodal.type === 'parent'))){ ui.mmodal = {type:'timesup'}; render(); }
+}, 60000);
+document.addEventListener('visibilitychange', () => { if(document.visibilityState === 'hidden'){ const p = playToday(); p.run = 0; saveJ('lao-legend-play', p); } });
+const timesupHTML = () => '<p class="q">⏰ ໝົດເວລາຫຼິ້ນມື້ນີ້ແລ້ວ</p><div class="mmspin">🌙</div><p class="lore">ພັກສາຍຕາ ແລ້ວມາຫຼິ້ນກັນໃໝ່ມື້ອື່ນເດີ້</p><div class="mbtns"><button class="btn2" data-a="parent">👪 ພໍ່ແມ່</button></div>';
+async function accountDelete(){
+  if(!confirm('ລຶບບັນຊີ ' + ACCT.prof.name + ' ແລະ ກາດ, ເພັດ, ແຣງ, ໝູ່ ທັງໝົດ? ກູ້ຄືນບໍ່ໄດ້')) return;
+  try{ const {error} = await SB.rpc('account_delete'); if(error) throw error; }catch(e){ toast('ລຶບບໍ່ໄດ້ · ລອງໃໝ່'); return; }
+  try{ await SB.auth.signOut(); }catch(e){}
+  for(const k of [...SYNC_KEYS, 'lao-legend-sync', RCODE_KEY, LIVE_KEY]) try{ localStorage.removeItem(k); }catch(e){}
+  location.reload();
+}
+// admin
+async function adminLoad(m){
+  const tab = m.tab;
+  const call = tab === 'stats' ? SB.rpc('admin_stats') : tab === 'players' ? (m.q ? SB.rpc('admin_find', {q:m.q}) : null) : tab === 'reports' ? SB.rpc('admin_reports') : tab === 'words' ? SB.rpc('admin_words') : SB.rpc('admin_stats');
+  if(!call){ m.data = null; render(); return; }
+  m.busy = true; render();
+  try{ const {data, error} = await call; if(error) throw error; m.data = data; m.err = ''; }catch(e){ m.err = 'ໂຫຼດບໍ່ໄດ້'; }
+  m.busy = false; if(ui.mmodal === m) render();
+}
+async function adminDo(fn, msg){
+  try{ const {error} = await fn(); if(error) throw error; toast(msg || 'ແລ້ວ'); }catch(e){ toast('ບໍ່ສຳເລັດ: ' + (e && (e.message || e.code) || '')); }
+  if(ui.mmodal && ui.mmodal.type === 'admin') adminLoad(ui.mmodal);
+}
+function adminHTML(m){
+  const tabs = '<div class="tabs soctabs">' + [['stats', '📈 ສະຖິຕິ'], ['players', '🔎 ຜູ້ຫຼິ້ນ'], ['reports', '⚠️ ລາຍງານ'], ['words', '🚫 ຄຳຫ້າມ'], ['event', '🎉 ອີເວັ້ນ']].map(([k, l]) => '<button class="' + (m.tab === k ? 'on' : '') + '" data-a="admtab" data-v="' + k + '">' + l + '</button>').join('') + '</div>';
+  const d = m.data; let body = m.err ? '<p class="why">' + m.err + '</p>' : (m.busy && !d ? '<p class="lore">ກຳລັງໂຫຼດ…</p>' : '');
+  const pRow = p => '<div class="srow2">' + avImg(p.avatar) + '<div class="sname"><b>' + escH(p.name) + (p.banned ? ' 🚫' : '') + '</b><small>' +
+    (p.fcode ? p.fcode + ' · ' : '') + (p.gems != null ? '💎' + p.gems + ' · 🃏' + p.cards + ' · ' : '') + (p.tier != null ? RANKS[p.tier][0] + ' · ' : '') + (p.n ? '⚠️ ' + p.n + ' (' + (p.reasons || []).map(r => (REPORT_WHY.find(x => x[0] === r) || [, r])[1]).join(', ') + ')' : (p.reports ? '⚠️ ' + p.reports : '')) + '</small></div>' +
+    '<button class="btn2 sm" data-a="admgem" data-v="' + p.id + '" title="ເພີ່ມເພັດ">💎</button><button class="btn2 sm" data-a="admcard" data-v="' + p.id + '" title="ໃຫ້ກາດ">🃏</button>' +
+    '<button class="btn2 sm" data-a="admname" data-v="' + p.id + '" title="ປ່ຽນຊື່">✏️</button><button class="btn2 sm" data-a="admban" data-v="' + p.id + '" data-b="' + (p.banned ? 1 : 0) + '" title="ລະງັບ">' + (p.banned ? '✅' : '🚫') + '</button>' +
+    (p.n ? '<button class="btn2 sm" data-a="admclose" data-v="' + p.id + '" title="ປິດລາຍງານ">✓</button>' : '') + '</div>';
+  if(m.tab === 'stats' && d) body = '<div class="admgrid">' + [['👥', 'ຜູ້ຫຼິ້ນທັງໝົດ', d.players], ['📅', 'ເຂົ້າມື້ນີ້', d.today], ['🟢', 'ອອນລາຍຕອນນີ້', d.online], ['🎮', 'ເກມອອນລາຍມື້ນີ້', d.games], ['🏆', 'ເກມແຣງມື້ນີ້', d.ranked], ['⚠️', 'ລາຍງານທີ່ຍັງເປີດ', d.reports], ['🚫', 'ຖືກລະງັບ', d.banned]]
+    .map(([i, l, v]) => '<div><b>' + i + ' ' + v + '</b><small>' + l + '</small></div>').join('') + '</div>';
+  if(m.tab === 'players') body = '<div class="faddrow"><input id="admq" class="pname fin" placeholder="ຊື່ ຫຼື ລະຫັດໝູ່" value="' + escH(m.q || '') + '" autocomplete="off"><button class="btn-main sm" data-a="admfind">🔎 ຊອກ</button></div>' + body +
+    (Array.isArray(d) ? (d.length ? '<div class="slist">' + d.map(pRow).join('') + '</div>' : '<p class="lore">ບໍ່ພົບ</p>') : '');
+  if(m.tab === 'reports' && Array.isArray(d)) body = d.length ? '<div class="slist">' + d.map(pRow).join('') + '</div>' : '<p class="lore">ບໍ່ມີລາຍງານ 🎉</p>';
+  if(m.tab === 'words' && Array.isArray(d)) body = '<div class="faddrow"><input id="admw" class="pname fin" placeholder="ຄຳທີ່ຫ້າມໃນຊື່" autocomplete="off"><button class="btn-main sm" data-a="admwadd">➕</button></div>' +
+    '<div class="wordlist">' + (d.map(w => '<button class="btn2 sm" data-a="admwdel" data-v="' + escH(w) + '">' + escH(w) + ' ✕</button>').join('') || '<p class="lore">ຍັງບໍ່ມີຄຳຫ້າມ</p>') + '</div>';
+  if(m.tab === 'event' && d) body = '<p class="lore">ເພັດຈາກການຊະນະບອດ (ແລະ ເພດານຕໍ່ມື້) ຄູນດ້ວຍ</p><div class="mbtns">' + ['1', '2', '3'].map(v => '<button class="' + (d.gemMult === v ? 'btn-main sm' : 'btn2') + '" data-a="admmult" data-v="' + v + '">' + (v === '1' ? 'ປົກກະຕິ' : 'x' + v) + '</button>').join('') + '</div>';
+  return '<p class="q">🛠 ຜູ້ດູແລ</p>' + tabs + body + '<div class="mbtns"><button class="btn2" data-a="mmclose">ປິດ</button></div>';
 }
 // ຜູກອີເມວ: a guest account gets an email (confirmed with a code sent there), so it can be opened on another device
 // and is never lost with the browser's data. ເຂົ້າດ້ວຍອີເມວ: another device signs in with that email and a code.
@@ -4851,7 +4952,7 @@ function netRecv(m){
   if(m.t === 'gone'){ if(NET.hello && NET.hello.t === 'resync') resumeFail('ເກມນີ້ຈົບແລ້ວ'); return; }
   if(m.t === 'resync'){ if(S && S.online){ if(S.over) NET.send({t:'gone', from:NET.me}); else snapSoon(); } return; }
   if(m.t === 'claimed'){ if(S && S.online && !S.over) gameOver(S.p[1], 'dropped'); return; }   // we were silent too long and the friend took the win
-  if(m.t === 'emo'){ if(S && S.online && !ui.emoMute && EMOS[m.i]) emoShow(1, m.i); return; }
+  if(m.t === 'emo'){ if(S && S.online && !ui.emoMute && !par().noEmo && EMOS[m.i]) emoShow(1, m.i); return; }
   if(!S || !S.online) return;
   NET.hello = null;
   if(m.t === 'ack'){ if(m.n < NET.sent && Date.now() - NET.lastResend > 1200){ NET.lastResend = Date.now(); for(let k = m.n + 1; k <= NET.sent; k++) NET.send(NET.log[k]); } return; }
@@ -5030,7 +5131,7 @@ async function mmStart(mode){
   mmStop(false);
   ui.mmodal = {type:'online', step:'mm', at:Date.now(), n:1, mode}; render();
   try{ const {data, error} = await SB.rpc('mm_join', {lvl:levelOf(col().xp), mode, deck:mode === 'ranked' ? deck : null}); if(error) throw error; mmGot(data); }
-  catch(e){ mmStop(true); ui.mmodal = {type:'online', step:'menu'}; render(); toast(e && e.code === 'P0007' ? 'ເດັກນີ້ໃຊ້ໃນໂໝດແຣງບໍ່ໄດ້' : 'ຊອກຄູ່ບໍ່ໄດ້ · ກວດອິນເຕີເນັດ'); window.__errs.push('mm: ' + (e && (e.code || e.message) || e)); return; }
+  catch(e){ mmStop(true); ui.mmodal = {type:'online', step:'menu'}; render(); toast(e && e.code === 'P0007' ? 'ເດັກນີ້ໃຊ້ໃນໂໝດແຣງບໍ່ໄດ້' : e && e.code === 'P0011' ? 'ບັນຊີນີ້ຖືກລະງັບການຫຼິ້ນອອນລາຍ' : 'ຊອກຄູ່ບໍ່ໄດ້ · ກວດອິນເຕີເນັດ'); window.__errs.push('mm: ' + (e && (e.code || e.message) || e)); return; }
   if(ui.mmodal && ui.mmodal.step === 'mm') MM.timer = setInterval(mmPoll, 2000);
 }
 async function mmPoll(){
@@ -5112,7 +5213,7 @@ async function rankReport(winIdx, reason){
 const SOC = {timer:null, seen:new Set()};
 function socStart(){ clearInterval(SOC.timer); SOC.timer = setInterval(invitePoll, 12000); invitePoll(); }
 async function invitePoll(){
-  if(!ACCT.prof || !SB) return;
+  if(!ACCT.prof || !SB || par().noOnline) return;
   try{
     const {data, error} = await SB.rpc('invite_poll'); if(error) throw error;
     const inv = (data || []).find(x => !SOC.seen.has(x.id));
@@ -5156,9 +5257,10 @@ function socialHTML(m){
     if(Array.isArray(d)) body += d.length ? '<div class="slist">' + d.map(f => '<div class="srow2">' + avImg(f.avatar) +
         '<div class="sname"><b>' + escH(f.name) + '</b><small>' + (f.status === 'ok' ? (f.online ? '🟢 ອອນລາຍ' : '⚪ ອອບລາຍ') + (f.tier != null ? ' · ' + RANKS[f.tier][0] + ' ' + RANKS[f.tier][1] : '') : f.status === 'in' ? '📩 ຂໍເປັນໝູ່ກັບເຈົ້າ' : '⏳ ລໍຖ້າລາວຮັບ') + '</small></div>' +
         (f.status === 'in' ? '<button class="btn-main sm" data-a="fyes" data-v="' + f.id + '">✓ ຮັບ</button><button class="btn2 sm" data-a="fno" data-v="' + f.id + '">✕</button>'
-          : f.status === 'ok' ? '<button class="btn2 sm" data-a="fduel" data-v="' + f.id + '" data-n="' + escH(f.name) + '"' + (f.online ? '' : ' disabled') + '>⚔️ ທ້າ</button><button class="btn2 sm fdel" data-a="fdel" data-v="' + f.id + '" title="ລຶບໝູ່">🗑</button>'
+          : f.status === 'ok' ? '<button class="btn2 sm" data-a="fduel" data-v="' + f.id + '" data-n="' + escH(f.name) + '"' + (f.online ? '' : ' disabled') + '>⚔️ ທ້າ</button><button class="btn2 sm fdel" data-a="fdel" data-v="' + f.id + '" title="ລຶບໝູ່">🗑</button><button class="btn2 sm" data-a="pmore" data-v="' + f.id + '" data-n="' + escH(f.name) + '">⋯</button>'
           : '<button class="btn2 sm fdel" data-a="fdel" data-v="' + f.id + '" title="ຍົກເລີກ">✕</button>') + '</div>').join('') + '</div>'
       : '<p class="lore">ຍັງບໍ່ມີໝູ່ · ໃສ່ລະຫັດໝູ່ຂ້າງເທິງ</p>';
+    if((ACCT.blocks || []).length) body += '<p class="lore">🚫 ບລັອກແລ້ວ: ' + ACCT.blocks.map(b => '<button class="btn2 sm" data-a="punblock" data-v="' + b.id + '">' + escH(b.name) + ' ✕</button>').join(' ') + '</p>';
   } else if(m.tab === 'board'){
     body = '<div class="tabs soctabs sub">' + [['season', '🏆 ' + seasonInfo().name], ['week', '📅 ຊະນະແຣງ 7 ມື້']].map(([k, l]) => '<button class="' + (m.board === k ? 'on' : '') + '" data-a="socboard" data-v="' + k + '">' + l + '</button>').join('') + '</div>' + body;
     if(d && d.rows) body += (d.rows.length ? '<div class="slist">' + d.rows.map(r => '<div class="srow2' + (r.me ? ' me' : '') + '"><span class="spos">' + (r.pos <= 3 ? ['🥇', '🥈', '🥉'][r.pos - 1] : r.pos) + '</span>' + avImg(r.avatar) +
@@ -5166,7 +5268,7 @@ function socialHTML(m){
       '<p class="lore">' + (d.mine ? 'ເຈົ້າຢູ່ອັນດັບ ' + d.mine : 'ຫຼິ້ນແຣງ ເພື່ອຂຶ້ນຕາຕະລາງ') + '</p>';
   } else if(Array.isArray(d)){
     body += d.length ? '<div class="slist">' + d.map(g => '<div class="srow2"><span class="spos">' + (g.won ? '✅' : '❌') + '</span><div class="sname"><b>' + (g.won ? 'ຊະນະ' : 'ແພ້') + ' · ' + escH(g.opp || 'ໝູ່') + '</b><small>' +
-        (g.mode === 'ranked' ? '🏆 ແຣງ' : '🔍 ທຳມະດາ') + ' · ' + (g.turns || 0) + ' ຕາ' + (DECKS[g.deck] ? ' · ເດັກ ' + DECKS[g.deck].no : '') + ' · ' + laoDate(g.at) + '</small></div></div>').join('') + '</div>'
+        (g.mode === 'ranked' ? '🏆 ແຣງ' : '🔍 ທຳມະດາ') + ' · ' + (g.turns || 0) + ' ຕາ' + (DECKS[g.deck] ? ' · ເດັກ ' + DECKS[g.deck].no : '') + ' · ' + laoDate(g.at) + '</small></div>' + (g.oppId ? '<button class="btn2 sm" data-a="pmore" data-v="' + g.oppId + '" data-n="' + escH(g.opp || '') + '">⋯</button>' : '') + '</div>').join('') + '</div>'
       : '<p class="lore">ຍັງບໍ່ໄດ້ຫຼິ້ນອອນລາຍ</p>';
   }
   return '<p class="q">👥 ໝູ່ ແລະ ອັນດັບ</p>' + tabs + body + '<div class="mbtns"><button class="btn2" data-a="mmclose">ປິດ</button></div>';
@@ -5207,6 +5309,8 @@ $app.addEventListener('click', e => {
   const a = el.dataset.a, v = el.dataset.v;
   if(a === 'settings'){ ui.settingsOpen = true; render(); return; }
   if(a === 'setclose'){ ui.settingsOpen = false; render(); return; }
+  if(a === 'parent'){ gateOpen('parent'); return; }
+  if(a === 'admin'){ ui.settingsOpen = false; const m = {type:'admin', tab:'stats'}; ui.mmodal = m; adminLoad(m); return; }
   if(a === 'set'){ toggleSetting(v); render(); return; }
   if(a === 'theme'){ SET.theme = v; saveSet(); render(); return; }
   if(ui.settingsOpen) return;
@@ -5230,6 +5334,42 @@ $app.addEventListener('click', e => {
     if(a === 'resgo' && ui.mmodal && ui.mmodal.L){ resumeGo(ui.mmodal.L); return; }
     if(a === 'resdrop'){ liveClear(); ui.mmodal = null; render(); return; }
     if(a === 'social'){ socOpen('friends'); return; }
+    if(a === 'pmore'){ playerOpen(v, el.dataset.n, ui.mmodal); return; }
+    if(a === 'punblock'){ SB.rpc('block_set', {other:v, yes:false}).then(async () => { await blocksLoad(); toast('ປົດບລັອກແລ້ວ'); render(); }, () => toast('ບໍ່ສຳເລັດ')); return; }
+    if(ui.mmodal && ui.mmodal.type === 'player'){
+      const m = ui.mmodal, back = () => { ui.mmodal = m.back || null; if(ui.mmodal && ui.mmodal.type === 'social') socLoad(ui.mmodal); else render(); };
+      if(a === 'pblock'){ SB.rpc('block_set', {other:m.id, yes:!m.blocked}).then(async () => { await blocksLoad(); toast(m.blocked ? 'ປົດບລັອກແລ້ວ' : 'ບລັອກແລ້ວ'); back(); }, () => toast('ບໍ່ສຳເລັດ')); return; }
+      if(a === 'preport'){ m.step = 'report'; render(); return; }
+      if(a === 'pback'){ m.step = null; render(); return; }
+      if(a === 'prep'){ SB.rpc('report_add', {target:m.id, reason:v, rm:null}).then(({error}) => { toast(error ? 'ລາຍງານຫຼາຍເກີນມື້ນີ້' : 'ສົ່ງລາຍງານແລ້ວ ຂອບໃຈ'); back(); }); return; }
+      if(a === 'pclose'){ back(); return; }
+    }
+    if(ui.mmodal && ui.mmodal.type === 'gate' && a === 'gateok'){
+      const m = ui.mmodal, ans = +((document.getElementById('gatein') || {}).value || 0);
+      if(ans === m.a * m.b){ ui.mmodal = {type:m.next}; render(); } else { m.err = 'ບໍ່ຖືກ'; render(); }
+      return;
+    }
+    if(ui.mmodal && ui.mmodal.type === 'parent'){
+      if(a === 'parset'){
+        const P = par();
+        if(v === 'limit'){ const steps = [0, 30, 60, 90, 120]; P.limit = steps[(steps.indexOf(P.limit) + 1) % steps.length]; } else P[v] = !P[v];
+        SET.par = P; saveSet(); render(); return;
+      }
+      if(a === 'pardel'){ accountDelete(); return; }
+    }
+    if(ui.mmodal && ui.mmodal.type === 'admin'){
+      const m = ui.mmodal;
+      if(a === 'admtab'){ m.tab = v; m.data = null; adminLoad(m); return; }
+      if(a === 'admfind'){ m.q = ((document.getElementById('admq') || {}).value || '').trim(); adminLoad(m); return; }
+      if(a === 'admgem'){ const n = parseInt(prompt('ເພີ່ມເພັດ ຈັກເມັດ? (ລົບໄດ້ ເຊັ່ນ -100)', '1000'), 10); if(n) adminDo(() => SB.rpc('admin_gems', {target:v, n}), '💎 ' + (n > 0 ? '+' : '') + n); return; }
+      if(a === 'admcard'){ const id = (prompt('ລະຫັດກາດ (ເຊັ່ນ phayanak)') || '').trim(); if(!id) return; if(!C[id]){ toast('ບໍ່ມີກາດນີ້'); return; } const n = parseInt(prompt('ຈັກໃບ (0–3)?', '3'), 10); if(!isNaN(n)) adminDo(() => SB.rpc('admin_card', {target:v, card:id, copies:n}), '🃏 «' + C[id].name + '» ×' + n); return; }
+      if(a === 'admname'){ const nm = (prompt('ຊື່ໃໝ່ (3–16 ຕົວ)') || '').trim(); if(nm) adminDo(() => SB.rpc('admin_rename', {target:v, newname:nm}), 'ປ່ຽນຊື່ແລ້ວ'); return; }
+      if(a === 'admban'){ const on = el.dataset.b !== '1'; if(confirm(on ? 'ລະງັບຜູ້ຫຼິ້ນນີ້?' : 'ຍົກເລີກການລະງັບ?')) adminDo(() => SB.rpc('admin_ban', {target:v, yes:on}), on ? 'ລະງັບແລ້ວ' : 'ຍົກເລີກແລ້ວ'); return; }
+      if(a === 'admclose'){ adminDo(() => SB.rpc('admin_report_close', {target:v}), 'ປິດລາຍງານແລ້ວ'); return; }
+      if(a === 'admwadd'){ const w = ((document.getElementById('admw') || {}).value || '').trim(); if(w) adminDo(() => SB.rpc('admin_word', {w, yes:true}), 'ເພີ່ມຄຳຫ້າມແລ້ວ'); return; }
+      if(a === 'admwdel'){ adminDo(() => SB.rpc('admin_word', {w:v, yes:false}), 'ລຶບແລ້ວ'); return; }
+      if(a === 'admmult'){ adminDo(() => SB.rpc('admin_config', {k:'gem_mult', v}), v === '1' ? 'ປິດອີເວັ້ນແລ້ວ' : '🎉 ເປີດເພັດ x' + v).then(() => acctExtras()); return; }
+    }
     if(ui.mmodal && ui.mmodal.type === 'social'){
       const m = ui.mmodal;
       if(a === 'soctab'){ m.tab = v; m.data = null; socLoad(m); return; }
@@ -5347,6 +5487,9 @@ $app.addEventListener('click', e => {
   if(a === 'emo'){ ui.emo = !ui.emo; render(); return; }
   if(a === 'emosend'){ emoSend(+v); return; }
   if(a === 'emomute'){ ui.emoMute = !ui.emoMute; ui.emo = false; render(); return; }
+  if(a === 'emoplayer'){ ui.emo = false; const O = S.online, th = O.me === 'guest' ? O.host : O.guest; S.modal = {type:'pact', id:th.pid, name:S.p[1].name}; render(); return; }
+  if(a === 'pactblock' && S.modal && S.modal.type === 'pact'){ const md = S.modal; SB.rpc('block_set', {other:md.id, yes:true}).then(() => { ui.emoMute = true; blocksLoad(); toast('ບລັອກແລ້ວ · ປິດອີໂມຈິຂອງລາວ'); }, () => toast('ບໍ່ສຳເລັດ')); S.modal = null; render(); return; }
+  if(a === 'pactrep' && S.modal && S.modal.type === 'pact'){ const md = S.modal; SB.rpc('report_add', {target:md.id, reason:v, rm:S.online.room || NET.code}).then(() => toast('ສົ່ງລາຍງານແລ້ວ ຂອບໃຈ'), () => toast('ບໍ່ສຳເລັດ')); S.modal = null; render(); return; }
   if(a === 'info'){ S.modal = {type:'info', id:v}; render(); return; }
   if(a === 'grave'){ ui.grave = {side:+v, f:'all'}; render(); return; }
   if(a === 'extra'){ S.modal = {type:'extra', side:+v}; render(); return; }
