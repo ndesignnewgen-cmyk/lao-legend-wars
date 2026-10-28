@@ -1436,6 +1436,7 @@ body{background:
 .profhead{display:flex;align-items:center;gap:14px;text-align:left}.profhead b{display:block;font:800 22px var(--f-d)}.profhead small{color:var(--dim);font:700 13px var(--f-d)}
 .hav.big{width:72px;height:72px}
 .tabs button small{display:block;font:700 11px/1.2 var(--f-d);opacity:.75;max-width:8.5em;margin:1px auto 0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.tabs button b{font-weight:800}
+.rankcard{display:flex;flex-direction:column;gap:2px;align-items:center;background:#0006;border:2px solid #e2b54a;border-radius:14px;padding:10px 18px}.rankcard b{font:800 20px var(--f-d);color:#ffe48a}.rankcard small{font:700 12px var(--f-d);color:var(--dim)}
 .mmspin{font-size:44px;animation:mmspin 1.4s ease-in-out infinite}@keyframes mmspin{50%{transform:scale(1.18) rotate(-8deg)}}
 .tclock{margin-left:8px;font-variant-numeric:tabular-nums}.tclock.low{color:#c8312b;animation:tlow 1s steps(2) infinite}@keyframes tlow{50%{opacity:.45}}
 #netwarn{position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:90;display:flex;gap:10px;align-items:center;background:#1b1b1bee;color:#fff;border:2px solid #e2b54a;border-radius:999px;padding:8px 16px;font:700 14px var(--f-d);box-shadow:0 6px 18px #0008}
@@ -3019,7 +3020,7 @@ function gameOver(winner, reason){
   if(!S || S.over || !S.p.includes(winner)) return;   // a leftover step of a finished game must not end the next one
   if(S.sim){ S.over = {winner:pi(winner), reason}; return; }
   S.over = {winner:pi(winner), reason}; S.busy = false; S.targeting = null;
-  if(S.online){ liveClear(); netWarn(0); }
+  if(S.online){ liveClear(); netWarn(0); if(S.online.ranked && S.online.room && ACCT.eco) rankReport(S.over.winner, reason); }
   if(!S.auto){
     const won = S.over.winner === 0; sfx(won ? 'win' : 'lose'); if(won) fxConfetti(); botSay(won ? 'losegame' : 'win', true);
     if(!S.tut && !S.pvp && !S.online){ recordGame(won); if(ACCT.eco) ecoGameEnd(won); else { S.reward = gameGems(won); afterGame(won); } }
@@ -4099,7 +4100,7 @@ function modalHTML(){
     inner = '<div class="over ' + (win || S.pvp ? 'win' : 'lose') + '">' + (S.pvp ? S.p[S.over.winner].name + ' ຊະນະ!' : (win ? 'ເຈົ້າຊະນະ!' : (S.online ? 'ໝູ່ຊະນະ' : 'ບອດຊະນະ'))) + '</div><div style="width:min(200px,50vw)">' + cardHTML(S.p[S.over.winner].cover || DECKS[S.p[S.over.winner].di].legend) + '</div>' +
       '<p class="q">' + ({deck:'ເດັກໝົດ', quit:'ໝູ່ອອກຈາກເກມ', left:'ໝູ່ຫຼຸດການເຊື່ອມຕໍ່', dropped:'ເຈົ້າຂາດການເຊື່ອມຕໍ່ດົນເກີນ', afk:'ໝົດເວລາ 3 ຕາຕິດກັນ'}[S.over.reason] || 'ຂວັນເຫຼືອ 0') + ' · ຫຼິ້ນໄປ ' + Math.ceil(S.T / 2) + ' ຕາ</p>' +
       (S.reward ? '<p class="reward">💎 +' + S.reward.base + (S.reward.first ? ' <span>+' + S.reward.first + ' ຊະນະທຳອິດຂອງມື້</span>' : '') + (S.reward.capped ? ' <small>(ຮອດເພດານເພັດຂອງມື້ນີ້ແລ້ວ)</small>' : '') + '</p>' : '') +
-      (S.afterNote || '') + (S.advNote ? '<p class="reward">' + S.advNote + '</p>' : '') +
+      (S.afterNote || '') + (S.advNote ? '<p class="reward">' + S.advNote + '</p>' : '') + (S.rankNote ? '<p class="reward">' + S.rankNote + '</p>' : '') +
       (S.achGot && S.achGot.length ? '<div class="achnew">' + S.achGot.map(a => '<span>' + a.ic + ' ' + a.name + ' · 💎+' + a.g + '</span>').join('') + '</div>' : '') + petOverHTML(win) +
       '<div class="mbtns"><button class="btn-main sm" data-a="replay">ຫຼິ້ນອີກ</button><button class="btn2" data-a="menu">ປ່ຽນເດັກ</button></div>';
   }
@@ -4788,6 +4789,7 @@ function profHTML(m){
   }
   const cloud = ACCT.state === 'on' ? '☁️ ບັນທຶກແລ້ວ ' + agoText(ACCT.at) : ACCT.state === 'err' ? '⚠️ ຕໍ່ cloud ບໍ່ໄດ້ (ບັນທຶກໃນເຄື່ອງໄວ້ກ່ອນ)' : '☁️ ກຳລັງຕໍ່…';
   return '<div class="profhead"><span class="hav big fr-' + (c.frame || 'none') + '"><img src="' + PIC(C[P.avatar] ? C[P.avatar].img : C[DECKS[0].legend].img) + '" alt=""></span><div><b>' + escH(P.name) + '</b><small>⭐ ລະດັບ ' + levelOf(c.xp) + ' · 🏆 ' + Object.keys(c.ach || {}).length + '/' + ACH.length + '</small></div></div>' +
+    (ACCT.rank ? '<p class="lore">🏆 ແຣງ: ' + rankLine(ACCT.rank) + ' · ' + seasonInfo().name + '</p>' : '') +
     '<p class="lore">' + cloud + '</p>' +
     (mailOf() ? '<p class="lore">📧 ຜູກກັບ ' + escH(maskMail(mailOf())) + ' ແລ້ວ · ເຂົ້າຈາກເຄື່ອງອື່ນໄດ້</p>'
               : loadJ(RCODE_KEY, '') ? '<p class="lore">🔑 ມີລະຫັດກູ້ບັນຊີແລ້ວ · ໃຊ້ເຂົ້າຈາກເຄື່ອງອື່ນໄດ້</p>'
@@ -4899,7 +4901,7 @@ function onlineJoin(code){
 function onlineLobby(m){
   const mm = ui.mmodal;
   if(m.t === 'hello' && NET.me === 'host' && mm && mm.type === 'online' && mm.step === 'host'){
-    const O = {seed:Math.floor(Math.random() * 2 ** 31), host:mm.spec, guest:m.spec};
+    const O = {seed:Math.floor(Math.random() * 2 ** 31), host:mm.spec, guest:m.spec, room:NET.code, ranked:!!mm.ranked};
     NET.hello = {t:'start', from:'host', online:O}; NET.send(NET.hello); onlineStart(O, 'host');
   } else if(m.t === 'start' && NET.me === 'guest' && mm && mm.type === 'online') onlineStart(m.online, 'guest');
 }
@@ -4908,6 +4910,7 @@ function onlineStart(O, me){
   NET.heard = Date.now(); onlineClock();
   newGame(O.host.di, 1, {online:{...O, me}});   // the same arguments on both screens, so both build the same game
   liveSave();
+  if(O.ranked) log('🏆 ເກມແຣງ · ' + seasonInfo().name);
 }
 /* ---------- online play, part 2 (phase F3): the turn clock, a friend who drops out, picking a game back up, and emotes ----------
    The clock: each screen ends its own turn when TURN_SEC run out (three idle turns in a row lose the game), and its own
@@ -5007,12 +5010,15 @@ function emoShow(side, i){
 // ຊອກຄູ່ຫຼິ້ນ (phase F4, supabase/f4.sql): join the queue with your level, poll every 2 s; once paired, the one who
 // waited longer opens the room as host and the other joins it, then the game starts exactly like a room code game.
 const MM = {timer:null, watch:null};
-async function mmStart(){
+async function mmStart(mode){
+  mode = mode || 'casual';
   if(!ACCT.prof){ ui.mmodal = {type:'prof'}; render(); toast('ສ້າງຜູ້ຫຼິ້ນກ່ອນ ຈຶ່ງຊອກຄູ່ໄດ້'); return; }
+  const deck = mySpec().list;
+  if(mode === 'ranked'){ const why = rankDeckWhy(deck); if(why){ toast(why); return; } }
   mmStop(false);
-  ui.mmodal = {type:'online', step:'mm', at:Date.now(), n:1}; render();
-  try{ const {data, error} = await SB.rpc('mm_join', {lvl:levelOf(col().xp)}); if(error) throw error; mmGot(data); }
-  catch(e){ mmStop(true); ui.mmodal = {type:'online', step:'menu'}; render(); toast('ຊອກຄູ່ບໍ່ໄດ້ · ກວດອິນເຕີເນັດ'); window.__errs.push('mm: ' + (e && (e.code || e.message) || e)); return; }
+  ui.mmodal = {type:'online', step:'mm', at:Date.now(), n:1, mode}; render();
+  try{ const {data, error} = await SB.rpc('mm_join', {lvl:levelOf(col().xp), mode, deck:mode === 'ranked' ? deck : null}); if(error) throw error; mmGot(data); }
+  catch(e){ mmStop(true); ui.mmodal = {type:'online', step:'menu'}; render(); toast(e && e.code === 'P0007' ? 'ເດັກນີ້ໃຊ້ໃນໂໝດແຣງບໍ່ໄດ້' : 'ຊອກຄູ່ບໍ່ໄດ້ · ກວດອິນເຕີເນັດ'); window.__errs.push('mm: ' + (e && (e.code || e.message) || e)); return; }
   if(ui.mmodal && ui.mmodal.step === 'mm') MM.timer = setInterval(mmPoll, 2000);
 }
 async function mmPoll(){
@@ -5022,24 +5028,77 @@ async function mmPoll(){
 }
 function mmGot(d){
   const m = ui.mmodal; if(!m || m.type !== 'online' || m.step !== 'mm' || !d) return;
-  if(d.gone){ mmStart(); return; }
+  if(d.gone){ mmStart(m.mode); return; }
   if(!d.room){ m.n = d.waiting || 1; render(); return; }
   mmStop(true);   // paired: the queue row is no longer needed
   if(d.role === 'host'){
-    ui.mmodal = {type:'online', step:'conn', mm:true}; render();
-    netOpen(d.room, 'host').then(() => { ui.mmodal = {type:'online', step:'host', code:d.room, spec:mySpec(), mm:true}; render(); }).catch(netFail);
+    const ranked = d.mode === 'ranked';
+    ui.mmodal = {type:'online', step:'conn', mm:true, ranked}; render();
+    netOpen(d.room, 'host').then(() => { ui.mmodal = {type:'online', step:'host', code:d.room, spec:mySpec(), mm:true, ranked}; render(); }).catch(netFail);
   } else { onlineJoin(d.room); if(ui.mmodal) ui.mmodal.mm = true; }
   // the partner never showed up: search again
-  MM.watch = setTimeout(() => { const mm = ui.mmodal; if(!S && mm && mm.type === 'online' && mm.mm){ netClose(); toast('ຄູ່ຫາຍໄປ · ຊອກໃໝ່…'); mmStart(); } }, 20000);
+  MM.watch = setTimeout(() => { const mm = ui.mmodal; if(!S && mm && mm.type === 'online' && mm.mm){ netClose(); toast('ຄູ່ຫາຍໄປ · ຊອກໃໝ່…'); mmStart(d.mode); } }, 20000);
 }
 function mmStop(leave){
   clearInterval(MM.timer); MM.timer = null; clearTimeout(MM.watch); MM.watch = null;
   if(leave && SB && ACCT.user) SB.rpc('mm_leave').then(() => {}, () => {});
 }
+// ໂໝດແຣງ (phase F5, supabase/f5.sql): tiers of 3 stars, a hidden MMR for pairing, seasons of two months named after a
+// festival, owned cards only. A result counts once both screens report the same winner (rank_report); a screen left
+// alone settles it after 2 minutes (rank_settle).
+const RANKS = [['🌾', 'ຊາວນາ'], ['🗡️', 'ນັກຮົບ'], ['🛡️', 'ຂຸນ'], ['🐘', 'ພະຍາ'], ['🐉', 'ພະຍານາກ'], ['✨', 'ເທວະດາ'], ['👑', 'ຕຳນານ']];
+const RANK_SEASONS = ['', 'ບຸນຄູນເຂົ້າ', 'ບຸນປີໃໝ່', 'ບຸນບັ້ງໄຟ', 'ບຸນເຂົ້າພັນສາ', 'ບຸນອອກພັນສາ', 'ບຸນທາດຫຼວງ'];
+function seasonInfo(){
+  const d = new Date(), k = Math.ceil((d.getMonth() + 1) / 2), end = new Date(d.getFullYear(), 2 * k, 1);
+  return {name:'ລະດູ' + RANK_SEASONS[k], left:Math.max(1, Math.ceil((end - d) / 86400000))};
+}
+const rankLine = r => RANKS[r.tier][0] + ' ' + RANKS[r.tier][1] + ' ' + (r.tier >= 6 ? '★×' + r.stars : '★'.repeat(r.stars) + '☆'.repeat(3 - r.stars));
+async function rankLoad(){
+  if(!ACCT.eco) return;
+  try{
+    const {data, error} = await SB.rpc('rank_state'); if(error) throw error;
+    ACCT.rank = data;
+    if(data.reward){ toast('🏆 ລາງວັນລະດູກ່ອນ (' + RANKS[data.oldBest][1] + '): 💎 +' + data.reward); await ecoSync(); }
+    render();
+  }catch(e){ window.__errs.push('rank: ' + (e && (e.code || e.message) || e)); }
+}
+function rankCardHTML(){
+  const r = ACCT.rank, si = seasonInfo();
+  if(!ACCT.prof) return '<p class="lore">🏆 ໂໝດແຣງ: ສ້າງຜູ້ຫຼິ້ນກ່ອນ</p>';
+  return '<div class="rankcard"><b>' + (r ? rankLine(r) : '…') + '</b><small>' + si.name + ' · ເຫຼືອ ' + si.left + ' ມື້' + (r ? ' · ຊະນະ ' + r.wins + ' ແພ້ ' + r.losses : '') + '</small></div>';
+}
+// a ranked deck may only use cards you own
+function rankDeckWhy(list){
+  if(!ACCT.eco) return 'ໂໝດແຣງຕ້ອງຕໍ່ເຊີບເວີ';
+  const n = listTotal(list); if(n < RULE.min || n > RULE.max) return 'ເດັກຕ້ອງມີ ' + sizeLabel() + ' ໃບ';
+  const lack = Object.entries(list).find(([id, k]) => owned(id) < k);
+  return lack ? 'ເດັກນີ້ມີກາດທີ່ຍັງບໍ່ມີຄົບ: «' + C[lack[0]].name + '»' : '';
+}
+// the end of a ranked game: report it, then wait (in the background) until the server has both reports
+async function rankReport(winIdx, reason){
+  const G = S, O = S.online, me = O.me, other = me === 'host' ? 'guest' : 'host', winner = winIdx === 0 ? me : other;
+  const pl = me === 'host' ? S.p : [S.p[1], S.p[0]];
+  const sig = pl.map(p => [p.life, p.deck.length, p.hand.length, p.field.map(c => c.id).sort().join(','), p.grave.length].join('|')).join('/');
+  const rep = {winner, reason, sig, decks:{host:O.host.list, guest:O.guest.list}};
+  const show = t => { G.rankNote = t; if(S === G) render(); };
+  show('🏆 ກຳລັງບັນທຶກຜົນແຣງ…');
+  try{
+    let {data, error} = await SB.rpc('rank_report', {rm:O.room, rep}); if(error) throw error;
+    for(let i = 0; i < 18 && !data.result; i++){
+      show('🏆 ລໍຖ້າອີກເຄື່ອງລາຍງານຜົນ…');
+      await sleep(10000); ({data, error} = await SB.rpc('rank_settle', {rm:O.room})); if(error) throw error;
+    }
+    if(!data.result) return show('🏆 ຍັງບໍ່ມີຜົນແຣງ · ຈະນັບພາຍຫຼັງ');
+    const before = ACCT.rank; ACCT.rank = {...(ACCT.rank || {}), ...data.rank};
+    if(data.result === 'void') return show('⚠️ ຜົນສອງເຄື່ອງບໍ່ຕົງກັນ · ເກມນີ້ບໍ່ນັບແຣງ');
+    const up = before && data.rank.tier > before.tier;
+    show((data.result === data.side ? (up ? '🎉 ຂຶ້ນຂັ້ນ! ' : '⭐ +1 ດາວ · ') : '💔 ແພ້ · ') + rankLine(data.rank));
+  }catch(e){ show('⚠️ ບັນທຶກຜົນແຣງບໍ່ໄດ້'); window.__errs.push('rank report: ' + (e && (e.code || e.message) || e)); }
+}
 function mmHTML(m){
   const sec = Math.floor((Date.now() - m.at) / 1000);
-  return '<p class="q">🔍 ກຳລັງຊອກຄູ່ຫຼິ້ນ…</p><div class="mmspin">⚔️</div>' +
-    '<p class="lore">' + sec + ' ວິ · ຄົນກຳລັງຊອກ ' + m.n + ' ຄົນ · ຊອກຄົນທີ່ລະດັບໃກ້ກັບເຈົ້າກ່ອນ</p>' +
+  return '<p class="q">' + (m.mode === 'ranked' ? '🏆 ກຳລັງຊອກຄູ່ແຣງ…' : '🔍 ກຳລັງຊອກຄູ່ຫຼິ້ນ…') + '</p><div class="mmspin">⚔️</div>' +
+    '<p class="lore">' + sec + ' ວິ · ຄົນກຳລັງຊອກ ' + m.n + ' ຄົນ · ' + (m.mode === 'ranked' ? 'ຊອກຄົນທີ່ຝີມືໃກ້ກັນກ່ອນ' : 'ຊອກຄົນທີ່ລະດັບໃກ້ກັບເຈົ້າກ່ອນ') + '</p>' +
     '<div class="mbtns">' + (sec >= 40 ? '<button class="btn-main sm" data-a="mmbot">🤖 ຫຼິ້ນກັບບອດໄປກ່ອນ</button>' : '') + '<button class="btn2" data-a="mmcancel">ຍົກເລີກ</button></div>';
 }
 function onlineHTML(m){
@@ -5049,7 +5108,7 @@ function onlineHTML(m){
   if(m.step === 'host') return head + '<p class="lore">ບອກລະຫັດນີ້ໃຫ້ໝູ່ ແລ້ວລໍຖ້າ…</p><div class="roomcode">' + m.code + '</div><p class="lore">ໃຊ້ເດັກທີ່ເລືອກໄວ້ໃນໜ້າຫຼັກ</p><div class="mbtns"><button class="btn2" data-a="onclose">ຍົກເລີກ</button></div>';
   if(m.step === 'conn') return head + '<p class="lore">ກຳລັງຕໍ່ອິນເຕີເນັດ…</p>';
   if(m.step === 'wait') return head + '<p class="lore">ກຳລັງເຂົ້າຫ້ອງ ' + m.code + '…</p><div class="mbtns"><button class="btn2" data-a="onclose">ຍົກເລີກ</button></div>';
-  return head + '<div class="mbtns"><button class="btn-main sm" data-a="mmgo">🔍 ຊອກຄູ່ຫຼິ້ນ</button></div><p class="lore">ຫຼິ້ນກັບໝູ່ທີ່ຮູ້ຈັກ</p><div class="mbtns"><button class="btn2" data-a="onhost">🏠 ສ້າງຫ້ອງ</button></div><p class="lore">ຫຼື ໃສ່ລະຫັດຫ້ອງຂອງໝູ່</p>' +
+  return head + rankCardHTML() + '<div class="mbtns"><button class="btn-main sm" data-a="mmrank">🏆 ຫຼິ້ນແຣງ</button><button class="btn2" data-a="mmgo">🔍 ຫຼິ້ນທຳມະດາ</button></div><p class="lore">ແຣງ: ໃຊ້ແຕ່ກາດທີ່ມີແທ້ · ທຳມະດາ: ເດັກໃດກໍໄດ້ ບໍ່ເສຍແຣງ</p><p class="lore">ຫຼິ້ນກັບໝູ່ທີ່ຮູ້ຈັກ</p><div class="mbtns"><button class="btn2" data-a="onhost">🏠 ສ້າງຫ້ອງ</button></div><p class="lore">ຫຼື ໃສ່ລະຫັດຫ້ອງຂອງໝູ່</p>' +
     '<input id="roomin" class="roomin" maxlength="4" placeholder="ABCD" autocomplete="off"><div class="mbtns"><button class="btn2" data-a="onjoin">🚪 ເຂົ້າຫ້ອງ</button><button class="btn2" data-a="onclose">ປິດ</button></div>';
 }
 function closeModal(){ const r = S && S.modal && S.modal.resolve; if(S) S.modal = null; render(); if(r) r(); }
@@ -5100,8 +5159,9 @@ $app.addEventListener('click', e => {
       if(a === 'onhost'){ onlineHost(); return; }
       if(a === 'onjoin'){ onlineJoin((document.getElementById('roomin') || {}).value); return; }
       if(a === 'onclose'){ netClose(); mmStop(true); ui.mmodal = null; render(); return; }
-      if(a === 'mmgo'){ mmStart(); return; }
-      if(a === 'mmcancel'){ mmStop(true); ui.mmodal = {type:'online', step:'menu'}; render(); return; }
+      if(a === 'mmgo'){ mmStart('casual'); return; }
+      if(a === 'mmrank'){ mmStart('ranked'); return; }
+      if(a === 'mmcancel'){ mmStop(true); ui.mmodal = {type:'online', step:'menu'}; render(); rankLoad(); return; }
       if(a === 'mmbot'){ mmStop(true); ui.mmodal = null; startSelected(); return; }
     }
     if(a === 'advgo' && ui.mmodal && ui.mmodal.type === 'adv'){ advStart(+v); return; }
@@ -5145,7 +5205,7 @@ $app.addEventListener('click', e => {
     if(a === 'stats'){ ui.mmodal = {type:'stats'}; render(); return; }
     if(a === 'pet'){ ui.mmodal = {type:'pet'}; render(); return; }
     if(a === 'adv'){ ui.mmodal = {type:'adv'}; render(); return; }
-    if(a === 'online'){ ui.mmodal = {type:'online', step:'menu'}; render(); return; }
+    if(a === 'online'){ ui.mmodal = {type:'online', step:'menu'}; render(); rankLoad(); return; }
     if(a === 'ach'){ achCheck(); ui.mmodal = {type:'ach'}; render(); return; }
     if(a === 'tutstart'){ ui.screen = null; newGame(0, 0, {botDeck:1, first:0, tut:true}); return; }
     if(a === 'deck'){ ui.deck = v.startsWith('c:') ? v : +v; render(); }
@@ -5169,7 +5229,7 @@ $app.addEventListener('click', e => {
   if(a === 'passok' && S.modal && S.modal.type === 'pass'){ const r = S.modal.resolve; S.modal = null; render(); r(); return; }
   if(a === 'yes' || a === 'no'){ const r = S.modal.resolve; S.modal = null; render(); r(a === 'yes'); return; }
   if(a === 'discard'){ const r = S.modal.resolve; const h = S.p[0].hand.find(x => x.uid === +v); S.modal = null; render(); r(h); return; }
-  if(a === 'menu'){ if(S.online && !S.over){ netSend({t:'quit'}); const bye = NET.close; NET.close = null; netClose(); setTimeout(() => bye && bye(), 800); liveClear(); S = null; ui.grave = null; render(); return; } if(S.over || (S.turn === 0 && !S.busy)){ if(S.online) netClose(); S = null; ui.grave = null; render(); } return; }
+  if(a === 'menu'){ if(S.online && !S.over){ if(S.online.ranked && ACCT.eco) rankReport(1, 'quit'); netSend({t:'quit'}); const bye = NET.close; NET.close = null; netClose(); setTimeout(() => bye && bye(), 800); liveClear(); S = null; ui.grave = null; render(); return; } if(S.over || (S.turn === 0 && !S.busy)){ if(S.online) netClose(); S = null; ui.grave = null; render(); } return; }
   if(a === 'replay'){ if(S.online){ netClose(); S = null; ui.mmodal = {type:'online', step:'menu'}; render(); return; } if(S.pvp && typeof pvpReplay === 'function') pvpReplay(); else if(S.adv != null) advStart(S.adv); else startSelected(); return; }
   if(S.modal) return;
   if(S.targeting){
