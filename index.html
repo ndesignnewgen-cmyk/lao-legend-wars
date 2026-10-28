@@ -470,6 +470,89 @@ body{background:
 .show.alt .stint{background:radial-gradient(ellipse at 50% 38%,transparent 30%,#000d 100%),linear-gradient(0deg,#ff9ad5aa,#8fd0ff55 30%,transparent 50%)}
 @keyframes bandin{from{transform:scaleX(0);opacity:0}to{transform:none;opacity:1}}
 @keyframes showin{0%{opacity:0}5%{opacity:1}86%{opacity:1}100%{opacity:0}}
+/* G4 legend entrances: per-deck tint and name band, plus each legend's scene layers */
+.show .mx{position:absolute;pointer-events:none}
+.show[class*="mx-"] .stint{mix-blend-mode:normal}
+.show.mx-river .stint{background:radial-gradient(ellipse at 50% 38%,transparent 30%,#02203acc 100%),linear-gradient(0deg,#1d6fd0cc 0%,transparent 50%)}
+.show.mx-blood .stint{background:radial-gradient(ellipse at 50% 38%,transparent 25%,#2a0404dd 100%),linear-gradient(0deg,#c0261ccc 0%,transparent 55%)}
+.show.mx-gold .stint{background:radial-gradient(ellipse at 50% 38%,transparent 30%,#2a1a02cc 100%),linear-gradient(0deg,#f2b632aa 0%,transparent 50%)}
+.show.mx-storm .stint{background:radial-gradient(ellipse at 50% 45%,transparent 25%,#0a1830dd 100%),linear-gradient(0deg,#9fe0ff99 0%,transparent 50%)}
+.show.mx-war .stint{background:radial-gradient(ellipse at 50% 38%,transparent 30%,#2a1306cc 100%),linear-gradient(0deg,#c9a46acc 0%,transparent 55%)}
+.show.mx-lotus .stint{background:radial-gradient(ellipse at 50% 38%,transparent 30%,#3a0a2acc 100%),linear-gradient(0deg,#ff9ac8aa 0%,transparent 50%)}
+.show.mx-forest .stint{background:radial-gradient(ellipse at 50% 38%,transparent 30%,#0a2410cc 100%),linear-gradient(0deg,#3f8f3aaa 0%,transparent 50%)}
+.show.mx-ember .stint{background:radial-gradient(ellipse at 50% 40%,transparent 25%,#1a0602dd 100%),linear-gradient(0deg,#ff7a1acc 0%,transparent 55%)}
+.show.mx-neon .stint{background:radial-gradient(ellipse at 50% 40%,transparent 25%,#0a0222dd 100%),linear-gradient(0deg,#7a2cffaa 0%,transparent 50%)}
+.show.mx-stage .stint{background:radial-gradient(ellipse at 50% 30%,transparent 25%,#1a0618dd 100%),linear-gradient(0deg,#ff5fc8aa 0%,transparent 50%)}
+.show.mx-river .sband{--bandc:#1d6fd0}.show.mx-blood .sband{--bandc:#c0261c}.show.mx-gold .sband{--bandc:#b07a0c}.show.mx-storm .sband{--bandc:#2f63c4}
+.show.mx-war .sband{--bandc:#8a5a1a}.show.mx-lotus .sband{--bandc:#c8407a}.show.mx-forest .sband{--bandc:#2f7a2a}.show.mx-ember .sband{--bandc:#c25a0a}.show.mx-neon .sband{--bandc:#7a2cff}.show.mx-stage .sband{--bandc:#e0409f}
+.show[class*="mx-"] .sband{background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--bandc) 70%,#000) 18%,color-mix(in srgb,var(--bandc) 70%,#000) 82%,transparent);border-block:2px solid color-mix(in srgb,var(--bandc) 60%,#ffe48a)}
+/* ພະຍານາກ: a full moon rising */
+.show .mx-moon{right:9%;top:7%;width:min(22vmin,180px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 40% 38%,#fffbe8,#ffe9a8 55%,#e8c66a);box-shadow:0 0 50px #fff3b0,0 0 120px #ffe48a88;animation:mxmoon var(--dur) ease-out both}
+@keyframes mxmoon{0%{transform:translateY(60px) scale(.7);opacity:0}30%{opacity:1}100%{transform:none;opacity:1}}
+/* ຮາບມະນາສວນ: dark red heads fanned behind him */
+.show .scut.mxc{z-index:0;pointer-events:none}
+.show .scut.mx-heads img{display:block;width:100%;filter:brightness(.15) sepia(1) saturate(6) hue-rotate(-30deg) drop-shadow(0 0 14px #ff2a1a);opacity:.55}
+.show .scut.mx-heads{animation:mxheads var(--dur) cubic-bezier(.2,.8,.3,1) both}
+@keyframes mxheads{0%{transform:none;opacity:0}25%{opacity:1}100%{transform:translateX(calc(var(--i) * 13%)) translateY(calc((var(--i) * var(--i)) * 1.2%)) rotate(calc(var(--i) * 7deg)) scale(.92);opacity:.85}}
+/* ພະລາມ: golden arrows streaking across */
+.show .mx-arrow{left:-30%;top:var(--y);width:34%;height:4px;border-radius:4px;background:linear-gradient(90deg,transparent,#fff3b0 60%,#fff);box-shadow:0 0 12px #ffd23d,0 0 30px #ffd23d;
+  transform:rotate(-8deg);animation:mxarrow calc(var(--dur) * .45) calc(var(--k) * 140ms) cubic-bezier(.6,0,.4,1) both}
+.show .mx-arrow::after{content:"";position:absolute;right:-10px;top:-6px;border:8px solid transparent;border-left:14px solid #fff}
+@keyframes mxarrow{0%{transform:translateX(0) rotate(-8deg);opacity:0}15%{opacity:1}100%{transform:translateX(420%) rotate(-8deg);opacity:0}}
+/* ພະຍາແຖນ: storm clouds along the top and forked lightning */
+.show .mx-cloud{left:-10%;right:-10%;top:-8%;height:38%;background:radial-gradient(40% 60% at 20% 40%,#1c2a44ee,transparent 70%),radial-gradient(40% 60% at 55% 30%,#22324ff0,transparent 70%),radial-gradient(35% 60% at 85% 45%,#18243aee,transparent 70%);filter:blur(6px);animation:mxcloud var(--dur) ease-in-out both}
+@keyframes mxcloud{0%{transform:translateX(-4%);opacity:0}20%{opacity:1}100%{transform:translateX(4%);opacity:1}}
+.show .mx-bolt{left:var(--x);top:var(--y);transform:translateX(-50%);animation:mxbolt .5s ease-out forwards}
+.show .mx-bolt path{fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 6px #fff) drop-shadow(0 0 16px #9fe0ff)}
+@keyframes mxbolt{0%,40%{opacity:1}10%,30%{opacity:.3}100%{opacity:0}}
+/* ທ້າວຮຸ່ງ: war banners on both sides */
+.show .mx-flag{bottom:22%;width:min(16vmin,130px);height:min(34vmin,280px);background:linear-gradient(90deg,#3a1a06 0 6%,transparent 6%),linear-gradient(180deg,#e0302a,#a8140f);clip-path:polygon(6% 0,100% 4%,82% 50%,100% 96%,6% 100%);
+  transform-origin:0 50%;animation:mxflag .7s ease-in-out infinite alternate,mxflagin calc(var(--dur) * .25) ease-out both}
+.show .mx-flag.l{left:5%}.show .mx-flag.r{right:5%;transform:scaleX(-1)}
+@keyframes mxflag{from{filter:brightness(1)}to{filter:brightness(1.25)}}
+@keyframes mxflagin{from{opacity:0;translate:0 40px}to{opacity:1;translate:0 0}}
+/* ພຸດທະເສນ: a lotus opening behind him */
+.show .mx-lotus-bloom{left:50%;top:39%;width:calc(var(--gs) * 1.3);aspect-ratio:1;transform:translate(-50%,-50%)}
+.show .mx-lotus-bloom i{position:absolute;left:50%;bottom:50%;width:22%;height:46%;margin-left:-11%;border-radius:50% 50% 50% 50% / 70% 70% 30% 30%;transform-origin:50% 100%;
+  background:linear-gradient(0deg,#ff9ac8,#ffe3f0);box-shadow:0 0 18px #ffb6d9;opacity:.8;animation:mxpetal calc(var(--dur) * .5) ease-out both}
+.show .mx-lotus-bloom i:nth-child(1){--r:0deg}.show .mx-lotus-bloom i:nth-child(2){--r:45deg}.show .mx-lotus-bloom i:nth-child(3){--r:90deg}.show .mx-lotus-bloom i:nth-child(4){--r:135deg}
+.show .mx-lotus-bloom i:nth-child(5){--r:180deg}.show .mx-lotus-bloom i:nth-child(6){--r:225deg}.show .mx-lotus-bloom i:nth-child(7){--r:270deg}.show .mx-lotus-bloom i:nth-child(8){--r:315deg}
+@keyframes mxpetal{from{transform:rotate(var(--r)) scaleY(0)}to{transform:rotate(var(--r)) scaleY(1)}}
+/* ກາລະເກດ: spinning gold coins falling */
+.show .mx-coin{left:var(--x);top:-8%;width:min(5vmin,40px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff6c8,#ffd23d 45%,#b07a0c);box-shadow:inset 0 0 0 3px #e8a923,0 0 12px #ffd23d;
+  animation:mxcoin calc(var(--dur) * .8) var(--d) cubic-bezier(.4,0,.8,1) both}
+@keyframes mxcoin{0%{transform:translateY(0) rotateY(0);opacity:0}10%{opacity:1}100%{transform:translateY(110vh) rotateY(1080deg) translateX(calc(var(--r) * 60px));opacity:1}}
+/* ປູ່ເຍີ້ຍ່າເຍີ້: the two masks rising at the sides */
+.show .mx-mask{bottom:24%;font-size:min(18vmin,150px);filter:drop-shadow(0 6px 14px #000a);animation:mxmask calc(var(--dur) * .6) cubic-bezier(.2,1.3,.4,1) both}
+.show .mx-mask.l{left:6%}.show .mx-mask.r{right:6%;animation-delay:.15s}
+@keyframes mxmask{from{transform:translateY(60%) rotate(-12deg);opacity:0}to{transform:none;opacity:1}}
+/* ທ້າວກ່ຳກາດຳ: the crow form glows like charcoal and burns away, the golden prince appears in its place */
+.show.mx-reveal .scut:not(.mx-true) .sbr img{animation:mxcrow var(--dur) ease-in both}
+@keyframes mxcrow{0%{filter:drop-shadow(0 0 6px #ff7a1a)}30%{filter:brightness(1.4) sepia(.8) drop-shadow(0 0 20px #ff7a1a)}36%{filter:brightness(3) drop-shadow(0 0 40px #ffd23d);opacity:1}42%,100%{opacity:0}}
+.show .scut.mx-true{animation:mxtrue var(--dur) ease-out both}
+.show .scut.mx-true img{display:block;width:100%;filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0 22px #ffd23d)}
+@keyframes mxtrue{0%,34%{opacity:0;transform:scale(.9)}44%{opacity:1;transform:scale(1.06);filter:brightness(2.4)}60%,100%{opacity:1;transform:none;filter:none}}
+/* ສຸດທະໂຣ: the tide rising and falling */
+.show .mx-tide{left:-5%;right:-5%;bottom:-5%;height:42%;background:linear-gradient(180deg,#7cc6ff66,#1d6fd0cc 40%,#0a3a7add);border-radius:50% 50% 0 0 / 14% 14% 0 0;animation:mxtide var(--dur) ease-in-out both}
+@keyframes mxtide{0%{transform:translateY(100%)}40%{transform:translateY(8%)}70%{transform:translateY(14%)}100%{transform:translateY(60%)}}
+/* ນາກາ-X: neon grid floor and RGB-split glitches */
+.show .mx-grid{left:-50%;right:-50%;bottom:-10%;height:55%;transform:perspective(400px) rotateX(64deg);transform-origin:50% 100%;
+  background:repeating-linear-gradient(90deg,#1de9ff66 0 2px,transparent 2px 60px),repeating-linear-gradient(0deg,#ff2fb366 0 2px,transparent 2px 60px);animation:mxgrid 1s linear infinite;mask:linear-gradient(0deg,#000 40%,transparent)}
+@keyframes mxgrid{to{background-position:0 0,0 60px}}
+.show .scut.mx-glitch img{display:block;width:100%;mix-blend-mode:screen;opacity:.7}
+.show .scut.mx-glitch:nth-of-type(1) img{filter:drop-shadow(0 0 0 #1de9ff) hue-rotate(160deg)}
+.show .scut.mx-glitch{animation:mxglitch .9s steps(2) infinite}
+.show .scut.mx-glitch + .scut.mx-glitch{animation-delay:.2s}
+@keyframes mxglitch{0%,100%{translate:0 0;opacity:0}20%{translate:-8px 2px;opacity:.8}40%{translate:6px -3px;opacity:0}60%{translate:10px 0;opacity:.7}}
+.show .sbg.mx-glitchbg{animation:kbcut var(--dur) cubic-bezier(.2,.7,.3,1) forwards,mxhue 1.6s steps(4) infinite}
+@keyframes mxhue{to{filter:blur(7px) brightness(.5) saturate(1.6) hue-rotate(40deg)}}
+/* ກະຕ່າຍ: clever stars twinkling */
+.show .mx-twinkle{left:var(--x);top:var(--y);font-size:min(6vmin,44px);color:#fff3b0;text-shadow:0 0 10px #ffd23d,0 0 24px #fff;animation:mxtw .9s var(--d) ease-in-out infinite alternate both}
+@keyframes mxtw{from{transform:scale(.3) rotate(0);opacity:0}to{transform:scale(1) rotate(45deg);opacity:1}}
+/* ນາງແກ້ວ: stage spotlights sweeping */
+.show .mx-spot{top:-10%;width:40%;height:120%;transform-origin:50% 0;background:conic-gradient(from 165deg at 50% 0,transparent 0deg,#ffd6f0aa 12deg,#ffffffcc 15deg,#ffd6f0aa 18deg,transparent 30deg);mix-blend-mode:screen;animation:mxspot 1.4s ease-in-out infinite alternate}
+.show .mx-spot.l{left:-5%;--a:-18deg;--b:14deg}.show .mx-spot.r{right:-5%;--a:18deg;--b:-14deg}.show .mx-spot.m{left:30%;--a:-8deg;--b:8deg;animation-duration:1.1s}
+@keyframes mxspot{from{transform:rotate(var(--a))}to{transform:rotate(var(--b))}}
 /* cutout showcase: the character lifted out of its card art, alive in front of its own blurred scene */
 .show.cut .sbg{filter:blur(7px) brightness(.5) saturate(1.25);inset:-10%;animation:kbcut var(--dur) cubic-bezier(.2,.7,.3,1) forwards}
 @keyframes kbcut{from{transform:scale(1.04)}to{transform:scale(1.22) translateY(2%)}}
@@ -1978,7 +2061,7 @@ const PET_ART = true;            // art/pet-<id>-<1..3>.webp, cut out from the u
 const PET_LINES = {start:['ສູ້ໆ!', 'ພ້ອມແລ້ວ!', 'ໄປກັນເລີຍ!'], kill:['ເກັ່ງຫຼາຍ!', 'ວ້າວ!', 'ສຸດຍອດ!'], legend:['ຕຳນານມາແລ້ວ!', 'ແຮງຫຼາຍ!'],
   tale:['ນິທານຄົບແລ້ວ!', 'ມ່ວນຫຼາຍ!'], win:['ຊະນະແລ້ວ! 🎉', 'ເຮົາເກັ່ງທີ່ສຸດ!'], lose:['ບໍ່ເປັນຫຍັງ ເທື່ອໜ້າເອົາໃໝ່!', 'ສູ້ໃໝ່ເດີ້!']};
 // cutouts for the summon showcase (art/cut/<img>.webp), made with the macOS subject-lift; the subject's box as fractions [x, y, w, h]
-const CUTS = {'alt-hackxm':[0,0.119,0.874,0.862],'alt-hapkhanasouane':[0,0.023,0.997,0.939],'alt-kalaket':[0,0.009,0.995,0.951],'alt-kamkadam':[0.045,0,0.945,0.657],'alt-kangli':[0,0.015,0.961,0.896],'alt-khaendj':[0,0,0.929,0.811],'alt-kratai':[0.232,0.242,0.513,0.417],'alt-luksaolao':[0,0.03,0.753,0.777],'alt-maethap':[0,0.013,0.795,0.879],'alt-makaew':[0,0.021,0.942,0.772],'alt-mechyak':[0,0.038,0.995,0.96],'alt-nagax':[0,0,0.887,0.798],'alt-nangkaew':[0,0,0.958,0.826],'alt-ngaonam':[0.087,0.385,0.674,0.238],'alt-phadaeng':[0,0.009,0.934,0.77],'alt-phayanak':[0,0,0.958,0.679],'alt-phayathaen':[0,0.015,0.997,0.677],'alt-phralam':[0,0,0.997,0.999],'alt-phutthasen':[0,0.047,0.997,0.709],'alt-punyeu':[0,0.021,0.997,0.591],'alt-santhaman':[0,0,0.997,0.942],'alt-singkaew':[0,0.094,0.992,0.691],'alt-sinxay':[0,0,0.984,0.999],'alt-suttharo':[0.216,0,0.529,0.615],'alt-thaohung':[0,0,0.989,0.998],'alt-xangsuek':[0,0.013,0.945,0.768],hanuman:[0,0,0.987,0.69],hapkhanasouane:[0,0.015,0.997,0.621],hungxang:[0,0,0.9,0.642],kalaket:[0,0.023,0.976,0.619],kamkadam2:[0,0.011,0.632,0.553],khrut:[0,0,0.997,0.679],khunborom:[0.108,0.038,0.395,0.369],khurak:[0.039,0.009,0.942,0.472],kratai:[0.034,0.094,0.963,0.468],kumphan:[0.058,0.011,0.713,0.543],leader:[0,0.023,0.997,0.674],maethap:[0,0,0.997,0.615],mechyak:[0,0.011,0.987,0.632],nakjet:[0.008,0.002,0.974,0.519],nangkaew:[0,0,0.987,0.711],phangkhi:[0,0,0.868,0.536],phayakhom:[0,0,0.997,0.623],phayanak:[0,0,0.892,0.938],phayathaen:[0.121,0.013,0.797,0.494],phralam:[0.105,0,0.861,0.741],phutthasen:[0,0.023,0.966,0.64],punyeu:[0.061,0.036,0.853,0.553],sangkhanthewi:[0.15,0.008,0.847,0.551],sangpheuak:[0.153,0.077,0.624,0.447],singhimma:[0.082,0.011,0.824,0.586],sinxay:[0,0,0.997,0.742],sinxaysam:[0.013,0.021,0.971,0.589],songphi:[0.039,0.023,0.782,0.494],suttharo:[0.003,0,0.776,0.394],thaenlom:[0.005,0.023,0.842,0.496],thaentong:[0.013,0,0.913,0.555],thaohung:[0.168,0,0.445,0.525],thewadapon:[0,0,0.761,0.566],xangjaidi:[0.1,0.03,0.797,0.542],xangsuek:[0.037,0.011,0.913,0.617],yaknak:[0.005,0.011,0.863,0.521],yaksip:[0.005,0,0.882,0.591],yaksombat:[0.084,0,0.913,0.609]};
+const CUTS = {kamkadam:[0.234,0.028,0.584,0.528],'alt-hackxm':[0,0.119,0.874,0.862],'alt-hapkhanasouane':[0,0.023,0.997,0.939],'alt-kalaket':[0,0.009,0.995,0.951],'alt-kamkadam':[0.045,0,0.945,0.657],'alt-kangli':[0,0.015,0.961,0.896],'alt-khaendj':[0,0,0.929,0.811],'alt-kratai':[0.232,0.242,0.513,0.417],'alt-luksaolao':[0,0.03,0.753,0.777],'alt-maethap':[0,0.013,0.795,0.879],'alt-makaew':[0,0.021,0.942,0.772],'alt-mechyak':[0,0.038,0.995,0.96],'alt-nagax':[0,0,0.887,0.798],'alt-nangkaew':[0,0,0.958,0.826],'alt-ngaonam':[0.087,0.385,0.674,0.238],'alt-phadaeng':[0,0.009,0.934,0.77],'alt-phayanak':[0,0,0.958,0.679],'alt-phayathaen':[0,0.015,0.997,0.677],'alt-phralam':[0,0,0.997,0.999],'alt-phutthasen':[0,0.047,0.997,0.709],'alt-punyeu':[0,0.021,0.997,0.591],'alt-santhaman':[0,0,0.997,0.942],'alt-singkaew':[0,0.094,0.992,0.691],'alt-sinxay':[0,0,0.984,0.999],'alt-suttharo':[0.216,0,0.529,0.615],'alt-thaohung':[0,0,0.989,0.998],'alt-xangsuek':[0,0.013,0.945,0.768],hanuman:[0,0,0.987,0.69],hapkhanasouane:[0,0.015,0.997,0.621],hungxang:[0,0,0.9,0.642],kalaket:[0,0.023,0.976,0.619],kamkadam2:[0,0.011,0.632,0.553],khrut:[0,0,0.997,0.679],khunborom:[0.108,0.038,0.395,0.369],khurak:[0.039,0.009,0.942,0.472],kratai:[0.034,0.094,0.963,0.468],kumphan:[0.058,0.011,0.713,0.543],leader:[0,0.023,0.997,0.674],maethap:[0,0,0.997,0.615],mechyak:[0,0.011,0.987,0.632],nakjet:[0.008,0.002,0.974,0.519],nangkaew:[0,0,0.987,0.711],phangkhi:[0,0,0.868,0.536],phayakhom:[0,0,0.997,0.623],phayanak:[0,0,0.892,0.938],phayathaen:[0.121,0.013,0.797,0.494],phralam:[0.105,0,0.861,0.741],phutthasen:[0,0.023,0.966,0.64],punyeu:[0.061,0.036,0.853,0.553],sangkhanthewi:[0.15,0.008,0.847,0.551],sangpheuak:[0.153,0.077,0.624,0.447],singhimma:[0.082,0.011,0.824,0.586],sinxay:[0,0,0.997,0.742],sinxaysam:[0.013,0.021,0.971,0.589],songphi:[0.039,0.023,0.782,0.494],suttharo:[0.003,0,0.776,0.394],thaenlom:[0.005,0.023,0.842,0.496],thaentong:[0.013,0,0.913,0.555],thaohung:[0.168,0,0.445,0.525],thewadapon:[0,0,0.761,0.566],xangjaidi:[0.1,0.03,0.797,0.542],xangsuek:[0.037,0.011,0.913,0.617],yaknak:[0.005,0.011,0.863,0.521],yaksip:[0.005,0,0.882,0.591],yaksombat:[0.084,0,0.913,0.609]};
 function preloadCuts(ids){ for(const id of ids){ const d = C[id]; if(!d) continue; for(const im of [d.img, ALT[id]]) if(im && CUTS[im]) new Image().src = ART + 'cut/' + im + '.webp'; } }
 const ALT_CHANCE = location.hash === '#altall' ? 1 : .25;  // #altall makes every one alt, for showing the cards off
 
@@ -4453,6 +4536,71 @@ async function fxBanner(txt, bot){
 }
 const TRIBE_NAME = {naga:'ເຜົ່ານາກ', giant:'ເຜົ່າຍັກ', ghost:'ເຜົ່າຜີ', himma:'ເຜົ່າຫິມະພານ', hero:'ເຜົ່າວິລະບຸລຸດ', nakpat:'ເຜົ່ານັກປາດ', villager:'ເຜົ່າຊາວບ້ານ', thewada:'ເຜົ່າເທວະດາ', warrior:'ເຜົ່ານັກຮົບ', guardian:'ເຜົ່າຜູ້ປົກປັກ', cyborg:'ເຜົ່າໄຊບອກ', beast:'ເຜົ່າສັດປ່າ', idol:'ເຜົ່ານັກສະແດງ'};
 // full-screen reveal of the character art with a name band, for legends, big characters and alt-art cards
+/* ---------- G4: each legend's own entrance, layered into its showcase (removed with it, skipped with it) ---------- */
+// a layer inside the showcase element; tiny helpers so each legend below reads as a short recipe
+function mxLayer(el, cls, html, vars){ const d = document.createElement('div'); d.className = 'mx ' + cls; if(html) d.innerHTML = html; if(vars) for(const k in vars) d.style.setProperty(k, vars[k]); el.appendChild(d); return d; }
+function mxEvery(el, ms, n, fn){ let i = 0; const t = setInterval(() => { if(!el.isConnected || (n && i >= n)){ clearInterval(t); return; } fn(i++); }, ms * SET.speed); }
+function mxAt(el, ms, fn){ setTimeout(() => { if(el.isConnected) fn(); }, ms * SET.speed); }
+const MX_C = () => ({x:innerWidth / 2, y:innerHeight * .39});
+function mxClones(el, cut, n, cls){ if(!cut) return; const sc = el.querySelector('.scut'); if(!sc) return;
+  for(let i = 0; i < n; i++){ const g = document.createElement('div'); g.className = 'scut mxc ' + cls; g.style.setProperty('--i', i - (n - 1) / 2); g.style.setProperty('--n', n); g.innerHTML = '<img src="' + cut + '" alt="">'; sc.before(g); } }
+function mxBolt(el, x, y, h, col){ let d = 'M0 0', px = 0; for(let k = 1; k <= 7; k++){ px += (Math.random() - .5) * 60; d += ' L' + px.toFixed(0) + ' ' + (k * h / 7).toFixed(0); }
+  return mxLayer(el, 'mx-bolt', '<svg viewBox="-80 0 160 ' + h + '" width="160" height="' + h + '"><path d="' + d + '" stroke="' + (col || '#e8f6ff') + '"/></svg>', {'--x':x + 'px', '--y':y + 'px'}); }
+const LEGEND_FX = {
+  // ນ້ຳຂອງພຸ່ງ ແລະ ດວງເດືອນ
+  phayanak(el, fr){ el.classList.add('mx-river'); mxLayer(el, 'mx-moon'); const c = MX_C();
+    mxEvery(el, 40, 34, () => { for(let k = 0; k < 4; k++) emit({x:c.x + (Math.random() - .5) * fr.gs * .7, y:innerHeight + 10, vx:(Math.random() - .5) * 90, vy:-520 - Math.random() * 380, g:520, drag:.99, life:1.3, size:3 + Math.random() * 4, kind:'drop', color:pick(['#3aa0ff', '#bfe9ff', '#ffffff'])}); });
+    mxAt(el, 380, () => shockAt(c.x, c.y + fr.gs * .3, '#bfe9ff', fr.gs * .8)); },
+  // ເງົາສິບຫົວ ແລະ ແສງແດງ
+  hapkhanasouane(el, fr, pic, cut){ el.classList.add('mx-blood'); mxClones(el, cut, 6, 'mx-heads');
+    mxEvery(el, 60, 26, () => emit({x:Math.random() * innerWidth, y:innerHeight + 10, vx:(Math.random() - .5) * 40, vy:-160 - Math.random() * 160, g:-20, drag:.99, life:1.4, size:6 + Math.random() * 8, kind:'smoke', color:pick(['#7a0d0d', '#c0261c', '#2a0606'])})); },
+  // ລູກທະນູທອງ ແລະ ຂົນນົກຫິມະພານ
+  phralam(el){ el.classList.add('mx-gold'); for(let k = 0; k < 5; k++) mxLayer(el, 'mx-arrow', '', {'--k':k, '--y':(18 + k * 13) + '%'});
+    fxPetals(26, ['#ffffff', '#fff3b0', '#ffe48a', '#f2b632']); mxAt(el, 260, () => fxRays(innerWidth / 2, innerHeight * .39, '#ffe48a', 1600, 620)); },
+  // ຟ້າຜ່າ ແລະ ເມກພາຍຸ
+  phayathaen(el, fr){ el.classList.add('mx-storm'); mxLayer(el, 'mx-cloud'); const c = MX_C();
+    [120, 520, 900, 1350].forEach((t, k) => mxAt(el, t, () => { const x = k % 2 ? c.x + fr.gs * .55 : c.x - fr.gs * .5; mxBolt(el, x, 0, c.y + fr.gs * .1); flashScreen('#e6f6ff', .35); sfx('boom'); shockAt(x, c.y, '#9fe0ff', 120); })); },
+  // ຊ້າງເສິກ, ທຸງ ແລະ ຂີ້ຝຸ່ນ
+  thaohung(el, fr){ el.classList.add('mx-war'); mxLayer(el, 'mx-flag l'); mxLayer(el, 'mx-flag r'); const c = MX_C(), gy = c.y + fr.gs * .42;
+    mxEvery(el, 50, 30, () => { for(let k = 0; k < 3; k++) emit({x:c.x + (Math.random() - .5) * fr.gs * 1.4, y:gy, vx:(Math.random() - .5) * 180, vy:-40 - Math.random() * 60, g:-10, drag:.97, life:1.2, size:10 + Math.random() * 12, kind:'smoke', color:pick(['#c9a46a', '#a8834c', '#e2c79a'])}); });
+    [200, 700, 1200].forEach(t => mxAt(el, t, () => { sfx('hit'); shockAt(c.x, gy, '#f2b632', fr.gs * .7); })); },
+  // ດອກບົວ ແລະ ແສງເມດຕາ
+  phutthasen(el){ el.classList.add('mx-lotus'); mxLayer(el, 'mx-lotus-bloom', '<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>');
+    fxRays(innerWidth / 2, innerHeight * .39, '#ffd6ec', 2000, 640); fxPetals(30, ['#ff9ac8', '#ffd6ec', '#ffffff', '#ffb6d9']); },
+  // ສົມບັດ ເງິນຄຳລອຍ
+  kalaket(el){ el.classList.add('mx-gold'); for(let k = 0; k < 14; k++) mxLayer(el, 'mx-coin', '', {'--x':(4 + Math.random() * 92) + '%', '--d':(Math.random() * 900) + 'ms', '--r':(Math.random() * 2 - 1).toFixed(2)});
+    mxEvery(el, 70, 24, () => emit({x:Math.random() * innerWidth, y:-10, vx:(Math.random() - .5) * 40, vy:120 + Math.random() * 160, g:200, drag:.99, life:1.6, size:3 + Math.random() * 3, kind:'star', color:pick(['#ffe48a', '#ffd23d', '#ffffff'])})); },
+  // ໜ້າກາກ ແລະ ໃບໄມ້ຫຼວງພະບາງ
+  punyeu(el){ el.classList.add('mx-forest'); mxLayer(el, 'mx-mask l', '<span>👺</span>'); mxLayer(el, 'mx-mask r', '<span>👹</span>');
+    mxEvery(el, 50, 34, () => emit({x:-10 + Math.random() * 40, y:Math.random() * innerHeight * .7, vx:220 + Math.random() * 200, vy:30 + Math.random() * 60, g:30, drag:.99, life:2, size:6 + Math.random() * 5, kind:'leaf', color:pick(['#3f8f3a', '#7bc24a', '#c9e265', '#e2b54a'])})); },
+  // ຖ່ານໄຟ → ຮ່າງແທ້ທອງ
+  kamkadam(el){ el.classList.add('mx-ember', 'mx-reveal'); const c = MX_C(), c2 = CUTS.kamkadam2, sc = el.querySelector('.scut');
+    if(c2 && sc){ const f = cutFrame(c2), t = document.createElement('div'); t.className = 'scut mx-true';
+      t.style.cssText = '--cw:' + f.cw + 'px;--cx:' + f.cx + 'px;--cy:' + f.cy + 'px'; t.innerHTML = '<div class="sbr"><img src="' + ART + 'cut/kamkadam2.webp" alt=""></div>'; sc.after(t); }
+    mxEvery(el, 40, 40, () => { for(let k = 0; k < 3; k++) emit({x:c.x + (Math.random() - .5) * innerWidth * .6, y:innerHeight + 10, vx:(Math.random() - .5) * 60, vy:-180 - Math.random() * 220, g:-30, drag:.99, life:1.5, size:2 + Math.random() * 3, kind:'ember', color:pick(['#ff7a1a', '#ffb02e', '#ffd23d'])}); });
+    mxAt(el, 800, () => { flashScreen('#fff1c4', .45); fxRays(c.x, c.y, '#ffd23d', 1300, 600); burstAt(c.x, c.y, 'hero', 40, 1.1); }); },
+  // ນ້ຳຂຶ້ນ ແລະ ພະຍານາກ
+  suttharo(el, fr){ el.classList.add('mx-river'); mxLayer(el, 'mx-tide'); const c = MX_C();
+    mxAt(el, 500, () => fxYantra(c.x, c.y, fr.gs * 1.05, '#9fe0ff', 1600));
+    mxEvery(el, 60, 24, () => emit({x:Math.random() * innerWidth, y:innerHeight * .78, vx:(Math.random() - .5) * 60, vy:-160 - Math.random() * 120, g:420, drag:.99, life:1, size:3 + Math.random() * 3, kind:'drop', color:pick(['#3aa0ff', '#bfe9ff', '#ffffff'])})); },
+  // ນີອອນ, ກຣິດ ແລະ ກລິດຈ໌
+  nagax(el, fr, pic, cut){ el.classList.add('mx-neon'); mxLayer(el, 'mx-grid'); mxClones(el, cut, 2, 'mx-glitch'); el.querySelector('.sbg') && el.querySelector('.sbg').classList.add('mx-glitchbg');
+    mxEvery(el, 45, 36, () => emit({x:Math.random() * innerWidth, y:Math.random() * innerHeight * .8, vx:0, vy:-40, g:0, drag:1, life:.5, size:2 + Math.random() * 2, kind:'spark', color:pick(['#1de9ff', '#ff2fb3', '#ffffff'])})); },
+  // ດາວສະຫຼາດ ແລະ ສັດປ່າ
+  kratai(el, fr){ el.classList.add('mx-forest'); const c = MX_C();
+    for(let k = 0; k < 9; k++) mxLayer(el, 'mx-twinkle', '✦', {'--x':(8 + Math.random() * 84) + '%', '--y':(6 + Math.random() * 50) + '%', '--d':(Math.random() * 1200) + 'ms'});
+    mxAt(el, 300, () => { for(let k = 0; k < 30; k++){ const a = Math.random() * 6.283; emit({x:c.x, y:c.y - fr.gs * .3, vx:Math.cos(a) * 260, vy:Math.sin(a) * 260, g:60, drag:.94, life:1.2, size:4 + Math.random() * 3, kind:'star', color:pick(['#ffe48a', '#ffffff', '#9fe0ff'])}); } });
+    mxEvery(el, 80, 20, () => emit({x:Math.random() * innerWidth, y:innerHeight + 10, vx:(Math.random() - .5) * 80, vy:-140 - Math.random() * 120, g:40, drag:.99, life:1.8, size:6 + Math.random() * 4, kind:'leaf', color:pick(['#3f8f3a', '#7bc24a', '#c9e265'])})); },
+  // ໄຟເວທີ ແລະ ແສງສີບົວ
+  nangkaew(el){ el.classList.add('mx-stage'); mxLayer(el, 'mx-spot l'); mxLayer(el, 'mx-spot r'); mxLayer(el, 'mx-spot m');
+    fxPetals(24, ['#ff7ad9', '#ffb3e6', '#ffd23d', '#ffffff']); mxAt(el, 400, () => { sfx('legend'); rainbowBurst(innerWidth / 2, innerHeight * .2, 60); }); }
+};
+// frame a lifted character: fit its box into the upper part of the screen, above the name band
+function cutFrame(cut){
+  const W = innerWidth, H = innerHeight, bw = cut[2] * 760, bh = cut[3] * 1060;
+  const k = Math.min(H * .56 / bh, W * .84 / bw, 3), cw = 760 * k;
+  return {cw, cx:W / 2 - (cut[0] + cut[2] / 2) * cw, cy:H * .39 - (cut[1] + cut[3] / 2) * 1060 * k, gs:Math.max(bw, bh) * k * 1.25};
+}
 async function fxShowcase(id, alt){
   if(S.fast) return; const d = C[id], T = TFX[d.tribe] || TFX.hero, legend = !!d.legend;
   const dur = (legend ? 2300 : 1500) * SET.speed;
@@ -4461,10 +4609,7 @@ async function fxShowcase(id, alt){
   const label = (alt && ALT[id] ? '✦ ອາດພິເສດ · ' : '') + (legend ? 'ກາດຕຳນານ · ' : '') + TRIBE_NAME[d.tribe] + ' · ບຸນ ' + d.cost;
   let body = '<div class="sbg" style="background-image:url(' + img + ')"></div><div class="stint"></div>', fr = null;
   if(cut){
-    // frame the lifted character: fit its box into the upper part of the screen, above the name band
-    const W = innerWidth, H = innerHeight, bw = cut[2] * 760, bh = cut[3] * 1060;
-    const k = Math.min(H * .56 / bh, W * .84 / bw, 3), cw = 760 * k;
-    fr = {cw, cx:W / 2 - (cut[0] + cut[2] / 2) * cw, cy:H * .39 - (cut[1] + cut[3] / 2) * 1060 * k, gs:Math.max(bw, bh) * k * 1.25};
+    fr = cutFrame(cut);
     const cu = ART + 'cut/' + im + '.webp';
     body += '<div class="sglow"></div><div class="sring"></div><div class="scut"><div class="sbr" style="--ci:url(' + cu + ')"><img src="' + cu + '" alt=""><i class="sshine"></i></div></div>';
   }
@@ -4474,6 +4619,7 @@ async function fxShowcase(id, alt){
   if(fr){ el.style.setProperty('--cw', fr.cw + 'px'); el.style.setProperty('--cx', fr.cx + 'px'); el.style.setProperty('--cy', fr.cy + 'px');
     el.style.setProperty('--gx', innerWidth / 2 + 'px'); el.style.setProperty('--gy', innerHeight * .39 + 'px'); el.style.setProperty('--gs', fr.gs + 'px'); }
   flashScreen('#ffffff', legend ? .9 : .5);
+  if(legend && LEGEND_FX[id]) LEGEND_FX[id](el, fr || {gs:Math.min(innerWidth, innerHeight) * .6}, PIC(im), cut ? ART + 'cut/' + im + '.webp' : null, dur);
   // aura rising from the bottom edge in the tribe colour; with a cutout, embers also lift off the character
   const iv = setInterval(() => {
     for(let i = 0; i < (legend ? 6 : 3); i++) emit({x:Math.random() * innerWidth, y:innerHeight + 10, vx:(Math.random() - .5) * 40, vy:-220 - Math.random() * 260, g:-40, drag:.99, life:1.1, size:3 + Math.random() * 5, kind:'dot', color:pick(T.c)});
@@ -5846,7 +5992,7 @@ $app.addEventListener('contextmenu', e => {
 
 /* ---------- self-test: bot vs bot, no animation ---------- */
 // local dev only: poke at live game state from the console
-if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__dbg = {fx:{motif:(id, x, y) => fxFuseMotif(id, {x:x || innerWidth / 2, y:y || innerHeight / 2}), cutin:(f) => fxFuseCutin(C[f].fusion, f), rite:(i, id) => { const p = S.p[i || 0]; return fxRite(p, id || 'phitibangfai', p.field.slice(0, 3)); }, rays:fxRays, yantra:fxYantra, orb:fxOrb, petals:fxPetals, burst:burstAt, big:fxBig, wait:fxWait, get state(){ return FX; }},get S(){ return S; }, get net(){ return NET; }, render: () => render(), C, win: i => gameOver(S.p[i], 'life'),
+if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__dbg = {fx:{show:(id, alt) => fxShowcase(id, alt), motif:(id, x, y) => fxFuseMotif(id, {x:x || innerWidth / 2, y:y || innerHeight / 2}), cutin:(f) => fxFuseCutin(C[f].fusion, f), rite:(i, id) => { const p = S.p[i || 0]; return fxRite(p, id || 'phitibangfai', p.field.slice(0, 3)); }, rays:fxRays, yantra:fxYantra, orb:fxOrb, petals:fxPetals, burst:burstAt, big:fxBig, wait:fxWait, get state(){ return FX; }},get S(){ return S; }, get net(){ return NET; }, render: () => render(), C, win: i => gameOver(S.p[i], 'life'),
   // play one move for the local side the way a person would (sends it online), answering any open question with a default
   step: async () => { const m = S.modal; if(m && m.resolve){ S.modal = null; m.resolve(m.type === 'mull' ? [] : m.type === 'rite' ? m.opts[0] : m.type === 'discard' ? S.p[0].hand[0] : false); return 'answered ' + m.type; }
     if(S.over || S.turn !== 0 || S.busy) return 'wait'; const p = S.p[0], q = S.p[1];
