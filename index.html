@@ -928,7 +928,7 @@ body{background:
 /* desktop and tablets: in your bar the plate sits above your four slots, so the hand gets the whole middle */
 @media (min-width:761px) and (min-height:561px){
   .arena.v7 .sbar.me{grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"plate fan tools" "slots fan tools";row-gap:6px;align-items:end}
-  .arena.v7 .sbar.me .lplate{grid-area:plate;align-self:end;max-width:calc(var(--sw) * 4 + 18px + 24px);min-width:calc(var(--sw) * 4 + 18px)}.arena.v7 .sbar.me .slots{grid-area:slots;align-self:start}
+  .arena.v7 .sbar.me .lplate{grid-area:plate;align-self:end;max-width:calc(var(--sw) * 5 + 24px + 24px);min-width:calc(var(--sw) * 5 + 24px)}.arena.v7 .sbar.me .slots{grid-area:slots;align-self:start}
   .arena.v7 .sbar.me .fan{grid-area:fan}.arena.v7 .sbar.me .tools{grid-area:tools;align-self:center}
 }
 /* the panel's content: big card, live state, the skill, a glossary of its keywords and the lore */
@@ -984,7 +984,7 @@ body{background:
 @media (max-width:760px){
   .arena.v7{padding:4px 6px}
   .arena.v7 .mat7{padding:6px;gap:4px;border-radius:14px}
-  .arena.v7 .sbar{--sw:clamp(26px,8.2vw,40px);grid-template-columns:minmax(0,1fr) auto;gap:6px}
+  .arena.v7 .sbar{--sw:clamp(24px,6.9vw,40px);grid-template-columns:minmax(0,1fr) auto;gap:6px}
   .arena.v7 .sbar.opp .ofan{display:none}
   .arena.v7 .sbar.me{grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"plate slots tools" "fan fan fan";row-gap:4px}
   .arena.v7 .sbar.me .lplate{grid-area:plate}.arena.v7 .sbar.me .slots{grid-area:slots}.arena.v7 .sbar.me .tools{grid-area:tools}.arena.v7 .sbar.me .fan{grid-area:fan}
@@ -1022,6 +1022,27 @@ body{background:
 .arena:is(.v6,.v7) .half2 .slot{container-type:size}
 .arena:is(.v6,.v7) .half2 .slot .card,.arena:is(.v6,.v7) .half2 .slot .cback{position:absolute;inset:auto;left:50%;top:50%;width:min(100cqw,calc(100cqh * .716));height:auto;transform:translate(-50%,-50%)}
 .arena:is(.v6,.v7) .slot.dk{cursor:pointer}
+/* ກອງພິເສດ slot: emerald-gold dashed edge, glows when a fusion or a rite is ready */
+.arena.v7 .sbar .slot.ex{cursor:pointer;border-color:#2fd08a99;background:repeating-linear-gradient(45deg,#2fd08a1a 0 6px,transparent 6px 12px)}
+.arena.v7 .sbar .slot.ex .card{opacity:.92}
+.arena.v7 .sbar .slot.ex.ready{animation:exglow 1.2s ease-in-out infinite alternate}
+@keyframes exglow{from{box-shadow:0 0 0 2px #2fd08a,0 0 8px #2fd08a}to{box-shadow:0 0 0 3px #ffe48a,0 0 22px #2fd08a}}
+.arena.v7 .sbar .slot.ex:hover{transform:scale(1.05);z-index:4}
+.edmode{display:flex;gap:6px;margin:8px 0 2px}
+.edmode button{flex:1;padding:8px 10px;border-radius:12px;border:1.5px solid #ffffff2a;background:#ffffff0c;color:var(--ink);font:800 13px var(--f-d);cursor:pointer}
+.edmode button.on{border-color:var(--gold);background:#f2b63226;color:#fff}
+.tchip.edt{display:inline-flex;align-items:center;gap:4px;border-left:4px solid var(--tcol,#fff)}
+.tchip.edt svg{width:15px;height:15px;flex:none}
+.tchip.edt b{color:#ffe48a;font-weight:800}
+.edex{display:flex;flex-wrap:wrap;gap:5px;align-items:center;margin:2px 0 6px}
+.edex b{width:100%;font:800 12px var(--f-d);color:var(--dim)}
+.edex button{border:0;border-radius:99px;padding:3px 10px;font:700 11.5px var(--f-d);color:#fff;cursor:pointer}
+.edex button.fu{background:linear-gradient(90deg,#0f8a6a,#2fd08a)}.edex button.ri{background:linear-gradient(90deg,#3f86d6,#7cc6ff)}
+.exgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;width:100%}
+.exi{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
+.exi .hc{width:min(150px,38vw);cursor:pointer}
+.exi .exn{margin:0;font:700 12.5px/1.6 var(--f-d);color:var(--ink)}
+.exi .exs{margin:0;font:700 12px var(--f-d);color:var(--dim)}.exi .exs.ok{color:#4fd18b}
 .arena:is(.v6,.v7) .slot.gy{cursor:pointer;transition:transform .15s}
 .arena:is(.v6,.v7) .slot.gy:hover{transform:scale(1.05);z-index:4}
 .arena:is(.v6,.v7) .slot.gy:hover,.arena:is(.v6,.v7) .slot.gy:focus-visible{outline:3px solid #f2b632;outline-offset:2px}
@@ -1319,6 +1340,13 @@ body{background:
 .freebar b{flex:1}
 /* ---------- decks 11-12: traps, shield, idol frame and fans ---------- */
 .card.trap{--edge:linear-gradient(160deg,#9b59d0,#5b2a86 55%,#3a1660);--tag:#6b3fb0}
+/* special cards get their own frames: fusion is emerald with a gold rim, ritual is pearl and sky blue with candle gold */
+.card.fusion{--edge:linear-gradient(150deg,#ffe48a,#2fd08a 18%,#0f8a6a 52%,#075a46 80%,#ffe48a);--tag:#0f8a6a;box-shadow:0 0 0 1px #ffe48aaa,0 0 16px #2fd08a77,0 6px 16px #0009}
+.card.ritual{--edge:linear-gradient(150deg,#fff8e0,#d8f0ff 22%,#7cc6ff 52%,#3f86d6 78%,#ffe7a3);--tag:#3f86d6;box-shadow:0 0 0 1px #fff3c8cc,0 0 16px #ffd98a88,0 6px 16px #0009}
+.card .xtype{position:absolute;left:50%;top:2.2%;transform:translateX(-50%);z-index:3;white-space:nowrap;font:800 6.2cqw/1.4 var(--f-d);color:#fff;padding:0 3.5cqw;border-radius:99px;
+  box-shadow:0 0 0 .6cqw #fff8,0 1cqw 2cqw #0006}
+.card.fusion .xtype{background:linear-gradient(90deg,#0f8a6a,#2fd08a);text-shadow:0 1px 0 #074a3a}
+.card.ritual .xtype{background:linear-gradient(90deg,#3f86d6,#7cc6ff);text-shadow:0 1px 0 #1d4f8a}
 .card.idf{--edge:linear-gradient(150deg,#ffb3e6,#ff5fc8 40%,#ffd23d 75%,#ffb3e6);--tag:#e0409f;box-shadow:0 0 0 1px #ffd1f0aa,0 0 14px #ff7ad966,0 6px 16px #0009}
 .card.idf.legend{--edge:linear-gradient(150deg,#fff3b0,#ff7ad9 35%,#ffd23d 65%,#fff3b0)}
 .slot.trapslot .trapl{position:absolute;left:50%;bottom:4px;transform:translateX(-50%);z-index:3;background:#6b3fb0;color:#fff;font:800 10px/1 var(--f-d);padding:4px 7px;border-radius:999px;white-space:nowrap;box-shadow:0 0 0 1.5px #fff8}
@@ -1897,6 +1925,12 @@ const COL_KEY = 'lao-legend-collection';
 const STARTERS = [0, 4, 2];   // DECKS index of deck 1 (ສາຍນ້ຳ), deck 4 (ທ້າວຮຸ່ງ), deck 3 (ພະລາມ)
 const NEUTRAL = new Set(Object.keys(C).filter(id => C[id].tribe === 'villager' || ['baci','khaoniao','phukkhaen','tikong','faphaa','satnam','haingeun','lowai','wao','katip','thonghai','talatsao','khonephapheng'].includes(id)));
 const RULE = {size:30, copies:3, legend:1, neutral:6, tribes:3};
+// ໂໝດອິດສະຫຼະ: 30–40 cards, up to 3 different legends (one copy each), any tribes and any number of neutral cards. For games against the bot and between two players; the adventure keeps the standard rules
+const FREE = {min:30, max:40, copies:3, legend:3};
+const isFree = mode => mode === 'free';
+const sizeOK = (n, mode) => isFree(mode) ? n >= FREE.min && n <= FREE.max : n === RULE.size;
+const sizeLabel = mode => isFree(mode) ? FREE.min + '–' + FREE.max : String(RULE.size);
+const legendCount = list => Object.keys(list).filter(x => C[x].legend).reduce((a, x) => a + list[x], 0);
 const rarityOf = id => C[id].legend ? 'legend' : (C[id].cost >= 5 ? 'rare' : 'common');
 const RARITY_NAME = {common:'ສາມັນ', rare:'ຫາຍາກ', legend:'ຕຳນານ', alt:'✦ ອາດພິເສດ'};
 const today = () => new Date().toLocaleDateString('en-CA');
@@ -1920,23 +1954,25 @@ const deckOwned = list => Object.entries(list).every(([id, n]) => owned(id) >= n
 const ownedOf = list => Object.entries(list).reduce((a, [id, n]) => a + Math.min(n, owned(id)), 0);
 function deckTribes(list){ const t = new Set(); for(const id in list) if(C[id].type === 'char' && C[id].tribe !== 'villager') t.add(C[id].tribe); return t; }
 // why this card cannot go in (null = it can)
-function addBlock(list, id){
-  const d = C[id], n = list[id] || 0;
+function addBlock(list, id, mode){
+  const d = C[id], n = list[id] || 0, free = isFree(mode);
   if(owned(id) <= n) return owned(id) ? 'ມີ «' + d.name + '» ພຽງ ' + owned(id) + ' ໃບ' : 'ຍັງບໍ່ມີກາດ «' + d.name + '»';
   if(n >= RULE.copies) return 'ຊື່ດຽວກັນໃສ່ໄດ້ບໍ່ເກີນ ' + RULE.copies + ' ໃບ';
-  if(listTotal(list) >= RULE.size) return 'ເດັກເຕັມ ' + RULE.size + ' ໃບແລ້ວ';
-  if(d.legend && Object.keys(list).some(x => C[x].legend)) return 'ກາດຕຳນານໄດ້ແຕ່ 1 ໃບ';
+  if(listTotal(list) >= (free ? FREE.max : RULE.size)) return 'ເດັກເຕັມ ' + (free ? FREE.max : RULE.size) + ' ໃບແລ້ວ';
+  if(d.legend && free && n >= 1) return 'ກາດຕຳນານ ໃສ່ໄດ້ແບບລະ 1 ໃບ';
+  if(d.legend && legendCount(list) >= (free ? FREE.legend : RULE.legend)) return free ? 'ກາດຕຳນານໄດ້ບໍ່ເກີນ ' + FREE.legend + ' ແບບ' : 'ກາດຕຳນານໄດ້ແຕ່ 1 ໃບ';
+  if(free) return null;
   if(NEUTRAL.has(id) && Object.keys(list).filter(x => NEUTRAL.has(x)).reduce((a, x) => a + list[x], 0) >= RULE.neutral) return 'ກາດກາງໄດ້ບໍ່ເກີນ ' + RULE.neutral + ' ໃບ';
   if(d.type === 'char' && d.tribe !== 'villager'){ const t = deckTribes(list); if(!t.has(d.tribe) && t.size >= RULE.tribes) return 'ຕົວລະຄອນໄດ້ບໍ່ເກີນ ' + RULE.tribes + ' ເຜົ່າ'; }
   return null;
 }
-function deckIssues(list){
-  const out = [], tot = listTotal(list);
-  for(const [id, n] of Object.entries(list)){ if(n > owned(id)) out.push('ມີ «' + C[id].name + '» ພຽງ ' + owned(id) + ' ໃບ'); if(n > RULE.copies) out.push('«' + C[id].name + '» ເກີນ ' + RULE.copies + ' ໃບ'); }
-  if(tot !== RULE.size) out.push(tot < RULE.size ? 'ຂາດອີກ ' + (RULE.size - tot) + ' ໃບ' : 'ເກີນ ' + (tot - RULE.size) + ' ໃບ');
-  if(Object.keys(list).filter(x => C[x].legend).reduce((a, x) => a + list[x], 0) > RULE.legend) out.push('ກາດຕຳນານໄດ້ແຕ່ 1 ໃບ');
-  if(Object.keys(list).filter(x => NEUTRAL.has(x)).reduce((a, x) => a + list[x], 0) > RULE.neutral) out.push('ກາດກາງໄດ້ບໍ່ເກີນ ' + RULE.neutral + ' ໃບ');
-  if(deckTribes(list).size > RULE.tribes) out.push('ຕົວລະຄອນໄດ້ບໍ່ເກີນ ' + RULE.tribes + ' ເຜົ່າ');
+function deckIssues(list, mode){
+  const out = [], tot = listTotal(list), free = isFree(mode);
+  for(const [id, n] of Object.entries(list)){ if(n > owned(id)) out.push('ມີ «' + C[id].name + '» ພຽງ ' + owned(id) + ' ໃບ'); if(n > RULE.copies) out.push('«' + C[id].name + '» ເກີນ ' + RULE.copies + ' ໃບ'); if(free && C[id].legend && n > 1) out.push('ກາດຕຳນານ «' + C[id].name + '» ໄດ້ແຕ່ 1 ໃບ'); }
+  if(!sizeOK(tot, mode)){ const lo = free ? FREE.min : RULE.size, hi = free ? FREE.max : RULE.size; out.push(tot < lo ? 'ຂາດອີກ ' + (lo - tot) + ' ໃບ' : 'ເກີນ ' + (tot - hi) + ' ໃບ'); }
+  if(legendCount(list) > (free ? FREE.legend : RULE.legend)) out.push(free ? 'ກາດຕຳນານໄດ້ບໍ່ເກີນ ' + FREE.legend + ' ແບບ' : 'ກາດຕຳນານໄດ້ແຕ່ 1 ໃບ');
+  if(!free && Object.keys(list).filter(x => NEUTRAL.has(x)).reduce((a, x) => a + list[x], 0) > RULE.neutral) out.push('ກາດກາງໄດ້ບໍ່ເກີນ ' + RULE.neutral + ' ໃບ');
+  if(!free && deckTribes(list).size > RULE.tribes) out.push('ຕົວລະຄອນໄດ້ບໍ່ເກີນ ' + RULE.tribes + ' ເຜົ່າ');
   return out;
 }
 // the built deck that shares the most cards: it lends the bot style, the talk lines and the stats slot
@@ -1949,12 +1985,13 @@ function coverOf(list){
   const ids = Object.keys(list); const lg = ids.find(id => C[id].legend);
   return lg || (ids.length ? maxBy(ids, id => (C[id].type === 'char' ? 10 : 0) + C[id].cost) : DECKS[0].legend);
 }
+function testDraw(list){ const pool = []; for(const [id, n] of Object.entries(list)) for(let i = 0; i < n; i++) pool.push(id); return shuffle(pool).slice(0, 5); }
 function costCurve(list){ const c = [0,0,0,0,0,0,0,0]; for(const [id, n] of Object.entries(list)) c[Math.min(7, C[id].cost)] += n; return c; }
 // fill the empty slots with owned cards that fit the deck: same built deck first, then same tribes, then a smooth cost curve
-function autoFill(list){
-  let guard = 0;
-  while(listTotal(list) < RULE.size && guard++ < 120){
-    const cands = Object.keys(C).filter(id => !addBlock(list, id)); if(!cands.length) break;
+function autoFill(list, mode){
+  let guard = 0; const goal = isFree(mode) ? Math.max(FREE.min, Math.min(FREE.max, listTotal(list))) : RULE.size;
+  while(listTotal(list) < goal && guard++ < 120){
+    const cands = Object.keys(C).filter(id => !addBlock(list, id, mode)); if(!cands.length) break;
     const base = DECKS[baseDeckOf(list)].list, t = deckTribes(list), cv = costCurve(list), want = [0,2,5,5,5,4,3,4];
     const id = maxBy(cands, x => (base[x] ? 5 : 0) + (t.has(C[x].tribe) ? 3 : 0) + (NEUTRAL.has(x) ? .5 : 0) + (want[Math.min(7, C[x].cost)] - cv[Math.min(7, C[x].cost)]) * .6 + Math.random());
     list[id] = (list[id] || 0) + 1;
@@ -1962,10 +1999,10 @@ function autoFill(list){
   return list;
 }
 // short text code so a deck can be shared with a friend
-function deckCode(list){ return 'LLW1.' + btoa(Object.entries(list).map(([id, n]) => id + (n > 1 ? '*' + n : '')).join(',')).replace(/=+$/, ''); }
+function deckCode(list, mode){ return (isFree(mode) ? 'LLW1F.' : 'LLW1.') + btoa(Object.entries(list).map(([id, n]) => id + (n > 1 ? '*' + n : '')).join(',')).replace(/=+$/, ''); }
 function readCode(code){
   try{
-    const raw = atob(String(code).trim().replace(/^LLW1\./, '')), list = {};
+    const raw = atob(String(code).trim().replace(/^LLW1F?\./, '')), list = {};
     for(const part of raw.split(',')){ const [id, n] = part.split('*'); if(!C[id]) return null; list[id] = Math.max(1, Math.min(RULE.copies, +n || 1)); }
     return listTotal(list) ? list : null;
   }catch(e){ return null; }
@@ -2172,7 +2209,7 @@ function mkPlayer(name, di, bot, level, list){
   const deck = [];
   for(const [id, n] of Object.entries(list || DECKS[di].list)) for(let i=0;i<n;i++) deck.push(id);
   shuffle(deck);
-  return {name, bot, di, level, life:20, maxMana:0, mana:0, penalty:0, deck, hand:[], field:[], loc:null, grave:[], tales:talesOf(list || DECKS[di].list), extra:fusionsOf(list || DECKS[di].list), fused:[]};
+  return {name, bot, di, level, life:20, maxMana:0, mana:0, penalty:0, deck, hand:[], field:[], loc:null, grave:[], tales:talesOf(list || DECKS[di].list), extra:fusionsOf(list || DECKS[di].list), rites:Object.keys(RITES).filter(r => (list || DECKS[di].list)[r]), fused:[]};
 }
 // keep every picture of both decks in memory, so re-drawing the board never shows a blank card
 const IMG_KEEP = new Map();
@@ -3360,10 +3397,11 @@ function fmtSkill(t){
   return s.replace(/\u0001(\d+)\u0002/g, (m, i) => bits[+i]);
 }
 function cardHTML(id, cs, alt, pv, form){
-  const d = C[id]; const isAlt = !!(alt && ALT[id]); const cls = (d.legend ? 'legend' : (d.type === 'char' ? 'hero' : 'spell')) + (isAlt ? ' alt' : '') + (d.cy ? ' cy' : '') + (d.idf ? ' idf' : '') + (d.type === 'trap' ? ' trap' : '');
+  const d = C[id]; const isAlt = !!(alt && ALT[id]); const cls = (d.legend ? 'legend' : (d.type === 'char' ? 'hero' : 'spell')) + (isAlt ? ' alt' : '') + (d.cy ? ' cy' : '') + (d.idf ? ' idf' : '') + (d.type === 'trap' ? ' trap' : '') + (d.fusion ? ' fusion' : '') + (d.ritual || RITES[id] ? ' ritual' : '');
   const cost = cs != null ? cs : d.cost;
   return '<div class="card ' + cls + '"><div class="face"><div class="art">' + (d.ph && !isAlt ? '<span class="phart">' + d.ph + '<small>ຮູບກຳລັງມາ</small></span>' : '<img src="' + ART + (isAlt ? ALT[id] : (form && d.tf && d.tf.img) || d.img) + '.jpg" alt=""' + (S ? '' : ' loading="lazy"') + '>') + '</div>' + (isAlt ? '<span class="altbadge">✦ ອາດພິເສດ</span>' : '') +
     '<div class="cost"><span class="lbl">ບຸນ</span><span class="num">' + cost + '</span></div>' +
+    (d.fusion ? '<span class="xtype">🤝 ຮ່ວມຮ່າງ</span>' : d.ritual ? '<span class="xtype">🕯️ ກາດພິທີ</span>' : RITES[id] ? '<span class="xtype">🕯️ ຄາຖາພິທີ</span>' : '') +
     '<div class="sym">' + SYM[d.type === 'char' ? d.tribe : 'spell'] + '</div>' +
     '<div class="panel"><span class="tag">' + d.tag + '</span><p class="skill">' + fmtSkill(d.skill) + '</p></div>' +
     '<div class="bottom">' + (d.type === 'char' ? '<div class="power"><span class="lbl">ພະລັງ</span><span class="num' + (pv == null || pv === d.power ? '' : (pv > d.power ? ' up' : ' down')) + '">' + (pv == null ? d.power : pv) + '</span></div>' : '') +
@@ -3384,7 +3422,7 @@ function walletHTML(cls){
 function selInfo(sel){
   if(typeof sel === 'string'){
     const d = col().decks.find(x => 'c:' + x.id === sel);
-    if(d){ const iss = deckIssues(d.list); return {name:d.name, cover:coverOf(d.list), sub:iss.length ? '⚠️ ' + iss[0] : 'ເດັກຂອງຂ້ອຍ' + (d.p ? ' · ຊະນະ ' + (d.w || 0) + '/' + d.p : ''), locked:iss.length > 0}; }
+    if(d){ const iss = deckIssues(d.list, d.mode); return {name:d.name, cover:coverOf(d.list), sub:iss.length ? '⚠️ ' + iss[0] : 'ເດັກຂອງຂ້ອຍ' + (d.p ? ' · ຊະນະ ' + (d.w || 0) + '/' + d.p : ''), locked:iss.length > 0}; }
     sel = 0;
   }
   const d = DECKS[sel] || DECKS[0], ok = deckOwned(d.list);
@@ -3413,7 +3451,7 @@ function menuHTML(){
 function deckPickHTML(){
   const c = col(), sel = ui.deck;
   const tile = (key, cover, name, sub, lk) => '<button class="dpk' + (key === String(sel) ? ' on' : '') + (lk ? ' lk' : '') + '" data-a="pickdeck" data-v="' + key + '"><span class="dpc">' + boxHTML(/^\d+$/.test(key) ? +key : key, cover, name) + '</span><b>' + escH(name) + '</b><small>' + sub + '</small></button>';
-  const mine = c.decks.map(d => { const iss = deckIssues(d.list); return tile('c:' + d.id, coverOf(d.list), d.name, iss.length ? '⚠️ ' + iss[0] : '30 ໃບ · ພ້ອມຫຼິ້ນ', iss.length); }).join('');
+  const mine = c.decks.map(d => { const iss = deckIssues(d.list, d.mode); return tile('c:' + d.id, coverOf(d.list), d.name, iss.length ? '⚠️ ' + iss[0] : (isFree(d.mode) ? '🌀 ອິດສະຫຼະ · ' : '') + listTotal(d.list) + ' ໃບ · ພ້ອມຫຼິ້ນ', iss.length); }).join('');
   const built = DORDER.map(i => { const d = DECKS[i], ok = deckOwned(d.list); return tile(String(i), d.legend, 'ເດັກ ' + d.no + ' · ' + d.name, ok ? (STARTERS.includes(i) ? '⭐ ເລີ່ມຕົ້ນ · ' : '') + d.style : '🔒 ' + ownedOf(d.list) + '/30', !ok); }).join('');
   return '<p class="q">ເລືອກເດັກ</p>' + (mine ? '<p class="subh2">ເດັກຂອງຂ້ອຍ</p><div class="dpick">' + mine + '</div>' : '') +
     '<p class="subh2">ເດັກສຳເລັດຮູບ</p><div class="dpick">' + built + '</div>' +
@@ -3422,7 +3460,7 @@ function deckPickHTML(){
 // any built deck (even locked ones, it's a local game between friends) and your finished decks
 function pvpChoices(){
   return DORDER.map(i => ({k:'b' + i, name:'ເດັກ ' + DECKS[i].no + ' · ' + DECKS[i].name, cover:DECKS[i].legend}))
-    .concat(col().decks.filter(d => !deckIssues(d.list).length).map(d => ({k:'c' + d.id, name:d.name, cover:coverOf(d.list)})));
+    .concat(col().decks.filter(d => !deckIssues(d.list, d.mode).length).map(d => ({k:'c' + d.id, name:d.name, cover:coverOf(d.list)})));
 }
 function pvpSpec(k){
   if(k[0] === 'c'){ const d = col().decks.find(x => x.id === k.slice(1)); if(d) return {di:baseDeckOf(d.list), list:{...d.list}, cover:coverOf(d.list)}; }
@@ -3438,7 +3476,8 @@ function startSelected(extra){
   const s = ui.deck, ex = extra || {}, lv = ex.level != null ? ex.level : ui.level;
   if(typeof s === 'string'){
     const d = col().decks.find(x => 'c:' + x.id === s); if(!d){ ui.deck = 0; return startSelected(); }
-    const iss = deckIssues(d.list); if(iss.length){ S = null; ui.screen = null; render(); toast('«' + d.name + '»: ' + iss[0]); return; }
+    const iss = deckIssues(d.list, d.mode); if(iss.length){ S = null; ui.screen = null; render(); toast('«' + d.name + '»: ' + iss[0]); return; }
+    if(ex.adv != null && isFree(d.mode)){ S = null; ui.screen = null; render(); toast('ຜະຈົນໄພ ໃຊ້ໄດ້ແຕ່ເດັກມາດຕະຖານ · ປ່ຽນເດັກ ຫຼື ປ່ຽນໂໝດກ່ອນ'); return; }
     newGame(baseDeckOf(d.list), lv, {...ex, list:{...d.list}, cover:coverOf(d.list), cdeck:d.id}); return;
   }
   if(!deckOwned(DECKS[s].list)){ S = null; ui.screen = null; render(); toast('ເດັກນີ້ຍັງລັອກ: ມີກາດ ' + ownedOf(DECKS[s].list) + '/30'); return; }
@@ -3446,12 +3485,12 @@ function startSelected(extra){
 }
 
 /* ---------- deck builder ---------- */
-function openEditor(cid, list, name){ ui.ed = {cid, list:{...list}, name:name || 'ເດັກຂອງຂ້ອຍ ' + (col().decks.length + 1), del:false}; ui.bf = ui.bf || {tab:'all', cost:0, own:false, q:''}; ui.sheet = false; ui.screen = 'builder'; render(); }
+function openEditor(cid, list, name, mode){ ui.ed = {cid, list:{...list}, name:name || 'ເດັກຂອງຂ້ອຍ ' + (col().decks.length + 1), mode:mode === 'free' ? 'free' : 'std', del:false}; ui.bf = ui.bf || {tab:'all', cost:0, own:false, q:''}; ui.sheet = false; ui.screen = 'builder'; render(); }
 function saveEditor(){
   const e = ui.ed, c = col(), name = (e.name || '').trim().slice(0, 24) || 'ເດັກຂອງຂ້ອຍ';
-  if(e.cid){ const d = c.decks.find(x => x.id === e.cid); if(d){ d.name = name; d.list = {...e.list}; saveCol(); return e.cid; } }
+  if(e.cid){ const d = c.decks.find(x => x.id === e.cid); if(d){ d.name = name; d.list = {...e.list}; d.mode = e.mode; saveCol(); return e.cid; } }
   if(c.decks.length >= 10){ toast('ບັນທຶກໄດ້ສູງສຸດ 10 ເດັກ'); return null; }
-  e.cid = Date.now().toString(36); c.decks.push({id:e.cid, name, list:{...e.list}, p:0, w:0}); saveCol(); return e.cid;
+  e.cid = Date.now().toString(36); c.decks.push({id:e.cid, name, list:{...e.list}, mode:e.mode, p:0, w:0}); saveCol(); return e.cid;
 }
 function edPool(){
   const f = ui.bf, q = (f.q || '').trim(), list = ui.ed.list;
@@ -3459,22 +3498,26 @@ function edPool(){
   if(f.cost) ids = ids.filter(id => f.cost === 7 ? C[id].cost >= 7 : C[id].cost === f.cost);
   if(f.own) ids = ids.filter(id => owned(id));
   if(q) ids = ids.filter(id => C[id].name.includes(q));
-  return ids.map(id => { const o = owned(id), n = list[id] || 0, why = addBlock(list, id);
+  return ids.map(id => { const o = owned(id), n = list[id] || 0, why = addBlock(list, id, ui.ed.mode);
     return '<div class="pc' + (o ? '' : ' nown') + (n ? ' ind' : '') + (why && o ? ' full' : '') + '" role="button" tabindex="0" data-a="edadd" data-v="' + id + '" title="' + escH(why || 'ແຕະເພື່ອໃສ່ເດັກ') + '">' + cardHTML(id) +
       '<span class="cnt3">' + (o ? n + '/' + o : '🔒') + '</span><button class="pi" data-a="edinfo" data-v="' + id + '" aria-label="ເບິ່ງກາດ ' + C[id].name + '">i</button></div>'; }).join('') || '<p class="empty">ບໍ່ພົບກາດ</p>';
 }
 function edPanel(){
-  const e = ui.ed, list = e.list, tot = listTotal(list), iss = deckIssues(list), cv = costCurve(list), mx = Math.max(4, ...cv);
+  const e = ui.ed, list = e.list, tot = listTotal(list), iss = deckIssues(list, e.mode), cv = costCurve(list), mx = Math.max(4, ...cv);
   const rows = Object.keys(list).sort((a, b) => C[a].cost - C[b].cost || C[a].name.localeCompare(C[b].name)).map(id =>
     '<div class="drow ' + rarityOf(id) + '"><span class="dc">' + C[id].cost + '</span><button class="dn" data-a="edinfo" data-v="' + id + '">' + C[id].name + '</button><b>×' + list[id] + '</b><button class="dm" data-a="edrem" data-v="' + id + '" aria-label="ເອົາ ' + C[id].name + ' ອອກ">−</button></div>').join('');
-  const tribes = [...deckTribes(list)].map(t => '<span class="tchip">' + TRIBE_NAME[t] + '</span>').join('');
-  return '<div class="dtop"><input id="edname" maxlength="24" value="' + escH(e.name) + '" aria-label="ຊື່ເດັກ"><span class="dcount ' + (tot === RULE.size ? 'ok' : '') + '">' + tot + '/' + RULE.size + '</span></div>' +
+  // how many characters of each tribe, biggest first
+  const tc = {}; for(const [id, n] of Object.entries(list)) if(C[id].type === 'char') tc[C[id].tribe] = (tc[C[id].tribe] || 0) + n;
+  const tribes = Object.entries(tc).sort((a, b) => b[1] - a[1]).map(([t, n]) => '<span class="tchip edt" style="--tcol:' + (TC[t] || '#fff') + '">' + SYM[t] + TRIBE_NAME[t] + ' <b>×' + n + '</b></span>').join('');
+  const ex = fusionsOf(list).concat(Object.keys(RITES).filter(r => list[r]).flatMap(r => RITES[r].opts));
+  return '<div class="dtop"><input id="edname" maxlength="24" value="' + escH(e.name) + '" aria-label="ຊື່ເດັກ"><span class="dcount ' + (sizeOK(tot, e.mode) ? 'ok' : '') + '">' + tot + '/' + sizeLabel(e.mode) + '</span></div>' +
     '<div class="curve" aria-label="ກຣາຟບຸນ">' + cv.map((n, i) => '<div><b>' + (n || '') + '</b><i style="height:' + Math.round(n / mx * 100) + '%"></i><small>' + (i === 7 ? '7+' : i) + '</small></div>').join('') + '</div>' +
-    '<div class="tchips">' + (tribes || '<span class="hint2">ເຜົ່າໃນເດັກ ຈະສະແດງຢູ່ນີ້ (ສູງສຸດ 3)</span>') + '</div>' +
+    '<div class="tchips">' + (tribes || '<span class="hint2">ເຜົ່າໃນເດັກ ຈະສະແດງຢູ່ນີ້' + (isFree(e.mode) ? '' : ' (ສູງສຸດ 3)') + '</span>') + '</div>' +
+    (ex.length ? '<div class="edex"><b>✨ ກອງພິເສດ ' + ex.length + ' ໃບ</b>' + ex.map(id => '<button class="' + (C[id].fusion ? 'fu' : 'ri') + '" data-a="edinfo" data-v="' + id + '">' + (C[id].fusion ? '🤝 ' : '🕯️ ') + C[id].name + '</button>').join('') + '</div>' : '') +
     (iss.length ? '<ul class="issues">' + iss.slice(0, 3).map(x => '<li>' + x + '</li>').join('') + '</ul>' : '<p class="okmsg">✅ ເດັກພ້ອມຫຼິ້ນແລ້ວ</p>') +
     '<div class="drows">' + (rows || '<p class="empty">ແຕະກາດ ເພື່ອໃສ່ເດັກ</p>') + '</div>' +
     '<div class="dbtns"><button class="btn-main sm" data-a="edplay"' + (iss.length ? ' disabled' : '') + '>⚔️ ຫຼິ້ນດ້ວຍເດັກນີ້</button>' +
-      '<button class="btn2" data-a="edsave">💾 ບັນທຶກ</button><button class="btn2" data-a="edauto">✨ ເຕີມໃຫ້ເອງ</button><button class="btn2" data-a="edclear">ລ້າງ</button><button class="btn2" data-a="edcode">🔗 ລະຫັດເດັກ</button>' +
+      '<button class="btn2" data-a="edsave">💾 ບັນທຶກ</button><button class="btn2" data-a="edauto">✨ ເຕີມໃຫ້ເອງ</button><button class="btn2" data-a="eddraw">🎴 ຈົ່ວລອງ</button><button class="btn2" data-a="edclear">ລ້າງ</button><button class="btn2" data-a="edcode">🔗 ລະຫັດເດັກ</button>' +
       (e.cid ? '<button class="btn2 danger" data-a="eddel">' + (e.del ? 'ກົດອີກເທື່ອ ເພື່ອລຶບ' : '🗑 ລຶບເດັກ') + '</button>' : '') + '</div>';
 }
 function builderHTML(){
@@ -3484,13 +3527,14 @@ function builderHTML(){
     '<div class="bwrap"><section class="bpool"><div class="bfil"><div class="tabs">' + tabs.map(([k, l]) => '<button class="' + ((f.tab || 'all') === k ? 'on' : '') + '" data-a="edtab" data-v="' + k + '">' + l + '</button>').join('') + '</div>' +
     '<div class="costs">' + [0,1,2,3,4,5,6,7].map(n => '<button class="' + ((f.cost || 0) === n ? 'on' : '') + '" data-a="edcost" data-v="' + n + '">' + (n === 0 ? 'ບຸນທັງໝົດ' : n === 7 ? '7+' : n) + '</button>').join('') +
     '<label class="own"><input type="checkbox" id="edown"' + (f.own ? ' checked' : '') + '> ສະເພາະທີ່ມີ</label><input id="edq" type="search" placeholder="ຊອກຊື່ກາດ…" value="' + escH(f.q || '') + '" aria-label="ຊອກຊື່ກາດ"></div>' +
-    '<p class="rules">ກົດ: 30 ໃບ · ຊື່ດຽວກັນບໍ່ເກີນ 3 · ຕຳນານ 1 ໃບ · ກາດກາງບໍ່ເກີນ 6 · ບໍ່ເກີນ 3 ເຜົ່າ</p></div>' +
+    '<div class="edmode" role="group" aria-label="ໂໝດເດັກ"><button class="' + (isFree(ui.ed.mode) ? '' : 'on') + '" data-a="edmode" data-v="std">📏 ມາດຕະຖານ</button><button class="' + (isFree(ui.ed.mode) ? 'on' : '') + '" data-a="edmode" data-v="free">🌀 ອິດສະຫຼະ</button></div>' +
+    '<p class="rules">' + (isFree(ui.ed.mode) ? 'ກົດອິດສະຫຼະ: 30–40 ໃບ · ຊື່ດຽວກັນບໍ່ເກີນ 3 · ຕຳນານ 3 ແບບ (ແບບລະ 1) · ເຜົ່າ ແລະ ກາດກາງ ບໍ່ຈຳກັດ · ຫຼິ້ນກັບບອດ ແລະ 2 ຄົນ (ຜະຈົນໄພໃຊ້ມາດຕະຖານ)' : 'ກົດມາດຕະຖານ: 30 ໃບ · ຊື່ດຽວກັນບໍ່ເກີນ 3 · ຕຳນານ 1 ໃບ · ກາດກາງບໍ່ເກີນ 6 · ບໍ່ເກີນ 3 ເຜົ່າ') + '</p></div>' +
     '<div class="bgrid2" id="edpool">' + edPool() + '</div></section>' +
-    '<aside class="bdeck' + (ui.sheet ? ' open' : '') + '"><button class="sheetbar" data-a="edsheet"><span id="edbar">ເດັກ ' + tot + '/30</span> <i>' + (ui.sheet ? '▼' : '▲') + '</i></button><div class="bdin" id="edpanel">' + edPanel() + '</div></aside></div></div>';
+    '<aside class="bdeck' + (ui.sheet ? ' open' : '') + '"><button class="sheetbar" data-a="edsheet"><span id="edbar">ເດັກ ' + tot + '/' + sizeLabel(ui.ed.mode) + '</span> <i>' + (ui.sheet ? '▼' : '▲') + '</i></button><div class="bdin" id="edpanel">' + edPanel() + '</div></aside></div></div>';
 }
 function edRefresh(pool){
   const P = document.getElementById('edpanel'); if(P) P.innerHTML = edPanel();
-  const B = document.getElementById('edbar'); if(B) B.textContent = 'ເດັກ ' + listTotal(ui.ed.list) + '/30';
+  const B = document.getElementById('edbar'); if(B) B.textContent = 'ເດັກ ' + listTotal(ui.ed.list) + '/' + sizeLabel(ui.ed.mode);
   if(pool !== false){ const G = document.getElementById('edpool'); if(G) G.innerHTML = edPool(); }
 }
 function copyText(t){ try{ navigator.clipboard.writeText(t); }catch(e){} }
@@ -3655,8 +3699,14 @@ function menuModalHTML(){
       '<p class="pvph blue">ຜູ້ຫຼິ້ນ 1</p>' + row('a', m.a) + '<p class="pvph red">ຜູ້ຫຼິ້ນ 2</p>' + row('b', m.b) +
       '<div class="mbtns"><button class="btn-main sm" data-a="pvpgo">⚔️ ເລີ່ມສູ້</button><button class="btn2" data-a="mmclose">ປິດ</button></div>';
   }
+  else if(m.type === 'testdraw'){
+    const h = m.hand, e = ui.ed, lo = h.filter(id => C[id].cost <= 2).length, ch = h.filter(id => C[id].type === 'char').length;
+    inner = '<p class="q">🎴 ຈົ່ວລອງ 5 ໃບ</p><p class="lore">ໄພ້ເລີ່ມຕົ້ນທີ່ອາດຈະໄດ້ ຈາກ «' + escH(e.name) + '» (' + listTotal(e.list) + ' ໃບ)</p><div class="pick">' + h.map(id => '<div class="hc">' + cardHTML(id) + '</div>').join('') + '</div>' +
+      '<p class="lore">ບຸນ 1–2: ' + lo + ' ໃບ · ຕົວລະຄອນ: ' + ch + ' ໃບ' + (lo === 0 ? ' · ⚠️ ບໍ່ມີກາດຖືກໆ ລົງຕາທຳອິດ' : '') + '</p>' +
+      '<div class="mbtns"><button class="btn-main sm" data-a="redraw">🔄 ຈົ່ວໃໝ່</button><button class="btn2" data-a="mmclose">ປິດ</button></div>';
+  }
   else if(m.type === 'code'){
-    const code = deckCode(ui.ed ? ui.ed.list : {});
+    const code = deckCode(ui.ed ? ui.ed.list : {}, ui.ed && ui.ed.mode);
     inner = '<p class="q">🔗 ລະຫັດເດັກ</p><p class="lore">ກັອບລະຫັດນີ້ ສົ່ງໃຫ້ໝູ່. ໝູ່ວາງລະຫັດໃນຊ່ອງລຸ່ມ ເພື່ອໄດ້ເດັກດຽວກັນ (ຖ້າມີກາດຄົບ)</p>' +
       '<textarea id="edcodeout" class="codebox" readonly rows="3">' + code + '</textarea><div class="mbtns"><button class="btn-main sm" data-a="edcopy">ກັອບລະຫັດ</button></div>' +
       '<textarea id="edcodein" class="codebox" rows="3" placeholder="ວາງລະຫັດເດັກຂອງໝູ່ຢູ່ນີ້…"></textarea><div class="mbtns"><button class="btn2" data-a="edimport">ນຳເຂົ້າ</button><button class="btn2" data-a="mmclose">ປິດ</button></div>';
@@ -3722,12 +3772,32 @@ function half7(p, i, hand, tools){
   const deck = '<div class="slot dk' + (p.deck.length ? ' has' : '') + '" data-k="deck:' + i + '" data-a="deckinfo" data-v="' + i + '" data-l="ເດັກ">' + (p.deck.length ? '<span class="cback">' + BACK + '</span>' : '') + '<span class="cnt">' + p.deck.length + '</span></div>';
   const grave = '<div class="slot gy' + (top ? ' has' : '') + '" data-a="grave" data-v="' + i + '" data-l="ກອງຖິ້ມ" role="button" tabindex="0" aria-label="ເບິ່ງກອງຖິ້ມ ' + p.grave.length + ' ໃບ">' +
     last.map((id, j) => '<div class="gyc" style="--j:' + (last.length - 1 - j) + '">' + cardHTML(id) + '</div>').join('') + '<span class="cnt">' + p.grave.length + '</span></div>';
-  const bar = '<div class="sbar ' + (i ? 'opp' : 'me') + '">' + plate2(p, i) + (hand || '') + '<div class="slots">' + loc + trapSlot(p, mg) + grave + deck + '</div>' + (tools || '') + '</div>';
+  const bar = '<div class="sbar ' + (i ? 'opp' : 'me') + '">' + plate2(p, i) + (hand || '') + '<div class="slots">' + loc + trapSlot(p, mg) + grave + deck + exSlot(p, i) + '</div>' + (tools || '') + '</div>';
   const lane = '<div class="lane chars' + (p.loc ? ' hasloc' : '') + '" data-k="side:' + i + '"' + (p.loc ? ' style="--locimg:url(' + ART + C[p.loc].img + '.jpg)"' : '') + '><span class="wm">' + (S.auto || S.pvp ? p.name : (i ? 'ຝ່າຍບອດ' : 'ຝ່າຍເຈົ້າ')) + '</span>' +
     (p.loc ? '<span class="locname" data-a="info" data-v="' + p.loc + '">📍 ' + C[p.loc].name + '</span>' : '') +
     (p.water ? '<span class="waterlv" style="--wl:' + p.water + '"><b>🌊 ' + p.water + '/5</b></span>' : '') + (p.fans ? '<span class="fanlv"><b>💖 ' + Math.min(p.fans, encoreAt(p)) + '/' + encoreAt(p) + '</b><i style="width:' + Math.round(Math.min(1, p.fans / encoreAt(p)) * 100) + '%"></i></span>' : '') +
     '<div class="row" style="--n:' + p.field.length + '">' + p.field.map(c => miniHTML(p, c)).join('') + '</div></div>';
   return '<div class="half2 ' + (i ? 'opp' : 'me') + '" data-k="mat:' + i + '">' + (i ? bar + lane : lane + bar) + '</div>';
+}
+// ກອງພິເສດ: this side's fusion cards and the cards its rites can call; glows when one is ready right now
+const exCards = p => (p.extra || []).concat((p.rites || []).flatMap(r => RITES[r].opts));
+function exReady(p){ return (p.extra || []).some(f => canFuse(p, f)) || (p.rites || []).some(r => p.hand.some(h => h.id === r && !playBlock(p, h))); }
+function exSlot(p, i){
+  const ex = exCards(p), first = ex[0];
+  return '<div class="slot ex' + (ex.length ? ' has' : '') + (ex.length && S.turn === i && exReady(p) ? ' ready' : '') + '" data-a="extra" data-v="' + i + '" data-l="ພິເສດ" role="button" tabindex="0" aria-label="ກອງພິເສດ ' + ex.length + ' ໃບ">' +
+    (first ? cardHTML(first) : '') + '<span class="cnt">' + ex.length + '</span></div>';
+}
+function extraHTML(side){
+  const p = S.p[side], on = id => p.field.some(c => c.id === id && !c.hacked);
+  const fus = (p.extra || []).map(f => { const parts = C[f].fusion, ready = canFuse(p, f);
+    return '<div class="exi"><div class="hc" data-a="info" data-v="' + f + '">' + cardHTML(f) + '</div><p class="exn">🤝 ' + parts.map(x => (on(x) ? '✅ ' : '⬜ ') + C[x].name).join('<br>') + '</p>' +
+      '<p class="exs ' + (ready ? 'ok' : '') + '">' + ((p.fused || []).includes(f) ? 'ໃຊ້ແລ້ວໃນເກມນີ້' : ready ? '✨ ພ້ອມຮ່ວມຮ່າງ · ' + FUSE_COST + ' ບຸນ' : 'ຕ້ອງມີຄູ່ຢູ່ສະໜາມຄົບ') + '</p></div>'; });
+  const rit = (p.rites || []).flatMap(r => RITES[r].opts.map(id => { const inHand = p.hand.some(h => h.id === r), pw = ritePower(p);
+    return '<div class="exi"><div class="hc" data-a="info" data-v="' + id + '">' + cardHTML(id) + '</div><p class="exn">🕯️ ໃຊ້ «' + C[r].name + '»<br>' + (pw >= RITES[r].need ? '✅' : '⬜') + ' ພະລັງລວມ ' + RITES[r].need + ' (ຕອນນີ້ ' + pw + ')</p>' +
+      '<p class="exs ' + (inHand && pw >= RITES[r].need ? 'ok' : '') + '">' + (side === 0 && !S.auto ? (inHand ? (pw >= RITES[r].need ? '✨ ອັນເຊີນໄດ້' : 'ມີຄາຖາໃນມືແລ້ວ') : 'ຍັງບໍ່ມີຄາຖາໃນມື') : '') + '</p></div>'; }));
+  const all = fus.concat(rit);
+  return '<p class="q">✨ ກອງພິເສດ · ' + (side === 0 && !S.auto ? 'ເຈົ້າ' : p.name) + '</p><p class="lore">ກາດເຫຼົ່ານີ້ບໍ່ຢູ່ໃນເດັກ: ກາດ 🤝 ຮ່ວມຮ່າງ ມາເມື່ອຄູ່ຂອງມັນຢູ່ສະໜາມຄົບ, ກາດ 🕯️ ພິທີ ມາດ້ວຍຄາຖາພິທີ</p>' +
+    (all.length ? '<div class="exgrid">' + all.join('') + '</div>' : '<p class="lore">ເດັກນີ້ບໍ່ມີກາດພິເສດ</p>') + '<div class="mbtns"><button class="btn2" data-a="mclose">ປິດ</button></div>';
 }
 // the middle of the mat: whose turn, the latest event, fusions you can make and the end-turn button
 function mid7(){
@@ -3924,6 +3994,8 @@ function modalHTML(){
       '<div class="mbtns"><button class="btn-main sm" data-a="play" data-v="' + h.uid + '" ' + (why ? 'disabled' : '') + '>ລົງກາດ · ' + costOf(p, h.id) + ' ບຸນ</button>' +
       (canTribute(p, h) ? '<button class="btn2 tribb" data-a="trib" data-v="' + h.uid + '">🙏 ຖວາຍພະລັງ · ' + Math.max(0, costOf(p, h.id) - TRIB_OFF) + ' ບຸນ</button>' : '') +
       '<button class="btn2" data-a="mclose">ປິດ</button></div>' + (canTribute(p, h) ? '<p class="lore">ຖວາຍພະລັງ: ສົ່ງຕົວລະຄອນຂອງເຈົ້າ 2 ໃບ ໄປກອງຖິ້ມ ແລ້ວໃບນີ້ໃຊ້ບຸນໜ້ອຍລົງ ' + TRIB_OFF + '</p>' : '');
+  } else if(m.type === 'extra'){
+    inner = extraHTML(m.side);
   } else if(m.type === 'ask'){
     inner = '<div style="width:min(200px,50vw)">' + (m.html || '') + '</div><p class="q">' + m.text + '</p><div class="mbtns"><button class="btn-main sm" data-a="yes">ໃຊ້ເລີຍ</button><button class="btn2" data-a="no">ບໍ່ໃຊ້</button></div>';
   } else if(m.type === 'discard'){
@@ -3951,7 +4023,7 @@ function modalHTML(){
       (S.achGot && S.achGot.length ? '<div class="achnew">' + S.achGot.map(a => '<span>' + a.ic + ' ' + a.name + ' · 💎+' + a.g + '</span>').join('') + '</div>' : '') + petOverHTML(win) +
       '<div class="mbtns"><button class="btn-main sm" data-a="replay">ຫຼິ້ນອີກ</button><button class="btn2" data-a="menu">ປ່ຽນເດັກ</button></div>';
   }
-  return '<div class="modal-bg"><div class="modal">' + inner + '</div></div>';
+  return '<div class="modal-bg"><div class="modal' + (m.type === 'extra' ? ' wide' : '') + '">' + inner + '</div></div>';
 }
 
 /* ---------- effects ---------- */
@@ -4403,10 +4475,11 @@ $app.addEventListener('click', e => {
   if(ui.settingsOpen) return;
   if(!S || S.screen !== 'game'){
     if(a === 'mmclose'){ ui.mmodal = null; render(); return; }
+    if(a === 'redraw' && ui.mmodal && ui.mmodal.type === 'testdraw'){ ui.mmodal.hand = testDraw(ui.ed.list); render(); return; }
     if(a === 'edcopy'){ const t = document.getElementById('edcodeout'); if(t){ t.select(); copyText(t.value); } toast('ກັອບລະຫັດແລ້ວ'); return; }
     if(a === 'edimport'){
       const l = readCode((document.getElementById('edcodein') || {}).value || ''); if(!l){ toast('ລະຫັດບໍ່ຖືກຕ້ອງ'); return; }
-      const miss = Object.keys(l).filter(id => owned(id) < l[id]).length; ui.ed.list = {};
+      const miss = Object.keys(l).filter(id => owned(id) < l[id]).length; ui.ed.list = {}; ui.ed.mode = /^\s*LLW1F\./.test((document.getElementById('edcodein') || {}).value || '') ? 'free' : 'std';
       for(const [id, n] of Object.entries(l)){ const k = Math.min(n, owned(id)); if(k) ui.ed.list[id] = k; }
       ui.mmodal = null; render(); toast(miss ? 'ນຳເຂົ້າແລ້ວ · ຂາດກາດ ' + miss + ' ແບບ ທີ່ເຈົ້າຍັງບໍ່ມີ' : 'ນຳເຂົ້າແລ້ວ'); return;
     }
@@ -4427,14 +4500,16 @@ $app.addEventListener('click', e => {
       if(a === 'edtab'){ ui.bf.tab = v; render(); return; }
       if(a === 'edcost'){ ui.bf.cost = +v; render(); return; }
       if(a === 'edinfo'){ ui.mmodal = {type:'card', id:v}; render(); return; }
-      if(a === 'edadd'){ const why = addBlock(e.list, v); if(why){ toast(why); return; } e.list[v] = (e.list[v] || 0) + 1; e.del = false; sfx('spell'); edRefresh(); return; }
+      if(a === 'edadd'){ const why = addBlock(e.list, v, e.mode); if(why){ toast(why); return; } e.list[v] = (e.list[v] || 0) + 1; e.del = false; sfx('spell'); edRefresh(); return; }
       if(a === 'edrem'){ if(e.list[v] > 1) e.list[v]--; else delete e.list[v]; edRefresh(); return; }
       if(a === 'edsave'){ if(saveEditor()) toast('ບັນທຶກ «' + e.name + '» ແລ້ວ'); edRefresh(false); return; }
-      if(a === 'edauto'){ autoFill(e.list); edRefresh(); toast(listTotal(e.list) < RULE.size ? 'ກາດທີ່ມີ ບໍ່ພໍເຕີມໃຫ້ຄົບ 30' : 'ເຕີມໃຫ້ຄົບແລ້ວ'); return; }
+      if(a === 'edauto'){ autoFill(e.list, e.mode); edRefresh(); toast(sizeOK(listTotal(e.list), e.mode) ? 'ເຕີມໃຫ້ຄົບແລ້ວ' : 'ກາດທີ່ມີ ບໍ່ພໍເຕີມໃຫ້ຄົບ ' + (isFree(e.mode) ? FREE.min : RULE.size)); return; }
       if(a === 'edclear'){ e.list = {}; edRefresh(); return; }
+      if(a === 'edmode'){ e.mode = v === 'free' ? 'free' : 'std'; e.del = false; render(); toast(isFree(e.mode) ? '🌀 ໂໝດອິດສະຫຼະ' : '📏 ໂໝດມາດຕະຖານ'); return; }
+      if(a === 'eddraw'){ if(listTotal(e.list) < 5){ toast('ໃສ່ກາດໃຫ້ໄດ້ 5 ໃບຂຶ້ນໄປກ່ອນ'); return; } ui.mmodal = {type:'testdraw', hand:testDraw(e.list)}; render(); return; }
       if(a === 'edcode'){ ui.mmodal = {type:'code'}; render(); return; }
       if(a === 'eddel'){ if(!e.del){ e.del = true; edRefresh(false); return; } const c = col(); c.decks = c.decks.filter(x => x.id !== e.cid); saveCol(); if(ui.deck === 'c:' + e.cid) ui.deck = 0; ui.screen = null; render(); toast('ລຶບເດັກແລ້ວ'); return; }
-      if(a === 'edplay'){ if(deckIssues(e.list).length) return; const id = saveEditor(); if(!id) return; ui.deck = 'c:' + id; ui.screen = null; startSelected(); return; }
+      if(a === 'edplay'){ if(deckIssues(e.list, e.mode).length) return; const id = saveEditor(); if(!id) return; ui.deck = 'c:' + id; ui.screen = null; startSelected(); return; }
       if(a === 'edsheet'){ ui.sheet = !ui.sheet; const d = document.querySelector('.bdeck'); if(d) d.classList.toggle('open', ui.sheet); const i = document.querySelector('.sheetbar i'); if(i) i.textContent = ui.sheet ? '▼' : '▲'; return; }
       return;
     }
@@ -4443,7 +4518,7 @@ $app.addEventListener('click', e => {
     if(a === 'decks'){ ui.mmodal = {type:'decks'}; render(); return; }
     if(a === 'pvpstart'){ ui.mmodal = {type:'pvp', a:typeof ui.deck === 'string' ? 'c' + ui.deck.slice(2) : 'b' + ui.deck, b:'b' + DORDER[1]}; render(); return; }
     if(a === 'edsel'){
-      if(typeof ui.deck === 'string'){ const d = col().decks.find(x => 'c:' + x.id === ui.deck); if(d){ openEditor(d.id, d.list, d.name); return; } }
+      if(typeof ui.deck === 'string'){ const d = col().decks.find(x => 'c:' + x.id === ui.deck); if(d){ openEditor(d.id, d.list, d.name, d.mode); return; } }
       const d = DECKS[ui.deck] || DECKS[0], l = {}; for(const [id, n] of Object.entries(d.list)){ const k = Math.min(n, owned(id)); if(k) l[id] = k; }
       openEditor(null, l, d.name + ' (ຂອງຂ້ອຍ)'); return;
     }
@@ -4489,6 +4564,7 @@ $app.addEventListener('click', e => {
   if(a === 'hidehand'){ ui.hideHand = !ui.hideHand; render(); return; }
   if(a === 'info'){ S.modal = {type:'info', id:v}; render(); return; }
   if(a === 'grave'){ ui.grave = {side:+v, f:'all'}; render(); return; }
+  if(a === 'extra'){ S.modal = {type:'extra', side:+v}; render(); return; }
   if(a === 'deckinfo'){ toast((+v ? 'ເດັກບອດ' : 'ເດັກເຈົ້າ') + ' ເຫຼືອ ' + S.p[+v].deck.length + ' ໃບ'); return; }
   if(a === 'log'){ S.modal = {type:'log'}; render(); return; }
   const myMove = S.turn === 0 && !S.busy && !S.over && !S.auto;
