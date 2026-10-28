@@ -3029,8 +3029,7 @@ function gameOver(winner, reason){
   S.over = {winner:pi(winner), reason}; S.busy = false; S.targeting = null;
   if(S.online){
     liveClear(); netWarn(0); if(S.online.ranked && S.online.room && ACCT.eco) rankReport(S.over.winner, reason);
-    const O = S.online, them = O.me === 'guest' ? O.host : O.guest;
-    if(ACCT.prof) SB.rpc('history_add', {opp_name:S.p[1].name, opp_id:them.pid || null, won:S.over.winner === 0, mode:O.ranked ? 'ranked' : 'casual', reason, turns:Math.ceil(S.T / 2), deck:S.p[0].di}).then(() => {}, () => {});
+    histAdd(S.over.winner === 0, reason);
   }
   if(!S.auto){
     const won = S.over.winner === 0; sfx(won ? 'win' : 'lose'); if(won) fxConfetti(); botSay(won ? 'losegame' : 'win', true);
@@ -5167,11 +5166,19 @@ function socialHTML(m){
       '<p class="lore">' + (d.mine ? 'ເຈົ້າຢູ່ອັນດັບ ' + d.mine : 'ຫຼິ້ນແຣງ ເພື່ອຂຶ້ນຕາຕະລາງ') + '</p>';
   } else if(Array.isArray(d)){
     body += d.length ? '<div class="slist">' + d.map(g => '<div class="srow2"><span class="spos">' + (g.won ? '✅' : '❌') + '</span><div class="sname"><b>' + (g.won ? 'ຊະນະ' : 'ແພ້') + ' · ' + escH(g.opp || 'ໝູ່') + '</b><small>' +
-        (g.mode === 'ranked' ? '🏆 ແຣງ' : '🔍 ທຳມະດາ') + ' · ' + (g.turns || 0) + ' ຕາ' + (DECKS[g.deck] ? ' · ເດັກ ' + DECKS[g.deck].no : '') + ' · ' + new Date(g.at).toLocaleDateString('lo-LA', {day:'numeric', month:'short'}) + '</small></div></div>').join('') + '</div>'
+        (g.mode === 'ranked' ? '🏆 ແຣງ' : '🔍 ທຳມະດາ') + ' · ' + (g.turns || 0) + ' ຕາ' + (DECKS[g.deck] ? ' · ເດັກ ' + DECKS[g.deck].no : '') + ' · ' + laoDate(g.at) + '</small></div></div>').join('') + '</div>'
       : '<p class="lore">ຍັງບໍ່ໄດ້ຫຼິ້ນອອນລາຍ</p>';
   }
   return '<p class="q">👥 ໝູ່ ແລະ ອັນດັບ</p>' + tabs + body + '<div class="mbtns"><button class="btn2" data-a="mmclose">ປິດ</button></div>';
 }
+// one line in the online history (also when you leave a game early)
+function histAdd(won, reason){
+  if(!ACCT.prof || !S || !S.online) return;
+  const O = S.online, them = O.me === 'guest' ? O.host : O.guest;
+  SB.rpc('history_add', {opp_name:S.p[1].name, opp_id:them.pid || null, won, mode:O.ranked ? 'ranked' : 'casual', reason, turns:Math.ceil(S.T / 2), deck:S.p[0].di}).then(() => {}, () => {});
+}
+const LAO_MONTHS = ['ມ.ກ.', 'ກ.ພ.', 'ມ.ນ.', 'ເມ.ສ.', 'ພ.ພ.', 'ມິ.ຖ.', 'ກ.ລ.', 'ສ.ຫ.', 'ກ.ຍ.', 'ຕ.ລ.', 'ພ.ຈ.', 'ທ.ວ.'];
+const laoDate = t => { const d = new Date(t); return d.getDate() + ' ' + LAO_MONTHS[d.getMonth()]; };
 async function socAct(fn, okMsg){
   try{ const {data, error} = await fn(); if(error) throw error; if(okMsg) toast(typeof okMsg === 'function' ? okMsg(data) : okMsg); }
   catch(e){ toast({P0008:'ບໍ່ພົບລະຫັດນີ້', P0009:'ອັນນີ້ແມ່ນລະຫັດຂອງເຈົ້າເອງ', P0010:'ມີໝູ່ຄົບ 100 ຄົນແລ້ວ'}[e && e.code] || 'ບໍ່ສຳເລັດ ລອງໃໝ່'); }
@@ -5327,7 +5334,7 @@ $app.addEventListener('click', e => {
   if(a === 'passok' && S.modal && S.modal.type === 'pass'){ const r = S.modal.resolve; S.modal = null; render(); r(); return; }
   if(a === 'yes' || a === 'no'){ const r = S.modal.resolve; S.modal = null; render(); r(a === 'yes'); return; }
   if(a === 'discard'){ const r = S.modal.resolve; const h = S.p[0].hand.find(x => x.uid === +v); S.modal = null; render(); r(h); return; }
-  if(a === 'menu'){ if(S.online && !S.over){ if(S.online.ranked && ACCT.eco) rankReport(1, 'quit'); netSend({t:'quit'}); const bye = NET.close; NET.close = null; netClose(); setTimeout(() => bye && bye(), 800); liveClear(); S = null; ui.grave = null; render(); return; } if(S.over || (S.turn === 0 && !S.busy)){ if(S.online) netClose(); S = null; ui.grave = null; render(); } return; }
+  if(a === 'menu'){ if(S.online && !S.over){ if(S.online.ranked && ACCT.eco) rankReport(1, 'quit'); histAdd(false, 'quit'); netSend({t:'quit'}); const bye = NET.close; NET.close = null; netClose(); setTimeout(() => bye && bye(), 800); liveClear(); S = null; ui.grave = null; render(); return; } if(S.over || (S.turn === 0 && !S.busy)){ if(S.online) netClose(); S = null; ui.grave = null; render(); } return; }
   if(a === 'replay'){ if(S.online){ netClose(); S = null; ui.mmodal = {type:'online', step:'menu'}; render(); return; } if(S.pvp && typeof pvpReplay === 'function') pvpReplay(); else if(S.adv != null) advStart(S.adv); else startSelected(); return; }
   if(S.modal) return;
   if(S.targeting){
