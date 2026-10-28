@@ -2239,7 +2239,9 @@ function newGame(di, level, opts){
     S.pvp = opts.pvp; S.p[0].name = 'ຜູ້ຫຼິ້ນ 1'; S.p[1] = mkPlayer('ຜູ້ຫຼິ້ນ 2', bi, false, level, opts.pvp.list); if(opts.pvp.cover) S.p[1].cover = opts.pvp.cover;
   }
   if(S.auto){ S.p[0].name = 'ບອດ A'; S.p[1].name = 'ບອດ B'; }
-  if(opts.online){ const O = opts.online; S.online = O; S.p[0] = mkPlayer('host', O.host.di, false, level, O.host.list); S.p[1] = mkPlayer('guest', O.guest.di, false, level, O.guest.list);
+  // the relay server may reorder object keys, so both screens sort the deck lists before shuffling
+  if(opts.online){ const O = opts.online, sorted = l => Object.fromEntries(Object.entries(l).sort((a, b) => a[0] < b[0] ? -1 : 1));
+    S.online = O; S.p[0] = mkPlayer('host', O.host.di, false, level, sorted(O.host.list)); S.p[1] = mkPlayer('guest', O.guest.di, false, level, sorted(O.guest.list));
     if(O.host.cover) S.p[0].cover = O.host.cover; if(O.guest.cover) S.p[1].cover = O.guest.cover; }
   S.fest = opts.tut || (!SET.fest && !S.auto && !opts.online) ? null : shuffle(FESTS.map((_, i) => i)).slice(0, 4);
   if(opts.tut) for(const p of S.p) p.tales = [];
@@ -2912,7 +2914,13 @@ async function turnStartEffects(p){
   }
   await checkDeaths();
 }
+// online: the other screen's next move waits until this turn start (draws, festivals, start-of-turn effects) is fully done
 async function startTurn(){
+  const G = S; if(!G || !G.online) return startTurnRun();
+  G.lbusy = (G.lbusy || 0) + 1;
+  try{ await startTurnRun(); } finally{ G.lbusy--; }
+}
+async function startTurnRun(){
   if(!S || S.over) return;
   const G = S, p = cur();
   if(S.T > 200){ gameOver(S.p[0].life >= S.p[1].life ? S.p[0] : S.p[1], 'life'); return; }
@@ -2960,6 +2968,7 @@ async function endTurn(){
   await checkDeaths();
   if(S !== G || G.over) return;
   S.T++;
+  if(window.__trace && S.online) __trace.push([S.T, S.online.me === 'host' ? __dbg.sig() : __dbg.sig().reverse(), S.log.slice(0, 6)]);   // localhost sync check
   if(S.pvp){ S.p.reverse(); S.turn = 0; await passScreen(); if(S !== G || G.over) return; }
   else S.turn = 1 - S.turn;
   startTurn();
@@ -4478,7 +4487,7 @@ function toast(m){ const d = addFx('toast'); d.textContent = m; setTimeout(() =>
    Both screens run the same seeded game. Only moves and answers travel: {t:'play'|'atk'|'trib'|'fuse'|'end'|'quit'|'ans', from}.
    Transport: Supabase Realtime broadcast (no database table needed) when SB_URL and SB_KEY are set,
    otherwise BroadcastChannel (two tabs on one device, for testing). */
-const SB_URL = '', SB_KEY = '';   // Supabase project URL and its anon public key; both are meant to ship in the page
+const SB_URL = 'https://xahuvoounkdojfsvnfaj.supabase.co', SB_KEY = 'sb_publishable_1KkyxeoQB3mLwdQEo3M5ag_TMb46-8G';   // Supabase project URL and its anon public key; both are meant to ship in the page
 let SB = null;
 function sbLoad(){
   return SB ? Promise.resolve(SB) : new Promise((ok, no) => {
@@ -4486,7 +4495,7 @@ function sbLoad(){
     sc.onload = () => { SB = window.supabase.createClient(SB_URL, SB_KEY); ok(SB); }; sc.onerror = no; document.head.appendChild(sc);
   });
 }
-const NET = {chain:Promise.resolve(), ans:[], waiters:[], me:null, code:null, send:null, close:null, seen:new Set()};
+const NET = {chain:Promise.resolve(), ans:[], waiters:[], me:null, code:null, send:null, close:null, sent:0, rcv:0, log:{}, buf:{}, timer:null, lastResend:0};
 const netKey = t => !t ? null : (t.kind === 'hero' ? (t.owner === S.p[0] ? 'H:s' : 'H:o') : 'c:' + t.c.uid);
 function netT(k){   // read a target key written by the other screen ('s' = the sender, who is our S.p[1])
   if(!k) return null;
@@ -4495,7 +4504,14 @@ function netT(k){   // read a target key written by the other screen ('s' = the 
   const u = +k.slice(2); for(const pl of S.p){ const c = pl.field.find(x => x.uid === u); if(c) return {kind:'char', owner:pl, c}; }
   return null;
 }
-function netSend(m){ if(S && S.online && NET.send) NET.send({...m, from:NET.me}); }
+// every move and answer is numbered and kept: the other screen confirms what it has (ack) and anything lost on the way is sent again,
+// so a dropped connection (a phone screen locking, a background tab) never splits the game in two
+function netSend(m){ if(!S || !S.online || !NET.send) return; const n = ++NET.sent; NET.log[n] = {...m, from:NET.me, n}; NET.send(NET.log[n]); }
+function netTick(){
+  if(!NET.send) return;
+  if(NET.hello) NET.send(NET.hello);   // keep knocking (hello / start) until the other screen answers
+  if(S && S.online) NET.send({t:'ack', from:NET.me, n:NET.rcv});
+}
 async function decide(p, local){
   if(!S.online) return local();
   if(p.remote) return NET.ans.length ? NET.ans.shift() : new Promise(r => NET.waiters.push(r));
@@ -4505,6 +4521,13 @@ function netRecv(m){
   if(!m || m.from === NET.me) return;
   if(m.t === 'hello' || m.t === 'start'){ onlineLobby(m); return; }
   if(!S || !S.online) return;
+  NET.hello = null;
+  if(m.t === 'ack'){ if(m.n < NET.sent && Date.now() - NET.lastResend > 1200){ NET.lastResend = Date.now(); for(let k = m.n + 1; k <= NET.sent; k++) NET.send(NET.log[k]); } return; }
+  if(!m.n || m.n <= NET.rcv) return;   // a copy we already have
+  NET.buf[m.n] = m;
+  while(NET.buf[NET.rcv + 1]){ const x = NET.buf[NET.rcv + 1]; delete NET.buf[NET.rcv + 1]; NET.rcv++; netTake(x); }
+}
+function netTake(m){
   if(m.t === 'ans'){ const w = NET.waiters.shift(); if(w) w(m.v); else NET.ans.push(m.v); return; }
   NET.chain = NET.chain.then(() => netApply(m)).catch(e => console.error(e));
 }
@@ -4523,7 +4546,8 @@ async function netApply(m){
   if(S) render();
 }
 async function netOpen(code, role){
-  netClose(); Object.assign(NET, {chain:Promise.resolve(), ans:[], waiters:[], me:role, code, seen:new Set()});
+  netClose(); Object.assign(NET, {chain:Promise.resolve(), ans:[], waiters:[], me:role, code, sent:0, rcv:0, log:{}, buf:{}, lastResend:0, hello:null});
+  NET.timer = setInterval(netTick, 1500);
   if(SB_URL && SB_KEY){
     const sb = await sbLoad();
     const ch = sb.channel('llw-' + code, {config:{broadcast:{self:false, ack:true}}});
@@ -4538,7 +4562,7 @@ async function netOpen(code, role){
   }
 }
 function netFail(){ netClose(); ui.mmodal = {type:'online', step:'menu'}; render(); toast('ຕໍ່ອິນເຕີເນັດບໍ່ໄດ້ · ລອງໃໝ່'); }
-function netClose(){ if(NET.close) NET.close(); NET.send = null; NET.close = null; }
+function netClose(){ if(NET.close) NET.close(); clearInterval(NET.timer); NET.send = null; NET.close = null; NET.hello = null; }
 function mySpec(){
   const k = typeof ui.deck === 'string' ? 'c' + ui.deck.slice(2) : 'b' + ui.deck, sp = pvpSpec(k);
   return {di:sp.di, list:sp.list || {...DECKS[sp.di].list}, cover:sp.cover || null};
@@ -4551,17 +4575,17 @@ function onlineHost(){
 function onlineJoin(code){
   code = (code || '').trim().toUpperCase(); if(code.length !== 4){ toast('ລະຫັດຫ້ອງມີ 4 ຕົວ'); return; }
   ui.mmodal = {type:'online', step:'wait', code}; render();
-  netOpen(code, 'guest').then(() => NET.send({t:'hello', from:'guest', spec:mySpec()})).catch(netFail);
+  netOpen(code, 'guest').then(() => { NET.hello = {t:'hello', from:'guest', spec:mySpec()}; NET.send(NET.hello); }).catch(netFail);
 }
 function onlineLobby(m){
   const mm = ui.mmodal;
   if(m.t === 'hello' && NET.me === 'host' && mm && mm.type === 'online' && mm.step === 'host'){
     const O = {seed:Math.floor(Math.random() * 2 ** 31), host:mm.spec, guest:m.spec};
-    NET.send({t:'start', from:'host', online:O}); onlineStart(O, 'host');
+    NET.hello = {t:'start', from:'host', online:O}; NET.send(NET.hello); onlineStart(O, 'host');
   } else if(m.t === 'start' && NET.me === 'guest' && mm && mm.type === 'online') onlineStart(m.online, 'guest');
 }
 function onlineStart(O, me){
-  ui.mmodal = null; ui.screen = null;
+  ui.mmodal = null; ui.screen = null; if(me === 'guest') NET.hello = null;
   newGame(O.host.di, 1, {online:{...O, me}});   // the same arguments on both screens, so both build the same game
 }
 function onlineHTML(m){
@@ -4742,7 +4766,7 @@ $app.addEventListener('contextmenu', e => {
 
 /* ---------- self-test: bot vs bot, no animation ---------- */
 // local dev only: poke at live game state from the console
-if(location.hostname === 'localhost') window.__dbg = {get S(){ return S; }, render: () => render(), C, win: i => gameOver(S.p[i], 'life'),
+if(location.hostname === 'localhost') window.__dbg = {get S(){ return S; }, get net(){ return NET; }, render: () => render(), C, win: i => gameOver(S.p[i], 'life'),
   // play one move for the local side the way a person would (sends it online), answering any open question with a default
   step: async () => { const m = S.modal; if(m && m.resolve){ S.modal = null; m.resolve(m.type === 'mull' ? [] : m.type === 'rite' ? m.opts[0] : m.type === 'discard' ? S.p[0].hand[0] : false); return 'answered ' + m.type; }
     if(S.over || S.turn !== 0 || S.busy) return 'wait'; const p = S.p[0], q = S.p[1];
