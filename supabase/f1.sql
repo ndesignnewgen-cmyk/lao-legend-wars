@@ -31,6 +31,8 @@ create policy "update own profile" on public.profiles for update to authenticate
 revoke insert, update on public.profiles from authenticated, anon;
 grant insert (id, name, avatar, frame, pet) on public.profiles to authenticated;
 grant update (name, avatar, frame, pet) on public.profiles to authenticated;
+-- new Supabase projects give the API roles no table rights by default
+grant select on public.profiles to authenticated;
 
 -- each account's saved game (collection, decks, gems, quests, pet, stats), kept small
 create table if not exists public.saves (
@@ -41,6 +43,7 @@ create table if not exists public.saves (
 alter table public.saves enable row level security;
 drop policy if exists "own save" on public.saves;
 create policy "own save" on public.saves for all to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);
+grant select, insert, update on public.saves to authenticated;
 
 -- keep updated_at fresh, and refuse names with a banned word
 create or replace function public.touch() returns trigger language plpgsql as $$

@@ -1428,6 +1428,13 @@ body{background:
 .card .art .phart small{font:700 11px var(--f-d);color:#5a3000;background:#fff9;padding:2px 8px;border-radius:999px}
 .hadv{width:100%;margin-top:8px;font:800 16px var(--f-d);padding:10px}
 .hach{font:800 12px var(--f-d);color:#ffe48a;margin-left:6px;white-space:nowrap}
+.hname{font:800 13px/1.1 var(--f-d);font-style:normal;color:#fff;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.hname.new{color:#ffe48a}
+.pname{font:800 22px var(--f-d);text-align:center;width:min(300px,80vw);padding:10px;border-radius:12px;border:2px solid #ffffff44;background:#0005;color:#fff}
+.avgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(54px,1fr));gap:8px;width:100%;max-width:420px}
+.avopt{aspect-ratio:1;border-radius:50%;overflow:hidden;padding:0;border:3px solid transparent;background:#0005;cursor:pointer}
+.avopt img{width:100%;height:100%;object-fit:cover;object-position:50% 15%}.avopt.on{border-color:var(--gold);box-shadow:0 0 12px var(--gold)}
+.profhead{display:flex;align-items:center;gap:14px;text-align:left}.profhead b{display:block;font:800 22px var(--f-d)}.profhead small{color:var(--dim);font:700 13px var(--f-d)}
+.hav.big{width:72px;height:72px}
 .hprof{cursor:pointer}
 .hav.fr-gold{box-shadow:0 0 0 3px #ffd23d,0 0 14px #ffd23d}
 .hav.fr-royal{box-shadow:0 0 0 3px #ffd23d,0 0 0 6px #c8312b,0 0 18px #ffd23d}
@@ -1932,6 +1939,9 @@ const LEVELS = ['ງ່າຍ','ກາງ','ຍາກ'];
 
 /* ---------- collection: the cards you own, your gems and your own decks (saved in this browser only) ---------- */
 const COL_KEY = 'lao-legend-collection';
+// the saved game that follows the player's account to the cloud (phase F1); settings stay on each device
+const SYNC_KEYS = [COL_KEY, 'lao-legend-stats', 'lao-legend-alts', 'lao-legend-tut'];
+const ACCT = {user:null, prof:null, state:'off', at:0, timer:null, quiet:false};   // state: off · conn · on · err
 const STARTERS = [0, 4, 2];   // DECKS index of deck 1 (ສາຍນ້ຳ), deck 4 (ທ້າວຮຸ່ງ), deck 3 (ພະລາມ)
 const NEUTRAL = new Set(Object.keys(C).filter(id => C[id].tribe === 'villager' || ['baci','khaoniao','phukkhaen','tikong','faphaa','satnam','haingeun','lowai','wao','katip','thonghai','talatsao','khonephapheng'].includes(id)));
 // one deck ruleset for every game, like Yu-Gi-Oh: 30–40 cards, at most 3 of a name, legends limited to one copy each, any tribes and any neutral cards.
@@ -2189,7 +2199,7 @@ function botSay(kind, force){
 
 /* ---------- local progress: stats, alt-art found, tutorial done ---------- */
 function loadJ(k, d){ try{ return JSON.parse(localStorage.getItem(k) || 'null') || d; }catch(e){ return d; } }
-function saveJ(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+function saveJ(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} if(!ACCT.quiet && SYNC_KEYS.includes(k)) markDirty(); }
 function markAltSeen(id){ const a = loadJ('lao-legend-alts', []); if(!a.includes(id)){ a.push(id); saveJ('lao-legend-alts', a); } }
 function recordGame(won){
   const st = loadJ('lao-legend-stats', {played:0, won:0});
@@ -2262,7 +2272,8 @@ function newGame(di, level, opts){
   S.turn = opts.first != null ? opts.first : (rnd() < .5 ? 0 : 1);
   if(opts.online){   // both screens built the same game with the host first; the guest flips it so its own side is at the bottom
     if(opts.online.me === 'guest'){ S.p.reverse(); S.turn = 1 - S.turn; }
-    S.p[0].name = 'ເຈົ້າ'; S.p[1].name = 'ໝູ່'; S.p[1].remote = true;
+    const them = opts.online.me === 'guest' ? opts.online.host : opts.online.guest;
+    S.p[0].name = 'ເຈົ້າ'; S.p[1].name = them.name || 'ໝູ່'; S.p[1].remote = true;
   }
   if(opts.tut){
     S.tut = {step:0};
@@ -3462,7 +3473,7 @@ function menuHTML(){
   const tile = (a, ic, label, badge) => '<button class="htile" data-a="' + a + '"><span class="hic" aria-hidden="true">' + ic + '</span><b>' + label + '</b>' + (badge ? '<em class="badge">' + badge + '</em>' : '') + '</button>';
   const art = PIC(C[info.cover].img);
   return '<div class="home" style="--bg:url(' + art + ')"><div class="hbg" aria-hidden="true"></div>' +
-    '<header class="htop"><div class="hprof" role="button" tabindex="0" data-a="ach" aria-label="ຜົນງານ"><span class="hav fr-' + (c.frame || 'none') + '"><img src="' + art + '" alt=""></span><div class="hlv"><b>⭐ ລະດັບ ' + L + ' <small>' + (L >= LEVEL_MAX ? 'ສູງສຸດ' : into + '/' + LEVEL_XP + ' XP') + '</small></b><div class="pbar"><i style="width:' + (L >= LEVEL_MAX ? 100 : into) + '%"></i></div></div><span class="hach">🏆 ' + Object.keys(c.ach || {}).length + '/' + ACH.length + '</span></div>' +
+    '<header class="htop"><div class="hprof" role="button" tabindex="0" data-a="prof" aria-label="ໂປຣໄຟລ໌"><span class="hav fr-' + (c.frame || 'none') + '"><img src="' + (ACCT.prof && C[ACCT.prof.avatar] ? PIC(C[ACCT.prof.avatar].img) : art) + '" alt=""></span><div class="hlv">' + (ACCT.prof ? '<em class="hname">' + escH(ACCT.prof.name) + (ACCT.state === 'on' ? ' ☁️' : '') + '</em>' : '<em class="hname new">👤 ສ້າງຜູ້ຫຼິ້ນ</em>') + '<b>⭐ ລະດັບ ' + L + ' <small>' + (L >= LEVEL_MAX ? 'ສູງສຸດ' : into + '/' + LEVEL_XP + ' XP') + '</small></b><div class="pbar"><i style="width:' + (L >= LEVEL_MAX ? 100 : into) + '%"></i></div></div><span class="hach">🏆 ' + Object.keys(c.ach || {}).length + '/' + ACH.length + '</span></div>' +
       walletHTML('sm') + '<button class="hset" data-a="settings" aria-label="ຕັ້ງຄ່າ">' + IC_GEAR + '</button></header>' +
     '<div class="hmain"><div class="hlogo"><img class="logoimg" src="art/logo.webp" alt="Lao Legend Wars" width="960" height="640"><p>ສົງຄາມຕຳນານລາວ · ເກມກາດນິທານລາວ · ຫຼິ້ນຟຣີ</p></div>' +
       '<div class="hdeck"><div class="hcard" role="button" tabindex="0" data-a="decks" aria-label="ປ່ຽນເດັກ">' + boxHTML(typeof sel === 'string' ? sel : (DECKS[sel] ? sel : 0), info.cover, typeof sel === 'string' ? info.name : 'ເດັກ ' + (DECKS[sel] || DECKS[0]).no) + '<span class="hswap">🔄 ປ່ຽນເດັກ</span></div>' +
@@ -3744,6 +3755,7 @@ function menuModalHTML(){
   }
   else if(m.type === 'quests') inner = questsHTML();
   else if(m.type === 'online') inner = onlineHTML(m);
+  else if(m.type === 'prof') inner = profHTML(m);
   else if(m.type === 'adv'){
     const c = col(), done = c.adv || 0;
     inner = '<p class="q">🗺️ ຜະຈົນໄພທົ່ວລາວ</p><p class="lore">ເດີນທາງຈາກເໜືອໄປໃຕ້ ໃຊ້ເດັກທີ່ເລືອກໄວ້. ຜ່ານດ່ານໄດ້ເພັດ, ບອສໄດ້ຊອງຟຣີ</p><ol class="advmap">' +
@@ -4496,6 +4508,91 @@ function toast(m){ const d = addFx('toast'); d.textContent = m; setTimeout(() =>
 
 /* ---------- input ---------- */
 
+/* ---------- ບັນຊີຜູ້ຫຼິ້ນ (phase F1): a guest account on Supabase, a public profile, and the saved game kept in the cloud ----------
+   No email or password: Supabase makes an anonymous account and keeps its session in this browser.
+   The saved game is one row in 'saves'; whichever copy (this device or the cloud) changed last wins. */
+const NAME_RE = /^[຀-໿A-Za-z0-9 _.\-]{3,16}$/;
+const AVATARS = () => [...new Set(DECKS.map(d => d.legend))];
+function syncMeta(){ return loadJ('lao-legend-sync', {at:0}); }
+function markDirty(){
+  ACCT.quiet = true; const m = syncMeta(); m.at = Date.now(); saveJ('lao-legend-sync', m); ACCT.quiet = false;
+  if(ACCT.user){ clearTimeout(ACCT.timer); ACCT.timer = setTimeout(cloudPush, 4000); }
+}
+async function cloudPush(){
+  if(!ACCT.user) return;
+  const m = syncMeta(); if(!m.at){ m.at = Date.now(); ACCT.quiet = true; saveJ('lao-legend-sync', m); ACCT.quiet = false; }
+  const data = {at:m.at}; for(const k of SYNC_KEYS) data[k] = loadJ(k, null);
+  const {error} = await SB.from('saves').upsert({user_id:ACCT.user.id, data});
+  ACCT.state = error ? 'err' : 'on'; if(!error) ACCT.at = Date.now();
+  if(ui.mmodal && ui.mmodal.type === 'prof') render();
+}
+async function cloudPull(){
+  const {data:row, error} = await SB.from('saves').select('data').eq('user_id', ACCT.user.id).maybeSingle();
+  if(error) throw error;
+  const cloud = row && row.data, here = syncMeta();
+  if(cloud && (cloud.at || 0) > (here.at || 0)){
+    // the cloud copy is newer: take it (only from the lobby, never in the middle of a game)
+    ACCT.quiet = true;
+    for(const k of SYNC_KEYS) if(cloud[k] != null) saveJ(k, cloud[k]);
+    saveJ('lao-legend-sync', {at:cloud.at}); ACCT.quiet = false;
+    COL = null; ACCT.state = 'on'; ACCT.at = Date.now(); if(!S) render();
+  } else if(!cloud || (here.at || 0) > (cloud.at || 0)) await cloudPush();
+  else { ACCT.state = 'on'; ACCT.at = Date.now(); }
+}
+async function acctLoad(){
+  const {data} = await SB.from('profiles').select('*').eq('id', ACCT.user.id).maybeSingle();
+  ACCT.prof = data || null;
+  if(ACCT.prof) await cloudPull();
+}
+// on start: only players who already made an account load the Supabase library
+const hasSession = () => { try{ return Object.keys(localStorage).some(k => /^sb-.*-auth-token$/.test(k)); }catch(e){ return false; } };
+async function acctStart(){
+  if(!SB_URL || !hasSession()) return;
+  ACCT.state = 'conn';
+  try{
+    await sbLoad(); const {data} = await SB.auth.getSession();
+    ACCT.user = data.session ? data.session.user : null;
+    if(ACCT.user) await acctLoad(); else ACCT.state = 'off';
+  }catch(e){ ACCT.state = 'err'; window.__errs.push('acct: ' + (e && e.message || e)); }
+  if(!S) render();
+}
+const NAME_ERR = {'23505':'ຊື່ນີ້ມີຄົນໃຊ້ແລ້ວ ລອງຊື່ອື່ນ', '22023':'ຊື່ນີ້ໃຊ້ບໍ່ໄດ້ ລອງຊື່ອື່ນ', '23514':'ຊື່ຕ້ອງມີ 3–16 ຕົວ'};
+async function acctSave(name, avatar){
+  name = (name || '').trim().replace(/\s+/g, ' ');
+  if(!NAME_RE.test(name)){ toast('ຊື່ 3–16 ຕົວ: ລາວ, ອັງກິດ ຫຼື ຕົວເລກ'); return; }
+  const m = ui.mmodal; m.busy = true; m.err = ''; render();
+  try{
+    await sbLoad();
+    if(!ACCT.user){
+      const {data, error} = await SB.auth.signInAnonymously(); if(error) throw error;
+      ACCT.user = data.user;
+    }
+    const row = {id:ACCT.user.id, name, avatar, pet:col().pet || null};
+    const {data, error} = ACCT.prof ? await SB.from('profiles').update({name, avatar}).eq('id', ACCT.user.id).select().single()
+                                    : await SB.from('profiles').insert(row).select().single();
+    if(error){ m.err = NAME_ERR[error.code] || 'ບັນທຶກບໍ່ໄດ້ ລອງໃໝ່'; return; }
+    const first = !ACCT.prof; ACCT.prof = data; m.edit = false;
+    if(first){ await cloudPull(); toast('ສະບາຍດີ ' + name + '! ບັນທຶກເກມຂຶ້ນ cloud ແລ້ວ ☁️'); }
+  }catch(e){ m.err = 'ຕໍ່ອິນເຕີເນັດບໍ່ໄດ້ ລອງໃໝ່'; ACCT.state = 'err'; window.__errs.push('acct: ' + (e && e.message || e)); }
+  finally{ m.busy = false; render(); }
+}
+function agoText(t){ const s = Math.round((Date.now() - t) / 1000); return s < 60 ? 'ຫາກໍ່' : s < 3600 ? Math.round(s / 60) + ' ນາທີກ່ອນ' : Math.round(s / 3600) + ' ຊົ່ວໂມງກ່ອນ'; }
+function profHTML(m){
+  const P = ACCT.prof, av = m.av || (P && P.avatar) || DECKS[0].legend, c = col();
+  const pick = '<div class="avgrid">' + AVATARS().map(id => '<button class="avopt' + (id === av ? ' on' : '') + '" data-a="avpick" data-v="' + id + '"><img src="' + PIC(C[id].img) + '" alt="' + C[id].name + '"></button>').join('') + '</div>';
+  if(!P || m.edit){
+    return '<p class="q">' + (P ? '✏️ ແກ້ໂປຣໄຟລ໌' : '👤 ສ້າງຜູ້ຫຼິ້ນ') + '</p>' +
+      '<input id="pname" class="pname" maxlength="16" placeholder="ຊື່ຫຼິ້ນ" autocomplete="off" value="' + escH(m.name != null ? m.name : (P ? P.name : '')) + '">' +
+      '<p class="lore">ເລືອກຮູບໂປຣໄຟລ໌</p>' + pick + (m.err ? '<p class="why">' + m.err + '</p>' : '') +
+      (P ? '' : '<p class="lore">ບໍ່ຕ້ອງໃຊ້ອີເມວ. ກາດ, ເພັດ ແລະ ເດັກ ຈະບັນທຶກຂຶ້ນ cloud ໃຫ້ເອງ</p>') +
+      '<div class="mbtns"><button class="btn-main sm" data-a="psave"' + (m.busy ? ' disabled' : '') + '>' + (m.busy ? 'ກຳລັງບັນທຶກ…' : '✓ ບັນທຶກ') + '</button><button class="btn2" data-a="' + (P ? 'pcancel' : 'mmclose') + '">' + (P ? 'ຍົກເລີກ' : 'ໄວ້ກ່ອນ') + '</button></div>';
+  }
+  const cloud = ACCT.state === 'on' ? '☁️ ບັນທຶກແລ້ວ ' + agoText(ACCT.at) : ACCT.state === 'err' ? '⚠️ ຕໍ່ cloud ບໍ່ໄດ້ (ບັນທຶກໃນເຄື່ອງໄວ້ກ່ອນ)' : '☁️ ກຳລັງຕໍ່…';
+  return '<div class="profhead"><span class="hav big fr-' + (c.frame || 'none') + '"><img src="' + PIC(C[P.avatar] ? C[P.avatar].img : C[DECKS[0].legend].img) + '" alt=""></span><div><b>' + escH(P.name) + '</b><small>⭐ ລະດັບ ' + levelOf(c.xp) + ' · 🏆 ' + Object.keys(c.ach || {}).length + '/' + ACH.length + '</small></div></div>' +
+    '<p class="lore">' + cloud + '</p>' +
+    '<p class="lore">ບັນຊີນີ້ຢູ່ໃນ browser ນີ້. ຢ່າລຶບຂໍ້ມູນ browser (ການຜູກອີເມວ ເພື່ອໃຊ້ຫຼາຍເຄື່ອງ ຈະມາເທື່ອໜ້າ)</p>' +
+    '<div class="mbtns"><button class="btn2" data-a="pedit">✏️ ແກ້ຊື່ ແລະ ຮູບ</button><button class="btn2" data-a="ach">🏆 ຜົນງານ</button><button class="btn2" data-a="mmclose">ປິດ</button></div>';
+}
 /* ---------- online play with a room code ----------
    Both screens run the same seeded game. Only moves and answers travel: {t:'play'|'atk'|'trib'|'fuse'|'end'|'quit'|'ans', from}.
    Transport: Supabase Realtime broadcast (no database table needed) when SB_URL and SB_KEY are set,
@@ -4578,7 +4675,7 @@ function netFail(){ netClose(); ui.mmodal = {type:'online', step:'menu'}; render
 function netClose(){ if(NET.close) NET.close(); clearInterval(NET.timer); NET.send = null; NET.close = null; NET.hello = null; }
 function mySpec(){
   const k = typeof ui.deck === 'string' ? 'c' + ui.deck.slice(2) : 'b' + ui.deck, sp = pvpSpec(k);
-  return {di:sp.di, list:sp.list || {...DECKS[sp.di].list}, cover:sp.cover || null};
+  return {di:sp.di, list:sp.list || {...DECKS[sp.di].list}, cover:sp.cover || null, name:ACCT.prof ? ACCT.prof.name : null};
 }
 function onlineHost(){
   const code = Array.from({length:4}, () => 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'[Math.floor(Math.random() * 31)]).join('');
@@ -4632,6 +4729,14 @@ $app.addEventListener('click', e => {
     if(a === 'qreroll' && ui.mmodal && ui.mmodal.type === 'quests'){ const c = col(), list = quests(); if(!c.quests.rerolled){ const pool = QUEST_POOL.filter(x => !list.some(y => y.k === x.k)); list[+v] = {...pick(pool), p:0, claimed:false}; c.quests.rerolled = true; saveCol(); } render(); return; }
     if(a === 'pickdeck'){ ui.deck = v.startsWith('c:') ? v : +v; ui.mmodal = null; render(); return; }
     if(a === 'pknew'){ ui.mmodal = null; openEditor(null, {}); return; }
+    if(a === 'prof'){ ui.mmodal = {type:'prof'}; render(); return; }
+    if(ui.mmodal && ui.mmodal.type === 'prof'){
+      const m = ui.mmodal, nameNow = () => (document.getElementById('pname') || {}).value;
+      if(a === 'avpick'){ m.name = nameNow(); m.av = v; render(); return; }
+      if(a === 'psave'){ m.name = nameNow(); acctSave(m.name, m.av || (ACCT.prof && ACCT.prof.avatar) || DECKS[0].legend); return; }
+      if(a === 'pedit'){ m.edit = true; m.name = null; m.av = null; m.err = ''; render(); return; }
+      if(a === 'pcancel'){ m.edit = false; m.err = ''; render(); return; }
+    }
     if(ui.mmodal && ui.mmodal.type === 'online'){
       if(a === 'onhost'){ onlineHost(); return; }
       if(a === 'onjoin'){ onlineJoin((document.getElementById('roomin') || {}).value); return; }
@@ -4810,5 +4915,6 @@ window.__sim = async function(n, level, levels){
 if('serviceWorker' in navigator && (location.protocol === 'https:' || /[?&]sw\b/.test(location.search))) navigator.serviceWorker.register('sw.js').catch(err => window.__errs.push('sw: ' + err));
 
 render();
+acctStart();
 })();
 </script>
