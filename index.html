@@ -2368,34 +2368,58 @@ function tone(f, dur, type, vol, dest, t0, slide){
   g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(vol || .3, t + .01); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
   o.connect(g); g.connect(dest || SND.sfx); o.start(t); o.stop(t + dur + .05);
 }
-function noise(dur, vol, freq, t0, type){
-  const c = SND.ctx, t = t0 || c.currentTime, n = Math.floor(c.sampleRate * dur), b = c.createBuffer(1, n, c.sampleRate), d = b.getChannelData(0);
-  for(let i=0;i<n;i++) d[i] = Math.random() * 2 - 1;
-  const src = c.createBufferSource(); src.buffer = b; const f = c.createBiquadFilter(); f.type = type || 'lowpass'; f.frequency.value = freq || 2000;
-  const g = c.createGain(); g.gain.setValueAtTime(vol || .3, t); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
-  src.connect(f); f.connect(g); g.connect(SND.sfx); src.start(t);
+// a noise sweep: the filter glides from f0 to f1 while it swells and fades (paper, whooshes, wind, fizz)
+function sweep(t, dur, f0, f1, type, vol, dest, q){
+  const c = SND.ctx, src = c.createBufferSource(), f = c.createBiquadFilter(), g = c.createGain(); src.buffer = SND.nb; src.loop = true;
+  f.type = type; f.Q.value = q || 1; f.frequency.setValueAtTime(f0, t); f.frequency.exponentialRampToValueAtTime(f1, t + dur);
+  g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + dur * .3); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+  src.connect(f); f.connect(g); g.connect(dest); src.start(t, Math.random() * .5); src.stop(t + dur + .02);
 }
+// every sound is built from the same Lao instruments as the music (ໂປງລາງ, ສິ່ງ, ກອງ, ຄ້ອງ) plus noise for paper, air and water
 function sfx(name){
-  if(!SND.ctx || !SET.sfx || (S && (S.fast || S.sim))) return;
-  const t = SND.ctx.currentTime;
+  if(!SND.ctx || !SND.nb || !SET.sfx || (S && (S.fast || S.sim))) return;
+  const c = SND.ctx, t = c.currentTime, X = SND.sfx, R = Math.random;
   try{
     switch(name){
-      case 'draw': noise(.18, .14, 3500, t, 'highpass'); break;
-      case 'play': tone(140, .25, 'sine', .5, null, t, 70); tone(420, .12, 'triangle', .14, null, t); break;
-      case 'attack': noise(.22, .24, 1500, t, 'bandpass'); break;
-      case 'hit': tone(90, .2, 'square', .22, null, t, 50); noise(.12, .3, 800, t); break;
-      case 'destroy': noise(.45, .34, 1200, t); tone(300, .4, 'sawtooth', .1, null, t, 60); break;
-      case 'heal': [5, 7, 8, 10].forEach((d, i) => iRanat(t + i * .06, pf(d, 440), .12, SND.sfx, 0, .8)); break;
-      case 'spell': [880, 1175, 1568].forEach((f, i) => tone(f, .4, 'sine', .11, null, t + i * .05)); noise(.4, .07, 6000, t, 'highpass'); break;
-      case 'rocket': noise(.6, .24, 900, t, 'bandpass'); tone(200, .6, 'sawtooth', .07, null, t, 900); break;
-      case 'boom': noise(.6, .5, 600, t); tone(60, .5, 'sine', .5, null, t, 30); break;
-      case 'legend': musicDuck(2400); iGong(t, .4, SND.sfx, 0, 82); [65, 130].forEach(f => tone(f, 2, 'sine', .2, null, t)); tone(392, 1.5, 'triangle', .08, null, t + .1); break;
-      case 'turn': [2, 3, 5].forEach((d, i) => iRanat(t + i * .08, pf(d, 440), .16, SND.sfx)); iChing(t + .16, true, .05, SND.sfx); break;
-      case 'win': [0, 2, 3, 4, 5, 7].forEach((d, i) => iRanat(t + i * .08, pf(d, 440), .18, SND.sfx)); break;
-      case 'lose': [4, 3, 2, 0].forEach((d, i) => iRanat(t + i * .16, pf(d, 440), .14, SND.sfx, 0, .6)); break;
-      case 'trip': tone(600, .3, 'square', .09, null, t, 150); noise(.2, .2, 1000, t + .2); break;
-      case 'wind': noise(.9, .24, 700, t, 'bandpass'); break;
-      case 'curse': tone(110, .8, 'sawtooth', .11, null, t, 80); tone(116, .8, 'sawtooth', .09, null, t, 85); break;
+      // buttons: a soft wooden tap
+      case 'click': if(SND.lastClick != null && t - SND.lastClick < .05) break; SND.lastClick = t; iRanat(t, 1320, .1, X, 0, .07); nsrc(t, .015, 2600, 'bandpass', 2, .11, X); break;
+      // cards: a paper swish to draw, a slap with a tiny sparkle to play, a flip with a note to reveal
+      case 'draw': sweep(t, .2, 1800, 6500, 'bandpass', .21, X); break;
+      case 'play': nsrc(t, .09, 900, 'lowpass', 0, .45, X); tone(150, .16, 'sine', .4, X, t, 60); iRanat(t + .03, pf(7, 880), .05, X, 0, .3); break;
+      case 'flip': sweep(t, .12, 2500, 5000, 'bandpass', .17, X); iRanat(t + .04, pf(5, 440), .13, X, 0, .4); break;
+      // the fight: a whoosh, a drum punch, a shatter into glassy sparkles
+      case 'attack': sweep(t, .28, 500, 2600, 'bandpass', .75, X, 1.5); break;
+      case 'hit': iKlong(t, true, .5, X); nsrc(t, .05, 2500, 'highpass', 0, .22, X); tone(90, .18, 'square', .08, X, t, 50); break;
+      case 'destroy': nsrc(t, .45, 3500, 'highpass', 0, .2, X); tone(140, .3, 'sine', .35, X, t, 50); for(let i = 0; i < 7; i++) iRanat(t + .02 + i * .04 + R() * .02, 1800 + R() * 2400, .05, X, 0, .25); break;
+      // magic: a rising xylophone sparkle; healing chimes; a dark wobble for curses
+      case 'spell': [0, 2, 3, 5, 7].forEach((d, i) => iRanat(t + i * .045, pf(d, 880), .1, X, 0, .4)); sweep(t, .5, 3000, 9000, 'highpass', .11, X); break;
+      case 'heal': [5, 7, 8, 10].forEach((d, i) => iRanat(t + i * .06, pf(d, 440), .12, X, 0, .8)); tone(1760, .6, 'sine', .03, X, t + .2); break;
+      case 'curse': { const f = c.createBiquadFilter(), g = c.createGain(), l = c.createOscillator(), lg = c.createGain(); f.type = 'lowpass'; f.frequency.value = 650; l.frequency.value = 6; lg.gain.value = 9; l.connect(lg);
+        g.gain.setValueAtTime(.0001, t); g.gain.linearRampToValueAtTime(.12, t + .08); g.gain.exponentialRampToValueAtTime(.0001, t + .9); f.connect(g); g.connect(X);
+        for(const fr of [110, 117]){ const o = c.createOscillator(); o.type = 'sawtooth'; o.frequency.value = fr; lg.connect(o.frequency); o.connect(f); o.start(t); o.stop(t + .95); } l.start(t); l.stop(t + .95);
+        nsrc(t + .35, .35, 900, 'lowpass', 0, .14, X); break; }
+      // a bamboo rocket fizzing up, a festival firework with crackles, lightning with rolling thunder
+      case 'rocket': sweep(t, .9, 700, 3200, 'bandpass', .56, X, 2); tone(600, .9, 'sine', .1, X, t, 1800); break;
+      case 'boom': tone(70, .6, 'sine', .55, X, t, 32); nsrc(t, .5, 600, 'lowpass', 0, .45, X); for(let i = 0; i < 10; i++) nsrc(t + .15 + R() * .6, .03, 3000 + R() * 3000, 'bandpass', 3, .12, X); break;
+      case 'thunder': nsrc(t, .12, 2500, 'highpass', 0, .45, X); nsrc(t + .05, 1.4, 260, 'lowpass', 0, .55, X); tone(55, 1, 'sine', .3, X, t + .05, 35); break;
+      // the naga's river: a big splash and drops
+      case 'splash': nsrc(t, .5, 1800, 'bandpass', .8, .35, X); for(let i = 0; i < 6; i++){ const f0 = 800 + R() * 900; tone(f0, .08, 'sine', .08, X, t + .1 + R() * .4, f0 * 2); } break;
+      // traps: a wooden clack, then a rattling chain
+      case 'trip': iKlong(t, true, .45, X); nsrc(t, .02, 3000, 'bandpass', 2, .3, X); for(let i = 0; i < 6; i++) iChing(t + .12 + i * .05, false, .09 - i * .01, X); break;
+      case 'wind': sweep(t, .6, 400, 1400, 'bandpass', .5, X, 1.2); sweep(t + .45, .7, 1400, 450, 'bandpass', .4, X, 1.2); break;
+      // big moments: a legend's gong (the music steps back), a fusion's two tones rushing together, a rite's gong and temple bells, the baci's small bells
+      case 'legend': musicDuck(2400); iGong(t, .3, X, 0, 82); [65, 130].forEach(f => tone(f, 2, 'sine', .16, X, t)); tone(392, 1.5, 'triangle', .08, X, t + .1); break;
+      case 'fusion': tone(220, .9, 'triangle', .16, X, t, 440); tone(880, .9, 'triangle', .11, X, t, 440); sweep(t, .9, 400, 4000, 'bandpass', .2, X, 2); break;
+      case 'rite': musicDuck(2200); iGong(t, .26, X, 0, 110); [5, 7, 8, 7, 10, 8].forEach((d, i) => iRanat(t + .3 + i * .13, pf(d, 880), .05, X, 0, .9)); break;
+      case 'bless': [7, 8, 10, 8, 12].forEach((d, i) => iRanat(t + i * .11, pf(d, 440), .07, X, 0, 1)); iChing(t, true, .05, X); iChing(t + .44, true, .04, X); break;
+      // the turn, rewards and results
+      case 'turn': [2, 3, 5].forEach((d, i) => iRanat(t + i * .08, pf(d, 440), .16, X)); iChing(t + .16, true, .05, X); break;
+      case 'gem': iRanat(t, pf(10, 440), .14, X, 0, .7); iRanat(t + .07, pf(12, 440), .12, X, 0, .9); tone(3520, .5, 'sine', .03, X, t + .1); break;
+      case 'coin': for(let i = 0; i < 3; i++){ iRanat(t + i * .06, 2600 + i * 300, .12, X, 0, .2); iChing(t + i * .06, false, .1, X); } break;
+      case 'pack': sweep(t, .35, 1500, 5000, 'bandpass', .4, X, 1.5); [0, 2, 3, 5, 7, 10].forEach((d, i) => iRanat(t + .3 + i * .05, pf(d, 880), .09, X, 0, .5)); break;
+      case 'reveal': iGong(t, .25, X, 0, 131); [5, 7, 8, 10, 12].forEach((d, i) => iRanat(t + .05 + i * .06, pf(d, 440), .09, X, 0, .7)); tone(3520, .8, 'sine', .03, X, t + .2); break;
+      case 'win': [0, 2, 3, 4, 5, 7].forEach((d, i) => iRanat(t + i * .08, pf(d, 440), .18, X)); break;
+      case 'lose': [4, 3, 2, 0].forEach((d, i) => iRanat(t + i * .16, pf(d, 440), .14, X, 0, .6)); break;
     }
   }catch(e){}
 }
@@ -3010,7 +3034,7 @@ async function fxRiteBaci(o, sz){
     let path = ''; for(let i = 0; i <= 60; i++){ const t = i / 60, a = t * 6.283 * 1.5 + k * 2.09, r = 92 - t * 70; path += (i ? 'L' : 'M') + (Math.cos(a) * r).toFixed(1) + ' ' + (Math.sin(a) * r * .55).toFixed(1); }
     return '<path d="' + path + '" pathLength="1" style="animation-delay:' + k * 120 + 'ms"/>'; }).join('') + '</svg>');
   d.style.setProperty('--s', sz + 'px'); d.style.setProperty('--d', 1500 * SET.speed + 'ms'); setTimeout(() => d.remove(), 1500 * SET.speed + 50);
-  fxPetals(36); sfx('heal');
+  fxPetals(36); sfx('bless');
   for(let i = 0; i < 18; i++) emit({x:o.x + (Math.random() - .5) * sz * .5, y:o.y + (Math.random() - .5) * sz * .25, vx:(Math.random() - .5) * 40, vy:-40 - Math.random() * 60, g:-30, drag:.98, life:1.2, size:3 + Math.random() * 3, kind:'ember', color:'#fff7d6'});
   await fxWait(750);
 }
@@ -3033,7 +3057,7 @@ async function fxRite(p, id, mats){
   const T = RITE_FX[id] || RITE_FX.phitisukhuan, laneEl = elOf('side:' + pi(p)), lane = centerOf('side:' + pi(p)) || {x:innerWidth / 2, y:innerHeight / 2};
   const h = laneEl ? laneEl.getBoundingClientRect().height : 240, sz = Math.min(innerWidth * .82, Math.max(220, h * 1.35));
   await fxBig(async () => {
-    sfx('spell');
+    sfx('rite');
     // 1) the offered cards rise as lights into the centre, fading where they stood
     await Promise.all(mats.map((c, i) => { const e = elOf('c:' + c.uid), a = centerOf('c:' + c.uid); if(!a) return null;
       return sleep(i * 80).then(() => { if(e) e.style.opacity = '.25'; return fxOrb(a, lane, T.c, 620); }); }));
@@ -3199,7 +3223,7 @@ async function castSpell(p, id, t){
     case 'lomphayu':
       await fxTornado(tkey(t)); bounce(t.owner, t.c); log('ລົມພາຍຸ ພັດ «' + C[t.c.id].name + '» ກັບຄືນມື');
       break;
-    case 'baci': sfx('heal'); await fxBaci(p); particlesAt('h:' + pi(p), '#ffffff', 16); draw(p, 2); log(p.name + ' ສູ່ຂວັນ ຈົ່ວກາດ 2 ໃບ'); break;
+    case 'baci': sfx('bless'); await fxBaci(p); particlesAt('h:' + pi(p), '#ffffff', 16); draw(p, 2); log(p.name + ' ສູ່ຂວັນ ຈົ່ວກາດ 2 ໃບ'); break;
     case 'khaoniao': heal(p, 3); break;
     case 'phukkhaen':
       t.c.mods.push({amt:2, exp:S.T}); sfx('spell'); fxBuff(tkey(t)); await fxRing(tkey(t), '#ffd23d', true); log('«' + C[t.c.id].name + '» ຜູກແຂນ ພະລັງ +2');
@@ -3436,7 +3460,7 @@ async function turnStartEffects(p){
   const rain = p.field.filter(x => x.id === 'thaenfon').length; if(rain) heal(p, rain);
   for(const th of p.field.filter(x => x.id === 'phayathaen')){
     const weak = q.field.filter(c => pow(q, c) <= 2); if(!weak.length || S.over) continue;
-    const v = maxBy(weak, c => C[c.id].cost); if(!S.fast){ const k = centerOf('c:' + v.uid); if(k){ shockAt(k.x, k.y, '#9fe0ff', 140); flashScreen('#e6f6ff', .3); sfx('boom'); } await sleep(250); }
+    const v = maxBy(weak, c => C[c.id].cost); if(!S.fast){ const k = centerOf('c:' + v.uid); if(k){ shockAt(k.x, k.y, '#9fe0ff', 140); flashScreen('#e6f6ff', .3); sfx('thunder'); } await sleep(250); }
     log('ພະຍາແຖນ ຟ້າຜ່າ «' + C[v.id].name + '»'); await destroy(q, v);
   }
   const healN = p.field.reduce((a, c) => a + c.items.filter(x => x === 'waenwiset').length + (c.id === 'nangsangkhan' ? 1 : 0) + (c.id === 'nangai' ? 1 : 0), 0); if(healN) heal(p, healN);
@@ -4206,7 +4230,7 @@ async function openPack(kind, free){
       const {data, error} = await SB.rpc('eco_pack', {kind, di, free:!!free}); if(error) throw error;
       ecoApply(data.state); for(const x of data.cards) if(x.alt && x.isNew) markAltSeen(x.id);
       questEvent('pack', 1);
-      ui.open = {kind, di, cards:data.cards, flip:{}, torn:false}; sfx('spell'); render();
+      ui.open = {kind, di, cards:data.cards, flip:{}, torn:false}; sfx('pack'); render();
     }catch(e){ toast(ecoErr(e)); }
     finally{ ui.packBusy = false; }
     return;
@@ -4214,11 +4238,11 @@ async function openPack(kind, free){
   if(free){ if(!c.freePacks) return; c.freePacks--; }
   else { if(c.gems < PACKS[kind].cost){ toast('ເພັດບໍ່ພໍ'); return; } c.gems -= PACKS[kind].cost; }
   const di = ui.shopDeck != null ? ui.shopDeck : 1;
-  ui.open = {kind, di, cards:rollPack(kind, di), flip:{}, torn:false}; sfx('spell'); render();
+  ui.open = {kind, di, cards:rollPack(kind, di), flip:{}, torn:false}; sfx('pack'); render();
 }
 function flipCard(i){
   const o = ui.open; if(!o || o.flip[i]) return; o.flip[i] = true; o.last = i; const x = o.cards[i];
-  sfx(x.r === 'legend' || x.alt ? 'win' : (x.r === 'rare' ? 'spell' : 'turn'));
+  sfx(x.r === 'legend' || x.alt ? 'reveal' : (x.r === 'rare' ? 'spell' : 'flip'));
   render();
 }
 function shopClick(a, v){
@@ -4227,7 +4251,7 @@ function shopClick(a, v){
   if(ui.open){
     if(a === 'packtear'){ const o = ui.open; if(o.tearing) return true; o.tearing = true; sfx('boom'); render(); setTimeout(() => { if(ui.open === o){ o.torn = true; render(); } }, 700); }
     else if(a === 'flip') flipCard(+v);
-    else if(a === 'flipall'){ ui.open.cards.forEach((_, i) => ui.open.flip[i] = true); ui.open.last = 'all'; sfx('win'); render(); }
+    else if(a === 'flipall'){ ui.open.cards.forEach((_, i) => ui.open.flip[i] = true); ui.open.last = 'all'; sfx(ui.open.cards.some(x => x.r === 'legend' || x.alt) ? 'reveal' : 'flip'); render(); }
     else if(a === 'opendone'){ ui.open = null; render(); }
     else if(a === 'buy'){ ui.open = null; openPack(v); }
     return true;
@@ -4655,7 +4679,7 @@ async function fxFuseGather(p, mats, f){
   const M = {x:rs.reduce((a, r) => a + ctr(r).x, 0) / rs.length, y:rs.reduce((a, r) => a + ctr(r).y, 0) / rs.length - 20};
   const cl = els.map((e, i) => { const r = rs[i], d = document.createElement('div'); d.className = 'fzc'; d.innerHTML = e.innerHTML; d.style.setProperty('--tc', T.c[0]);
     Object.assign(d.style, {left:r.left + 'px', top:r.top + 'px', width:r.width + 'px', height:r.height + 'px'}); $fx.appendChild(d); e.style.visibility = 'hidden'; return d; });
-  sfx('spell');
+  sfx('fusion');
   if(REDUCE){ cl.forEach(d => d.animate([{opacity:1}, {opacity:0}], {duration:200, fill:'forwards'})); await sleep(200); cl.forEach(d => d.remove()); return M; }
   // lift
   await Promise.all(cl.map(d => animDone(d.animate([{transform:'none'}, {transform:'translateY(-26px) scale(1.12)'}], {duration:320 * SET.speed, easing:'cubic-bezier(.2,.8,.3,1)', fill:'forwards'}))));
@@ -4818,7 +4842,7 @@ function mxBolt(el, x, y, h, col){ let d = 'M0 0', px = 0; for(let k = 1; k <= 7
   return mxLayer(el, 'mx-bolt', '<svg viewBox="-80 0 160 ' + h + '" width="160" height="' + h + '"><path d="' + d + '" stroke="' + (col || '#e8f6ff') + '"/></svg>', {'--x':x + 'px', '--y':y + 'px'}); }
 const LEGEND_FX = {
   // ນ້ຳຂອງພຸ່ງ ແລະ ດວງເດືອນ
-  phayanak(el, fr){ el.classList.add('mx-river'); mxLayer(el, 'mx-moon'); const c = MX_C();
+  phayanak(el, fr){ el.classList.add('mx-river'); mxLayer(el, 'mx-moon'); const c = MX_C(); mxAt(el, 150, () => sfx('splash'));
     mxEvery(el, 40, 34, () => { for(let k = 0; k < 4; k++) emit({x:c.x + (Math.random() - .5) * fr.gs * .7, y:innerHeight + 10, vx:(Math.random() - .5) * 90, vy:-520 - Math.random() * 380, g:520, drag:.99, life:1.3, size:3 + Math.random() * 4, kind:'drop', color:pick(['#3aa0ff', '#bfe9ff', '#ffffff'])}); });
     mxAt(el, 380, () => shockAt(c.x, c.y + fr.gs * .3, '#bfe9ff', fr.gs * .8)); },
   // ເງົາສິບຫົວ ແລະ ແສງແດງ
@@ -4829,7 +4853,7 @@ const LEGEND_FX = {
     fxPetals(26, ['#ffffff', '#fff3b0', '#ffe48a', '#f2b632']); mxAt(el, 260, () => fxRays(innerWidth / 2, innerHeight * .39, '#ffe48a', 1600, 620)); },
   // ຟ້າຜ່າ ແລະ ເມກພາຍຸ
   phayathaen(el, fr){ el.classList.add('mx-storm'); mxLayer(el, 'mx-cloud'); const c = MX_C();
-    [120, 520, 900, 1350].forEach((t, k) => mxAt(el, t, () => { const x = k % 2 ? c.x + fr.gs * .55 : c.x - fr.gs * .5; mxBolt(el, x, 0, c.y + fr.gs * .1); flashScreen('#e6f6ff', .35); sfx('boom'); shockAt(x, c.y, '#9fe0ff', 120); })); },
+    [120, 520, 900, 1350].forEach((t, k) => mxAt(el, t, () => { const x = k % 2 ? c.x + fr.gs * .55 : c.x - fr.gs * .5; mxBolt(el, x, 0, c.y + fr.gs * .1); flashScreen('#e6f6ff', .35); sfx('thunder'); shockAt(x, c.y, '#9fe0ff', 120); })); },
   // ຊ້າງເສິກ, ທຸງ ແລະ ຂີ້ຝຸ່ນ
   thaohung(el, fr){ el.classList.add('mx-war'); mxLayer(el, 'mx-flag l'); mxLayer(el, 'mx-flag r'); const c = MX_C(), gy = c.y + fr.gs * .42;
     mxEvery(el, 50, 30, () => { for(let k = 0; k < 3; k++) emit({x:c.x + (Math.random() - .5) * fr.gs * 1.4, y:gy, vx:(Math.random() - .5) * 180, vy:-40 - Math.random() * 60, g:-10, drag:.97, life:1.2, size:10 + Math.random() * 12, kind:'smoke', color:pick(['#c9a46a', '#a8834c', '#e2c79a'])}); });
@@ -4850,7 +4874,7 @@ const LEGEND_FX = {
     mxEvery(el, 40, 40, () => { for(let k = 0; k < 3; k++) emit({x:c.x + (Math.random() - .5) * innerWidth * .6, y:innerHeight + 10, vx:(Math.random() - .5) * 60, vy:-180 - Math.random() * 220, g:-30, drag:.99, life:1.5, size:2 + Math.random() * 3, kind:'ember', color:pick(['#ff7a1a', '#ffb02e', '#ffd23d'])}); });
     mxAt(el, 800, () => { flashScreen('#fff1c4', .45); fxRays(c.x, c.y, '#ffd23d', 1300, 600); burstAt(c.x, c.y, 'hero', 40, 1.1); }); },
   // ນ້ຳຂຶ້ນ ແລະ ພະຍານາກ
-  suttharo(el, fr){ el.classList.add('mx-river'); mxLayer(el, 'mx-tide'); const c = MX_C();
+  suttharo(el, fr){ el.classList.add('mx-river'); mxLayer(el, 'mx-tide'); const c = MX_C(); mxAt(el, 200, () => sfx('splash'));
     mxAt(el, 500, () => fxYantra(c.x, c.y, fr.gs * 1.05, '#9fe0ff', 1600));
     mxEvery(el, 60, 24, () => emit({x:Math.random() * innerWidth, y:innerHeight * .78, vx:(Math.random() - .5) * 60, vy:-160 - Math.random() * 120, g:420, drag:.99, life:1, size:3 + Math.random() * 3, kind:'drop', color:pick(['#3aa0ff', '#bfe9ff', '#ffffff'])})); },
   // ນີອອນ, ກຣິດ ແລະ ກລິດຈ໌
@@ -5195,7 +5219,7 @@ async function fxZap(x, y){
   if(S.fast || REDUCE) return; let d = 'M0 0', px = 0; const h = y + 40;
   for(let k = 1; k <= 9; k++){ px += (Math.random() - .5) * 70; d += ' L' + px.toFixed(0) + ' ' + (k * h / 9).toFixed(0); }
   const z = addFx('zap', x, 0, '<svg viewBox="-90 0 180 ' + h + '" width="180" height="' + h + '"><path d="' + d + '"/></svg>');
-  sfx('boom'); flashScreen('#e6f6ff', .3); shockAt(x, y, '#9fe0ff', 140); burstAt(x, y, 'thewada', 22, .9);
+  sfx('thunder'); flashScreen('#e6f6ff', .3); shockAt(x, y, '#9fe0ff', 140); burstAt(x, y, 'thewada', 22, .9);
   await sleep(260); setTimeout(() => z.remove(), 300);
 }
 // power up: a gold aura with arrows rising · power down: purple smoke sinking with an arrow down
@@ -6097,7 +6121,7 @@ function onlineHTML(m){
 function closeModal(){ const r = S && S.modal && S.modal.resolve; if(S) S.modal = null; render(); if(r) r(); }
 $app.addEventListener('click', e => {
   const el = e.target.closest('[data-a]'); if(!el) return;
-  const a = el.dataset.a, v = el.dataset.v;
+  const a = el.dataset.a, v = el.dataset.v; sfx('click');
   if(a === 'settings'){ ui.settingsOpen = true; render(); return; }
   if(a === 'setclose'){ ui.settingsOpen = false; render(); return; }
   if(a === 'parent'){ gateOpen('parent'); return; }
@@ -6116,8 +6140,8 @@ $app.addEventListener('click', e => {
       ui.mmodal = null; render(); toast(miss ? 'ນຳເຂົ້າແລ້ວ · ຂາດກາດ ' + miss + ' ແບບ ທີ່ເຈົ້າຍັງບໍ່ມີ' : 'ນຳເຂົ້າແລ້ວ'); return;
     }
     if(a === 'qclaim' && ui.mmodal && ui.mmodal.type === 'quests'){ const q = quests()[+v], c = col(); if(q && q.p >= q.n && !q.claimed){
-      if(ACCT.eco){ ecoClaim('quest', q.k).then(d => { q.claimed = true; saveCol(); sfx('win'); const lv = levelGift(d.lvFrom, d.lvTo); toast('💎 +' + d.gems + (lv ? ' · ' + lv : '')); render(); }).catch(e => toast(e && e.code === 'P0005' ? 'ຮັບພາລະກິດຄົບ 3 ອັນແລ້ວມື້ນີ້' : ecoErr(e))); return; }
-      q.claimed = true; c.gems += q.g; saveCol(); const lv = addXP(30); sfx('win'); toast('💎 +' + q.g + (lv ? ' · ' + lv : '')); } render(); return; }
+      if(ACCT.eco){ ecoClaim('quest', q.k).then(d => { q.claimed = true; saveCol(); sfx('gem'); const lv = levelGift(d.lvFrom, d.lvTo); toast('💎 +' + d.gems + (lv ? ' · ' + lv : '')); render(); }).catch(e => toast(e && e.code === 'P0005' ? 'ຮັບພາລະກິດຄົບ 3 ອັນແລ້ວມື້ນີ້' : ecoErr(e))); return; }
+      q.claimed = true; c.gems += q.g; saveCol(); const lv = addXP(30); sfx('gem'); toast('💎 +' + q.g + (lv ? ' · ' + lv : '')); } render(); return; }
     if(a === 'qreroll' && ui.mmodal && ui.mmodal.type === 'quests'){ const c = col(), list = quests(); if(!c.quests.rerolled){ const pool = QUEST_POOL.filter(x => !list.some(y => y.k === x.k)); list[+v] = {...pick(pool), p:0, claimed:false}; c.quests.rerolled = true; saveCol(); } render(); return; }
     if(a === 'pickdeck'){ ui.deck = v.startsWith('c:') ? v : +v; ui.mmodal = null; render(); return; }
     if(a === 'pknew'){ ui.mmodal = null; openEditor(null, {}); return; }
@@ -6349,7 +6373,7 @@ $app.addEventListener('contextmenu', e => {
 /* ---------- self-test: bot vs bot, no animation ---------- */
 // local dev only: poke at live game state from the console
 if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__dbg = {fx:{show:(id, alt) => fxShowcase(id, alt), motif:(id, x, y) => fxFuseMotif(id, {x:x || innerWidth / 2, y:y || innerHeight / 2}), cutin:(f) => fxFuseCutin(C[f].fusion, f), rite:(i, id) => { const p = S.p[i || 0]; return fxRite(p, id || 'phitibangfai', p.field.slice(0, 3)); }, rays:fxRays, yantra:fxYantra, orb:fxOrb, petals:fxPetals, marigolds:fxMarigolds, baci:(i) => fxBaci(S.p[i || 0]), burst:burstAt, big:fxBig, wait:fxWait, get state(){ return FX; }},get S(){ return S; }, get net(){ return NET; },
-  music:{want:m => { MUS.want = m; }, sting:musicSting, get state(){ return MUS; }, level:async (mood, secs) => {
+  music:{want:m => { MUS.want = m; }, sting:musicSting, sfx:n => sfx(n), get state(){ return MUS; }, level:async (mood, secs) => {
     const sr = 22050, oc = new OfflineAudioContext(1, sr * (secs || 20), sr), keep = Object.assign({}, SND), out = oc.createGain(); out.connect(oc.destination);
     SND.ctx = oc; SND.sfx = out; musicBus(oc, out);
     try{
