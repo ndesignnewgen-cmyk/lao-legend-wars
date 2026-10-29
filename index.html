@@ -3005,7 +3005,10 @@ function musicBar(){
   if(MUS.want === MUS.mood) return false;
   const from = MUS.mood, to = MUS.want, bpm = m => SCORE[m] ? SCORE[m].bpm : 0; MUS.mood = to;
   if(bpm(from) !== bpm(to)) MUS.bar = 0;   // battle, winning and losing go on in the same bar; anything else starts at its top
-  if(to !== 'end' && to !== 'menu' && MUS.intro){ MUS.intro = false; if(MF.buf[to]) return false; MUS.bar = 0; MUS.hold = MUS.next + STING.start(MUS.next); return true; }
+  if(to !== 'end' && to !== 'menu' && MUS.intro){ MUS.intro = false; MUS.bar = 0;
+    if(MF.buf.start){ mfFade(.3); MUS.hold = MUS.next + mfOnce('start', MUS.next); return true; }
+    if(MF.buf[to]) return false;   // no recorded opening, but a recorded battle song: it has its own build-up
+    MUS.hold = MUS.next + STING.start(MUS.next); return true; }
   return false;
 }
 // what the music should be doing now: called on every render
@@ -3025,12 +3028,12 @@ function musicSting(name){
 // the music steps back while a big moment speaks
 function musicDuck(ms){ if(!SND.mus) return; const g = SND.mus.gain, t = SND.ctx.currentTime; g.cancelScheduledValues(t); g.setTargetAtTime(MUS.vol * .35, t, .06); g.setTargetAtTime(MUS.vol, t + ms / 1000, .35); }
 function musicStop(){ clearInterval(SND.timer); SND.timer = null; MUS.mood = null; mfFade(.3); }
-/* recorded songs (art/music, made with Suno for this game): menu, battle, winning and losing loop, victory plays once. They load
-   after the music starts, menu first; a mood whose song isn't in yet (or failed) keeps the synthesized score above.
+/* recorded songs (art/music, made with Suno for this game): menu, battle, winning and losing loop; start, victory and defeat play
+   once. They load after the music starts, menu first; a mood whose song isn't in yet (or failed) keeps the synthesized score above.
    Each loop file carries .5 s of music before loopStart and after loopEnd, so the jump back crossfades over XF inside real
    music; battle, winning and losing share 120 BPM, so a mood change keeps the beat and crossfades over 1.2 s. */
 const MF_SONGS = {menu:{bpm:109.96, a:.5, b:35.422}, battle:{bpm:120.19, a:.5, b:80.374}, winning:{bpm:120.19, a:.5, b:64.399},
-  losing:{bpm:120.19, a:.5, b:80.357}, victory:{once:true}};
+  losing:{bpm:120.19, a:.5, b:80.357}, start:{once:true}, victory:{once:true}, defeat:{once:true}};
 const MF = {buf:{}, cur:null, loading:false, vol:.7, xf:.04};
 function mfLoad(){
   if(MF.loading || !SND.ctx || !window.fetch) return; MF.loading = true;
