@@ -2983,7 +2983,7 @@ const STING = {
 function musicStart(){
   if(!SND.ctx || !SET.music || SND.timer || !SND.mbus) return;
   MUS.next = SND.ctx.currentTime + .15; MUS.step = 0; MUS.mood = null; MUS.hold = 0;
-  SND.timer = setInterval(musicTick, 90);
+  SND.timer = setInterval(musicTick, 90); mfLoad();
 }
 // schedule a little ahead of the clock; the mood (and the piece) only changes on a bar line
 function musicTick(){
@@ -2993,18 +2993,19 @@ function musicTick(){
     if(MUS.next < MUS.hold){ MUS.next = MUS.hold; MUS.step = 0; continue; }
     if(MUS.step % 8 === 0 && musicBar()) continue;
     const sc = SCORE[MUS.mood];
-    if(!sc){ MUS.next += .3; MUS.step = 0; continue; }   // the end screen: quiet until the menu
+    if(!sc || MF.buf[MUS.mood]){ MUS.next += .3; MUS.step = 0; continue; }   // the end screen (quiet until the menu), or a recorded song plays
     const B = 30 / sc.bpm;
     sc.step(MUS.next, MUS.step % 8, MUS.bar, B, MUS.mood);
     MUS.next += B; MUS.step++; if(MUS.step % 8 === 0) MUS.bar++;
   }
+  mfTick(c);
 }
 // a new bar: take up the wanted mood; true when a piece played once now holds the floor
 function musicBar(){
   if(MUS.want === MUS.mood) return false;
   const from = MUS.mood, to = MUS.want, bpm = m => SCORE[m] ? SCORE[m].bpm : 0; MUS.mood = to;
   if(bpm(from) !== bpm(to)) MUS.bar = 0;   // battle, winning and losing go on in the same bar; anything else starts at its top
-  if(to !== 'end' && to !== 'menu' && MUS.intro){ MUS.intro = false; MUS.bar = 0; MUS.hold = MUS.next + STING.start(MUS.next); return true; }
+  if(to !== 'end' && to !== 'menu' && MUS.intro){ MUS.intro = false; if(MF.buf[to]) return false; MUS.bar = 0; MUS.hold = MUS.next + STING.start(MUS.next); return true; }
   return false;
 }
 // what the music should be doing now: called on every render
@@ -3018,11 +3019,56 @@ function musicWant(){
 // the victory or defeat piece right away; false when the music is off (the short sound plays instead)
 function musicSting(name){
   if(!SND.ctx || !SET.music || !SND.timer) return false;
-  const t = SND.ctx.currentTime + .05; MUS.mood = MUS.want = 'end'; MUS.hold = t + STING[name](t); return true;
+  const t = SND.ctx.currentTime + .05; MUS.mood = MUS.want = 'end'; mfFade(.5);
+  MUS.hold = t + (MF.buf[name] ? mfOnce(name, t) : STING[name](t)); return true;
 }
 // the music steps back while a big moment speaks
 function musicDuck(ms){ if(!SND.mus) return; const g = SND.mus.gain, t = SND.ctx.currentTime; g.cancelScheduledValues(t); g.setTargetAtTime(MUS.vol * .35, t, .06); g.setTargetAtTime(MUS.vol, t + ms / 1000, .35); }
-function musicStop(){ clearInterval(SND.timer); SND.timer = null; MUS.mood = null; }
+function musicStop(){ clearInterval(SND.timer); SND.timer = null; MUS.mood = null; mfFade(.3); }
+/* recorded songs (art/music, made with Suno for this game): menu, battle, winning and losing loop, victory plays once. They load
+   after the music starts, menu first; a mood whose song isn't in yet (or failed) keeps the synthesized score above.
+   Each loop file carries .5 s of music before loopStart and after loopEnd, so the jump back crossfades over XF inside real
+   music; battle, winning and losing share 120 BPM, so a mood change keeps the beat and crossfades over 1.2 s. */
+const MF_SONGS = {menu:{bpm:109.96, a:.5, b:35.422}, battle:{bpm:120.19, a:.5, b:80.374}, winning:{bpm:120.19, a:.5, b:64.399},
+  losing:{bpm:120.19, a:.5, b:80.357}, victory:{once:true}};
+const MF = {buf:{}, cur:null, loading:false, vol:.7, xf:.04};
+function mfLoad(){
+  if(MF.loading || !SND.ctx || !window.fetch) return; MF.loading = true;
+  const todo = Object.keys(MF_SONGS), one = (n, again) => fetch(ART + 'music/' + n + '.m4a').then(r => r.ok ? r.arrayBuffer() : Promise.reject(r.status))
+    .then(b => new Promise((ok, no) => SND.ctx.decodeAudioData(b, ok, no))).then(buf => { MF.buf[n] = buf; }).catch(() => again ? one(n, false) : null);
+  const next = () => { const n = todo.shift(); if(n) one(n, true).then(next); };
+  next();
+}
+// one stretch of a song from `offset`, fading in over `fade` s; returns {src, g}
+function mfSource(name, when, offset, fade){
+  const c = SND.ctx, src = c.createBufferSource(), g = c.createGain(); src.buffer = MF.buf[name];
+  g.gain.setValueAtTime(fade ? 0 : MF.vol, when); if(fade) g.gain.linearRampToValueAtTime(MF.vol, when + fade);
+  src.connect(g); g.connect(SND.mus); src.start(when, offset); return {src, g};
+}
+function mfFade(secs){
+  const k = MF.cur; if(!k || !SND.ctx) return; MF.cur = null; const t = SND.ctx.currentTime;
+  for(const p of k.parts){ p.g.gain.cancelScheduledValues(t); p.g.gain.setValueAtTime(p.g.gain.value, t); p.g.gain.linearRampToValueAtTime(0, t + secs); try{ p.src.stop(t + secs + .05); }catch(e){} }
+}
+function mfOnce(name, t){ const p = mfSource(name, t, 0, 0); p.src.onended = () => p.g.disconnect(); return MF.buf[name].duration; }
+// start the wanted song (keeping the beat when the tempo matches), and queue each loop's jump back before it is due
+function mfTick(c){
+  const m = MUS.mood, sg = MF_SONGS[m], want = sg && !sg.once && MF.buf[m] && c.currentTime >= MUS.hold - .05;
+  if(!want){ if(MF.cur) mfFade(1.2); return; }
+  const now = c.currentTime + .05, len = sg.b - sg.a;
+  if(!MF.cur || MF.cur.name !== m){
+    let pos = 0; const old = MF.cur;
+    if(old && MF_SONGS[old.name].bpm === sg.bpm){ const bar = 240 / sg.bpm; pos = ((now - old.t0) % bar + bar) % bar; }
+    mfFade(1.2);
+    const p = mfSource(m, now, sg.a + pos, old ? 1.2 : .6);
+    MF.cur = {name:m, parts:[p], t0:now - pos, end:now + len - pos};
+  }
+  const k = MF.cur;
+  if(k.end - MF.xf < c.currentTime + .4){
+    const at = k.end - MF.xf, last = k.parts[k.parts.length - 1];
+    last.g.gain.setValueAtTime(MF.vol, at); last.g.gain.linearRampToValueAtTime(0, at + MF.xf); last.src.stop(at + MF.xf + .05);
+    const p = mfSource(m, at, sg.a - MF.xf, MF.xf); k.parts = [last, p]; k.t0 = at + MF.xf; k.end = k.t0 + len;
+  }
+}
 function saveSet(){ try{ localStorage.setItem('lao-legend-settings', JSON.stringify(SET)); }catch(e){} }
 function toggleSetting(k){
   if(k === 'fx'){ SET.fx = {full:'short', short:'off', off:'full'}[SET.fx] || 'full'; fxApply(); } else SET[k] = !SET[k];
@@ -7535,7 +7581,7 @@ $app.addEventListener('contextmenu', e => {
 /* ---------- self-test: bot vs bot, no animation ---------- */
 // local dev only: poke at live game state from the console
 if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__dbg = {fx:{show:(id, alt) => fxShowcase(id, alt), motif:(id, x, y) => fxFuseMotif(id, {x:x || innerWidth / 2, y:y || innerHeight / 2}), cutin:(f) => fxFuseCutin(C[f].fusion, f), rite:(i, id) => { const p = S.p[i || 0]; return fxRite(p, id || 'phitibangfai', p.field.slice(0, 3)); }, rays:fxRays, yantra:fxYantra, orb:fxOrb, petals:fxPetals, marigolds:fxMarigolds, baci:(i) => fxBaci(S.p[i || 0]), fest:(id) => fxFest(FESTS.find(f => f.id === id) || FESTS[0]), blade:(i, n) => addBlade(S.p[i || 0], n), slash:fxSlash, burst:burstAt, big:fxBig, wait:fxWait, get state(){ return FX; }},get S(){ return S; }, get net(){ return NET; }, get ACCT(){ return ACCT; }, get ui(){ return ui; }, DECKS, mockSB:x => { SB = x; },
-  music:{want:m => { MUS.want = m; }, sting:musicSting, sfx:n => sfx(n), get state(){ return MUS; }, level:async (mood, secs) => {
+  music:{want:m => { MUS.want = m; }, sting:musicSting, sfx:n => sfx(n), get state(){ return MUS; }, get mf(){ return {loaded:Object.keys(MF.buf), cur:MF.cur && MF.cur.name, parts:MF.cur ? MF.cur.parts.length : 0}; }, level:async (mood, secs) => {
     const sr = 22050, oc = new OfflineAudioContext(1, sr * (secs || 20), sr), keep = Object.assign({}, SND), out = oc.createGain(); out.connect(oc.destination);
     SND.ctx = oc; SND.sfx = out; musicBus(oc, out);
     try{
