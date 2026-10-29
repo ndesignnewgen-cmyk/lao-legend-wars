@@ -1666,6 +1666,81 @@ body{background:
 .card .art .phart{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:radial-gradient(circle at 50% 35%,#fff6d8,#ffc46b 55%,#d9772b);font-size:min(64px,40cqw);line-height:1}
 .card .art .phart small{font:700 11px var(--f-d);color:#5a3000;background:#fff9;padding:2px 8px;border-radius:999px}
 .hadv{width:100%;margin-top:8px;font:800 16px var(--f-d);padding:10px}
+/* ---------- the main menu: playing real people first; a bottom bar on phones, a side rail on wide screens ---------- */
+.home2{position:relative;height:100%;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto;isolation:isolate;overflow:hidden}
+.h2scroll{min-height:0;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;gap:12px;padding:12px max(16px,env(safe-area-inset-right,0px)) 16px max(16px,env(safe-area-inset-left,0px))}
+.h2main{display:flex;flex-direction:column;gap:12px;width:100%;max-width:560px;margin:0 auto}
+.h2logo{display:none;text-align:center;margin:-4px 0 -8px}.h2logo .logoimg{width:min(240px,62vw);height:auto;filter:drop-shadow(0 8px 24px #000)}
+.h2note{display:flex;align-items:center;gap:10px;justify-content:space-between;width:100%;max-width:560px;margin:0 auto;padding:8px 12px;border-radius:14px;background:#ffffff12;border:1px solid #ffd23d55;font:700 13px var(--f-d);color:#f2d48a}
+.h2note .btn2{flex:none}
+.h2hero{display:flex;align-items:center;gap:14px;padding:12px;border-radius:20px;background:linear-gradient(135deg,#ffffff14,#ffffff06);border:1px solid #ffffff22;backdrop-filter:blur(6px);box-shadow:0 14px 40px #0008}
+.h2deck{position:relative;flex:none;width:min(108px,28vw);cursor:pointer;transition:transform .2s}.h2deck:hover{transform:translateY(-4px) rotate(-1.5deg)}
+.h2deck .hswap{position:absolute;right:-6px;bottom:-6px}
+.h2dinfo{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}.h2dinfo small{color:var(--dim);font:700 12px var(--f-d)}
+.h2dinfo h2{margin:0;font:800 19px/1.25 var(--f-d)}.h2dinfo p{margin:0;color:#e8dcc4;font:600 12.5px/1.5 var(--f-d)}
+.h2dinfo .hbtns{display:flex;gap:6px;flex-wrap:wrap}.h2dinfo .hbtns .btn2{padding:6px 10px;font-size:13px}
+.h2online{position:relative;display:flex;align-items:center;gap:14px;width:100%;padding:16px 18px;border-radius:22px;border:0;cursor:pointer;text-align:left;color:#2a1600;overflow:hidden;
+  background:linear-gradient(135deg,#fff1b8,#ffd23d 30%,#f2b632 60%,#c8741a);box-shadow:inset 0 0 0 2px #fff3c8aa,0 0 0 1px #7a4a0c,0 12px 34px #f2b63255;transition:transform .15s}
+.h2online:hover{transform:translateY(-2px)}.h2online:active{transform:scale(.98)}
+.h2online::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,#ffffffaa 50%,transparent 65%);background-size:250% 100%;animation:h2shine 3.2s ease-in-out infinite}
+@keyframes h2shine{0%,55%{background-position:120% 0}100%{background-position:-120% 0}}
+.h2online .uic{width:64px;height:64px;flex:none;filter:drop-shadow(0 4px 6px #7a4a0c88)}
+.h2online b{display:block;font:800 25px/1.15 var(--f-d)}.h2online small{display:block;margin-top:3px;font:700 13px var(--f-d);color:#5a3500}
+.h2online .h2live{display:inline-flex;align-items:center;gap:5px}.h2online .h2live i{width:8px;height:8px;border-radius:50%;background:#1f9d4a;box-shadow:0 0 0 3px #1f9d4a33;animation:h2live 1.6s ease-in-out infinite}
+@keyframes h2live{50%{box-shadow:0 0 0 6px #1f9d4a11}}
+.h2row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.h2chip{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:16px;cursor:pointer;text-align:left;color:var(--ink);background:linear-gradient(135deg,#ffffff16,#ffffff08);border:1px solid #ffffff26;font:800 15px var(--f-d);transition:transform .15s,border-color .15s}
+.h2chip:hover{transform:translateY(-2px);border-color:var(--gold)}.h2chip .uic,.h2chip .rkic{width:34px;height:34px;flex:none}.h2chip span{min-width:0}.h2chip small{display:block;color:var(--dim);font:700 11.5px var(--f-d)}
+.h2sub{display:flex;align-items:center;gap:8px;margin:4px 0 -2px;color:var(--dim);font:800 12px var(--f-d);letter-spacing:.04em}.h2sub::after{content:"";flex:1;height:1px;background:#ffffff1f}
+.h2alt{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.h2tile{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 4px;border-radius:16px;cursor:pointer;color:var(--ink);background:#ffffff0d;border:1px solid #ffffff1f;transition:transform .15s,border-color .15s}
+.h2tile:hover{transform:translateY(-2px);border-color:var(--gold)}.h2tile .uic{width:40px;height:40px}.h2tile b{font:800 13.5px var(--f-d)}.h2tile small{color:var(--dim);font:700 11px var(--f-d)}
+.h2alt + .levels{margin:0;justify-content:center}
+.h2minis{display:flex;gap:8px;overflow-x:auto;padding:2px 0 4px;scrollbar-width:none}.h2minis::-webkit-scrollbar{display:none}
+.h2mini{position:relative;flex:1 0 auto;display:flex;align-items:center;gap:6px;padding:7px 10px;border-radius:999px;cursor:pointer;color:var(--ink);background:#ffffff0d;border:1px solid #ffffff1f;font:800 12.5px var(--f-d);white-space:nowrap}
+.h2mini .uic{width:24px;height:24px}.h2mini .badge{top:-6px;right:-4px}.h2mini:hover{border-color:var(--gold)}
+.h2links{margin:2px 0 0;text-align:center;color:var(--dim);font:600 12px var(--f-d)}.h2links a{color:#e8dcc4}
+.h2nav{position:relative;z-index:2;display:flex;justify-content:space-around;gap:2px;padding:4px max(6px,env(safe-area-inset-right,0px)) max(6px,env(safe-area-inset-bottom,0px)) max(6px,env(safe-area-inset-left,0px));
+  background:linear-gradient(#1c1724f2,#120f18);border-top:1px solid #e2b54a55;box-shadow:0 -10px 30px #0008}
+.h2nav button{position:relative;flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 0 4px;border:0;border-radius:12px;background:none;cursor:pointer;color:var(--dim);font:800 11.5px var(--f-d)}
+.h2nav button .uic,.h2nav button .h2ni{width:30px;height:30px;font-size:24px;line-height:30px;filter:grayscale(.35) brightness(.85);transition:transform .15s,filter .15s}
+.h2nav button.on{color:#ffd23d}.h2nav button.on .uic,.h2nav button.on .h2ni{filter:none;transform:translateY(-2px) scale(1.08)}
+.h2nav button.on::before{content:"";position:absolute;top:-5px;left:30%;right:30%;height:3px;border-radius:3px;background:#ffd23d;box-shadow:0 0 10px #ffd23d}
+.h2nav .badge{top:2px;right:calc(50% - 22px)}
+@media (orientation:landscape) and (min-width:760px){
+  .home2{grid-template-columns:86px minmax(0,1fr);grid-template-rows:minmax(0,1fr)}
+  .h2nav{grid-row:1;grid-column:1;flex-direction:column;justify-content:center;gap:6px;padding:12px 6px;border-top:0;border-right:1px solid #e2b54a55;box-shadow:10px 0 30px #0008;background:linear-gradient(90deg,#120f18,#1c1724f2)}
+  .h2nav button{flex:none;padding:10px 0}.h2nav button.on::before{top:20%;bottom:20%;left:-6px;right:auto;width:3px;height:auto}
+  .h2scroll{grid-column:2}
+  .h2main{max-width:1120px;display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1fr);gap:22px;align-items:center;flex:1}
+  .h2hero{flex-direction:column;text-align:center;padding:18px}.h2deck{width:min(200px,18vw)}.h2dinfo{align-items:center}.h2dinfo .hbtns{justify-content:center}.h2dinfo h2{font-size:24px}
+  .h2play{display:flex;flex-direction:column;gap:12px}
+  .h2logo{display:block}.h2logo .logoimg{width:min(260px,22vw)}
+}
+@media (orientation:landscape) and (max-height:560px){
+  .h2logo{display:none}.h2hero{padding:10px}.h2deck{width:min(120px,14vw)}.h2dinfo p{display:none}
+  .h2online{padding:12px 16px}.h2online .uic{width:48px;height:48px}.h2online b{font-size:21px}
+}
+/* ---------- the login page: sign in or sign up before playing, with a small way in as a guest ---------- */
+.login{position:relative;height:100%;overflow-y:auto;display:grid;place-items:center;padding:24px max(16px,env(safe-area-inset-right,0px)) 24px max(16px,env(safe-area-inset-left,0px));isolation:isolate}
+.login .hbg{background:var(--lbg,none) center/cover,var(--bg) center 20%/cover;filter:blur(2px) brightness(.55)}
+.lgwrap{display:grid;gap:18px;align-items:center;justify-items:center;width:100%;max-width:1000px}
+.lgside{text-align:center}.lgside .logoimg{width:min(320px,74vw);height:auto;filter:drop-shadow(0 10px 30px #000)}
+.lgside p{margin:2px 0 0;color:#f2d48a;font:700 14px var(--f-d);text-shadow:0 2px 6px #000}
+.lgside .lglive{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:4px 12px;border-radius:999px;background:#0009;color:#c9f2d8;font:700 12.5px var(--f-d)}
+.lgside .lglive i{width:8px;height:8px;border-radius:50%;background:#2fd06a;box-shadow:0 0 8px #2fd06a}
+.lgcard{width:min(420px,100%);display:flex;flex-direction:column;gap:10px;padding:18px 16px;border-radius:22px;text-align:center;
+  background:linear-gradient(160deg,#2a1d3af0,#171222f0);border:1px solid #e2b54a77;box-shadow:0 20px 60px #000b,inset 0 0 0 1px #ffffff10;backdrop-filter:blur(8px)}
+.lgcard .pname{width:100%;max-width:none}.lgcard .q{margin:0}.lgcard .lore{margin:0}
+.lgtabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;border-radius:14px;background:#0007}
+.lgtabs button{padding:10px;border:0;border-radius:10px;background:none;color:var(--dim);font:800 15px var(--f-d);cursor:pointer}.lgtabs button.on{background:linear-gradient(135deg,#ffe48a,#f2b632);color:#2a1600}
+.lgcard .btn-main{width:100%;font-size:17px;padding:12px}
+.lgcard .avgrid{display:flex;gap:8px;max-width:none;overflow-x:auto;padding:4px 2px 8px;scroll-snap-type:x mandatory;scrollbar-width:thin}.lgcard .avopt{flex:0 0 52px;scroll-snap-align:start}
+.lgmore{display:flex;flex-direction:column;gap:2px}
+.lgguest{margin-top:4px;padding:8px;border:1px dashed #ffffff33;border-radius:12px;background:none;color:#e8dcc4;font:700 13.5px var(--f-d);cursor:pointer}.lgguest:hover{border-color:var(--gold)}
+.lgfoot{margin:0;color:var(--dim);font:600 11.5px var(--f-d)}.lgfoot a{color:#e8dcc4}
+@media (orientation:landscape) and (min-width:760px){ .lgwrap{grid-template-columns:1.1fr 1fr} .lgside .logoimg{width:min(440px,40vw)} }
+@media (orientation:landscape) and (max-height:560px){ .lgside{display:none} }
 .hach{font:800 12px var(--f-d);color:#ffe48a;margin-left:6px;white-space:nowrap}
 .hname{font:800 13px/1.1 var(--f-d);font-style:normal;color:#fff;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.hname.new{color:#ffe48a}
 .pname{font:800 22px var(--f-d);text-align:center;width:min(300px,80vw);padding:10px;border-radius:12px;border:2px solid #ffffff44;background:#0005;color:#fff}
@@ -4709,13 +4784,14 @@ function render(){
   if(S && S.fast) return;
   musicWant();
   const sc = scrollSave();
+  if(!S && loginShown()){ $app.innerHTML = loginHTML() + menuModalHTML() + settingsHTML(); scrollRestore(sc); return; }
   if(!S){ $app.innerHTML = (ui.screen === 'book' ? bookHTML() : ui.screen === 'builder' ? builderHTML() : ui.screen === 'shop' && typeof shopHTML === 'function' ? shopHTML() : menuHTML()) + menuModalHTML() + settingsHTML(); scrollRestore(sc); return; }
   $app.innerHTML = boardHTML() + modalHTML() + graveHTML() + settingsHTML() + tutHTML();
   scrollRestore(sc); tutHighlight();
 }
 // a full redraw replaces every element, so each scrolling list keeps its place: picking a card, or opening one and closing it,
 // no longer jumps back to the top. A list inside a popup belongs to that popup (a new popup still opens at the top).
-const SCROLLERS = '.book,.bgrid2,.bdin,.shop,.home,.showgrid,.slist,.advmap,.loglist,.dpanel,.ggrid,.gbody,.modal';
+const SCROLLERS = '.book,.bgrid2,.bdin,.shop,.home,.h2scroll,.login,.showgrid,.slist,.advmap,.loglist,.dpanel,.ggrid,.gbody,.modal';
 const popKey = () => ui.mmodal ? ui.mmodal.type + '/' + (ui.mmodal.step || '') + '/' + (ui.mmodal.tab || '') : S && S.modal ? 'g/' + S.modal.type : '';
 function scrollKeys(){
   const n = {}, pk = popKey();
@@ -4740,23 +4816,35 @@ function selInfo(sel){
 }
 function menuHTML(){
   const c = col(), sel = ui.deck, info = selInfo(sel), L = levelOf(c.xp), into = c.xp - (L - 1) * LEVEL_XP;
-  const qn = quests().filter(q => q.p >= q.n && !q.claimed).length;
-  const tile = (a, ic, label, badge) => '<button class="htile" data-a="' + a + '"><span class="hic" aria-hidden="true">' + ic + '</span><b>' + label + '</b>' + (badge ? '<em class="badge">' + badge + '</em>' : '') + '</button>';
-  const art = PIC(C[info.cover].img);
-  return '<div class="home" style="--bg:url(' + art + ')"><div class="hbg" aria-hidden="true"></div>' +
-    '<header class="htop"><div class="hprof" role="button" tabindex="0" data-a="prof" aria-label="ໂປຣໄຟລ໌"><span class="hav fr-' + (c.frame || 'none') + '"><img src="' + (ACCT.prof && C[ACCT.prof.avatar] ? PIC(C[ACCT.prof.avatar].img) : art) + '" alt=""></span><div class="hlv">' + (ACCT.prof ? '<em class="hname">' + escH(ACCT.prof.name) + (ACCT.state === 'on' ? ' ☁️' : '') + '</em>' : '<em class="hname new">👤 ສ້າງຜູ້ຫຼິ້ນ</em>') + '<b>' + UIC('level') + 'ລະດັບ ' + L + ' <small>' + (L >= LEVEL_MAX ? 'ສູງສຸດ' : into + '/' + LEVEL_XP + ' XP') + '</small></b><div class="pbar"><i style="width:' + (L >= LEVEL_MAX ? 100 : into) + '%"></i></div></div><span class="hach">' + UIC('trophy') + ' ' + Object.keys(c.ach || {}).length + '/' + ACH.length + '</span></div>' +
-      walletHTML('sm') + '<button class="hset" data-a="settings" aria-label="ຕັ້ງຄ່າ">' + UIC('settings') + '</button></header>' +
-    '<div class="hmain"><div class="hlogo"><img class="logoimg" src="art/logo.webp" alt="Lao Legend Wars" width="960" height="640"><p>ສົງຄາມຕຳນານລາວ · ເກມກາດນິທານລາວ · ຫຼິ້ນຟຣີ</p>' + (ACCT.cfg && +ACCT.cfg.gem_mult > 1 ? '<div class="evribbon">🎉 ອີເວັ້ນ: ເພັດ x' + ACCT.cfg.gem_mult + ' ຈາກການຊະນະບອດ!</div>' : '') + '</div>' +
-      '<div class="hdeck"><div class="hcard" role="button" tabindex="0" data-a="decks" aria-label="ປ່ຽນເດັກ">' + boxHTML(typeof sel === 'string' ? sel : (DECKS[sel] ? sel : 0), info.cover, typeof sel === 'string' ? info.name : 'ເດັກ ' + (DECKS[sel] || DECKS[0]).no) + '<span class="hswap">' + UIC('swapdeck') + 'ປ່ຽນເດັກ</span></div>' +
-        '<div class="hdinfo"><small>ເດັກທີ່ເລືອກ</small><h2>' + escH(info.name) + '</h2><p>' + info.sub + '</p>' +
-          '<div class="hbtns"><button class="btn2" data-a="decks">' + UIC('swapdeck') + 'ປ່ຽນເດັກ</button><button class="btn2" data-a="edsel">' + UIC('edit') + ' ' + (typeof sel === 'string' ? 'ແກ້ເດັກນີ້' : 'ກັອບໄປແກ້') + '</button></div>' +
-          '<div class="levels"><span>ບອດ</span>' + LEVELS.map((l, i) => '<button class="lv ' + (ui.level === i ? 'on' : '') + '" data-a="lvl" data-v="' + i + '">' + l + '</button>').join('') + '</div>' +
-          '<button class="btn-main hplay" data-a="start"' + (info.locked ? ' disabled' : '') + '>' + UIC('fight') + 'ສູ້ກັບບອດ</button>' +
-          (par().noOnline ? '' : '<button class="btn2 hadv" data-a="online">' + UIC('online') + 'ຫຼິ້ນອອນລາຍກັບໝູ່</button>') + '<button class="btn2 hadv" data-a="adv">' + UIC('adventure') + 'ຜະຈົນໄພທົ່ວລາວ · ' + (Math.min(c.adv || 0, ADV.length)) + '/' + ADV.length + ' ດ່ານ</button></div></div></div>' +
-    '<nav class="hnav" aria-label="ເມນູ">' + tile('ednew', UIC('deck'), 'ຈັດເດັກ') + tile('shop', UIC('shop'), 'ຮ້ານຊອງ', c.freePacks) + tile('quests', UIC('quests'), 'ພາລະກິດ', qn) + tile('book', UIC('book'), 'ປຶ້ມກາດ') +
-      tile('pvpstart', UIC('pvp'), '2 ຄົນ') + tile('tutstart', UIC('tutorial'), 'ສອນຫຼິ້ນ', loadJ('lao-legend-tut', 0) ? '' : '!') + tile('stats', UIC('stats'), 'ສະຖິຕິ') + tile('pet', c.pet ? petFace() : UIC('pet'), 'ຄູ່ຫູ', c.pet ? '' : '!') + '</nav>' +
-    '<p class="hlinks"><a href="' + RULES_URL + '" target="_blank" rel="noopener">ອ່ານກົດການຫຼິ້ນ</a> · <a href="' + CARDS_URL + '" target="_blank" rel="noopener">ເບິ່ງກາດທັງໝົດ</a> · ກາດ ແລະ ເພັດ ເກັບໄວ້ໃນເຄື່ອງນີ້ · ບໍ່ມີການຈ່າຍເງິນແທ້</p>' +
-  '</div>';
+  const qn = quests().filter(q => q.p >= q.n && !q.claimed).length, art = PIC(C[info.cover].img), online = !par().noOnline, r = ACCT.rank;
+  const mini = (a, ic, label, badge) => '<button class="h2mini" data-a="' + a + '">' + ic + label + (badge ? '<em class="badge">' + badge + '</em>' : '') + '</button>';
+  const tile = (a, ic, label, sub) => '<button class="h2tile" data-a="' + a + '"' + (a === 'start' && info.locked ? ' disabled' : '') + '>' + ic + '<b>' + label + '</b><small>' + sub + '</small></button>';
+  const nav = (a, ic, label, on, badge) => '<button class="' + (on ? 'on' : '') + '" data-a="' + a + '"' + (on ? ' aria-current="page"' : '') + '>' + ic + '<span>' + label + '</span>' + (badge ? '<em class="badge">' + badge + '</em>' : '') + '</button>';
+  const live = ui.onlineN ? '<span class="h2live"><i></i>' + ui.onlineN + ' ຄົນອອນລາຍ</span>' : 'ຈັບຄູ່ກັບຄົນແທ້ທົ່ວລາວ';
+  // a guest plays on this device only; a guest account without an email can lose everything with the browser's data
+  const note = !ACCT.prof && isGuest() ? '<div class="h2note"><span>👀 ຫຼິ້ນເປັນແຂກ · ຂໍ້ມູນຢູ່ເຄື່ອງນີ້ເທົ່ານັ້ນ</span><button class="btn2 sm" data-a="lglogin">ເຂົ້າສູ່ລະບົບ / ສະໝັກ</button></div>'
+    : ACCT.prof && !mailOf() && !loadJ(RCODE_KEY, '') ? '<div class="h2note"><span>🔐 ຕັ້ງອີເມວ + ລະຫັດຜ່ານ ເພື່ອບໍ່ໃຫ້ບັນຊີຫາຍ</span><button class="btn2 sm" data-a="hmail">ຕັ້ງເລີຍ</button></div>' : '';
+  const hero = '<section class="h2hero"><div class="h2deck" role="button" tabindex="0" data-a="decks" aria-label="ປ່ຽນເດັກ">' +
+      boxHTML(typeof sel === 'string' ? sel : (DECKS[sel] ? sel : 0), info.cover, typeof sel === 'string' ? info.name : 'ເດັກ ' + (DECKS[sel] || DECKS[0]).no) + '<span class="hswap">' + UIC('swapdeck') + '</span></div>' +
+    '<div class="h2dinfo"><small>ເດັກທີ່ເລືອກ</small><h2>' + escH(info.name) + '</h2><p>' + info.sub + '</p>' +
+      '<div class="hbtns"><button class="btn2" data-a="decks">' + UIC('swapdeck') + 'ປ່ຽນເດັກ</button><button class="btn2" data-a="edsel">' + UIC('edit') + ' ' + (typeof sel === 'string' ? 'ແກ້ເດັກ' : 'ກັອບໄປແກ້') + '</button></div></div></section>';
+  // real people first: quick match, ranked, a room with a friend; the bot, adventure and two players on one device below
+  const people = online ? '<button class="h2online" data-a="hmm" data-v="casual">' + UIC('fight') + '<span><b>ສູ້ກັບຜູ້ຫຼິ້ນ</b><small>' + live + '</small></span></button>' +
+      '<div class="h2row"><button class="h2chip" data-a="hmm" data-v="ranked">' + (r && RANKS[r.tier] ? RKIC(r.tier) : UIC('trophy')) + '<span>ແຣງ<small>' + (r && RANKS[r.tier] ? RANKS[r.tier][1] + ' ' + (r.tier >= 6 ? '★×' + r.stars : '★'.repeat(r.stars) + '☆'.repeat(3 - r.stars)) : 'ໄຕ່ອັນດັບ ' + seasonInfo().name) + '</small></span></button>' +
+      '<button class="h2chip" data-a="online">' + UIC('friends') + '<span>ຫ້ອງກັບໝູ່<small>ລະຫັດຫ້ອງ · ທ້າໝູ່</small></span></button></div>' : '';
+  const more = '<p class="h2sub">' + (online ? 'ຝຶກ ແລະ ຜະຈົນໄພ' : 'ເລືອກໂໝດ') + '</p><div class="h2alt">' +
+      tile('adv', UIC('adventure'), 'ຜະຈົນໄພ', Math.min(c.adv || 0, ADV.length) + '/' + ADV.length + ' ດ່ານ') +
+      tile('start', UIC('stats'), online ? 'ຝຶກກັບບອດ' : 'ສູ້ກັບບອດ', 'ບອດ' + LEVELS[ui.level]) + tile('pvpstart', UIC('pvp'), '2 ຄົນ', 'ເຄື່ອງດຽວ') + '</div>' +
+    '<div class="levels"><span>ບອດ</span>' + LEVELS.map((l, i) => '<button class="lv ' + (ui.level === i ? 'on' : '') + '" data-a="lvl" data-v="' + i + '">' + l + '</button>').join('') + '</div>' +
+    '<div class="h2minis">' + mini('quests', UIC('quests'), 'ພາລະກິດ', qn) + mini('ednew', UIC('deck'), 'ຈັດເດັກ') + mini('pet', c.pet ? petFace() : UIC('pet'), 'ຄູ່ຫູ', c.pet ? '' : '!') +
+      mini('tutstart', UIC('tutorial'), 'ສອນຫຼິ້ນ', loadJ('lao-legend-tut', 0) ? '' : '!') + mini('stats', UIC('stats'), 'ສະຖິຕິ') + '</div>';
+  return '<div class="home2" style="--bg:url(' + art + ')"><div class="hbg" aria-hidden="true"></div>' +
+    '<div class="h2scroll">' + '<header class="htop"><div class="hprof" role="button" tabindex="0" data-a="prof" aria-label="ໂປຣໄຟລ໌"><span class="hav fr-' + (c.frame || 'none') + '"><img src="' + (ACCT.prof && C[ACCT.prof.avatar] ? PIC(C[ACCT.prof.avatar].img) : art) + '" alt=""></span><div class="hlv">' + (ACCT.prof ? '<em class="hname">' + escH(ACCT.prof.name) + (ACCT.state === 'on' ? ' ☁️' : '') + '</em>' : '<em class="hname new">👤 ສ້າງຜູ້ຫຼິ້ນ</em>') + '<b>' + UIC('level') + 'ລະດັບ ' + L + ' <small>' + (L >= LEVEL_MAX ? 'ສູງສຸດ' : into + '/' + LEVEL_XP + ' XP') + '</small></b><div class="pbar"><i style="width:' + (L >= LEVEL_MAX ? 100 : into) + '%"></i></div></div><span class="hach">' + UIC('trophy') + ' ' + Object.keys(c.ach || {}).length + '/' + ACH.length + '</span></div>' +
+      walletHTML('sm') + '<button class="hset" data-a="settings" aria-label="ຕັ້ງຄ່າ">' + UIC('settings') + '</button></header>' + note +
+      '<div class="h2main"><div class="h2left"><div class="h2logo"><img class="logoimg" src="art/logo.webp" alt="Lao Legend Wars" width="960" height="640"></div>' + (ACCT.cfg && +ACCT.cfg.gem_mult > 1 ? '<div class="evribbon">🎉 ອີເວັ້ນ: ເພັດ x' + ACCT.cfg.gem_mult + ' ຈາກການຊະນະບອດ!</div>' : '') + hero + '</div>' +
+        '<div class="h2play">' + people + more + '</div></div>' + '<p class="h2links"><a href="' + RULES_URL + '" target="_blank" rel="noopener">ອ່ານກົດການຫຼິ້ນ</a> · <a href="' + CARDS_URL + '" target="_blank" rel="noopener">ເບິ່ງກາດທັງໝົດ</a> · ກາດ ແລະ ເພັດ ເກັບໄວ້ໃນເຄື່ອງນີ້ · ບໍ່ມີການຈ່າຍເງິນແທ້</p>' + '</div>' +
+    '<nav class="h2nav" aria-label="ເມນູຫຼັກ">' + nav('hhome', '<span class="h2ni">🏠</span>', 'ໜ້າຫຼັກ', true) + nav('decks', UIC('deck'), 'ເດັກ') + nav('book', UIC('book'), 'ກາດ') +
+      nav('shop', UIC('shop'), 'ຮ້ານ', false, c.freePacks) + nav('social', UIC('friends'), 'ໝູ່') + '</nav></div>';
 }
 function deckPickHTML(){
   const c = col(), sel = ui.deck;
@@ -6154,7 +6242,7 @@ async function acctExtras(){
 async function acctLoad(){
   const {data} = await SB.from('profiles').select('*').eq('id', ACCT.user.id).maybeSingle();
   ACCT.prof = data || null;
-  if(ACCT.prof){ await cloudPull(); await ecoSync(); socStart(); acctExtras(); profPush(); }
+  if(ACCT.prof){ await cloudPull(); await ecoSync(); socStart(); acctExtras(); profPush(); rankLoad(); }
   else try{ localStorage.removeItem(RCODE_KEY); }catch(e){}   // the account moved to another device with its code
 }
 // on start: only players who already made an account load the Supabase library
@@ -6411,7 +6499,8 @@ async function mailStep(kind){
 }
 async function acctSignOut(){
   try{ await SB.auth.signOut(); }catch(e){}
-  ACCT.user = null; ACCT.prof = null; ACCT.state = 'off'; ACCT.eco = false; ui.mmodal = null; render(); toast('ອອກຈາກບັນຊີແລ້ວ');
+  ACCT.user = null; ACCT.prof = null; ACCT.state = 'off'; ACCT.eco = false; ACCT.rank = null; ui.mmodal = null;
+  saveJ('lao-legend-guest', 0); ui.login = {tab:'in'}; render(); toast('ອອກຈາກບັນຊີແລ້ວ');
 }
 const mailOf = () => ACCT.user && !ACCT.user.is_anonymous ? ACCT.user.email : '';
 const maskMail = e => e ? e.replace(/^(.{2})[^@]*(@.*)$/, '$1•••$2') : '';
@@ -6526,8 +6615,8 @@ function passErr(e){
   if(/provider.*disabled|signups? not allowed|email_provider_disabled/i.test(t)) return 'ເຊີບເວີຍັງບໍ່ເປີດການເຂົ້າດ້ວຍອີເມວ';
   return 'ບໍ່ສຳເລັດ ລອງໃໝ່';
 }
-async function passStep(kind){
-  const m = ui.mmodal, val = id => (document.getElementById(id) || {}).value || '';
+async function passStep(kind, m = ui.mmodal, given){
+  const val = id => given && id in given ? given[id] : (document.getElementById(id) || {}).value || '';
   const typed = ['link', 'login', 'forgot'].includes(kind), email = typed ? val('pmail').trim().toLowerCase() : m.email, pw = val('ppw'), pw2 = val('ppw2');
   const code = val('pcode').replace(/\D/g, '');
   m.email = email;   // kept for the box when a check below fails and the screen is drawn again
@@ -6545,7 +6634,7 @@ async function passStep(kind){
       ACCT.user = data.user; ACCT.quiet = true; saveJ('lao-legend-sync', {at:0}); ACCT.quiet = false;
       await acctLoad();
       toast(ACCT.prof ? 'ສະບາຍດີ ' + ACCT.prof.name + '! ໂຫຼດຂໍ້ມູນຈາກ cloud ແລ້ວ ☁️' : 'ເຂົ້າບັນຊີແລ້ວ');
-      m.step = null; m.edit = false;
+      m.step = null; m.edit = false; if(m === ui.login) ui.login = null;
     } else if(kind === 'pass'){
       const {data, error} = await SB.auth.updateUser({password:pw}); if(error) throw error;
       ACCT.user = data.user || ACCT.user; m.step = null; toast('ປ່ຽນລະຫັດຜ່ານແລ້ວ ✅');
@@ -6559,7 +6648,7 @@ async function passStep(kind){
       ACCT.user = data.user || (await SB.auth.getUser()).data.user;
       const r = await SB.auth.updateUser({password:pw}); if(r.error) throw r.error;
       ACCT.quiet = true; saveJ('lao-legend-sync', {at:0}); ACCT.quiet = false;
-      await acctLoad(); m.step = null; m.edit = false;
+      await acctLoad(); m.step = null; m.edit = false; if(m === ui.login) ui.login = null;
       toast(ACCT.prof ? 'ຕັ້ງລະຫັດຜ່ານໃໝ່ແລ້ວ ✅ ສະບາຍດີ ' + ACCT.prof.name : 'ຕັ້ງລະຫັດຜ່ານໃໝ່ແລ້ວ ✅');
     } else if(kind === 'resend'){
       // the email change again, for a fresh code
@@ -6574,6 +6663,7 @@ async function passStep(kind){
       if(!m.pw){ m.step = 'pwait'; m.err = 'ໃສ່ລະຫັດຜ່ານອີກເທື່ອ'; return; }
       const {data, error} = await SB.auth.updateUser({password:m.pw}); if(error) throw error;
       ACCT.user = data.user || user; m.pw = null; m.step = null;
+      if(m === ui.login) ui.login = null;   // signing up from the login page: into the game
       toast('ຕັ້ງອີເມວ ແລະ ລະຫັດຜ່ານແລ້ວ ✅ ເຂົ້າຫຼິ້ນເຄື່ອງອື່ນໄດ້');
     }
   }catch(e){ m.err = passErr(e); window.__errs.push('pass: ' + (e && (e.code || e.message) || e)); }
@@ -6599,6 +6689,76 @@ function passHTML(m){
   return '<p class="q">🔐 ຕັ້ງອີເມວ ແລະ ລະຫັດຜ່ານ</p><p class="lore">ໃຊ້ເຂົ້າຫຼິ້ນຢູ່ເຄື່ອງອື່ນ ແລະ ບັນຊີບໍ່ຫາຍ ເຖິງລ້າງ browser</p>' +
     inp('pmail', 'email', 'email@gmail.com', 'email', m.email) + inp('ppw', 'password', 'ລະຫັດຜ່ານ (8 ຕົວຂຶ້ນໄປ)', 'new-password') + inp('ppw2', 'password', 'ໃສ່ລະຫັດຜ່ານອີກເທື່ອ', 'new-password') + err + btns('plinkgo', '✓ ບັນທຶກ');
 }
+/* ---------- ໜ້າເຂົ້າສູ່ລະບົບ: sign in or sign up before playing; a guest may still try the game on this device ----------
+   Signing up makes the guest account, its profile and then the email + password (with the email code when Supabase asks
+   for one), so whatever this device already has moves into the new account. */
+const isGuest = () => !!loadJ('lao-legend-guest', 0);
+function loginShown(){
+  if(S) return false;
+  if(ui.login && (ui.login.step === 'pwait' || ui.login.hold)) return true;
+  return !ACCT.prof && !hasSession() && !isGuest();
+}
+function loginHTML(){
+  const L = ui.login || (ui.login = {tab:'in'}), c = col(), av = L.av || DECKS[0].legend;
+  const inp = (id, type, ph, ac, v) => '<input id="' + id + '" class="pname mail" type="' + type + '"' + (type === 'email' ? ' inputmode="email"' : '') + ' placeholder="' + ph + '" autocomplete="' + ac + '"' + (v ? ' value="' + escH(v) + '"' : '') + '>';
+  const err = L.err ? '<p class="why">' + L.err + '</p>' : '', busy = L.busy ? ' disabled' : '';
+  const had = (c.xp || 0) > 0 || Object.keys(c.cards || {}).length > 40;
+  let body;
+  if(L.step) body = passHTML(L);   // forgot password, the reset code, the email code
+  else if(L.tab === 'up') body = (ACCT.prof ? '<p class="lore">ສະບາຍດີ <b>' + escH(ACCT.prof.name) + '</b> · ຕັ້ງອີເມວ ແລະ ລະຫັດຜ່ານ ເພື່ອໃຊ້ທຸກເຄື່ອງ</p>'
+        : inp('lname', 'text', 'ຊື່ຫຼິ້ນ (3–16 ຕົວ)', 'nickname', L.name) + '<p class="lore">ເລືອກຮູບໂປຣໄຟລ໌</p><div class="avgrid">' +
+          AVATARS().map(id => '<button class="avopt' + (id === av ? ' on' : '') + '" data-a="lav" data-v="' + id + '"><img src="' + PIC(C[id].img) + '" alt="' + C[id].name + '"></button>').join('') + '</div>') +
+      inp('pmail', 'email', 'ອີເມວ', 'email', L.email) + inp('ppw', 'password', 'ລະຫັດຜ່ານ (8 ຕົວຂຶ້ນໄປ)', 'new-password') + inp('ppw2', 'password', 'ໃສ່ລະຫັດຜ່ານອີກເທື່ອ', 'new-password') + err +
+      (had ? '<p class="lore">🃏 ກາດ ແລະ ເພັດໃນເຄື່ອງນີ້ ຈະຍ້າຍເຂົ້າບັນຊີໃໝ່ໃຫ້</p>' : '') +
+      '<button class="btn-main" data-a="lsignup"' + busy + '>' + (L.busy ? 'ກຳລັງສ້າງບັນຊີ…' : '✨ ສະໝັກ ແລະ ເລີ່ມຫຼິ້ນ') + '</button>' +
+      (ACCT.prof ? '<button class="linkbtn" data-a="lskip">ໄວ້ກ່ອນ ເຂົ້າເກມເລີຍ</button>' : '');
+  else body = inp('pmail', 'email', 'ອີເມວ', 'email', L.email) + inp('ppw', 'password', 'ລະຫັດຜ່ານ', 'current-password') + err +
+      '<button class="btn-main" data-a="plogingo"' + busy + '>' + (L.busy ? 'ກຳລັງເຂົ້າ…' : '⚔️ ເຂົ້າສູ່ລະບົບ') + '</button>' +
+      '<div class="lgmore"><button class="linkbtn" data-a="pforgot">🤔 ລືມລະຫັດຜ່ານ?</button><button class="linkbtn" data-a="rhave">🔑 ມີລະຫັດກູ້ບັນຊີ 12 ຕົວ</button></div>';
+  return '<div class="login" style="--bg:url(' + PIC(C[DECKS[0].legend].img) + ')"><div class="hbg" aria-hidden="true"></div><div class="lgwrap">' +
+    '<div class="lgside"><img class="logoimg" src="art/logo.webp" alt="Lao Legend Wars" width="960" height="640"><p>ສົງຄາມຕຳນານລາວ · ເກມກາດນິທານລາວ · ຫຼິ້ນຟຣີ</p>' +
+      (ui.onlineN ? '<span class="lglive"><i></i>' + ui.onlineN + ' ຄົນ ກຳລັງຫຼິ້ນຢູ່</span>' : '') + '</div>' +
+    '<div class="lgcard">' + (L.step ? '' : '<div class="lgtabs">' + [['in', 'ເຂົ້າສູ່ລະບົບ'], ['up', 'ສະໝັກໃໝ່']].map(([k, l]) => '<button class="' + (L.tab === k ? 'on' : '') + '" data-a="lgtab" data-v="' + k + '">' + l + '</button>').join('') + '</div>') +
+      body + (L.step || ACCT.prof ? '' : '<button class="lgguest" data-a="lguest">👀 ລອງຫຼິ້ນກ່ອນ (ແຂກ) · ຫຼິ້ນກັບບອດໄດ້, ອອນລາຍຕ້ອງມີບັນຊີ</button>') +
+      '<p class="lgfoot"><a href="' + RULES_URL + '" target="_blank" rel="noopener">ກົດການຫຼິ້ນ</a> · ບໍ່ມີແຊັດພິມ · ບໍ່ຂາຍຊອງດ້ວຍເງິນແທ້</p></div></div></div>';
+}
+async function signupStep(L){
+  const val = id => ((document.getElementById(id) || {}).value || '');
+  const name = ACCT.prof ? ACCT.prof.name : val('lname').trim().replace(/\s+/g, ' '), email = val('pmail').trim().toLowerCase(), pw = val('ppw'), pw2 = val('ppw2');
+  Object.assign(L, {name, email}); L.err = '';
+  if(!ACCT.prof && !NAME_RE.test(name)) L.err = 'ຊື່ 3–16 ຕົວ: ລາວ, ອັງກິດ ຫຼື ຕົວເລກ';
+  else if(!EMAIL_RE.test(email)) L.err = 'ອີເມວບໍ່ຖືກຕ້ອງ';
+  else if(pw.length < 8) L.err = 'ລະຫັດຜ່ານຢ່າງໜ້ອຍ 8 ຕົວ';
+  else if(pw !== pw2) L.err = 'ລະຫັດຜ່ານທັງສອງ ບໍ່ຄືກັນ';
+  if(L.err){ render(); return; }
+  L.busy = true; L.hold = true; render();
+  try{
+    await sbLoad();
+    if(!ACCT.user){ const {data, error} = await SB.auth.signInAnonymously(); if(error) throw error; ACCT.user = data.user; }
+    if(!ACCT.prof){
+      const {data, error} = await SB.from('profiles').insert({id:ACCT.user.id, name, avatar:L.av || DECKS[0].legend, pet:col().pet || null}).select().single();
+      if(error){ L.err = NAME_ERR[error.code] || 'ບັນທຶກບໍ່ໄດ້ ລອງໃໝ່'; return; }
+      ACCT.prof = data; ACCT.state = 'on';
+      await cloudPull(); await ecoSync(); socStart(); rankLoad();
+      ACCT.prof = (await SB.from('profiles').select('*').eq('id', ACCT.user.id).single()).data || ACCT.prof;
+    }
+  }catch(e){ L.err = 'ຕໍ່ອິນເຕີເນັດບໍ່ໄດ້ ລອງໃໝ່'; window.__errs.push('signup: ' + (e && (e.code || e.message) || e)); return; }
+  finally{ L.busy = false; render(); }
+  // the account and its profile exist: now its email and password (passStep waits on the email code if one is sent)
+  await passStep('link', L, {pmail:email, ppw:pw, ppw2:pw});
+  if(!L.err && L.step !== 'pwait'){ L.hold = false; if(ui.login === L) ui.login = null; render(); }
+}
+// how many people are playing now (supabase/f13.sql), on the login page and the main menu; quiet until the function exists
+async function onlineCount(){
+  try{
+    const r = await fetch(SB_URL + '/rest/v1/rpc/online_count', {method:'POST', headers:{apikey:SB_KEY, 'Content-Type':'application/json'}, body:'{}'});
+    if(!r.ok) return; const n = await r.json();
+    if(typeof n === 'number' && n !== ui.onlineN){ ui.onlineN = n; const a = document.activeElement; if(!S && !ui.mmodal && !(a && a.tagName === 'INPUT')) render(); }
+  }catch(e){}
+}
+setTimeout(onlineCount, 1500); setInterval(() => { if(!S && !document.hidden) onlineCount(); }, 60000);
+// Enter in a box of the login page presses its main button
+document.addEventListener('keydown', e => { if(e.key === 'Enter' && e.target.closest && e.target.closest('.lgcard') && e.target.tagName === 'INPUT'){ const b = e.target.closest('.lgcard').querySelector('.btn-main'); if(b && !b.disabled) b.click(); } });
 function agoText(t){ const s = Math.round((Date.now() - t) / 1000); return s < 60 ? 'ຫາກໍ່' : s < 3600 ? Math.round(s / 60) + ' ນາທີກ່ອນ' : Math.round(s / 3600) + ' ຊົ່ວໂມງກ່ອນ'; }
 function profHTML(m){
   if(m.step === 'rshow' || m.step === 'rclaim') return recoveryHTML(m);
@@ -6889,7 +7049,7 @@ async function rankLoad(){
   try{
     const {data, error} = await SB.rpc('rank_state'); if(error) throw error;
     ACCT.rank = data;
-    if(data.reward){ toast('🏆 ລາງວັນລະດູກ່ອນ (' + RANKS[data.oldBest][1] + '): 💎 +' + data.reward); await ecoSync(); }
+    if(data && data.reward){ toast('🏆 ລາງວັນລະດູກ່ອນ (' + RANKS[data.oldBest][1] + '): 💎 +' + data.reward); await ecoSync(); }
     render();
   }catch(e){ window.__errs.push('rank: ' + (e && (e.code || e.message) || e)); }
 }
@@ -7048,6 +7208,28 @@ function closeModal(){ const r = S && S.modal && S.modal.resolve; if(S) S.modal 
 $app.addEventListener('click', e => {
   const el = e.target.closest('[data-a]'); if(!el) return;
   const a = el.dataset.a, v = el.dataset.v; sfx('click');
+  if(loginShown() && !ui.mmodal){
+    const L = ui.login || (ui.login = {tab:'in'}), keep = () => { const g = id => (document.getElementById(id) || {}).value; if(g('lname') != null) L.name = g('lname'); if(g('pmail') != null) L.email = g('pmail'); };
+    if(a === 'lgtab'){ keep(); L.tab = v; L.err = ''; L.step = null; render(); return; }
+    if(a === 'lav'){ keep(); L.av = v; render(); return; }
+    if(a === 'plogingo'){ passStep('login', L); return; }
+    if(a === 'lsignup'){ signupStep(L); return; }
+    if(a === 'lskip'){ L.hold = false; ui.login = null; render(); return; }
+    if(a === 'lguest'){ saveJ('lao-legend-guest', 1); ui.login = null; render(); toast('ຫຼິ້ນເປັນແຂກ · ຂໍ້ມູນເກັບໃນເຄື່ອງນີ້'); return; }
+    if(a === 'pforgot'){ keep(); L.step = 'pforgot'; L.err = ''; render(); return; }
+    if(a === 'pforgotgo'){ passStep('forgot', L); return; }
+    if(a === 'presetgo'){ passStep('reset', L); return; }
+    if(a === 'presend'){ passStep('resend', L); return; }
+    if(a === 'pverify'){ passStep('verify', L); return; }
+    if(a === 'pdone'){ passStep('done', L); return; }
+    if(a === 'mback'){ L.step = null; L.err = ''; if(L.hold && ACCT.prof) L.tab = 'up'; render(); return; }
+    if(a === 'rhave'){ ui.mmodal = {type:'prof', step:'rclaim'}; render(); return; }
+  }
+  // main-menu buttons: play people, the sign-in page from the guest note, the email reminder, the bottom bar's home
+  if(a === 'hmm'){ if(!ACCT.prof){ saveJ('lao-legend-guest', 0); ui.login = {tab:'up'}; render(); toast('ສະໝັກ ຫຼື ເຂົ້າສູ່ລະບົບ ກ່ອນຫຼິ້ນກັບຄົນແທ້'); return; } mmStart(v); return; }
+  if(a === 'lglogin'){ saveJ('lao-legend-guest', 0); ui.login = {tab:'up'}; render(); return; }
+  if(a === 'hmail'){ ui.mmodal = {type:'prof', step:'plink'}; render(); return; }
+  if(a === 'hhome'){ ui.screen = null; ui.mmodal = null; render(); return; }
   if(a === 'settings'){ ui.settingsOpen = true; render(); return; }
   if(a === 'setclose'){ ui.settingsOpen = false; render(); return; }
   if(a === 'parent'){ gateOpen('parent'); return; }

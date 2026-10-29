@@ -1,0 +1,38 @@
+LAO LEGEND WARS · LOGIN PAGE AND MAIN MENU ART (7 images)
+Two backgrounds for the new login page, one emblem for the big "fight a player" button, and four menu icons.
+
+HOW TO MAKE THEM
+Please create these images one at a time, in order, numbered 1–7. After each image, continue with the next one without asking me.
+Save each image as its number only (1.png … 7.png). No text, no letters, no numbers, no logos, no watermark in any picture.
+Everything is for an all-ages Lao folklore card game: friendly, heroic and magical, never scary.
+
+=== BACKGROUNDS (1–2) ===
+STYLE: rich painted fantasy key art in the same look as the game's cards: Southeast Asian comic style, bold clean outlines, warm golden
+light, deep twilight blues and purples, sparkles of magic. Lao details: tiered temple roofs with naga finials, the Mekong river, kranok flame
+ornaments, palm trees, lanterns. The heroes are small to medium in the picture, the scene is wide and atmospheric.
+
+1. Portrait 1080x1920 (9:16). The heroes of Lao legends gathering on a riverside temple terrace at golden dusk: a great green-gold naga
+   rising from the Mekong on the left, the young archer hero Sinxay with his golden bow in the middle distance, a friendly stone giant and a
+   flying kinnari on the right, lanterns floating up into a starry purple sky, a golden temple behind. IMPORTANT: keep the middle and lower
+   middle of the picture calm, darker and simple (soft river reflections and mist), because a sign-in box will sit there; the top 30% can
+   hold the brightest sky and the naga's head.
+2. Landscape 1920x1080 (16:9). The same scene and the same characters, widened: the naga and the temple on the left half, the river and
+   hills stretching to the right. IMPORTANT: keep the right 45% calm, darker and simple (mist over the river, a soft night sky), because the
+   sign-in box will sit there; the left side can be the busiest and brightest part.
+
+=== EMBLEM AND ICONS (3–7) ===
+STYLE (match the game's existing menu icons exactly): a glossy game icon, one object centered, thick ornate golden Lao kranok frame details,
+bright saturated colors, jewels (red rubies, blue sapphires), soft bevel and shine, slight 3/4 view, strong silhouette that reads at 40 pixels.
+Square 1024x1024, ONE object only, on a PLAIN PURE WHITE background, no shadow on the ground (the game cuts the object out).
+
+3. The emblem for "fight a real player": two crossed golden swords with naga-head hilts in front of a round glowing globe that shows the shape
+   of Laos in gold, inside a ring of golden kranok flames, two small red and blue pennants at the sides (one for each player), a burst of
+   light where the blades cross. Heroic and exciting.
+4. "Home" icon: a small golden Lao house on stilts with a tiered roof and a naga finial, warm light in the window, a little lotus at its feet.
+5. "Practice with the bot" icon: a friendly round wooden training dummy dressed like a Lao warrior, with a golden helmet and a small round
+   shield, a soft blue glow in its eyes (a kind little robot-dummy), cute and harmless.
+6. "Sign in" icon: a golden key with a kranok-shaped bow and a red ruby, crossing a small golden padlock decorated with a lotus.
+7. "Email" icon: a golden envelope closed with a round red wax seal stamped with a little naga, a few sparkles around it.
+
+How the game will use them: 1–2 the login page background (portrait / landscape) · 3 on the big "ສູ້ກັບຜູ້ຫຼິ້ນ" button ·
+4 the "ໜ້າຫຼັກ" tab of the menu bar · 5 the "ຝຶກກັບບອດ" button · 6 the login buttons · 7 the "ຕັ້ງອີເມວ" reminder.
