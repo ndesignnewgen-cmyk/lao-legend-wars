@@ -4708,10 +4708,21 @@ function cardHTML(id, cs, alt, pv, form){
 function render(){
   if(S && S.fast) return;
   musicWant();
-  if(!S){ $app.innerHTML = (ui.screen === 'book' ? bookHTML() : ui.screen === 'builder' ? builderHTML() : ui.screen === 'shop' && typeof shopHTML === 'function' ? shopHTML() : menuHTML()) + menuModalHTML() + settingsHTML(); return; }
+  const sc = scrollSave();
+  if(!S){ $app.innerHTML = (ui.screen === 'book' ? bookHTML() : ui.screen === 'builder' ? builderHTML() : ui.screen === 'shop' && typeof shopHTML === 'function' ? shopHTML() : menuHTML()) + menuModalHTML() + settingsHTML(); scrollRestore(sc); return; }
   $app.innerHTML = boardHTML() + modalHTML() + graveHTML() + settingsHTML() + tutHTML();
-  tutHighlight();
+  scrollRestore(sc); tutHighlight();
 }
+// a full redraw replaces every element, so each scrolling list keeps its place: picking a card, or opening one and closing it,
+// no longer jumps back to the top. A list inside a popup belongs to that popup (a new popup still opens at the top).
+const SCROLLERS = '.book,.bgrid2,.bdin,.shop,.home,.showgrid,.slist,.advmap,.loglist,.dpanel,.ggrid,.gbody,.modal';
+const popKey = () => ui.mmodal ? ui.mmodal.type + '/' + (ui.mmodal.step || '') + '/' + (ui.mmodal.tab || '') : S && S.modal ? 'g/' + S.modal.type : '';
+function scrollKeys(){
+  const n = {}, pk = popKey();
+  return [...document.querySelectorAll(SCROLLERS)].map(e => { const c = e.classList[0]; n[c] = (n[c] || 0) + 1; return [e, c + '#' + n[c] + (e.closest('.modal') ? '@' + pk : '') + '/' + (ui.screen || '')]; });
+}
+function scrollSave(){ const m = new Map(); for(const [e, k] of scrollKeys()) if(e.scrollTop) m.set(k, e.scrollTop); return m; }
+function scrollRestore(m){ if(m.size) for(const [e, k] of scrollKeys()) if(m.has(k)) e.scrollTop = m.get(k); }
 const escH = t => String(t).replace(/[&<>"]/g, ch => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;'}[ch]));
 function walletHTML(cls){
   const c = col(), have = Object.keys(C).filter(id => c.cards[id]).length;
