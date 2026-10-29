@@ -1578,18 +1578,30 @@ body{background:
 .mini .kw .qk{background:linear-gradient(90deg,#8796b0,#c9d6ea);color:#1b1b2e}
 /* ---------- festivals, tales, buddy pet ---------- */
 .festchip{display:flex;align-items:center;gap:8px;background:linear-gradient(100deg,#fff6dc,#ffe2a6);color:#5a3a00;border-radius:14px;padding:6px 10px;box-shadow:0 0 0 1.5px #e0a52e,0 4px 10px #0003;font:700 12px/1.35 var(--f-d);text-align:left}
-.festchip .fic{font-size:24px;line-height:1}
+.festchip .fic{width:34px;height:34px;object-fit:contain;flex:none;filter:drop-shadow(0 1px 2px #0006)}
 .festchip b{display:block;font-size:14px}
 .festchip small{display:block;color:#7a5410;font-weight:600}
-@media (max-width:1000px){.festchip{padding:4px 9px;gap:5px;align-self:center}.festchip .fic{font-size:18px}.festchip b{font-size:12px;white-space:nowrap}.festchip small{display:none}}
+@media (max-width:1280px){.festchip b{white-space:nowrap}.festchip small{display:none}}
+@media (max-width:1000px){.festchip{padding:4px 9px;gap:5px;align-self:center}.festchip .fic{width:24px;height:24px}.festchip b{font-size:12px}}
 .festfx,.talefx{position:absolute;inset:0;display:grid;place-items:center;padding:16px}
 .festfx .fbox,.talefx .tbook{text-align:center;border-radius:24px;box-shadow:0 20px 60px #0009;animation:festIn var(--d,2000ms) ease forwards}
-.festfx .fbox{background:radial-gradient(circle at 50% 25%,#fffbe8,#ffd98a);border:3px solid #e0a52e;padding:16px 30px;color:#5a3a00}
-.festfx .fbig{font-size:64px;line-height:1.1}
+/* the festival's banner picture fills the box; its calm middle holds the name and rule, the badge sits on the top edge */
+.festfx .fbox{position:relative;width:min(660px,94vw,calc((100dvh - 90px) * 1.78));aspect-ratio:16/9;display:grid;place-items:center;padding:0 18px;
+  background:var(--fimg) center/cover,#2a1838;border:3px solid #f2c04a;box-shadow:0 0 0 2px #7a4a0a,0 0 46px #ffcf6a66,0 20px 60px #000a;color:#fff}
+.festfx .fbox::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;box-shadow:inset 0 0 40px #0008}
+.festfx .fbadge{position:absolute;left:50%;top:0;width:clamp(72px,18%,112px);transform:translate(-50%,-48%);filter:drop-shadow(0 6px 10px #0009);animation:fbadge 900ms ease-out both}
+.festfx .ftxt{position:relative;z-index:1;margin-top:6%;padding:14px 34px;border-radius:50%;background:radial-gradient(ellipse at center,#1b0e26e0 0 48%,#1b0e2600 72%);text-shadow:0 2px 6px #000c}
 .festfx small,.talefx small{font:700 13px var(--f-d);opacity:.8}
+.festfx small{opacity:1;color:#ffe9b0;letter-spacing:.02em}
 .festfx h3,.talefx h3{margin:2px 0 4px;font:800 28px/1.3 var(--f-d)}
-.festfx p{margin:0;font:800 17px/1.5 var(--f-d)}
-.festfx em{display:block;margin-top:4px;font:600 12px var(--f-d);opacity:.75}
+.festfx h3{font-size:clamp(24px,5.4vw,36px);color:#ffd76a;-webkit-text-stroke:.6px #7a4a0a}
+.festfx p{margin:0;font:800 clamp(14px,3.4vw,18px)/1.5 var(--f-d)}
+.festfx em{display:block;margin-top:4px;font:600 12px var(--f-d);opacity:.85}
+@keyframes fbadge{0%{opacity:0;transform:translate(-50%,-48%) scale(.3) rotate(-30deg)}60%{opacity:1;transform:translate(-50%,-48%) scale(1.15) rotate(6deg)}100%{transform:translate(-50%,-48%) scale(1) rotate(0)}}
+/* while a festival lasts its banner shows faintly through the field */
+.arena[data-fest] .field2{isolation:isolate}
+.arena[data-fest] .field2::before{content:'';position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;background:var(--festimg) center/cover;opacity:.2;
+  -webkit-mask:radial-gradient(ellipse at center,#0000 0 30%,#000 85%);mask:radial-gradient(ellipse at center,#0000 0 30%,#000 85%)}
 .talefx .tbook{background:#fffaf0;color:#3a2410;border:3px solid #b8862b;padding:14px 22px;max-width:min(520px,94vw)}
 .talefx .tarts{display:flex;justify-content:center;margin:10px 0 8px}
 .talefx .tarts img{width:min(112px,26vw);aspect-ratio:760/1060;object-fit:cover;border-radius:10px;border:3px solid #fff;box-shadow:0 6px 14px #0006;margin:0 -6px}
@@ -2440,6 +2452,7 @@ const FESTS = [
   {id:'khaosak', ic:'🍚', name:'ບຸນຂ້າວສາກ', rule:'ຕົວລະຄອນເຈົ້າຖືກທຳລາຍ ຟື້ນຂວັນ 1'},
 ];
 const FEST_ROUNDS = 3;
+const FEST_ART = id => ART + 'fest/' + id + '.webp', FEST_BADGE = id => ART + 'fest/b-' + id + '.webp';
 const festOf = () => S && S.fest ? FESTS[S.fest[Math.floor((S.T - 1) / (2 * FEST_ROUNDS)) % S.fest.length]] : null;
 const isFest = id => { const f = festOf(); return !!f && f.id === id; };
 // ຜະຈົນໄພທົ່ວລາວ: 10 stages from north to south, each against a themed deck; stages 5 and 10 are bosses with more ຂວັນ
@@ -3121,6 +3134,7 @@ function newGame(di, level, opts){
     S.online = O; S.p[0] = mkPlayer('host', O.host.di, false, level, sorted(O.host.list)); S.p[1] = mkPlayer('guest', O.guest.di, false, level, sorted(O.guest.list));
     if(O.host.cover) S.p[0].cover = O.host.cover; if(O.guest.cover) S.p[1].cover = O.guest.cover; }
   S.fest = opts.tut || (!SET.fest && !S.auto && !opts.online) ? null : shuffle(FESTS.map((_, i) => i)).slice(0, 4);
+  if(S.fest && !S.fast) for(const i of S.fest){ new Image().src = FEST_ART(FESTS[i].id); new Image().src = FEST_BADGE(FESTS[i].id); }
   if(opts.tut) for(const p of S.p) p.tales = [];
   if(opts.adv != null){ S.adv = opts.adv; S.p[1].life += opts.boss || 0; }
   if(!S.fast && petOn()) setTimeout(() => petSay('start'), 1400);
@@ -5204,7 +5218,8 @@ function boardHTML(){
   const them = S.online ? (S.online.me === 'guest' ? S.online.host : S.online.guest) : null;
   const emo = S.online && !par().noEmo ? tool('emo', UIC('emote'), 'ອີໂມຈິ') + (ui.emo ? '<div class="emopop">' + EMOS.map((e, i) => '<button data-a="emosend" data-v="' + i + '">' + e + '</button>').join('') + '<button class="emomute" data-a="emomute">' + (ui.emoMute ? '🔈 ເປີດອີໂມຈິໝູ່' : '🔇 ປິດອີໂມຈິໝູ່') + '</button>' + (them && them.pid ? '<button class="emomute" data-a="emoplayer">🚫 ບລັອກ / ⚠️ ລາຍງານ ' + escH(S.p[1].name) + '</button>' : '') + '</div>' : '') : '';
   const tools = '<div class="tools">' + emo + tool('hidehand', UIC('eye'), ui.hideHand ? 'ສະແດງມື' : 'ຊ່ອນມື') + tool('log', UIC('log'), 'ບັນທຶກ') + tool('settings', UIC('settings'), 'ຕັ້ງຄ່າ') + tool('menu', UIC('exit'), 'ອອກ', !canExit) + '</div>';
-  return '<div class="arena v7" data-theme="' + (THEMES.some(t => t[0] === SET.theme) ? SET.theme : 'sinh') + '">' +
+  const fe = festOf();
+  return '<div class="arena v7" data-theme="' + (THEMES.some(t => t[0] === SET.theme) ? SET.theme : 'sinh') + '"' + (fe ? ' data-fest="' + fe.id + '" style="--festimg:url(' + FEST_ART(fe.id) + ')"' : '') + '>' +
     '<div class="field2 mat7">' + half7(b, 1, ofan) + mid7() + half7(m, 0, fan, tools) + promptHTML() + '</div>' +
     // card details float beside whatever the pointer is on, instead of taking a column of their own
     '<aside class="spanel' + (dp ? ' on' : '') + '" id="dpanel" aria-live="polite"' + (dp ? ' style="left:' + dp.x + 'px;top:' + dp.y + 'px"' : '') + '>' + detailHTML() + '</aside>' +
@@ -5270,7 +5285,7 @@ const taleTag = p => (p.tales || []).map(t => ' · 📖' + (t.done ? '✓' : t.g
 function festChip(){
   const f = festOf(); if(!f) return '';
   const left = FEST_ROUNDS - Math.floor((S.T - 1) / 2) % FEST_ROUNDS;
-  return '<div class="festchip" title="ງານບຸນ ໃຊ້ກັບທັງສອງຝ່າຍ"><span class="fic">' + f.ic + '</span><span><b>' + f.name + '</b><small>' + f.rule + ' · ເຫຼືອ ' + left + ' ຕາ</small></span></div>';
+  return '<div class="festchip" title="' + f.name + ': ' + f.rule + ' · ໃຊ້ກັບທັງສອງຝ່າຍ"><img class="fic" src="' + FEST_BADGE(f.id) + '" alt="' + f.ic + '"><span><b>' + f.name + '</b><small>' + f.rule + ' · ເຫຼືອ ' + left + ' ຕາ</small></span></div>';
 }
 function whoLabel(p, i){ return S.auto || S.pvp || S.online ? p.name : i && S.adv != null ? (ADV[S.adv].boss ? '👑 ບອສ · ' : '🗺️ ') + ADV[S.adv].place : (i ? 'ບອດ · ' + LEVELS[S.level] : 'ເຈົ້າ'); }
 function plate2(p, i){
@@ -6169,8 +6184,12 @@ function fxDraw(i){
 }
 async function fxFest(f){
   if(S.fast || !f) return; sfx('spell');
-  const d = addFx('festfx', null, null, '<div class="fbox"><div class="fbig">' + f.ic + '</div><small>ງານບຸນມາແລ້ວ!</small><h3>' + f.name + '</h3><p>' + f.rule + '</p><em>ໃຊ້ກັບທັງສອງຝ່າຍ · ' + FEST_ROUNDS + ' ຕາ</em></div>');
-  d.style.setProperty('--d', 2000 * SET.speed + 'ms'); await fxBig(() => fxWait(2000)); d.remove();
+  const d = addFx('festfx', null, null, '<div class="fbox" style="--fimg:url(' + FEST_ART(f.id) + ')"><img class="fbadge" src="' + FEST_BADGE(f.id) + '" alt=""><div class="ftxt"><small>🎉 ງານບຸນມາແລ້ວ!</small><h3>' + f.name + '</h3><p>' + f.rule + '</p><em>ໃຊ້ກັບທັງສອງຝ່າຍ · ' + FEST_ROUNDS + ' ຕາ</em></div></div>');
+  d.style.setProperty('--d', 2600 * SET.speed + 'ms');
+  // a burst of gold sparkles from the badge
+  if(!REDUCE){ const b = d.querySelector('.fbox').getBoundingClientRect(), x = b.left + b.width / 2, y = b.top;
+    for(let k = 0; k < 26; k++){ const a = Math.random() * 6.283, v = 90 + Math.random() * 150; emit({x, y, vx:Math.cos(a) * v, vy:Math.sin(a) * v - 60, g:160, drag:.94, life:.9 + Math.random() * .5, size:2 + Math.random() * 3, kind:'star', color:pick(['#ffe48a', '#ffffff', '#ffb84a', '#ff8fb0'])}); } }
+  await fxBig(() => fxWait(2600)); d.remove();
 }
 async function fxTale(ti){
   if(S.fast) return; sfx('heal');
@@ -7515,7 +7534,7 @@ $app.addEventListener('contextmenu', e => {
 
 /* ---------- self-test: bot vs bot, no animation ---------- */
 // local dev only: poke at live game state from the console
-if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__dbg = {fx:{show:(id, alt) => fxShowcase(id, alt), motif:(id, x, y) => fxFuseMotif(id, {x:x || innerWidth / 2, y:y || innerHeight / 2}), cutin:(f) => fxFuseCutin(C[f].fusion, f), rite:(i, id) => { const p = S.p[i || 0]; return fxRite(p, id || 'phitibangfai', p.field.slice(0, 3)); }, rays:fxRays, yantra:fxYantra, orb:fxOrb, petals:fxPetals, marigolds:fxMarigolds, baci:(i) => fxBaci(S.p[i || 0]), blade:(i, n) => addBlade(S.p[i || 0], n), slash:fxSlash, burst:burstAt, big:fxBig, wait:fxWait, get state(){ return FX; }},get S(){ return S; }, get net(){ return NET; }, get ACCT(){ return ACCT; }, get ui(){ return ui; }, DECKS, mockSB:x => { SB = x; },
+if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__dbg = {fx:{show:(id, alt) => fxShowcase(id, alt), motif:(id, x, y) => fxFuseMotif(id, {x:x || innerWidth / 2, y:y || innerHeight / 2}), cutin:(f) => fxFuseCutin(C[f].fusion, f), rite:(i, id) => { const p = S.p[i || 0]; return fxRite(p, id || 'phitibangfai', p.field.slice(0, 3)); }, rays:fxRays, yantra:fxYantra, orb:fxOrb, petals:fxPetals, marigolds:fxMarigolds, baci:(i) => fxBaci(S.p[i || 0]), fest:(id) => fxFest(FESTS.find(f => f.id === id) || FESTS[0]), blade:(i, n) => addBlade(S.p[i || 0], n), slash:fxSlash, burst:burstAt, big:fxBig, wait:fxWait, get state(){ return FX; }},get S(){ return S; }, get net(){ return NET; }, get ACCT(){ return ACCT; }, get ui(){ return ui; }, DECKS, mockSB:x => { SB = x; },
   music:{want:m => { MUS.want = m; }, sting:musicSting, sfx:n => sfx(n), get state(){ return MUS; }, level:async (mood, secs) => {
     const sr = 22050, oc = new OfflineAudioContext(1, sr * (secs || 20), sr), keep = Object.assign({}, SND), out = oc.createGain(); out.connect(oc.destination);
     SND.ctx = oc; SND.sfx = out; musicBus(oc, out);
