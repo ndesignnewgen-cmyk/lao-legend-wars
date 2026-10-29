@@ -6522,7 +6522,7 @@ function passHTML(m){
   if(m.step === 'ppass') return '<p class="q">🔑 ປ່ຽນລະຫັດຜ່ານ</p>' + inp('ppw', 'password', 'ລະຫັດຜ່ານໃໝ່ (8 ຕົວຂຶ້ນໄປ)', 'new-password') + inp('ppw2', 'password', 'ໃສ່ລະຫັດຜ່ານໃໝ່ອີກເທື່ອ', 'new-password') + err + btns('ppassgo', '✓ ບັນທຶກ');
   if(m.step === 'pwait') return '<p class="q">📨 ຢືນຢັນອີເມວ</p><p class="lore">ສົ່ງລິ້ງຢືນຢັນໄປທີ່ <b>' + escH(m.email || '') + '</b> ແລ້ວ. ເປີດອີເມວ ກົດລິ້ງ ແລ້ວກັບມາກົດ «ຢືນຢັນແລ້ວ» (ຖ້າບໍ່ເຫັນ ເບິ່ງໃນ Spam)</p>' +
     (m.pw ? '' : inp('ppw', 'password', 'ລະຫັດຜ່ານທີ່ຈະໃຊ້', 'new-password')) + err + btns('pdone', '✓ ຢືນຢັນແລ້ວ');
-  return '<p class="q">🔐 ຕັ້ງອີເມວ ແລະ ລະຫັດຜ່ານ</p><p class="lore">ໃຊ້ເຂົ້າຫຼິ້ນຢູ່ເຄື່ອງອື່ນ ແລະ ບັນຊີບໍ່ຫາຍ ເຖິງລ້າງ browser. ໃຊ້ອີເມວຂອງພໍ່ແມ່ກໍໄດ້</p>' +
+  return '<p class="q">🔐 ຕັ້ງອີເມວ ແລະ ລະຫັດຜ່ານ</p><p class="lore">ໃຊ້ເຂົ້າຫຼິ້ນຢູ່ເຄື່ອງອື່ນ ແລະ ບັນຊີບໍ່ຫາຍ ເຖິງລ້າງ browser</p>' +
     inp('pmail', 'email', 'email@gmail.com', 'email', m.email) + inp('ppw', 'password', 'ລະຫັດຜ່ານ (8 ຕົວຂຶ້ນໄປ)', 'new-password') + inp('ppw2', 'password', 'ໃສ່ລະຫັດຜ່ານອີກເທື່ອ', 'new-password') + err + btns('plinkgo', '✓ ບັນທຶກ');
 }
 function agoText(t){ const s = Math.round((Date.now() - t) / 1000); return s < 60 ? 'ຫາກໍ່' : s < 3600 ? Math.round(s / 60) + ' ນາທີກ່ອນ' : Math.round(s / 3600) + ' ຊົ່ວໂມງກ່ອນ'; }
@@ -7015,7 +7015,7 @@ $app.addEventListener('click', e => {
     }
     if(ui.mmodal && ui.mmodal.type === 'gate' && a === 'gateok'){
       const m = ui.mmodal, ans = +((document.getElementById('gatein') || {}).value || 0);
-      if(ans === m.a * m.b){ ui.mmodal = typeof m.next === 'object' ? m.next : {type:m.next}; render(); } else { m.err = 'ບໍ່ຖືກ'; render(); }
+      if(ans === m.a * m.b){ ui.mmodal = {type:m.next}; render(); } else { m.err = 'ບໍ່ຖືກ'; render(); }
       return;
     }
     if(ui.mmodal && ui.mmodal.type === 'parent'){
@@ -7068,8 +7068,7 @@ $app.addEventListener('click', e => {
       if(a === 'rclaim'){ recoveryStep('claim'); return; }
       if(a === 'mback'){ m.step = m.step === 'logincode' ? 'login' : m.step === 'linkcode' ? 'link' : null; m.err = ''; render(); return; }   // from the recovery screens too
       if(a === 'mout'){ acctSignOut(); return; }
-      if(a === 'plink'){ gateOpen({type:'prof', step:'plink'}); return; }
-      if(a === 'plogin' || a === 'ppass'){ m.step = a; m.err = ''; render(); return; }
+      if(a === 'plink' || a === 'plogin' || a === 'ppass'){ m.step = a; m.err = ''; render(); return; }
       if(a === 'plinkgo'){ passStep('link'); return; }
       if(a === 'plogingo'){ passStep('login'); return; }
       if(a === 'ppassgo'){ passStep('pass'); return; }
