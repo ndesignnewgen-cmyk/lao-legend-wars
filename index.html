@@ -2720,7 +2720,7 @@ function questEvent(k, n){
 function addXP(n){
   const c = col(), before = levelOf(c.xp); c.xp += n; const after = levelOf(c.xp); let gift = '';
   for(let L = before + 1; L <= after; L++){ c.gems += 100; if(L % 5 === 0){ c.freePacks += 1; c.gems += 100; } gift = 'ຂຶ້ນລະດັບ ' + L + '! 💎' + (L % 5 === 0 ? '200 + ຊອງຟຣີ 1' : '100'); }
-  saveCol(); if(gift) setTimeout(() => sfx('levelup'), S && S.over ? 2600 : 500); return gift;
+  saveCol(); return gift;
 }
 const dropNote = (id, res, why) => '<div class="dropnew"><b>🎁 ' + (res === 'new' ? 'ໄດ້ກາດ' : 'ກາດຊ້ຳ → ✨ ຜົງແກ້ວ') + '</b><small>' + why + '</small><div class="dcard">' + cardHTML(id) + '</div></div>';
 function giveCard(id){ const c = col(); if(owned(id) < RULE.copies){ c.cards[id] = owned(id) + 1; saveCol(); return 'new'; } c.dust += DUST_GET[rarityOf(id)]; saveCol(); return 'dust'; }
@@ -2754,30 +2754,8 @@ function tutReward(){
 }
 
 
-/* ---------- sound: recorded effects where a file exists, synthesized for the rest and for all the music (the music engine is below sfx) ---------- */
+/* ---------- sound: everything is synthesized, no audio files (the music engine is below sfx) ---------- */
 const SND = {ctx:null, sfx:null, mus:null, timer:null};
-// recorded effects in art/sfx (Kenney, CC0, and Pixabay, Pixabay licence: free to use, no credit needed). They load with the first
-// sound; until a file is in, or if it fails, the synthesized version in sfx() plays instead. The volumes match the synthesized
-// sounds (about 3 dB above them); the small ones are pitched a little at random so a run of them doesn't sound copied.
-const SFX_VOL = {click:.6, draw:.29, play:.9, flip:.46, pack:1, coin:.86, hit:.62, destroy:1, block:.6, deny:.45, endturn:.5, page:.7, attack:.2, wind:.12,
-  spell:.29, heal:.45, bless:.46, rite:1, fusion:.47, reveal:.88, rocket:.5, boom:.59, thunder:.33, splash:.22, trip:.75, elephant:.45, levelup:.7, match:.6, gem:1, legend:1};
-const SFX_VARY = new Set(['click', 'draw', 'play', 'flip', 'hit', 'attack', 'coin', 'destroy', 'block']);
-const SFXB = {}; let sfxLoading = false;
-// four at a time, each tried twice, so a slow or busy connection still gets them all
-function sfxLoad(){
-  if(sfxLoading || !SND.ctx || !window.fetch) return; sfxLoading = true;
-  const todo = Object.keys(SFX_VOL), one = (n, again) => fetch(ART + 'sfx/' + n + '.m4a').then(r => r.ok ? r.arrayBuffer() : Promise.reject(r.status))
-    .then(b => new Promise((ok, no) => SND.ctx.decodeAudioData(b, ok, no))).then(buf => { SFXB[n] = buf; }).catch(() => again ? one(n, false) : null);
-  const next = () => { const n = todo.shift(); if(n) one(n, true).then(next); };
-  for(let i = 0; i < 4; i++) next();
-}
-function sfxFile(name){
-  const b = SFXB[name], c = SND.ctx; if(!b) return false;
-  if(name === 'click'){ if(SND.lastClick != null && c.currentTime - SND.lastClick < .05) return true; SND.lastClick = c.currentTime; }
-  const src = c.createBufferSource(), g = c.createGain(); src.buffer = b;
-  if(SFX_VARY.has(name)) src.playbackRate.value = .94 + Math.random() * .12;
-  g.gain.value = SFX_VOL[name]; src.connect(g); g.connect(SND.sfx); src.start(); return true;
-}
 function audioInit(){
   if(SND.ctx){ if(SND.ctx.state === 'suspended') SND.ctx.resume(); return; }
   try{
@@ -2806,7 +2784,6 @@ function sweep(t, dur, f0, f1, type, vol, dest, q){
 // every sound is built from the same Lao instruments as the music (ໂປງລາງ, ສິ່ງ, ກອງ, ຄ້ອງ) plus noise for paper, air and water
 function sfx(name){
   if(!SND.ctx || !SND.nb || !SET.sfx || (S && (S.fast || S.sim))) return;
-  sfxLoad(); if(sfxFile(name)) return;
   const c = SND.ctx, t = c.currentTime, X = SND.sfx, R = Math.random;
   try{
     switch(name){
@@ -4043,7 +4020,7 @@ function bounce(owner, c){
 }
 async function destroy(p, c, quick){
   if(!p.field.includes(c)) return;
-  if(c.shield){ c.shield = false; log('«' + C[c.id].name + '» ໂລ່ທິບ ກັນໄວ້'); if(!S.fast){ sfx('block'); floatAt('c:' + c.uid, 'ໂລ່ທິບ!', 'heal'); render(); } return; }
+  if(c.shield){ c.shield = false; log('«' + C[c.id].name + '» ໂລ່ທິບ ກັນໄວ້'); if(!S.fast){ floatAt('c:' + c.uid, 'ໂລ່ທິບ!', 'heal'); render(); } return; }
   if(!S.fast){ sfx('destroy'); if(!S.auto) botSay(p === S.p[1] ? 'lose' : 'kill');
     const el = elOf('c:' + c.uid); if(el){ if(REDUCE) el.classList.add('dying'); else fxShatter(el, C[c.id].tribe); await sleep(quick ? 220 : 380); } }
   const i = p.field.indexOf(c); if(i < 0) return;
@@ -4770,7 +4747,7 @@ function promptOf(id){
 async function tryPlay(uid){
   const p = S.p[0]; const h = p.hand.find(x => x.uid === uid); if(!h) return;
   S.modal = null;
-  const why = playBlock(p, h); if(why){ toast(why); sfx('deny'); render(); return; }
+  const why = playBlock(p, h); if(why){ toast(why); render(); return; }
   let t = null; const tl = targetsFor(p, h.id);
   if(tl && tl.length){ t = await pickTarget(tl, promptOf(h.id)); if(t === undefined){ render(); return; } }
   netSend({t:'play', uid:h.uid, tk:netKey(t)});
@@ -5641,10 +5618,8 @@ async function fxFuseEmerge(c, M){
   sfx('play'); shockAt(pt.x, pt.y, TC[tribe], 150); burstAt(pt.x, pt.y, tribe, 30, .8); fxFuseMotif(c.id, pt);
   await sleep(220);
 }
-const ELEPHANTS = new Set(['siho', 'sangpheuak', 'xangsuek', 'xangphueak', 'xangjaidi', 'hungxang']);
 async function fxEnter(c){
-  if(S.fast) return; sfx('play'); if(ELEPHANTS.has(c.id)) setTimeout(() => sfx('elephant'), 140);
-  const e = elOf('c:' + c.uid); if(e) e.classList.add('enter');
+  if(S.fast) return; sfx('play'); const e = elOf('c:' + c.uid); if(e) e.classList.add('enter');
   await sleep(230);
   const pt = centerOf('c:' + c.uid), tribe = C[c.id].tribe;
   if(pt){
@@ -6217,7 +6192,7 @@ async function fxFest(f){
   await fxBig(() => fxWait(2600)); d.remove();
 }
 async function fxTale(ti){
-  if(S.fast) return; sfx('page'); setTimeout(() => sfx('heal'), 300);
+  if(S.fast) return; sfx('heal');
   const T = TALES[ti], d = addFx('talefx', null, null, '<div class="tbook"><small>📖 ຕອນນິທານ</small><h3>' + T.name + '</h3><div class="tarts">' + T.ids.map(id => '<img src="' + PIC(C[id].img) + '" alt="">').join('') + '</div><p>' + T.story + '</p><b>🎁 ' + TALE_GIFT + '</b></div>');
   d.style.setProperty('--d', 2800 * SET.speed + 'ms'); await fxBig(() => fxWait(2800)); d.remove();
 }
@@ -6958,7 +6933,7 @@ function onlineLobby(m){
 function onlineStart(O, me){
   ui.mmodal = null; ui.screen = null; if(me === 'guest') NET.hello = null;
   NET.heard = Date.now(); onlineClock();
-  sfx('match'); newGame(O.host.di, 1, {online:{...O, me}});   // the same arguments on both screens, so both build the same game
+  newGame(O.host.di, 1, {online:{...O, me}});   // the same arguments on both screens, so both build the same game
   liveSave();
   if(O.ranked) log('🏆 ເກມແຣງ · ' + seasonInfo().name);
 }
@@ -7511,7 +7486,7 @@ $app.addEventListener('click', e => {
     if(any){ S.modal = {type:'info', id:any.id, alt:any.alt}; render(); }
     return;
   }
-  if(a === 'end'){ if(myMove){ sfx('endturn'); S.idle = 0; netSend({t:'end'}); localAct(endTurn); } return; }
+  if(a === 'end'){ if(myMove){ S.idle = 0; netSend({t:'end'}); localAct(endTurn); } return; }
 });
 // the play button lives inside the hand modal, which blocks the generic handler above; route it here
 $app.addEventListener('click', e => {
@@ -7560,7 +7535,7 @@ $app.addEventListener('contextmenu', e => {
 /* ---------- self-test: bot vs bot, no animation ---------- */
 // local dev only: poke at live game state from the console
 if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__dbg = {fx:{show:(id, alt) => fxShowcase(id, alt), motif:(id, x, y) => fxFuseMotif(id, {x:x || innerWidth / 2, y:y || innerHeight / 2}), cutin:(f) => fxFuseCutin(C[f].fusion, f), rite:(i, id) => { const p = S.p[i || 0]; return fxRite(p, id || 'phitibangfai', p.field.slice(0, 3)); }, rays:fxRays, yantra:fxYantra, orb:fxOrb, petals:fxPetals, marigolds:fxMarigolds, baci:(i) => fxBaci(S.p[i || 0]), fest:(id) => fxFest(FESTS.find(f => f.id === id) || FESTS[0]), blade:(i, n) => addBlade(S.p[i || 0], n), slash:fxSlash, burst:burstAt, big:fxBig, wait:fxWait, get state(){ return FX; }},get S(){ return S; }, get net(){ return NET; }, get ACCT(){ return ACCT; }, get ui(){ return ui; }, DECKS, mockSB:x => { SB = x; },
-  music:{want:m => { MUS.want = m; }, sting:musicSting, sfx:n => sfx(n), files:() => Object.keys(SFXB), get state(){ return MUS; }, level:async (mood, secs) => {
+  music:{want:m => { MUS.want = m; }, sting:musicSting, sfx:n => sfx(n), get state(){ return MUS; }, level:async (mood, secs) => {
     const sr = 22050, oc = new OfflineAudioContext(1, sr * (secs || 20), sr), keep = Object.assign({}, SND), out = oc.createGain(); out.connect(oc.destination);
     SND.ctx = oc; SND.sfx = out; musicBus(oc, out);
     try{
