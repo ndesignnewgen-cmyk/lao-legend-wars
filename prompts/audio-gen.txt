@@ -1,0 +1,188 @@
+LAO LEGEND WARS · MUSIC AND SOUND EFFECTS, ROUND 2 (8 music tracks + 33 sound effects)
+These replace the sounds the game now builds in code. The code sounds stay as a backup for anything you don't send.
+
+=====================================================================================================
+WHERE TO MAKE THEM
+=====================================================================================================
+MUSIC → Suno (suno.com). Create → turn on "Custom" → turn on "Instrumental" →
+        paste STYLE into "Style of Music" → open "More Options" and paste EXCLUDE into "Exclude styles" →
+        leave Lyrics empty → Title = the file name (menu, battle …) → Create.
+        Each Create gives 2 songs. Listen and keep the one that sounds most Lao (clear khaen and phin) with a steady beat.
+        Download: tap ⋯ on the song → Download → MP3 Audio.
+        Licence: songs made on the free plan are for non-commercial use only. If the game will ever earn money
+        (ads, shop, paid packs), make the final versions while on a paid plan.
+        Songs come out 2–4 minutes long. That's fine: I cut the loop and the part the game needs myself.
+
+SOUND EFFECTS → ElevenLabs Sound Effects (elevenlabs.io → Sound Effects). Paste the PROMPT, then open the settings:
+        Duration = the seconds given, Prompt influence = high (about 0.7). Generate, listen to the takes, download the best as MP3.
+        Free plan: non-commercial and you must credit ElevenLabs. A paid plan removes both.
+        Free with no conditions: Pixabay Sound Effects (pixabay.com/sound-effects) or Kenney.nl (CC0). Search the
+        "SEARCH" words given under each sound.
+
+NAMES AND SENDING
+· Save each file with exactly the name in [brackets] (menu.mp3, hit.mp3 …). mp3, wav or m4a are all fine.
+· Send two zip files: music.zip and sfx.zip. If you can't decide between takes, send both (hit-a.mp3, hit-b.mp3).
+· Volume doesn't matter: the game evens it out.
+
+=====================================================================================================
+MUSIC (8)
+=====================================================================================================
+For every track: instrumental only, no singing, no humming, no spoken words. Lao instruments: khaen (bamboo mouth organ),
+phin (plucked Lao lute), pong lang / khong wong (wooden xylophone), ching (small finger cymbals), klong (barrel drum),
+khong (big gong). A light orchestra under them is welcome. Bright, adventurous and family-friendly, like an animated adventure film.
+Never scary, never sad. A steady beat the whole way through (I cut the loops on bar lines).
+
+[menu] loop · menus, shop, building decks
+  STYLE:   instrumental Lao folk, 80 BPM, A minor pentatonic, warm peaceful village morning by the Mekong, soft breathing khaen chords, gentle plucked phin lute melody, light wooden xylophone ripples, finger cymbals, soft strings, no heavy drums, calm and inviting, Ghibli-like warmth, steady tempo, seamless loop
+  EXCLUDE: vocals, singing, humming, choir, spoken word, rap, electric guitar, distortion, EDM drop, fade out
+
+[battle] loop · a normal match
+  STYLE:   instrumental Lao folk adventure battle, 110 BPM, A minor pentatonic, energetic and playful, driving barrel drum groove, finger cymbals on off-beats, plucked phin lute and wooden xylophone trading a catchy hook, punchy khaen chords, light orchestral strings and taiko-style hits, animated adventure film, steady tempo, seamless loop
+  EXCLUDE: vocals, singing, humming, choir, spoken word, rap, electric guitar, dubstep, distortion, horror, fade out
+
+[winning] loop · you are close to winning
+  STYLE:   instrumental Lao folk heroic battle, 110 BPM, A minor pentatonic, triumphant and proud, fuller drums, heroic khaen and soft brass playing a rising melody, fast phin lute runs, gong hit every 8 bars, bright and victorious, animated adventure film climax, steady tempo, seamless loop
+  EXCLUDE: vocals, singing, humming, choir, spoken word, rap, electric guitar, distortion, horror, fade out
+
+[losing] loop · your life is low
+  STYLE:   instrumental Lao folk tense battle, 110 BPM, A minor pentatonic, suspenseful but brave, low khaen drone, pulsing low barrel drum heartbeat, urgent phin lute in the low register, tremolo strings, rising tension, "you can still turn it around", exciting not scary, steady tempo, seamless loop
+  EXCLUDE: vocals, singing, humming, choir, spoken word, rap, distortion, horror, screams, sad piano, fade out
+
+[boss] loop · adventure-map boss stages (stage 5 and 10)
+  STYLE:   instrumental epic Lao folk boss battle, 120 BPM, A minor pentatonic, big and powerful, thundering barrel drums and gongs, deep brass, fast khaen and phin lute riffs, heroic orchestra, a mighty giant or naga king is fighting, epic but family-friendly, steady tempo, seamless loop
+  EXCLUDE: vocals, singing, humming, choir words, spoken word, rap, metal guitar, distortion, horror, screams, fade out
+
+[start] short · the moment a match begins (I keep the first 4–8 seconds)
+  STYLE:   instrumental Lao folk fanfare intro, big gong hit, barrel drum roll building up fast, bright heroic khaen and brass fanfare, ends on a strong held chord, exciting opening of a battle, short
+  EXCLUDE: vocals, singing, humming, choir, spoken word, distortion, long intro, fade in
+
+[victory] short · end screen when you win (I keep the first 6–10 seconds)
+  STYLE:   instrumental Lao festival victory fanfare, joyful khaen and brass melody, festive barrel drums and finger cymbals, xylophone sparkle, bright gong at the end ringing out, proud and happy celebration, short
+  EXCLUDE: vocals, singing, humming, choir, spoken word, distortion, sad
+
+[defeat] short · end screen when you lose (I keep the first 5–8 seconds)
+  STYLE:   instrumental Lao folk, slow gentle phrase, soft phin lute and khaen, warm and kind, a little wistful then ending on a hopeful major chord, "try again", short
+  EXCLUDE: vocals, singing, humming, choir, spoken word, sad piano, drama, horror
+
+=====================================================================================================
+SOUND EFFECTS (33)
+=====================================================================================================
+For every sound: one sound only, starts at once (no silence before it), clean ending, no music, no voices, no words.
+Bright, clear and cartoon-friendly like a polished mobile card game. Nothing harsh, nothing scary.
+
+--- buttons and cards ---
+[click] 0.5 s
+  PROMPT: a soft short wooden button tap, small bamboo click, clean UI sound for a mobile game menu
+  SEARCH: wood button click ui
+[draw] 0.5 s
+  PROMPT: a single playing card sliding quickly off a deck, crisp paper swish, card game UI
+  SEARCH: card slide swish
+[play] 0.6 s
+  PROMPT: a playing card slapped down firmly on a wooden table, soft thud with a tiny magical sparkle on top
+  SEARCH: card place table
+[flip] 0.5 s
+  PROMPT: a playing card flipping over quickly, crisp paper flick with a soft bright ding
+  SEARCH: card flip
+[reveal] 2 s
+  PROMPT: a legendary card revealed from a pack, rising magical shimmer building up then a bright golden sparkle burst and a golden shine, epic reward moment in a mobile game
+  SEARCH: legendary reveal shine
+[pack] 1.5 s
+  PROMPT: opening a trading card pack, quick paper foil tearing then a soft magical shimmer, exciting unboxing
+  SEARCH: card pack open tear
+
+--- the fight ---
+[attack] 0.6 s
+  PROMPT: a fast cartoon whoosh of a hero lunging forward to strike, air swish
+  SEARCH: whoosh swing fast
+[hit] 0.5 s
+  PROMPT: a punchy cartoon impact, solid drum-like thump with a short crack, satisfying game hit, no gore, no voice
+  SEARCH: punch impact cartoon
+[destroy] 1 s
+  PROMPT: a magic card shattering into glittering pieces, glassy crystal break falling into soft sparkles
+  SEARCH: glass shatter magic sparkle
+[block] 0.6 s
+  PROMPT: an attack bouncing off a magic golden shield, bright metallic clang with a shimmer
+  SEARCH: shield block clang magic
+[endturn] 0.8 s
+  PROMPT: ending a turn in a card game, a small wooden xylophone two-note fall with a soft finger cymbal ting
+  SEARCH: turn end ui chime
+[turn] 0.8 s
+  PROMPT: your turn starts, a short bright wooden xylophone run of three rising notes with a light finger cymbal ting
+  SEARCH: xylophone rise short
+[deny] 0.4 s
+  PROMPT: a soft gentle "not allowed" sound, low wooden double tap, friendly UI error, not harsh
+  SEARCH: ui error soft
+
+--- magic ---
+[spell] 1 s
+  PROMPT: casting a magic spell, bright swirl of sparkles with a rising glassy tone, fantasy mobile game
+  SEARCH: magic spell cast sparkle
+[heal] 1.2 s
+  PROMPT: a gentle healing spell, soft rising wind chimes and a warm magical shimmer, calm and kind
+  SEARCH: heal chime magic
+[curse] 1.2 s
+  PROMPT: a mysterious dark curse spell, low wobbling magical hum with a puff of purple smoke, spooky-cute not scary
+  SEARCH: dark magic cartoon
+[bless] 1.5 s
+  PROMPT: a Lao baci blessing ceremony, gentle small temple bells and soft wind chimes, warm and kind shimmer
+  SEARCH: bells chimes blessing
+[rite] 2 s
+  PROMPT: a Lao temple ritual, a soft deep gong with small temple bells ringing and a holy golden shimmer
+  SEARCH: temple bell gong
+[fusion] 2 s
+  PROMPT: two heroes merging into one, two magical tones rushing together, a bright golden clash and a shining burst of power
+  SEARCH: power up merge magic
+[legend] 2.5 s
+  PROMPT: a legendary hero appears, a deep bronze gong hit with a shining magical swell rising and a sparkling tail, epic and heroic
+  SEARCH: gong epic appear
+
+--- nature and festival ---
+[rocket] 1.5 s
+  PROMPT: a bamboo festival rocket launching, fizzing whoosh climbing upward into the sky with crackling sparks
+  SEARCH: firework rocket launch whistle
+[boom] 1.2 s
+  PROMPT: a friendly festival firework explosion, round boom followed by crackling glittering sparks, not a war explosion
+  SEARCH: firework burst crackle
+[thunder] 1.5 s
+  PROMPT: a crack of cartoon lightning followed by a rolling thunder rumble, exciting not frightening
+  SEARCH: thunder lightning crack
+[wind] 1.5 s
+  PROMPT: a strong magical gust of wind swooshing past with a light sparkle
+  SEARCH: wind gust whoosh
+[splash] 1 s
+  PROMPT: a big splash of river water with droplets falling, a great serpent rising from a river
+  SEARCH: water splash big
+[trip] 1 s
+  PROMPT: a cartoon trap snapping shut, wooden clack then a short rattling chain
+  SEARCH: trap snap wooden
+[elephant] 1.5 s
+  PROMPT: a proud war elephant trumpeting once, friendly and heroic, clean
+  SEARCH: elephant trumpet
+[festival] 2.5 s
+  PROMPT: a Lao festival begins, quick lively barrel drums and finger cymbals with a short happy khaen mouth organ phrase and a firework pop, joyful
+  SEARCH: festival drums celebration short
+
+--- rewards and the rest ---
+[gem] 0.8 s
+  PROMPT: collecting a gem, bright sparkling crystal ding with tiny glittering echoes
+  SEARCH: gem collect sparkle
+[coin] 0.6 s
+  PROMPT: a few gold coins clinking together, reward pickup
+  SEARCH: coins clink
+[levelup] 2 s
+  PROMPT: level up in a mobile game, a rising bright xylophone and chime arpeggio ending in a golden shine, proud and happy
+  SEARCH: level up chime
+[match] 1.5 s
+  PROMPT: an online opponent has been found, two quick drum hits and a bright rising sword shing, exciting "get ready"
+  SEARCH: match found ready
+[page] 0.8 s
+  PROMPT: an old story book page turning, soft paper flip with a tiny magical twinkle
+  SEARCH: book page turn
+
+=====================================================================================================
+How the game will use them
+· menu on the menus · start and then battle when a match begins · winning when the opponent is low and you are ahead ·
+  losing when your life is low · boss on adventure boss stages · the music blends from one to the next over about 2 s
+  and dips quietly under big sounds · victory and defeat on the end screen.
+· click to page are played at the matching moments. New ones: block, endturn, deny, festival (a festival starts),
+  levelup, match (online opponent found), page (a story chapter), elephant (war-elephant cards).
