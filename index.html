@@ -6497,12 +6497,15 @@ function pcardHTML(m){
   return '<p class="q">🪪 ບັດຜູ້ຫຼິ້ນ' + (d && d.friend ? ' · 👥 ໝູ່' : '') + '</p>' + body + '<div class="mbtns">' +
     (d && !d.me ? '<button class="btn2" data-a="pmore" data-v="' + escH(m.id) + '" data-n="' + escH(d.name || m.name || '') + '">⚙️ ບລັອກ / ລາຍງານ</button>' : '') + '<button class="btn2" data-a="pcclose">ປິດ</button></div>';
 }
-// ອີເມວ + ລະຫັດຜ່ານ: a guest account gets an email and a password (Supabase > Authentication > Email, "Confirm email" off
-// unless custom SMTP is set up), then any device signs in with them. A forgotten password is covered by the recovery code.
+// ອີເມວ + ລະຫັດຜ່ານ: a guest account gets an email and a password, then any device signs in with them. Emails go out
+// through Resend (SMTP in Supabase) and carry a 6-digit code ({{ .Token }} in the Change Email and Reset Password
+// templates): the code confirms a new email, and resets a forgotten password. The recovery code still works too.
 const PASS_ON = true;
 function passErr(e){
   const t = String(e && (e.code || e.message) || '');
+  if(/otp|token.*(expired|invalid)|expired|invalid.*token/i.test(t)) return 'ລະຫັດບໍ່ຖືກ ຫຼື ໝົດອາຍຸແລ້ວ · ກົດ «ສົ່ງລະຫັດໃໝ່»';
   if(/invalid.*credentials|invalid_credentials/i.test(t)) return 'ອີເມວ ຫຼື ລະຫັດຜ່ານບໍ່ຖືກ';
+  if(/not authorized|address not authorized/i.test(t)) return 'ເຊີບເວີສົ່ງອີເມວຍັງບໍ່ພ້ອມ ລອງໃໝ່ພາຍຫຼັງ';
   if(/not.?confirmed/i.test(t)) return 'ອີເມວນີ້ຍັງບໍ່ໄດ້ຢືນຢັນ · ເປີດອີເມວ ກົດລິ້ງຢືນຢັນກ່ອນ';
   if(/same.?password|different from the old/i.test(t)) return 'ລະຫັດໃໝ່ ຕ້ອງບໍ່ຄືລະຫັດເກົ່າ';
   if(/weak|password should|at least/i.test(t)) return 'ລະຫັດຜ່ານອ່ອນໂພດ · ໃຫ້ຍາວຂຶ້ນ ແລະ ມີຕົວເລກ';
@@ -6514,12 +6517,14 @@ function passErr(e){
 }
 async function passStep(kind){
   const m = ui.mmodal, val = id => (document.getElementById(id) || {}).value || '';
-  const email = kind === 'link' || kind === 'login' ? val('pmail').trim().toLowerCase() : m.email, pw = val('ppw'), pw2 = val('ppw2');
+  const typed = ['link', 'login', 'forgot'].includes(kind), email = typed ? val('pmail').trim().toLowerCase() : m.email, pw = val('ppw'), pw2 = val('ppw2');
+  const code = val('pcode').replace(/\D/g, '');
   m.email = email;   // kept for the box when a check below fails and the screen is drawn again
-  if((kind === 'link' || kind === 'login') && !EMAIL_RE.test(email)){ m.err = 'ອີເມວບໍ່ຖືກຕ້ອງ'; render(); return; }
-  if(kind !== 'done' && pw.length < 8){ m.err = 'ລະຫັດຜ່ານຢ່າງໜ້ອຍ 8 ຕົວ'; render(); return; }
-  if((kind === 'link' || kind === 'pass') && pw !== pw2){ m.err = 'ລະຫັດຜ່ານທັງສອງ ບໍ່ຄືກັນ'; render(); return; }
-  if(kind === 'link') m.pw = pw; else if(kind === 'done' && pw) m.pw = pw;
+  if(typed && !EMAIL_RE.test(email)){ m.err = 'ອີເມວບໍ່ຖືກຕ້ອງ'; render(); return; }
+  if((kind === 'verify' || kind === 'reset') && code.length !== 6){ m.err = 'ໃສ່ລະຫັດ 6 ຕົວ ທີ່ໄດ້ຮັບທາງອີເມວ'; render(); return; }
+  if(!['done', 'verify', 'forgot', 'resend'].includes(kind) && pw.length < 8){ m.err = 'ລະຫັດຜ່ານຢ່າງໜ້ອຍ 8 ຕົວ'; render(); return; }
+  if(['link', 'pass', 'reset'].includes(kind) && pw !== pw2){ m.err = 'ລະຫັດຜ່ານທັງສອງ ບໍ່ຄືກັນ'; render(); return; }
+  if(kind === 'link') m.pw = pw; else if((kind === 'done' || kind === 'verify') && pw) m.pw = pw;
   m.busy = true; m.err = ''; render();
   try{
     await sbLoad();
@@ -6533,10 +6538,26 @@ async function passStep(kind){
     } else if(kind === 'pass'){
       const {data, error} = await SB.auth.updateUser({password:pw}); if(error) throw error;
       ACCT.user = data.user || ACCT.user; m.step = null; toast('ປ່ຽນລະຫັດຜ່ານແລ້ວ ✅');
+    } else if(kind === 'forgot' || (kind === 'resend' && m.step === 'preset')){
+      // a code to reset the password goes to that email (Supabase says nothing about whether an account has it)
+      const {error} = await SB.auth.resetPasswordForEmail(email); if(error) throw error;
+      m.step = 'preset'; toast('ສົ່ງລະຫັດໄປທີ່ອີເມວແລ້ວ 📨');
+    } else if(kind === 'reset'){
+      // the code signs this device in to that account, then the new password is set and the cloud copy comes down
+      const {data, error} = await SB.auth.verifyOtp({email, token:code, type:'recovery'}); if(error) throw error;
+      ACCT.user = data.user || (await SB.auth.getUser()).data.user;
+      const r = await SB.auth.updateUser({password:pw}); if(r.error) throw r.error;
+      ACCT.quiet = true; saveJ('lao-legend-sync', {at:0}); ACCT.quiet = false;
+      await acctLoad(); m.step = null; m.edit = false;
+      toast(ACCT.prof ? 'ຕັ້ງລະຫັດຜ່ານໃໝ່ແລ້ວ ✅ ສະບາຍດີ ' + ACCT.prof.name : 'ຕັ້ງລະຫັດຜ່ານໃໝ່ແລ້ວ ✅');
+    } else if(kind === 'resend'){
+      // the email change again, for a fresh code
+      const {error} = await SB.auth.updateUser({email}); if(error) throw error; toast('ສົ່ງລະຫັດໃໝ່ແລ້ວ 📨');
     } else {
       // first the email (Supabase may send a confirmation link and wait), then the password once the email is on the account
       let user;
       if(kind === 'link'){ const {data, error} = await SB.auth.updateUser({email}); if(error) throw error; user = data.user; }
+      else if(kind === 'verify'){ const {data, error} = await SB.auth.verifyOtp({email, token:code, type:'email_change'}); if(error) throw error; user = data.user || (await SB.auth.getUser()).data.user; }
       else { const {data, error} = await SB.auth.getUser(); if(error) throw error; user = data.user; }
       if(!user || (user.email || '').toLowerCase() !== email){ m.step = 'pwait'; return; }
       if(!m.pw){ m.step = 'pwait'; m.err = 'ໃສ່ລະຫັດຜ່ານອີກເທື່ອ'; return; }
@@ -6553,17 +6574,24 @@ function passHTML(m){
   const err = m.err ? '<p class="why">' + m.err + '</p>' : '';
   if(m.step === 'plogin') return '<p class="q">🔐 ເຂົ້າດ້ວຍອີເມວ ແລະ ລະຫັດຜ່ານ</p><p class="lore">ຂໍ້ມູນໃນເຄື່ອງນີ້ ຈະຖືກແທນດ້ວຍຂໍ້ມູນຂອງບັນຊີນັ້ນ</p>' +
     inp('pmail', 'email', 'email@gmail.com', 'email', m.email) + inp('ppw', 'password', 'ລະຫັດຜ່ານ', 'current-password') + err + btns('plogingo', '✓ ເຂົ້າບັນຊີ') +
-    '<button class="linkbtn" data-a="rhave">🔑 ລືມລະຫັດຜ່ານ? ໃຊ້ລະຫັດກູ້ບັນຊີ 12 ຕົວ</button>';
+    '<button class="linkbtn" data-a="pforgot">🤔 ລືມລະຫັດຜ່ານ? ຮັບລະຫັດທາງອີເມວ</button><button class="linkbtn" data-a="rhave">🔑 ມີລະຫັດກູ້ບັນຊີ 12 ຕົວ</button>';
+  const codeIn = '<input id="pcode" class="pname code" inputmode="numeric" maxlength="6" placeholder="••••••" autocomplete="one-time-code">';
+  if(m.step === 'pforgot') return '<p class="q">🤔 ລືມລະຫັດຜ່ານ</p><p class="lore">ໃສ່ອີເມວຂອງບັນຊີ ລະບົບຈະສົ່ງລະຫັດ 6 ຕົວໄປໃຫ້</p>' +
+    inp('pmail', 'email', 'email@gmail.com', 'email', m.email) + err + btns('pforgotgo', '📨 ສົ່ງລະຫັດ');
+  if(m.step === 'preset') return '<p class="q">🔑 ຕັ້ງລະຫັດຜ່ານໃໝ່</p><p class="lore">ສົ່ງລະຫັດໄປທີ່ <b>' + escH(m.email || '') + '</b> ແລ້ວ (ຖ້າບໍ່ເຫັນ ເບິ່ງໃນ Spam). ຂໍ້ມູນໃນເຄື່ອງນີ້ ຈະຖືກແທນດ້ວຍຂໍ້ມູນຂອງບັນຊີນັ້ນ</p>' +
+    codeIn + inp('ppw', 'password', 'ລະຫັດຜ່ານໃໝ່ (8 ຕົວຂຶ້ນໄປ)', 'new-password') + inp('ppw2', 'password', 'ໃສ່ລະຫັດຜ່ານໃໝ່ອີກເທື່ອ', 'new-password') + err + btns('presetgo', '✓ ບັນທຶກ') +
+    '<button class="linkbtn" data-a="presend">🔁 ສົ່ງລະຫັດໃໝ່</button>';
   if(m.step === 'ppass') return '<p class="q">🔑 ປ່ຽນລະຫັດຜ່ານ</p>' + inp('ppw', 'password', 'ລະຫັດຜ່ານໃໝ່ (8 ຕົວຂຶ້ນໄປ)', 'new-password') + inp('ppw2', 'password', 'ໃສ່ລະຫັດຜ່ານໃໝ່ອີກເທື່ອ', 'new-password') + err + btns('ppassgo', '✓ ບັນທຶກ');
-  if(m.step === 'pwait') return '<p class="q">📨 ຢືນຢັນອີເມວ</p><p class="lore">ສົ່ງລິ້ງຢືນຢັນໄປທີ່ <b>' + escH(m.email || '') + '</b> ແລ້ວ. ເປີດອີເມວ ກົດລິ້ງ ແລ້ວກັບມາກົດ «ຢືນຢັນແລ້ວ» (ຖ້າບໍ່ເຫັນ ເບິ່ງໃນ Spam)</p>' +
-    (m.pw ? '' : inp('ppw', 'password', 'ລະຫັດຜ່ານທີ່ຈະໃຊ້', 'new-password')) + err + btns('pdone', '✓ ຢືນຢັນແລ້ວ');
+  if(m.step === 'pwait') return '<p class="q">📨 ຢືນຢັນອີເມວ</p><p class="lore">ສົ່ງລະຫັດ 6 ຕົວໄປທີ່ <b>' + escH(m.email || '') + '</b> ແລ້ວ. ເປີດອີເມວ ແລ້ວໃສ່ລະຫັດຂ້າງລຸ່ມ (ຖ້າບໍ່ເຫັນ ເບິ່ງໃນ Spam)</p>' +
+    codeIn + (m.pw ? '' : inp('ppw', 'password', 'ລະຫັດຜ່ານທີ່ຈະໃຊ້', 'new-password')) + err + btns('pverify', '✓ ຢືນຢັນ') +
+    '<button class="linkbtn" data-a="pdone">ກົດລິ້ງໃນອີເມວແລ້ວ</button><button class="linkbtn" data-a="presend">🔁 ສົ່ງລະຫັດໃໝ່</button>';
   return '<p class="q">🔐 ຕັ້ງອີເມວ ແລະ ລະຫັດຜ່ານ</p><p class="lore">ໃຊ້ເຂົ້າຫຼິ້ນຢູ່ເຄື່ອງອື່ນ ແລະ ບັນຊີບໍ່ຫາຍ ເຖິງລ້າງ browser</p>' +
     inp('pmail', 'email', 'email@gmail.com', 'email', m.email) + inp('ppw', 'password', 'ລະຫັດຜ່ານ (8 ຕົວຂຶ້ນໄປ)', 'new-password') + inp('ppw2', 'password', 'ໃສ່ລະຫັດຜ່ານອີກເທື່ອ', 'new-password') + err + btns('plinkgo', '✓ ບັນທຶກ');
 }
 function agoText(t){ const s = Math.round((Date.now() - t) / 1000); return s < 60 ? 'ຫາກໍ່' : s < 3600 ? Math.round(s / 60) + ' ນາທີກ່ອນ' : Math.round(s / 3600) + ' ຊົ່ວໂມງກ່ອນ'; }
 function profHTML(m){
   if(m.step === 'rshow' || m.step === 'rclaim') return recoveryHTML(m);
-  if(['plink', 'plogin', 'ppass', 'pwait'].includes(m.step)) return passHTML(m);
+  if(['plink', 'plogin', 'ppass', 'pwait', 'pforgot', 'preset'].includes(m.step)) return passHTML(m);
   if(m.step === 'title') return titleHTML(m);
   if(m.step === 'show') return showPickHTML(m);
   if(m.step) return mailHTML(m);
@@ -7101,13 +7129,18 @@ $app.addEventListener('click', e => {
       if(a === 'rnew'){ recoveryStep('make'); return; }
       if(a === 'rhave'){ m.step = 'rclaim'; m.err = ''; render(); return; }
       if(a === 'rclaim'){ recoveryStep('claim'); return; }
-      if(a === 'mback'){ m.step = m.step === 'logincode' ? 'login' : m.step === 'linkcode' ? 'link' : null; m.err = ''; render(); return; }   // from the recovery screens too
+      if(a === 'mback'){ m.step = m.step === 'logincode' ? 'login' : m.step === 'linkcode' ? 'link' : m.step === 'pforgot' || m.step === 'preset' ? 'plogin' : null; m.err = ''; render(); return; }   // from the recovery screens too
       if(a === 'mout'){ acctSignOut(); return; }
       if(a === 'plink' || a === 'plogin' || a === 'ppass'){ m.step = a; m.err = ''; render(); return; }
       if(a === 'plinkgo'){ passStep('link'); return; }
       if(a === 'plogingo'){ passStep('login'); return; }
       if(a === 'ppassgo'){ passStep('pass'); return; }
       if(a === 'pdone'){ passStep('done'); return; }
+      if(a === 'pverify'){ passStep('verify'); return; }
+      if(a === 'pforgot'){ m.email = ((document.getElementById('pmail') || {}).value || m.email || '').trim(); m.step = 'pforgot'; m.err = ''; render(); return; }
+      if(a === 'pforgotgo'){ passStep('forgot'); return; }
+      if(a === 'presetgo'){ passStep('reset'); return; }
+      if(a === 'presend'){ passStep('resend'); return; }
       if(a === 'pcopy'){ const t = ACCT.prof && ACCT.prof.fcode; if(t) (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast('ກັອບປີ້ລະຫັດແລ້ວ 📋'), () => toast(t)); return; }
       if(a === 'ptitle'){ m.step = 'title'; render(); return; }
       if(a === 'pshow'){ m.step = 'show'; m.pick = (col().showcase || []).filter(id => C[id] && owned(id) > 0).slice(0, 3); render(); return; }
