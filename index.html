@@ -1639,6 +1639,32 @@ body{background:
 .avopt img{width:100%;height:100%;object-fit:cover;object-position:50% 15%}.avopt.on{border-color:var(--gold);box-shadow:0 0 12px var(--gold)}
 .profhead{display:flex;align-items:center;gap:14px;text-align:left}.profhead b{display:block;font:800 22px var(--f-d)}.profhead small{color:var(--dim);font:700 13px var(--f-d)}
 .hav.big{width:72px;height:72px}
+/* ບັດປະຈຳຕົວຜູ້ຫຼິ້ນ: the player ID card (own profile and other players') */
+.idcard{position:relative;flex:none;width:100%;max-width:440px;margin:0 auto;padding:18px 14px 12px;border-radius:18px;text-align:left;display:flex;flex-direction:column;gap:12px;overflow:hidden;
+  background:radial-gradient(ellipse at 20% 0%,#e2b54a2e,transparent 55%),linear-gradient(160deg,#2a1d3a,#171222 60%,#241a12);box-shadow:0 0 0 2px #e2b54a88,inset 0 0 0 1px #ffffff14,0 10px 30px #0008}
+.idcard::before{content:"";position:absolute;left:0;right:0;top:3px;height:12px;background:url(art/fx/kranok.webp) 0 50%/auto 100% repeat-x;opacity:.75;pointer-events:none}
+.idcard.fr-gold{box-shadow:0 0 0 2px #ffd23d,0 0 18px #ffd23d55,0 10px 30px #0008}.idcard.fr-royal{box-shadow:0 0 0 2px #ffd23d,0 0 0 4px #c8312b,0 10px 30px #0008}
+.idcard.fr-naga{box-shadow:0 0 0 2px #2fb36b,0 0 18px #2fb36b55,0 10px 30px #0008}.idcard.fr-sky{box-shadow:0 0 0 2px #9fe0ff,0 0 18px #7a2cff66,0 10px 30px #0008}.idcard.fr-book{box-shadow:0 0 0 2px #b8862b,0 0 0 4px #fff3d6,0 10px 30px #0008}
+.idtop{display:flex;gap:14px;align-items:center}.idname{min-width:0}.idname b{display:block;font:800 22px var(--f-d);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.idttl{display:inline-block;margin:3px 0;padding:2px 10px;border-radius:999px;background:linear-gradient(90deg,#b07a0c,#ffd23d);color:#2a1600;font:800 12px var(--f-d)}
+.idname small{display:flex;align-items:center;gap:4px;color:var(--dim);font:700 13px var(--f-d)}.idname .rkic{width:18px;height:18px}
+.idcode{display:flex;align-items:center;gap:8px;background:#0006;border-radius:12px;padding:6px 10px}.idcode small{color:var(--dim);font:700 12px var(--f-d)}
+.idcode b{flex:1;font:800 20px var(--f-d);letter-spacing:2px;color:#ffe48a;user-select:all}
+.idstats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.idst{background:#ffffff0d;border:1px solid #ffffff14;border-radius:10px;padding:6px 4px;text-align:center}
+.idst b{display:block;font:800 16px var(--f-d);font-variant-numeric:tabular-nums;white-space:nowrap}.idst small{font:700 11px var(--f-d);color:var(--dim)}
+.idfav{display:flex;align-items:center;gap:10px}.idfav small{display:block;color:var(--dim);font:700 12px var(--f-d)}.idfav b{font:800 15px var(--f-d)}
+.idshow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.idsc{min-width:0}.idsc .card{box-shadow:0 4px 10px #0008}
+.idsc.idslot{aspect-ratio:63/88;padding:0;background:#ffffff08;color:#ffffff50;border-radius:8px;border:2px dashed #ffffff30;display:grid;place-items:center;font:800 26px var(--f-d);color:#ffffff50}
+.idcard .mbtns{margin:0}.idsince{margin:0;color:var(--dim);font:700 12px var(--f-d);text-align:center}
+.ttlgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;width:100%}
+.ttl{background:#ffffff0d;border:1px solid #ffffff22;border-radius:12px;padding:8px 10px;text-align:left;color:#fff}.ttl b{display:block;font:800 14px var(--f-d)}.ttl small{font:700 11px var(--f-d);color:var(--dim)}
+.ttl.on{border-color:#ffd23d;background:#e2b54a33}.ttl:disabled{opacity:.45;cursor:default}
+.showgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:10px;max-height:52vh;overflow:auto;width:100%;padding:6px}
+.shc{position:relative;padding:0;background:none;border:0;border-radius:8px}.shc.on{outline:3px solid #ffd23d;outline-offset:2px}
+.shc i{position:absolute;top:-7px;right:-7px;z-index:2;width:22px;height:22px;border-radius:50%;background:#ffd23d;color:#2a1600;font:800 13px/22px var(--f-d);font-style:normal;text-align:center}
+.srow2[data-a]{cursor:pointer}.srow2[data-a]:hover{border-color:#ffffff40}
+.acctbox{flex:none;width:100%;max-width:440px;margin:0 auto;display:flex;flex-direction:column;gap:6px;background:#ffffff0a;border:1px solid #ffffff18;border-radius:14px;padding:10px 12px}
+.acctbox .lore{margin:0}.acctbox .mbtns{margin:0}
 .uic{display:inline-block;width:1.5em;height:1.5em;object-fit:contain;vertical-align:middle;margin:-.25em .3em -.2em 0;filter:drop-shadow(0 2px 3px #0007);pointer-events:none}
 .htile .hic .uic{width:48px;height:48px;margin:0}.htile:hover .hic .uic{transform:scale(1.08) rotate(-3deg);transition:transform .15s}
 .wallet .uic{width:24px;height:24px;margin:-4px 3px -4px 0}.hset .uic{width:32px;height:32px;margin:0}
@@ -2920,6 +2946,7 @@ function recordGame(won){
   st.streak = won ? (st.streak || 0) + 1 : 0; st.best = Math.max(st.best || 0, st.streak);
   saveJ('lao-legend-stats', st);
   if(S.cdeck){ const cd = col().decks.find(x => x.id === S.cdeck); if(cd){ cd.p = (cd.p || 0) + 1; if(won) cd.w = (cd.w || 0) + 1; saveCol(); } }
+  profPush();
 }
 
 /* ---------- engine ---------- */
@@ -4979,6 +5006,7 @@ function menuModalHTML(){
   else if(m.type === 'invite') inner = inviteHTML(m);
   else if(m.type === 'social') inner = socialHTML(m);
   else if(m.type === 'player') inner = playerHTML(m);
+  else if(m.type === 'pcard') inner = pcardHTML(m);
   else if(m.type === 'gate') inner = gateHTML(m);
   else if(m.type === 'parent') inner = parentHTML();
   else if(m.type === 'timesup') inner = timesupHTML();
@@ -6080,7 +6108,7 @@ async function acctExtras(){
 async function acctLoad(){
   const {data} = await SB.from('profiles').select('*').eq('id', ACCT.user.id).maybeSingle();
   ACCT.prof = data || null;
-  if(ACCT.prof){ await cloudPull(); await ecoSync(); socStart(); acctExtras(); }
+  if(ACCT.prof){ await cloudPull(); await ecoSync(); socStart(); acctExtras(); profPush(); }
   else try{ localStorage.removeItem(RCODE_KEY); }catch(e){}   // the account moved to another device with its code
 }
 // on start: only players who already made an account load the Supabase library
@@ -6352,9 +6380,157 @@ function mailHTML(m){
     '<div class="mbtns"><button class="btn-main sm" data-a="' + (codeStep ? 'mverify' : 'msend') + '"' + (m.busy ? ' disabled' : '') + '>' + (m.busy ? 'ກຳລັງສົ່ງ…' : codeStep ? '✓ ຢືນຢັນ' : '📨 ສົ່ງລະຫັດ') + '</button>' +
     (codeStep ? '<button class="btn2" data-a="mresend">ສົ່ງໃໝ່</button>' : '') + '<button class="btn2" data-a="mback">ກັບຄືນ</button></div>';
 }
+/* ---------- ບັດປະຈຳຕົວຜູ້ຫຼິ້ນ (player ID card, supabase/f12.sql) ----------
+   A title, three showcase cards and a stats summary go on the public profile as short codes and numbers only (title id,
+   card ids, counts), so nobody can put free text on someone else's screen: the words and pictures come from the game. */
+const TITLES = [
+  {id:'new', name:'ນັກຜະຈົນໄພມືໃໝ່', how:'ມີໃຫ້ທຸກຄົນ', t:() => true},
+  {id:'win1', name:'ນັກສູ້ໃຈກ້າ', how:'ຊະນະເທື່ອທຳອິດ'}, {id:'win10', name:'ວິລະບຸລຸດບ້ານ', how:'ຊະນະ 10 ເທື່ອ'}, {id:'win50', name:'ຂຸນສຶກ', how:'ຊະນະ 50 ເທື່ອ'},
+  {id:'hard', name:'ຜູ້ພິຊິດບອດຍາກ', how:'ຊະນະບອດຍາກ'}, {id:'tale', name:'ນັກເລົ່ານິທານ', how:'ຕອນນິທານຄົບ 5 ເທື່ອ'}, {id:'fuse', name:'ນັກຮ່ວມຮ່າງ', how:'ຮ່ວມຮ່າງເທື່ອທຳອິດ'},
+  {id:'rite', name:'ຜູ້ປະກອບພິທີ', how:'ພິທີອັນເຊີນເທື່ອທຳອິດ'}, {id:'combo', name:'ເຈົ້າແຫ່ງຄອມໂບ', how:'ຄອມໂບ x4 ໃນຕາດຽວ'}, {id:'legend', name:'ຜູ້ເອີ້ນຕຳນານ', how:'ລົງກາດຕຳນານ 10 ເທື່ອ'},
+  {id:'cards', name:'ນັກສະສົມກາດ', how:'ສະສົມກາດ 100 ແບບ'}, {id:'adv10', name:'ນັກຜະຈົນໄພທົ່ວລາວ', how:'ຜ່ານແຜນທີ່ຄົບ 10 ດ່ານ'}, {id:'pet', name:'ເພື່ອນຮັກສັດ', how:'ສັດຄູ່ຫູ ເຕີບໃຫຍ່ສຸດ'},
+  {id:'lv10', name:'ນັກຮົບຊຳນານ', how:'ລະດັບ 10', t:c => levelOf(c.xp) >= 10}, {id:'lv20', name:'ຍອດນັກຮົບ', how:'ລະດັບ 20', t:c => levelOf(c.xp) >= 20},
+  {id:'lv30', name:'ຕຳນານມີຊີວິດ', how:'ລະດັບ 30', t:c => levelOf(c.xp) >= 30}
+];
+const TITLE_NAME = Object.fromEntries(TITLES.map(x => [x.id, x.name]));
+// a title is earned with the achievement of the same id, or by its own test (level titles)
+const titleHas = (x, c) => x.t ? x.t(c) : !!(c.ach || {})[x.id];
+const CARD_TOTAL = () => bookIds('all').length;
+// the stats a profile shows, as numbers: games, wins, best streak, favourite deck (most played), special art found, achievements
+function pstatsNow(){
+  const st = loadJ('lao-legend-stats', {}), dk = st.deck || [], c = col();
+  let f = -1; dk.forEach((x, i) => { if(x && x.p > 0 && (f < 0 || x.p > dk[f].p)) f = i; });
+  return {g:st.played || 0, w:st.won || 0, b:st.best || 0, f, a:loadJ('lao-legend-alts', []).length, c:Object.keys(c.ach || {}).length};
+}
+function myCard(){
+  const P = ACCT.prof, c = col();
+  return {name:P.name, avatar:P.avatar, frame:c.frame || '', title:c.title || 'new', showcase:c.showcase || [], pstats:pstatsNow(), level:levelOf(c.xp),
+    cards:Object.values(c.cards).filter(n => n > 0).length, tier:ACCT.rank ? ACCT.rank.tier : null, stars:ACCT.rank ? ACCT.rank.stars : 0, since:P.created_at, fcode:P.fcode};
+}
+// the title, showcase and stats on the public profile, a few seconds after they change (quietly skipped until f12.sql is run)
+function profPush(){
+  if(!ACCT.prof || !ACCT.user || ACCT.noCard) return;
+  clearTimeout(ACCT.ptimer);
+  ACCT.ptimer = setTimeout(async () => {
+    const c = col(), row = {frame:c.frame || '', title:c.title || '', showcase:(c.showcase || []).filter(id => C[id]).slice(0, 3), pstats:pstatsNow()};
+    try{ const {error} = await SB.from('profiles').update(row).eq('id', ACCT.user.id); if(error) throw error; Object.assign(ACCT.prof, row); }
+    catch(e){ const t = String(e && (e.code || e.message) || e); if(/42703|PGRST204|column/i.test(t)) ACCT.noCard = true; window.__errs.push('card: ' + t); }
+  }, 3000);
+}
+function idCardHTML(d, mine){
+  const ps = d.pstats || {}, num = x => Math.max(0, Math.floor(+x || 0)), g = num(ps.g), w = num(ps.w);
+  const av = C[d.avatar] ? d.avatar : DECKS[0].legend, fr = FRAMES.some(f => f.id && f.id === d.frame) ? d.frame : '';
+  const fav = Number.isInteger(ps.f) && DECKS[ps.f] ? DECKS[ps.f] : null, show = (d.showcase || []).filter(id => C[id]).slice(0, 3);
+  const stat = (ic, v, l) => '<div class="idst"><b>' + ic + ' ' + v + '</b><small>' + l + '</small></div>';
+  return '<div class="idcard' + (fr ? ' fr-' + fr : '') + '">' +
+    '<div class="idtop"><span class="hav big fr-' + (fr || 'none') + '"><img src="' + PIC(C[av].img) + '" alt=""></span><div class="idname"><b>' + escH(d.name) + '</b>' +
+      '<span class="idttl">🎖️ ' + (TITLE_NAME[d.title] || TITLE_NAME.new) + '</span><small>⭐ ລະດັບ ' + Math.max(1, num(d.level)) +
+      (Number.isInteger(d.tier) && RANKS[d.tier] ? ' · ' + RKIC(d.tier) + RANKS[d.tier][1] : '') + '</small></div></div>' +
+    (d.fcode ? '<div class="idcode"><small>ລະຫັດຜູ້ຫຼິ້ນ</small><b>' + escH(d.fcode) + '</b>' + (mine ? '<button class="btn2 sm" data-a="pcopy">📋 ກັອບປີ້</button>' : '') + '</div>' : '') +
+    '<div class="idstats">' + stat('🎮', g, 'ເກມ') + stat('🏅', w, 'ຊະນະ') + stat('📈', g ? Math.round(w / g * 100) + '%' : '–', 'ອັດຕາຊະນະ') +
+      stat('🔥', num(ps.b), 'ຊະນະຕິດກັນ') + stat('🃏', num(d.cards) + '/' + CARD_TOTAL(), 'ກາດ') + stat('🏆', num(ps.c) + '/' + ACH.length, 'ຜົນງານ') + '</div>' +
+    (fav ? '<div class="idfav">' + avImg(fav.legend) + '<div><small>ເດັກທີ່ຫຼິ້ນຫຼາຍສຸດ</small><b>' + escH(fav.name) + '</b></div></div>' : '') +
+    '<div class="idshow">' + [0, 1, 2].map(i => show[i] ? '<div class="idsc">' + cardHTML(show[i]) + '</div>' : (mine ? '<button class="idsc idslot" data-a="pshow">＋</button>' : '<div class="idsc idslot"></div>')).join('') + '</div>' +
+    (mine ? '<div class="mbtns"><button class="btn2 sm" data-a="ptitle">🎖️ ສະມັນຍາ</button><button class="btn2 sm" data-a="pshow">🃏 ກາດໂຊວ໌</button></div>' : '') +
+    (d.since ? '<p class="idsince">ເລີ່ມຫຼິ້ນ ' + laoDate(d.since) + ' ' + new Date(d.since).getFullYear() + '</p>' : '') + '</div>';
+}
+function titleHTML(){
+  const c = col(), cur = c.title || 'new';
+  return '<p class="q">🎖️ ເລືອກສະມັນຍາ</p><p class="lore">ໄດ້ສະມັນຍາໃໝ່ ຈາກຜົນງານ ແລະ ລະດັບ</p><div class="ttlgrid">' + TITLES.map(x => { const has = titleHas(x, c);
+      return '<button class="ttl' + (x.id === cur ? ' on' : '') + '" data-a="tpick" data-v="' + x.id + '"' + (has ? '' : ' disabled') + '><b>' + (has ? '' : '🔒 ') + x.name + '</b><small>' + x.how + '</small></button>'; }).join('') +
+    '</div><div class="mbtns"><button class="btn2" data-a="mback">ກັບຄືນ</button></div>';
+}
+function showPickHTML(m){
+  const ids = bookIds('all').filter(id => owned(id) > 0).sort((a, b) => (C[b].legend ? 1 : 0) - (C[a].legend ? 1 : 0) || C[b].cost - C[a].cost);
+  return '<p class="q">🃏 ກາດໂຊວ໌ (ເລືອກ 3 ໃບ)</p><p class="lore">ເລືອກແລ້ວ ' + m.pick.length + '/3 · ຄົນອື່ນຈະເຫັນໃນບັດຂອງເຈົ້າ</p>' +
+    (ids.length ? '<div class="showgrid">' + ids.map(id => { const k = m.pick.indexOf(id);
+      return '<button class="shc' + (k >= 0 ? ' on' : '') + '" data-a="spick" data-v="' + id + '">' + (k >= 0 ? '<i>' + (k + 1) + '</i>' : '') + cardHTML(id) + '</button>'; }).join('') + '</div>' : '<p class="lore">ຍັງບໍ່ມີກາດ</p>') +
+    '<div class="mbtns"><button class="btn-main sm" data-a="ssave">✓ ບັນທຶກ</button><button class="btn2" data-a="mback">ກັບຄືນ</button></div>';
+}
+// another player's ID card, from a friend, a leaderboard or a history row
+async function cardOpen(id, name, back){
+  if(!id || !ACCT.prof) return;
+  const m = {type:'pcard', id, name, back, busy:true}; ui.mmodal = m; render();
+  try{ const {data, error} = await SB.rpc('profile_card', {pid:id}); if(error) throw error; m.data = data; }
+  catch(e){ const t = String(e && (e.code || e.message) || e); m.err = /42883|PGRST202|function/i.test(t) ? 'ບັດຜູ້ຫຼິ້ນຍັງບໍ່ພ້ອມ (ລໍຖ້າອັບເດດເຊີບເວີ)' : 'ໂຫຼດບໍ່ໄດ້ · ກວດອິນເຕີເນັດ'; window.__errs.push('pcard: ' + t); }
+  m.busy = false; if(ui.mmodal === m) render();
+}
+function pcardHTML(m){
+  const d = m.data;
+  const body = m.busy ? '<p class="lore">ກຳລັງໂຫຼດ…</p>' : m.err ? '<p class="why">' + m.err + '</p>' : !d ? '<p class="lore">ບໍ່ພົບຜູ້ຫຼິ້ນນີ້</p>'
+    : d.blocked ? '<div class="profhead">' + avImg(d.avatar) + '<div><b>' + escH(d.name) + '</b><small>🚫 ບລັອກກັນຢູ່</small></div></div>' : idCardHTML(d, false);
+  return '<p class="q">🪪 ບັດຜູ້ຫຼິ້ນ' + (d && d.friend ? ' · 👥 ໝູ່' : '') + '</p>' + body + '<div class="mbtns">' +
+    (d && !d.me ? '<button class="btn2" data-a="pmore" data-v="' + escH(m.id) + '" data-n="' + escH(d.name || m.name || '') + '">⚙️ ບລັອກ / ລາຍງານ</button>' : '') + '<button class="btn2" data-a="pcclose">ປິດ</button></div>';
+}
+// ອີເມວ + ລະຫັດຜ່ານ: a guest account gets an email and a password (Supabase > Authentication > Email, "Confirm email" off
+// unless custom SMTP is set up), then any device signs in with them. A forgotten password is covered by the recovery code.
+const PASS_ON = true;
+function passErr(e){
+  const t = String(e && (e.code || e.message) || '');
+  if(/invalid.*credentials|invalid_credentials/i.test(t)) return 'ອີເມວ ຫຼື ລະຫັດຜ່ານບໍ່ຖືກ';
+  if(/not.?confirmed/i.test(t)) return 'ອີເມວນີ້ຍັງບໍ່ໄດ້ຢືນຢັນ · ເປີດອີເມວ ກົດລິ້ງຢືນຢັນກ່ອນ';
+  if(/same.?password|different from the old/i.test(t)) return 'ລະຫັດໃໝ່ ຕ້ອງບໍ່ຄືລະຫັດເກົ່າ';
+  if(/weak|password should|at least/i.test(t)) return 'ລະຫັດຜ່ານອ່ອນໂພດ · ໃຫ້ຍາວຂຶ້ນ ແລະ ມີຕົວເລກ';
+  if(/exists|already been registered|already registered|email_exists/i.test(t)) return 'ອີເມວນີ້ມີບັນຊີແລ້ວ · ລອງ «ເຂົ້າດ້ວຍອີເມວ + ລະຫັດຜ່ານ» ແທນ';
+  if(/rate|429|seconds/i.test(t) || (e && e.status === 429)) return 'ລອງຖີ່ເກີນ ລໍຖ້າ 1 ນາທີ ແລ້ວລອງໃໝ່';
+  if(/smtp|sending|confirmation/i.test(t)) return 'ເຊີບເວີສົ່ງອີເມວຢືນຢັນບໍ່ໄດ້ · ຜູ້ດູແລຕ້ອງປິດ «Confirm email» ໃນ Supabase';
+  if(/provider.*disabled|signups? not allowed|email_provider_disabled/i.test(t)) return 'ເຊີບເວີຍັງບໍ່ເປີດການເຂົ້າດ້ວຍອີເມວ';
+  return 'ບໍ່ສຳເລັດ ລອງໃໝ່';
+}
+async function passStep(kind){
+  const m = ui.mmodal, val = id => (document.getElementById(id) || {}).value || '';
+  const email = kind === 'link' || kind === 'login' ? val('pmail').trim().toLowerCase() : m.email, pw = val('ppw'), pw2 = val('ppw2');
+  m.email = email;   // kept for the box when a check below fails and the screen is drawn again
+  if((kind === 'link' || kind === 'login') && !EMAIL_RE.test(email)){ m.err = 'ອີເມວບໍ່ຖືກຕ້ອງ'; render(); return; }
+  if(kind !== 'done' && pw.length < 8){ m.err = 'ລະຫັດຜ່ານຢ່າງໜ້ອຍ 8 ຕົວ'; render(); return; }
+  if((kind === 'link' || kind === 'pass') && pw !== pw2){ m.err = 'ລະຫັດຜ່ານທັງສອງ ບໍ່ຄືກັນ'; render(); return; }
+  if(kind === 'link') m.pw = pw; else if(kind === 'done' && pw) m.pw = pw;
+  m.busy = true; m.err = ''; render();
+  try{
+    await sbLoad();
+    if(kind === 'login'){
+      const {data, error} = await SB.auth.signInWithPassword({email, password:pw}); if(error) throw error;
+      // this device now opens that account: its cloud copy replaces what is here
+      ACCT.user = data.user; ACCT.quiet = true; saveJ('lao-legend-sync', {at:0}); ACCT.quiet = false;
+      await acctLoad();
+      toast(ACCT.prof ? 'ສະບາຍດີ ' + ACCT.prof.name + '! ໂຫຼດຂໍ້ມູນຈາກ cloud ແລ້ວ ☁️' : 'ເຂົ້າບັນຊີແລ້ວ');
+      m.step = null; m.edit = false;
+    } else if(kind === 'pass'){
+      const {data, error} = await SB.auth.updateUser({password:pw}); if(error) throw error;
+      ACCT.user = data.user || ACCT.user; m.step = null; toast('ປ່ຽນລະຫັດຜ່ານແລ້ວ ✅');
+    } else {
+      // first the email (Supabase may send a confirmation link and wait), then the password once the email is on the account
+      let user;
+      if(kind === 'link'){ const {data, error} = await SB.auth.updateUser({email}); if(error) throw error; user = data.user; }
+      else { const {data, error} = await SB.auth.getUser(); if(error) throw error; user = data.user; }
+      if(!user || (user.email || '').toLowerCase() !== email){ m.step = 'pwait'; return; }
+      if(!m.pw){ m.step = 'pwait'; m.err = 'ໃສ່ລະຫັດຜ່ານອີກເທື່ອ'; return; }
+      const {data, error} = await SB.auth.updateUser({password:m.pw}); if(error) throw error;
+      ACCT.user = data.user || user; m.pw = null; m.step = null;
+      toast('ຕັ້ງອີເມວ ແລະ ລະຫັດຜ່ານແລ້ວ ✅ ເຂົ້າຫຼິ້ນເຄື່ອງອື່ນໄດ້');
+    }
+  }catch(e){ m.err = passErr(e); window.__errs.push('pass: ' + (e && (e.code || e.message) || e)); }
+  finally{ m.busy = false; render(); }
+}
+function passHTML(m){
+  const inp = (id, type, ph, ac, v) => '<input id="' + id + '" class="pname mail" type="' + type + '"' + (type === 'email' ? ' inputmode="email"' : ' minlength="8"') + ' placeholder="' + ph + '" autocomplete="' + ac + '"' + (v ? ' value="' + escH(v) + '"' : '') + '>';
+  const btns = (a, label) => '<div class="mbtns"><button class="btn-main sm" data-a="' + a + '"' + (m.busy ? ' disabled' : '') + '>' + (m.busy ? 'ກຳລັງກວດ…' : label) + '</button><button class="btn2" data-a="mback">ກັບຄືນ</button></div>';
+  const err = m.err ? '<p class="why">' + m.err + '</p>' : '';
+  if(m.step === 'plogin') return '<p class="q">🔐 ເຂົ້າດ້ວຍອີເມວ ແລະ ລະຫັດຜ່ານ</p><p class="lore">ຂໍ້ມູນໃນເຄື່ອງນີ້ ຈະຖືກແທນດ້ວຍຂໍ້ມູນຂອງບັນຊີນັ້ນ</p>' +
+    inp('pmail', 'email', 'email@gmail.com', 'email', m.email) + inp('ppw', 'password', 'ລະຫັດຜ່ານ', 'current-password') + err + btns('plogingo', '✓ ເຂົ້າບັນຊີ') +
+    '<button class="linkbtn" data-a="rhave">🔑 ລືມລະຫັດຜ່ານ? ໃຊ້ລະຫັດກູ້ບັນຊີ 12 ຕົວ</button>';
+  if(m.step === 'ppass') return '<p class="q">🔑 ປ່ຽນລະຫັດຜ່ານ</p>' + inp('ppw', 'password', 'ລະຫັດຜ່ານໃໝ່ (8 ຕົວຂຶ້ນໄປ)', 'new-password') + inp('ppw2', 'password', 'ໃສ່ລະຫັດຜ່ານໃໝ່ອີກເທື່ອ', 'new-password') + err + btns('ppassgo', '✓ ບັນທຶກ');
+  if(m.step === 'pwait') return '<p class="q">📨 ຢືນຢັນອີເມວ</p><p class="lore">ສົ່ງລິ້ງຢືນຢັນໄປທີ່ <b>' + escH(m.email || '') + '</b> ແລ້ວ. ເປີດອີເມວ ກົດລິ້ງ ແລ້ວກັບມາກົດ «ຢືນຢັນແລ້ວ» (ຖ້າບໍ່ເຫັນ ເບິ່ງໃນ Spam)</p>' +
+    (m.pw ? '' : inp('ppw', 'password', 'ລະຫັດຜ່ານທີ່ຈະໃຊ້', 'new-password')) + err + btns('pdone', '✓ ຢືນຢັນແລ້ວ');
+  return '<p class="q">🔐 ຕັ້ງອີເມວ ແລະ ລະຫັດຜ່ານ</p><p class="lore">ໃຊ້ເຂົ້າຫຼິ້ນຢູ່ເຄື່ອງອື່ນ ແລະ ບັນຊີບໍ່ຫາຍ ເຖິງລ້າງ browser. ໃຊ້ອີເມວຂອງພໍ່ແມ່ກໍໄດ້</p>' +
+    inp('pmail', 'email', 'email@gmail.com', 'email', m.email) + inp('ppw', 'password', 'ລະຫັດຜ່ານ (8 ຕົວຂຶ້ນໄປ)', 'new-password') + inp('ppw2', 'password', 'ໃສ່ລະຫັດຜ່ານອີກເທື່ອ', 'new-password') + err + btns('plinkgo', '✓ ບັນທຶກ');
+}
 function agoText(t){ const s = Math.round((Date.now() - t) / 1000); return s < 60 ? 'ຫາກໍ່' : s < 3600 ? Math.round(s / 60) + ' ນາທີກ່ອນ' : Math.round(s / 3600) + ' ຊົ່ວໂມງກ່ອນ'; }
 function profHTML(m){
   if(m.step === 'rshow' || m.step === 'rclaim') return recoveryHTML(m);
+  if(['plink', 'plogin', 'ppass', 'pwait'].includes(m.step)) return passHTML(m);
+  if(m.step === 'title') return titleHTML(m);
+  if(m.step === 'show') return showPickHTML(m);
   if(m.step) return mailHTML(m);
   const P = ACCT.prof, av = m.av || (P && P.avatar) || DECKS[0].legend, c = col();
   const pick = '<div class="avgrid">' + AVATARS().map(id => '<button class="avopt' + (id === av ? ' on' : '') + '" data-a="avpick" data-v="' + id + '"><img src="' + PIC(C[id].img) + '" alt="' + C[id].name + '"></button>').join('') + '</div>';
@@ -6362,18 +6538,21 @@ function profHTML(m){
     return '<p class="q">' + (P ? '✏️ ແກ້ໂປຣໄຟລ໌' : '👤 ສ້າງຜູ້ຫຼິ້ນ') + '</p>' +
       '<input id="pname" class="pname" maxlength="16" placeholder="ຊື່ຫຼິ້ນ" autocomplete="off" value="' + escH(m.name != null ? m.name : (P ? P.name : '')) + '">' +
       '<p class="lore">ເລືອກຮູບໂປຣໄຟລ໌</p>' + pick + (m.err ? '<p class="why">' + m.err + '</p>' : '') +
-      (P ? '' : '<p class="lore">ບໍ່ຕ້ອງໃຊ້ອີເມວ. ກາດ, ເພັດ ແລະ ເດັກ ຈະບັນທຶກຂຶ້ນ cloud ໃຫ້ເອງ</p><button class="linkbtn" data-a="rhave">🔑 ມີບັນຊີແລ້ວ? ໃສ່ລະຫັດກູ້ບັນຊີ</button>' + (MAIL_ON ? '<button class="linkbtn" data-a="mlogin">📧 ເຂົ້າດ້ວຍອີເມວ</button>' : '')) +
+      (P ? '' : '<p class="lore">ບໍ່ຕ້ອງໃຊ້ອີເມວ. ກາດ, ເພັດ ແລະ ເດັກ ຈະບັນທຶກຂຶ້ນ cloud ໃຫ້ເອງ</p>' + (PASS_ON ? '<button class="linkbtn" data-a="plogin">🔐 ມີບັນຊີແລ້ວ? ເຂົ້າດ້ວຍອີເມວ + ລະຫັດຜ່ານ</button>' : '') + '<button class="linkbtn" data-a="rhave">🔑 ມີລະຫັດກູ້ບັນຊີ? ໃສ່ລະຫັດ</button>' + (MAIL_ON ? '<button class="linkbtn" data-a="mlogin">📧 ເຂົ້າດ້ວຍອີເມວ</button>' : '')) +
       '<div class="mbtns"><button class="btn-main sm" data-a="psave"' + (m.busy ? ' disabled' : '') + '>' + (m.busy ? 'ກຳລັງບັນທຶກ…' : '✓ ບັນທຶກ') + '</button><button class="btn2" data-a="' + (P ? 'pcancel' : 'mmclose') + '">' + (P ? 'ຍົກເລີກ' : 'ໄວ້ກ່ອນ') + '</button></div>';
   }
   const cloud = ACCT.state === 'on' ? '☁️ ບັນທຶກແລ້ວ ' + agoText(ACCT.at) : ACCT.state === 'err' ? '⚠️ ຕໍ່ cloud ບໍ່ໄດ້ (ບັນທຶກໃນເຄື່ອງໄວ້ກ່ອນ)' : '☁️ ກຳລັງຕໍ່…';
-  return '<div class="profhead"><span class="hav big fr-' + (c.frame || 'none') + '"><img src="' + PIC(C[P.avatar] ? C[P.avatar].img : C[DECKS[0].legend].img) + '" alt=""></span><div><b>' + escH(P.name) + '</b><small>⭐ ລະດັບ ' + levelOf(c.xp) + ' · 🏆 ' + Object.keys(c.ach || {}).length + '/' + ACH.length + '</small></div></div>' +
-    (ACCT.rank ? '<p class="lore">🏆 ແຣງ: ' + rankLine(ACCT.rank) + ' · ' + seasonInfo().name + '</p>' : '') +
-    '<p class="lore">' + cloud + '</p>' +
-    (mailOf() ? '<p class="lore">📧 ຜູກກັບ ' + escH(maskMail(mailOf())) + ' ແລ້ວ · ເຂົ້າຈາກເຄື່ອງອື່ນໄດ້</p>'
-              : loadJ(RCODE_KEY, '') ? '<p class="lore">🔑 ມີລະຫັດກູ້ບັນຊີແລ້ວ · ໃຊ້ເຂົ້າຈາກເຄື່ອງອື່ນໄດ້</p>'
-              : '<p class="lore">⚠️ ບັນຊີຢູ່ໃນ browser ນີ້ເທົ່ານັ້ນ. ສ້າງລະຫັດກູ້ບັນຊີໄວ້ ເພື່ອບໍ່ໃຫ້ຫາຍ ແລະ ໃຊ້ເຄື່ອງອື່ນໄດ້</p>') +
-    '<div class="mbtns"><button class="' + (loadJ(RCODE_KEY, '') ? 'btn2' : 'btn-main sm') + '" data-a="rmake">🔑 ລະຫັດກູ້ບັນຊີ</button>' + (mailOf() || !MAIL_ON ? '' : '<button class="btn2" data-a="mlink">🔗 ຜູກອີເມວ</button>') + '<button class="btn2" data-a="social">👥 ໝູ່</button><button class="btn2" data-a="pedit">✏️ ແກ້ຊື່ ແລະ ຮູບ</button><button class="btn2" data-a="ach">🏆 ຜົນງານ</button><button class="btn2" data-a="mmclose">ປິດ</button></div>' +
-    (mailOf() ? '<button class="linkbtn" data-a="mout">🚪 ອອກຈາກບັນຊີ (ໃນເຄື່ອງນີ້)</button>' : '');
+  const mail = mailOf(), rc = loadJ(RCODE_KEY, '');
+  // how this account opens on another device: email + password, else the recovery code
+  const acct = mail ? '<p class="lore">📧 ' + escH(maskMail(mail)) + ' · ເຂົ້າເຄື່ອງອື່ນດ້ວຍອີເມວ ແລະ ລະຫັດຜ່ານ</p>'
+    : rc ? '<p class="lore">🔑 ມີລະຫັດກູ້ບັນຊີແລ້ວ · ໃຊ້ເຂົ້າຈາກເຄື່ອງອື່ນໄດ້' + (PASS_ON ? '. ຕັ້ງອີເມວ + ລະຫັດຜ່ານ ຈະງ່າຍກວ່າ' : '') + '</p>'
+    : '<p class="lore">⚠️ ບັນຊີຢູ່ໃນ browser ນີ້ເທົ່ານັ້ນ. ' + (PASS_ON ? 'ຕັ້ງອີເມວ + ລະຫັດຜ່ານ' : 'ສ້າງລະຫັດກູ້ບັນຊີ') + ' ເພື່ອບໍ່ໃຫ້ຫາຍ ແລະ ໃຊ້ເຄື່ອງອື່ນໄດ້</p>';
+  return idCardHTML(myCard(), true) +
+    '<div class="acctbox"><p class="lore">' + cloud + '</p>' + acct + '<div class="mbtns">' +
+      (mail ? '<button class="btn2" data-a="ppass">🔑 ປ່ຽນລະຫັດຜ່ານ</button>' : PASS_ON ? '<button class="btn-main sm" data-a="plink">🔐 ຕັ້ງອີເມວ + ລະຫັດຜ່ານ</button>' : '') +
+      '<button class="' + (rc || mail || PASS_ON ? 'btn2' : 'btn-main sm') + '" data-a="rmake">🔑 ລະຫັດກູ້ບັນຊີ</button>' + (mail || !MAIL_ON ? '' : '<button class="btn2" data-a="mlink">🔗 ຜູກອີເມວ</button>') + '</div></div>' +
+    '<div class="mbtns"><button class="btn2" data-a="social">👥 ໝູ່</button><button class="btn2" data-a="pedit">✏️ ແກ້ຊື່ ແລະ ຮູບ</button><button class="btn2" data-a="ach">🏆 ຜົນງານ</button><button class="btn2" data-a="mmclose">ປິດ</button></div>' +
+    (mail || rc ? '<button class="linkbtn" data-a="mout">🚪 ອອກຈາກບັນຊີ (ໃນເຄື່ອງນີ້)</button>' : '');
 }
 /* ---------- online play with a room code ----------
    Both screens run the same seeded game. Only moves and answers travel: {t:'play'|'atk'|'trib'|'fuse'|'end'|'quit'|'ans', from}.
@@ -6728,7 +6907,7 @@ function socialHTML(m){
   if(m.tab === 'friends'){
     body = '<div class="fcode">ລະຫັດໝູ່ຂອງເຈົ້າ<b>' + escH(ACCT.prof.fcode || '…') + '</b><small>ບອກລະຫັດນີ້ໃຫ້ໝູ່ ເພື່ອເພີ່ມກັນ</small></div>' +
       '<div class="faddrow"><input id="fadd" class="pname fin" maxlength="16" placeholder="ລະຫັດໝູ່ ເຊັ່ນ NAGA-4821" autocomplete="off" autocapitalize="characters"><button class="btn-main sm" data-a="fadd">➕ ເພີ່ມ</button></div>' + body;
-    if(Array.isArray(d)) body += d.length ? '<div class="slist">' + d.map(f => '<div class="srow2">' + avImg(f.avatar) +
+    if(Array.isArray(d)) body += d.length ? '<div class="slist">' + d.map(f => '<div class="srow2" data-a="pview" data-v="' + escH(f.id) + '" data-n="' + escH(f.name) + '">' + avImg(f.avatar) +
         '<div class="sname"><b>' + escH(f.name) + '</b><small>' + (f.status === 'ok' ? (f.online ? '🟢 ອອນລາຍ' : '⚪ ອອບລາຍ') + (f.tier != null ? ' · ' + RKIC(f.tier) + RANKS[f.tier][1] : '') : f.status === 'in' ? '📩 ຂໍເປັນໝູ່ກັບເຈົ້າ' : '⏳ ລໍຖ້າລາວຮັບ') + '</small></div>' +
         (f.status === 'in' ? '<button class="btn-main sm" data-a="fyes" data-v="' + f.id + '">✓ ຮັບ</button><button class="btn2 sm" data-a="fno" data-v="' + f.id + '">✕</button>'
           : f.status === 'ok' ? '<button class="btn2 sm" data-a="fduel" data-v="' + f.id + '" data-n="' + escH(f.name) + '"' + (f.online ? '' : ' disabled') + '>⚔️ ທ້າ</button><button class="btn2 sm fdel" data-a="fdel" data-v="' + f.id + '" title="ລຶບໝູ່">🗑</button><button class="btn2 sm" data-a="pmore" data-v="' + f.id + '" data-n="' + escH(f.name) + '">⋯</button>'
@@ -6737,11 +6916,11 @@ function socialHTML(m){
     if((ACCT.blocks || []).length) body += '<p class="lore">🚫 ບລັອກແລ້ວ: ' + ACCT.blocks.map(b => '<button class="btn2 sm" data-a="punblock" data-v="' + b.id + '">' + escH(b.name) + ' ✕</button>').join(' ') + '</p>';
   } else if(m.tab === 'board'){
     body = '<div class="tabs soctabs sub">' + [['season', '🏆 ' + seasonInfo().name], ['week', '📅 ຊະນະແຣງ 7 ມື້']].map(([k, l]) => '<button class="' + (m.board === k ? 'on' : '') + '" data-a="socboard" data-v="' + k + '">' + l + '</button>').join('') + '</div>' + body;
-    if(d && d.rows) body += (d.rows.length ? '<div class="slist">' + d.rows.map(r => '<div class="srow2' + (r.me ? ' me' : '') + '"><span class="spos">' + (r.pos <= 3 ? ['🥇', '🥈', '🥉'][r.pos - 1] : r.pos) + '</span>' + avImg(r.avatar) +
+    if(d && d.rows) body += (d.rows.length ? '<div class="slist">' + d.rows.map(r => '<div class="srow2' + (r.me ? ' me' : '') + '"' + (r.id ? ' data-a="pview" data-v="' + escH(r.id) + '" data-n="' + escH(r.name) + '"' : '') + '><span class="spos">' + (r.pos <= 3 ? ['🥇', '🥈', '🥉'][r.pos - 1] : r.pos) + '</span>' + avImg(r.avatar) +
         '<div class="sname"><b>' + escH(r.name) + '</b><small>' + (m.board === 'week' ? 'ຊະນະ ' + r.wins + ' ເກມ' : rankLine(r) + ' · ຊະນະ ' + r.wins) + '</small></div></div>').join('') + '</div>' : '<p class="lore">ຍັງບໍ່ມີໃຜຫຼິ້ນແຣງ · ເປັນຄົນທຳອິດເລີຍ!</p>') +
       '<p class="lore">' + (d.mine ? 'ເຈົ້າຢູ່ອັນດັບ ' + d.mine : 'ຫຼິ້ນແຣງ ເພື່ອຂຶ້ນຕາຕະລາງ') + '</p>';
   } else if(Array.isArray(d)){
-    body += d.length ? '<div class="slist">' + d.map(g => '<div class="srow2"><span class="spos">' + (g.won ? '✅' : '❌') + '</span><div class="sname"><b>' + (g.won ? 'ຊະນະ' : 'ແພ້') + ' · ' + escH(g.opp || 'ໝູ່') + '</b><small>' +
+    body += d.length ? '<div class="slist">' + d.map(g => '<div class="srow2"' + (g.oppId ? ' data-a="pview" data-v="' + escH(g.oppId) + '" data-n="' + escH(g.opp || '') + '"' : '') + '><span class="spos">' + (g.won ? '✅' : '❌') + '</span><div class="sname"><b>' + (g.won ? 'ຊະນະ' : 'ແພ້') + ' · ' + escH(g.opp || 'ໝູ່') + '</b><small>' +
         (g.mode === 'ranked' ? '🏆 ແຣງ' : '🔍 ທຳມະດາ') + ' · ' + (g.turns || 0) + ' ຕາ' + (DECKS[g.deck] ? ' · ເດັກ ' + DECKS[g.deck].no : '') + ' · ' + laoDate(g.at) + '</small></div>' + (g.oppId ? '<button class="btn2 sm" data-a="pmore" data-v="' + g.oppId + '" data-n="' + escH(g.opp || '') + '">⋯</button>' : '') + '</div>').join('') + '</div>'
       : '<p class="lore">ຍັງບໍ່ໄດ້ຫຼິ້ນອອນລາຍ</p>';
   }
@@ -6823,9 +7002,11 @@ $app.addEventListener('click', e => {
     if(a === 'resdrop'){ liveClear(); ui.mmodal = null; render(); return; }
     if(a === 'social'){ socOpen('friends'); return; }
     if(a === 'pmore'){ playerOpen(v, el.dataset.n, ui.mmodal); return; }
+    if(a === 'pview'){ cardOpen(v, el.dataset.n, ui.mmodal); return; }
+    if(a === 'pcclose' && ui.mmodal && ui.mmodal.type === 'pcard'){ const b = ui.mmodal.back; ui.mmodal = b || null; if(b && b.type === 'social') socLoad(b); else render(); return; }
     if(a === 'punblock'){ SB.rpc('block_set', {other:v, yes:false}).then(async () => { await blocksLoad(); toast('ປົດບລັອກແລ້ວ'); render(); }, () => toast('ບໍ່ສຳເລັດ')); return; }
     if(ui.mmodal && ui.mmodal.type === 'player'){
-      const m = ui.mmodal, back = () => { ui.mmodal = m.back || null; if(ui.mmodal && ui.mmodal.type === 'social') socLoad(ui.mmodal); else render(); };
+      const m = ui.mmodal, back = () => { ui.mmodal = m.back || null; const b = ui.mmodal; if(b && b.type === 'social') socLoad(b); else if(b && b.type === 'pcard') cardOpen(b.id, b.name, b.back); else render(); };
       if(a === 'pblock'){ SB.rpc('block_set', {other:m.id, yes:!m.blocked}).then(async () => { await blocksLoad(); toast(m.blocked ? 'ປົດບລັອກແລ້ວ' : 'ບລັອກແລ້ວ'); back(); }, () => toast('ບໍ່ສຳເລັດ')); return; }
       if(a === 'preport'){ m.step = 'report'; render(); return; }
       if(a === 'pback'){ m.step = null; render(); return; }
@@ -6834,7 +7015,7 @@ $app.addEventListener('click', e => {
     }
     if(ui.mmodal && ui.mmodal.type === 'gate' && a === 'gateok'){
       const m = ui.mmodal, ans = +((document.getElementById('gatein') || {}).value || 0);
-      if(ans === m.a * m.b){ ui.mmodal = {type:m.next}; render(); } else { m.err = 'ບໍ່ຖືກ'; render(); }
+      if(ans === m.a * m.b){ ui.mmodal = typeof m.next === 'object' ? m.next : {type:m.next}; render(); } else { m.err = 'ບໍ່ຖືກ'; render(); }
       return;
     }
     if(ui.mmodal && ui.mmodal.type === 'parent'){
@@ -6887,6 +7068,18 @@ $app.addEventListener('click', e => {
       if(a === 'rclaim'){ recoveryStep('claim'); return; }
       if(a === 'mback'){ m.step = m.step === 'logincode' ? 'login' : m.step === 'linkcode' ? 'link' : null; m.err = ''; render(); return; }   // from the recovery screens too
       if(a === 'mout'){ acctSignOut(); return; }
+      if(a === 'plink'){ gateOpen({type:'prof', step:'plink'}); return; }
+      if(a === 'plogin' || a === 'ppass'){ m.step = a; m.err = ''; render(); return; }
+      if(a === 'plinkgo'){ passStep('link'); return; }
+      if(a === 'plogingo'){ passStep('login'); return; }
+      if(a === 'ppassgo'){ passStep('pass'); return; }
+      if(a === 'pdone'){ passStep('done'); return; }
+      if(a === 'pcopy'){ const t = ACCT.prof && ACCT.prof.fcode; if(t) (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast('ກັອບປີ້ລະຫັດແລ້ວ 📋'), () => toast(t)); return; }
+      if(a === 'ptitle'){ m.step = 'title'; render(); return; }
+      if(a === 'pshow'){ m.step = 'show'; m.pick = (col().showcase || []).filter(id => C[id] && owned(id) > 0).slice(0, 3); render(); return; }
+      if(a === 'tpick'){ const x = TITLES.find(t => t.id === v); if(x && titleHas(x, col())){ col().title = v; saveCol(); profPush(); toast('🎖️ ' + x.name); } m.step = null; render(); return; }
+      if(a === 'spick'){ const k = m.pick.indexOf(v); if(k >= 0) m.pick.splice(k, 1); else if(m.pick.length < 3) m.pick.push(v); else toast('ເລືອກໄດ້ 3 ໃບ'); render(); return; }
+      if(a === 'ssave'){ col().showcase = m.pick.slice(0, 3); saveCol(); profPush(); m.step = null; render(); toast('ບັນທຶກກາດໂຊວ໌ແລ້ວ'); return; }
     }
     if(ui.mmodal && ui.mmodal.type === 'online'){
       if(a === 'onhost'){ onlineHost(); return; }
@@ -6898,7 +7091,7 @@ $app.addEventListener('click', e => {
       if(a === 'mmbot'){ mmStop(true); ui.mmodal = null; startSelected(); return; }
     }
     if(a === 'advgo' && ui.mmodal && ui.mmodal.type === 'adv'){ advStart(+v); return; }
-    if(a === 'frame' && ui.mmodal && ui.mmodal.type === 'ach'){ col().frame = v; saveCol(); render(); return; }
+    if(a === 'frame' && ui.mmodal && ui.mmodal.type === 'ach'){ col().frame = v; saveCol(); profPush(); render(); return; }
     if(a === 'petpick' && ui.mmodal && ui.mmodal.type === 'pet'){ col().pet = v; saveCol(); sfx('heal'); render(); return; }
     if(a === 'pvpsel' && ui.mmodal && ui.mmodal.type === 'pvp'){ ui.mmodal[v[0]] = v.slice(1); render(); return; }
     if(a === 'pvpgo' && ui.mmodal && ui.mmodal.type === 'pvp'){ pvpGo(ui.mmodal.a, ui.mmodal.b); return; }
@@ -7045,7 +7238,7 @@ $app.addEventListener('contextmenu', e => {
 
 /* ---------- self-test: bot vs bot, no animation ---------- */
 // local dev only: poke at live game state from the console
-if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__dbg = {fx:{show:(id, alt) => fxShowcase(id, alt), motif:(id, x, y) => fxFuseMotif(id, {x:x || innerWidth / 2, y:y || innerHeight / 2}), cutin:(f) => fxFuseCutin(C[f].fusion, f), rite:(i, id) => { const p = S.p[i || 0]; return fxRite(p, id || 'phitibangfai', p.field.slice(0, 3)); }, rays:fxRays, yantra:fxYantra, orb:fxOrb, petals:fxPetals, marigolds:fxMarigolds, baci:(i) => fxBaci(S.p[i || 0]), blade:(i, n) => addBlade(S.p[i || 0], n), slash:fxSlash, burst:burstAt, big:fxBig, wait:fxWait, get state(){ return FX; }},get S(){ return S; }, get net(){ return NET; },
+if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__dbg = {fx:{show:(id, alt) => fxShowcase(id, alt), motif:(id, x, y) => fxFuseMotif(id, {x:x || innerWidth / 2, y:y || innerHeight / 2}), cutin:(f) => fxFuseCutin(C[f].fusion, f), rite:(i, id) => { const p = S.p[i || 0]; return fxRite(p, id || 'phitibangfai', p.field.slice(0, 3)); }, rays:fxRays, yantra:fxYantra, orb:fxOrb, petals:fxPetals, marigolds:fxMarigolds, baci:(i) => fxBaci(S.p[i || 0]), blade:(i, n) => addBlade(S.p[i || 0], n), slash:fxSlash, burst:burstAt, big:fxBig, wait:fxWait, get state(){ return FX; }},get S(){ return S; }, get net(){ return NET; }, get ACCT(){ return ACCT; }, get ui(){ return ui; }, mockSB:x => { SB = x; },
   music:{want:m => { MUS.want = m; }, sting:musicSting, sfx:n => sfx(n), get state(){ return MUS; }, level:async (mood, secs) => {
     const sr = 22050, oc = new OfflineAudioContext(1, sr * (secs || 20), sr), keep = Object.assign({}, SND), out = oc.createGain(); out.connect(oc.destination);
     SND.ctx = oc; SND.sfx = out; musicBus(oc, out);
