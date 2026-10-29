@@ -1592,6 +1592,8 @@ body{background:
   12%{opacity:1}54%{transform:translate(calc(-50% + var(--sx) * .08),calc(-50% + var(--sy) * .08)) rotate(calc(var(--rz) * -.3)) scale(.95);filter:none}
   60%{transform:translate(-50%,-50%) scale(.82);filter:brightness(3.5);opacity:1}64%{opacity:0;transform:translate(-50%,-50%) scale(.6)}100%{opacity:0}}
 .fzres{position:absolute;left:50%;top:46%;width:min(210px,40vw);transform:translate(-50%,-50%) scale(.3);opacity:0;animation:fzout var(--dur) cubic-bezier(.2,1.3,.4,1) forwards}
+.fzfig{position:absolute;left:50%;top:46%;height:min(86vh,720px);transform:translate(-50%,-50%) scale(.6);opacity:0;pointer-events:none;filter:drop-shadow(0 0 24px var(--tc));animation:fzfig var(--dur) cubic-bezier(.2,1.1,.4,1) forwards}
+@keyframes fzfig{0%,55%{opacity:0;transform:translate(-50%,-44%) scale(.6)}75%{opacity:.95;transform:translate(-50%,-50%) scale(1.05)}100%{opacity:.85;transform:translate(-50%,-52%) scale(1.1)}}
 .fzres .card{width:100%;box-shadow:0 0 0 4px #fff,0 0 50px var(--tc),0 0 110px var(--tc)}
 @keyframes fzout{0%,59%{opacity:0;transform:translate(-50%,-50%) scale(.3) rotate(-8deg);filter:brightness(3)}
   70%{opacity:1;transform:translate(-50%,-50%) scale(1.12) rotate(2deg);filter:brightness(1.4)}78%,100%{opacity:1;transform:translate(-50%,-50%) scale(1);filter:none}}
@@ -2069,7 +2071,7 @@ def('fondap',{name:'ຟ້ອນດາບຕ້ອນຮັບ',type:'spell',cos
 def('tatlom',{name:'ທ່າຕັດລົມ',type:'spell',cost:3,tag:'ຄາຖາ · ທ່າດາບ',skill:'ທຳລາຍຕົວລະຄອນຄູ່ແຂ່ງ 1 ໃບ ພະລັງ 3 ລົງມາ (5 ລົງມາ ຖ້າຈິດດາບ 5 ຂຶ້ນໄປ)',lore:'ຟັນດຽວ ລົມແຍກເປັນສອງ'});
 def('hofuek',{name:'ຫໍຝຶກດາບໂຮງຮຽນ',type:'loc',cost:3,buff:'blade',tag:'ສະຖານທີ່',skill:'ຢູ່ສະໜາມ: ເຜົ່ານັກດາບທຸກໃບ ພະລັງ +1. ຕິດດາບ ຈິດດາບ +1 ເພີ່ມອີກ',lore:'ຫໍໄມ້ຫຼັງຄາລາວ ມີດາບຮຽງຢູ່ຝາ'});
 def('khudapphen',{name:'ຄູ່ດາບເດືອນເພັງ',tribe:'blade',cost:7,power:8,fusion:['dapkhu','daphangma'],kw:{fly:1, quick:1},tag:'ຮ່ວມຮ່າງ · ບິນ · ຟັນໄວ',skill:'ຮ່ວມຮ່າງ: «ສາວຟ້ອນດາບຄູ່» + «ນັກດາບຫາງມ້າ». ບິນ. ' + QUICK,lore:'ສອງນັກດາບ ຫັນຫຼັງຊົນກັນ ກາງເດືອນເພັງ'});
-def('champathong',{name:'ເທວີດາບຈຳປາທອງ',tribe:'blade',cost:10,power:11,fusion:['nangchampa','dapsongmue'],kw:{fly:1, quick:1},ph:'👑',tag:'ຮ່ວມຮ່າງ · ບິນ · ຟັນໄວ',skill:'ຮ່ວມຮ່າງ: «ນາງຈຳປາ» + «ສາວດາບສອງມື». ບິນ. ' + QUICK + '. ເມື່ອຮ່ວມຮ່າງ ຈິດດາບເຕັມ = ຟ້ອນດາບດອກຈຳປາ ທັນທີ. ຢູ່ສະໜາມ: ຟ້ອນດາບໃຊ້ຈິດດາບພຽງ 7',lore:'ສອງນັກດາບຈັບມືກັນ ກາຍເປັນເທວີດາບທອງ ໃຕ້ດອກຈຳປາຍັກ'});
+def('champathong',{name:'ເທວີດາບຈຳປາທອງ',tribe:'blade',cost:10,power:11,fusion:['nangchampa','dapsongmue'],kw:{fly:1, quick:1},tag:'ຮ່ວມຮ່າງ · ບິນ · ຟັນໄວ',skill:'ຮ່ວມຮ່າງ: «ນາງຈຳປາ» + «ສາວດາບສອງມື». ບິນ. ' + QUICK + '. ເມື່ອຮ່ວມຮ່າງ ຈິດດາບເຕັມ = ຟ້ອນດາບດອກຈຳປາ ທັນທີ. ຢູ່ສະໜາມ: ຟ້ອນດາບໃຊ້ຈິດດາບພຽງ 7',lore:'ສອງນັກດາບຈັບມືກັນ ກາຍເປັນເທວີດາບທອງ ໃຕ້ດອກຈຳປາຍັກ'});
 
 const ALT = {sinxay:'alt-sinxay', phayanak:'alt-phayanak', hapkhanasouane:'alt-hapkhanasouane', phralam:'alt-phralam', phayathaen:'alt-phayathaen',
              thaohung:'alt-thaohung', xangsuek:'alt-xangsuek', maethap:'alt-maethap',
@@ -2154,7 +2156,7 @@ const PET_LINES = {start:['ສູ້ໆ!', 'ພ້ອມແລ້ວ!', 'ໄປ�
   tale:['ນິທານຄົບແລ້ວ!', 'ມ່ວນຫຼາຍ!'], win:['ຊະນະແລ້ວ! 🎉', 'ເຮົາເກັ່ງທີ່ສຸດ!'], lose:['ບໍ່ເປັນຫຍັງ ເທື່ອໜ້າເອົາໃໝ່!', 'ສູ້ໃໝ່ເດີ້!']};
 // cutouts for the summon showcase (art/cut/<img>.webp), made with the macOS subject-lift; the subject's box as fractions [x, y, w, h]
 const CUTS = {nangchampa:[0.087,0.043,0.847,0.692],khudapphen:[0.029,0,0.953,0.636],dapsongmue:[0.008,0.055,0.966,0.496],ajandap:[0.126,0.074,0.768,0.715],kamkadam:[0.234,0.028,0.584,0.528],'alt-hackxm':[0,0.119,0.874,0.862],'alt-hapkhanasouane':[0,0.023,0.997,0.939],'alt-kalaket':[0,0.009,0.995,0.951],'alt-kamkadam':[0.045,0,0.945,0.657],'alt-kangli':[0,0.015,0.961,0.896],'alt-khaendj':[0,0,0.929,0.811],'alt-kratai':[0.232,0.242,0.513,0.417],'alt-luksaolao':[0,0.03,0.753,0.777],'alt-maethap':[0,0.013,0.795,0.879],'alt-makaew':[0,0.021,0.942,0.772],'alt-mechyak':[0,0.038,0.995,0.96],'alt-nagax':[0,0,0.887,0.798],'alt-nangkaew':[0,0,0.958,0.826],'alt-ngaonam':[0.087,0.385,0.674,0.238],'alt-phadaeng':[0,0.009,0.934,0.77],'alt-phayanak':[0,0,0.958,0.679],'alt-phayathaen':[0,0.015,0.997,0.677],'alt-phralam':[0,0,0.997,0.999],'alt-phutthasen':[0,0.047,0.997,0.709],'alt-punyeu':[0,0.021,0.997,0.591],'alt-santhaman':[0,0,0.997,0.942],'alt-singkaew':[0,0.094,0.992,0.691],'alt-sinxay':[0,0,0.984,0.999],'alt-suttharo':[0.216,0,0.529,0.615],'alt-thaohung':[0,0,0.989,0.998],'alt-xangsuek':[0,0.013,0.945,0.768],hanuman:[0,0,0.987,0.69],hapkhanasouane:[0,0.015,0.997,0.621],hungxang:[0,0,0.9,0.642],kalaket:[0,0.023,0.976,0.619],kamkadam2:[0,0.011,0.632,0.553],khrut:[0,0,0.997,0.679],khunborom:[0.108,0.038,0.395,0.369],khurak:[0.039,0.009,0.942,0.472],kratai:[0.034,0.094,0.963,0.468],kumphan:[0.058,0.011,0.713,0.543],leader:[0,0.023,0.997,0.674],maethap:[0,0,0.997,0.615],mechyak:[0,0.011,0.987,0.632],nakjet:[0.008,0.002,0.974,0.519],nangkaew:[0,0,0.987,0.711],phangkhi:[0,0,0.868,0.536],phayakhom:[0,0,0.997,0.623],phayanak:[0,0,0.892,0.938],phayathaen:[0.121,0.013,0.797,0.494],phralam:[0.105,0,0.861,0.741],phutthasen:[0,0.023,0.966,0.64],punyeu:[0.061,0.036,0.853,0.553],sangkhanthewi:[0.15,0.008,0.847,0.551],sangpheuak:[0.153,0.077,0.624,0.447],singhimma:[0.082,0.011,0.824,0.586],sinxay:[0,0,0.997,0.742],sinxaysam:[0.013,0.021,0.971,0.589],songphi:[0.039,0.023,0.782,0.494],suttharo:[0.003,0,0.776,0.394],thaenlom:[0.005,0.023,0.842,0.496],thaentong:[0.013,0,0.913,0.555],thaohung:[0.168,0,0.445,0.525],thewadapon:[0,0,0.761,0.566],xangjaidi:[0.1,0.03,0.797,0.542],xangsuek:[0.037,0.011,0.913,0.617],yaknak:[0.005,0.011,0.863,0.521],yaksip:[0.005,0,0.882,0.591],yaksombat:[0.084,0,0.913,0.609]};
-function preloadCuts(ids){ for(const id of ids){ const d = C[id]; if(!d) continue; for(const im of [d.img, ALT[id]]) if(im && CUTS[im]) new Image().src = ART + 'cut/' + im + '.webp'; } }
+function preloadCuts(ids){ for(const id of ids){ const d = C[id]; if(!d) continue; if(FUSE_FIG[id]) new Image().src = ART + 'cut/' + FUSE_FIG[id] + '.webp'; for(const im of [d.img, ALT[id]]) if(im && CUTS[im]) new Image().src = ART + 'cut/' + im + '.webp'; } }
 const ALT_CHANCE = location.hash === '#altall' ? 1 : .25;  // #altall makes every one alt, for showing the cards off
 
 // ຮ່ວມຮ່າງ: fusion cards wait outside the deck. When all their materials stand on your field, pay 2 ບຸນ to merge them, once each per game.
@@ -4866,12 +4868,14 @@ function fxFuseMotif(id, o){
     emit({x:o.x, y:o.y, vx:Math.cos(a) * sp, vy:Math.sin(a) * sp, g:m.k === 'drop' ? 500 : 80, drag:.94, life:.7 + Math.random() * .4, size:m.k === 'smoke' ? 14 : 2.5 + Math.random() * 3, kind:m.k, color:pick(m.c), rot:Math.random() * 6}); }
 }
 // ຮ່ວມຮ່າງ, part 2: the parts' cards fly in from all sides, collide, and the fused card bursts out with its name
+// a fusion with its own full-body picture: it rises behind the new card in the cut-in
+const FUSE_FIG = {champathong:'champathong-full'};
 async function fxFuseCutin(ids, f){
   if(S.fast || REDUCE || SET.fx === 'short') return;
   const d = C[f], T = TFX[d.tribe] || TFX.hero, n = ids.length, dur = 2100 * SET.speed, far = Math.max(innerWidth, innerHeight) * .62;
   const mats = ids.map((id, i) => { const a = Math.PI + i * 6.283 / n + (n === 2 ? 0 : -Math.PI / 2 + Math.PI);
     return '<div class="fzm" style="--sx:' + Math.round(Math.cos(a) * far) + 'px;--sy:' + Math.round(Math.sin(a) * far * .6) + 'px;--rz:' + (i % 2 ? 18 : -18) + 'deg">' + cardHTML(id) + '</div>'; }).join('');
-  const el = addFx('fzcut', null, null, '<div class="fzrays"></div><div class="fzyan" style="--c:' + T.c[0] + '">' + yantraSVG(T.c[0]) + '</div>' + mats + '<div class="fzres">' + cardHTML(f) + '</div>' +
+  const el = addFx('fzcut', null, null, '<div class="fzrays"></div><div class="fzyan" style="--c:' + T.c[0] + '">' + yantraSVG(T.c[0]) + '</div>' + mats + (FUSE_FIG[f] ? '<img class="fzfig" alt="" src="' + ART + 'cut/' + FUSE_FIG[f] + '.webp">' : '') + '<div class="fzres">' + cardHTML(f) + '</div>' +
     '<div class="fzband"><small>🤝 ຮ່ວມຮ່າງ · ' + TRIBE_NAME[d.tribe] + ' · ພະລັງ ' + d.power + '</small><b>' + d.name + '</b></div>');
   el.style.setProperty('--dur', dur + 'ms'); el.style.setProperty('--tc', T.c[0]);
   setTimeout(() => { if(!el.isConnected) return; const x = innerWidth / 2, y = innerHeight * .46;
