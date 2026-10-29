@@ -2069,6 +2069,7 @@ def('fondap',{name:'ຟ້ອນດາບຕ້ອນຮັບ',type:'spell',cos
 def('tatlom',{name:'ທ່າຕັດລົມ',type:'spell',cost:3,tag:'ຄາຖາ · ທ່າດາບ',skill:'ທຳລາຍຕົວລະຄອນຄູ່ແຂ່ງ 1 ໃບ ພະລັງ 3 ລົງມາ (5 ລົງມາ ຖ້າຈິດດາບ 5 ຂຶ້ນໄປ)',lore:'ຟັນດຽວ ລົມແຍກເປັນສອງ'});
 def('hofuek',{name:'ຫໍຝຶກດາບໂຮງຮຽນ',type:'loc',cost:3,buff:'blade',tag:'ສະຖານທີ່',skill:'ຢູ່ສະໜາມ: ເຜົ່ານັກດາບທຸກໃບ ພະລັງ +1. ຕິດດາບ ຈິດດາບ +1 ເພີ່ມອີກ',lore:'ຫໍໄມ້ຫຼັງຄາລາວ ມີດາບຮຽງຢູ່ຝາ'});
 def('khudapphen',{name:'ຄູ່ດາບເດືອນເພັງ',tribe:'blade',cost:7,power:8,fusion:['dapkhu','daphangma'],kw:{fly:1, quick:1},tag:'ຮ່ວມຮ່າງ · ບິນ · ຟັນໄວ',skill:'ຮ່ວມຮ່າງ: «ສາວຟ້ອນດາບຄູ່» + «ນັກດາບຫາງມ້າ». ບິນ. ' + QUICK,lore:'ສອງນັກດາບ ຫັນຫຼັງຊົນກັນ ກາງເດືອນເພັງ'});
+def('champathong',{name:'ເທວີດາບຈຳປາທອງ',tribe:'blade',cost:10,power:11,fusion:['nangchampa','dapsongmue'],kw:{fly:1, quick:1},ph:'👑',tag:'ຮ່ວມຮ່າງ · ບິນ · ຟັນໄວ',skill:'ຮ່ວມຮ່າງ: «ນາງຈຳປາ» + «ສາວດາບສອງມື». ບິນ. ' + QUICK + '. ເມື່ອຮ່ວມຮ່າງ ຈິດດາບເຕັມ = ຟ້ອນດາບດອກຈຳປາ ທັນທີ. ຢູ່ສະໜາມ: ຟ້ອນດາບໃຊ້ຈິດດາບພຽງ 7',lore:'ສອງນັກດາບຈັບມືກັນ ກາຍເປັນເທວີດາບທອງ ໃຕ້ດອກຈຳປາຍັກ'});
 
 const ALT = {sinxay:'alt-sinxay', phayanak:'alt-phayanak', hapkhanasouane:'alt-hapkhanasouane', phralam:'alt-phralam', phayathaen:'alt-phayathaen',
              thaohung:'alt-thaohung', xangsuek:'alt-xangsuek', maethap:'alt-maethap',
@@ -3020,6 +3021,7 @@ async function fuse(p, f){
   if(f === 'singkhu') heal(p, 3);
   else if(f === 'sinxaysam') draw(p, 2);
   else if(f === 'khurak') await addWater(p, 2);
+  else if(f === 'champathong') await addBlade(p, BLADE_AT);
   if(p === S.p[0]) petSay('legend');
   await checkDeaths(); render();
 }
@@ -3383,7 +3385,7 @@ async function encore(p){
 }
 // ຈິດດາບ: the sword-spirit gauge. Full = ຟ້ອນດາບດອກຈຳປາ; with no enemy to cut it waits, full, for the next chance
 const BLADE_AT = 10, BLADE_CUT = 5;
-const bladeAt = p => p.field.some(x => x.id === 'nangchampa') ? BLADE_AT - 3 : BLADE_AT;
+const bladeAt = p => p.field.some(x => x.id === 'nangchampa' || x.id === 'champathong') ? BLADE_AT - 3 : BLADE_AT;
 const swordGain = p => 1 + (p.loc === 'hofuek' ? 1 : 0);
 async function addBlade(p, n){
   if(S.over || !n) return;
@@ -4845,7 +4847,9 @@ const FUSE_MOTIF = {
   hungxang:{dust:true, c:['#c98a4a', '#ffd23d', '#7a4a2c'], k:'shard'},    // the war elephant stamps up dust
   khurak:{lanterns:true, c:['#3aa0ff', '#ffb347', '#ffffff'], k:'drop'},    // the lake of Nong Han and its lanterns
   yaknak:{scan:true, c:['#1de9ff', '#ff2fb3', '#b388ff'], k:'spark'},      // robot giant: a neon scan
-  singkhu:{twin:true, c:['#ffd23d', '#7be36a', '#ffffff'], k:'star'}        // twin lions, gold and jade
+  singkhu:{twin:true, c:['#ffd23d', '#7be36a', '#ffffff'], k:'star'},       // twin lions, gold and jade
+  khudapphen:{arrows:2, c:['#ffffff', '#ffe9a8', '#c9d6ea'], k:'petal'},   // two swords crossing under the moon
+  champathong:{twin:true, c:['#ffd23d', '#ffffff', '#ffe9a8'], k:'petal'}  // gold and silver blades become one
 };
 function fxFuseMotif(id, o){
   const m = FUSE_MOTIF[id]; if(!m || S.fast || REDUCE || !o) return;
@@ -4857,7 +4861,7 @@ function fxFuseMotif(id, o){
   if(m.dust) for(let i = 0; i < 16; i++){ const a = Math.PI + Math.random() * Math.PI; emit({x:o.x + (Math.random() - .5) * 80, y:o.y + 50, vx:Math.cos(a) * (80 + Math.random() * 140), vy:-30 - Math.random() * 60, g:30, drag:.95, life:1.1, size:20 + Math.random() * 16, kind:'smoke', color:'#b98a5a'}); }
   if(m.lanterns) for(let i = 0; i < 9; i++) emit({x:o.x + (Math.random() - .5) * 160, y:o.y + 40, vx:(Math.random() - .5) * 30, vy:-60 - Math.random() * 50, g:-25, drag:.99, life:1.8, size:6 + Math.random() * 3, kind:'ember', color:'#ffb347'});
   if(m.scan){ const sc = addFx('fscan', o.x, o.y); setTimeout(() => sc.remove(), 800); }
-  if(m.twin){ shockAt(o.x - 30, o.y, '#ffd23d', 120); shockAt(o.x + 30, o.y, '#7be36a', 120); }
+  if(m.twin){ shockAt(o.x - 30, o.y, m.c[0], 120); shockAt(o.x + 30, o.y, m.c[1], 120); }
   for(let i = 0; i < 22; i++){ const a = Math.random() * 6.283, sp = 120 + Math.random() * 260;
     emit({x:o.x, y:o.y, vx:Math.cos(a) * sp, vy:Math.sin(a) * sp, g:m.k === 'drop' ? 500 : 80, drag:.94, life:.7 + Math.random() * .4, size:m.k === 'smoke' ? 14 : 2.5 + Math.random() * 3, kind:m.k, color:pick(m.c), rot:Math.random() * 6}); }
 }
