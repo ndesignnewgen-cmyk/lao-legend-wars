@@ -27,41 +27,43 @@ NAMES AND SENDING
 =====================================================================================================
 MUSIC (8)
 =====================================================================================================
-For every track: instrumental only, no singing, no humming, no spoken words. Lao instruments: khaen (bamboo mouth organ),
-phin (plucked Lao lute), pong lang / khong wong (wooden xylophone), ching (small finger cymbals), klong (barrel drum),
-khong (big gong). A light orchestra under them is welcome. Bright, adventurous and family-friendly, like an animated adventure film.
-Never scary, never sad. A steady beat the whole way through (I cut the loops on bar lines).
+For every track: instrumental only, no singing, no humming, no spoken words.
+STYLE (round 2b, modern fusion): a modern game soundtrack with today's production (punchy electronic drums, deep synth bass,
+sidechain pumping, bright synth pads and plucks) and the Lao sound on top as the hook: khaen (bamboo mouth organ) riffs and
+chops, phin (plucked Lao lute) leads, pong lang (wooden xylophone) arps, a gong on the big moments. Think "Lao instruments in a
+future-bass / electro-pop track", catchy and confident like a top mobile game, family-friendly, never scary.
+A steady beat the whole way through (I cut the loops on bar lines). Older folk-style prompts: see git history of this file.
 
 [menu] loop · menus, shop, building decks
-  STYLE:   instrumental Lao folk, 80 BPM, A minor pentatonic, warm peaceful village morning by the Mekong, soft breathing khaen chords, gentle plucked phin lute melody, light wooden xylophone ripples, finger cymbals, soft strings, no heavy drums, calm and inviting, Ghibli-like warmth, steady tempo, seamless loop
-  EXCLUDE: vocals, singing, humming, choir, spoken word, rap, electric guitar, distortion, EDM drop, fade out
+  STYLE:   instrumental modern lo-fi chillhop, 85 BPM, A minor pentatonic, warm vinyl crackle, soft boom-bap drums, mellow sub bass, dreamy Rhodes chords, chopped Lao khaen sample hook, gentle phin lute plucks, wooden xylophone sparkles, cozy and stylish, mobile game menu theme, steady tempo, seamless loop
+  EXCLUDE: vocals, singing, humming, choir, spoken word, rap, distortion, heavy drop, fade out
 
 [battle] loop · a normal match
-  STYLE:   instrumental Lao folk adventure battle, 110 BPM, A minor pentatonic, energetic and playful, driving barrel drum groove, finger cymbals on off-beats, plucked phin lute and wooden xylophone trading a catchy hook, punchy khaen chords, light orchestral strings and taiko-style hits, animated adventure film, steady tempo, seamless loop
-  EXCLUDE: vocals, singing, humming, choir, spoken word, rap, electric guitar, dubstep, distortion, horror, fade out
+  STYLE:   instrumental electro-pop game battle theme, 120 BPM, A minor pentatonic, punchy four-on-the-floor kick, crisp claps, sidechained synth bass, catchy Lao khaen riff as the main hook, fast phin lute plucks, wooden xylophone arpeggios, bright future bass chords, energetic and fun, modern mobile game soundtrack, steady tempo, seamless loop
+  EXCLUDE: vocals, singing, humming, choir, spoken word, rap, dubstep growl, distortion, horror, fade out
 
 [winning] loop · you are close to winning
-  STYLE:   instrumental Lao folk heroic battle, 110 BPM, A minor pentatonic, triumphant and proud, fuller drums, heroic khaen and soft brass playing a rising melody, fast phin lute runs, gong hit every 8 bars, bright and victorious, animated adventure film climax, steady tempo, seamless loop
-  EXCLUDE: vocals, singing, humming, choir, spoken word, rap, electric guitar, distortion, horror, fade out
+  STYLE:   instrumental euphoric future bass, 120 BPM, A minor pentatonic, big uplifting supersaw chords, sidechain pumping, triumphant Lao khaen lead melody, sparkling wooden xylophone, heroic brass stabs, gong hit every 8 bars, victorious and hype, modern mobile game climax, steady tempo, seamless loop
+  EXCLUDE: vocals, singing, humming, choir, spoken word, rap, distortion, horror, sad, fade out
 
 [losing] loop · your life is low
-  STYLE:   instrumental Lao folk tense battle, 110 BPM, A minor pentatonic, suspenseful but brave, low khaen drone, pulsing low barrel drum heartbeat, urgent phin lute in the low register, tremolo strings, rising tension, "you can still turn it around", exciting not scary, steady tempo, seamless loop
-  EXCLUDE: vocals, singing, humming, choir, spoken word, rap, distortion, horror, screams, sad piano, fade out
+  STYLE:   instrumental dark synthwave tension, 120 BPM, A minor pentatonic, pulsing arpeggiated synth bass, tight trap hi-hats, heartbeat kick, low Lao khaen drone, urgent phin lute motif, rising risers, suspenseful but brave, "you can still turn it around", modern game soundtrack, steady tempo, seamless loop
+  EXCLUDE: vocals, singing, humming, choir, spoken word, rap, horror, screams, sad piano, fade out
 
 [boss] loop · adventure-map boss stages (stage 5 and 10)
-  STYLE:   instrumental epic Lao folk boss battle, 120 BPM, A minor pentatonic, big and powerful, thundering barrel drums and gongs, deep brass, fast khaen and phin lute riffs, heroic orchestra, a mighty giant or naga king is fighting, epic but family-friendly, steady tempo, seamless loop
-  EXCLUDE: vocals, singing, humming, choir words, spoken word, rap, metal guitar, distortion, horror, screams, fade out
+  STYLE:   instrumental epic hybrid trailer music, 128 BPM, A minor pentatonic, huge cinematic drums and taiko, heavy synth bass, aggressive Lao khaen riffs, gong slams, braams, fast phin lute runs, orchestral strings ostinato, a giant naga king boss fight, powerful but family-friendly, modern game boss theme, steady tempo, seamless loop
+  EXCLUDE: vocals, singing, humming, choir words, spoken word, rap, metal guitar, horror, screams, fade out
 
 [start] short · the moment a match begins (I keep the first 4–8 seconds)
-  STYLE:   instrumental Lao folk fanfare intro, big gong hit, barrel drum roll building up fast, bright heroic khaen and brass fanfare, ends on a strong held chord, exciting opening of a battle, short
-  EXCLUDE: vocals, singing, humming, choir, spoken word, distortion, long intro, fade in
+  STYLE:   instrumental hype intro sting, riser and drum fill building fast, big gong hit, bright Lao khaen stab, punchy electronic drop into a strong held chord, modern mobile game battle start, short
+  EXCLUDE: vocals, singing, humming, choir, spoken word, long intro, fade in
 
 [victory] short · end screen when you win (I keep the first 6–10 seconds)
-  STYLE:   instrumental Lao festival victory fanfare, joyful khaen and brass melody, festive barrel drums and finger cymbals, xylophone sparkle, bright gong at the end ringing out, proud and happy celebration, short
+  STYLE:   instrumental bright electro-pop victory jingle, happy Lao khaen melody, sparkling wooden xylophone, punchy claps, uplifting synth chords, gong at the end, celebratory reward fanfare, modern mobile game win screen, short
   EXCLUDE: vocals, singing, humming, choir, spoken word, distortion, sad
 
 [defeat] short · end screen when you lose (I keep the first 5–8 seconds)
-  STYLE:   instrumental Lao folk, slow gentle phrase, soft phin lute and khaen, warm and kind, a little wistful then ending on a hopeful major chord, "try again", short
+  STYLE:   instrumental soft lo-fi phrase, mellow Rhodes and gentle Lao phin lute, soft khaen, warm and kind, ends on a hopeful chord, "try again", modern mobile game lose screen, short
   EXCLUDE: vocals, singing, humming, choir, spoken word, sad piano, drama, horror
 
 =====================================================================================================
