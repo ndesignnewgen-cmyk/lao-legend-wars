@@ -1,0 +1,41 @@
+LAO LEGEND WARS · FESTIVAL ART (12 images)
+During a match a Lao festival comes round every 3 rounds and changes a rule. Each festival gets a wide banner (shown big when the festival
+starts) and a round badge (shown on the board while it lasts).
+
+HOW TO MAKE THEM
+Please create these images one at a time, in order, numbered 1–12. After each image, continue with the next one without asking me.
+Save each image as its number only (1.png … 12.png). No text, no letters, no numbers, no logos, no watermark in any picture.
+All-ages, joyful and respectful: real Lao festivals, Lao faces and clothes (sinh, pha biang, salong), Lao temples with tiered roofs and naga
+finials. Monks may appear only small and in the background, shown respectfully.
+
+BANNERS (1–6) · STYLE: wide festival key art in the same look as the game's cards: Southeast Asian comic style, bold clean outlines, rich
+warm colors, glowing lights, lots of joyful detail. Landscape 1600x900 (16:9). Keep the CENTER of the picture calm and a little darker (soft
+sky or water), because the festival's name and rule will be written over the middle by the game; put the people and the brightest details
+toward the left, right and bottom edges.
+
+1. Bun Pi Mai (Lao New Year, April): people splashing water and blessing each other with flower water in silver bowls, sand stupas with
+   little flags, frangipani petals, the guardian lions Sing Kaew and Sing Kham dancing, Luang Prabang temple roofs, sunny turquoise sky.
+2. Bun Bang Fai (rocket festival): big decorated bamboo rockets with naga heads launching from wooden ramps, smoke trails and fireworks,
+   villagers cheering with drums and khaen, green rice fields and hills, bright blue sky with a rainbow.
+3. Bun Suang Heua (boat racing): long naga-headed race boats with rows of rowers racing on the Mekong, splashes, crowds and colorful
+   umbrellas on the bank, drums, flags, the That Luang–style golden stupa far away, late afternoon gold light.
+4. Bun That Luang (November, Vientiane): the great golden stupa Pha That Luang glowing at night, a procession with flower offering cones
+   (pha sat) and candles, lanterns, families in festive clothes, stars, warm golden light.
+5. Bun Ok Phansa and Lai Heua Fai (end of Buddhist Lent): glowing boats of fire made of banana trunks and lights floating on the river at
+   night, little lotus lanterns on the water, fireworks, families on the riverbank, reflections everywhere.
+6. Bun Khao Salak / Khao Sak (offering festival): families preparing small baskets of sticky rice, fruit and sweets wrapped in banana
+   leaves, offering trays at a temple at dawn, soft candle light, flowers, peaceful and warm, a few novice monks small in the background.
+
+BADGES (7–12) · STYLE: match the game's menu icons exactly: a glossy round game badge with a thick ornate golden Lao kranok frame, jewels
+(rubies, sapphires), soft bevel and shine, one clear symbol in the middle, strong silhouette that reads at 40 pixels. Square 1024x1024,
+on a PLAIN PURE WHITE background, no shadow on the ground (the game cuts the badge out).
+
+7. Pi Mai badge: a silver water bowl with frangipani flowers and splashing water drops, a small sand stupa with a flag.
+8. Bang Fai badge: a golden bamboo rocket with a naga head shooting upward on a trail of sparks.
+9. Suang Heua badge: a golden naga-headed race boat with crossed paddles over blue waves.
+10. That Luang badge: the golden stupa Pha That Luang with a soft halo.
+11. Ok Phansa badge: a glowing lotus lantern boat on dark water with a small flame.
+12. Khao Sak badge: a small woven basket of sticky rice with a banana leaf parcel and a candle.
+
+How the game will use them: 1–6 the big festival announcement and the board's background tint for that festival · 7–12 the festival badge
+on the board and in the festival list.

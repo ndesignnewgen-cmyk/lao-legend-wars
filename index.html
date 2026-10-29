@@ -849,8 +849,11 @@ body{background:
 .gbtn{width:44px;height:44px;border-radius:50%;border:0;display:grid;place-items:center;cursor:pointer;background:radial-gradient(circle at 35% 30%,#7a1a14,#3a0b08);box-shadow:inset 0 0 0 1.5px #e2b54a,0 4px 10px #0009}
 .gbtn svg{width:20px;height:20px}
 .gbtn:focus-visible{outline:2px solid #fff;outline-offset:2px}
-.tprompt2{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:7;display:flex;gap:10px;align-items:center;background:#0b0404ee;border:2px solid #e2b54a;border-radius:999px;padding:8px 16px;white-space:nowrap}
+.tprompt2{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:30;display:flex;gap:10px;align-items:center;background:#0b0404ee;border:2px solid #e2b54a;border-radius:999px;padding:8px 16px;white-space:nowrap}
 .tprompt2 b{font:800 15px var(--f-d);color:#f2d48a}
+/* the cancel button must read on every board theme (light ones made the see-through button almost vanish) */
+.tprompt2 .btn2,.arena[data-theme] .tprompt2 .btn2{background:linear-gradient(#e0463a,#b8261f);border:1.5px solid #fff9;color:#fff;font:800 14px var(--f-d);padding:7px 16px;box-shadow:0 2px 0 #6e1712,0 0 0 1px #6e1712;text-shadow:0 1px 0 #0006}
+.tprompt2 .btn2:hover{filter:brightness(1.1)}
 @media (max-width:760px){
   .arena{gap:4px}
   .band{gap:8px}
@@ -1672,7 +1675,8 @@ body{background:
 .h2main{display:flex;flex-direction:column;gap:12px;width:100%;max-width:560px;margin:0 auto}
 .h2logo{display:none;text-align:center;margin:-4px 0 -8px}.h2logo .logoimg{width:min(240px,62vw);height:auto;filter:drop-shadow(0 8px 24px #000)}
 .h2note{display:flex;align-items:center;gap:10px;justify-content:space-between;width:100%;max-width:560px;margin:0 auto;padding:8px 12px;border-radius:14px;background:#ffffff12;border:1px solid #ffd23d55;font:700 13px var(--f-d);color:#f2d48a}
-.h2note .btn2{flex:none}
+.h2note .btn2{flex:none}.h2note span{display:flex;align-items:center;gap:8px}.h2note .uic{width:30px;height:30px;flex:none}
+.lgcard .btn-main .uic{width:28px;height:28px;margin-right:6px;vertical-align:-7px}
 .h2hero{display:flex;align-items:center;gap:14px;padding:12px;border-radius:20px;background:linear-gradient(135deg,#ffffff14,#ffffff06);border:1px solid #ffffff22;backdrop-filter:blur(6px);box-shadow:0 14px 40px #0008}
 .h2deck{position:relative;flex:none;width:min(108px,28vw);cursor:pointer;transition:transform .2s}.h2deck:hover{transform:translateY(-4px) rotate(-1.5deg)}
 .h2deck .hswap{position:absolute;right:-6px;bottom:-6px}
@@ -1723,7 +1727,9 @@ body{background:
 }
 /* ---------- the login page: sign in or sign up before playing, with a small way in as a guest ---------- */
 .login{position:relative;height:100%;overflow-y:auto;display:grid;place-items:center;padding:24px max(16px,env(safe-area-inset-right,0px)) 24px max(16px,env(safe-area-inset-left,0px));isolation:isolate}
-.login .hbg{background:var(--lbg,none) center/cover,var(--bg) center 20%/cover;filter:blur(2px) brightness(.55)}
+.login .hbg{inset:0;transform:none;background:#120f18 url(art/bg/login-p.webp) center 30%/cover;filter:brightness(.92)}
+.login .hbg::after{background:radial-gradient(ellipse at 50% 60%,transparent 30%,#0b071066 75%,#0b0710aa 100%)}
+@media (orientation:landscape){.login .hbg{background-image:url(art/bg/login-l.webp);background-position:30% center}}
 .lgwrap{display:grid;gap:18px;align-items:center;justify-items:center;width:100%;max-width:1000px}
 .lgside{text-align:center}.lgside .logoimg{width:min(320px,74vw);height:auto;filter:drop-shadow(0 10px 30px #000)}
 .lgside p{margin:2px 0 0;color:#f2d48a;font:700 14px var(--f-d);text-shadow:0 2px 6px #000}
@@ -2058,7 +2064,7 @@ def('sangpheuak',{name:"ຊ້າງເຜືອກ",tribe:'villager',cost:7,pow
 // deck: ພະຍາແຖນ (sky gods). Seasons rotate by themselves every 2 of their owner's turns
 def('thewadanoi',{name:'ເທວະດານ້ອຍ',tribe:'thewada',cost:1,power:1,kw:{fly:1},tag:'ບິນ',combo:'heal',skill:FLY + '. ຕໍ່ເນື່ອງ 2: ຟື້ນຂວັນ 2',lore:'ເທວະດານ້ອຍ ຫຼິ້ນຢູ່ໃນໝູ່ເມກ'});
 def('thahanthaen',{name:'ທະຫານແຖນ',tribe:'thewada',cost:2,power:3,kw:{taunt:1},tag:'ກັນໄພ',skill:TAUNT,lore:'ທະຫານ ຜູ້ເຝົ້າປະຕູເມືອງແຖນ'});
-def('thaenfahong',{name:'ແຖນຟ້າຮ້ອງ',tribe:'thewada',cost:3,power:2,tag:'ຟ້າຮ້ອງ',skill:'ເມື່ອລົງສະໜາມ ໂຈມຕີ 3 ໃສ່ຕົວລະຄອນຂອງຄູ່ແຂ່ງ 1 ໃບ',lore:'ແຖນຜູ້ຖືສາຍຟ້າໄວ້ໃນມື'});
+def('thaenfahong',{name:'ແຖນຟ້າຮ້ອງ',tribe:'thewada',cost:3,power:2,tag:'ຟ້າຮ້ອງ',skill:'ເມື່ອລົງສະໜາມ ໂຈມຕີ 2 ໃສ່ຕົວລະຄອນຂອງຄູ່ແຂ່ງ 1 ໃບ',lore:'ແຖນຜູ້ຖືສາຍຟ້າໄວ້ໃນມື'});
 def('thaenfon',{name:'ແຖນຝົນ',tribe:'thewada',cost:3,power:2,tag:'ສາຍຝົນ',skill:'ທຸກຕາ ຟື້ນຂວັນ +1',lore:'ນາງແຖນ ຜູ້ຖອກຝົນລົງນາ'});
 def('nanghung',{name:'ນາງຮຸ້ງ',tribe:'thewada',cost:4,power:4,tag:'ຮຸ້ງເຈັດສີ',skill:'ເມື່ອລົງສະໜາມ ຈົ່ວກາດ 1 ໃບ ຕໍ່ຄາຖາໃນກອງຖິ້ມ (ສູງສຸດ 3)',lore:'ຜ້າແພເຈັດສີ ກາຍເປັນຮຸ້ງ'});
 def('thaenlom',{name:'ແຖນລົມ',tribe:'thewada',cost:5,power:4,tag:'ລົມແຮງ',skill:'ກາດຄາຖາຂອງເຈົ້າ ໃຊ້ບຸນໜ້ອຍລົງ 1',lore:'ເປົ່າເຂົາ ລົມກໍພັດທົ່ວຟ້າ'});
@@ -2134,7 +2140,7 @@ def('maejaidi',{name:'ແມ່ໃຈດີ',tribe:'hero',cost:2,power:2,tag:'�
 def('xaobanhua',{name:'ຊາວບ້ານຫົວເລາະ',tribe:'hero',cost:3,power:3,kw:{taunt:1},tf:{power:4,after:2},tag:'ກັນໄພ · ປ່ຽນຮ່າງ',skill:'ກັນໄພ. ປ່ຽນຮ່າງ (2 ຕາ) → ເລີກຫົວເລາະ ມາຊ່ວຍ ພະລັງ 4',lore:'ຫົວເລາະກ່ອນ ແຕ່ສຸດທ້າຍກໍມາເປັນໝູ່'});
 def('ueaysong',{name:'ເອື້ອຍທັງສອງ',tribe:'hero',cost:3,power:3,tag:'ອິດສາ',skill:'ເມື່ອລົງສະໜາມ ຕົວລະຄອນຂອງຄູ່ແຂ່ງ 1 ໃບ ພະລັງ -1 ຈົນຈົບຕາຕໍ່ໄປ',lore:'ເອື້ອຍສອງຄົນ ເຊີດດັງໃສ່ທຸກຄົນ'});
 def('luksaolao',{name:'ລູກສາວຫຼ້າ',tribe:'hero',cost:2,power:2,tag:'ເຫັນຄວາມງາມແທ້',skill:'ເມື່ອລົງສະໜາມ ຕົວລະຄອນ 1 ໃບຂອງເຈົ້າ ປ່ຽນຮ່າງທັນທີ',lore:'ລາວເຫັນໃຈ ບໍ່ແມ່ນເຫັນແຕ່ຜິວ'});
-def('setthi',{name:'ເສດຖີພໍ່ຕາ',tribe:'hero',cost:4,power:3,tag:'ພໍ່ຕາ',skill:'ຢູ່ສະໜາມ: ຕົວລະຄອນເຈົ້າທີ່ປ່ຽນຮ່າງແລ້ວ ພະລັງ +1',lore:'ເສດຖີຕົກໃຈ ເມື່ອເຫັນລູກເຂີຍແທ້'});
+def('setthi',{name:'ເສດຖີພໍ່ຕາ',tribe:'hero',cost:4,power:4,tag:'ພໍ່ຕາ',skill:'ຢູ່ສະໜາມ: ຕົວລະຄອນເຈົ້າທີ່ປ່ຽນຮ່າງແລ້ວ ພະລັງ +1',lore:'ເສດຖີຕົກໃຈ ເມື່ອເຫັນລູກເຂີຍແທ້'});
 def('thewadapon',{name:'ເທວະດາປະທານພອນ',tribe:'thewada',cost:5,power:4,kw:{fly:1},tag:'ບິນ · ພອນ',skill:'ບິນ. ເມື່ອລົງສະໜາມ ຈົ່ວກາດ 1 ໃບ',lore:'ເທວະດາລົງມາຈາກເມກທອງ'});
 def('kamkadam',{name:'ທ້າວກ່ຳກາດຳ',tribe:'hero',cost:6,power:2,legend:1,tf:{power:9,after:2,fly:1,img:'kamkadam2',name:'ເຈົ້າຊາຍຄຳ'},tag:'ຢ່າຕັດສິນຈາກຮູບຮ່າງ',skill:'ປ່ຽນຮ່າງ (2 ຕາ) → ເຈົ້າຊາຍຄຳ ພະລັງ 9 ແລະ ບິນ',lore:'ເກີດມາຜິວດຳຄືກາ ແຕ່ແທ້ຈິງແມ່ນເຈົ້າຊາຍຄຳ'});
 def('thotkhap',{name:'ຖອດຄາບ',type:'spell',cost:2,tag:'ຄາຖາ · ປ່ຽນຮ່າງ',skill:'ຕົວລະຄອນ 1 ໃບຂອງເຈົ້າ ປ່ຽນຮ່າງທັນທີ ແລະ ຈົ່ວກາດ 1 ໃບ',lore:'ຄາບກາແຕກອອກ ເປັນແສງທອງ'});
@@ -2162,11 +2168,11 @@ def('hackxm',{name:'ແຮັກເກີ ຊຽງໝ້ຽງ',tribe:'cyborg',
 def('repairbot',{name:'ໝໍຊ່ອມຫຸ່ນຍົນ',tribe:'cyborg',cy:1,cost:2,power:2,tag:'ຊ່ອມ',skill:'ເມື່ອລົງສະໜາມ ເອົາຊິບ 1 ໃບ ຈາກກອງຖິ້ມມາໃສ່ມື',lore:'ໝໍຫຸ່ນຍົນໃຈດີ ມີແຂນເຄື່ອງມືຫຼາຍແຂນ'});
 def('cyberpolice',{name:'ຕຳຫຼວດໄຊບອກ',tribe:'cyborg',cy:1,cost:3,power:3,kw:{taunt:1},tag:'ກັນໄພ',skill:TAUNT,lore:'ໂລ່ສ່ອງແສງລາຍກະໜົກ'});
 def('neonninja',{name:'ນິນຈາ ນີອອນ',tribe:'cyborg',cy:1,cost:3,power:3,kw:{rush:1},tag:'ໄວ · ຊິບ',skill:'ໂຈມຕີໄດ້ທັນທີ. ຖ້າຕິດຊິບ ໂຈມຕີໄດ້ 2 ເທື່ອ',lore:'ນິນຈາກະໂດດຂ້າມຫຼັງຄາ ຖືດາບແສງ'});
-def('holokinnari',{name:'ກິນນະລີ ໂຮໂລແກຣມ',tribe:'cyborg',cy:1,cost:4,power:3,kw:{fly:1},tag:'ບິນ · ໂຮໂລແກຣມ',skill:'ບິນ. ຄາຖາ ແລະ ສະກິນຂອງຄູ່ແຂ່ງ ເລືອກໃບນີ້ບໍ່ໄດ້',lore:'ນັກຟ້ອນແສງ ປີກນີອອນ'});
+def('holokinnari',{name:'ກິນນະລີ ໂຮໂລແກຣມ',tribe:'cyborg',cy:1,cost:4,power:4,kw:{fly:1},tag:'ບິນ · ໂຮໂລແກຣມ',skill:'ບິນ. ຄາຖາ ແລະ ສະກິນຂອງຄູ່ແຂ່ງ ເລືອກໃບນີ້ບໍ່ໄດ້',lore:'ນັກຟ້ອນແສງ ປີກນີອອນ'});
 def('mechyak',{name:'ຍັກຈັກກົນ',tribe:'cyborg',cy:1,cost:5,power:5,tag:'ຊິບ x2',skill:'ພະລັງ +2 ຕໍ່ຊິບແຕ່ລະອັນ ທີ່ຕິດຢູ່',lore:'ຍັກເຫຼັກ ມົງກຸດທອງ ຫົວໃຈແສງ'});
 def('nagax',{name:'ນາກາ-X',tribe:'cyborg',cy:1,cost:8,power:7,legend:1,kw:{fly:1},tag:'ນາກຈັກກົນ',skill:'ບິນ. ເມື່ອລົງສະໜາມ ເອົາຊິບ 2 ໃບ ຈາກເດັກ ຕິດໃສ່ໃບນີ້ທັນທີ. ຕິດຊິບໄດ້ບໍ່ຈຳກັດ',lore:'ພະຍານາກຫຸ່ນຍົນ ເກັດໂຄຣມ ພັນຮອບຕຶກສູງ'});
-def('chippower',{name:'ຊິບພະລັງ',type:'item',cy:1,cost:1,bonus:2,tag:'ຂອງວິເສດ · ຊິບ',skill:'ຕິດໃສ່ຕົວລະຄອນ 1 ໃບ: ພະລັງ +2 (ຊິບ: ສູງສຸດ 3 ອັນຕໍ່ໃບ)',lore:'ຊິບແດງ-ທອງ ວົງຈອນລາຍກະໜົກ'});
-def('chipfly',{name:'ຊິບບິນ',type:'item',cy:1,cost:1,bonus:1,tag:'ຂອງວິເສດ · ຊິບ',skill:'ຕິດໃສ່ຕົວລະຄອນ 1 ໃບ: ພະລັງ +1 ແລະ ບິນ (ຊິບ: ສູງສຸດ 3 ອັນຕໍ່ໃບ)',lore:'ຊິບຟ້າ ມີປີກໂຮໂລແກຣມ'});
+def('chippower',{name:'ຊິບພະລັງ',type:'item',cy:1,cost:1,bonus:2,tag:'ຂອງວິເສດ · ຊິບ',skill:'ຕິດໃສ່ຕົວລະຄອນເຜົ່າໄຊບອກ 1 ໃບ: ພະລັງ +2 (ຊິບ: ສູງສຸດ 3 ອັນຕໍ່ໃບ)',lore:'ຊິບແດງ-ທອງ ວົງຈອນລາຍກະໜົກ'});
+def('chipfly',{name:'ຊິບບິນ',type:'item',cy:1,cost:1,bonus:1,tag:'ຂອງວິເສດ · ຊິບ',skill:'ຕິດໃສ່ຕົວລະຄອນເຜົ່າໄຊບອກ 1 ໃບ: ພະລັງ +1 ແລະ ບິນ (ຊິບ: ສູງສຸດ 3 ອັນຕໍ່ໃບ)',lore:'ຊິບຟ້າ ມີປີກໂຮໂລແກຣມ'});
 def('virus',{name:'ໄວຣັສ',type:'spell',cy:1,cost:3,tag:'ຄາຖາ · ໄວຣັສ',skill:'ຕົວລະຄອນຄູ່ແຂ່ງ 1 ໃບ ພະລັງ -2 ຈົນຈົບຕາຕໍ່ໄປ ແລະ ຂອງວິເສດທີ່ຕິດຢູ່ ໄປກອງຖິ້ມ',lore:'ເມກໄວຣັສສີມ່ວງ ໜ້າຕາຂີ້ດື້'});
 def('neoncity',{name:'ເມືອງນີອອນ',type:'loc',cy:1,cost:2,tag:'ສະຖານທີ່',skill:'ຢູ່ສະໜາມ: ຕົວລະຄອນທີ່ຕິດຊິບ ພະລັງ +1',lore:'ວຽງຈັນ ປີ 2099 ຍາມຄ່ຳ'});
 const isChip = id => id === 'chippower' || id === 'chipfly';
@@ -2176,7 +2182,7 @@ const SHIELD = 'ໂລ່ທິບ: ກັນການຖືກທຳລາຍ �
 def('nokkaew',{name:'ນົກແກ້ວ',tribe:'beast',cost:1,power:1,kw:{fly:1},tag:'ບິນ · ແອບເບິ່ງ',skill:'ບິນ. ເມື່ອລົງສະໜາມ ເບິ່ງກາດໃບເທິງສຸດຂອງເດັກ: ຖ້າເປັນກັບດັກ ເອົາມາໃສ່ມື',lore:'ນົກແກ້ວຂີ້ເວົ້າ ສວມໝວກໃບໄມ້'});
 def('nokhuk',{name:'ນົກຮູກ',tribe:'beast',cost:2,power:2,tag:'ຮູ້ທັນ',skill:'ເມື່ອລົງສະໜາມ ເອົາກັບດັກ 1 ໃບ ຈາກເດັກມາໃສ່ມື',lore:'ນົກຮູກຕາໂຕ ເຫັນທຸກຢ່າງຍາມກາງຄືນ'});
 def('tao',{name:'ເຕົ່າ',tribe:'beast',cost:2,power:3,kw:{taunt:1},tag:'ກັນໄພ',skill:TAUNT,lore:'ເຕົ່າໃຈເຢັນ ຖືໃບໄມ້ເປັນໂລ່'});
-def('lingkhidue',{name:'ລີງຂີ້ດື້',tribe:'beast',cost:2,power:2,tag:'ລັກ',skill:'ເມື່ອລົງສະໜາມ ຄູ່ແຂ່ງຖິ້ມກາດໃນມື 1 ໃບ (ສຸ່ມ)',lore:'ລີງນ້ອຍ ຫ້ອຍຫາງ ລັກໝາກໄມ້'});
+def('lingkhidue',{name:'ລີງຂີ້ດື້',tribe:'beast',cost:2,power:3,tag:'ລັກ',skill:'ເມື່ອລົງສະໜາມ ຄູ່ແຂ່ງຖິ້ມກາດໃນມື 1 ໃບ (ສຸ່ມ)',lore:'ລີງນ້ອຍ ຫ້ອຍຫາງ ລັກໝາກໄມ້'});
 def('kwangwai',{name:'ກວາງໄວ',tribe:'beast',cost:3,power:3,kw:{rush:1},tag:'ໄວ',combo:'pow',skill:'ໂຈມຕີໄດ້ທັນທີ ໃນຕາທີ່ລົງສະໜາມ' + '. ຕໍ່ເນື່ອງ 2: ໃບນີ້ພະລັງ +2',lore:'ກວາງນ້ອຍ ກະໂດດຂ້າມຫ້ວຍ'});
 def('mupa',{name:'ໝູປ່າ',tribe:'beast',cost:3,power:3,kw:{shield:1},tag:'ໂລ່ທິບ',skill:SHIELD,lore:'ໝູປ່ານ້ອຍ ໃສ່ເກາະໃບໄມ້'});
 def('xangjaidi',{name:'ຊ້າງໃຈດີ',tribe:'beast',cost:5,power:5,tag:'ໃຈດີ',skill:'ທຸກຄັ້ງທີ່ກັບດັກຂອງເຈົ້າເປີດ ໃບນີ້ພະລັງ +1 (ຖາວອນ)',lore:'ຊ້າງໃຫຍ່ ແບກສັດນ້ອຍໄວ້ເທິງຫຼັງ'});
@@ -2213,7 +2219,7 @@ def('dapjaidi',{name:'ນັກດາບໃຈດີ',tribe:'blade',cost:2,power
 def('dapwaen',{name:'ສາວແວ່ນນັກວິເຄາະ',tribe:'blade',cost:3,power:2,tag:'ວິເຄາະ',skill:'ເມື່ອລົງສະໜາມ ຈົ່ວກາດ 1 ໃບ',lore:'ຈົດທ່າດາບທຸກທ່າ ໄວ້ໃນປຶ້ມນ້ອຍ'});
 def('daphuana',{name:'ຫົວໜ້າຊົມລົມດາບ',tribe:'blade',cost:3,power:3,kw:{taunt:1},tag:'ກັນໄພ',skill:TAUNT,lore:'ປັກດາບໄວ້ຂ້າງໜ້າ ຢືນປົກປ້ອງນ້ອງໆໃນຊົມລົມ'});
 def('dapolo',{name:'ນັກດາບໂລ່ໄມ້',tribe:'blade',cost:3,power:3,kw:{shield:1},tag:'ໂລ່ທິບ',skill:SHIELD,lore:'ໂລ່ໄມ້ກົມ ແຕ້ມດອກຈຳປາ'});
-def('ajandap',{name:'ອາຈານສອນດາບ',tribe:'blade',cost:5,power:4,kw:{guard:1},tag:'ປົກປັກ · ສອນດາບ',skill:GUARD + '. ເມື່ອລົງສະໜາມ ມອບ «ດາບໄມ້ຊ້ອມ» ໃຫ້ນັກດາບ 1 ໃບ',lore:'ອາຈານໃຈດີ ສອນທັງດາບ ທັງຄວາມອົດທົນ'});
+def('ajandap',{name:'ອາຈານສອນດາບ',tribe:'blade',cost:5,power:3,kw:{guard:1},tag:'ປົກປັກ · ສອນດາບ',skill:GUARD + '. ເມື່ອລົງສະໜາມ ມອບ «ດາບໄມ້ຊ້ອມ» ໃຫ້ນັກດາບ 1 ໃບ',lore:'ອາຈານໃຈດີ ສອນທັງດາບ ທັງຄວາມອົດທົນ'});
 def('dapsongmue',{name:'ສາວດາບສອງມື',tribe:'blade',cost:6,power:4,kw:{quick:1},tag:'ຟັນໄວ · ໂຈມຕີ 2 ເທື່ອ',skill:QUICK + '. ໂຈມຕີໄດ້ 2 ເທື່ອ ໃນ 1 ຕາ',lore:'ດາບສອງມື ໝຸນເປັນວົງແສງສີທອງ ໃຕ້ເດືອນເພັງ'});
 def('nangchampa',{name:'ນາງຈຳປາ ດາບດອກໄມ້',tribe:'blade',cost:8,power:7,legend:1,tag:'ຕຳນານຊົມລົມດາບ',skill:'ເມື່ອລົງສະໜາມ ຈິດດາບ +3. ຢູ່ສະໜາມ: ຟ້ອນດາບດອກຈຳປາ ໃຊ້ຈິດດາບພຽງ 7',lore:'ດາບທອງຫົວດອກຈຳປາ ກັບກີບດອກໄມ້ ໝຸນທົ່ວຟ້າ'});
 def('dapmai',{name:'ດາບໄມ້ຊ້ອມ',type:'item',cost:1,bonus:1,tag:'ຂອງວິເສດ · ດາບ',skill:'ຕິດໃສ່ຕົວລະຄອນ 1 ໃບ: ພະລັງ +1 ແລະ ຟັນໄວ',lore:'ດາບໄມ້ຂັດເງົາ ດ້າມພັນເຊືອກແດງ'});
@@ -3250,7 +3256,8 @@ function attackTargets(p, c){
 }
 function targetsFor(p, id){
   const q = opp(p);
-  const chars = (pl, f) => pl.field.filter(c => (pl === p || (!c.items.includes('khapka') && c.id !== 'holokinnari' && !c.hid)) && (!f || f(c))).map(c => ({kind:'char', owner:pl, c}));
+  // a bot turn still running after its game ended (the player left and started another) finds no player: no targets
+  const chars = (pl, f) => !pl ? [] : pl.field.filter(c => (pl === p || (!c.items.includes('khapka') && c.id !== 'holokinnari' && !c.hid)) && (!f || f(c))).map(c => ({kind:'char', owner:pl, c}));
   const notImm = c => c.id !== 'phayanak';
   switch(id){
     case 'bangfai': return [...chars(q, notImm), ...chars(p), {kind:'hero', owner:q}];
@@ -3270,7 +3277,7 @@ function targetsFor(p, id){
     case 'ueaysong': return chars(q);
     case 'luksaolao': case 'thotkhap': return chars(p, c => C[c.id].tf && !c.tf);
     case 'bangfaikaeng': return [...chars(q, notImm), {kind:'hero', owner:q}];
-    case 'chippower': case 'chipfly': return chars(p, c => c.id === 'nagax' || c.items.filter(isChip).length < 3);
+    case 'chippower': case 'chipfly': return chars(p, c => C[c.id].tribe === 'cyborg' && (c.id === 'nagax' || c.items.filter(isChip).length < 3));   // chips fit cyborgs only (in other decks they were far too strong)
     case 'hackxm': return chars(q, c => pow(q, c) <= 3);
     case 'virus': return chars(q);
     case 'tatlom': { const lim = (p.blade || 0) >= 5 ? 5 : 3; return chars(q, c => notImm(c) && pow(q, c) <= lim); }
@@ -3645,7 +3652,7 @@ async function onPlay(p, c, t){
     }
     case 'suttharo': await addWater(p, 3); break;
     case 'thaenfahong':
-      if(t && t.owner.field.includes(t.c)){ await fxRing(tkey(t), '#9fe0ff', true); if(pow(t.owner, t.c) <= 3) await destroy(t.owner, t.c); else { floatAt(tkey(t), 'ທົນໄດ້!', 'hit'); log('«' + C[t.c.id].name + '» ທົນໄດ້'); } }
+      if(t && t.owner.field.includes(t.c)){ await fxRing(tkey(t), '#9fe0ff', true); if(pow(t.owner, t.c) <= 2) await destroy(t.owner, t.c); else { floatAt(tkey(t), 'ທົນໄດ້!', 'hit'); log('«' + C[t.c.id].name + '» ທົນໄດ້'); } }
       break;
     case 'nanghung': { const n = Math.min(3, p.grave.filter(id => C[id].type === 'spell').length); if(n){ draw(p, n); log('ນາງຮຸ້ງ: ' + p.name + ' ຈົ່ວກາດ ' + n + ' ໃບ'); } break; }
     case 'naiphan':
@@ -4293,7 +4300,7 @@ function botPick(p, q){
     } else if(d.type === 'char'){
       s = cost * 2 + d.power + 1;
       if(h.id === 'phikrasue' && en.length) t = en.find(x => pow(q, x.c) <= 2) || maxBy(en, x => pow(q, x.c));
-      if((h.id === 'thaenfahong') && en.length){ const k = en.filter(x => pow(q, x.c) <= 3); t = k.length ? maxBy(k, x => C[x.c.id].cost) : null; if(t) s += 2 + C[t.c.id].cost; }
+      if((h.id === 'thaenfahong') && en.length){ const k = en.filter(x => pow(q, x.c) <= 2); t = k.length ? maxBy(k, x => C[x.c.id].cost) : null; if(t) s += 2 + C[t.c.id].cost; }
       if(h.id === 'naiphan' && en.length){ t = maxBy(en, x => pow(q, x.c)); s += 1; }
       if(h.id === 'nanghung') s += Math.min(3, p.grave.filter(id => C[id].type === 'spell').length);
       if(h.id === 'kumphan' && en.length){ t = maxBy(en, x => C[x.c.id].cost + pow(q, x.c)); s += 2; }
@@ -4823,18 +4830,18 @@ function menuHTML(){
   const live = ui.onlineN ? '<span class="h2live"><i></i>' + ui.onlineN + ' ຄົນອອນລາຍ</span>' : 'ຈັບຄູ່ກັບຄົນແທ້ທົ່ວລາວ';
   // a guest plays on this device only; a guest account without an email can lose everything with the browser's data
   const note = !ACCT.prof && isGuest() ? '<div class="h2note"><span>👀 ຫຼິ້ນເປັນແຂກ · ຂໍ້ມູນຢູ່ເຄື່ອງນີ້ເທົ່ານັ້ນ</span><button class="btn2 sm" data-a="lglogin">ເຂົ້າສູ່ລະບົບ / ສະໝັກ</button></div>'
-    : ACCT.prof && !mailOf() && !loadJ(RCODE_KEY, '') ? '<div class="h2note"><span>🔐 ຕັ້ງອີເມວ + ລະຫັດຜ່ານ ເພື່ອບໍ່ໃຫ້ບັນຊີຫາຍ</span><button class="btn2 sm" data-a="hmail">ຕັ້ງເລີຍ</button></div>' : '';
+    : ACCT.prof && !mailOf() && !loadJ(RCODE_KEY, '') ? '<div class="h2note"><span>' + UIC('mail') + 'ຕັ້ງອີເມວ + ລະຫັດຜ່ານ ເພື່ອບໍ່ໃຫ້ບັນຊີຫາຍ</span><button class="btn2 sm" data-a="hmail">ຕັ້ງເລີຍ</button></div>' : '';
   const hero = '<section class="h2hero"><div class="h2deck" role="button" tabindex="0" data-a="decks" aria-label="ປ່ຽນເດັກ">' +
       boxHTML(typeof sel === 'string' ? sel : (DECKS[sel] ? sel : 0), info.cover, typeof sel === 'string' ? info.name : 'ເດັກ ' + (DECKS[sel] || DECKS[0]).no) + '<span class="hswap">' + UIC('swapdeck') + '</span></div>' +
     '<div class="h2dinfo"><small>ເດັກທີ່ເລືອກ</small><h2>' + escH(info.name) + '</h2><p>' + info.sub + '</p>' +
       '<div class="hbtns"><button class="btn2" data-a="decks">' + UIC('swapdeck') + 'ປ່ຽນເດັກ</button><button class="btn2" data-a="edsel">' + UIC('edit') + ' ' + (typeof sel === 'string' ? 'ແກ້ເດັກ' : 'ກັອບໄປແກ້') + '</button></div></div></section>';
   // real people first: quick match, ranked, a room with a friend; the bot, adventure and two players on one device below
-  const people = online ? '<button class="h2online" data-a="hmm" data-v="casual">' + UIC('fight') + '<span><b>ສູ້ກັບຜູ້ຫຼິ້ນ</b><small>' + live + '</small></span></button>' +
+  const people = online ? '<button class="h2online" data-a="hmm" data-v="casual">' + UIC('battle') + '<span><b>ສູ້ກັບຜູ້ຫຼິ້ນ</b><small>' + live + '</small></span></button>' +
       '<div class="h2row"><button class="h2chip" data-a="hmm" data-v="ranked">' + (r && RANKS[r.tier] ? RKIC(r.tier) : UIC('trophy')) + '<span>ແຣງ<small>' + (r && RANKS[r.tier] ? RANKS[r.tier][1] + ' ' + (r.tier >= 6 ? '★×' + r.stars : '★'.repeat(r.stars) + '☆'.repeat(3 - r.stars)) : 'ໄຕ່ອັນດັບ ' + seasonInfo().name) + '</small></span></button>' +
       '<button class="h2chip" data-a="online">' + UIC('friends') + '<span>ຫ້ອງກັບໝູ່<small>ລະຫັດຫ້ອງ · ທ້າໝູ່</small></span></button></div>' : '';
   const more = '<p class="h2sub">' + (online ? 'ຝຶກ ແລະ ຜະຈົນໄພ' : 'ເລືອກໂໝດ') + '</p><div class="h2alt">' +
       tile('adv', UIC('adventure'), 'ຜະຈົນໄພ', Math.min(c.adv || 0, ADV.length) + '/' + ADV.length + ' ດ່ານ') +
-      tile('start', UIC('stats'), online ? 'ຝຶກກັບບອດ' : 'ສູ້ກັບບອດ', 'ບອດ' + LEVELS[ui.level]) + tile('pvpstart', UIC('pvp'), '2 ຄົນ', 'ເຄື່ອງດຽວ') + '</div>' +
+      tile('start', UIC('bot'), online ? 'ຝຶກກັບບອດ' : 'ສູ້ກັບບອດ', 'ບອດ' + LEVELS[ui.level]) + tile('pvpstart', UIC('pvp'), '2 ຄົນ', 'ເຄື່ອງດຽວ') + '</div>' +
     '<div class="levels"><span>ບອດ</span>' + LEVELS.map((l, i) => '<button class="lv ' + (ui.level === i ? 'on' : '') + '" data-a="lvl" data-v="' + i + '">' + l + '</button>').join('') + '</div>' +
     '<div class="h2minis">' + mini('quests', UIC('quests'), 'ພາລະກິດ', qn) + mini('ednew', UIC('deck'), 'ຈັດເດັກ') + mini('pet', c.pet ? petFace() : UIC('pet'), 'ຄູ່ຫູ', c.pet ? '' : '!') +
       mini('tutstart', UIC('tutorial'), 'ສອນຫຼິ້ນ', loadJ('lao-legend-tut', 0) ? '' : '!') + mini('stats', UIC('stats'), 'ສະຖິຕິ') + '</div>';
@@ -4843,7 +4850,7 @@ function menuHTML(){
       walletHTML('sm') + '<button class="hset" data-a="settings" aria-label="ຕັ້ງຄ່າ">' + UIC('settings') + '</button></header>' + note +
       '<div class="h2main"><div class="h2left"><div class="h2logo"><img class="logoimg" src="art/logo.webp" alt="Lao Legend Wars" width="960" height="640"></div>' + (ACCT.cfg && +ACCT.cfg.gem_mult > 1 ? '<div class="evribbon">🎉 ອີເວັ້ນ: ເພັດ x' + ACCT.cfg.gem_mult + ' ຈາກການຊະນະບອດ!</div>' : '') + hero + '</div>' +
         '<div class="h2play">' + people + more + '</div></div>' + '<p class="h2links"><a href="' + RULES_URL + '" target="_blank" rel="noopener">ອ່ານກົດການຫຼິ້ນ</a> · <a href="' + CARDS_URL + '" target="_blank" rel="noopener">ເບິ່ງກາດທັງໝົດ</a> · ກາດ ແລະ ເພັດ ເກັບໄວ້ໃນເຄື່ອງນີ້ · ບໍ່ມີການຈ່າຍເງິນແທ້</p>' + '</div>' +
-    '<nav class="h2nav" aria-label="ເມນູຫຼັກ">' + nav('hhome', '<span class="h2ni">🏠</span>', 'ໜ້າຫຼັກ', true) + nav('decks', UIC('deck'), 'ເດັກ') + nav('book', UIC('book'), 'ກາດ') +
+    '<nav class="h2nav" aria-label="ເມນູຫຼັກ">' + nav('hhome', UIC('home'), 'ໜ້າຫຼັກ', true) + nav('decks', UIC('deck'), 'ເດັກ') + nav('book', UIC('book'), 'ກາດ') +
       nav('shop', UIC('shop'), 'ຮ້ານ', false, c.freePacks) + nav('social', UIC('friends'), 'ໝູ່') + '</nav></div>';
 }
 function deckPickHTML(){
@@ -4873,7 +4880,7 @@ function pvpReplay(){ const k = S.pvp.keys; pvpGo(k[0], k[1]); }
 function startSelected(extra){
   const s = ui.deck, ex = extra || {}, lv = ex.level != null ? ex.level : ui.level;
   if(typeof s === 'string'){
-    const d = col().decks.find(x => 'c:' + x.id === s); if(!d){ ui.deck = 0; return startSelected(); }
+    const d = col().decks.find(x => 'c:' + x.id === s); if(!d){ setDeck(0); return startSelected(); }
     const iss = deckIssues(d.list); if(iss.length){ S = null; ui.screen = null; render(); toast('«' + d.name + '»: ' + iss[0]); return; }
     newGame(baseDeckOf(d.list), lv, {...ex, list:{...d.list}, cover:coverOf(d.list), cdeck:d.id}); return;
   }
@@ -4883,6 +4890,14 @@ function startSelected(extra){
 
 /* ---------- deck builder ---------- */
 function openEditor(cid, list, name){ ui.ed = {cid, list:{...list}, name:name || 'ເດັກຂອງຂ້ອຍ ' + (col().decks.length + 1), del:false}; ui.bf = ui.bf || {tab:'all', cost:0, own:false, q:''}; ui.sheet = false; ui.screen = 'builder'; render(); }
+// the chosen deck and bot level are kept with the saved game (and so follow the account to other devices)
+function setDeck(v){ ui.deck = v; const c = col(); if(c.sel !== v){ c.sel = v; saveCol(); } }
+function setLevel(v){ ui.level = v; const c = col(); if(c.lvl !== v){ c.lvl = v; saveCol(); } }
+function choiceRestore(){
+  const c = col(), v = c.sel;
+  ui.deck = typeof v === 'string' ? (c.decks.some(d => 'c:' + d.id === v) ? v : 0) : (Number.isInteger(v) && DECKS[v] ? v : 0);
+  if(Number.isInteger(c.lvl) && LEVELS[c.lvl]) ui.level = c.lvl;
+}
 function saveEditor(){
   const e = ui.ed, c = col(), name = (e.name || '').trim().slice(0, 24) || 'ເດັກຂອງຂ້ອຍ';
   if(e.cid){ const d = c.decks.find(x => x.id === e.cid); if(d){ d.name = name; d.list = {...e.list}; delete d.mode; saveCol(); return e.cid; } }
@@ -6006,7 +6021,7 @@ function fxShatter(el, tribe){
   const html = el.innerHTML;
   const crack = document.createElement('div'); crack.className = 'crack';
   Object.assign(crack.style, {left:r.left + 'px', top:r.top + 'px', width:r.width + 'px', height:r.height + 'px'});
-  crack.innerHTML = '<svg viewBox="0 0 100 100" preserveAspectRatio="none" width="100%" height="100%"><polyline points="55,0 45,35 58,55 42,100" fill="none" stroke="#fff" stroke-width="3" vector-effect="non-scaling-stroke"></polyline><polyline points="45,35 25,45 M58,55 80,62" fill="none" stroke="#fff" stroke-width="2" vector-effect="non-scaling-stroke"></polyline></svg>';
+  crack.innerHTML = '<svg viewBox="0 0 100 100" preserveAspectRatio="none" width="100%" height="100%"><polyline points="55,0 45,35 58,55 42,100" fill="none" stroke="#fff" stroke-width="3" vector-effect="non-scaling-stroke"></polyline><path d="M45,35 L25,45 M58,55 L80,62" fill="none" stroke="#fff" stroke-width="2" vector-effect="non-scaling-stroke"></path></svg>';
   $fx.appendChild(crack); setTimeout(() => crack.remove(), 380);
   const halves = [['polygon(0 0,55% 0,45% 35%,58% 55%,42% 100%,0 100%)', -1], ['polygon(55% 0,100% 0,100% 100%,42% 100%,58% 55%,45% 35%)', 1]];
   setTimeout(() => {
@@ -6230,7 +6245,7 @@ async function cloudPull(){
     ACCT.quiet = true;
     for(const k of SYNC_KEYS) if(cloud[k] != null) saveJ(k, cloud[k]);
     saveJ('lao-legend-sync', {at:cloud.at}); ACCT.quiet = false;
-    COL = null; ACCT.state = 'on'; ACCT.at = Date.now(); if(!S) render();
+    COL = null; choiceRestore(); ACCT.state = 'on'; ACCT.at = Date.now(); if(!S) render();
   } else if(!cloud || (here.at || 0) > (cloud.at || 0)) await cloudPush();
   else { ACCT.state = 'on'; ACCT.at = Date.now(); }
 }
@@ -6713,7 +6728,7 @@ function loginHTML(){
       '<button class="btn-main" data-a="lsignup"' + busy + '>' + (L.busy ? 'ກຳລັງສ້າງບັນຊີ…' : '✨ ສະໝັກ ແລະ ເລີ່ມຫຼິ້ນ') + '</button>' +
       (ACCT.prof ? '<button class="linkbtn" data-a="lskip">ໄວ້ກ່ອນ ເຂົ້າເກມເລີຍ</button>' : '');
   else body = inp('pmail', 'email', 'ອີເມວ', 'email', L.email) + inp('ppw', 'password', 'ລະຫັດຜ່ານ', 'current-password') + err +
-      '<button class="btn-main" data-a="plogingo"' + busy + '>' + (L.busy ? 'ກຳລັງເຂົ້າ…' : '⚔️ ເຂົ້າສູ່ລະບົບ') + '</button>' +
+      '<button class="btn-main" data-a="plogingo"' + busy + '>' + (L.busy ? 'ກຳລັງເຂົ້າ…' : UIC('key') + 'ເຂົ້າສູ່ລະບົບ') + '</button>' +
       '<div class="lgmore"><button class="linkbtn" data-a="pforgot">🤔 ລືມລະຫັດຜ່ານ?</button><button class="linkbtn" data-a="rhave">🔑 ມີລະຫັດກູ້ບັນຊີ 12 ຕົວ</button></div>';
   return '<div class="login" style="--bg:url(' + PIC(C[DECKS[0].legend].img) + ')"><div class="hbg" aria-hidden="true"></div><div class="lgwrap">' +
     '<div class="lgside"><img class="logoimg" src="art/logo.webp" alt="Lao Legend Wars" width="960" height="640"><p>ສົງຄາມຕຳນານລາວ · ເກມກາດນິທານລາວ · ຫຼິ້ນຟຣີ</p>' +
@@ -7251,7 +7266,7 @@ $app.addEventListener('click', e => {
       if(ACCT.eco){ ecoClaim('quest', q.k).then(d => { q.claimed = true; saveCol(); sfx('gem'); const lv = levelGift(d.lvFrom, d.lvTo); toast('💎 +' + d.gems + (lv ? ' · ' + lv : '')); render(); }).catch(e => toast(e && e.code === 'P0005' ? 'ຮັບພາລະກິດຄົບ 3 ອັນແລ້ວມື້ນີ້' : ecoErr(e))); return; }
       q.claimed = true; c.gems += q.g; saveCol(); const lv = addXP(30); sfx('gem'); toast('💎 +' + q.g + (lv ? ' · ' + lv : '')); } render(); return; }
     if(a === 'qreroll' && ui.mmodal && ui.mmodal.type === 'quests'){ const c = col(), list = quests(); if(!c.quests.rerolled){ const pool = QUEST_POOL.filter(x => !list.some(y => y.k === x.k)); list[+v] = {...pick(pool), p:0, claimed:false}; c.quests.rerolled = true; saveCol(); } render(); return; }
-    if(a === 'pickdeck'){ ui.deck = v.startsWith('c:') ? v : +v; ui.mmodal = null; render(); return; }
+    if(a === 'pickdeck'){ setDeck(v.startsWith('c:') ? v : +v); ui.mmodal = null; render(); return; }
     if(a === 'pknew'){ ui.mmodal = null; openEditor(null, {}); return; }
     if(a === 'prof'){ ui.mmodal = {type:'prof'}; render(); return; }
     if(a === 'resgo' && ui.mmodal && ui.mmodal.L){ resumeGo(ui.mmodal.L); return; }
@@ -7359,7 +7374,9 @@ $app.addEventListener('click', e => {
     if(ui.mmodal) return;
     if(ui.screen === 'builder'){
       const e = ui.ed;
-      if(a === 'edback'){ if(listTotal(e.list)) saveEditor(); ui.screen = null; render(); return; }
+      if(a === 'edback'){
+        if(listTotal(e.list)){ const id = saveEditor(); if(id && !deckIssues(e.list).length){ setDeck('c:' + id); toast('ບັນທຶກ «' + (e.name || 'ເດັກຂອງຂ້ອຍ') + '» ແລ້ວ ແລະ ເລືອກໃຊ້ເດັກນີ້'); } else if(id) toast('ບັນທຶກແລ້ວ · ເດັກຍັງບໍ່ຄົບ ຈຶ່ງຍັງບໍ່ເລືອກໃຊ້'); }
+        ui.screen = null; render(); return; }
       if(a === 'edtab'){ ui.bf.tab = v; render(); return; }
       if(a === 'edcost'){ ui.bf.cost = +v; render(); return; }
       if(a === 'edinfo'){ ui.mmodal = {type:'card', id:v}; render(); return; }
@@ -7370,8 +7387,8 @@ $app.addEventListener('click', e => {
       if(a === 'edclear'){ e.list = {}; edRefresh(); return; }
       if(a === 'eddraw'){ if(listTotal(e.list) < 5){ toast('ໃສ່ກາດໃຫ້ໄດ້ 5 ໃບຂຶ້ນໄປກ່ອນ'); return; } ui.mmodal = {type:'testdraw', hand:testDraw(e.list)}; render(); return; }
       if(a === 'edcode'){ ui.mmodal = {type:'code'}; render(); return; }
-      if(a === 'eddel'){ if(!e.del){ e.del = true; edRefresh(false); return; } const c = col(); c.decks = c.decks.filter(x => x.id !== e.cid); saveCol(); if(ui.deck === 'c:' + e.cid) ui.deck = 0; ui.screen = null; render(); toast('ລຶບເດັກແລ້ວ'); return; }
-      if(a === 'edplay'){ if(deckIssues(e.list).length) return; const id = saveEditor(); if(!id) return; ui.deck = 'c:' + id; ui.screen = null; startSelected(); return; }
+      if(a === 'eddel'){ if(!e.del){ e.del = true; edRefresh(false); return; } const c = col(); c.decks = c.decks.filter(x => x.id !== e.cid); saveCol(); if(ui.deck === 'c:' + e.cid) setDeck(0); ui.screen = null; render(); toast('ລຶບເດັກແລ້ວ'); return; }
+      if(a === 'edplay'){ if(deckIssues(e.list).length) return; const id = saveEditor(); if(!id) return; setDeck('c:' + id); ui.screen = null; startSelected(); return; }
       if(a === 'edsheet'){ ui.sheet = !ui.sheet; const d = document.querySelector('.bdeck'); if(d) d.classList.toggle('open', ui.sheet); const i = document.querySelector('.sheetbar i'); if(i) i.textContent = ui.sheet ? '▼' : '▲'; return; }
       return;
     }
@@ -7382,7 +7399,7 @@ $app.addEventListener('click', e => {
     if(a === 'edsel'){
       if(typeof ui.deck === 'string'){ const d = col().decks.find(x => 'c:' + x.id === ui.deck); if(d){ openEditor(d.id, d.list, d.name); return; } }
       const d = DECKS[ui.deck] || DECKS[0], l = {}; for(const [id, n] of Object.entries(d.list)){ const k = Math.min(n, owned(id)); if(k) l[id] = k; }
-      openEditor(null, l, d.name + ' (ຂອງຂ້ອຍ)'); return;
+      const nm = d.name + ' (ຂອງຂ້ອຍ)'; openEditor(null, l, nm.length <= 24 ? nm : 'ເດັກ ' + d.no + ' (ຂອງຂ້ອຍ)'); return;   // the name box holds 24 letters
     }
     if(a === 'book'){ ui.screen = 'book'; render(); return; }
     if(a === 'bookback'){ ui.screen = null; render(); return; }
@@ -7394,8 +7411,8 @@ $app.addEventListener('click', e => {
     if(a === 'online'){ ui.mmodal = {type:'online', step:'menu'}; render(); rankLoad(); return; }
     if(a === 'ach'){ achCheck(); ui.mmodal = {type:'ach'}; render(); return; }
     if(a === 'tutstart'){ ui.screen = null; newGame(0, 0, {botDeck:1, first:0, tut:true}); return; }
-    if(a === 'deck'){ ui.deck = v.startsWith('c:') ? v : +v; render(); }
-    else if(a === 'lvl'){ ui.level = +v; render(); }
+    if(a === 'deck'){ setDeck(v.startsWith('c:') ? v : +v); render(); }
+    else if(a === 'lvl'){ setLevel(+v); render(); }
     else if(a === 'start'){ startSelected(); }
     return;
   }
@@ -7498,7 +7515,7 @@ $app.addEventListener('contextmenu', e => {
 
 /* ---------- self-test: bot vs bot, no animation ---------- */
 // local dev only: poke at live game state from the console
-if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__dbg = {fx:{show:(id, alt) => fxShowcase(id, alt), motif:(id, x, y) => fxFuseMotif(id, {x:x || innerWidth / 2, y:y || innerHeight / 2}), cutin:(f) => fxFuseCutin(C[f].fusion, f), rite:(i, id) => { const p = S.p[i || 0]; return fxRite(p, id || 'phitibangfai', p.field.slice(0, 3)); }, rays:fxRays, yantra:fxYantra, orb:fxOrb, petals:fxPetals, marigolds:fxMarigolds, baci:(i) => fxBaci(S.p[i || 0]), blade:(i, n) => addBlade(S.p[i || 0], n), slash:fxSlash, burst:burstAt, big:fxBig, wait:fxWait, get state(){ return FX; }},get S(){ return S; }, get net(){ return NET; }, get ACCT(){ return ACCT; }, get ui(){ return ui; }, mockSB:x => { SB = x; },
+if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__dbg = {fx:{show:(id, alt) => fxShowcase(id, alt), motif:(id, x, y) => fxFuseMotif(id, {x:x || innerWidth / 2, y:y || innerHeight / 2}), cutin:(f) => fxFuseCutin(C[f].fusion, f), rite:(i, id) => { const p = S.p[i || 0]; return fxRite(p, id || 'phitibangfai', p.field.slice(0, 3)); }, rays:fxRays, yantra:fxYantra, orb:fxOrb, petals:fxPetals, marigolds:fxMarigolds, baci:(i) => fxBaci(S.p[i || 0]), blade:(i, n) => addBlade(S.p[i || 0], n), slash:fxSlash, burst:burstAt, big:fxBig, wait:fxWait, get state(){ return FX; }},get S(){ return S; }, get net(){ return NET; }, get ACCT(){ return ACCT; }, get ui(){ return ui; }, DECKS, mockSB:x => { SB = x; },
   music:{want:m => { MUS.want = m; }, sting:musicSting, sfx:n => sfx(n), get state(){ return MUS; }, level:async (mood, secs) => {
     const sr = 22050, oc = new OfflineAudioContext(1, sr * (secs || 20), sr), keep = Object.assign({}, SND), out = oc.createGain(); out.connect(oc.destination);
     SND.ctx = oc; SND.sfx = out; musicBus(oc, out);
@@ -7538,6 +7555,7 @@ window.__sim = async function(n, level, levels){
 // installable app: offline cache on the real (https) site; add ?sw to try it on localhost
 if('serviceWorker' in navigator && (location.protocol === 'https:' || /[?&]sw\b/.test(location.search))) navigator.serviceWorker.register('sw.js').catch(err => window.__errs.push('sw: ' + err));
 
+choiceRestore();
 render();
 acctStart();
 liveCheck();
