@@ -2943,12 +2943,15 @@ function preloadArt(files){
   for(const f of files){ if(IMG_KEEP.has(f)) continue; const im = new Image(); im.decoding = 'async'; im.src = PIC(f); IMG_KEEP.set(f, im); }
 }
 function deckArt(di, list){ return Object.keys(list || DECKS[di].list).flatMap(id => ALT[id] ? [C[id].img, ALT[id]] : [C[id].img]); }
+const SITE = 'https://ndesignnewgen-cmyk.github.io/lao-legend-wars/';
 // a picture that failed (slow or dropped connection) gets two more tries before it gives up
 document.addEventListener('keydown', e => { if(e.key === 'Escape' && ui.grave){ ui.grave = null; render(); } });
 document.addEventListener('error', e => {
   const im = e.target; if(!(im instanceof HTMLImageElement)) return;
   const src = im.getAttribute('src') || ''; if(!src.startsWith(ART)) return;
   // no WebP copy yet (new art not run through tools/webp.sh): use the JPEG master
+  // the claude.ai copy can't hold every picture (file limit): fetch the rest from the public site
+  if(!/^(localhost|127\.0\.0\.1)$|github\.io$/.test(location.hostname) && !im.dataset.gh){ im.dataset.gh = 1; im.src = SITE + src.split('?')[0]; return; }
   if(src.startsWith(ART + 'w/')){ im.src = ART + src.slice(ART.length + 2).split('?')[0].replace(/\.webp$/, '.jpg'); return; }
   const n = +(im.dataset.retry || 0); if(n >= 2){ im.classList.add('broken'); return; }
   im.dataset.retry = n + 1;
@@ -4824,7 +4827,11 @@ function boosterHTML(kind, di, big){
 }
 // deck boxes: the three starter decks have their own; any other deck shows its legend in the window of the blank box
 // rt/rl/rr place the name on each box's ribbon, measured from the art
-const BOXES = {0:{img:'box-d1', rt:'78.4%', rl:'25%', rr:'28%'}, 4:{img:'box-d4', rt:'82.6%', rl:'23%', rr:'27%'}, 2:{img:'box-d3', rt:'84.2%', rl:'20%', rr:'28%'}};
+const BOXES = {0:{img:'box-d1', rt:'78.4%', rl:'25%', rr:'28%'}, 4:{img:'box-d4', rt:'82.6%', rl:'23%', rr:'27%'}, 2:{img:'box-d3', rt:'84.2%', rl:'20%', rr:'28%'},
+  // decks 15-24 (DECKS index 14-23), boxes made with the deck art
+  18:{img:'box-d15', rt:'79.5%', rl:'12%', rr:'30%'}, 17:{img:'box-d16', rt:'83%', rl:'12%', rr:'22%'}, 20:{img:'box-d17', rt:'82%', rl:'10%', rr:'30%'},
+  14:{img:'box-d18', rt:'82%', rl:'10%', rr:'25%'}, 15:{img:'box-d19', rt:'79%', rl:'14%', rr:'25%'}, 21:{img:'box-d20', rt:'74%', rl:'8%', rr:'25%'},
+  19:{img:'box-d21', rt:'75%', rl:'12%', rr:'28%'}, 22:{img:'box-d22', rt:'74%', rl:'10%', rr:'30%'}, 16:{img:'box-d23', rt:'75%', rl:'8%', rr:'30%'}, 23:{img:'box-d24', rt:'77%', rl:'14%', rr:'26%'}};
 function boxHTML(key, cover, name){
   const b = BOXES[key], blank = !b;
   const st = blank ? '--rt:77.6%;--rl:27%;--rr:35%' : '--rt:' + b.rt + ';--rl:' + b.rl + ';--rr:' + b.rr;
