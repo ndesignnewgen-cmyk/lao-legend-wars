@@ -1,0 +1,38 @@
+Sound effects in this folder (trimmed, faded and levelled for the game; mono AAC).
+Neither licence asks for a credit; this list is kept so each sound can be traced and swapped.
+
+Kenney (kenney.nl), CC0 1.0 public domain
+  click    Interface Sounds  click_001
+  draw     Casino Audio      card-slide-1
+  play     Casino Audio      card-place-1
+  flip     Casino Audio      card-fan-1
+  pack     Casino Audio      cards-pack-open-1
+  coin     RPG Audio         handleCoins
+  hit      Impact Sounds     impactPunch_medium_000
+  destroy  Impact Sounds     impactGlass_medium_000
+  block    Impact Sounds     impactPlate_heavy_000
+  deny     Interface Sounds  error_002
+  endturn  Interface Sounds  confirmation_001
+  page     RPG Audio         bookFlip1
+
+Pixabay (pixabay.com/sound-effects), Pixabay Content License (free to use, no credit needed; not for resale as files)
+  attack   382724  Simple Whoosh
+  wind     194554  Long Whoosh
+  spell    228342  Elemental Magic Spell Impact Outgoing
+  heal     533279  Holy Healing Spell
+  bless    6327    Mystical Wind Chimes Transition FX
+  rite     103281  bell at Daitokuji temple, Kyoto
+  legend   199844  Zen Gong, mixed with 115095 Twinkle/Sparkle
+  fusion   177983  Power Up Sparkle 1
+  reveal   388923  Magical Reveal Start
+  rocket   79814   Single Firework
+  boom     106275  fireworkblast
+  thunder  192165  Loud Thunder
+  splash   6261    SPLASH (by blaukreuz)
+  trip     103800  Bear Trap
+  elephant 494313  Elephant Trumpeting
+  levelup  189853  Cute Level Up 3
+  match    393851  Sword Unsheathing
+  gem      6896    cartoon_wink_magic_sparkle
+
+Still synthesized in code (no file yet): turn, curse, win, lose, and all the music.
