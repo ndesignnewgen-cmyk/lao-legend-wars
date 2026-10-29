@@ -2077,7 +2077,7 @@ const ALT = {sinxay:'alt-sinxay', phayanak:'alt-phayanak', hapkhanasouane:'alt-h
              thaohung:'alt-thaohung', xangsuek:'alt-xangsuek', maethap:'alt-maethap',
              phutthasen:'alt-phutthasen', kangli:'alt-kangli', santhaman:'alt-santhaman',
              kalaket:'alt-kalaket', makaew:'alt-makaew', punyeu:'alt-punyeu', singkaew:'alt-singkaew', kamkadam:'alt-kamkadam', luksaolao:'alt-luksaolao',
-             suttharo:'alt-suttharo', phadaeng:'alt-phadaeng', nagax:'alt-nagax', hackxm:'alt-hackxm', mechyak:'alt-mechyak', kratai:'alt-kratai', ngaonam:'alt-ngaonam', nangkaew:'alt-nangkaew', khaendj:'alt-khaendj'};
+             suttharo:'alt-suttharo', phadaeng:'alt-phadaeng', nagax:'alt-nagax', hackxm:'alt-hackxm', mechyak:'alt-mechyak', kratai:'alt-kratai', ngaonam:'alt-ngaonam', nangkaew:'alt-nangkaew', khaendj:'alt-khaendj', champathong:'alt-champathong'};
 // ຕອນນິທານ: play all 3 cards of one tale in a game (any order) to open its story page, once per game
 const TALE_GIFT = 'ຈົ່ວກາດ 1 ໃບ ແລະ ຟື້ນຂວັນ 3';
 const TALES = [
@@ -3013,12 +3013,15 @@ async function fuse(p, f){
   const d = C[f]; p.mana -= FUSE_COST; p.fused = (p.fused || []).concat(f);
   const mats = d.fusion.map(id => p.field.find(c => c.id === id && !c.hacked));
   log('🤝 ' + p.name + ' ຮ່ວມຮ່າງ ' + mats.map(c => '«' + C[c.id].name + '»').join(' + ') + ' → «' + d.name + '»');
+  // a fusion comes out in special art when one of its parts was special art, or by luck
+  const alt = ALT[f] && (mats.some(c => c.alt && ALT[c.id]) || Math.random() < ALT_CHANCE) ? 1 : 0;
+  if(alt && p === S.p[0] && !S.auto && !S.pvp) markAltSeen(f);
   const M = await fxFuseGather(p, mats, f);
-  await fxFuseCutin(mats.map(c => c.id), f);
+  await fxFuseCutin(mats.map(c => c.id), f, alt);
   // the fused card takes the place of the first part, so it rises where they merged
   const at = Math.min(...mats.map(c => p.field.indexOf(c)).filter(i => i >= 0));
   for(const c of mats){ const i = p.field.indexOf(c); if(i >= 0){ p.field.splice(i, 1); p.grave.push(...c.items, c.id); } }
-  const c = {uid:++U, id:f, sick:!d.kw.rush, atk:0, items:[], mods:[]}; p.field.splice(isFinite(at) ? at : p.field.length, 0, c);
+  const c = {uid:++U, id:f, alt, sick:!d.kw.rush, atk:0, items:[], mods:[]}; p.field.splice(isFinite(at) ? at : p.field.length, 0, c);
   if(!S.fast){ render(); await fxFuseEmerge(c, M); }
   if(f === 'singkhu') heal(p, 3);
   else if(f === 'sinxaysam') draw(p, 2);
@@ -4870,13 +4873,13 @@ function fxFuseMotif(id, o){
 // ຮ່ວມຮ່າງ, part 2: the parts' cards fly in from all sides, collide, and the fused card bursts out with its name
 // a fusion with its own full-body picture: it rises behind the new card in the cut-in
 const FUSE_FIG = {champathong:'champathong-full'};
-async function fxFuseCutin(ids, f){
+async function fxFuseCutin(ids, f, alt){
   if(S.fast || REDUCE || SET.fx === 'short') return;
   const d = C[f], T = TFX[d.tribe] || TFX.hero, n = ids.length, dur = 2100 * SET.speed, far = Math.max(innerWidth, innerHeight) * .62;
   const mats = ids.map((id, i) => { const a = Math.PI + i * 6.283 / n + (n === 2 ? 0 : -Math.PI / 2 + Math.PI);
     return '<div class="fzm" style="--sx:' + Math.round(Math.cos(a) * far) + 'px;--sy:' + Math.round(Math.sin(a) * far * .6) + 'px;--rz:' + (i % 2 ? 18 : -18) + 'deg">' + cardHTML(id) + '</div>'; }).join('');
-  const el = addFx('fzcut', null, null, '<div class="fzrays"></div><div class="fzyan" style="--c:' + T.c[0] + '">' + yantraSVG(T.c[0]) + '</div>' + mats + (FUSE_FIG[f] ? '<img class="fzfig" alt="" src="' + ART + 'cut/' + FUSE_FIG[f] + '.webp">' : '') + '<div class="fzres">' + cardHTML(f) + '</div>' +
-    '<div class="fzband"><small>🤝 ຮ່ວມຮ່າງ · ' + TRIBE_NAME[d.tribe] + ' · ພະລັງ ' + d.power + '</small><b>' + d.name + '</b></div>');
+  const el = addFx('fzcut', null, null, '<div class="fzrays"></div><div class="fzyan" style="--c:' + T.c[0] + '">' + yantraSVG(T.c[0]) + '</div>' + mats + (FUSE_FIG[f] ? '<img class="fzfig" alt="" src="' + ART + 'cut/' + FUSE_FIG[f] + '.webp">' : '') + '<div class="fzres">' + cardHTML(f, null, alt) + '</div>' +
+    '<div class="fzband"><small>🤝 ຮ່ວມຮ່າງ · ' + (alt ? '✦ ອາດພິເສດ · ' : '') + TRIBE_NAME[d.tribe] + ' · ພະລັງ ' + d.power + '</small><b>' + d.name + '</b></div>');
   el.style.setProperty('--dur', dur + 'ms'); el.style.setProperty('--tc', T.c[0]);
   setTimeout(() => { if(!el.isConnected) return; const x = innerWidth / 2, y = innerHeight * .46;
     sfx('legend'); flashScreen('#ffffff', .9); shockAt(x, y, T.c[0], 260); shockAt(x, y, '#ffffff', 160); burstAt(x, y, d.tribe, 70, 1.4); rainbowBurst(x, y, 70); }, dur * .6);
