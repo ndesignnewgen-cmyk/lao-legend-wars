@@ -34,9 +34,9 @@ chops, phin (plucked Lao lute) leads, pong lang (wooden xylophone) arps, a gong 
 future-bass / electro-pop track", catchy and confident like a top mobile game, family-friendly, never scary.
 A steady beat the whole way through (I cut the loops on bar lines). Older folk-style prompts: see git history of this file.
 
-[menu] loop · menus, shop, building decks
-  STYLE:   instrumental modern lo-fi chillhop, 85 BPM, A minor pentatonic, warm vinyl crackle, soft boom-bap drums, mellow sub bass, dreamy Rhodes chords, chopped Lao khaen sample hook, gentle phin lute plucks, wooden xylophone sparkles, cozy and stylish, mobile game menu theme, steady tempo, seamless loop
-  EXCLUDE: vocals, singing, humming, choir, spoken word, rap, distortion, heavy drop, fade out
+[menu] loop · menus, shop, building decks (a fighting main theme: "get ready for battle", a step below the battle track)
+  STYLE:   instrumental epic battle main theme, 110 BPM, A minor pentatonic, heroic and hype, punchy hybrid drums and taiko hits, driving synth bass, bold Lao khaen anthem melody, fast phin lute riffs, wooden xylophone arpeggios, cinematic brass and strings, gong accents, confident warrior energy, modern mobile game title screen, steady tempo, seamless loop
+  EXCLUDE: vocals, singing, humming, choir, spoken word, rap, metal guitar, distortion, horror, lo-fi, fade out
 
 [battle] loop · a normal match
   STYLE:   instrumental electro-pop game battle theme, 120 BPM, A minor pentatonic, punchy four-on-the-floor kick, crisp claps, sidechained synth bass, catchy Lao khaen riff as the main hook, fast phin lute plucks, wooden xylophone arpeggios, bright future bass chords, energetic and fun, modern mobile game soundtrack, steady tempo, seamless loop
