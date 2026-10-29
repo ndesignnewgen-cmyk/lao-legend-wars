@@ -1,4 +1,39 @@
 <meta charset="utf-8">
+<script>
+/* The game lives at laolegendwars.com. Browsers keep saved data per address, so the old github.io address sends what this
+   browser holds there (the save, the settings and the account sign-in) to the new one inside the #fragment, which is never
+   sent to any server. The new address takes it only when it has nothing yet or an older copy, then reloads clean.
+   Both halves run before the game starts; the page stays hidden meanwhile. */
+(function(){
+  const OLD = 'ndesignnewgen-cmyk.github.io', NEW = 'https://laolegendwars.com/', KEEP = /^lao-legend|^sb-.*-auth-token$/;
+  const b64 = u => { let t = ''; for(let i = 0; i < u.length; i += 0x8000) t += String.fromCharCode.apply(null, u.subarray(i, i + 0x8000)); return btoa(t).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); };
+  const unb64 = t => { const b = atob(t.replace(/-/g, '+').replace(/_/g, '/')), u = new Uint8Array(b.length); for(let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
+  const keys = () => { const k = []; try{ for(let i = 0; i < localStorage.length; i++) if(KEEP.test(localStorage.key(i))) k.push(localStorage.key(i)); }catch(e){} return k; };
+  const atOf = v => { try{ return (JSON.parse(v || '{}').at) || 0; }catch(e){ return 0; } };
+  if(location.hostname === OLD){
+    document.documentElement.style.visibility = 'hidden';
+    const go = h => location.replace(NEW + (h ? '#move=' + h : ''));
+    const data = {}; for(const k of keys()) data[k] = localStorage.getItem(k);
+    if(!Object.keys(data).length){ go(''); return; }
+    const raw = new TextEncoder().encode(JSON.stringify(data));
+    if(window.CompressionStream) new Response(new Blob([raw]).stream().pipeThrough(new CompressionStream('deflate-raw'))).arrayBuffer().then(b => go('z' + b64(new Uint8Array(b))), () => go('p' + b64(raw)));
+    else go('p' + b64(raw));
+    return;
+  }
+  const m = /^#move=([pz])([A-Za-z0-9_-]+)$/.exec(location.hash); if(!m) return;
+  document.documentElement.style.visibility = 'hidden';
+  // what this address held before the game had a chance to write anything
+  const had = keys().some(k => k === 'lao-legend-collection' || /^sb-/.test(k)), hadAt = atOf(localStorage.getItem('lao-legend-sync'));
+  const u = unb64(m[2]);
+  const text = m[1] === 'z' ? new Response(new Blob([u]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).text() : Promise.resolve(new TextDecoder().decode(u));
+  text.then(t => {
+    const data = JSON.parse(t);
+    if(had && atOf(data['lao-legend-sync']) <= hadAt) return;   // this address already has the same or newer data
+    for(const k of keys()) localStorage.removeItem(k);
+    for(const k in data) if(KEEP.test(k) && typeof data[k] === 'string') localStorage.setItem(k, data[k]);
+  }).catch(() => {}).then(() => location.replace(location.pathname + location.search));
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ສະໜາມຕຳນານລາວ</title>
 <link rel="manifest" href="manifest.webmanifest">
@@ -2970,7 +3005,7 @@ function preloadArt(files){
   for(const f of files){ if(IMG_KEEP.has(f)) continue; const im = new Image(); im.decoding = 'async'; im.src = PIC(f); IMG_KEEP.set(f, im); }
 }
 function deckArt(di, list){ return Object.keys(list || DECKS[di].list).flatMap(id => ALT[id] ? [C[id].img, ALT[id]] : [C[id].img]); }
-const SITE = 'https://ndesignnewgen-cmyk.github.io/lao-legend-wars/';
+const SITE = 'https://laolegendwars.com/';
 // a picture that failed (slow or dropped connection) gets two more tries before it gives up
 document.addEventListener('keydown', e => { if(e.key === 'Escape' && ui.grave){ ui.grave = null; render(); } });
 document.addEventListener('error', e => {
@@ -2978,7 +3013,7 @@ document.addEventListener('error', e => {
   const src = im.getAttribute('src') || ''; if(!src.startsWith(ART)) return;
   // no WebP copy yet (new art not run through tools/webp.sh): use the JPEG master
   // the claude.ai copy can't hold every picture (file limit): fetch the rest from the public site
-  if(!/^(localhost|127\.0\.0\.1)$|github\.io$/.test(location.hostname) && !im.dataset.gh){ im.dataset.gh = 1; im.src = SITE + src.split('?')[0]; return; }
+  if(!/^(localhost|127\.0\.0\.1)$|github\.io$|laolegendwars\.com$/.test(location.hostname) && !im.dataset.gh){ im.dataset.gh = 1; im.src = SITE + src.split('?')[0]; return; }
   if(src.startsWith(ART + 'w/')){ im.src = ART + src.slice(ART.length + 2).split('?')[0].replace(/\.webp$/, '.jpg'); return; }
   const n = +(im.dataset.retry || 0); if(n >= 2){ im.classList.add('broken'); return; }
   im.dataset.retry = n + 1;
