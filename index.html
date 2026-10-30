@@ -918,6 +918,49 @@ body{background:
 .thb[data-v="sinh"] i{background:repeating-linear-gradient(0deg,#f6ead2 0 10px,#b8261f 10px 13px,#f6ead2 13px 16px,#2c3e8f 16px 19px)}
 .thb[data-v="himma"] i{background:radial-gradient(circle at 70% 40%,#ffe48a 0 8px,#0000 9px),linear-gradient(160deg,#356a37,#0b1d0e)}
 .themelbl{color:var(--dim);font:700 14px var(--f-d)}
+/* settings: a sticky header, then sections as cards with switches, sliders and a segmented control */
+.modal.setv2{width:min(600px,100%);padding:0;gap:0;align-items:stretch;text-align:left;background:linear-gradient(180deg,#221a26,#17121c);border:1px solid #f2b63240;box-shadow:0 24px 70px #000b,inset 0 1px 0 #ffffff14}
+.setv2 .sthead{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:10px;padding:12px 14px 12px 16px;background:linear-gradient(180deg,#2e2117f2,#221a26f2);border-bottom:1px solid #f2b63238;backdrop-filter:blur(6px)}
+.setv2 .sthead .uic{width:36px;height:36px;filter:drop-shadow(0 2px 3px #0008)}
+.setv2 .sthead h3{margin:0;flex:1;font:800 21px/1.2 var(--f-d);color:#ffd76a;text-shadow:0 2px 0 #0006}
+.setv2 .stx{width:38px;height:38px;border-radius:50%;background:#ffffff12;border:1px solid #ffffff26;color:var(--ink);font:700 16px var(--f-d);cursor:pointer}
+.setv2 .stx:hover{background:#ffffff22}
+.setv2 .stbody{display:flex;flex-direction:column;gap:12px;padding:14px}
+.stsec{background:#ffffff07;border:1px solid #ffffff16;border-radius:16px;padding:10px 14px 12px}
+.stsec h4{display:flex;align-items:center;gap:8px;margin:0 0 4px;font:800 13px var(--f-d);color:#e9c98a;letter-spacing:.03em}
+.stsec h4 span{font-size:16px}
+.strow{display:flex;align-items:center;gap:12px;min-height:48px;padding:6px 0}
+.strow + .strow,.stvol + .strow{border-top:1px solid #ffffff10}
+.stl{flex:1;min-width:0;font:700 15px/1.4 var(--f-d);color:var(--ink)}
+.stl small{display:block;margin-top:1px;color:var(--dim);font:600 12px/1.45 var(--f-d)}
+.stsw{position:relative;flex:none;width:54px;height:30px;border-radius:999px;background:#ffffff1f;border:1px solid #ffffff2e;cursor:pointer;transition:background .2s}
+.stsw i{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#e8e2d6;box-shadow:0 2px 4px #0007;transition:transform .2s}
+.stsw.on{background:linear-gradient(180deg,#ffd76a,#e0a52e);border-color:#ffe9a8}
+.stsw.on i{transform:translateX(24px);background:#fff}
+.stvol{display:flex;align-items:center;gap:10px;padding:0 0 10px}
+.stvol.off{opacity:.4}
+.stvol input{flex:1;min-width:0;height:28px;margin:0;background:none;-webkit-appearance:none;appearance:none;cursor:pointer}
+.stvol input::-webkit-slider-runnable-track{height:8px;border-radius:999px;background:linear-gradient(90deg,#f2b632 var(--p),#ffffff24 var(--p))}
+.stvol input::-moz-range-track{height:8px;border-radius:999px;background:linear-gradient(90deg,#f2b632 var(--p),#ffffff24 var(--p))}
+.stvol input::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;margin-top:-8px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#fff,#ffe9a8 60%,#e0a52e);border:2px solid #7a4a0a;box-shadow:0 2px 6px #0008}
+.stvol input::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#fff,#ffe9a8 60%,#e0a52e);border:2px solid #7a4a0a;box-shadow:0 2px 6px #0008}
+.stvol b{width:44px;text-align:right;font:700 13px var(--f-d);color:#ffd76a}
+.stseg{display:flex;flex:none;background:#0006;border:1px solid #ffffff1c;border-radius:999px;padding:3px}
+.stseg button{min-width:52px;padding:7px 12px;border-radius:999px;background:none;border:0;color:var(--dim);font:700 13px var(--f-d);cursor:pointer}
+.stseg button.on{background:linear-gradient(180deg,#ffd76a,#e0a52e);color:#2a1a04;box-shadow:0 2px 6px #0006}
+.stsec .themes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:6px 0 2px}
+.stsec .thb{padding:8px;gap:8px;border-radius:14px}
+.stsec .thb i{width:100%;height:auto;aspect-ratio:16/8}
+.stme{display:flex;align-items:center;gap:12px;padding:6px 0}
+.stme .hav{width:48px;height:48px;flex:none}
+.stlinks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:6px 0 2px}
+.stlink{display:flex;align-items:center;gap:8px;min-height:46px;padding:8px 12px;border-radius:12px;background:#ffffff0c;border:1px solid #ffffff1c;color:var(--ink);font:700 14px var(--f-d);text-decoration:none;cursor:pointer;text-align:left}
+.stlink:hover{background:#f2b6321c;border-color:#f2b63266}
+.stlink .uic{width:28px;height:28px;flex:none}
+.stlink .stem{width:28px;text-align:center;font-size:20px;flex:none}
+.stme .stlink{flex:none;min-height:40px}
+.stfoot{margin:2px 0 0;text-align:center;color:var(--dim);font:600 11px var(--f-d);opacity:.7}
+@media (max-width:420px){.setv2 .stbody{padding:10px;gap:10px}.stsec{padding:8px 12px 10px}.stseg button{min-width:44px;padding:7px 9px}.stsec .thb{font-size:12px;padding:6px}}
 
 /* ---------- clean backgrounds (no patterns) and the card detail panel on the left ---------- */
 .arena[data-theme="sinh"]{--a-bg:linear-gradient(180deg,#f8f1e3,#ece0c8);--f-bg:radial-gradient(ellipse at 50% 45%,#fffdf8,#f4e9d3 85%);
@@ -1950,7 +1993,7 @@ window.__errs = [];
 window.addEventListener('error', e => window.__errs.push(String(e.message)));
 window.addEventListener('unhandledrejection', e => window.__errs.push(String(e.reason && e.reason.stack || e.reason)));
 
-const SET = {sfx:true, music:true, speed:1, theme:'sinh', fest:true};
+const SET = {sfx:true, music:true, speed:1, theme:'sinh', fest:true, mvol:1, svol:1};
 const THEMES = [['mekong','ແມ່ນ້ຳຂອງ'],['sinh','ຜ້າຊິ່ນ'],['himma','ປ່າຫິມະພານ']];
 const themePicker = () => '<div class="themes">' + THEMES.map(([k, n]) => '<button class="thb ' + (SET.theme === k ? 'on' : '') + '" data-a="theme" data-v="' + k + '"><i></i>' + n + '</button>').join('') + '</div>';
 try{ Object.assign(SET, JSON.parse(localStorage.getItem('lao-legend-settings') || '{}')); }catch(e){}
@@ -2763,8 +2806,13 @@ function audioInit(){
     SND.ctx = new AC(); const m = SND.ctx.createGain(); m.gain.value = .55; m.connect(SND.ctx.destination);
     SND.sfx = SND.ctx.createGain(); SND.sfx.connect(m);
     SND.mus = SND.ctx.createGain(); SND.mus.gain.value = MUS.vol; SND.mus.connect(m);
-    musicBus(SND.ctx, SND.mus);
+    musicBus(SND.ctx, SND.mus); audioVol();
   }catch(e){ SND.ctx = null; }
+}
+// the two volume sliders in the settings (0–1): the music level the ducking returns to, and the effects bus
+function audioVol(){
+  MUS.vol = .28 * SET.mvol; if(!SND.ctx) return; const t = SND.ctx.currentTime;
+  SND.mus.gain.cancelScheduledValues(t); SND.mus.gain.setTargetAtTime(MUS.vol, t, .03); SND.sfx.gain.setTargetAtTime(SET.svol, t, .03);
 }
 // a sleeping tab makes no sound (and the music does not rush to catch up when it wakes)
 document.addEventListener('visibilitychange', () => { if(!SND.ctx) return; if(document.hidden) SND.ctx.suspend(); else SND.ctx.resume(); });
@@ -3079,11 +3127,26 @@ function toggleSetting(k){
 }
 function settingsHTML(){
   if(!ui.settingsOpen) return '';
-  const row = (k, label, on, txt) => '<button class="setrow" data-a="set" data-v="' + k + '"><span>' + label + '</span><b class="' + (on ? 'on' : '') + '">' + txt + '</b></button>';
-  return '<div class="modal-bg"><div class="modal"><p class="q">ຕັ້ງຄ່າ</p><p class="themelbl">ໜ້າຕາສະໜາມ</p>' + themePicker() + '<div class="setlist">' +
-    row('sfx', 'ສຽງເອັບເຟັກ', SET.sfx, SET.sfx ? 'ເປີດ' : 'ປິດ') + row('music', 'ດົນຕີ', SET.music, SET.music ? 'ເປີດ' : 'ປິດ') +
-    row('fx', 'ເອັບເຟັກ', SET.fx !== 'off', {full:'ເຕັມ', short:'ສັ້ນ', off:'ປິດ'}[SET.fx] || 'ເຕັມ') + row('fest', 'ງານບຸນ ຮີດສິບສອງ (ເກມໃໝ່)', SET.fest, SET.fest ? 'ເປີດ' : 'ປິດ') +
-    '</div>' + (S ? '' : '<div class="mbtns"><button class="btn2" data-a="parent">👪 ສຳລັບພໍ່ແມ່</button>' + (ACCT.admin ? '<button class="btn2" data-a="admin">🛠 ຜູ້ດູແລ</button>' : '') + '</div>') + '<div class="mbtns"><button class="btn2" data-a="setclose">ປິດ</button></div></div></div>';
+  const sw = (k, on, label) => '<button class="stsw' + (on ? ' on' : '') + '" role="switch" aria-checked="' + on + '" aria-label="' + label + '" data-a="set" data-v="' + k + '"><i></i></button>';
+  const vol = (k, on) => '<div class="stvol' + (on ? '' : ' off') + '"><span aria-hidden="true">🔈</span><input type="range" class="setvol" data-k="' + k + '" min="0" max="100" step="5" value="' + Math.round(SET[k] * 100) + '" style="--p:' + Math.round(SET[k] * 100) + '%" aria-label="ລະດັບສຽງ"' + (on ? '' : ' disabled') + '><b id="sv-' + k + '">' + Math.round(SET[k] * 100) + '%</b></div>';
+  const row = (label, small, ctl) => '<div class="strow"><div class="stl">' + label + (small ? '<small>' + small + '</small>' : '') + '</div>' + ctl + '</div>';
+  const sec = (ic, title, body) => '<section class="stsec"><h4><span aria-hidden="true">' + ic + '</span>' + title + '</h4>' + body + '</section>';
+  const seg = ['full', 'short', 'off'].map(k => '<button class="' + ((SET.fx || 'full') === k ? 'on' : '') + '" data-a="setfx" data-v="' + k + '">' + {full:'ເຕັມ', short:'ສັ້ນ', off:'ປິດ'}[k] + '</button>').join('');
+  const go = (v, ic, label) => '<button class="stlink" data-a="setgo" data-v="' + v + '">' + ic + '<span>' + label + '</span></button>';
+  const link = (href, ic, label) => '<a class="stlink" href="' + href + '" target="_blank" rel="noopener">' + ic + '<span>' + label + '</span></a>';
+  const me = ACCT.prof, acct = me
+    ? '<div class="stme"><span class="hav fr-' + (col().frame || 'none') + '"><img src="' + PIC((C[me.avatar] || C[DECKS[0].legend]).img) + '" alt=""></span><div class="stl">' + escH(me.name) + '<small>' + (ACCT.user && ACCT.user.email ? '✉️ ' + escH(ACCT.user.email) : 'ຍັງບໍ່ໄດ້ຕັ້ງອີເມວ · ຕັ້ງໄວ້ເພື່ອກູ້ບັນຊີ') + '</small></div>' + go('prof', '', 'ບັດໄອດີ ›') + '</div>'
+    : '<div class="stme"><div class="stl">ຫຼິ້ນເປັນແຂກ<small>ສະໝັກ ເພື່ອເກັບກາດໄວ້ ແລະ ຫຼິ້ນກັບຄົນແທ້</small></div>' + go('login', UIC('key'), 'ເຂົ້າສູ່ລະບົບ') + '</div>';
+  return '<div class="modal-bg"><div class="modal setv2" role="dialog" aria-label="ຕັ້ງຄ່າ">' +
+    '<div class="sthead">' + UIC('settings') + '<h3>ຕັ້ງຄ່າ</h3><button class="stx" data-a="setclose" aria-label="ປິດ">✕</button></div><div class="stbody">' +
+    sec('🔊', 'ສຽງ', row('ດົນຕີ', '', sw('music', SET.music, 'ດົນຕີ')) + vol('mvol', SET.music) + row('ສຽງເອັບເຟັກ', '', sw('sfx', SET.sfx, 'ສຽງເອັບເຟັກ')) + vol('svol', SET.sfx)) +
+    sec('🎮', 'ການຫຼິ້ນ', row('ເອັບເຟັກ', 'ສັ້ນ ຫຼື ປິດ ຖ້າເຄື່ອງຊ້າ', '<div class="stseg">' + seg + '</div>') +
+      row('ງານບຸນ ຮີດສິບສອງ', 'ທຸກ 3 ຕາ ມີງານບຸນປ່ຽນກົດ · ໃຊ້ກັບເກມໃໝ່', sw('fest', SET.fest, 'ງານບຸນ'))) +
+    sec('🎨', 'ໜ້າຕາສະໜາມ', themePicker()) +
+    (S ? '' : sec('👤', 'ບັນຊີ', acct) +
+      sec('📖', 'ຊ່ວຍເຫຼືອ', '<div class="stlinks">' + go('tut', UIC('tutorial'), 'ສອນຫຼິ້ນ') + link(RULES_URL, UIC('book'), 'ກົດການຫຼິ້ນ') + link(CARDS_URL, UIC('cards'), 'ກາດທັງໝົດ') +
+        go('parent', '<span class="stem">👪</span>', 'ສຳລັບພໍ່ແມ່') + (ACCT.admin ? go('admin', '<span class="stem">🛠</span>', 'ຜູ້ດູແລ') : '') + '</div>')) +
+    '<p class="stfoot">Lao Legend Wars · laolegendwars.com</p></div></div></div>';
 }
 document.addEventListener('pointerdown', () => { audioInit(); musicStart(); }, {once:true});
 
@@ -7318,6 +7381,14 @@ $app.addEventListener('click', e => {
   if(a === 'parent'){ gateOpen('parent'); return; }
   if(a === 'admin'){ ui.settingsOpen = false; const m = {type:'admin', tab:'stats'}; ui.mmodal = m; adminLoad(m); return; }
   if(a === 'set'){ toggleSetting(v); render(); return; }
+  if(a === 'setfx'){ SET.fx = v; fxApply(); saveSet(); render(); return; }
+  if(a === 'setgo'){ ui.settingsOpen = false;
+    if(v === 'prof') ui.mmodal = {type:'prof'};
+    else if(v === 'login'){ saveJ('lao-legend-guest', 0); ui.login = {tab:'in'}; }
+    else if(v === 'parent'){ gateOpen('parent'); return; }
+    else if(v === 'admin'){ const m = {type:'admin', tab:'stats'}; ui.mmodal = m; adminLoad(m); return; }
+    else if(v === 'tut'){ ui.screen = null; newGame(0, 0, {botDeck:1, first:0, tut:true}); return; }
+    render(); return; }
   if(a === 'theme'){ SET.theme = v; saveSet(); render(); return; }
   if(ui.settingsOpen) return;
   if(!S || S.screen !== 'game'){
@@ -7558,6 +7629,15 @@ $app.addEventListener('pointerout', e => {
   if(!S || S.screen !== 'game' || !ui.dp || SIDEP.matches) return;
   const to = e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest('[data-a="field"],[data-a="hand"],[data-a="info"]');
   if(!to){ ui.dp = null; const d = document.getElementById('dpanel'); if(d) d.classList.remove('on'); }
+});
+// the settings' volume sliders: heard while dragging, saved when let go (an effects tap plays as a sample)
+$app.addEventListener('input', e => {
+  const k = e.target.classList && e.target.classList.contains('setvol') && e.target.dataset.k; if(!k) return;
+  SET[k] = +e.target.value / 100; audioVol(); e.target.style.setProperty('--p', e.target.value + '%'); const o = document.getElementById('sv-' + k); if(o) o.textContent = e.target.value + '%';
+});
+$app.addEventListener('change', e => {
+  const k = e.target.classList && e.target.classList.contains('setvol') && e.target.dataset.k; if(!k) return;
+  saveSet(); if(k === 'svol') sfx('spell');
 });
 $app.addEventListener('input', e => {
   if(!ui.ed || ui.screen !== 'builder') return;
