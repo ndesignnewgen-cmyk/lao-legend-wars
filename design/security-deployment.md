@@ -22,3 +22,5 @@ Supabase → Edge Functions → secure-game → Logs: ກວດຂໍ້ຜິ�
 
 ## ອັບເດດ secure-game ຜ່ານໜ້າເວັບ · 30/10/2026
 ຖ້າບໍ່ໃຊ້ Terminal: ເປີດ https://raw.githubusercontent.com/ndesignnewgen-cmyk/lao-legend-wars/main/supabase/secure-game-deploy.txt → Cmd+A → Cmd+C → Supabase → ໂຄງການ lao-legend-wars → Edge Functions → secure-game → Code → index.ts → ຄລິກໃນໂຄດ → Cmd+A → Cmd+V → Deploy updates. ໄຟລ໌ນີ້ລວມໂຄດໄວ້ແລ້ວ ແລະບໍ່ມີລະຫັດລັບ. ບໍ່ຕ້ອງສ້າງ SQL ໃໝ່ສຳລັບອັບເດດນີ້. ໃຫ້ເຈົ້າຂອງເປັນຜູ້ກົດ Deploy; ບໍ່ສົ່ງລະຫັດລັບໃນແຊັດ.
+
+ສະຖານະ 30/10/2026: ເຈົ້າຂອງອະນຸຍາດໃຫ້ຊ່ວຍໃນ Safari ທີ່ເປີດໄວ້; ອັບເດດ secure-game ແລະຢືນຢັນການ Deploy ສຳເລັດແລ້ວ. ໜ້າ Overview ສະແດງເວລາ Deploy ໃໝ່. ບໍ່ຈຳເປັນກົດ Deploy ຊ້ຳສຳລັບຮອບນີ້.
