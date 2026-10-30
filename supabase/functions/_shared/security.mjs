@@ -36,7 +36,8 @@ export async function transition(engine,row,side,body,now=Date.now()){
  }
  if(bundle.checkpoint.state.over)return bundle;
  if(body.op==='move'&&body.move?.t==='quit'){const next=await engine.run(bundle.checkpoint,{type:'quit',side},[]);return {...next,pending:null,timeouts:bundle.timeouts||[0,0]};}
- const expired=!!row.deadline&&now>=Date.parse(row.deadline);
+ // Bot games have no turn clock: the browser plays them ahead on its own copy and nobody waits on the other side.
+ const expired=row.mode!=='bot'&&!!row.deadline&&now>=Date.parse(row.deadline);
  if(body.op==='poll'&&!expired)return null;
  if(body.op==='move'&&body.rev!==row.rev)throw new ApiError('stale_revision',409);
  const timeouts=[...(bundle.timeouts||[0,0])];
@@ -52,11 +53,13 @@ export async function transition(engine,row,side,body,now=Date.now()){
  const next=await engine.run(bundle.checkpoint,action,answers);
  return {...next,pending:next.prompt?{action,answers}:null,timeouts};
 }
-export function responseView(engine,row,uid){
+export function responseView(engine,row,uid,opts={}){
  const side=uid===row.host?0:uid===row.guest?1:-1;if(side<0)throw new ApiError('not_your_game',403);
  if(!row.engine)return {code:row.code,rev:row.rev,status:'waiting',side,mode:row.mode};
  const view=engine.view(row.engine,side);view.state.online.room=row.code;view.state.online.ranked=row.mode==='ranked';
  if(row.mode==='bot'){delete view.state.online;view.state.p[1].name='ບອດ';}
  view.state.secureId=row.code;view.state.secureRev=row.rev;view.state.secureMode=row.mode;view.state.secureDeadline=row.deadline;
- return {...view,counts:(row.engine.preview||row.engine.checkpoint).state.secureCounts?.[side]||{},code:row.code,rev:row.rev,status:row.status,mode:row.mode,side,reward:side===0?row.reward:null,rewarded:row.rewarded};
+ // full = the whole engine bundle, only for the player of a bot game, so the browser can run the same game locally.
+ const full=opts.full&&row.mode==='bot'&&side===0?row.engine:undefined;
+ return {...view,full,visuals:row.engine.visuals?.[side]||null,counts:(row.engine.preview||row.engine.checkpoint).state.secureCounts?.[side]||{},code:row.code,rev:row.rev,status:row.status,mode:row.mode,side,reward:side===0?row.reward:null,rewarded:row.rewarded};
 }

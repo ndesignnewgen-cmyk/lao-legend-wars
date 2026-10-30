@@ -1,5 +1,5 @@
 <meta name="security-build" content="1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-IbW4Ox4JSvrbIwKJMkGVZkS5aw7zcsFtbpRH/KbOF8c='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-W+VsWT0iqWTsTrb5HV9xFlhezC1kF8vyvdKiim2p1e8='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co wss://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="referrer" content="no-referrer">
 <meta charset="utf-8">
 <script>
@@ -7027,9 +7027,69 @@ function profHTML(m){
    Transport: Supabase Realtime broadcast (no database table needed) when SB_URL and SB_KEY are set,
    otherwise BroadcastChannel (two tabs on one device, for testing). */
 /* Authoritative games: only authenticated server responses can change an online/rewarded game. */
-const SEC={code:null,rev:-1,timer:null,polling:false,sending:false,done:new Set(),counts:{},guard:null};
-function secureStop(){clearInterval(SEC.timer);SEC.timer=null;SEC.code=null;SEC.rev=-1;SEC.counts={};}
+const SEC={code:null,rev:-1,timer:null,polling:false,sending:false,animating:false,generation:0,nextPollAt:0,done:new Set(),counts:{},guard:null};
+function secureStop(){SEC.generation++;clearInterval(SEC.timer);SEC.timer=null;SEC.code=null;SEC.rev=-1;SEC.counts={};LOCAL.row=null;secureNoticeOff();}
+/* Fast bot games: the browser runs the very engine the server runs (supabase/functions/_shared/engine.mjs, same rules and
+   same seed, Math.random fixed inside), so a move shows at once. Every move still goes to the server in the background, in
+   order; the server's own result is the one that pays. If the two ever disagree, the game falls back to the server's copy. */
+const LOCAL={mod:null,row:null,L:null,chain:Promise.resolve()};
+function localLoad(){
+ if(!LOCAL.mod)LOCAL.mod=Promise.all([import('./supabase/functions/_shared/engine.mjs'),import('./supabase/functions/_shared/security.mjs')])
+  .then(([e,s])=>({engine:e.createEngine(),transition:s.transition,responseView:s.responseView})).catch(e=>{LOCAL.mod=null;throw e;});
+ return LOCAL.mod;
+}
+const localOn=()=>!!(LOCAL.row&&LOCAL.row.code===SEC.code);
+// what both copies must agree on after a move (the server's deadline and visuals may differ)
+const localSig=d=>JSON.stringify([d.rev,d.status,d.state.T,d.state.turn,d.state.over,d.prompt||null,d.state.p.map(p=>[p.life,p.mana,p.maxMana,p.deck.length,p.hand.map(h=>h.id),p.field.map(c=>[c.uid,c.id,c.items,c.mods,c.atk]),p.grave.length,p.loc])]);
+async function localSend(op,more){
+ if(LOCAL.busy)return;LOCAL.busy=true;try{await localStep(op,more);}finally{LOCAL.busy=false;}
+}
+async function localStep(op,more){
+ const row=LOCAL.row,L=LOCAL.L,req={op,code:row.code,rev:row.rev,rid:crypto.randomUUID(),...more};
+ if(S){S.busy=true;S.modal=null;render();}
+ let view;
+ try{const next=await L.transition(L.engine,row,0,req);if(next){row.engine=next;row.rev++;row.status=next.checkpoint.state.over?'finished':'active';}view=L.responseView(L.engine,row,'me');}
+ catch(e){if(S?.secureId===row.code){S.busy=S.turn!==0;render();}toast(secureError(e));return;}
+ const want=localSig(view);
+ LOCAL.chain=LOCAL.chain.then(()=>localReplay(req,want,row.code)).catch(()=>{});
+ await secureApply(view);
+}
+// the server plays the same move; retried on a busy server, never skipped
+async function localReplay(req,want,code){
+ for(let tries=0;;tries++){
+  if(SEC.code!==code)return;
+  try{
+   const d=await secureApi(req);if(SEC.code!==code)return;
+   if(localSig(d)!==want)return localDrop(d);
+   if(d.reward||d.rewarded){while(SEC.animating)await sleep(150);secureApplyState({...d,visuals:null});}
+   return;
+  }catch(e){
+   const k=String(e?.message||e);
+   if(['stale_revision','not_your_game','bad_move','bad_target','request_rejected','sign_in'].includes(k)||tries>=6)return localDrop(null);
+   await sleep(Math.min(8000,800*(tries+1)));
+  }
+ }
+}
+// after a reload: a bot game picks its local copy back up, a room goes on through the server
+async function secureResume(code){
+ try{const [d,L]=await Promise.all([secureApi({op:'poll',code,rid:crypto.randomUUID(),want:'full'}),localLoad().catch(()=>null)]);
+  if(d.mode==='bot'&&d.full&&L&&d.status!=='finished'){secureWatch(code,true);SEC.guard=accountGuard();LOCAL.L=L;LOCAL.row={code,rev:d.rev,mode:'bot',host:'me',guest:null,status:d.status,engine:d.full,spec:null,deadline:null,reward:null,rewarded:false};delete d.full;SEC.rev=-1;await secureApply(d);return;}
+ }catch(e){}
+ secureWatch(code);securePoll();
+}
+function localDrop(d){
+ if(!localOn())return;LOCAL.row=null;console.warn('Local game left for the server copy');
+ SEC.rev=-1;if(d)secureApply({...d,visuals:null});SEC.nextPollAt=0;securePoll();
+}
+// online rooms: the player who just moved tells the other screen at once, so it asks the server now instead of waiting
+async function secureNoticeOn(code){
+ secureNoticeOff();try{await sbLoad();if(SEC.code!==code)return;
+  SEC.ch=SB.channel('sec-'+code,{config:{broadcast:{self:false}}}).on('broadcast',{event:'rev'},()=>{SEC.nextPollAt=0;securePoll();}).subscribe();}catch(e){}
+}
+function secureNoticeOff(){if(SEC.ch){try{SB.removeChannel(SEC.ch);}catch(e){}SEC.ch=null;}}
+function secureNotice(){if(SEC.ch)try{SEC.ch.send({type:'broadcast',event:'rev',payload:{}});}catch(e){}}
 async function secureApi(body){
+ if(window.__secureMock)return window.__secureMock(JSON.parse(JSON.stringify(body)));
  await sbLoad();const {data}=await SB.auth.getSession(),token=data.session?.access_token;
  if(!token)throw Error('sign_in');
  const res=await fetch(SB_URL+'/functions/v1/secure-game',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify(body),signal:AbortSignal.timeout(15000)});
@@ -7037,7 +7097,7 @@ async function secureApi(body){
  if(!res.ok)throw Error(out.error||'server_unavailable');return out;
 }
 function secureError(e){const k=String(e?.message||e);return k==='sign_in'?'ເຂົ້າບັນຊີກ່ອນ':k==='rate_limited'?'ກົດຖີ່ເກີນ · ລໍຖ້າໜ້ອຍໜຶ່ງ':k==='stale_revision'?'ເກມປ່ຽນແລ້ວ · ລອງອີກເທື່ອ':'ຕໍ່ເກມບໍ່ໄດ້ · ກວດອິນເຕີເນັດ ຫຼື ລອງໃໝ່';}
-function secureApply(d){
+function secureApplyState(d){
  if(!SEC.guard?.()||d.code!==SEC.code||d.rev<SEC.rev)return;
  if(d.status==='waiting')return;
  if(d.rev===SEC.rev&&!d.reward)return;
@@ -7058,28 +7118,100 @@ function secureApply(d){
   if(d.rewarded){clearInterval(SEC.timer);SEC.timer=null;ecoSync();if(d.mode==='ranked')rankLoad();}
  }
  try{localStorage.setItem(LIVE_KEY,JSON.stringify({secure:true,code:d.code,at:Date.now()}));}catch{}
- render();if(turnChanged&&!S.over)fxBanner(S.turn===0?'ຕາຂອງເຈົ້າ':d.mode==='bot'?'ຕາຂອງບອດ':'ຕາຂອງໝູ່',S.turn!==0);
+ render();if(turnChanged&&!S.over&&!d.visuals)fxBanner(S.turn===0?'ຕາຂອງເຈົ້າ':d.mode==='bot'?'ຕາຂອງບອດ':'ຕາຂອງໝູ່',S.turn!==0);
 }
-function secureWatch(code){
- secureStop();SEC.code=code;SEC.guard=accountGuard();SEC.timer=setInterval(securePoll,2000);
+// Reuse the original effects against server-confirmed animation frames. No local rule execution.
+function securePatch(base,ops){
+ let result=JSON.parse(JSON.stringify(base));
+ for(const op of ops){const [path,value]=op;if(!Array.isArray(path)||path.some(k=>['__proto__','prototype','constructor'].includes(k)))throw Error('Invalid visual path');
+  if(!path.length){result=value;continue;}let at=result;for(const k of path.slice(0,-1))at=at[k];
+  if(op.length===1)delete at[path.at(-1)];else at[path.at(-1)]=value;
+ }return result;
+}
+async function secureEffect(kind,a,context){
+ const character=uid=>S.p.flatMap(p=>p.field).find(c=>c.uid===uid);
+ switch(kind){
+  case 'enter': {const c=character(a[0]);if(c&&c.id!=='back')await fxEnter(c);break;}
+  case 'showcase': await fxShowcase(...a);break;
+  case 'activate': await fxActivate(a[1],a[2],a[0],a[3]);break;
+  case 'lunge': await fxLunge(...a);break;
+  case 'cast': {const t=resolveT(a[1]);if(t)await fxCast(a[0],t,a[2]);break;}
+  case 'float': floatAt(...a);break;
+  case 'ring': await fxRing(...a);break;
+  case 'heal': fxHeal(...a);break;
+  case 'buff': fxBuff(...a);break;
+  case 'weak': fxWeak(...a);break;
+  case 'rite': await fxRite(S.p[a[0]],a[1],a[2].map(character).filter(Boolean));break;
+  case 'gather': context.gather=await fxFuseGather(S.p[a[0]],a[1].map(character).filter(Boolean),a[2]);break;
+  case 'cutin': await fxFuseCutin(...a);break;
+  case 'emerge': {const c=character(a[0]);if(c)await fxFuseEmerge(c,context.gather);break;}
+  case 'trap': await fxTrapSnap(a[1],a[0]);break;
+  case 'draw': fxDraw(...a);break;
+  case 'banner': await fxBanner(a[0]===0?'ຕາຂອງເຈົ້າ':S.secureMode==='bot'?'ຕາຂອງບອດ':'ຕາຂອງໝູ່',a[0]!==0);break;
+  case 'baci': await fxBaci(S.p[a[0]]);break;
+  case 'fest': {const f=FESTS.find(f=>f.id===a[0]);if(f)await fxFest(f);break;}
+  case 'tale': await fxTale(...a);break;
+  case 'slash': await fxSlash(...a);break;
+  case 'wave': await fxWave();break;
+  case 'rocket': await fxRocket(...a);break;
+  case 'curse': await fxCurse(...a);break;
+  case 'tornado': await fxTornado(...a);break;
+  case 'trip': await fxTrip(...a);break;
+  case 'loc': await fxLoc(...a);break;
+  case 'fireflies': await fxFireflies(...a);break;
+  case 'grab': await fxGrab(...a);break;
+  case 'destroy': {const el=elOf('c:'+a[0]);if(el){sfx('destroy');if(REDUCE)el.classList.add('dying');else fxShatter(el,a[1]);await sleep(220);}break;}
+ }
+}
+async function secureApply(d){
+ if(!SEC.guard?.()||d.code!==SEC.code||d.rev<SEC.rev||d.rev===SEC.rev&&!d.reward)return;
+ if(SEC.animating)return;
+ const generation=SEC.generation,context={};SEC.animating=true;
+ try{
+  const timeline=d.visuals;
+  if(timeline?.base&&timeline.frames?.length&&(!S?.secure||d.rev>SEC.rev)){
+   let scene=timeline.base;
+   ui.screen=null;ui.mmodal=null;
+   for(const frame of timeline.frames){
+    if(generation!==SEC.generation||!SEC.guard?.())return;
+    scene=securePatch(scene,frame.patch);S=JSON.parse(JSON.stringify(scene));
+    S.secure=true;S.secureId=d.code;S.secureRev=d.rev;S.secureMode=d.mode;S.busy=true;S.modal=null;S.targeting=null;
+    if(d.mode==='bot'){delete S.online;S.p[1].name='ບອດ';}
+    render();await secureEffect(frame.kind,frame.args||[],context);
+   }
+  }
+ }catch(e){console.warn('Animation interrupted');}
+ finally{SEC.animating=false;}
+ if(generation===SEC.generation&&SEC.guard?.())secureApplyState(d);
+}
+function secureWatch(code,bot){
+ secureStop();SEC.code=code;SEC.nextPollAt=0;SEC.guard=accountGuard();SEC.timer=setInterval(securePoll,1000);
+ if(!bot)secureNoticeOn(code);
 }
 async function securePoll(){
- if(!SEC.code||SEC.polling||SEC.sending||!SEC.guard?.())return;SEC.polling=true;const code=SEC.code;
- try{const d=await secureApi({op:'poll',code,rid:crypto.randomUUID()});if(code===SEC.code)secureApply(d);}catch(e){/* next poll retries; never fall back to unverified state */}
+ if(localOn())return;
+ if(!SEC.code||SEC.polling||SEC.sending||SEC.animating||!SEC.guard?.()||Date.now()<SEC.nextPollAt)return;SEC.nextPollAt=Date.now()+(document.hidden?5000:S?.secure&&S.turn===0&&!S.modal?4000:1000);SEC.polling=true;const code=SEC.code;
+ try{const d=await secureApi({op:'poll',code,rid:crypto.randomUUID()});if(code===SEC.code)await secureApply(d);}catch(e){/* next poll retries; never fall back to unverified state */}
  finally{SEC.polling=false;}
 }
 async function secureSend(op,more){
- if(SEC.sending||!SEC.code)return;SEC.sending=true;const code=SEC.code,rev=SEC.rev,rid=crypto.randomUUID();if(S)S.busy=true;
- try{const d=await secureApi({op,code,rev,rid,...more});if(code===SEC.code)secureApply(d);}
+ if(localOn())return localSend(op,more);
+ if(SEC.sending||!SEC.code)return;SEC.sending=true;const code=SEC.code,rev=SEC.rev,rid=crypto.randomUUID();if(S){S.busy=true;S.modal=null;render();
+  if(more.move?.uid){const h=S.p[0].hand.find(h=>h.uid===more.move.uid);const el=h?document.querySelector('[data-a="hand"][data-v="'+h.uid+'"]'):elOf('c:'+more.move.uid);if(el)el.animate([{transform:'translateY(0)'},{transform:'translateY(-10px)',filter:'brightness(1.2)'},{transform:'translateY(0)'}],{duration:260});}
+ }
+ try{const d=await secureApi({op,code,rev,rid,...more});if(code===SEC.code){secureNotice();await secureApply(d);}}
  catch(e){if(S?.secureId===code){S.busy=S.turn!==0;SEC.rev=-1;render();}toast(secureError(e));}
- finally{SEC.sending=false;if(SEC.rev<0)securePoll();}
+ finally{SEC.sending=false;if(SEC.rev<0){SEC.nextPollAt=0;securePoll();}}
 }
 const secureMove=move=>secureSend('move',{move});
 const secureAnswer=value=>secureSend('answer',{value});
 async function secureBot(spec,level,extra={}){
  secureStop();ui.mmodal={type:'online',step:'conn'};render();const still=accountGuard();
  const botDeck=extra.botDeck??pick(DECKS.map((_,i)=>i).filter(i=>i!==spec.di));
- try{const d=await secureApi({op:'create',mode:'bot',spec,level,botDeck,stage:extra.adv??null});if(!still())return;secureWatch(d.code);secureApply(d);}
+ try{const [d,L]=await Promise.all([secureApi({op:'create',mode:'bot',spec,level,botDeck,stage:extra.adv??null,want:'full'}),localLoad().catch(()=>null)]);if(!still())return;
+  secureWatch(d.code,true);
+  if(d.full&&L){LOCAL.L=L;LOCAL.row={code:d.code,rev:d.rev,mode:'bot',host:'me',guest:null,status:d.status,engine:d.full,spec:null,deadline:null,reward:null,rewarded:false};}
+  delete d.full;await secureApply(d);}
  catch(e){ui.mmodal=null;render();toast(secureError(e));}
 }
 async function secureHost(invited){
@@ -7090,7 +7222,7 @@ async function secureHost(invited){
 async function secureJoin(code){
  code=(code||'').trim().toUpperCase();if(!/^[A-Z2-9]{5,8}$/.test(code)){toast('ໃສ່ລະຫັດຫ້ອງ 8 ຕົວ');return;}
  ui.mmodal={type:'online',step:'conn'};render();const still=accountGuard();
- try{const d=await secureApi({op:'join',code,spec:mySpec()});if(!still())return;secureWatch(d.code);secureApply(d);}
+ try{const d=await secureApi({op:'join',code,spec:mySpec()});if(!still())return;secureWatch(d.code);await secureApply(d);}
  catch(e){ui.mmodal=null;render();toast(secureError(e));}
 }
 async function secureExit(){const code=SEC.code;if(S?.secure&&!S.over)try{await secureApi({op:'move',code,rev:SEC.rev,rid:crypto.randomUUID(),move:{t:'quit'}});}catch{}secureStop();liveClear();S=null;ui.grave=null;render();}
@@ -7255,7 +7387,7 @@ function applySnap(m){
 }
 function resumeFail(why){ netClose(); liveClear(); ui.mmodal = {type:'resume', fail:why}; render(); }
 function resumeGo(L){
-  if(L.secure){secureWatch(L.code);securePoll();return;}
+  if(L.secure){secureResume(L.code);return;}
   liveClear();ui.mmodal=null;render();toast('ເກມເກົ່າຈົບແລ້ວ · ເປີດເກມໃໝ່');return;
   ui.mmodal = {type:'resume', L, wait:true}; render();
   netOpen(L.code, L.me).then(() => {
@@ -7799,7 +7931,7 @@ $app.addEventListener('contextmenu', e => {
 
 /* ---------- self-test: bot vs bot, no animation ---------- */
 // local dev only: poke at live game state from the console
-if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__dbg = {fx:{show:(id, alt) => fxShowcase(id, alt), motif:(id, x, y) => fxFuseMotif(id, {x:x || innerWidth / 2, y:y || innerHeight / 2}), cutin:(f) => fxFuseCutin(C[f].fusion, f), rite:(i, id) => { const p = S.p[i || 0]; return fxRite(p, id || 'phitibangfai', p.field.slice(0, 3)); }, rays:fxRays, yantra:fxYantra, orb:fxOrb, petals:fxPetals, marigolds:fxMarigolds, baci:(i) => fxBaci(S.p[i || 0]), fest:(id) => fxFest(FESTS.find(f => f.id === id) || FESTS[0]), blade:(i, n) => addBlade(S.p[i || 0], n), slash:fxSlash, burst:burstAt, big:fxBig, wait:fxWait, get state(){ return FX; }},get S(){ return S; }, get net(){ return NET; }, get ACCT(){ return ACCT; }, get ui(){ return ui; }, DECKS, mockSB:x => { SB = x; },
+if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__dbg = {secure:{bot:(...a) => secureBot(...a), move:m => secureMove(m), answer:v => secureAnswer(v), get SEC(){ return SEC; }, get LOCAL(){ return LOCAL; }}, fx:{show:(id, alt) => fxShowcase(id, alt), motif:(id, x, y) => fxFuseMotif(id, {x:x || innerWidth / 2, y:y || innerHeight / 2}), cutin:(f) => fxFuseCutin(C[f].fusion, f), rite:(i, id) => { const p = S.p[i || 0]; return fxRite(p, id || 'phitibangfai', p.field.slice(0, 3)); }, rays:fxRays, yantra:fxYantra, orb:fxOrb, petals:fxPetals, marigolds:fxMarigolds, baci:(i) => fxBaci(S.p[i || 0]), fest:(id) => fxFest(FESTS.find(f => f.id === id) || FESTS[0]), blade:(i, n) => addBlade(S.p[i || 0], n), slash:fxSlash, burst:burstAt, big:fxBig, wait:fxWait, get state(){ return FX; }},get S(){ return S; }, get net(){ return NET; }, get ACCT(){ return ACCT; }, get ui(){ return ui; }, DECKS, mockSB:x => { SB = x; },
   music:{want:m => { MUS.want = m; }, sting:musicSting, sfx:n => sfx(n), get state(){ return MUS; }, get mf(){ return {loaded:Object.keys(MF.buf), cur:MF.cur && MF.cur.name, parts:MF.cur ? MF.cur.parts.length : 0}; }, level:async (mood, secs) => {
     const sr = 22050, oc = new OfflineAudioContext(1, sr * (secs || 20), sr), keep = Object.assign({}, SND), out = oc.createGain(); out.connect(oc.destination);
     SND.ctx = oc; SND.sfx = out; musicBus(oc, out);

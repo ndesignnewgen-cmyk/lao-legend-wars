@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {patchVisual,diffVisual} from '../supabase/functions/_shared/visual.mjs';
 import {createEngine} from '../supabase/functions/_shared/engine.mjs';
 import {safeMove,readBody,transition,responseView,ApiError,normalizeSpec} from '../supabase/functions/_shared/security.mjs';
 let checks=0;const ok=(x,m)=>{assert(x,m);checks++;};
@@ -28,7 +29,9 @@ ok(!!initial.prompt,'start has mulligan prompt');
 await assert.rejects(()=>e.run(initial.checkpoint,{type:'start'},[{side:initial.prompt.side,value:[999999]}]),/Invalid mulligan/);checks++;
 const quit=await transition(e,{engine:{...initial,pending:{action:{type:'start'},answers:[]}},rev:1},1-initial.prompt.side,{op:'move',rid,rev:1,move:{t:'quit'}});
 ok(quit.checkpoint.state.over.winner===initial.prompt.side,'quit works during opponent decision');
-let games=0;
+assert.deepEqual(patchVisual({a:[1],b:2},diffVisual({a:[1],b:2},{a:[2],c:3})),{a:[2],c:3});checks++;
+assert.throws(()=>patchVisual({},[[['__proto__','bad'],true]]));checks++;
+let games=0,visualMoves=0,missingVisuals=0,largest=0,effectKinds=new Set();
 const total=Number(process.argv.find(x=>x.startsWith('--games='))?.split('=')[1]||48);
 for(let g=0;g<total;g++){
  const eg=createEngine(),a=g%24,b=(a+1+Math.floor(g/24))%24;
@@ -36,6 +39,17 @@ for(let g=0;g<total;g++){
  let action={type:'start'},answers=[],current={checkpoint:eg.start(sp,100+g)};
  for(let turn=0;turn<1200&&!current.checkpoint.state.over;turn++){
   const before=clone(current.checkpoint);let r;try{r=await createEngine().run(current.checkpoint,action,answers);}catch(e){console.error({game:g,turn:current.checkpoint.state.T,action,hand:current.checkpoint.state.p[action.side]?.hand.map(h=>h.id)});throw e;}
+  largest=Math.max(largest,Buffer.byteLength(JSON.stringify(r)));
+  assert(Buffer.byteLength(JSON.stringify(r))<200000,'bounded server result');
+  if(r.visuals){visualMoves++;
+   for(let side=0;side<2;side++){
+    let scene=r.visuals[side].base;
+    for(const frame of r.visuals[side].frames){scene=patchVisual(scene,frame.patch);if(frame.kind)effectKinds.add(frame.kind);
+     assert(scene.p[1].hand.every(h=>h.id==='back')||scene.peekFor===side||r.preview?.state.peekFor===side||r.checkpoint.state.peekFor===side,'animation keeps enemy hand private');
+     assert(scene.p.every(p=>p.deck.every(id=>id==='back')),'animation keeps deck order private');
+    }
+   }
+  }else missingVisuals++;
   if(r.prompt){
    const p=r.prompt;const value=p.type==='mull'?[]:p.type==='ask'?false:p.type==='rite'?p.opts[0]:p.cards[0].uid;
    answers.push({side:p.side,value});current={...r,pending:{action,answers}};
@@ -44,4 +58,5 @@ for(let g=0;g<total;g++){
  }
  ok(!!current.checkpoint.state.over,'game completes '+g);games++;
 }
+console.log({visualMoves,missingVisuals,largest,effects:[...effectKinds]});
 console.log('PASS',checks,'security checks;',games,'authoritative games');

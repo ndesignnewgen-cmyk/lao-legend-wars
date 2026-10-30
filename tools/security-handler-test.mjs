@@ -14,3 +14,12 @@ assert.equal(requests,1);
 const large=await handler(request('POST',auth,' '.repeat(17000)));assert.equal(large.status,413);
 assert.equal(requests,1);
 console.log('PASS 8 handler checks: methods, origins, missing/invalid login and bounded body');
+// A normal poll authenticates once, checks membership/rate concurrently, and never reads retry history.
+const calls=[];let active=0,peak=0;
+globalThis.fetch=async(input)=>{const u=String(input);calls.push(u.split('/').at(-1));active++;peak=Math.max(peak,active);await new Promise(r=>setTimeout(r,5));active--;
+ const data=u.endsWith('/user')?{id:'user-one'}:u.endsWith('/sec_gate')?true:{host:'user-one',guest:null,code:'ABCDEFGH',rev:0,mode:'casual',status:'waiting',engine:null};
+ return Response.json(data);
+};
+const poll=await handler(request('POST',auth,JSON.stringify({op:'poll',code:'ABCDEFGH'})));
+assert.equal(poll.status,200);assert.deepEqual(calls.sort(),['sec_gate','sec_read','user']);assert.equal(peak,2);
+console.log('PASS 3 latency checks: parallel read/rate checks; no retry lookup for polls');

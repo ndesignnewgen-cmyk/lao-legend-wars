@@ -40,5 +40,12 @@ do $$declare i int;r text;begin
  if claim_recovery_code('WRONG')<>'rate_limited'then raise exception 'failed recovery attempts did not count';end if;
 end$$;
 reset role;
+-- Repeated solo starts replace old rooms and never farm rewards or touch live PvP rooms.
+select sec_create('00000000-0000-0000-0000-000000000101','BOTABCDE','bot',jsonb_build_object('host',jsonb_build_object('list',d),'guest',jsonb_build_object('list',d,'di',0),'level',1))from test_deck;
+select sec_create('00000000-0000-0000-0000-000000000101','BOTBCDEF','bot',jsonb_build_object('host',jsonb_build_object('list',d),'guest',jsonb_build_object('list',d,'di',0),'level',1))from test_deck;
+do $$begin
+ if not exists(select 1 from sec_games where code='BOTABCDE'and status='finished'and rewarded and progressed and reward='{}'::jsonb)then raise exception 'abandoned solo game still active or rewarded';end if;
+ if not exists(select 1 from sec_games where code='BOTBCDEF'and status='waiting'and not rewarded)then raise exception 'new solo game missing';end if;
+end$$;
 rollback;
 \echo 'PASS: room membership, table/RPC isolation, fake wins, duplicate commits/claims, stale revisions and recovery rate limits'

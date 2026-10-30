@@ -20,12 +20,19 @@ Deno.serve(async(req)=>{
   const token=req.headers.get('authorization')?.match(/^Bearer ([A-Za-z0-9_.-]{40,8192})$/)?.[1];if(!token)throw new ApiError('sign_in',401);
   const body=await readBody(req);
   if(!['create','join','poll','move','answer'].includes(body.op))throw new ApiError('bad_request');
-  const auth=await fetch(url+'/auth/v1/user',{headers:{apikey:anon,Authorization:'Bearer '+token},signal:AbortSignal.timeout(5000)});
-  if(!auth.ok)throw new ApiError('sign_in',401);const user=await auth.json();if(!user.id)throw new ApiError('sign_in',401);
-  const kind=body.op==='answer'?'move':body.op;if(!await rpc('sec_gate',{kind},token))throw new ApiError('rate_limited',429);
-  const engine=createEngine();let row;
+  // The user check runs alongside the game reads: nothing read is used or written until it confirms the same user id.
+  let sub='';try{sub=JSON.parse(atob(token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/'))).sub||'';}catch{}
+  const userCheck=fetch(url+'/auth/v1/user',{headers:{apikey:anon,Authorization:'Bearer '+token},signal:AbortSignal.timeout(5000)})
+   .then(async r=>{if(!r.ok)throw new ApiError('sign_in',401);const u=await r.json();if(!u.id)throw new ApiError('sign_in',401);return u;});
+  userCheck.catch(()=>{});
+  const early=sub&&!['create','join'].includes(body.op)?Promise.all([rpc('sec_read',{actor:sub,room_code:String(body.code)}),body.op==='poll'?false:rpc('sec_seen',{actor:sub,room_code:String(body.code),rid:body.rid||''})]):null;
+  if(early)early.catch(()=>{});
+  const user=await userCheck;
+  const kind=body.op==='answer'?'move':body.op;
+  const engine=createEngine();let row,seen=false;const rid=body.rid||crypto.randomUUID();
+  const gate=()=>rpc('sec_gate',{kind},token).then(ok=>{if(!ok)throw new ApiError('rate_limited',429);});
   if(body.op==='create'){
-   const mode=body.mode==='bot'?'bot':'casual',host=normalizeSpec(engine,body.spec);let level=1,stage=null,guest=null;
+   await gate();const mode=body.mode==='bot'?'bot':'casual',host=normalizeSpec(engine,body.spec);let level=1,stage=null,guest=null;
    if(mode==='bot'){
     if(!Number.isInteger(body.level)||body.level<0||body.level>2)throw new ApiError('bad_level');level=body.level;
     if(body.stage!=null){if(!Number.isInteger(body.stage)||!engine.adventures[body.stage])throw new ApiError('bad_stage');stage=body.stage;}
@@ -35,20 +42,22 @@ Deno.serve(async(req)=>{
    row=await rpc('sec_create',{actor:user.id,room_code:code(),game_mode:mode,game_spec:{host,guest,level,stage}});
   }else{
    if(typeof body.code!=='string'||! /^[A-Z2-9]{5,8}$/.test(body.code))throw new ApiError('bad_code');
-   row=body.op==='join'?await rpc('sec_join',{actor:user.id,room_code:body.code,guest_spec:normalizeSpec(engine,body.spec)}):await rpc('sec_read',{actor:user.id,room_code:body.code});
+   if(body.op==='join'){await gate();row=await rpc('sec_join',{actor:user.id,room_code:body.code,guest_spec:normalizeSpec(engine,body.spec)});}
+   else if(early&&sub===user.id&&body.rid){const results=await Promise.all([early,gate()]);row=results[0][0];seen=results[0][1];}
+   else{const results=await Promise.all([rpc('sec_read',{actor:user.id,room_code:body.code}),gate(),body.op==='poll'?false:rpc('sec_seen',{actor:user.id,room_code:body.code,rid})]);row=results[0];seen=results[2];}
   }
   const side=user.id===row.host?0:user.id===row.guest?1:-1;if(side<0)throw new ApiError('not_your_game',403);
   if(row.mode==='bot'||row.guest){
    if(row.status==='finished'){await rpc('sec_reward',{actor:user.id,room_code:row.code});row=await rpc('sec_read',{actor:user.id,room_code:row.code});}
    else{
     // UUID is a retry key, not proof of authority. Membership, revision and all rules are checked separately.
-    const request={...body,rid:body.rid||crypto.randomUUID(),serverSeed:crypto.getRandomValues(new Uint32Array(1))[0]};
-    if(await rpc('sec_seen',{actor:user.id,room_code:row.code,rid:request.rid}))return new Response(JSON.stringify(responseView(engine,row,user.id)),{headers});
+    const request={...body,rid,serverSeed:crypto.getRandomValues(new Uint32Array(1))[0]};
+    if(seen)return new Response(JSON.stringify(responseView(engine,row,user.id,{full:body.want==='full'})),{headers});
     if(!row.engine){row.spec.host=normalizeSpec(engine,row.spec.host);row.spec.guest=normalizeSpec(engine,row.spec.guest);}
     const next=await transition(engine,row,side,request);
     if(next)row=await rpc('sec_commit',{actor:user.id,room_code:row.code,expected:row.rev,rid:request.rid,next_engine:next,game_action:{op:body.op,move:body.move||null}});
    }
   }
-  return new Response(JSON.stringify(responseView(engine,row,user.id)),{headers});
+  return new Response(JSON.stringify(responseView(engine,row,user.id,{full:body.want==='full'})),{headers});
  }catch(e){const err=e instanceof ApiError?e:new ApiError('request_rejected',400);return new Response(JSON.stringify({error:err.message}),{status:err.status,headers});}
 });

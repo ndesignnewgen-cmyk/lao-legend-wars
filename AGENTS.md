@@ -74,6 +74,20 @@ online play, ranked, friends, a card shop with gems (no real money). Read this w
   The server uses the index (catalog `decks`, hard-bot legend array in `eco_game`, deck packs), so never reorder;
   append new decks at the end.
 
+## Secure games (supabase/functions/secure-game, f14–f16)
+- Accounts play through the edge function `secure-game`: it runs the game on the server (`_shared/engine.mjs`) and only
+  its results pay gems or rank. `engine.mjs` is GENERATED from index.html: after ANY change to the browser script run
+  `python3 tools/build-security.py` (or `node tools/build-security.cjs`). It also refreshes the CSP hashes in the
+  `<meta http-equiv="Content-Security-Policy">` — skip it and the browser blocks the whole script.
+- Bot games are fast: the browser imports the same `engine.mjs` (+ `security.mjs`), asks the server for the full start
+  (`want:'full'`), plays every move locally at once (`localSend`) and sends the same moves to the server in the
+  background (`localReplay`). If the server's copy ever differs (`localSig`), it falls back to the server copy.
+- Online rooms: moves wait for the server; the mover broadcasts `rev` on Realtime channel `sec-<code>` so the other
+  screen polls at once (`secureNoticeOn`).
+- Deploy after changing anything under `supabase/functions`: the owner runs `sh tools/deploy-security.sh` in Terminal
+  (Supabase CLI, browser sign-in). Localhost test without Supabase: set `window.__secureMock` to a function that
+  answers like the server (see git history of this file's commit for an example) and call `__dbg.secure.bot(...)`.
+
 ## Adding a deck (checklist)
 1. `def` every card (tribe new? add `TC`, `TRIBE_NAME`, `TFX`, `SYM`). Mechanics in onPlay/castSpell/pow/targets/
    turn hooks. Keyword text in `KW_HELP`.

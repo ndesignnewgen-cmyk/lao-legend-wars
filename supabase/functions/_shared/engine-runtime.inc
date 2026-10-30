@@ -1,9 +1,59 @@
 // Adapter runs inside the same closure as the game rules. No eval and no DOM/network access.
 const copy = x => JSON.parse(JSON.stringify(x));
 class NeedDecision extends Error { constructor(prompt){ super('decision'); this.prompt=prompt; } }
-let answers=[], answerIndex=0;
+let answers=[], answerIndex=0,visualFrames=[],tracing=false;
+function captureVisual(kind=null,args=[]){
+ if(!tracing||visualFrames.length>=180)return;
+ const state=checkpoint().state;if(!kind&&visualFrames.length&&JSON.stringify(state)===JSON.stringify(visualFrames.at(-1).state))return;
+ visualFrames.push({state,kind,args:copy(args)});
+}
+function visualReset(){visualFrames=[];captureVisual();}
+function visualResult(){
+ captureVisual();tracing=false;
+ const sides={};
+ for(let side=0;side<2;side++){
+  let previous=null;const frames=[];let base=null;
+  for(const f of visualFrames.filter((f,i)=>f.kind||i===0||i===visualFrames.length-1)){
+   const state=serverAPI.view({checkpoint:{state:f.state}},side).state;state.log=state.log.slice(0,3);
+   if(!base){base=state;previous=state;}
+   const patch=diffVisual(previous,state);previous=state;
+   let args=copy(f.args),kind=f.kind;
+   const key=k=>side===1&&/^h:[01]$/.test(k)?'h:'+(1-Number(k.slice(2))):k;
+   if(['activate','trap','loc','draw','rite','gather','baci','banner'].includes(kind))args[0]=side===1?1-args[0]:args[0];
+   if(kind==='cast'){args[0]=side===1?1-args[0]:args[0];args[1]=key(args[1]);}
+   if(['lunge','fireflies'].includes(kind)){args[0]=key(args[0]);args[1]=key(args[1]);}
+   if(['float','ring','heal','buff','weak','rocket','curse','tornado','trip','grab','slash'].includes(kind))args[0]=key(args[0]);
+   if(kind==='activate'&&args[3])args[3]=key(args[3]);
+   // A hidden character must not reveal its picture through an animation.
+   if(kind==='enter'&&!state.p.flatMap(p=>p.field).some(c=>c.uid===args[0]&&c.id!=='back'))kind=null;
+   if(kind==='showcase'&&C[args[0]]?.kw.hide&&side!==f.state.turn)kind=null;
+   if(patch.length||kind)frames.push({patch,kind,args});
+  }
+  sides[side]={base,frames};
+ }
+ // Keep visual data bounded independently of the authoritative checkpoint.
+ return new TextEncoder().encode(JSON.stringify(sides)).length<=130000?sides:null;
+}
 const realStart=startTurn, realOnPlay=onPlay;
-render=()=>{};floatAt=()=>{};fxHeal=()=>{};petSay=()=>{};petGrow=()=>{};botSay=()=>{};
+render=()=>captureVisual();floatAt=(...a)=>captureVisual('float',a);fxHeal=k=>captureVisual('heal',[k]);petSay=()=>{};petGrow=()=>{};botSay=()=>{};
+fxEnter=c=>captureVisual('enter',[c.uid]);
+fxShowcase=(id,alt)=>captureVisual('showcase',[id,alt]);
+fxActivate=(id,alt,side,key)=>captureVisual('activate',[side,id,alt,key]);
+fxLunge=(...a)=>captureVisual('lunge',a);
+fxCast=(side,t,kind)=>captureVisual('cast',[side,tkey(t),kind]);
+fxRing=(...a)=>captureVisual('ring',a);
+fxRite=(p,id,mats)=>captureVisual('rite',[pi(p),id,mats.map(c=>c.uid)]);
+fxFuseGather=(p,mats,f)=>{captureVisual('gather',[pi(p),mats.map(c=>c.uid),f]);return null;};
+fxFuseCutin=(...a)=>captureVisual('cutin',a);
+fxFuseEmerge=c=>captureVisual('emerge',[c.uid]);
+fxTrapSnap=(id,side)=>captureVisual('trap',[side,id]);
+fxBanner=()=>captureVisual('banner',[S.turn]);fxBaci=p=>captureVisual('baci',[pi(p)]);
+fxDraw=side=>captureVisual('draw',[side]);fxFest=f=>captureVisual('fest',[f.id]);fxTale=ti=>captureVisual('tale',[ti]);
+fxSlash=(...a)=>captureVisual('slash',a);fxWave=()=>captureVisual('wave');fxRocket=k=>captureVisual('rocket',[k]);
+fxCurse=k=>captureVisual('curse',[k]);fxTornado=k=>captureVisual('tornado',[k]);fxTrip=k=>captureVisual('trip',[k]);
+fxLoc=(side,id)=>captureVisual('loc',[side,id]);fxBuff=(...a)=>captureVisual('buff',a);fxWeak=k=>captureVisual('weak',[k]);
+fxFireflies=(...a)=>captureVisual('fireflies',a);fxGrab=k=>captureVisual('grab',[k]);
+const realDestroy=destroy;destroy=async(p,c,quick)=>{if(!c.shield&&p.field.includes(c))captureVisual('destroy',[c.uid,C[c.id].tribe]);return realDestroy(p,c,quick);};
 feat=(p,k)=>{ if(!S?.secureCounts)return; const n=S.secureCounts[pi(p)];n[k]=(n[k]||0)+1; };
 questEvent=(k,n=1)=>{if(S?.secureCounts){const c=S.secureCounts[0];c[k]=(c[k]||0)+n;}};
 onPlay=async(p,c,t)=>{await realOnPlay(p,c,t);if(c.id==='phihuean')S.peekFor=pi(p);};
@@ -26,7 +76,7 @@ decide=async(p,local)=>{
   if(m.type==='ask'&&typeof v!=='boolean')throw Error('Invalid reaction');
   if(m.type==='rite'&&!m.opts.includes(v))throw Error('Invalid rite');
   if(m.type==='discard'&&!p.hand.some(h=>h.uid===v))throw Error('Invalid discard');
-  return v;
+  visualReset();return v;
 };
 function loadCheckpoint(c){S=copy(c.state);S.fast=true;S.sim=true;S.auto=false;S.modal=null;S.targeting=null;S.online.me='host';RNG=seeded(0);RNG.set(c.rng);U=c.uid;}
 function checkpoint(){return {state:copy({...S,modal:null,targeting:null,onEnd:undefined}),rng:RNG.get(),uid:U};}
@@ -63,7 +113,7 @@ const serverAPI={
    startTurn=realStart;return checkpoint();
  },
  async run(base,action,input=[]){
-   startTurn=realStart;loadCheckpoint(base);answers=copy(input);answerIndex=0;S.peekFor=null;
+   startTurn=realStart;loadCheckpoint(base);answers=copy(input);answerIndex=0;S.peekFor=null;tracing=true;visualReset();
    try{
      if(action.type==='start')await startTurn();
      else if(action.type==='quit'){if(action.side!==0&&action.side!==1)throw Error('Invalid side');gameOver(S.p[1-action.side],'quit');}
@@ -74,8 +124,8 @@ const serverAPI={
      }
      await driveBot();
      if(answerIndex!==answers.length)throw Error('Unexpected answers');
-     return {checkpoint:checkpoint(),prompt:null};
-   }catch(e){if(e instanceof NeedDecision)return {checkpoint:base,preview:checkpoint(),prompt:e.prompt};throw e;}
+     const result=checkpoint();return {checkpoint:result,prompt:null,visuals:visualResult()};
+   }catch(e){if(e instanceof NeedDecision)return {checkpoint:base,preview:checkpoint(),prompt:e.prompt,visuals:visualResult()};tracing=false;throw e;}
  },
  view(bundle,side){
    const c=bundle.preview||bundle.checkpoint,st=copy(c.state);const peek=st.peekFor===side;
