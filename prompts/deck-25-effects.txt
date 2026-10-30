@@ -1,0 +1,33 @@
+ເດັກ 25 · ໝໍຜີ ອາຈານແດງ · ຮູບປະກອບເອັບເຟັກ 8 ຮູບ (prompt ດຽວ)
+ຄັດລອກຂໍ້ຄວາມອັງກິດທັງໝົດລຸ່ມນີ້ → ChatGPT → ສົ່ງ. ໄດ້ zip ແລ້ວສົ່ງຄືນໃນແຊັດນີ້.
+ຮູບຕົວລະຄອນສຳລັບສາກອອກໂຕ (ອາຈານແດງ, ນາງຕານີ ຮ່າງແສງເດືອນ) ບໍ່ຕ້ອງເຈນ: ຕັດຈາກຮູບກາດທີ່ມີແລ້ວ.
+
+Create a batch of EIGHT separate transparent PNG effect assets for Lao Legend Wars, a Lao folklore trading card game. These are small decorative objects that the game animates around existing cards and character cutouts (they spin, fly, scatter and glow). Do not generate characters, card illustrations, backgrounds or complete scenes.
+
+Shared style: beautiful hand-painted 2D fantasy game art matching a night-time Lao spirit-magic deck: deep gold, soft teal-mint spirit light, silver moonlight and bright red accents. Clean soft outlines and refined shading, clear silhouettes readable at 40–80 pixels. Not photorealistic, not 3D. Each image 1024×1024, ONE centred object, actual alpha transparency (no white or black background, no checkerboard), about 20% transparent margin around the object, no drop shadow on the ground, no text, no letters, no numbers, no logos.
+
+1. fx-banana-leaf.png
+One single fresh banana leaf seen flat from above, long and elegant with a gentle curve, a clear central rib and fine parallel veins, bright green fading to a soft glowing silver-white edge as if lit by moonlight, a few tiny sparkles along the edge. No stem attached to a tree.
+
+2. fx-banana-petal.png
+One single curved bract petal of a banana blossom, smooth glossy deep pink-purple on the outside with a lighter cream-pink inner side, gently cupped, a soft rim highlight. Just the one petal.
+
+3. fx-talisman.png
+One rectangular red paper talisman (a Lao-style yantra charm), slightly curled as if floating in the wind, with a glowing gold abstract yantra diagram of circles, lines and dots drawn on it (abstract shapes only, never readable letters), small gold tassel at the bottom, faint gold glow around the edges.
+
+4. fx-lantern-spirit.png
+One cute little lantern spirit: a small round floating teal-mint glowing wisp with a simple happy face (two dot eyes and a smile, rosy cheeks), tiny stubby arms holding up a small glowing paper lantern with a candle inside, a short wispy tail curling below. Adorable, never scary.
+
+5. fx-full-moon.png
+One glowing silver-white full moon disc with soft pale grey craters and a gentle cool glow, its edge softly luminous. Only the moon itself; keep the glow tight around the disc so the transparent background stays clear.
+
+6. fx-gold-coin.png
+One shiny lucky gold coin seen at a slight angle, a thick rim, an abstract Lao kranok flame pattern and a small lotus in the middle (no letters or numbers), a bright sparkle highlight on the rim.
+
+7. fx-holy-water.png
+One small cluster of sparkling holy-water droplets flying in an arc: five or six clear round droplets of different sizes with silver-blue highlights, a tiny jasmine petal floating among them, little star glints. No bowl, no hand.
+
+8. fx-yantra-ring.png
+One thin circular ring of glowing gold sacred-tattoo (sak yant) style ornament: an elegant circle made of repeating abstract curls, dots and short lines with eight small points around it, the centre fully transparent and empty, warm gold glow. Abstract shapes only, never readable letters.
+
+Generate all eight individual PNG files and deliver them together as lao-legend-deck25-effects.zip. If ZIP delivery is unavailable, provide eight separate downloadable PNG files. Do not put them in a collage, grid, contact sheet or sprite sheet.
