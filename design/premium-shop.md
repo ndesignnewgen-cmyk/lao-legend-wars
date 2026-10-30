@@ -52,3 +52,10 @@ Server-only special wallet, ownership and prices; RLS, no direct client writes, 
 - `tools/premium-board-test.js`: bundle/equip and actual game board render; my card back and meteor theme; opponent backs preserved.
 
 ສະຖານະ QR ໃໝ່: ອ່ານ `design/payment-qr-amounts.md`. ຮອບທີ 2 ປ່ຽນ method 01 ເປັນ 12 ແລະເຈົ້າຂອງຢືນຢັນຊື່/ຍອດ 10,000 ກີບໃນ BCEL One ແລ້ວ. ກຽມຮູບ v2 ຄົບ 4 ແພັກໃນ `art/payments/`; ການເລືອກ QR ຕາມລາຄາເຮັດຢູ່ເຊີບເວີ. ຕິດຕັ້ງແລະຕັ້ງຄ່າຮ້ານແລ້ວ; ຍັງບໍ່ເປີດຮັບເງິນ. ຮູບ 3 ຍອດອື່ນຍັງບໍ່ມີຜົນກວດແອັບແຍກລາຍຍອດ.
+
+
+## Production setup · 2026-10-31
+
+Frontend release `45d862d`, notice follow-up `b379331`; GitHub security and Pages checks passed. F17 executed successfully through the owner's authenticated dashboard under explicit authorization. The bundled secure-game source was deployed after both script builds; Overview confirmed the fresh deployment. Merchant receiver and all four amount QR mappings were installed with `enabled=false`. Production query returned 4 active packs, 5 products, 4 QR mappings, 0 orders and 0 ledger entries. All five public storage PNGs were downloaded and matched the verified local source byte for byte.
+
+Public browser checks confirmed the new shop, loaded chest/gem art, guest account gate, Vat Phou selected by default and guest bot startup without browser errors. No authenticated paid transaction or approval was exercised. Only the 10,000 LAK QR has been confirmed in the owner's BCEL app; the other three amounts use the same locally validated format and still need individual app checks before opening. Actual crediting remains a manual review of incoming bank transactions.
