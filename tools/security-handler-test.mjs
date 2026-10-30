@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+let handler,requests=0;
+globalThis.Deno={env:{get:k=>({SUPABASE_URL:'https://test.invalid',SUPABASE_ANON_KEY:'public-test',SUPABASE_SERVICE_ROLE_KEY:'internal-test'})[k]},serve:fn=>handler=fn};
+globalThis.fetch=async()=>{requests++;return new Response('{}',{status:401});};
+await import('../supabase/functions/secure-game/index.ts');
+const request=(method,headers={},body)=>new Request('https://test.invalid',{method,headers,...(body?{body}:{} )});
+assert.equal((await handler(request('GET'))).status,405);
+assert.equal((await handler(request('OPTIONS',{origin:'https://evil.invalid'}))).status,403);
+assert.equal((await handler(request('OPTIONS',{origin:'https://laolegendwars.com'}))).status,204);
+assert.equal((await handler(request('POST',{},'{}'))).status,401);
+const auth={authorization:'Bearer '+'a'.repeat(64)};
+assert.equal((await handler(request('POST',auth,JSON.stringify({op:'poll',code:'ABCDEFGH'})))).status,401);
+assert.equal(requests,1);
+const large=await handler(request('POST',auth,' '.repeat(17000)));assert.equal(large.status,413);
+assert.equal(requests,1);
+console.log('PASS 8 handler checks: methods, origins, missing/invalid login and bounded body');

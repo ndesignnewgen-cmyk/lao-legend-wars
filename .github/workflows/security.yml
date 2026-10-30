@@ -1,0 +1,15 @@
+name: Security regression
+on: [push, pull_request]
+jobs:
+  rules:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: node tools/build-security.cjs
+      - run: git diff --exit-code -- index.html cards.html supabase/functions/_shared/engine.mjs
+      - run: node tools/audit-test.cjs
+      - run: node tools/security-test.mjs --games=96
+      - run: node tools/security-handler-test.mjs

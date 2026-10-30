@@ -1,0 +1,5 @@
+project_id = "lao-legend-wars"
+[functions.secure-game]
+# The handler verifies every bearer token with Supabase Auth before any database/game operation.
+# Publishable API keys are not JWTs; do not rely on the gateway's legacy shared-secret check.
+verify_jwt = false

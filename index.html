@@ -1,3 +1,6 @@
+<meta name="security-build" content="1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-IbW4Ox4JSvrbIwKJMkGVZkS5aw7zcsFtbpRH/KbOF8c='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta name="referrer" content="no-referrer">
 <meta charset="utf-8">
 <script>
 /* The game lives at laolegendwars.com. Browsers keep saved data per address, so the old github.io address sends what this
@@ -2052,6 +2055,7 @@ const TC = {thewada:'#9fe0ff', villager:'#e8c48a', naga:'#3aa0ff', giant:'#ff5a3
 
 /* ---------- card data ---------- */
 const C = {};
+Object.defineProperty(C,'back',{value:{id:'back',img:'back',type:'char',tribe:'villager',cost:0,power:0,kw:{},token:1,name:'ກາດຄວ່ຳ',skill:'',tag:'',lore:''}});
 function def(id, o){ C[id] = Object.assign({id, img:id, type:'char', kw:{}}, o); }
 const TAUNT = 'ຄູ່ແຂ່ງຕ້ອງໂຈມຕີໃບນີ້ກ່ອນ ຈຶ່ງໂຈມຕີໃບອື່ນໄດ້';
 const FLY = 'ໂຈມຕີຂວັນຄູ່ແຂ່ງໄດ້ໂດຍກົງ ເຖິງວ່າມີຕົວລະຄອນກັນຢູ່';
@@ -3191,7 +3195,7 @@ function recordGame(won){
 }
 
 /* ---------- engine ---------- */
-const OPTIONAL = new Set(['nakmuaydek','nakmuaybao','nakmuaysok','nakmuayying','nakmuaykhao','chaemkham','nairoymuay','phikrasue','kumphan','naiphan','thaenfahong','naktanu','santhaman','phuthao','ueaysong','luksaolao','hackxm']);
+const OPTIONAL = new Set(['rabopponkan','nakmuaydek','nakmuaybao','nakmuaysok','nakmuayying','nakmuaykhao','chaemkham','nairoymuay','phikrasue','kumphan','naiphan','thaenfahong','naktanu','santhaman','phuthao','ueaysong','luksaolao','hackxm']);
 const cur = () => S.p[S.turn];
 const pi = p => S.p.indexOf(p);
 const opp = p => S.p[1 - pi(p)];
@@ -3411,7 +3415,8 @@ function targetsFor(p, id){
     case 'siangpuen': case 'padaek': case 'lapyai': case 'rabopponkan': case 'maiphai': case 'xutawakat': return chars(p);
     case 'kasaenkhong': case 'makphet': case 'tammakhung': return chars(q, notImm);
     case 'chutfai': return chars(p, c => c.cd > 0);
-    case 'thanuhin': case 'faidap': case 'faphasaysong': return chars(q, notImm);
+    case 'faidap': return p.volt>=3 ? null : chars(q, notImm);
+    case 'thanuhin': case 'faphasaysong': return chars(q, notImm);
     case 'saynamtaidin': return chars(q, c => pow(q, c) <= 3);
     case 'matsoydao': case 'somphonfai': case 'sopsengyai': case 'saengdao': return chars(q, notImm);
     case 'yanglop': return chars(q);
@@ -4894,6 +4899,7 @@ async function tryPlay(uid){
   const why = playBlock(p, h); if(why){ toast(why); render(); return; }
   let t = null; const tl = targetsFor(p, h.id);
   if(tl && tl.length){ t = await pickTarget(tl, promptOf(h.id)); if(t === undefined){ render(); return; } }
+  if(S.secure)return secureMove({t:'play',uid:h.uid,tk:netKey(t)});
   netSend({t:'play', uid:h.uid, tk:netKey(t)});
   S.busy = true; await localAct(() => playCard(p, h, t)); if(!S || S.over) return; S.busy = false; render(); tutEvent('play');
 }
@@ -4905,6 +4911,7 @@ async function tryTribute(uid){
     const t = await pickTarget(list, '🙏 ເລືອກຕົວລະຄອນ ' + k + '/2 ທີ່ຈະຖວາຍພະລັງ'); if(!t){ render(); return; }
     picked.push(t.c);
   }
+  if(S.secure)return secureMove({t:'trib',uid:h.uid,a:picked[0].uid,b:picked[1].uid});
   netSend({t:'trib', uid:h.uid, a:picked[0].uid, b:picked[1].uid});
   S.busy = true; await localAct(() => playCard(p, h, null, picked)); if(!S || S.over) return; S.busy = false; render();
 }
@@ -4913,6 +4920,7 @@ async function attackFlow(c){
   if(!ts.length){ toast('ບໍ່ມີເປົ້າໝາຍທີ່ໂຈມຕີໄດ້'); return; }
   const t = await pickTarget(ts, '«' + C[c.id].name + '» ຈະໂຈມຕີໃຜ?', c.uid);
   if(!t){ render(); return; }
+  if(S.secure)return secureMove({t:'atk',uid:c.uid,tk:netKey(t)});
   netSend({t:'atk', uid:c.uid, tk:netKey(t)});
   S.busy = true; await localAct(() => attack(p, c, t)); if(!S || S.over) return; S.busy = false; render(); tutEvent('attack');
 }
@@ -5037,6 +5045,7 @@ function pvpGo(a, b){
 function pvpReplay(){ const k = S.pvp.keys; pvpGo(k[0], k[1]); }
 function startSelected(extra){
   const s = ui.deck, ex = extra || {}, lv = ex.level != null ? ex.level : ui.level;
+  if(ACCT.prof&&ACCT.eco&&!ex.tut){const spec=mySpec();if(!deckOwned(spec.list)){toast('ເດັກນີ້ຍັງລັອກ');return;}return secureBot(spec,lv,ex);}
   if(typeof s === 'string'){
     const d = col().decks.find(x => 'c:' + x.id === s); if(!d){ setDeck(0); return startSelected(); }
     const iss = deckIssues(d.list); if(iss.length){ S = null; ui.screen = null; render(); toast('«' + d.name + '»: ' + iss[0]); return; }
@@ -5572,6 +5581,7 @@ function setDetail(o){
   ui.detail = o; const el = document.getElementById('dpanel'); if(el) el.innerHTML = detailHTML();
 }
 function miniHTML(p, c){
+  if(c.id==='back')return '<div class="mini" style="pointer-events:none"><span class="cback">'+BACK+'</span></div>';
   const d = C[c.id], v = pow(p, c), k = 'c:' + c.uid, mine = pi(p) === 0 && !S.auto, myTurn = S.turn === pi(p);
   const cls = ['mini']; if(d.legend) cls.push('lg'); if(c.alt && ALT[c.id]) cls.push('altm');
   if(isSick(p, c) && myTurn) cls.push('sick'); else if(myTurn && c.atk >= maxAtk(c)) cls.push('used');
@@ -6390,6 +6400,7 @@ const SCOPE_OWNER = 'lao-legend-storage-owner', SCOPE_PREFIX = 'lao-legend-scope
 const SCOPE_KEYS = [...SYNC_KEYS, 'lao-legend-sync'];
 function accountGuard(){ const uid = ACCT.user?.id, epoch = ACCT.epoch; return () => ACCT.user?.id === uid && ACCT.epoch === epoch; }
 function stopAccountTasks(){
+  secureStop();
   clearTimeout(ACCT.timer); clearTimeout(ACCT.ptimer); clearInterval(SOC.timer);
   ACCT.timer = null; ACCT.ptimer = null; SOC.timer = null;
   ACCT.epoch = (ACCT.epoch || 0) + 1;
@@ -6573,7 +6584,7 @@ async function blocksLoad(){ const still = accountGuard(); try{ const {data} = a
 // the parents' gate: a multiplication a young child will not do
 function gateHTML(m){
   return '<p class="q">👪 ສຳລັບພໍ່ແມ່</p><p class="lore">ກະລຸນາໃຫ້ຜູ້ໃຫຍ່ຕອບ</p><p class="q">' + m.a + ' × ' + m.b + ' = ?</p>' +
-    '<input id="gatein" class="pname" inputmode="numeric" maxlength="4" autocomplete="off">' + (m.err ? '<p class="why">' + m.err + '</p>' : '') +
+    '<input id="gatein" class="pname" inputmode="numeric" maxlength="8" autocomplete="off">' + (m.err ? '<p class="why">' + m.err + '</p>' : '') +
     '<div class="mbtns"><button class="btn-main sm" data-a="gateok">ຕົກລົງ</button><button class="btn2" data-a="mmclose">ຍົກເລີກ</button></div>';
 }
 function gateOpen(next){ ui.settingsOpen = false; ui.mmodal = {type:'gate', a:6 + Math.floor(Math.random() * 7), b:6 + Math.floor(Math.random() * 7), next}; render(); }
@@ -6656,7 +6667,7 @@ async function recoveryStep(kind){
     } else {
       if(code.length !== 12){ m.err = 'ລະຫັດມີ 12 ຕົວ ເຊັ່ນ K7QM-2XPA-9DRT'; return; }
       if(!ACCT.user){ const {data, error} = await SB.auth.signInAnonymously(); if(error) throw error; ACCT.user = data.user; }
-      const {error} = await SB.rpc('claim_recovery_code', {code}); if(error) throw error;
+      const {data:result,error} = await SB.rpc('claim_recovery_code',{code});if(error)throw error;if(result==='bad_code'||result==='rate_limited')throw {code:result==='bad_code'?'P0002':'P0015'};
       saveJ(RCODE_KEY, code.replace(/(.{4})(?=.)/g, '$1-'));
       // this device now holds that account: its cloud copy replaces what is here
       await acctLoad({replace:true});
@@ -7015,12 +7026,80 @@ function profHTML(m){
    Both screens run the same seeded game. Only moves and answers travel: {t:'play'|'atk'|'trib'|'fuse'|'end'|'quit'|'ans', from}.
    Transport: Supabase Realtime broadcast (no database table needed) when SB_URL and SB_KEY are set,
    otherwise BroadcastChannel (two tabs on one device, for testing). */
+/* Authoritative games: only authenticated server responses can change an online/rewarded game. */
+const SEC={code:null,rev:-1,timer:null,polling:false,sending:false,done:new Set(),counts:{},guard:null};
+function secureStop(){clearInterval(SEC.timer);SEC.timer=null;SEC.code=null;SEC.rev=-1;SEC.counts={};}
+async function secureApi(body){
+ await sbLoad();const {data}=await SB.auth.getSession(),token=data.session?.access_token;
+ if(!token)throw Error('sign_in');
+ const res=await fetch(SB_URL+'/functions/v1/secure-game',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify(body),signal:AbortSignal.timeout(15000)});
+ let out;try{out=await res.json();}catch{throw Error('server_unavailable');}
+ if(!res.ok)throw Error(out.error||'server_unavailable');return out;
+}
+function secureError(e){const k=String(e?.message||e);return k==='sign_in'?'ເຂົ້າບັນຊີກ່ອນ':k==='rate_limited'?'ກົດຖີ່ເກີນ · ລໍຖ້າໜ້ອຍໜຶ່ງ':k==='stale_revision'?'ເກມປ່ຽນແລ້ວ · ລອງອີກເທື່ອ':'ຕໍ່ເກມບໍ່ໄດ້ · ກວດອິນເຕີເນັດ ຫຼື ລອງໃໝ່';}
+function secureApply(d){
+ if(!SEC.guard?.()||d.code!==SEC.code||d.rev<SEC.rev)return;
+ if(d.status==='waiting')return;
+ if(d.rev===SEC.rev&&!d.reward)return;
+ const old=S,turnChanged=!old||old.T!==d.state.T,modal=old?.modal,targeting=old?.targeting;
+ SEC.rev=d.rev;S=d.state;ui.screen=null;ui.mmodal=null;NET.me=d.side===0?'host':'guest';NET.code=d.code;
+ S.secure=true;S.secureRev=d.rev;
+ if(d.prompt){const pr=d.prompt;S.modal={type:pr.type,sel:[],text:pr.text,opts:pr.opts,resolve:v=>secureAnswer(pr.type==='discard'?v?.uid??v:v)};}
+ else if(d.peek)S.modal={type:'peek'};
+ else if(!S.over&&old?.secureId===d.code&&old.secureRev===d.rev){S.modal=modal;S.targeting=targeting;}
+ else if(targeting?.resolve)targeting.resolve(undefined);
+ const counts=d.counts||{};for(const[k,n]of Object.entries(counts)){const delta=n-(SEC.counts[k]||0);if(delta>0)questEvent(k,delta);}SEC.counts={...counts};
+ if(S.over){
+  S.modal={type:'over'};
+  if(!SEC.done.has(d.code)){SEC.done.add(d.code);if(d.mode==='bot'){recordGame(S.over.winner===0);questEvent('game');if(S.over.winner===0){questEvent('win');if(S.level===2)questEvent('winhard');}}musicSting(S.over.winner===0?'victory':'defeat');}
+  if(d.reward?.state){ecoApply(d.reward.state);S.reward={base:d.reward.base,first:d.reward.first,capped:d.reward.capped};}
+  else if(d.mode==='bot'&&!d.rewarded)S.afterNote='<p class="lore">☁️ ກຳລັງຮັບລາງວັນ…</p>';
+  if(d.mode==='ranked')S.rankNote='🏆 ຜົນເກມຢືນຢັນໂດຍເຊີບເວີແລ້ວ';
+  if(d.rewarded){clearInterval(SEC.timer);SEC.timer=null;ecoSync();if(d.mode==='ranked')rankLoad();}
+ }
+ try{localStorage.setItem(LIVE_KEY,JSON.stringify({secure:true,code:d.code,at:Date.now()}));}catch{}
+ render();if(turnChanged&&!S.over)fxBanner(S.turn===0?'ຕາຂອງເຈົ້າ':d.mode==='bot'?'ຕາຂອງບອດ':'ຕາຂອງໝູ່',S.turn!==0);
+}
+function secureWatch(code){
+ secureStop();SEC.code=code;SEC.guard=accountGuard();SEC.timer=setInterval(securePoll,2000);
+}
+async function securePoll(){
+ if(!SEC.code||SEC.polling||SEC.sending||!SEC.guard?.())return;SEC.polling=true;const code=SEC.code;
+ try{const d=await secureApi({op:'poll',code,rid:crypto.randomUUID()});if(code===SEC.code)secureApply(d);}catch(e){/* next poll retries; never fall back to unverified state */}
+ finally{SEC.polling=false;}
+}
+async function secureSend(op,more){
+ if(SEC.sending||!SEC.code)return;SEC.sending=true;const code=SEC.code,rev=SEC.rev,rid=crypto.randomUUID();if(S)S.busy=true;
+ try{const d=await secureApi({op,code,rev,rid,...more});if(code===SEC.code)secureApply(d);}
+ catch(e){if(S?.secureId===code){S.busy=S.turn!==0;SEC.rev=-1;render();}toast(secureError(e));}
+ finally{SEC.sending=false;if(SEC.rev<0)securePoll();}
+}
+const secureMove=move=>secureSend('move',{move});
+const secureAnswer=value=>secureSend('answer',{value});
+async function secureBot(spec,level,extra={}){
+ secureStop();ui.mmodal={type:'online',step:'conn'};render();const still=accountGuard();
+ const botDeck=extra.botDeck??pick(DECKS.map((_,i)=>i).filter(i=>i!==spec.di));
+ try{const d=await secureApi({op:'create',mode:'bot',spec,level,botDeck,stage:extra.adv??null});if(!still())return;secureWatch(d.code);secureApply(d);}
+ catch(e){ui.mmodal=null;render();toast(secureError(e));}
+}
+async function secureHost(invited){
+ ui.mmodal={type:'online',step:'conn'};render();const still=accountGuard();
+ try{const d=await secureApi({op:'create',mode:'casual',spec:mySpec()});if(!still())return;secureWatch(d.code);ui.mmodal={type:'online',step:'host',code:d.code,invited};render();
+ return d.code;}catch(e){ui.mmodal=null;render();toast(secureError(e));}
+}
+async function secureJoin(code){
+ code=(code||'').trim().toUpperCase();if(!/^[A-Z2-9]{5,8}$/.test(code)){toast('ໃສ່ລະຫັດຫ້ອງ 8 ຕົວ');return;}
+ ui.mmodal={type:'online',step:'conn'};render();const still=accountGuard();
+ try{const d=await secureApi({op:'join',code,spec:mySpec()});if(!still())return;secureWatch(d.code);secureApply(d);}
+ catch(e){ui.mmodal=null;render();toast(secureError(e));}
+}
+async function secureExit(){const code=SEC.code;if(S?.secure&&!S.over)try{await secureApi({op:'move',code,rev:SEC.rev,rid:crypto.randomUUID(),move:{t:'quit'}});}catch{}secureStop();liveClear();S=null;ui.grave=null;render();}
+
 const SB_URL = 'https://xahuvoounkdojfsvnfaj.supabase.co', SB_KEY = 'sb_publishable_1KkyxeoQB3mLwdQEo3M5ag_TMb46-8G';   // Supabase project URL and its anon public key; both are meant to ship in the page
 let SB = null;
 function sbLoad(){
   return SB ? Promise.resolve(SB) : new Promise((ok, no) => {
-    const sc = document.createElement('script'); sc.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js';
-    sc.onload = () => { SB = window.supabase.createClient(SB_URL, SB_KEY); ok(SB); }; sc.onerror = no; document.head.appendChild(sc);
+    const sc = document.createElement('script'); sc.src = 'vendor/supabase-2.45.4.min.js'; sc.integrity = 'sha384-GFr3yTh5lJznCbZfpTtXnwboFsxqtTQoeTZCRHhE0579KrRmlCzen5AA8ohaB5ug'; sc.onload = () => { SB = window.supabase.createClient(SB_URL, SB_KEY); ok(SB); }; sc.onerror = no; document.head.appendChild(sc);
   });
 }
 const NET = {chain:Promise.resolve(), ans:[], waiters:[], me:null, code:null, send:null, close:null, sent:0, rcv:0, log:{}, buf:{}, timer:null, lastResend:0};
@@ -7085,38 +7164,15 @@ async function netApply(m){
   else if(m.t === 'end') await endTurn();
   if(S === G) render(); return true;
 }
-async function netOpen(code, role){
-  netClose(); Object.assign(NET, {chain:Promise.resolve(), ans:[], waiters:[], me:role, code, sent:0, rcv:0, log:{}, buf:{}, lastResend:0, hello:null});
-  NET.timer = setInterval(netTick, 1500);
-  if(SB_URL && SB_KEY){
-    const sb = await sbLoad();
-    const ch = sb.channel('llw-' + code, {config:{broadcast:{self:false, ack:true}}});
-    ch.on('broadcast', {event:'m'}, e => netRecv(e.payload));
-    await new Promise((ok, no) => ch.subscribe(st => { if(st === 'SUBSCRIBED') ok(); else if(st === 'CHANNEL_ERROR' || st === 'TIMED_OUT') no(new Error(st)); }));
-    NET.send = m => ch.send({type:'broadcast', event:'m', payload:m}).catch(() => toast('ສົ່ງບໍ່ໄດ້ · ກວດອິນເຕີເນັດ'));
-    NET.close = () => sb.removeChannel(ch);
-  } else {
-    const bc = new BroadcastChannel('lao-legend-room-' + code);
-    bc.onmessage = e => netRecv(e.data);
-    NET.send = m => bc.postMessage(m); NET.close = () => bc.close();
-  }
-}
+async function netOpen(){ throw Error('secure transport required'); }
 function netFail(){ netClose(); ui.mmodal = {type:'online', step:'menu'}; render(); toast('ຕໍ່ອິນເຕີເນັດບໍ່ໄດ້ · ລອງໃໝ່'); }
 function netClose(){ if(NET.close) NET.close(); clearInterval(NET.timer); clearInterval(NET.clock); netWarn(0); NET.send = null; NET.close = null; NET.hello = null; }
 function mySpec(){
   const k = typeof ui.deck === 'string' ? 'c' + ui.deck.slice(2) : 'b' + ui.deck, sp = pvpSpec(k);
   return {di:sp.di, list:sp.list || {...DECKS[sp.di].list}, cover:sp.cover || null, name:ACCT.prof ? ACCT.prof.name : null, pid:ACCT.user && ACCT.prof ? ACCT.user.id : null};
 }
-function onlineHost(){
-  const code = Array.from({length:4}, () => 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'[Math.floor(Math.random() * 31)]).join('');
-  ui.mmodal = {type:'online', step:'conn'}; render();
-  netOpen(code, 'host').then(() => { ui.mmodal = {type:'online', step:'host', code, spec:mySpec()}; render(); }).catch(netFail);
-}
-function onlineJoin(code){
-  code = (code || '').trim().toUpperCase(); if(code.length < 4){ toast('ລະຫັດຫ້ອງມີ 4 ຕົວ'); return; }
-  ui.mmodal = {type:'online', step:'wait', code}; render();
-  netOpen(code, 'guest').then(() => { NET.hello = {t:'hello', from:'guest', spec:mySpec()}; NET.send(NET.hello); }).catch(netFail);
-}
+function onlineHost(){return secureHost();}
+function onlineJoin(code){return secureJoin(code);}
 function onlineLobby(m){
   const mm = ui.mmodal;
   if(m.t === 'hello' && NET.me === 'host' && mm && mm.type === 'online' && mm.step === 'host'){
@@ -7199,6 +7255,8 @@ function applySnap(m){
 }
 function resumeFail(why){ netClose(); liveClear(); ui.mmodal = {type:'resume', fail:why}; render(); }
 function resumeGo(L){
+  if(L.secure){secureWatch(L.code);securePoll();return;}
+  liveClear();ui.mmodal=null;render();toast('ເກມເກົ່າຈົບແລ້ວ · ເປີດເກມໃໝ່');return;
   ui.mmodal = {type:'resume', L, wait:true}; render();
   netOpen(L.code, L.me).then(() => {
     NET.hello = {t:'resync', from:L.me}; NET.send(NET.hello);
@@ -7237,7 +7295,7 @@ async function mmStart(mode){
   if(mode === 'ranked'){ const why = rankDeckWhy(deck); if(why){ toast(why); return; } }
   mmStop(false);
   ui.mmodal = {type:'online', step:'mm', at:Date.now(), n:1, mode}; render();
-  try{ const {data, error} = await SB.rpc('mm_join', {lvl:levelOf(col().xp), mode, deck:mode === 'ranked' ? deck : null}); if(error) throw error; mmGot(data); }
+  try{ const {data, error} = await SB.rpc('mm_join', {lvl:levelOf(col().xp), mode, deck}); if(error) throw error; mmGot(data); }
   catch(e){ mmStop(true); ui.mmodal = {type:'online', step:'menu'}; render(); toast(e && e.code === 'P0007' ? 'ເດັກນີ້ໃຊ້ໃນໂໝດແຣງບໍ່ໄດ້' : e && e.code === 'P0011' ? 'ບັນຊີນີ້ຖືກລະງັບການຫຼິ້ນອອນລາຍ' : 'ຊອກຄູ່ບໍ່ໄດ້ · ກວດອິນເຕີເນັດ'); window.__errs.push('mm: ' + (e && (e.code || e.message) || e)); return; }
   if(ui.mmodal && ui.mmodal.step === 'mm') MM.timer = setInterval(mmPoll, 2000);
 }
@@ -7251,11 +7309,7 @@ function mmGot(d){
   if(d.gone){ mmStart(m.mode); return; }
   if(!d.room){ m.n = d.waiting || 1; render(); return; }
   mmStop(true);   // paired: the queue row is no longer needed
-  if(d.role === 'host'){
-    const ranked = d.mode === 'ranked';
-    ui.mmodal = {type:'online', step:'conn', mm:true, ranked}; render();
-    netOpen(d.room, 'host').then(() => { ui.mmodal = {type:'online', step:'host', code:d.room, spec:mySpec(), mm:true, ranked}; render(); }).catch(netFail);
-  } else { onlineJoin(d.room); if(ui.mmodal) ui.mmodal.mm = true; }
+  secureWatch(d.room);ui.mmodal={type:'online',step:'conn'};render();securePoll();
   // the partner never showed up: search again
   MM.watch = setTimeout(() => { const mm = ui.mmodal; if(!S && mm && mm.type === 'online' && mm.mm){ netClose(); toast('ຄູ່ຫາຍໄປ · ຊອກໃໝ່…'); mmStart(d.mode); } }, 20000);
 }
@@ -7348,14 +7402,8 @@ function inviteHTML(m){
     '<div class="mbtns"><button class="btn-main sm" data-a="invyes">⚔️ ຮັບຄຳທ້າ</button><button class="btn2" data-a="invno">ບໍ່ແມ່ນຕອນນີ້</button></div>';
 }
 // open a room and send its code to a friend
-function friendChallenge(id, name){
-  const code = Array.from({length:4}, () => 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'[Math.floor(Math.random() * 31)]).join('');
-  ui.mmodal = {type:'online', step:'conn'}; render();
-  netOpen(code, 'host').then(async () => {
-    ui.mmodal = {type:'online', step:'host', code, spec:mySpec(), invited:name}; render();
-    const {error} = await SB.rpc('invite_send', {friend:id, rm:code}); if(error) throw error;
-  }).catch(() => netFail());
-}
+async function friendChallenge(id,name){const code=await secureHost(name);if(!code)return;try{const {error}=await SB.rpc('invite_send',{friend:id,rm:code});if(error)throw error;}catch{toast('ສົ່ງຄຳທ້າບໍ່ໄດ້');}}
+
 async function socLoad(m){
   const call = m.tab === 'friends' ? SB.rpc('friend_list') : m.tab === 'hist' ? SB.rpc('history_list') : SB.rpc('board', {kind:m.board || 'season'});
   m.busy = true; render();
@@ -7656,6 +7704,7 @@ $app.addEventListener('click', e => {
   if(a === 'passok' && S.modal && S.modal.type === 'pass'){ const r = S.modal.resolve; S.modal = null; render(); r(); return; }
   if(a === 'yes' || a === 'no'){ const r = S.modal.resolve; S.modal = null; render(); r(a === 'yes'); return; }
   if(a === 'discard'){ const r = S.modal.resolve; const h = S.p[0].hand.find(x => x.uid === +v); S.modal = null; render(); r(h); return; }
+  if(a==='menu'&&S.secure){secureExit();return;}
   if(a === 'menu'){ if(S.online && !S.over){ if(S.online.ranked && ACCT.eco) rankReport(1, 'quit'); histAdd(false, 'quit'); netSend({t:'quit'}); const bye = NET.close; NET.close = null; netClose(); setTimeout(() => bye && bye(), 800); liveClear(); S = null; ui.grave = null; render(); return; } if(S.over || (S.turn === 0 && !S.busy)){ if(S.online) netClose(); S = null; ui.grave = null; render(); } return; }
   if(a === 'replay'){ if(S.online){ netClose(); S = null; ui.mmodal = {type:'online', step:'menu'}; render(); return; } if(S.pvp && typeof pvpReplay === 'function') pvpReplay(); else if(S.adv != null) advStart(S.adv); else startSelected(); return; }
   if(S.modal) return;
@@ -7678,6 +7727,7 @@ $app.addEventListener('click', e => {
   if(a === 'deckinfo'){ toast((+v ? 'ເດັກ' + foe() : 'ເດັກເຈົ້າ') + ' ເຫຼືອ ' + S.p[+v].deck.length + ' ໃບ'); return; }
   if(a === 'log'){ S.modal = {type:'log'}; render(); return; }
   const myMove = S.turn === 0 && !S.busy && !S.over && !S.auto;
+  if(a==='fuse'&&S.secure){if(myMove&&canFuse(S.p[0],v))secureMove({t:'fuse',f:v});return;}
   if(a === 'fuse'){ if(myMove && canFuse(S.p[0], v)){ netSend({t:'fuse', f:v}); S.busy = true; localAct(() => fuse(S.p[0], v)).then(() => { if(S && !S.over){ S.busy = false; render(); } }); } return; }
   if(a === 'hand'){
     const h = S.p[0].hand.find(x => x.uid === +v); if(!h) return;
@@ -7691,6 +7741,7 @@ $app.addEventListener('click', e => {
     if(any){ S.modal = {type:'info', id:any.id, alt:any.alt}; render(); }
     return;
   }
+  if(a==='end'&&S.secure){if(myMove)secureMove({t:'end'});return;}
   if(a === 'end'){ if(myMove){ S.idle = 0; netSend({t:'end'}); localAct(endTurn); } return; }
 });
 // the play button lives inside the hand modal, which blocks the generic handler above; route it here
