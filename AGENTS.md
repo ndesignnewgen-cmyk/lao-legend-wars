@@ -1,6 +1,6 @@
 # Lao Legend Wars (ສົງຄາມຕຳນານລາວ) · guide for coding assistants
 
-A kids' trading card game built on Lao folklore, present-day Laos, the future and space. 24 decks, bot play,
+A trading card game for teens and adults (18+ is fine, the owner said so on 2026-10-31) built on Lao folklore, present-day Laos, the future and space. 25 decks, bot play,
 online play, ranked, friends, a card shop with earned gems and owner-approved BCEL gem top-ups. Read this whole file before changing anything.
 
 ## Talking to the owner
@@ -12,7 +12,9 @@ online play, ranked, friends, a card shop with earned gems and owner-approved BC
 - The owner generates pictures elsewhere (ChatGPT, Codex) from prompt files in `prompts/` and sends a zip or images.
 
 ## Hard rules
-- Kid-friendly: no blood, no scary faces, no screen shaking, no typed chat.
+- Audience: not a kids' game any more (owner, 2026-10-31). Glamorous or sexy character outfits are allowed when the owner
+  asks (tasteful, no nudity, no explicit sexual content; draw every such character clearly as an adult).
+  Still: no blood, no horror faces, no screen shaking, no typed chat.
   Say "ຖວາຍພະລັງ" (offering), never "ສັງເວຍ" (sacrifice).
 - No full-screen dark or white overlays. The owner reads them as "fog" and calls it a bug. Put a dark disc
   under an effect instead.
@@ -21,7 +23,6 @@ online play, ranked, friends, a card shop with earned gems and owner-approved BC
   passwords, or any personal password. The owner creates accounts and runs SQL themselves.
   The publishable key in the code (`sb_publishable_…`) is public by design.
 - Never commit secrets. Commit only when asked (the owner usually says "commit" or approves a plan), then `git push`.
-
 - Payments (owner approved 2026-10-30): special gems may be bought and exchanged one way at 100 special → 500 game gems.
   Paid balances, orders, exchange and purchases are server-authoritative. Credit BCEL top-ups only after an admin
   verifies an actual bank transaction; a customer reference or uploaded image alone is not payment confirmation.
@@ -64,7 +65,7 @@ online play, ranked, friends, a card shop with earned gems and owner-approved BC
   Deaths: `destroy`, `checkDeaths`. Helpers: `zap(t, n)` (destroy if power ≤ n), `summon`, `bounce`, `heal`,
   `damageHero`, `draw`, `tutor`.
 - Deck meters: `mechOf(list)` sets flags on each player when a deck holds cards with that `mech`
-  (oar, basket, jar, volt, know, stars); `meterLv(p)` draws them; fans (deck 12), water (deck 10), sword spirit
+  (oar, basket, jar, volt, know, stars, yan); `meterLv(p)` draws them; fans (deck 12), water (deck 10), sword spirit
   (deck 14) are older meters with their own code.
 - Bots: easy = random, medium = `botPick` (a score per card id: add one for every new card or it is never played
   well; spells score 0 unless listed) + `botTarget`, hard = rollouts on `cloneState` (copy every new player/card
@@ -74,7 +75,7 @@ online play, ranked, friends, a card shop with earned gems and owner-approved BC
 - Constants used inside `def(...)` must be declared earlier in the file (a later `const` = TDZ error that breaks the
   whole page, e.g. `POISON`, `SHIELD`).
 - DECKS index ≠ deck number. `DORDER` sorts by number. Index → no:
-  0:1 1:2 2:3 3:5 4:4 5:6 6:7 7:8 8:9 9:10 10:13 11:11 12:12 13:14 14:18 15:19 16:23 17:16 18:15 19:21 20:17 21:20 22:22 23:24.
+  0:1 1:2 2:3 3:5 4:4 5:6 6:7 7:8 8:9 9:10 10:13 11:11 12:12 13:14 14:18 15:19 16:23 17:16 18:15 19:21 20:17 21:20 22:22 23:24 24:25.
   The server uses the index (catalog `decks`, hard-bot legend array in `eco_game`, deck packs), so never reorder;
   append new decks at the end.
 
