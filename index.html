@@ -3203,7 +3203,7 @@ function mkPlayer(name, di, bot, level, list){
   const deck = [];
   for(const [id, n] of Object.entries(list || DECKS[di].list)) for(let i=0;i<n;i++) deck.push(id);
   shuffle(deck);
-  return {name, bot, di, level, life:20, maxMana:0, mana:0, penalty:0, deck, hand:[], field:[], loc:null, grave:[], tales:talesOf(list || DECKS[di].list), extra:fusionsOf(list || DECKS[di].list), rites:Object.keys(RITES).filter(r => (list || DECKS[di].list)[r]), fused:[], ...mechOf(list || DECKS[di].list)};
+  return {name, bot, di, level, life:20, maxLife:20, maxMana:0, mana:0, penalty:0, deck, hand:[], field:[], loc:null, grave:[], tales:talesOf(list || DECKS[di].list), extra:fusionsOf(list || DECKS[di].list), rites:Object.keys(RITES).filter(r => (list || DECKS[di].list)[r]), fused:[], ...mechOf(list || DECKS[di].list)};
 }
 // keep every picture of both decks in memory, so re-drawing the board never shows a blank card
 const IMG_KEEP = new Map();
@@ -3248,7 +3248,7 @@ function newGame(di, level, opts){
   S.fest = opts.tut || (!SET.fest && !S.auto && !opts.online) ? null : shuffle(FESTS.map((_, i) => i)).slice(0, 4);
   if(S.fest && !S.fast) for(const i of S.fest){ new Image().src = FEST_ART(FESTS[i].id); new Image().src = FEST_BADGE(FESTS[i].id); }
   if(opts.tut) for(const p of S.p) p.tales = [];
-  if(opts.adv != null){ S.adv = opts.adv; S.p[1].life += opts.boss || 0; }
+  if(opts.adv != null){ S.adv = opts.adv; S.p[1].maxLife = 20 + (opts.boss || 0); S.p[1].life = S.p[1].maxLife; }
   if(!S.fast && petOn()) setTimeout(() => petSay('start'), 1400);
   if(!S.fast) preloadArt(['back', ...deckArt(di, opts.list), ...deckArt(bi)]);
   if(opts.levels){ S.p[0].level = opts.levels[0]; S.p[1].level = opts.levels[1]; }
@@ -3449,10 +3449,7 @@ async function playCard(p, h, t, trib){
   if(d.type === 'trap') log(p.name + ' ວາງກັບດັກ 1 ໃບ');   // the name stays secret
   else { log(p.name + ' ລົງ «' + d.name + '»'); if(!S.fast) ui.detail = {id:h.id, alt:h.alt}; }
   if(d.type === 'char'){
-    const c = {uid:++U, id:h.id, alt:h.alt, sick:!d.kw.rush, atk:0, items:[], mods:[]};
-    if(d.kw.shield) c.shield = true;
-    if(d.cd) c.cd = d.cd;
-    if(d.kw.hide) c.hid = true;
+    const c = freshChar(h.id, h.alt);
     p.field.push(c); placed = c;
     if((d.legend || d.cost >= 5 || (h.alt && ALT[h.id])) && !d.ph) await fxShowcase(h.id, h.alt);
     render();
@@ -3536,7 +3533,7 @@ async function fuse(p, f){
   // the fused card takes the place of the first part, so it rises where they merged
   const at = Math.min(...mats.map(c => p.field.indexOf(c)).filter(i => i >= 0));
   for(const c of mats){ const i = p.field.indexOf(c); if(i >= 0){ p.field.splice(i, 1); p.grave.push(...c.items, c.id); } }
-  const c = {uid:++U, id:f, alt, sick:!d.kw.rush, atk:0, items:[], mods:[]}; p.field.splice(isFinite(at) ? at : p.field.length, 0, c);
+  const c = freshChar(f, alt); p.field.splice(isFinite(at) ? at : p.field.length, 0, c);
   if(!S.fast){ render(); await fxFuseEmerge(c, M); }
   if(f === 'singkhu') heal(p, 3);
   else if(f === 'sinxaysam') draw(p, 2);
@@ -3645,10 +3642,11 @@ async function rite(p, id){
   const R = RITES[id], mats = riteMats(p, R.need);
   if(!mats.length) return;
   const pickId = isBot(p) || S.auto ? maxBy(R.opts, x => C[x].power) : (await decide(p, () => new Promise(r => { S.modal = {type:'rite', opts:R.opts, resolve:r}; render(); }))) || R.opts[0];
+  if(!R.opts.includes(pickId)) return;   // never accept a remote choice outside this ritual
   feat(p, 'rite');
   await fxRite(p, id, mats);
   await offer(p, mats, true);
-  const d = C[pickId], c = {uid:++U, id:pickId, sick:true, atk:0, items:[], mods:[]}; p.field.push(c);
+  const d = C[pickId], c = freshChar(pickId); c.sick = true; p.field.push(c);
   log('🕯️ ' + p.name + ' ອັນເຊີນ «' + d.name + '» ດ້ວຍ «' + C[id].name + '»');
   if(!S.fast){ render(); if(!d.ph) await fxShowcase(pickId); }
   await fxEnter(c);
@@ -3690,7 +3688,7 @@ async function onPlay(p, c, t){
       if(k) log('ກາລະເກດ ເອົາຂອງວິເສດ ' + k + ' ໃບ ກັບຄືນມື'); break;
     }
     case 'phuthao':
-      if(t && t.owner.field.includes(t.c)){ t.c.guard = true; t.c.mods.push({amt:1, exp:Infinity}); await fxRing(tkey(t), '#ff7a6a', true); log('«' + C[t.c.id].name + '» ໄດ້ປົກປັກ ແລະ ພະລັງ +1'); }
+      if(t && t.owner.field.includes(t.c)){ t.c.guard = true; t.c.mods.push({amt:1, exp:1e9}); await fxRing(tkey(t), '#ff7a6a', true); log('«' + C[t.c.id].name + '» ໄດ້ປົກປັກ ແລະ ພະລັງ +1'); }
       break;
     case 'ueaysong':
       if(t && t.owner.field.includes(t.c)){ t.c.mods.push({amt:-1, exp:S.T + 1}); await fxRing(tkey(t), '#a77bff', true); log('«' + C[t.c.id].name + '» ພະລັງ -1'); }
@@ -3782,7 +3780,7 @@ async function onPlay(p, c, t){
       break;
     case 'nanghung': { const n = Math.min(3, p.grave.filter(id => C[id].type === 'spell').length); if(n){ draw(p, n); log('ນາງຮຸ້ງ: ' + p.name + ' ຈົ່ວກາດ ' + n + ' ໃບ'); } break; }
     case 'naiphan':
-      if(t && t.owner.field.includes(t.c)){ t.c.mods.push({amt:-1, exp:Infinity}); fxWeak(tkey(t)); await fxRing(tkey(t), '#c08a4a', true); log('ນາຍພານ ຍິງ «' + C[t.c.id].name + '» ພະລັງ -1'); }
+      if(t && t.owner.field.includes(t.c)){ t.c.mods.push({amt:-1, exp:1e9}); fxWeak(tkey(t)); await fxRing(tkey(t), '#c08a4a', true); log('ນາຍພານ ຍິງ «' + C[t.c.id].name + '» ພະລັງ -1'); }
       break;
     case 'khankhaak': {
       const i = p.deck.indexOf('bangfai');
@@ -3948,10 +3946,18 @@ async function castSpell(p, id, t){
     case 'haingeun': p.mana += 1; sfx('heal'); particlesAt('h:' + pi(p), '#ffd23d', 16); log(p.name + ' ໄດ້ບຸນ +1'); break;
   }
 }
+// Every fresh character gets its printed starting state, including revivals and summons.
+function freshChar(id, alt){
+  const d = C[id], c = {uid:++U, id, alt, sick:!d.kw.rush, atk:0, items:[], mods:[]};
+  if(d.kw.shield) c.shield = true;
+  if(d.kw.hide) c.hid = true;
+  if(d.cd) c.cd = d.cd;
+  return c;
+}
 // put fresh copies of a character straight onto the field (they are not drawn from the deck)
 async function summon(p, id, n){
   let k = 0;
-  for(let i=0;i<n && p.field.length < 5;i++){ const c = {uid:++U, id, sick:!C[id].kw.rush, atk:0, items:[], mods:[]}; p.field.push(c); render(); await fxEnter(c); k++; }
+  for(let i=0;i<n && p.field.length < 5;i++){ const c = freshChar(id); p.field.push(c); render(); await fxEnter(c); k++; }
   if(k) log(p.name + ' ເອີ້ນ «' + C[id].name + '» ' + k + ' ໃບ');
 }
 // a face-down trap springs: tell everyone, pay out its friends (ຊ້າງໃຈດີ grows, ກະຕ່າຍຫົວໃສ draws)
@@ -3961,7 +3967,7 @@ async function springTrap(q, id, c){
   log(q.name + ' ເປີດກັບດັກ «' + C[id].name + '»!');
   if(!S.fast){ toast('🪤 ຕົກກັບດັກ! «' + C[id].name + '»'); await fxTrapSnap(id, pi(q)); }
   if(id === 'tanang' && c){ c.frz = S.T + 2; if(!S.fast) floatAt('c:' + c.uid, 'ຕິດໜ່າງ!', 'hit'); }
-  for(const x of q.field) if(x.id === 'xangjaidi' || x.id === 'pathamtabot') x.mods.push({amt:1, exp:Infinity});
+  for(const x of q.field) if(x.id === 'xangjaidi' || x.id === 'pathamtabot') x.mods.push({amt:1, exp:1e9});
   const k = q.field.filter(x => x.id === 'kratai').length; if(k) draw(q, k);
   render(); return true;
 }
@@ -4119,7 +4125,7 @@ async function revive(p, n, maxCost){
   for(let i=0;i<n && p.field.length < 5;i++){
     const id = reviveList(p, maxCost)[0]; if(!id) break;
     p.grave.splice(p.grave.indexOf(id), 1);
-    const c = {uid:++U, id, sick:!C[id].kw.rush, atk:0, items:[], mods:[]}; p.field.push(c);
+    const c = freshChar(id); p.field.push(c);
     if(!S.fast){ sfx('heal'); render(); particlesAt('c:' + c.uid, '#ffe08a', 18); }
     await fxEnter(c); log(p.name + ' ຄືນຊີບ «' + C[id].name + '»'); k++;
   }
@@ -4153,7 +4159,7 @@ async function destroy(p, c, quick){
   // ດອກບົວທິບ: back on the field once, without the lotus
   if(c.items.includes('dokbuathip') && !S.over && p.field.length < 5){
     p.grave.splice(p.grave.lastIndexOf(c.id), 1);
-    const n = {uid:++U, id:c.id, alt:c.alt, sick:!C[c.id].kw.rush, atk:0, items:[], mods:[]}; p.field.push(n);
+    const n = freshChar(c.id, c.alt); p.field.push(n);
     if(!S.fast){ sfx('heal'); render(); particlesAt('c:' + n.uid, '#ffb0d0', 18); }
     await fxEnter(n); log('ດອກບົວທິບ: «' + C[c.id].name + '» ກັບຄືນມາ');
   }
@@ -4166,7 +4172,7 @@ async function checkDeaths(){
   }
 }
 function heal(p, n){
-  const b = p.life; p.life = Math.min(20, p.life + n); const g = p.life - b;
+  const b = p.life; p.life += Math.min(Math.max(0, n), Math.max(0, (p.maxLife || 20) - p.life)); const g = p.life - b;
   if(g > 0){ floatAt('h:' + pi(p), '+' + g, 'heal'); fxHeal('h:' + pi(p)); log(p.name + ' ຟື້ນຂວັນ +' + g); }
 }
 function damageHero(p, n){
@@ -4296,10 +4302,15 @@ async function startTurn(){
   G.lbusy = (G.lbusy || 0) + 1;
   try{ await startTurnRun(); } finally{ G.lbusy--; }
 }
+// On a tie the host wins on both screens (local games keep the first-side tie break).
+function turnLimitWinner(){
+  if(S.p[0].life !== S.p[1].life) return S.p[S.p[0].life > S.p[1].life ? 0 : 1];
+  return S.p[S.online && S.online.me === 'guest' ? 1 : 0];
+}
 async function startTurnRun(){
   if(!S || S.over) return;
   const G = S, p = cur();
-  if(S.T > 200){ gameOver(S.p[0].life >= S.p[1].life ? S.p[0] : S.p[1], 'life'); return; }
+  if(S.T > 200){ gameOver(turnLimitWinner(), 'life'); return; }
   if(!p.mulled){ p.mulled = true; if(isBot(p)) botMull(p); else if(!S.tut){ render(); await mulligan(p); if(S !== G || S.over) return; } }
   p.combo = 0;
   for(const c of p.field){ c.sick = false; c.atk = 0; }
@@ -4329,7 +4340,7 @@ function swapHand(p, uids){
   log(p.name + ' ປ່ຽນໄພ້ ' + out.length + ' ໃບ');
 }
 function botMull(p){ swapHand(p, p.hand.filter(h => C[h.id].cost >= 6 || (C[h.id].type !== 'char' && C[h.id].cost >= 4)).map(h => h.uid)); }
-async function mulligan(p){ const sel = await decide(p, () => new Promise(r => { S.modal = {type:'mull', sel:[], resolve:r}; render(); })); swapHand(p, sel || []); render(); }
+async function mulligan(p){ const sel = await decide(p, () => new Promise(r => { S.modal = {type:'mull', sel:[], resolve:r}; render(); })); swapHand(p, Array.isArray(sel) ? sel : []); render(); }
 async function endTurn(){
   if(!S || S.over) return;
   const G = S, p = cur(); if(p === S.p[0]) tutEvent('end'); S.busy = true; S.targeting = null; S.sel = null;
@@ -4685,10 +4696,10 @@ function botReact(q, p, c, t){
 
 /* ---------- hard bot: try every move on a copy of the game, keep the best ---------- */
 function cloneState(hideIdx){
-  const cp = (p, i) => ({name:p.name, bot:true, di:p.di, level:p.level, life:p.life, maxMana:p.maxMana, mana:p.mana, penalty:p.penalty,
+  const cp = (p, i) => ({name:p.name, bot:true, di:p.di, level:p.level, life:p.life, maxLife:p.maxLife || 20, maxMana:p.maxMana, mana:p.mana, penalty:p.penalty,
     deck:null, hand:null,
     field:p.field.map(c => ({uid:c.uid, id:c.id, sick:c.sick, atk:c.atk, x2:c.x2, frz:c.frz, tf:c.tf, age:c.age, guard:c.guard, hacked:c.hacked, shield:c.shield, grown:c.grown, cd:c.cd, flyOn:c.flyOn, hid:c.hid, tauntOn:c.tauntOn, items:c.items.slice(), mods:c.mods.map(m => ({amt:m.amt, exp:m.exp}))})),
-    loc:p.loc, locAge:p.locAge, water:p.water, fans:p.fans, blade:p.blade, oar:p.oar, oarT:p.oarT, oarOn:p.oarOn, basket:(p.basket || []).slice(), basketOn:p.basketOn, jar:p.jar, jarOn:p.jarOn, jarFull:p.jarFull, volt:p.volt, voltOn:p.voltOn, know:p.know, knowOn:p.knowOn, spellT:p.spellT, stars:p.stars, starsOn:p.starsOn, encoreReady:p.encoreReady, traps:(p.traps || []).slice(), blessed:p.blessed, extra:p.extra, fused:(p.fused || []).slice(), combo:p.combo, mulled:true, tales:(p.tales || []).map(t => ({i:t.i, got:t.got.slice(), done:t.done})), grave:p.grave.slice(), lastMagic:p.lastMagic, _src:p, _i:i});
+    loc:p.loc, locAge:p.locAge, water:p.water, fans:p.fans, blade:p.blade, oar:p.oar, oarT:p.oarT, oarOn:p.oarOn, basket:(p.basket || []).slice(), basketOn:p.basketOn, jar:p.jar, jarOn:p.jarOn, jarFull:p.jarFull, volt:p.volt, voltOn:p.voltOn, know:p.know, knowOn:p.knowOn, spellT:p.spellT, stars:p.stars, starsOn:p.starsOn, encoreReady:p.encoreReady, traps:(p.traps || []).slice(), blessed:p.blessed, extra:(p.extra || []).slice(), rites:(p.rites || []).slice(), fused:(p.fused || []).slice(), combo:p.combo, mulled:true, tales:(p.tales || []).map(t => ({i:t.i, got:t.got.slice(), done:t.done})), grave:p.grave.slice(), lastMagic:p.lastMagic, _src:p, _i:i});
   const ps = S.p.map(cp);
   for(const q of ps){
     const src = q._src;
@@ -4724,13 +4735,33 @@ function hardMoves(p){
   for(const c of p.field) if(canAttack(p, c)) for(const t of attackTargets(p, c)) out.push({type:'atk', uid:c.uid, tk:tkey(t)});
   return out;
 }
+// Validate before mutating: used by the hard bot and by incoming online moves.
+function legalMove(p, m, targetOf = resolveT){
+  if(!S || S.over || cur() !== p || !m || typeof m !== 'object') return false;
+  if(m.tk != null && (typeof m.tk !== 'string' || !/^(?:h:[01]|H:[so]|c:\d+)$/.test(m.tk))) return false;
+  const h = p.hand.find(x => x.uid === m.uid), c = p.field.find(x => x.uid === m.uid);
+  const matches = (list, t) => !!t && list.some(x => tkey(x) === tkey(t));
+  if(m.type === 'end') return true;
+  if(m.type === 'play'){
+    if(!h || !C[h.id] || playBlock(p, h)) return false;
+    const list = targetsFor(p, h.id), t = targetOf(m.tk);
+    return list ? (m.tk == null ? OPTIONAL.has(h.id) : matches(list, t)) : m.tk == null;
+  }
+  if(m.type === 'atk') return !!c && canAttack(p, c) && matches(attackTargets(p, c), targetOf(m.tk));
+  if(m.type === 'fuse') return !!C[m.f]?.fusion && (p.extra || []).includes(m.f) && canFuse(p, m.f);
+  if(m.type === 'trib'){
+    const a = p.field.find(x => x.uid === m.a), b = p.field.find(x => x.uid === m.b);
+    return !!h && !!a && !!b && a !== b && !a.hacked && !b.hacked && canTribute(p, h);
+  }
+  return false;
+}
 async function applyMove(m){
-  const p = cur();
-  // a target can vanish mid-rollout (hacked, trapped), so skip moves whose target is gone
-  if(m.type === 'play'){ const h = p.hand.find(x => x.uid === m.uid), t = resolveT(m.tk); if(h && (t || !m.tk)) await playCard(p, h, t); }
-  else if(m.type === 'atk'){ const c = p.field.find(x => x.uid === m.uid), t = resolveT(m.tk); if(c && t) await attack(p, c, t); }
-  else if(m.type === 'fuse'){ if(canFuse(p, m.f)) await fuse(p, m.f); }
-  else if(m.type === 'trib'){ const h = p.hand.find(x => x.uid === m.uid), a = p.field.find(x => x.uid === m.a), b = p.field.find(x => x.uid === m.b); if(h && a && b && canTribute(p, h)) await playCard(p, h, null, [a, b]); }
+  const p = cur(); if(!legalMove(p, m)) return false;
+  if(m.type === 'play') await playCard(p, p.hand.find(x => x.uid === m.uid), resolveT(m.tk));
+  else if(m.type === 'atk') await attack(p, p.field.find(x => x.uid === m.uid), resolveT(m.tk));
+  else if(m.type === 'fuse') await fuse(p, m.f);
+  else if(m.type === 'trib') await playCard(p, p.hand.find(x => x.uid === m.uid), null, [p.field.find(x => x.uid === m.a), p.field.find(x => x.uid === m.b)]);
+  return true;
 }
 function evalState(me){
   const P = S.p[me], Q = S.p[1 - me];
@@ -4746,7 +4777,7 @@ function evalState(me){
 }
 async function quickTurn(p, q){
   let g = 0;
-  while(!S.over && g++ < 12){ const ch = botPick(p, q); if(!ch) break; await playCard(p, ch.h, ch.t); }
+  while(!S.over && g++ < 12){ const ch = botPick(p, q); if(!ch) break; await playCard(p, ch.h, ch.t, ch.trib); }
   for(const c of [...p.field].sort((a, b) => pow(p, b) - pow(p, a))){
     let k = 0;
     while(!S.over && p.field.includes(c) && canAttack(p, c) && k++ < 3){ const t = botTarget(p, c); if(!t) break; await attack(p, c, t); }
@@ -4759,11 +4790,15 @@ async function passTurnSim(){
   await checkDeaths(); if(S.over) return;
   S.T++; S.turn = 1 - S.turn;
   const n = cur();
+  if(S.T > 200){ gameOver(turnLimitWinner(), 'life'); return; }
+  n.combo = 0;
   for(const c of n.field){ c.sick = false; c.atk = 0; }
   draw(n, 1); if(S.over) return;
   if(n.loc === 'talatsao' && n.hand.length <= 2){ draw(n, 1); if(S.over) return; }
+  if(isFest('okphansa') && n.hand.length <= 2){ draw(n, 1); if(S.over) return; }
   n.maxMana = Math.min(10, n.maxMana + 1); n.mana = Math.max(0, n.maxMana - n.penalty); n.penalty = 0;
   const nk = n.field.filter(x => x.id === 'phayanak').length; if(nk) heal(n, 2 * nk);
+  if(isFest('pimai')) heal(n, 1);
   await turnStartEffects(n);
 }
 // play the move, finish this turn the medium way, let the opponent answer, then score
@@ -4780,7 +4815,7 @@ async function botTurnHard(G, p){
     let best = null, bs = -Infinity;
     for(const m of hardMoves(p)){
       const real = S; let v = 0;
-      try{ for(let r=0;r<2;r++){ S = cloneState(1 - me); v += await rolloutMove(m, me) / 2; } v += m.type === 'end' ? .05 : 0; }
+      try{ for(let r=0;r<2;r++){ S = real; S = cloneState(1 - me); v += await rolloutMove(m, me) / 2; } v += m.type === 'end' ? .05 : 0; }
       catch(err){ v = -Infinity; window.__errs.push('hard: ' + (err && err.stack || err)); }
       finally{ S = real; }
       if(v > bs){ bs = v; best = m; }
@@ -4789,11 +4824,8 @@ async function botTurnHard(G, p){
     if(best.type === 'play'){
       const h = p.hand.find(x => x.uid === best.uid); if(!h) break;
       await fxShowCard(h.id, h.alt); if(S !== G || G.over) return;
-      await playCard(p, h, resolveT(best.tk));
-    } else {
-      const c = p.field.find(x => x.uid === best.uid), t = resolveT(best.tk); if(!c || !t) break;
-      await attack(p, c, t);
     }
+    await applyMove(best);
     await sleep(330);
   }
 }
@@ -5177,14 +5209,14 @@ async function openPack(kind, free){
   if(ACCT.eco){
     if(free ? !c.freePacks : c.gems < PACKS[kind].cost){ toast('ເພັດບໍ່ພໍ'); return; }
     if(ui.packBusy) return; ui.packBusy = true;
-    const di = ui.shopDeck != null ? ui.shopDeck : 1;
+    const di = ui.shopDeck != null ? ui.shopDeck : 1, still = accountGuard();
     try{
-      const {data, error} = await SB.rpc('eco_pack', {kind, di, free:!!free}); if(error) throw error;
+      const {data, error} = await SB.rpc('eco_pack', {kind, di, free:!!free}); if(!still()) return; if(error) throw error;
       ecoApply(data.state); for(const x of data.cards) if(x.alt && x.isNew) markAltSeen(x.id);
       questEvent('pack', 1);
       ui.open = {kind, di, cards:data.cards, flip:{}, torn:false}; sfx('pack'); render();
-    }catch(e){ toast(ecoErr(e)); }
-    finally{ ui.packBusy = false; }
+    }catch(e){ if(still()) toast(ecoErr(e)); }
+    finally{ if(still()) ui.packBusy = false; }
     return;
   }
   if(free){ if(!c.freePacks) return; c.freePacks--; }
@@ -5211,7 +5243,7 @@ function shopClick(a, v){
   if(a === 'craftdo'){
     const id = v, cost = DUST_MAKE[rarityOf(id)], c = col();
     if(owned(id) >= RULE.copies || c.dust < cost){ toast('ຜົງແກ້ວບໍ່ພໍ'); return true; }
-    if(ACCT.eco){ SB.rpc('eco_craft', {card:id}).then(({data, error}) => { if(error) throw error; ecoApply(data); ui.mmodal = null; sfx('win'); render(); toast('ສ້າງ «' + C[id].name + '» ແລ້ວ'); }).catch(e => toast(ecoErr(e))); return true; }
+    if(ACCT.eco){ const still = accountGuard(); SB.rpc('eco_craft', {card:id}).then(({data, error}) => { if(!still()) return; if(error) throw error; ecoApply(data); ui.mmodal = null; sfx('win'); render(); toast('ສ້າງ «' + C[id].name + '» ແລ້ວ'); }).catch(e => { if(still()) toast(ecoErr(e)); }); return true; }
     c.dust -= cost; c.cards[id] = owned(id) + 1; saveCol(); ui.mmodal = null; sfx('win'); render(); toast('ສ້າງ «' + C[id].name + '» ແລ້ວ'); return true;
   }
   if(ui.mmodal) return false;
@@ -6354,27 +6386,64 @@ function toast(m){ const d = addFx('toast'); d.textContent = m; setTimeout(() =>
    The saved game is one row in 'saves'; whichever copy (this device or the cloud) changed last wins. */
 const NAME_RE = /^[຀-໿A-Za-z0-9 _.\-]{3,16}$/;
 const AVATARS = () => [...new Set(DECKS.map(d => d.legend))];
+const SCOPE_OWNER = 'lao-legend-storage-owner', SCOPE_PREFIX = 'lao-legend-scope:';
+const SCOPE_KEYS = [...SYNC_KEYS, 'lao-legend-sync'];
+function accountGuard(){ const uid = ACCT.user?.id, epoch = ACCT.epoch; return () => ACCT.user?.id === uid && ACCT.epoch === epoch; }
+function stopAccountTasks(){
+  clearTimeout(ACCT.timer); clearTimeout(ACCT.ptimer); clearInterval(SOC.timer);
+  ACCT.timer = null; ACCT.ptimer = null; SOC.timer = null;
+  ACCT.epoch = (ACCT.epoch || 0) + 1;
+}
+// Back up game data only; sessions and recovery codes never go into these slots.
+function accountScope(id, replace = false){
+  const old = loadJ(SCOPE_OWNER, null);
+  stopAccountTasks();
+  if(old === id && !replace) return;
+  ACCT.quiet = true;
+  try{
+    const snap = Object.fromEntries(SCOPE_KEYS.map(k => [k, loadJ(k, null)]));
+    // Persist the old scope before touching it. If storage is full, abort the switch.
+    localStorage.setItem(SCOPE_PREFIX + (old || 'guest'), JSON.stringify(snap));
+    const adoptGuest = id !== 'guest' && !replace && (old == null || old === 'guest');
+    if(!adoptGuest && old !== id){
+      const saved = loadJ(SCOPE_PREFIX + id, {});
+      for(const k of SCOPE_KEYS){ if(saved[k] == null) localStorage.removeItem(k); else localStorage.setItem(k, JSON.stringify(saved[k])); }
+    }
+    if(replace) localStorage.setItem('lao-legend-sync', JSON.stringify({at:0}));
+    localStorage.setItem(SCOPE_OWNER, JSON.stringify(id));
+    if(old !== id){ localStorage.removeItem(RCODE_KEY); localStorage.removeItem(LIVE_KEY); }
+    COL = null; ACCT.prof = null; ACCT.eco = false; ACCT.rank = null; ACCT.achPending.clear();
+    ACCT.admin = false; ACCT.blocks = []; ACCT.cfg = {}; SOC.seen.clear();
+    ui.open = null; ui.packBusy = false;
+    choiceRestore();
+  } finally { ACCT.quiet = false; }
+}
 function syncMeta(){ return loadJ('lao-legend-sync', {at:0}); }
 function markDirty(){
   ACCT.quiet = true; const m = syncMeta(); m.at = Date.now(); saveJ('lao-legend-sync', m); ACCT.quiet = false;
-  if(ACCT.user){ clearTimeout(ACCT.timer); ACCT.timer = setTimeout(cloudPush, 4000); }
+  if(ACCT.user){ const uid = ACCT.user.id, epoch = ACCT.epoch; clearTimeout(ACCT.timer); ACCT.timer = setTimeout(() => { if(ACCT.user?.id === uid && ACCT.epoch === epoch) cloudPush(); }, 4000); }
 }
 async function cloudPush(){
   if(!ACCT.user) return;
+  const uid = ACCT.user.id, epoch = ACCT.epoch;
+  if(loadJ(SCOPE_OWNER, null) !== uid) return;
   const m = syncMeta(); if(!m.at){ m.at = Date.now(); ACCT.quiet = true; saveJ('lao-legend-sync', m); ACCT.quiet = false; }
   const data = {at:m.at}; for(const k of SYNC_KEYS) data[k] = loadJ(k, null);
-  const {error} = await SB.from('saves').upsert({user_id:ACCT.user.id, data});
+  const {error} = await SB.from('saves').upsert({user_id:uid, data});
+  if(ACCT.user?.id !== uid || ACCT.epoch !== epoch) return;
   ACCT.state = error ? 'err' : 'on'; if(!error) ACCT.at = Date.now();
   if(ui.mmodal && ui.mmodal.type === 'prof') render();
 }
 async function cloudPull(){
-  const {data:row, error} = await SB.from('saves').select('data').eq('user_id', ACCT.user.id).maybeSingle();
+  const uid = ACCT.user.id, epoch = ACCT.epoch;
+  const {data:row, error} = await SB.from('saves').select('data').eq('user_id', uid).maybeSingle();
+  if(ACCT.user?.id !== uid || ACCT.epoch !== epoch) return;
   if(error) throw error;
   const cloud = row && row.data, here = syncMeta();
   if(cloud && (cloud.at || 0) > (here.at || 0)){
     // the cloud copy is newer: take it (only from the lobby, never in the middle of a game)
     ACCT.quiet = true;
-    for(const k of SYNC_KEYS) if(cloud[k] != null) saveJ(k, cloud[k]);
+    for(const k of SYNC_KEYS){ if(cloud[k] == null) localStorage.removeItem(k); else saveJ(k, cloud[k]); }
     saveJ('lao-legend-sync', {at:cloud.at}); ACCT.quiet = false;
     COL = null; choiceRestore(); ACCT.state = 'on'; ACCT.at = Date.now(); if(!S) render();
   } else if(!cloud || (here.at || 0) > (cloud.at || 0)) await cloudPush();
@@ -6382,13 +6451,17 @@ async function cloudPull(){
 }
 // the admin flag, my block list and game-wide settings (a double-gems event shows a ribbon in the lobby)
 async function acctExtras(){
-  try{ const [a, c] = await Promise.all([SB.rpc('admin_check'), SB.rpc('config_get')]); ACCT.admin = !!a.data; ACCT.cfg = c.data || {}; }catch(e){}
-  await blocksLoad(); if(!S) render();
+  const still = accountGuard();
+  try{ const [a, c] = await Promise.all([SB.rpc('admin_check'), SB.rpc('config_get')]); if(!still()) return; ACCT.admin = !!a.data; ACCT.cfg = c.data || {}; }catch(e){}
+  if(!still()) return; await blocksLoad(); if(still() && !S) render();
 }
-async function acctLoad(){
-  const {data} = await SB.from('profiles').select('*').eq('id', ACCT.user.id).maybeSingle();
+async function acctLoad(options = {}){
+  const uid = ACCT.user.id; accountScope(uid, !!options.replace);
+  const epoch = ACCT.epoch;
+  const {data} = await SB.from('profiles').select('*').eq('id', uid).maybeSingle();
+  if(ACCT.user?.id !== uid || ACCT.epoch !== epoch) return;
   ACCT.prof = data || null;
-  if(ACCT.prof){ await cloudPull(); await ecoSync(); socStart(); acctExtras(); profPush(); rankLoad(); }
+  if(ACCT.prof){ await cloudPull(); if(ACCT.user?.id !== uid || ACCT.epoch !== epoch) return; await ecoSync(); if(ACCT.user?.id !== uid || ACCT.epoch !== epoch) return; socStart(); acctExtras(); profPush(); rankLoad(); }
   else try{ localStorage.removeItem(RCODE_KEY); }catch(e){}   // the account moved to another device with its code
 }
 // on start: only players who already made an account load the Supabase library
@@ -6418,7 +6491,7 @@ async function acctSave(name, avatar){
     const {data, error} = ACCT.prof ? await SB.from('profiles').update({name, avatar}).eq('id', ACCT.user.id).select().single()
                                     : await SB.from('profiles').insert(row).select().single();
     if(error){ m.err = NAME_ERR[error.code] || 'ບັນທຶກບໍ່ໄດ້ ລອງໃໝ່'; return; }
-    const first = !ACCT.prof; ACCT.prof = data; m.edit = false;
+    const first = !ACCT.prof; if(first) accountScope(ACCT.user.id); ACCT.prof = data; m.edit = false;
     if(first){ await cloudPull(); await ecoSync(); socStart(); ACCT.prof = (await SB.from('profiles').select('*').eq('id', ACCT.user.id).single()).data || ACCT.prof; toast('ສະບາຍດີ ' + name + '! ບັນທຶກເກມຂຶ້ນ cloud ແລ້ວ ☁️'); }
   }catch(e){ m.err = 'ຕໍ່ອິນເຕີເນັດບໍ່ໄດ້ ລອງໃໝ່'; ACCT.state = 'err'; window.__errs.push('acct: ' + (e && e.message || e)); }
   finally{ m.busy = false; render(); }
@@ -6437,16 +6510,18 @@ function ecoApply(st){
   saveCol();
 }
 async function ecoSync(){
+  const uid = ACCT.user?.id, epoch = ACCT.epoch;
   try{
-    let {data, error} = await SB.rpc('eco_state'); if(error) throw error;
+    let {data, error} = await SB.rpc('eco_state'); if(ACCT.user?.id !== uid || ACCT.epoch !== epoch) return; if(error) throw error;
     if(!data){   // first time on F2: bring in what this device already has
       const c = col();
       ({data, error} = await SB.rpc('eco_import', {snap:{gems:c.gems, dust:c.dust, xp:c.xp, freePacks:c.freePacks, pity:c.pity, packs:c.packs, tutGems:c.tutGems,
         adv:c.adv || 0, hardBeat:c.hardBeat || {}, ach:c.ach || {}, cards:c.cards, alts:c.alts || {}}}));
       if(error) throw error;
     }
+    if(ACCT.user?.id !== uid || ACCT.epoch !== epoch) return;
     ACCT.eco = true; ecoApply(data);
-  }catch(e){ ACCT.eco = false; window.__errs.push('eco: ' + (e && (e.code || e.message) || e)); }
+  }catch(e){ if(ACCT.user?.id !== uid || ACCT.epoch !== epoch) return; ACCT.eco = false; window.__errs.push('eco: ' + (e && (e.code || e.message) || e)); }
 }
 const ecoErr = e => e && e.code === 'P0004' ? 'ເພັດ ຫຼື ຜົງແກ້ວບໍ່ພໍ' : 'ຕໍ່ເຊີບເວີບໍ່ໄດ້ ລອງໃໝ່';
 function levelGift(from, to){
@@ -6455,11 +6530,11 @@ function levelGift(from, to){
 }
 // the end of a game against the bot, with an account: the server decides gems, XP, the drop and the adventure stage
 async function ecoGameEnd(won){
-  const G = S, oppDi = S.p[1].di, level = S.level;
+  const G = S, oppDi = S.p[1].di, level = S.level, uid = ACCT.user?.id, epoch = ACCT.epoch;
   questEvent('game'); if(won){ questEvent('win'); if(level === 2) questEvent('winhard'); }
   G.reward = null; G.afterNote = '<p class="lore">☁️ ກຳລັງຮັບລາງວັນ…</p>';
   try{
-    const {data, error} = await SB.rpc('eco_game', {won, lvl:level, opp:oppDi, stage:won && G.adv != null ? G.adv : null}); if(error) throw error;
+    const {data, error} = await SB.rpc('eco_game', {won, lvl:level, opp:oppDi, stage:won && G.adv != null ? G.adv : null}); if(ACCT.user?.id !== uid || ACCT.epoch !== epoch) return; if(error) throw error;
     ecoApply(data.state);
     const notes = [], lv = levelGift(data.lvFrom, data.lvTo);
     if(lv) notes.push('<p class="lvup">⭐ ' + lv + '</p>');
@@ -6474,7 +6549,8 @@ async function ecoGameEnd(won){
   if(S === G) render();
 }
 async function ecoClaim(kind, key){
-  const {data, error} = await SB.rpc('eco_claim', {kind, key:key || null}); if(error) throw error;
+  const still = accountGuard();
+  const {data, error} = await SB.rpc('eco_claim', {kind, key:key || null}); if(!still()) throw new Error('account changed'); if(error) throw error;
   ecoApply(data.state); return data;
 }
 /* ---------- safety and the owner's tools (phase F7, supabase/f7.sql) ----------
@@ -6493,7 +6569,7 @@ function playerHTML(m){
     '<p class="lore">ບລັອກແລ້ວ ຈະບໍ່ຈັບຄູ່ກັນອີກ, ບໍ່ຮັບຄຳຂໍເປັນໝູ່ ແລະ ຄຳທ້າ, ແລະ ປິດອີໂມຈິຂອງລາວ</p>';
 }
 function playerOpen(id, name, back){ if(!id || !ACCT.prof) return; ui.mmodal = {type:'player', id, name, back, blocked:(ACCT.blocks || []).some(b => b.id === id)}; render(); }
-async function blocksLoad(){ try{ const {data} = await SB.rpc('block_list'); ACCT.blocks = data || []; }catch(e){} }
+async function blocksLoad(){ const still = accountGuard(); try{ const {data} = await SB.rpc('block_list'); if(still()) ACCT.blocks = data || []; }catch(e){} }
 // the parents' gate: a multiplication a young child will not do
 function gateHTML(m){
   return '<p class="q">👪 ສຳລັບພໍ່ແມ່</p><p class="lore">ກະລຸນາໃຫ້ຜູ້ໃຫຍ່ຕອບ</p><p class="q">' + m.a + ' × ' + m.b + ' = ?</p>' +
@@ -6528,7 +6604,7 @@ async function accountDelete(){
   if(!confirm('ລຶບບັນຊີ ' + ACCT.prof.name + ' ແລະ ກາດ, ເພັດ, ແຣງ, ໝູ່ ທັງໝົດ? ກູ້ຄືນບໍ່ໄດ້')) return;
   try{ const {error} = await SB.rpc('account_delete'); if(error) throw error; }catch(e){ toast('ລຶບບໍ່ໄດ້ · ລອງໃໝ່'); return; }
   try{ await SB.auth.signOut(); }catch(e){}
-  for(const k of [...SYNC_KEYS, 'lao-legend-sync', RCODE_KEY, LIVE_KEY]) try{ localStorage.removeItem(k); }catch(e){}
+  for(const k of [...SYNC_KEYS, 'lao-legend-sync', RCODE_KEY, LIVE_KEY, SCOPE_PREFIX + ACCT.user.id, SCOPE_OWNER]) try{ localStorage.removeItem(k); }catch(e){}
   location.reload();
 }
 // admin
@@ -6583,8 +6659,7 @@ async function recoveryStep(kind){
       const {error} = await SB.rpc('claim_recovery_code', {code}); if(error) throw error;
       saveJ(RCODE_KEY, code.replace(/(.{4})(?=.)/g, '$1-'));
       // this device now holds that account: its cloud copy replaces what is here
-      ACCT.quiet = true; saveJ('lao-legend-sync', {at:0}); ACCT.quiet = false;
-      await acctLoad();
+      await acctLoad({replace:true});
       toast(ACCT.prof ? 'ສະບາຍດີ ' + ACCT.prof.name + '! ຍ້າຍບັນຊີມາເຄື່ອງນີ້ແລ້ວ ☁️' : 'ຍ້າຍບັນຊີແລ້ວ');
       m.step = null; m.edit = false;
     }
@@ -6634,8 +6709,7 @@ async function mailStep(kind){
       ACCT.user = data.user || (await SB.auth.getUser()).data.user;
       if(login){
         // this device now opens that account: its cloud copy replaces what is here
-        ACCT.quiet = true; saveJ('lao-legend-sync', {at:0}); ACCT.quiet = false;
-        await acctLoad();
+        await acctLoad({replace:true});
         toast(ACCT.prof ? 'ສະບາຍດີ ' + ACCT.prof.name + '! ໂຫຼດຂໍ້ມູນຈາກ cloud ແລ້ວ ☁️' : 'ເຂົ້າບັນຊີແລ້ວ');
       } else toast('ຜູກອີເມວແລ້ວ ✅ ໃຊ້ອີເມວນີ້ເຂົ້າຈາກເຄື່ອງອື່ນໄດ້');
       m.step = null; m.edit = false;
@@ -6644,7 +6718,10 @@ async function mailStep(kind){
   finally{ m.busy = false; render(); }
 }
 async function acctSignOut(){
-  try{ await SB.auth.signOut(); }catch(e){}
+  stopAccountTasks();
+  try{ const {error} = await SB.auth.signOut(); if(error) throw error; }
+  catch(e){ toast('ອອກຈາກບັນຊີບໍ່ໄດ້ · ລອງໃໝ່'); return; }
+  accountScope('guest');
   ACCT.user = null; ACCT.prof = null; ACCT.state = 'off'; ACCT.eco = false; ACCT.rank = null; ui.mmodal = null;
   saveJ('lao-legend-guest', 0); ui.login = {tab:'in'}; render(); toast('ອອກຈາກບັນຊີແລ້ວ');
 }
@@ -6692,10 +6769,12 @@ function myCard(){
 function profPush(){
   if(!ACCT.prof || !ACCT.user || ACCT.noCard) return;
   clearTimeout(ACCT.ptimer);
+  const still = accountGuard(), uid = ACCT.user.id;
   ACCT.ptimer = setTimeout(async () => {
+    if(!still()) return;
     const c = col(), row = {frame:c.frame || '', title:c.title || '', showcase:(c.showcase || []).filter(id => C[id]).slice(0, 3), pstats:pstatsNow()};
-    try{ const {error} = await SB.from('profiles').update(row).eq('id', ACCT.user.id); if(error) throw error; Object.assign(ACCT.prof, row); }
-    catch(e){ const t = String(e && (e.code || e.message) || e); if(/42703|PGRST204|column/i.test(t)) ACCT.noCard = true; window.__errs.push('card: ' + t); }
+    try{ const {error} = await SB.from('profiles').update(row).eq('id', uid); if(!still()) return; if(error) throw error; if(ACCT.prof) Object.assign(ACCT.prof, row); }
+    catch(e){ if(!still()) return; const t = String(e && (e.code || e.message) || e); if(/42703|PGRST204|column/i.test(t)) ACCT.noCard = true; window.__errs.push('card: ' + t); }
   }, 3000);
 }
 function idCardHTML(d, mine){
@@ -6777,8 +6856,7 @@ async function passStep(kind, m = ui.mmodal, given){
     if(kind === 'login'){
       const {data, error} = await SB.auth.signInWithPassword({email, password:pw}); if(error) throw error;
       // this device now opens that account: its cloud copy replaces what is here
-      ACCT.user = data.user; ACCT.quiet = true; saveJ('lao-legend-sync', {at:0}); ACCT.quiet = false;
-      await acctLoad();
+      ACCT.user = data.user; await acctLoad({replace:true});
       toast(ACCT.prof ? 'ສະບາຍດີ ' + ACCT.prof.name + '! ໂຫຼດຂໍ້ມູນຈາກ cloud ແລ້ວ ☁️' : 'ເຂົ້າບັນຊີແລ້ວ');
       m.step = null; m.edit = false; if(m === ui.login) ui.login = null;
     } else if(kind === 'pass'){
@@ -6793,8 +6871,7 @@ async function passStep(kind, m = ui.mmodal, given){
       const {data, error} = await SB.auth.verifyOtp({email, token:code, type:'recovery'}); if(error) throw error;
       ACCT.user = data.user || (await SB.auth.getUser()).data.user;
       const r = await SB.auth.updateUser({password:pw}); if(r.error) throw r.error;
-      ACCT.quiet = true; saveJ('lao-legend-sync', {at:0}); ACCT.quiet = false;
-      await acctLoad(); m.step = null; m.edit = false; if(m === ui.login) ui.login = null;
+      await acctLoad({replace:true}); m.step = null; m.edit = false; if(m === ui.login) ui.login = null;
       toast(ACCT.prof ? 'ຕັ້ງລະຫັດຜ່ານໃໝ່ແລ້ວ ✅ ສະບາຍດີ ' + ACCT.prof.name : 'ຕັ້ງລະຫັດຜ່ານໃໝ່ແລ້ວ ✅');
     } else if(kind === 'resend'){
       // the email change again, for a fresh code
@@ -6884,7 +6961,7 @@ async function signupStep(L){
     if(!ACCT.prof){
       const {data, error} = await SB.from('profiles').insert({id:ACCT.user.id, name, avatar:L.av || DECKS[0].legend, pet:col().pet || null}).select().single();
       if(error){ L.err = NAME_ERR[error.code] || 'ບັນທຶກບໍ່ໄດ້ ລອງໃໝ່'; return; }
-      ACCT.prof = data; ACCT.state = 'on';
+      accountScope(ACCT.user.id); ACCT.prof = data; ACCT.state = 'on';
       await cloudPull(); await ecoSync(); socStart(); rankLoad();
       ACCT.prof = (await SB.from('profiles').select('*').eq('id', ACCT.user.id).single()).data || ACCT.prof;
     }
@@ -6992,16 +7069,21 @@ function netTake(m){
 // a local move still running (its animations, an end of turn) must finish before the other screen's next move starts
 async function localAct(fn){ if(!S || !S.online) return fn(); S.lbusy = (S.lbusy || 0) + 1; try{ return await fn(); } finally{ if(S) S.lbusy--; } }
 async function netApply(m){
-  while(S && S.online && S.lbusy) await new Promise(r => setTimeout(r, 80));
-  if(!S || !S.online || S.over) return;
-  const p = S.p[1];
-  if(m.t === 'play'){ const h = p.hand.find(x => x.uid === m.uid); if(h){ await fxShowCard(h.id, h.alt); await playCard(p, h, netT(m.tk)); } }
-  else if(m.t === 'atk'){ const c = p.field.find(x => x.uid === m.uid), t = netT(m.tk); if(c && t) await attack(p, c, t); }
-  else if(m.t === 'trib'){ const h = p.hand.find(x => x.uid === m.uid), a = p.field.find(x => x.uid === m.a), b = p.field.find(x => x.uid === m.b); if(h && a && b) await playCard(p, h, null, [a, b]); }
+  const G = S;
+  while(S === G && S && S.online && S.lbusy) await new Promise(r => setTimeout(r, 80));
+  if(S !== G || !S || !S.online || S.over || !m || typeof m !== 'object') return false;
+  if(m.t === 'quit'){ gameOver(S.p[0], 'quit'); return true; }
+  const p = S.p[1], move = {...m, type:m.t};
+  if(!legalMove(p, move, netT)){ log('⚠️ ທ່າຫຼິ້ນບໍ່ຖືກກົດ · ບໍ່ນຳໃຊ້'); return false; }
+  if(m.t === 'play'){
+    const h = p.hand.find(x => x.uid === m.uid);
+    await fxShowCard(h.id, h.alt); if(S !== G || G.over) return false;
+    await playCard(p, h, netT(m.tk));
+  } else if(m.t === 'atk') await attack(p, p.field.find(x => x.uid === m.uid), netT(m.tk));
+  else if(m.t === 'trib') await playCard(p, p.hand.find(x => x.uid === m.uid), null, [p.field.find(x => x.uid === m.a), p.field.find(x => x.uid === m.b)]);
   else if(m.t === 'fuse') await fuse(p, m.f);
   else if(m.t === 'end') await endTurn();
-  else if(m.t === 'quit') gameOver(S.p[0], 'quit');
-  if(S) render();
+  if(S === G) render(); return true;
 }
 async function netOpen(code, role){
   netClose(); Object.assign(NET, {chain:Promise.resolve(), ans:[], waiters:[], me:role, code, sent:0, rcv:0, log:{}, buf:{}, lastResend:0, hello:null});
@@ -7105,6 +7187,7 @@ async function snapSoon(){
 // the screen that reloaded: take the game, seen from our side
 function applySnap(m){
   const st = m.s, me = NET.me, them = me === 'guest' ? st.online.host : st.online.guest;
+  for(const p of st.p){ p.maxLife = p.maxLife || 20; for(const c of p.field) for(const mod of c.mods) if(mod.exp == null || !Number.isFinite(mod.exp)) mod.exp = 1e9; }
   NET.hello = null; ui.mmodal = null; ui.screen = null; clearTimeout(NET.resumeTimer);
   S = Object.assign(st, {p:[st.p[1], st.p[0]], turn:1 - st.turn, modal:null, targeting:null, sel:null, lbusy:0, over:null, fast:false,
     log:['🔄 ຕໍ່ເກມຄືນແລ້ວ'], online:{...st.online, me}});
@@ -7192,8 +7275,9 @@ function seasonInfo(){
 const rankLine = r => RKIC(r.tier) + RANKS[r.tier][1] + ' ' + (r.tier >= 6 ? '★×' + r.stars : '★'.repeat(r.stars) + '☆'.repeat(3 - r.stars));
 async function rankLoad(){
   if(!ACCT.eco) return;
+  const still = accountGuard();
   try{
-    const {data, error} = await SB.rpc('rank_state'); if(error) throw error;
+    const {data, error} = await SB.rpc('rank_state'); if(!still()) return; if(error) throw error;
     ACCT.rank = data;
     if(data && data.reward){ toast('🏆 ລາງວັນລະດູກ່ອນ (' + RANKS[data.oldBest][1] + '): 💎 +' + data.reward); await ecoSync(); }
     render();
@@ -7222,6 +7306,7 @@ function rankDeckWhy(list){
 }
 // the end of a ranked game: report it, then wait (in the background) until the server has both reports
 async function rankReport(winIdx, reason){
+  const still = accountGuard();
   const G = S, O = S.online, me = O.me, other = me === 'host' ? 'guest' : 'host', winner = winIdx === 0 ? me : other;
   const pl = me === 'host' ? S.p : [S.p[1], S.p[0]];
   const sig = pl.map(p => [p.life, p.deck.length, p.hand.length, p.field.map(c => c.id).sort().join(','), p.grave.length].join('|')).join('/');
@@ -7229,10 +7314,10 @@ async function rankReport(winIdx, reason){
   const show = t => { G.rankNote = t; if(S === G) render(); };
   show('🏆 ກຳລັງບັນທຶກຜົນແຣງ…');
   try{
-    let {data, error} = await SB.rpc('rank_report', {rm:O.room, rep}); if(error) throw error;
+    let {data, error} = await SB.rpc('rank_report', {rm:O.room, rep}); if(!still()) return; if(error) throw error;
     for(let i = 0; i < 18 && !data.result; i++){
       show('🏆 ລໍຖ້າອີກເຄື່ອງລາຍງານຜົນ…');
-      await sleep(10000); ({data, error} = await SB.rpc('rank_settle', {rm:O.room})); if(error) throw error;
+      await sleep(10000); if(!still()) return; ({data, error} = await SB.rpc('rank_settle', {rm:O.room})); if(!still()) return; if(error) throw error;
     }
     if(!data.result) return show('🏆 ຍັງບໍ່ມີຜົນແຣງ · ຈະນັບພາຍຫຼັງ');
     const before = ACCT.rank; ACCT.rank = {...(ACCT.rank || {}), ...data.rank};
