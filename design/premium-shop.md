@@ -35,7 +35,7 @@ Server-only special wallet, ownership and prices; RLS, no direct client writes, 
 
 ## ກ່ອນເປີດຮັບເງິນຈິງ
 
-ຮອບນີ້ຢູ່ໃນເຄື່ອງ. ຍັງບໍ່ commit/push/deploy ຫຼືແລ່ນ SQL ໃນ Supabase ຈິງ.
+ອັບເວັບ ແລະ secure-game ແລ້ວ 31/10/2026. ຕິດຕັ້ງ F17 ແລະຜູກ QR ຮ້ານຄົບທັງ 4 ລາຄາໃນ Supabase ຈິງ. ຮ້ານຍັງປິດຮັບເງິນ (enabled=false).
 
 - ອັບເດດເວັບ ແລະໂຄດເກມຝັ່ງ Supabase ພ້ອມກັນ (engine ສ້າງຄືນຈາກ index.html).
 - ເຈົ້າຂອງແລ່ນ `supabase/f17.sql` ຮຸ່ນທີ່ມີ amount_qrs ຫຼັງ F1–F16. ຫຼັງອັບຂຶ້ນ GitHub ຈຶ່ງໃຫ້ລິ້ງ raw ທີ່ເປີດໄດ້ຈິງ.
@@ -51,4 +51,4 @@ Server-only special wallet, ownership and prices; RLS, no direct client writes, 
 - `tools/premium-ui-test.js`: 42 checks on desktop and mobile, actual shop buttons with mock server, including a lost debit reply and retry.
 - `tools/premium-board-test.js`: bundle/equip and actual game board render; my card back and meteor theme; opponent backs preserved.
 
-ສະຖານະ QR ໃໝ່: ອ່ານ `design/payment-qr-amounts.md`. ຮອບທີ 2 ປ່ຽນ method 01 ເປັນ 12 ແລະເຈົ້າຂອງຢືນຢັນຊື່/ຍອດ 10,000 ກີບໃນ BCEL One ແລ້ວ. ກຽມຮູບ v2 ຄົບ 4 ແພັກໃນ `art/payments/`; ການເລືອກ QR ຕາມລາຄາເຮັດຢູ່ເຊີບເວີ. ຍັງລໍອັບເວັບ/F17 ແລະຕັ້ງຄ່າຮ້ານຈິງ.
+ສະຖານະ QR ໃໝ່: ອ່ານ `design/payment-qr-amounts.md`. ຮອບທີ 2 ປ່ຽນ method 01 ເປັນ 12 ແລະເຈົ້າຂອງຢືນຢັນຊື່/ຍອດ 10,000 ກີບໃນ BCEL One ແລ້ວ. ກຽມຮູບ v2 ຄົບ 4 ແພັກໃນ `art/payments/`; ການເລືອກ QR ຕາມລາຄາເຮັດຢູ່ເຊີບເວີ. ຕິດຕັ້ງແລະຕັ້ງຄ່າຮ້ານແລ້ວ; ຍັງບໍ່ເປີດຮັບເງິນ. ຮູບ 3 ຍອດອື່ນຍັງບໍ່ມີຜົນກວດແອັບແຍກລາຍຍອດ.
