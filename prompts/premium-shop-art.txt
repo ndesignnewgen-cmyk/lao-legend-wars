@@ -1,0 +1,8 @@
+Lao Legend Wars · special gem shop artwork
+Generated with the built-in image_gen tool. Transparent PNG masters and optimized WebP copies.
+
+1. art/ui/premium-chest-source.png → art/ui/premium-chest.webp
+Use case: stylized-concept. Production raster game UI illustration for Lao Legend Wars shop. One isolated luxurious treasure chest open, filled with luminous faceted cyan and royal-blue diamonds, a single larger bright turquoise diamond rising above, warm antique gold filigree inspired by Lao naga curves and subtle woven Lao motifs. Friendly beautiful hand-painted collectible-card-game rendering with crisp polished edges, deep indigo recesses, rich golden highlights, small controlled sparkles. Three-quarter front view, centered whole object, generous transparent padding, transparent background. No words, letters, numbers, money, coins, logos, watermark, people, weapons, or surrounding scene. Square composition, readable as a small game shop icon and hero decoration.
+
+2. art/ui/premium-gem-source.png → art/ui/premium-gem.webp
+Use case: stylized-concept. Production icon for Lao Legend Wars premium currency. A single luminous turquoise and deep cyan brilliant-cut diamond, floating inside a delicate antique gold naga-curved setting. Elegant Lao fantasy trading-card-game painted icon, rich saturated cyan, small white glints, warm gold edge, faceted clearly readable silhouette at 24 pixels. Centered isolated whole icon with generous transparent margin, no pedestal, no chest, no coins, no text, no letters, no logos, no watermark. Square transparent background.

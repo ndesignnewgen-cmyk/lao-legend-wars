@@ -1,0 +1,39 @@
+{
+  "bank_app_verified": false,
+  "currency": "LAK",
+  "method": "EMV tag 54 amount; CRC-16/CCITT-FALSE; CoreImage QR encoder; Vision scan verification",
+  "source_crc_valid": true,
+  "source_payload_sha256": "94ef57b7a3b4c2b906429c510fc77f7e5bfca20e80675f157e720ac1a402d930",
+  "variants": [
+    {
+      "amount_lak": 10000,
+      "crc_valid": true,
+      "file": "bcel-onepay-10000.png",
+      "same_recipient_fields": true,
+      "scan_round_trip": true
+    },
+    {
+      "amount_lak": 30000,
+      "crc_valid": true,
+      "file": "bcel-onepay-30000.png",
+      "same_recipient_fields": true,
+      "scan_round_trip": true
+    },
+    {
+      "amount_lak": 50000,
+      "crc_valid": true,
+      "file": "bcel-onepay-50000.png",
+      "same_recipient_fields": true,
+      "scan_round_trip": true
+    },
+    {
+      "amount_lak": 100000,
+      "crc_valid": true,
+      "file": "bcel-onepay-100000.png",
+      "same_recipient_fields": true,
+      "scan_round_trip": true
+    }
+  ],
+  "bank_app_result": "Owner tested 10000 LAK: recipient correct, amount not shown in BCEL One. Do not use these generated amount variants.",
+  "production_enabled": false
+}

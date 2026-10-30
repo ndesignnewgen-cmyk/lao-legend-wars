@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="lo"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ວັດພູ · ແສງຄຳແຫ່ງຕຳນານ</title>
+<style>
+*{box-sizing:border-box}body{margin:0;height:100dvh;display:grid;grid-template-rows:auto minmax(0,1fr);background:#332b21;color:#fff1ce;font:15px system-ui}header{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 16px;border-bottom:1px solid #b69055}header b{margin-right:auto}button,select{font:inherit;color:#fff1ce;background:#5b472d;border:1px solid #c9a66c;border-radius:9px;padding:8px 12px;cursor:pointer}button:disabled{opacity:.5}small{display:block;color:#d1bc95;font-size:11px}iframe{display:block;border:0;width:100%;height:100%;min-height:0}@media(max-width:760px){header{gap:6px;padding:8px}header b{width:100%}button,select{font-size:12px;padding:6px 8px}}
+body[data-theme="starjars"]{background:#273047;color:#edf2ff}body[data-theme="starjars"] header{border-color:#8394b4}body[data-theme="starjars"] :is(button,select){background:#435373;border-color:#9faecb;color:#edf2ff}
+</style>
+<header><b><span id="arena-title">ວັດພູ · ແສງຄຳແຫ່ງຕຳນານ</span><small id="status">ກຳລັງເປີດສະໜາມ…</small></b><select id="theme" aria-label="ເລືອກສະໜາມ"><option value="watphou">ວັດພູ · ແສງຄຳ</option><option value="starjars">ທົ່ງໄຫຫີນແຫ່ງດວງດາວ</option><option value="sinh">ຜ້າຊິ່ນ</option><option value="mekong">ແມ່ນ້ຳຂອງ</option><option value="himma">ປ່າຫິມະພານ</option></select><button id="extra" disabled>ກອງພິເສດ</button><button id="log" disabled>ບັນທຶກ</button><button id="cards" disabled>ວາງກາດໃຫ້ເບິ່ງ</button><button id="legend" disabled>✨ ລົງກາດຕຳນານ</button><button id="fusion" disabled>🤝 ຮ່ວມຮ່າງ</button></header>
+<iframe id="game" title="ສະໜາມວັດພູໃນເກມ"></iframe>
+<script type="module" src="arena-preview.js"></script></html>

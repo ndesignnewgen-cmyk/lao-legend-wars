@@ -1,0 +1,46 @@
+{
+  "bank_feedback" : "Owner scanned round 2 in BCEL One: recipient and 10000 LAK both correct",
+  "bank_feedback_date" : "2026-10-31",
+  "format" : "BCEL supplied LAPNET QR with method 12 and amount tag 54",
+  "payment_executed" : false,
+  "production_enabled" : false,
+  "source_payload_sha256" : "94ef57b7a3b4c2b906429c510fc77f7e5bfca20e80675f157e720ac1a402d930",
+  "variants" : [
+    {
+      "amount_lak" : 10000,
+      "bank_app_verified" : true,
+      "crc_valid" : true,
+      "file" : "bcel-onepay-10000-v2.png",
+      "point_of_initiation" : "12",
+      "same_recipient_and_currency" : true,
+      "scan_round_trip" : true
+    },
+    {
+      "amount_lak" : 30000,
+      "bank_app_verified" : false,
+      "crc_valid" : true,
+      "file" : "bcel-onepay-30000-v2.png",
+      "point_of_initiation" : "12",
+      "same_recipient_and_currency" : true,
+      "scan_round_trip" : true
+    },
+    {
+      "amount_lak" : 50000,
+      "bank_app_verified" : false,
+      "crc_valid" : true,
+      "file" : "bcel-onepay-50000-v2.png",
+      "point_of_initiation" : "12",
+      "same_recipient_and_currency" : true,
+      "scan_round_trip" : true
+    },
+    {
+      "amount_lak" : 100000,
+      "bank_app_verified" : false,
+      "crc_valid" : true,
+      "file" : "bcel-onepay-100000-v2.png",
+      "point_of_initiation" : "12",
+      "same_recipient_and_currency" : true,
+      "scan_round_trip" : true
+    }
+  ]
+}

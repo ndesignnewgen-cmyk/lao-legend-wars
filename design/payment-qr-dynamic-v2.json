@@ -1,0 +1,17 @@
+{
+  "amount_lak": 10000,
+  "bank_app_verified": true,
+  "changed_fields": {
+    "01": "12",
+    "54": "10000",
+    "63": "recomputed"
+  },
+  "checkout_enabled": false,
+  "crc_valid": true,
+  "probe": "dynamic-v2-10000",
+  "same_recipient_and_currency": true,
+  "scan_round_trip": true,
+  "bank_app_result": "Owner verified correct recipient and 10000 LAK displayed in BCEL One",
+  "bank_feedback_date": "2026-10-31",
+  "payment_executed": false
+}

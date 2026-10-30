@@ -1,7 +1,7 @@
 # Lao Legend Wars (ສົງຄາມຕຳນານລາວ) · guide for coding assistants
 
 A kids' trading card game built on Lao folklore, present-day Laos, the future and space. 24 decks, bot play,
-online play, ranked, friends, a card shop with gems (no real money). Read this whole file before changing anything.
+online play, ranked, friends, a card shop with earned gems and owner-approved BCEL gem top-ups. Read this whole file before changing anything.
 
 ## Talking to the owner
 - **Reply in simple Lao.** The owner can't read English. Short sentences, numbered steps, no jargon.
@@ -12,7 +12,7 @@ online play, ranked, friends, a card shop with gems (no real money). Read this w
 - The owner generates pictures elsewhere (ChatGPT, Codex) from prompt files in `prompts/` and sends a zip or images.
 
 ## Hard rules
-- Kid-friendly: no blood, no scary faces, no screen shaking, no real money, no typed chat.
+- Kid-friendly: no blood, no scary faces, no screen shaking, no typed chat.
   Say "ຖວາຍພະລັງ" (offering), never "ສັງເວຍ" (sacrifice).
 - No full-screen dark or white overlays. The owner reads them as "fog" and calls it a bug. Put a dark disc
   under an effect instead.
@@ -21,6 +21,10 @@ online play, ranked, friends, a card shop with gems (no real money). Read this w
   passwords, or any personal password. The owner creates accounts and runs SQL themselves.
   The publishable key in the code (`sb_publishable_…`) is public by design.
 - Never commit secrets. Commit only when asked (the owner usually says "commit" or approves a plan), then `git push`.
+
+- Payments (owner approved 2026-10-30): special gems may be bought and exchanged one way at 100 special → 500 game gems.
+  Paid balances, orders, exchange and purchases are server-authoritative. Credit BCEL top-ups only after an admin
+  verifies an actual bank transaction; a customer reference or uploaded image alone is not payment confirmation.
 
 ## Where things live
 - `index.html`: the whole game, one file (~850 KB): CSS, then one big `<script>` with the engine in an IIFE.

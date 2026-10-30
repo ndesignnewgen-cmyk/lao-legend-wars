@@ -1,0 +1,11 @@
+ວັດພູ · ແສງຄຳແຫ່ງຕຳນານ
+ຮູບທັງ 2 ເຈນແລ້ວດ້ວຍ image_gen ໃນແຊັດນີ້. ບໍ່ຕ້ອງເຈນຊ້ຳ.
+ຮູບຕົ້ນສະບັບ: art/arena/source/watphou-sunset.png, art/arena/source/watphou-gate.png
+ຮູບໃນເກມ: art/arena/watphou-sunset.webp, art/arena/watphou-gate.webp
+ດອກຈຳປາ: ໃຊ້ art/fx/champa.webp ທີ່ເຈນໄວ້ແລ້ວ.
+
+1. watphou-sunset — opaque background
+Use case: stylized-concept. Asset type: wide 16:9 painted environment background for a Lao folklore trading card battlefield, no UI or cards. Create Vat Phou / Wat Phu in Champasak, Laos at golden sunset: weathered Khmer sandstone sanctuary with carved rectangular stone doorway, low ancient stone galleries and steps across the UPPER THIRD, Phou Kao green mountain directly behind, sunlit haze through doorway. Frangipani branches with ivory flowers frame far left and right edges. Lower TWO THIRDS a broad quiet empty warm sandstone terrace with very subtle paving, no objects or clutter. A beautiful premium hand-painted fantasy game environment, warm amber stone, antique gold, jade foliage, peach sky. Respectful, serene, child friendly, believable ancient Vat Phou architecture, NOT a Thai pointed-roof temple, no giant Angkor towers, no people, no monsters, no words or lettering, no logos, no card frame. Keep lower central card playing area gently textured, calm, medium value and easy to read. Panoramic landscape composition.
+
+2. watphou-gate — transparent background
+Use case: stylized-concept. Asset type: isolated transparent game effect sprite. One ancient Vat Phou Khmer sandstone RECTANGULAR doorway, front view, warm weathered ochre sandstone pillars with delicate carved floral lintel, small two-step base, few tiny ivory frangipani flowers at its feet. A restrained thin golden magical glow follows the INSIDE edge of the rectangular opening; leave the opening genuinely transparent so a game character can appear in front. Beautiful detailed hand-painted Lao folklore card-game illustration, warm gold sunset highlights, jade moss in cracks, child friendly and majestic. Complete intact silhouette including whole base, centered with generous transparent margin. No backdrop, no ground plane beyond small step, no cloudy aura, no text, no people, no pointed temple roof, no circular arch, actual alpha transparency including doorway opening.

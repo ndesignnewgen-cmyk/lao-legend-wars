@@ -23,7 +23,7 @@ for name in ['index.html', 'cards.html']:
         html = html.replace("sc.src = 'vendor/supabase-2.45.4.min.js';", "sc.src = 'vendor/supabase-2.45.4.min.js'; sc.integrity = 'sha384-" + b64('sha384', vendor) + "';")
     hashes = ["'sha256-" + b64('sha256', m.group(1).encode('utf-8')) + "'" for m in SCRIPT.finditer(html) if m.group(1).strip()]
     policy = '; '.join(["default-src 'self'", "script-src 'self' " + ' '.join(hashes), "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-                        "font-src 'self' https://fonts.gstatic.com data:", "img-src 'self' data: blob: https://laolegendwars.com", "media-src 'self' blob:",
+                        "font-src 'self' https://fonts.gstatic.com data:", "img-src 'self' data: blob: https://laolegendwars.com https://xahuvoounkdojfsvnfaj.supabase.co", "media-src 'self' blob:",
                         "connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co wss://xahuvoounkdojfsvnfaj.supabase.co", "worker-src 'self'", "object-src 'none'", "base-uri 'none'", "form-action 'self'"])
     meta = '<meta name="security-build" content="1">\n<meta http-equiv="Content-Security-Policy" content="' + policy + '">\n<meta name="referrer" content="no-referrer">\n'
     m = re.match(r'(?i)<!doctype[^>]*>', html)

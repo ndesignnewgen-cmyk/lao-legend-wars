@@ -1,0 +1,17 @@
+await new Promise(r=>setTimeout(r,700));const w=document.getElementById('game').contentWindow,d=w.__dbg,doc=w.document;
+const checks=[],ok=(v,n)=>{if(!v)throw Error(n);checks.push(n);},wait=()=>new Promise(r=>setTimeout(r,220));
+const click=(a,v)=>doc.querySelector('[data-a="'+a+'"]'+(v?'[data-v="'+v+'"]':'')).click();
+click('shoptab','cosmetics');click('pmbuy','legend-set');click('pmbuyok');await wait();ok(shopDemo.model.balance===200&&shopDemo.model.owned.length===4,'full bundle purchase');
+click('pmequip','back-stars');await wait();click('pmequip','arena-meteor');await wait();
+const {createEngine}=await import('../supabase/functions/_shared/engine.mjs'),e=createEngine(),spec={di:0,list:e.decks[0].list},cp=e.start({mode:'bot',host:spec,guest:{di:3,list:e.decks[3].list}},42),state=e.view({checkpoint:cp},0).state;
+state.turn=0;state.busy=false;w.__secureMock=async()=>({code:'SHOPDEMO',rev:1,mode:'bot',status:'active',side:0,state:structuredClone(state)});
+await d.secure.bot(spec,1);clearInterval(d.secure.SEC.timer);d.S.modal=null;d.S.busy=true;d.S.online=null;d.render();
+ok(doc.querySelector('.arena').dataset.theme==='starjars','paid arena equips free starjars base');
+ok(doc.querySelector('.arena').dataset.premiumArena==='meteor','meteor cosmetic active on real board');
+ok(!!doc.querySelector('.half2.me .slot.dk .back-stars'),'my equipped back appears on my deck');
+await doc.querySelector('.half2.me .slot.dk .pm-back-image').decode();ok(doc.querySelector('.half2.me .slot.dk .pm-back-image').naturalWidth===560,'equipped generated card back loads in the real board');
+ok(!doc.querySelector('.half2.opp .pm-back'),'my back does not overwrite opponent cosmetics');
+ok(!doc.querySelector('.ofan .pm-back'),'opponent hidden hand retains own art');
+ok(e.view({checkpoint:cp},0).state.p[0].life===20,'cosmetics do not alter engine life');
+ok(!w.__errs.length,'no runtime errors on board');
+return JSON.stringify({checks,errors:w.__errs});
