@@ -1,0 +1,80 @@
+ໝາຍເຫດລ່າສຸດ: ບໍ່ຕ້ອງເຈນຕົວລະຄອນຊຸດ A ແລ້ວ. ຕັດຈາກຮູບເກົ່າໄດ້ແລ້ວ. ໃຊ້ prompts/legend-effect-pieces.txt ສຳລັບຮູບເອັບເຟັກ 6 ຮູບແທນ.
+
+ຮູບປະກອບເອັບເຟັກກາດຕົວຫຼັກ · ເດັກ 14–24
+
+ວິທີເຈນ:
+1. ເປີດ ChatGPT → ແນບຮູບກາດຕາມຊື່ທີ່ບອກລຸ່ມນີ້.
+2. ຄັດລອກ COMMON PROMPT ແລະພຣ້ອມຂອງຮູບນັ້ນ → ສົ່ງ.
+3. ບັນທຶກເປັນ PNG ພື້ນໃສ. ໃຊ້ຊື່ໄຟລ໌ຕາມທີ່ລະບຸ.
+4. ລວມຮູບເປັນ zip ສົ່ງຄືນໃນແຊັດນີ້.
+
+ຮູບກາດຕົ້ນສະບັບຢູ່ art/ ໃນໂຟນເດີເກມ.
+ຊຸດ A ສຳຄັນກ່ອນ: 10 ຮູບຕົວລະຄອນ. ຕອນນີ້ເກມໃຊ້ຮູບກາດເກົ່າໃນຂອບທອງໄດ້ແລ້ວ.
+ນາງຈຳປາ (ເດັກ 14) ມີຮູບໃສແລ້ວ ບໍ່ຕ້ອງເຈນໃໝ່.
+ຊຸດ B ເປັນຮູບປະກອບເພີ່ມຄວາມງາມ; ບໍ່ຕ້ອງລໍເຈນຈຶ່ງຫຼິ້ນໄດ້.
+ຫຼັງສົ່ງຮູບມາ ຈະຕ້ອງຈັດຂະໜາດ ແລະໃສ່ເຂົ້າເກມອີກຄັ້ງ.
+
+COMMON PROMPT — ຄັດລອກນີ້ທຸກຄັ້ງ ສຳລັບຊຸດ A:
+Create one polished transparent-background character illustration for a kid-friendly Lao folklore trading card game's animated legendary entrance. Use the attached card illustration as the strict visual reference: preserve the character's identity, face, costume, ornaments, palette, species, and equipment. Extract and complete only the main subject described below. Beautiful hand-painted 2D fantasy card art, rich Lao gold ornament, clean readable silhouette, soft bold outlines and refined warm lighting; match the reference's art style, not photorealistic, not 3D. Confident, kind, heroic expression. Full subject visible with all extremities and equipment entirely inside the canvas; keep 12% transparent padding around it. Portrait canvas 1024×1536; for the boat use landscape 1536×1024. Actual alpha transparency, clean anti-aliased edges, no checkerboard pattern painted into the art. No scenery, no ground plane, no cast shadow, no floating particles, no aura, no light rays, no text, no letters, no numbers, no logo, no card frame, no watermark. Do not redesign the character. The game adds all glow and moving effects separately.
+
+A01 · ເດັກ 15 · ປູ່ລາງເຊີງ
+ແນບ: art/pulangseung.jpg
+ບັນທຶກ: legend-pulangseung.png
+The same benevolent Lao ancestor Pu Lang Seung from the reference, full body, gently opening or pointing toward his magical bottle gourd. Preserve his traditional clothing, age, hairstyle, staff or tool, and the gourd's design from the reference. Keep the main gourd with him, but remove the crowd and background landscape. A welcoming, proud, warm expression. The gourd and hands must be unobstructed and clearly separated from his silhouette.
+
+A02 · ເດັກ 16 · ຂຸນເຈືອງ
+ແນບ: art/khunjueang.jpg
+ບັນທຶກ: legend-khunjueang.png
+The same heroic Lao king Khun Chueang from the reference, full body in a calm triumphant stance. Preserve the precise crown, traditional armour, textile patterns and weapon from the attached illustration. No enemies or army. No stone jars: the game supplies them separately. Keep long weapons fully visible with generous transparent padding.
+
+A03 · ເດັກ 17 · ເຈົ້າຖ້ຳກອງລໍ
+ແນບ: art/chaothamkonglor.jpg
+ບັນທຶກ: legend-chaothamkonglor.png
+The same friendly crowned cave naga guardian from the attached illustration. Preserve the face, gemstone crown, scale colours and body anatomy. Show the whole head, mane, upper body and elegantly coiled tail as one clear compact silhouette. No water, cave walls, stalactites, crystals or scenery. A mysterious but welcoming expression, never frightening. Preserve appendages exactly as shown in the reference.
+
+A04 · ເດັກ 18 · ເຮືອຊ່ວງຄຳ
+ແນບ: art/rueaxuangkham.jpg
+ບັນທຶກ: legend-rueaxuangkham.png
+LANDSCAPE 1536×1024. The same golden Lao naga-prowed racing boat and its visible rowing crew from the reference, viewed from a dynamic three-quarter side angle. Preserve the gold naga prow, carved ornament, boat colours and coordinated traditional clothing. Show the entire boat from prow to stern, all oars inside the canvas. No river, splashes, wake, shore or scenery. The boat and crew form one isolated subject, clean transparent spaces between the oars.
+
+A05 · ເດັກ 19 · ແມ່ຄົວເຂົ້າໜຽວຄຳ
+ແນບ: art/maekhuakham.jpg
+ບັນທຶກ: legend-maekhuakham.png
+The same warm smiling Lao master cook from the reference, full body, proudly presenting her golden woven sticky-rice basket with the lid slightly lifted. Preserve her face, hairstyle, traditional sinh and blouse, apron and basket design. The basket is part of the subject; no food stalls, market, table, surrounding people or steam. A generous welcoming expression, not a generic chef uniform.
+
+A06 · ເດັກ 20 · ນາຍຮ້ອຍມວຍຄາດເຊືອກ
+ແນບ: art/nairoymuay.jpg
+ບັນທຶກ: legend-nairoymuay.png
+The same legendary Lao rope-wrapped boxer from the reference, full body, poised in a respectful wai-khru-inspired guard stance. Preserve his face, headband, arm bands, hand wraps and traditional boxing outfit exactly. Friendly determination. No opponent, no boxing ring, no impact marks, no fire, no blood or injuries. Hands and wrapped fists readable, both feet visible.
+
+A07 · ເດັກ 21 · ໄຮໂດຣນາກ
+ແນບ: art/hydronak.jpg
+ບັນທຶກ: legend-hydronak.png
+The same clean-energy hydro naga from the reference, with its precise blue-green translucent water-like body and technological gold details. Show the whole elegant coiled silhouette, crowned head and tail. Preserve the naga's character and anatomy; do not turn it into a generic western dragon. No dam, water spray, waves, lightning or city. Transparent background outside the body; preserve the readable blue-green material inside it rather than making the entire subject invisible.
+
+A08 · ເດັກ 22 · ປັນຍາຄຳ
+ແນບ: art/panyakham.jpg
+ບັນທຶກ: legend-panyakham.png
+The same Lao golden AI sage from the reference, full body, holding or opening a traditional palm-leaf manuscript. Preserve the precise face, robes, ornaments and future technology details. Gentle wise smile. The manuscript is part of the subject; its surface has decorative abstract non-letter marks only. No floating books, stars, holographic screens, background, pedestal or aura.
+
+A09 · ເດັກ 23 · ບັ້ງໄຟດາວ-1
+ແນບ: art/bangfaidao.jpg
+ບັນທຶກ: legend-bangfaidao.png
+The same Lao naga-headed space rocket from the attached reference, complete nose-to-tail, upright with a very slight heroic three-quarter turn. Preserve the sculpted naga nose, Lao ornament, gold and original coloured body panels and fins. Remove any lettering or numbers. No flames, exhaust, launch pad, smoke, sky, stars or planet. All fins completely inside the transparent canvas. Do not add people or a generic modern rocket design.
+
+A10 · ເດັກ 24 · ແມ່ໄກ່ດາວ
+ແນບ: art/maekaidao.jpg
+ບັນທຶກ: legend-maekaidao.png
+The same kind celestial mother hen from the reference, wings spread protectively, complete body and both wings fully visible, a graceful compact silhouette. Preserve her face, feather colours, gold detailing and gentle expression. The hen alone: do NOT include chicks, stars, constellation lines, moon, nebula, scenery or glow outside the feathers. The game adds exactly seven chick-stars around her. Keep the feather tips crisp and readable on transparency.
+
+ຊຸດ B · ຮູບປະກອບເພີ່ມ (3 ຮູບ)
+ແຕ່ລະຮູບ 1024×1024, ບໍ່ແມ່ນກາດ. ເຈນທີລະຮູບ. ບໍ່ໃຊ້ COMMON PROMPT ຂອງຊຸດ A.
+
+B01 · ດອກຈຳປາ · fx-champa.png
+One beautiful Lao white frangipani flower, five rounded creamy-white petals with a warm golden-yellow centre, viewed directly from above, no stem, no leaves, no shadow. Refined hand-painted 2D fantasy game illustration, clean soft outlines, matching warm Lao card-game art. A single centred flower on actual transparent background, 1024×1024, 20% empty padding. No text, frame, watermark, extra flowers, particles or glow. A clearly readable icon even at 40 pixels.
+
+B02 · ໄຫຫີນ · fx-stone-jar.png
+One ancient stone jar inspired by the Plain of Jars in Laos, round broad carved stone body, open circular rim with a dark hollow interior, seen from a slightly raised frontal three-quarter angle. Weathered warm grey sandstone, subtle age and moss at the base, restrained decorative carved line only, no invented writing. Polished kid-friendly hand-painted 2D fantasy game art with clean outlines, not photorealistic. Entire jar isolated on actual transparent background, 1024×1024, 15% empty padding. No landscape, ground plane, cast shadow, people, text, glow or floating particles.
+
+B03 · ດາວລູກໄກ່ · fx-chick-star.png
+One adorable small golden celestial chick, round friendly silhouette, tiny wings slightly open and a kind face, a few elegant cream feather details, matching the mother hen in the attached maekaidao card reference. Polished hand-painted 2D Lao fantasy game art with soft clean outlines. A single chick, full body visible, actual transparent background, 1024×1024, 20% padding. No mother hen, no other chicks, no star shape behind it, no aura, no background, no letters or watermark. Readable at 50 pixels. The game will duplicate this chick exactly seven times.

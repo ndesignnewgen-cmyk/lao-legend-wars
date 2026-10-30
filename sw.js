@@ -2,7 +2,7 @@
 // Pages: network first, so a new version shows as soon as you are online; the cached copy is used offline.
 // Card art and fonts: cache first, filled as cards are seen (the 60+ MB of art is not downloaded up front).
 // Replacing an art file under the same name? Bump VERSION so players get the new picture.
-const VERSION = 'v2-security';
+const VERSION = 'v3-legend-entrances';
 const SHELL = 'shell-' + VERSION, ART = 'art-' + VERSION, FONTS = 'fonts-' + VERSION;
 const PRECACHE = ['./', 'index.html', 'cards.html', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png', 'art/logo.webp', 'art/back.jpg'];
 

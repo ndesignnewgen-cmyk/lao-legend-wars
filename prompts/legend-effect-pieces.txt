@@ -1,0 +1,26 @@
+ພຣ້ອມດຽວ: ຮູບປະກອບເອັບເຟັກ 6 ຮູບ. ບໍ່ຕ້ອງເຈນຕົວລະຄອນໃໝ່.
+ຄັດລອກຂໍ້ຄວາມອັງກິດທັງໝົດລຸ່ມນີ້ → ChatGPT → ສົ່ງ. ໄດ້ zip ແລ້ວສົ່ງຄືນໃນແຊັດນີ້.
+
+Create a batch of SIX separate transparent PNG effect assets for Lao Legend Wars, a kid-friendly Lao folklore trading card game. These are small decorative objects layered around EXISTING character cutouts. Do not generate characters, card illustrations, backgrounds or complete scenes.
+
+Shared style: beautiful hand-painted 2D fantasy game art, warm rich gold, restrained Lao ornament, clean soft outlines and refined shading. Clear silhouettes readable at 40–80 pixels. Not photorealistic, not 3D. Each image 1024×1024, one centred object, actual alpha transparency, 20% transparent padding. No ground plane, cast shadow, external glow, aura, particles, frame, text, letters, numbers, watermark or painted checkerboard. Keep every object fully inside its canvas.
+
+1. fx-champa.png
+A single Lao white frangipani flower, viewed directly from above. Exactly five rounded creamy-white petals, subtly curled edges, warm golden-yellow centre. No stem or leaves.
+
+2. fx-stone-jar.png
+One ancient stone jar inspired by Laos' Plain of Jars. Broad rounded warm grey sandstone body, clearly open circular rim and hollow dark interior. Slightly raised frontal three-quarter view. Delicate weathering, a little moss at the base, restrained carved geometric decoration without writing. No pedestal or landscape.
+
+3. fx-rice-basket.png
+One beautiful Lao woven bamboo sticky-rice basket, warm honey-gold with delicate traditional geometric weaving. Front three-quarter view. Its lid is slightly tilted open, attached visually to the same object, revealing a small mound of pearly white sticky rice. No steam, table, food stall, hands or people.
+
+4. fx-cave-crystal.png
+One elegant cluster of three blue-aqua cave crystals, the central crystal tallest, the two side crystals shorter. Faceted translucent turquoise with restrained lavender reflections and small gold accents at the base. Clearly visible shaded facets, no external light bloom, surrounding rocks or cave.
+
+5. fx-palm-manuscript.png
+One traditional Lao palm-leaf manuscript bundle with its leaves slightly fanned open, honey-gold dried palm leaves, two small binding holes with a fine red cotton cord and an elegant gold ornamental end cover. Slight three-quarter view. Subtle abstract decorative lines only, no readable letters, pseudo-writing, modern book spine or electronic screen. No hands or floating effects.
+
+6. fx-chick-star.png
+One adorable small golden celestial chick, round friendly body, tiny wings slightly open, cream feather details, dark kind eyes and a little orange beak. Full body and both feet visible. The game will duplicate this SINGLE chick seven times. No mother hen, other chicks, surrounding star shape, aura or scenery.
+
+Generate all six individual PNG files and deliver them together as lao-legend-effect-pieces.zip. If ZIP delivery is unavailable, provide six separate downloadable PNG files. Do not put them in a collage, grid, contact sheet or sprite sheet.

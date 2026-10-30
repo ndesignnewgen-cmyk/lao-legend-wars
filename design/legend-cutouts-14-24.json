@@ -1,0 +1,166 @@
+{
+  "source": "Existing art/<id>.jpg; original pixels retained",
+  "bounds": {
+    "pulangseung": [
+      0.0145,
+      0.0,
+      0.9158,
+      0.6601
+    ],
+    "alt-pulangseung": [
+      0.0,
+      0.0,
+      0.9803,
+      0.6761
+    ],
+    "khunjueang": [
+      0.1013,
+      0.0473,
+      0.5934,
+      0.4276
+    ],
+    "alt-khunjueang": [
+      0.0,
+      0.0938,
+      0.5224,
+      0.3845
+    ],
+    "chaothamkonglor": [
+      0.3618,
+      0.01,
+      0.4579,
+      0.586
+    ],
+    "alt-chaothamkonglor": [
+      0.2855,
+      0.0085,
+      0.6987,
+      0.5849
+    ],
+    "rueaxuangkham": [
+      0.0,
+      0.0218,
+      1.0,
+      0.65
+    ],
+    "alt-rueaxuangkham": [
+      0.0158,
+      0.1569,
+      0.9842,
+      0.6134
+    ],
+    "maekhuakham": [
+      0.2342,
+      0.0236,
+      0.5171,
+      0.5309
+    ],
+    "alt-maekhuakham": [
+      0.0,
+      0.0822,
+      0.7947,
+      0.6352
+    ],
+    "nairoymuay": [
+      0.1026,
+      0.0511,
+      0.8697,
+      0.6424
+    ],
+    "alt-nairoymuay": [
+      0.0,
+      0.0132,
+      0.9408,
+      0.7703
+    ],
+    "hydronak": [
+      0.2322,
+      0.0198,
+      0.4395,
+      0.4613
+    ],
+    "panyakham": [
+      0.2211,
+      0.0132,
+      0.6776,
+      0.5478
+    ],
+    "alt-panyakham": [
+      0.0303,
+      0.086,
+      0.5921,
+      0.431
+    ],
+    "bangfaidao": [
+      0.3355,
+      0.0104,
+      0.6,
+      0.5208
+    ],
+    "alt-bangfaidao": [
+      0.0605,
+      0.0123,
+      0.8566,
+      0.6654
+    ],
+    "maekaidao": [
+      0.0,
+      0.1231,
+      0.9868,
+      0.4489
+    ],
+    "alt-maekaidao": [
+      0.0039,
+      0.0919,
+      0.95,
+      0.5464
+    ],
+    "alt-hydronak": [
+      0.0,
+      0.0085,
+      0.9178,
+      0.3547
+    ]
+  },
+  "refinements": {
+    "chaothamkonglor": "Vision instance 1 removes foreground boat",
+    "panyakham": "Vision instance 1 then normalized polygon removes pupils",
+    "alt-panyakham": "Vision instance 1",
+    "hydronak": "Vision on top 525px, trim bottom to 510px, restore transparent 760x1060 canvas; bottom softened in showcase CSS",
+    "alt-hydronak": "Vision on top 385px, restore transparent 760x1060 canvas; bottom softened in showcase CSS"
+  },
+  "panyakhamPolygon": [
+    [
+      0,
+      0
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      1,
+      0.45
+    ],
+    [
+      0.79,
+      0.45
+    ],
+    [
+      0.79,
+      0.52
+    ],
+    [
+      0.62,
+      0.52
+    ],
+    [
+      0.62,
+      0.58
+    ],
+    [
+      0,
+      0.58
+    ]
+  ]
+}

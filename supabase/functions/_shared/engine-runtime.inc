@@ -132,6 +132,9 @@ const serverAPI={
    for(let i=0;i<2;i++){const p=st.p[i];p.deck=Array(p.deck.length).fill('back');if(i!==side){if(!peek)p.hand=p.hand.map((_,j)=>({uid:-(j+1),id:'back'}));p.traps=(p.traps||[]).map(()=> 'back');for(const f of p.field)if(f.hid){f.id='back';f.items=[];f.mods=[];}}}
    if(side===1){st.p.reverse();st.turn=1-st.turn;if(st.over)st.over.winner=1-st.over.winner;}
    st.online={me:side===0?'host':'guest',host:{name:'host'},guest:{name:'guest'}};st.fast=false;st.sim=false;st.secure=true;st.auto=false;st.p[0].bot=false;st.p[0].remote=false;st.p[1].remote=true;
+   // Translate internal player names in logs as well as the player panels.
+   const names=st.p.map(p=>p.name);
+   st.log=st.log.map(line=>String(line).replace(new RegExp(names.filter(Boolean).map(n=>n.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|'),'g'),n=>n===names[0]?'ເຈົ້າ':'ໝູ່'));
    st.p[0].name='ເຈົ້າ';st.p[1].name='ໝູ່';
    st.busy=st.turn!==0||!!bundle.prompt;st.modal=null;delete st.secureCounts;delete st.peekFor;
    const prompt=bundle.prompt?.side===side?copy(bundle.prompt):null;

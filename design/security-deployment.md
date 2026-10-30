@@ -19,3 +19,6 @@ Supabase → Edge Functions → secure-game → Logs: ກວດຂໍ້ຜິ�
 
 ## ຖ້າມີບັນຫາ
 ຢຸດຮັບເກມໃໝ່ຊົ່ວຄາວ, ເກັບຂໍ້ຜິດພາດທີ່ບໍ່ມີຄວາມລັບ, ແກ້ແລ້ວ deploy ຄືນ. ບໍ່ຄວນເປີດລະບົບລາງວັນເກົ່າຄືນ ເພາະຍັງປອມຜົນໄດ້. ການກູ້ຖານຂໍ້ມູນຈາກສຳຮອງອາດເສຍຂໍ້ມູນໃໝ່; ຕ້ອງເຈົ້າຂອງເປັນຜູ້ຕັດສິນ.
+
+## ອັບເດດ secure-game ຜ່ານໜ້າເວັບ · 30/10/2026
+ຖ້າບໍ່ໃຊ້ Terminal: ເປີດ https://raw.githubusercontent.com/ndesignnewgen-cmyk/lao-legend-wars/main/supabase/secure-game-deploy.txt → Cmd+A → Cmd+C → Supabase → ໂຄງການ lao-legend-wars → Edge Functions → secure-game → Code → index.ts → ຄລິກໃນໂຄດ → Cmd+A → Cmd+V → Deploy updates. ໄຟລ໌ນີ້ລວມໂຄດໄວ້ແລ້ວ ແລະບໍ່ມີລະຫັດລັບ. ບໍ່ຕ້ອງສ້າງ SQL ໃໝ່ສຳລັບອັບເດດນີ້. ໃຫ້ເຈົ້າຂອງເປັນຜູ້ກົດ Deploy; ບໍ່ສົ່ງລະຫັດລັບໃນແຊັດ.

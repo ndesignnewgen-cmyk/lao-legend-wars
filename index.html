@@ -1,5 +1,5 @@
 <meta name="security-build" content="1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-W+VsWT0iqWTsTrb5HV9xFlhezC1kF8vyvdKiim2p1e8='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co wss://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-q1F8FEtpE70wLv9z2v80ZTLhfpd5GL6VvD0Wkam8Rzs='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co wss://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="referrer" content="no-referrer">
 <meta charset="utf-8">
 <script>
@@ -628,6 +628,71 @@ body{background:
 .show .mx-spot{top:-10%;width:40%;height:120%;transform-origin:50% 0;background:conic-gradient(from 165deg at 50% 0,transparent 0deg,#ffd6f0aa 12deg,#ffffffcc 15deg,#ffd6f0aa 18deg,transparent 30deg);mix-blend-mode:screen;animation:mxspot 1.4s ease-in-out infinite alternate}
 .show .mx-spot.l{left:-5%;--a:-18deg;--b:14deg}.show .mx-spot.r{right:-5%;--a:18deg;--b:-14deg}.show .mx-spot.m{left:30%;--a:-8deg;--b:8deg;animation-duration:1.1s}
 @keyframes mxspot{from{transform:rotate(var(--a))}to{transform:rotate(var(--b))}}
+/* Eleven legend entrances: local stage, original card art, lightweight vector scenery. */
+.show.legend-scene{background:transparent;isolation:isolate;--accent:#ffe7a0;--accent2:#ffbd64;--bandc:#74502a}
+.show.legend-scene .sbg,.show.legend-scene .stint,.show.legend-scene .streaks{display:none}
+.show.legend-scene .scene-disc{position:absolute;left:50%;top:39%;width:min(94vw,850px);height:70vh;max-height:720px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(ellipse,#102a38f5 0%,#0c1a30e8 32%,#0b1525ab 49%,transparent 71%);z-index:0}
+.show.legend-scene .scene-art{position:absolute;left:50%;top:37%;width:min(140vw,100vh,960px);aspect-ratio:10/7;transform:translate(-50%,-50%);z-index:2;color:var(--accent);overflow:visible}
+.scene-art svg{display:block;width:100%;height:100%;overflow:visible;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.show.legend-scene .scene-chicks{z-index:4}
+.scene-art .scene-painted{filter:drop-shadow(0 3px 5px #0007) drop-shadow(0 0 5px #ffe48a44)}
+.scene-art .solid{fill:var(--accent);stroke:none}.scene-art .soft{fill:var(--accent);fill-opacity:.1}.scene-art .secondary{stroke:var(--accent2)}
+.scene-art .engrave{stroke-width:1;opacity:.55}.scene-art .draw{stroke-dasharray:1;stroke-dashoffset:1;animation:scene-draw calc(var(--dur) * .52) ease-out forwards}
+.scene-art .rise{animation:scene-rise calc(var(--dur) * .48) cubic-bezier(.2,.8,.3,1) both;transform-box:fill-box;transform-origin:center}
+.scene-art .bloom{animation:scene-bloom calc(var(--dur) * .48) cubic-bezier(.2,.8,.3,1) both;transform-box:fill-box;transform-origin:center}
+.scene-art .turn{animation:scene-turn calc(var(--dur) * 2) linear infinite;transform-box:fill-box;transform-origin:center}
+.scene-art .wave{animation:scene-wave calc(var(--dur) * .65) ease-in-out infinite alternate;transform-box:fill-box;transform-origin:center}
+.scene-art .launch{animation:scene-launch var(--dur) cubic-bezier(.2,.6,.2,1) both}
+.show.legend-scene .scut{z-index:3}.show.legend-scene .sglow{z-index:1;opacity:.45}.show.legend-scene .sring{display:none}
+.show.legend-scene .sfigure{position:absolute;left:50%;top:37%;width:min(58vw,36vh,320px);aspect-ratio:5/7;max-height:52vh;transform:translate(-50%,-50%);z-index:3;border-radius:45% 45% 24px 24px;border:2px solid var(--accent);padding:5px;background:#152535;box-shadow:0 0 0 5px #0c182ac9,0 0 0 6px color-mix(in srgb,var(--accent) 35%,transparent),0 16px 45px #0009,0 0 40px color-mix(in srgb,var(--accent2) 25%,transparent);animation:scene-portrait calc(var(--dur) * .32) cubic-bezier(.2,.85,.3,1) both;overflow:hidden}
+.show.legend-scene .sfigure img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 35%;border-radius:inherit}
+.show.legend-scene .sfigure::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 20%,#fff7 47%,transparent 66%);transform:translateX(-130%);animation:scene-shine calc(var(--dur) * .5) calc(var(--dur) * .18) ease-out both;pointer-events:none}
+.show.legend-scene .sband{z-index:5;left:50%;right:auto;bottom:9%;width:min(90vw,720px);transform:translateX(-50%);border-radius:18px;background:linear-gradient(120deg,#0c1929f7,color-mix(in srgb,var(--bandc) 60%,#0c1929) 50%,#0c1929f7);border:1px solid var(--accent);box-shadow:0 8px 28px #0007;animation:scene-band calc(var(--dur) * .24) calc(var(--dur) * .17) ease-out both}
+.show.legend-scene .sband small{font-size:clamp(10px,2.7vw,13px);letter-spacing:.02em;color:var(--accent)}
+.show.legend-scene .sband b{font-size:clamp(24px,5vw,44px);color:#fff9e8;text-shadow:0 2px 2px #000,0 0 20px color-mix(in srgb,var(--accent) 50%,transparent)}
+.show.legend-scene .sband span{font-size:13px;background:#ffffff0b;border-color:#ffffff20}
+.show.legend-scene .scene-subtitle{display:block;margin:4px 0 0;font:600 clamp(12px,3vw,16px)/1.5 var(--f-d);color:var(--accent)}
+.show.legend-scene .scene-spark{position:absolute;left:var(--x);top:var(--y);width:var(--size,5px);aspect-ratio:1;background:var(--accent);border-radius:50%;box-shadow:0 0 8px var(--accent);z-index:2;animation:scene-spark calc(var(--dur) * .65) var(--delay) ease-in-out both}
+.show.legend-scene.still *{animation:none!important}.show.legend-scene.still .sfigure::after{display:none}
+@keyframes scene-draw{to{stroke-dashoffset:0}}
+@keyframes scene-rise{from{opacity:0;transform:translateY(65px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scene-bloom{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:scale(1)}}
+@keyframes scene-turn{to{transform:rotate(360deg)}}
+@keyframes scene-wave{from{transform:translateX(-14px)}to{transform:translateX(14px)}}
+@keyframes scene-launch{0%,14%{opacity:0;transform:translateY(150px)}28%{opacity:1}100%{opacity:.5;transform:translateY(-80px)}}
+@keyframes scene-portrait{from{opacity:0;transform:translate(-50%,-43%) scale(.82)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+@keyframes scene-shine{to{transform:translateX(130%)}}
+@keyframes scene-band{from{opacity:0;transform:translate(-50%,18px)}to{opacity:1;transform:translate(-50%,0)}}
+@keyframes scene-spark{0%{opacity:0;transform:translateY(25px) scale(.2)}35%,65%{opacity:.85}100%{opacity:0;transform:translateY(-35px) scale(.2)}}
+@media(max-height:500px){.show.legend-scene .sband{bottom:5%;padding:7px 12px;width:min(75vw,600px)}.show.legend-scene .sband small{font-size:10px}.show.legend-scene .sband b{font-size:24px}.show.legend-scene .sband span{display:none}.show.legend-scene .scene-subtitle{font-size:11px;margin:0}.show.legend-scene .sfigure{top:33%;height:48vh}.show.legend-scene .scene-art,.show.legend-scene .scene-dial{top:33%}.show.legend-scene .scene-art{width:min(140vw,86vh,960px)}}
+
+/* Match the existing Phaya Thaen reveal: painted scene, hero and broad name ribbon. */
+.show.legend-scene .sbg{display:block;-webkit-mask:radial-gradient(ellipse at 50% 40%,#000 35%,#000c 65%,transparent 95%);mask:radial-gradient(ellipse at 50% 40%,#000 35%,#000c 65%,transparent 95%)}
+.show.legend-scene .scene-disc{width:min(78vw,740px);height:62vh;background:radial-gradient(ellipse,#07132788,transparent 68%)}
+.show.legend-scene .streaks{display:block;opacity:.12;z-index:1}
+.show.legend-scene .scene-art .engrave{display:none}
+.show.legend-scene .scene-art .soft{fill-opacity:.05;stroke-opacity:.28}
+.show.legend-scene .scene-art .draw{animation:scene-trace var(--dur) ease-out both}
+.show.legend-scene .scene-prop{animation:scene-prop var(--dur) cubic-bezier(.2,.7,.3,1) both;transform-box:fill-box;transform-origin:center}
+.show.legend-scene .sband{left:0;right:0;bottom:11%;width:auto;transform:none;border-radius:0;border:0;border-block:2px solid color-mix(in srgb,var(--accent) 60%,transparent);box-shadow:none;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--bandc) 68%,#07152a) 18%,color-mix(in srgb,var(--bandc) 68%,#07152a) 82%,transparent);animation:bandin calc(var(--dur) * .2) calc(var(--dur) * .13) cubic-bezier(.2,1,.3,1) both}
+.show.legend-scene .sband small{font-size:clamp(10px,2.8vw,14px);color:var(--accent)}
+.show.legend-scene .sband b{font-size:clamp(30px,7vw,62px);line-height:1.25}
+.show.legend-scene .sband span{font-size:17px;margin-top:4px;padding:2px 20px}
+.show.legend-scene .scene-subtitle{display:none}
+.show.legend-scene .scene-atmosphere{inset:0;z-index:4;overflow:hidden}
+.show.legend-scene .scene-mote{position:absolute;left:var(--x);top:var(--y);width:var(--s);height:var(--s);border-radius:50%;background:var(--c);box-shadow:0 0 7px var(--c);opacity:0;animation:scene-mote calc(var(--dur) * .7) var(--delay) linear both}
+.show.legend-scene .scene-mote.drop{border-radius:70% 20% 65% 40%;height:calc(var(--s) * 2);box-shadow:0 0 5px var(--c)}
+.show.legend-scene .scene-mote.leaf{border-radius:90% 0 90% 0;width:calc(var(--s) * 2);box-shadow:none}
+.show.legend-scene .scene-mote.grain{border-radius:70%;height:calc(var(--s) * 2);box-shadow:0 0 4px #ffd66d}
+.show.legend-scene .scene-mote.star{clip-path:polygon(50% 0,62% 37%,100% 50%,62% 63%,50% 100%,38% 63%,0 50%,38% 37%);border-radius:0}
+.show.legend-scene .scene-mote.line{height:2px;width:calc(var(--s) * 9);border-radius:3px}
+.show.legend-scene .scene-pulse{left:50%;top:39%;width:min(65vmin,560px);aspect-ratio:1;transform:translate(-50%,-50%);z-index:2;background:radial-gradient(ellipse,var(--accent) 0%,transparent 66%);mix-blend-mode:screen;animation:scene-power var(--dur) ease-out both}
+@keyframes scene-trace{0%{opacity:0;stroke-dashoffset:1}15%{opacity:.7}35%{stroke-dashoffset:0;opacity:.8}60%{opacity:.12}78%{opacity:.55}100%{opacity:0;stroke-dashoffset:0}}
+@keyframes scene-prop{0%{opacity:0;transform:translateY(45px) scale(.65)}22%{opacity:1;transform:translateY(0) scale(1)}62%{opacity:.95;transform:translateY(-15px) scale(1.04)}100%{opacity:0;transform:translateY(-45px) scale(.9)}}
+@keyframes scene-mote{0%{opacity:0;transform:translate(0,0) rotate(0)}18%{opacity:.9}70%{opacity:.85}100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--rot))}}
+@keyframes scene-power{0%{opacity:0;transform:translate(-50%,-50%) scale(.5)}16%{opacity:.65}30%{opacity:.12}48%{opacity:.45}68%{opacity:.08}83%{opacity:.28}100%{opacity:0;transform:translate(-50%,-50%) scale(1.25)}}
+@media(max-height:500px){.show.legend-scene .sband{bottom:5%;width:auto;padding:7px 12px}.show.legend-scene .sband b{font-size:28px}.show.legend-scene .sband span{display:none}}
+
 /* cutout showcase: the character lifted out of its card art, alive in front of its own blurred scene */
 .show.cut .sbg{filter:blur(7px) brightness(.5) saturate(1.25);inset:-10%;animation:kbcut var(--dur) cubic-bezier(.2,.7,.3,1) forwards}
 @keyframes kbcut{from{transform:scale(1.04)}to{transform:scale(1.22) translateY(2%)}}
@@ -651,6 +716,7 @@ body{background:
 .show .sshine{position:absolute;inset:0;pointer-events:none;-webkit-mask:var(--ci) 0 0/100% 100%;mask:var(--ci) 0 0/100% 100%;mix-blend-mode:overlay;
   background:linear-gradient(105deg,transparent 35%,#fffc 48%,#fff 50%,#fffc 52%,transparent 65%) 0 0/300% 100%;animation:sshine calc(var(--dur) * .55) calc(var(--dur) * .25) ease-in-out both}
 @keyframes sshine{from{background-position:110% 0}to{background-position:-10% 0}}
+.show.legend-scene[data-legend="hydronak"] .sbr img{-webkit-mask:linear-gradient(#000 0 calc(var(--cut-end) - 5%),transparent var(--cut-end));mask:linear-gradient(#000 0 calc(var(--cut-end) - 5%),transparent var(--cut-end))}
 .show.cut .streaks{opacity:.55}
 .activate{position:absolute;left:50%;top:44%;width:min(250px,52vw);transform:translate(-50%,-50%)}
 .activate .glow{position:absolute;inset:-26%;border-radius:50%;background:conic-gradient(from 0deg,#f2b63200,#ffd23d,#fff6c8,#f2b63200 40%,#ffd23d 70%,#f2b63200);filter:blur(14px);opacity:.85;animation:spin 1.4s linear infinite}
@@ -1919,7 +1985,7 @@ body{background:
 .roomcode{font:800 54px/1 var(--f-d);letter-spacing:12px;color:#ffe48a;background:#0006;border:2px dashed #ffd23d;border-radius:16px;padding:14px 22px}
 .roomin{font:800 30px var(--f-d);letter-spacing:10px;text-align:center;text-transform:uppercase;width:min(220px,70vw);padding:10px;border-radius:12px;border:2px solid #ffffff44;background:#0005;color:#fff}
 /* ---------- modal ---------- */
-.modal-bg{position:fixed;inset:0;z-index:50;background:#000c;display:grid;place-items:center;padding:16px}
+.modal-bg{position:fixed;inset:0;z-index:50;background:transparent;display:grid;place-items:center;padding:16px}
 .modal{background:var(--mat-2);border:1px solid #ffffff1c;border-radius:18px;padding:18px;width:min(560px,100%);max-height:92%;overflow:auto;display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center}
 /* sized by the screen height too, so the play button below the card always fits (Safari does not shrink it) */
 .modal > .card{width:min(290px,66vw,calc((100dvh - 230px) * .716));flex:none}
@@ -2547,7 +2613,7 @@ const PET_ART = true;            // art/pet-<id>-<1..3>.webp, cut out from the u
 const PET_LINES = {start:['ສູ້ໆ!', 'ພ້ອມແລ້ວ!', 'ໄປກັນເລີຍ!'], kill:['ເກັ່ງຫຼາຍ!', 'ວ້າວ!', 'ສຸດຍອດ!'], legend:['ຕຳນານມາແລ້ວ!', 'ແຮງຫຼາຍ!'],
   tale:['ນິທານຄົບແລ້ວ!', 'ມ່ວນຫຼາຍ!'], win:['ຊະນະແລ້ວ! 🎉', 'ເຮົາເກັ່ງທີ່ສຸດ!'], lose:['ບໍ່ເປັນຫຍັງ ເທື່ອໜ້າເອົາໃໝ່!', 'ສູ້ໃໝ່ເດີ້!']};
 // cutouts for the summon showcase (art/cut/<img>.webp), made with the macOS subject-lift; the subject's box as fractions [x, y, w, h]
-const CUTS = {nangchampa:[0.087,0.043,0.847,0.692],khudapphen:[0.029,0,0.953,0.636],dapsongmue:[0.008,0.055,0.966,0.496],ajandap:[0.126,0.074,0.768,0.715],kamkadam:[0.234,0.028,0.584,0.528],'alt-hackxm':[0,0.119,0.874,0.862],'alt-hapkhanasouane':[0,0.023,0.997,0.939],'alt-kalaket':[0,0.009,0.995,0.951],'alt-kamkadam':[0.045,0,0.945,0.657],'alt-kangli':[0,0.015,0.961,0.896],'alt-khaendj':[0,0,0.929,0.811],'alt-kratai':[0.232,0.242,0.513,0.417],'alt-luksaolao':[0,0.03,0.753,0.777],'alt-maethap':[0,0.013,0.795,0.879],'alt-makaew':[0,0.021,0.942,0.772],'alt-mechyak':[0,0.038,0.995,0.96],'alt-nagax':[0,0,0.887,0.798],'alt-nangkaew':[0,0,0.958,0.826],'alt-ngaonam':[0.087,0.385,0.674,0.238],'alt-phadaeng':[0,0.009,0.934,0.77],'alt-phayanak':[0,0,0.958,0.679],'alt-phayathaen':[0,0.015,0.997,0.677],'alt-phralam':[0,0,0.997,0.999],'alt-phutthasen':[0,0.047,0.997,0.709],'alt-punyeu':[0,0.021,0.997,0.591],'alt-santhaman':[0,0,0.997,0.942],'alt-singkaew':[0,0.094,0.992,0.691],'alt-sinxay':[0,0,0.984,0.999],'alt-suttharo':[0.216,0,0.529,0.615],'alt-thaohung':[0,0,0.989,0.998],'alt-xangsuek':[0,0.013,0.945,0.768],hanuman:[0,0,0.987,0.69],hapkhanasouane:[0,0.015,0.997,0.621],hungxang:[0,0,0.9,0.642],kalaket:[0,0.023,0.976,0.619],kamkadam2:[0,0.011,0.632,0.553],khrut:[0,0,0.997,0.679],khunborom:[0.108,0.038,0.395,0.369],khurak:[0.039,0.009,0.942,0.472],kratai:[0.034,0.094,0.963,0.468],kumphan:[0.058,0.011,0.713,0.543],leader:[0,0.023,0.997,0.674],maethap:[0,0,0.997,0.615],mechyak:[0,0.011,0.987,0.632],nakjet:[0.008,0.002,0.974,0.519],nangkaew:[0,0,0.987,0.711],phangkhi:[0,0,0.868,0.536],phayakhom:[0,0,0.997,0.623],phayanak:[0,0,0.892,0.938],phayathaen:[0.121,0.013,0.797,0.494],phralam:[0.105,0,0.861,0.741],phutthasen:[0,0.023,0.966,0.64],punyeu:[0.061,0.036,0.853,0.553],sangkhanthewi:[0.15,0.008,0.847,0.551],sangpheuak:[0.153,0.077,0.624,0.447],singhimma:[0.082,0.011,0.824,0.586],sinxay:[0,0,0.997,0.742],sinxaysam:[0.013,0.021,0.971,0.589],songphi:[0.039,0.023,0.782,0.494],suttharo:[0.003,0,0.776,0.394],thaenlom:[0.005,0.023,0.842,0.496],thaentong:[0.013,0,0.913,0.555],thaohung:[0.168,0,0.445,0.525],thewadapon:[0,0,0.761,0.566],xangjaidi:[0.1,0.03,0.797,0.542],xangsuek:[0.037,0.011,0.913,0.617],yaknak:[0.005,0.011,0.863,0.521],yaksip:[0.005,0,0.882,0.591],yaksombat:[0.084,0,0.913,0.609]};
+const CUTS = {"pulangseung":[0.0145, 0.0, 0.9158, 0.6601],"alt-pulangseung":[0.0, 0.0, 0.9803, 0.6761],"khunjueang":[0.1013, 0.0473, 0.5934, 0.4276],"alt-khunjueang":[0.0, 0.0938, 0.5224, 0.3845],"chaothamkonglor":[0.3618, 0.01, 0.4579, 0.586],"alt-chaothamkonglor":[0.2855, 0.0085, 0.6987, 0.5849],"rueaxuangkham":[0.0, 0.0218, 1.0, 0.65],"alt-rueaxuangkham":[0.0158, 0.1569, 0.9842, 0.6134],"maekhuakham":[0.2342, 0.0236, 0.5171, 0.5309],"alt-maekhuakham":[0.0, 0.0822, 0.7947, 0.6352],"nairoymuay":[0.1026, 0.0511, 0.8697, 0.6424],"alt-nairoymuay":[0.0, 0.0132, 0.9408, 0.7703],"hydronak":[0.2322, 0.0198, 0.4395, 0.4613],"panyakham":[0.2211, 0.0132, 0.6776, 0.5478],"alt-panyakham":[0.0303, 0.086, 0.5921, 0.431],"bangfaidao":[0.3355, 0.0104, 0.6, 0.5208],"alt-bangfaidao":[0.0605, 0.0123, 0.8566, 0.6654],"maekaidao":[0.0, 0.1231, 0.9868, 0.4489],"alt-maekaidao":[0.0039, 0.0919, 0.95, 0.5464],"alt-hydronak":[0.0, 0.0085, 0.9178, 0.3547],nangchampa:[0.087,0.043,0.847,0.692],khudapphen:[0.029,0,0.953,0.636],dapsongmue:[0.008,0.055,0.966,0.496],ajandap:[0.126,0.074,0.768,0.715],kamkadam:[0.234,0.028,0.584,0.528],'alt-hackxm':[0,0.119,0.874,0.862],'alt-hapkhanasouane':[0,0.023,0.997,0.939],'alt-kalaket':[0,0.009,0.995,0.951],'alt-kamkadam':[0.045,0,0.945,0.657],'alt-kangli':[0,0.015,0.961,0.896],'alt-khaendj':[0,0,0.929,0.811],'alt-kratai':[0.232,0.242,0.513,0.417],'alt-luksaolao':[0,0.03,0.753,0.777],'alt-maethap':[0,0.013,0.795,0.879],'alt-makaew':[0,0.021,0.942,0.772],'alt-mechyak':[0,0.038,0.995,0.96],'alt-nagax':[0,0,0.887,0.798],'alt-nangkaew':[0,0,0.958,0.826],'alt-ngaonam':[0.087,0.385,0.674,0.238],'alt-phadaeng':[0,0.009,0.934,0.77],'alt-phayanak':[0,0,0.958,0.679],'alt-phayathaen':[0,0.015,0.997,0.677],'alt-phralam':[0,0,0.997,0.999],'alt-phutthasen':[0,0.047,0.997,0.709],'alt-punyeu':[0,0.021,0.997,0.591],'alt-santhaman':[0,0,0.997,0.942],'alt-singkaew':[0,0.094,0.992,0.691],'alt-sinxay':[0,0,0.984,0.999],'alt-suttharo':[0.216,0,0.529,0.615],'alt-thaohung':[0,0,0.989,0.998],'alt-xangsuek':[0,0.013,0.945,0.768],hanuman:[0,0,0.987,0.69],hapkhanasouane:[0,0.015,0.997,0.621],hungxang:[0,0,0.9,0.642],kalaket:[0,0.023,0.976,0.619],kamkadam2:[0,0.011,0.632,0.553],khrut:[0,0,0.997,0.679],khunborom:[0.108,0.038,0.395,0.369],khurak:[0.039,0.009,0.942,0.472],kratai:[0.034,0.094,0.963,0.468],kumphan:[0.058,0.011,0.713,0.543],leader:[0,0.023,0.997,0.674],maethap:[0,0,0.997,0.615],mechyak:[0,0.011,0.987,0.632],nakjet:[0.008,0.002,0.974,0.519],nangkaew:[0,0,0.987,0.711],phangkhi:[0,0,0.868,0.536],phayakhom:[0,0,0.997,0.623],phayanak:[0,0,0.892,0.938],phayathaen:[0.121,0.013,0.797,0.494],phralam:[0.105,0,0.861,0.741],phutthasen:[0,0.023,0.966,0.64],punyeu:[0.061,0.036,0.853,0.553],sangkhanthewi:[0.15,0.008,0.847,0.551],sangpheuak:[0.153,0.077,0.624,0.447],singhimma:[0.082,0.011,0.824,0.586],sinxay:[0,0,0.997,0.742],sinxaysam:[0.013,0.021,0.971,0.589],songphi:[0.039,0.023,0.782,0.494],suttharo:[0.003,0,0.776,0.394],thaenlom:[0.005,0.023,0.842,0.496],thaentong:[0.013,0,0.913,0.555],thaohung:[0.168,0,0.445,0.525],thewadapon:[0,0,0.761,0.566],xangjaidi:[0.1,0.03,0.797,0.542],xangsuek:[0.037,0.011,0.913,0.617],yaknak:[0.005,0.011,0.863,0.521],yaksip:[0.005,0,0.882,0.591],yaksombat:[0.084,0,0.913,0.609]};
 function preloadCuts(ids){ for(const id of ids){ const d = C[id]; if(!d) continue; if(FUSE_FIG[id]) new Image().src = ART + 'cut/' + FUSE_FIG[id] + '.webp'; for(const im of [d.img, ALT[id]]) if(im && CUTS[im]) new Image().src = ART + 'cut/' + im + '.webp'; } }
 const ALT_CHANCE = location.hash === '#altall' ? 1 : .25;  // #altall makes every one alt, for showing the cards off
 
@@ -5853,6 +5919,107 @@ function mxClones(el, cut, n, cls){ if(!cut) return; const sc = el.querySelector
   for(let i = 0; i < n; i++){ const g = document.createElement('div'); g.className = 'scut mxc ' + cls; g.style.setProperty('--i', i - (n - 1) / 2); g.style.setProperty('--n', n); g.innerHTML = '<img src="' + cut + '" alt="">'; sc.before(g); } }
 function mxBolt(el, x, y, h, col){ let d = 'M0 0', px = 0; for(let k = 1; k <= 7; k++){ px += (Math.random() - .5) * 60; d += ' L' + px.toFixed(0) + ' ' + (k * h / 7).toFixed(0); }
   return mxLayer(el, 'mx-bolt', '<svg viewBox="-80 0 160 ' + h + '" width="160" height="' + h + '"><path d="' + d + '" stroke="' + (col || '#e8f6ff') + '"/></svg>', {'--x':x + 'px', '--y':y + 'px'}); }
+// Entrances use only local DOM/SVG layers: skipping removes every visual with its parent.
+// No gameplay RNG, full-screen tint, screen shake, or new network dependency.
+const LEGEND_SCENES = {
+ nangchampa:{color:'#ffe9b4',second:'#ffb8da',band:'#8c4769',title:'ດາບຈຳປາ ເບັ່ງບານໃຕ້ເດືອນ',sound:'wind'},
+ pulangseung:{color:'#f5d58b',second:'#9ade9b',band:'#577443',title:'ນ້ຳເຕົ້າເປີດ ລູກຫຼານພ້ອມໜ້າ',sound:'bless'},
+ khunjueang:{color:'#e8cf9c',second:'#9ce4df',band:'#686659',title:'ພະລັງໄຫຫີນ ຕື່ນຂຶ້ນ',sound:'legend'},
+ chaothamkonglor:{color:'#a7eaff',second:'#c5aeff',band:'#405c8c',title:'ມະນີສ່ອງແສງ ແຫ່ງຖ້ຳກອງລໍ',sound:'splash'},
+ rueaxuangkham:{color:'#ffdc85',second:'#83e4ee',band:'#28778b',title:'ແຮງແຈວສາມັກຄີ ທະຍານເທິງນ້ຳຂອງ',sound:'splash'},
+ maekhuakham:{color:'#ffe09c',second:'#bbeb91',band:'#96703d',title:'ເປີດກະຕິບຄຳ ແບ່ງປັນຄວາມອົບອຸ່ນ',sound:'heal'},
+ nairoymuay:{color:'#ffd28d',second:'#ffa59b',band:'#944a3f',title:'ໄຫວ້ຄູມວຍ ກຳປັ້ນສ່ອງແສງ',sound:'hit'},
+ hydronak:{color:'#98f3e3',second:'#99ceff',band:'#277d7c',title:'ສາຍນ້ຳສູ່ພະລັງ ສ່ອງສະຫວ່າງທົ່ວເມືອງ',sound:'splash'},
+ panyakham:{color:'#ffe09a',second:'#97e5f5',band:'#586c91',title:'ໃບລານສູ່ດວງດາວ ປັນຍາບໍ່ມີສິ້ນສຸດ',sound:'spell'},
+ bangfaidao:{color:'#ffd39e',second:'#9ac7ff',band:'#75547c',title:'ບັ້ງໄຟລາວ ທະຍານສູ່ດວງດາວ',sound:'rocket'},
+ maekaidao:{color:'#ffeca9',second:'#c5bdff',band:'#615699',title:'ແມ່ໄກ່ກາງປີກ ປົກປ້ອງດາວລູກທັງເຈັດ',sound:'legend'}
+};
+function scenePath(d,cls='draw',extra=''){return '<path class="'+cls+'" d="'+d+'" pathLength="1" '+extra+'/>';}
+function sceneStar(x,y,r=7){return '<path class="solid" d="M'+x+' '+(y-r)+' Q'+x+' '+y+' '+(x+r)+' '+y+' Q'+x+' '+y+' '+x+' '+(y+r)+' Q'+x+' '+y+' '+(x-r)+' '+y+' Q'+x+' '+y+' '+x+' '+(y-r)+'Z"/>';}
+// Painted transparent assets generated for these entrances; the vectors remain as framing.
+function scenePaint(name,x,y,size,cls='bloom'){
+ return '<g class="scene-prop '+cls+'"><image class="scene-painted" href="'+ART+'fx/'+name+'.webp" x="'+(x-size/2)+'" y="'+(y-size/2)+'" width="'+size+'" height="'+size+'" preserveAspectRatio="xMidYMid meet"/></g>';
+}
+function sceneFlower(x,y,r=18){return scenePaint('champa',x,y,r*4);}
+function sceneJar(x,y,scale=1){return scenePaint('stone-jar',x,y-12,190*scale,'rise');}
+function sceneWaves(y){return '<g class="secondary wave">'+[0,22,44].map((n,i)=>scenePath('M100 '+(y+n)+' Q160 '+(y-35+n)+' 220 '+(y+n)+' T460 '+(y+n)+' T700 '+(y+n)+' T940 '+(y+n),i===1?'draw':'engrave')).join('')+'</g>';}
+function legendScene(el,id){
+ const cfg=LEGEND_SCENES[id];let art='',front='';
+ el.style.setProperty('--accent',cfg.color);el.style.setProperty('--accent2',cfg.second);el.style.setProperty('--bandc',cfg.band);
+
+ switch(id){
+ case 'nangchampa':
+  art=scenePath('M170 400 A330 255 -20 0 1 780 165 M830 300 A330 255 -20 0 1 220 535','draw secondary')+
+   '<g class="turn">'+scenePath('M182 200 Q500 -10 818 200 M182 500 Q500 710 818 500','engrave')+'</g>'+
+   [[215,260,15],[770,390,20],[290,510,14],[725,155,12],[490,95,16]].map(p=>sceneFlower(...p)).join('');break;
+ case 'pulangseung':
+  art=scenePath('M220 520 C70 350 170 155 320 140 M780 520 C930 350 830 155 680 140','draw secondary')+
+   '<g class="rise"><path class="soft" d="M226 365 C192 330 225 305 236 281 C215 245 258 229 280 254 C306 280 268 310 292 346 C330 395 299 437 254 429 C210 427 194 390 226 365Z"/><path class="soft" d="M774 365 C808 330 775 305 764 281 C785 245 742 229 720 254 C694 280 732 310 708 346 C670 395 701 437 746 429 C790 427 806 390 774 365Z"/></g>'+
+   [0,1,2,3,4].map((n)=>{const x=320+n*90;return '<g transform="translate('+x+' 558)"><g class="rise"><circle r="9" cy="-30"/><path class="soft" d="M-18 5 V-7 Q0 -35 18 -7 V5Z"/></g></g>';}).join('')+
+   sceneFlower(180,210,14)+sceneFlower(820,210,14);break;
+ case 'khunjueang':
+  art=sceneJar(220,430,.95)+sceneJar(780,430,.95)+sceneJar(500,560,.7)+
+   scenePath('M180 525 L500 600 L820 525 M220 525 L500 575 L780 525','draw secondary')+
+   [220,500,780].map((x)=>scenePath('M'+x+' 430 V170','engrave secondary')).join('');break;
+ case 'chaothamkonglor':
+  art=scenePath('M110 420 L150 140 L190 255 L230 100 L270 230 M890 420 L850 140 L810 255 L770 100 L730 230','draw secondary')+
+   '<g class="rise">'+[190,245,755,810].map((x,i)=>'<path class="soft" d="M'+(x-19)+' 470 L'+(x-12)+' '+(330-i%2*65)+' L'+x+' '+(300-i%2*65)+' L'+(x+22)+' '+(345-i%2*65)+' L'+(x+19)+' 470Z"/>').join('')+'</g>'+
+   scenePaint('cave-crystal',200,385,180,'rise')+scenePaint('cave-crystal',800,385,180,'rise')+
+   sceneWaves(530)+scenePath('M190 320 Q500 30 810 320','engrave')+sceneStar(230,220,12)+sceneStar(770,220,12);break;
+ case 'rueaxuangkham':
+  art=sceneWaves(470)+'<g class="rise">'+scenePath('M160 446 Q500 590 840 446 L810 480 Q500 600 190 480Z','soft')+
+   scenePath('M160 446 Q120 375 174 350 Q217 354 190 378 M840 446 Q880 375 826 350 Q783 354 810 378')+
+   [0,1,2,3].map(n=>scenePath('M'+(270+n*150)+' 460 l-40 68 l18 12 l45 -72','secondary')).join('')+'</g>'+
+   scenePath('M120 400 Q120 180 290 115 M880 400 Q880 180 710 115','engrave');break;
+ case 'maekhuakham':
+  art=scenePaint('rice-basket',240,470,210,'rise')+'<g class="rise">'+scenePath('M374 491 L390 585 Q500 618 610 585 L626 491Z','soft')+'<ellipse cx="500" cy="491" rx="126" ry="27"/>'+scenePath('M380 466 Q500 404 620 466 M400 532 Q500 563 600 532 M400 562 Q500 593 600 562','engrave')+'</g>'+
+   scenePath('M220 440 C135 350 155 260 230 220 M780 440 C865 350 845 260 770 220','draw secondary')+
+   [0,1,2,3,4,5].map((n)=>'<g transform="translate('+(175+n%2*640)+' '+(260+Math.floor(n/2)*65)+')"><g class="bloom"><path class="soft" d="M-17 0 Q0 -37 17 0 Q0 30 -17 0Z"/></g></g>').join('')+
+   [0,1,2].map(n=>scenePath('M'+(460+n*40)+' 465 Q'+(440+n*40)+' 440 '+(460+n*40)+' 405','engrave')).join('');break;
+ case 'nairoymuay':
+  art=scenePath('M140 500 L200 180 M860 500 L800 180 M190 220 Q500 130 810 220 M175 310 Q500 220 825 310 M155 410 Q500 320 845 410','draw secondary')+
+   scenePath('M210 555 Q115 400 230 230 M790 555 Q885 400 770 230')+
+   '<g class="bloom">'+scenePath('M155 335 L190 310 L224 328 L230 375 L205 405 L167 380Z M845 335 L810 310 L776 328 L770 375 L795 405 L833 380Z','soft')+
+   scenePath('M164 352 L221 354 M170 367 L216 372 M836 352 L779 354 M830 367 L784 372','engrave')+'</g>'+
+   scenePath('M340 565 Q500 635 660 565 M360 580 L350 550 M400 595 L395 563 M600 595 L605 563 M640 580 L650 550','draw');break;
+ case 'hydronak':
+  art='<g transform="translate(500 525)"><g class="turn"><circle class="engrave" r="92"/>'+Array.from({length:8},(_,n)=>'<path class="soft" transform="rotate('+(n*45)+')" d="M15 0 Q30 -75 75 -55 Q50 -10 15 0Z"/>').join('')+'</g></g>'+
+   scenePath('M200 510 C60 370 290 220 170 145 M800 510 C940 370 710 220 830 145','draw secondary')+
+   scenePath('M210 515 C105 370 320 220 190 145 M790 515 C895 370 680 220 810 145','engrave')+
+   scenePath('M190 330 H240 V260 H290 M810 330 H760 V260 H710','draw')+
+   [190,810].map(x=>'<circle class="bloom soft" cx="'+x+'" cy="330" r="13"/>').join('');break;
+ case 'panyakham':
+  art=scenePaint('palm-manuscript',220,300,185)+scenePaint('palm-manuscript',780,340,185)+'<g class="rise">'+scenePath('M200 245 Q270 210 330 260 V390 Q260 340 200 377Z M800 245 Q730 210 670 260 V390 Q740 340 800 377Z','soft')+
+   scenePath('M215 270 Q265 247 313 278 M215 290 Q265 267 313 298 M785 270 Q735 247 687 278 M785 290 Q735 267 687 298','engrave')+'</g>'+
+   scenePath('M160 435 H270 L310 475 H380 M840 435 H730 L690 475 H620 M270 190 V130 H400 M730 190 V130 H600','draw secondary')+
+   [[160,435],[840,435],[270,130],[730,130],[360,110],[640,110],[500,70]].map(p=>sceneStar(...p,9)).join('')+
+   scenePath('M320 535 Q500 610 680 535','engrave');break;
+ case 'bangfaidao':
+  art='<ellipse class="engrave" cx="500" cy="340" rx="350" ry="170" transform="rotate(-28 500 340)"/>'+
+   '<ellipse class="engrave secondary" cx="500" cy="340" rx="350" ry="170" transform="rotate(28 500 340)"/>'+
+   '<g class="launch">'+scenePath('M210 470 L225 210 Q240 155 255 210 L270 470 M218 370 L190 420 V470 L218 450 M262 370 L290 420 V470 L262 450','soft')+
+   scenePath('M222 480 Q240 650 258 480 M232 490 V590','draw secondary')+'</g>'+
+   [[780,180],[810,440],[350,105],[670,555],[150,300]].map(p=>sceneStar(...p,10)).join('');break;
+ case 'maekaidao': {
+  const stars=[[230,250],[285,90],[420,25],[580,25],[715,90],[770,250],[500,650]];
+  art=scenePath('M230 250 L285 90 L420 25 L580 25 L715 90 L770 250 M230 250 Q210 600 500 650 Q790 600 770 250','draw secondary')+
+   scenePath('M200 400 Q70 245 170 180 Q160 300 300 360 M800 400 Q930 245 830 180 Q840 300 700 360','draw')+
+   scenePath('M200 365 Q120 260 170 215 M800 365 Q880 260 830 215','engrave');
+  front=stars.map((p,i)=>'<g style="animation-delay:calc(var(--dur) * '+(i*.035)+')" class="bloom chick-star"><circle class="soft" cx="'+p[0]+'" cy="'+p[1]+'" r="18"/>'+sceneStar(...p,11)+'<image class="scene-painted chick-art" href="'+ART+'fx/chick-star.webp" x="'+(p[0]-24)+'" y="'+(p[1]-24)+'" width="48" height="48"/></g>').join('');break; }
+ }
+ mxLayer(el,'scene-art','<svg viewBox="0 0 1000 700" aria-hidden="true">'+art+'</svg>');
+ if(front)mxLayer(el,'scene-art scene-chicks','<svg viewBox="0 0 1000 700" aria-hidden="true">'+front+'</svg>');
+ if(!REDUCE){
+  const kinds={nangchampa:'star',pulangseung:'leaf',khunjueang:'star',chaothamkonglor:'drop',rueaxuangkham:'drop',maekhuakham:'grain',nairoymuay:'line',hydronak:'drop',panyakham:'star',bangfaidao:'line',maekaidao:'star'};
+  const atmosphere=mxLayer(el,'scene-atmosphere'),kind=kinds[id],n=SET.fx==='short'?14:34;
+  for(let i=0;i<n;i++){
+   const rising=!['chaothamkonglor','rueaxuangkham'].includes(id),color=i%3?cfg.color:cfg.second;
+   mxLayer(atmosphere,'scene-mote '+kind,'',{'--x':(8+Math.random()*84)+'%','--y':(rising?48+Math.random()*26:4+Math.random()*35)+'%','--s':(2+Math.random()*4)+'px','--c':color,'--dx':((Math.random()-.5)*(kind==='line'?500:150))+'px','--dy':(rising?-180-Math.random()*180:180+Math.random()*180)+'px','--rot':((Math.random()-.5)*240)+'deg','--delay':(i/n*600*SET.speed)+'ms'});
+  }
+  mxLayer(el,'scene-pulse');mxAt(el,360,()=>sfx(cfg.sound));
+ }
+}
+
 const LEGEND_FX = {
   // ນ້ຳຂອງພຸ່ງ ແລະ ດວງເດືອນ
   phayanak(el, fr){ el.classList.add('mx-river'); mxLayer(el, 'mx-moon'); const c = MX_C(); mxAt(el, 150, () => sfx('splash'));
@@ -5902,6 +6069,7 @@ const LEGEND_FX = {
   nangkaew(el){ el.classList.add('mx-stage'); mxLayer(el, 'mx-spot l'); mxLayer(el, 'mx-spot r'); mxLayer(el, 'mx-spot m');
     fxPetals(24, ['#ff7ad9', '#ffb3e6', '#ffd23d', '#ffffff']); mxAt(el, 400, () => { sfx('legend'); rainbowBurst(innerWidth / 2, innerHeight * .2, 60); }); }
 };
+for(const id of Object.keys(LEGEND_SCENES)) LEGEND_FX[id]=el=>legendScene(el,id);
 // frame a lifted character: fit its box into the upper part of the screen, above the name band
 function cutFrame(cut){
   const W = innerWidth, H = innerHeight, bw = cut[2] * 760, bh = cut[3] * 1060;
@@ -5910,33 +6078,38 @@ function cutFrame(cut){
 }
 async function fxShowcase(id, alt){
   if(S.fast) return; const d = C[id], T = TFX[d.tribe] || TFX.hero, legend = !!d.legend;
+  const scene = LEGEND_SCENES[id];
   const dur = (legend ? 2300 : 1500) * SET.speed;
   sfx(legend ? 'legend' : 'spell');
   const im = alt && ALT[id] ? ALT[id] : d.img, img = PIC(im), cut = CUTS[im];
   const label = (alt && ALT[id] ? '✦ ອາດພິເສດ · ' : '') + (legend ? 'ກາດຕຳນານ · ' : '') + TRIBE_NAME[d.tribe] + ' · ບຸນ ' + d.cost;
-  let body = '<div class="sbg" style="background-image:url(' + img + ')"></div><div class="stint"></div>', fr = null;
+  let body = '<div class="sbg" style="background-image:url(' + img + ')"></div>' + (scene ? '' : '<div class="stint"></div>'), fr = null;
+  if(scene) body+='<div class="scene-disc"></div>';
   if(cut){
     fr = cutFrame(cut);
     const cu = ART + 'cut/' + im + '.webp';
     body += '<div class="sglow"></div><div class="sring"></div><div class="scut"><div class="sbr" style="--ci:url(' + cu + ')"><img src="' + cu + '" alt=""><i class="sshine"></i></div></div>';
   }
-  body += '<div class="streaks"></div><div class="sband"><small>' + label + '</small><b>' + d.name + '</b><span>ພະລັງ ' + d.power + '</span></div>';
-  const el = addFx('show' + (cut ? ' cut' : '') + (alt && ALT[id] ? ' alt' : ''), null, null, body);
+  if(scene && !cut) body+='<div class="sfigure"><img src="'+img+'" alt=""></div>';
+  body += '<div class="streaks"></div><div class="sband"><small>' + label + '</small><b>' + d.name + '</b><span>ພະລັງ ' + d.power + '</span>' + (scene ? '<em class="scene-subtitle">'+scene.title+'</em>' : '') + '</div>';
+  const el = addFx('show' + (scene ? ' legend-scene' : '') + (REDUCE ? ' still' : '') + (cut ? ' cut' : '') + (alt && ALT[id] ? ' alt' : ''), null, null, body);
+  el.dataset.legend=id;
+  if(cut)el.style.setProperty('--cut-end',((cut[1]+cut[3])*100)+'%');
   el.style.setProperty('--dur', dur + 'ms'); el.style.setProperty('--tc', T.c[0] + 'cc');
   if(fr){ el.style.setProperty('--cw', fr.cw + 'px'); el.style.setProperty('--cx', fr.cx + 'px'); el.style.setProperty('--cy', fr.cy + 'px');
     el.style.setProperty('--gx', innerWidth / 2 + 'px'); el.style.setProperty('--gy', innerHeight * .39 + 'px'); el.style.setProperty('--gs', fr.gs + 'px'); }
-  flashScreen('#ffffff', legend ? .9 : .5);
+  if(!scene) flashScreen('#ffffff', legend ? .9 : .5);
   if(legend && LEGEND_FX[id]) LEGEND_FX[id](el, fr || {gs:Math.min(innerWidth, innerHeight) * .6}, PIC(im), cut ? ART + 'cut/' + im + '.webp' : null, dur);
   // aura rising from the bottom edge in the tribe colour; with a cutout, embers also lift off the character
-  const iv = setInterval(() => {
+  const iv = scene ? null : setInterval(() => {
     for(let i = 0; i < (legend ? 6 : 3); i++) emit({x:Math.random() * innerWidth, y:innerHeight + 10, vx:(Math.random() - .5) * 40, vy:-220 - Math.random() * 260, g:-40, drag:.99, life:1.1, size:3 + Math.random() * 5, kind:'dot', color:pick(T.c)});
     if(fr) for(let i = 0; i < 2; i++){ const a = Math.random() * 6.283, r = fr.gs * (.25 + Math.random() * .2);
       emit({x:innerWidth / 2 + Math.cos(a) * r, y:innerHeight * .39 + Math.sin(a) * r * .8, vx:(Math.random() - .5) * 60, vy:-120 - Math.random() * 120, g:-30, drag:.98, life:.8, size:2 + Math.random() * 2.5, kind:'spark', color:pick(T.c)}); }
     if(fr && legend && Math.random() < .35){ const a = Math.random() * 6.283, r = fr.gs * (.3 + Math.random() * .25);
       emit({x:innerWidth / 2 + Math.cos(a) * r, y:innerHeight * .39 + Math.sin(a) * r * .8, vx:0, vy:-20, g:0, drag:1, life:.7, size:5 + Math.random() * 5, kind:'star', color:'#fff3b0', rot:Math.random() * 6}); }
   }, 40);
-  if(fr) setTimeout(() => { if(el.isConnected){ shockAt(innerWidth / 2, innerHeight * .39, T.c[0], fr.gs * .55); burstAt(innerWidth / 2, innerHeight * .39, d.tribe, legend ? 50 : 28, 1); } }, dur * .12);
-  if(alt && ALT[id]) setTimeout(() => rainbowBurst(innerWidth / 2, innerHeight * .45, 90), 300);
+  if(fr && !scene) setTimeout(() => { if(el.isConnected){ shockAt(innerWidth / 2, innerHeight * .39, T.c[0], fr.gs * .55); burstAt(innerWidth / 2, innerHeight * .39, d.tribe, legend ? 50 : 28, 1); } }, dur * .12);
+  if(!scene && alt && ALT[id]) setTimeout(() => { if(el.isConnected) rainbowBurst(innerWidth / 2, innerHeight * .45, 90); }, 300);
   await fxBig(() => fxWait(legend ? 2300 : 1500));
   clearInterval(iv); el.remove();
 }
@@ -6014,7 +6187,7 @@ function preloadFx(){
   if(FXI.on) return; FXI.on = true;
   const ld = n => { const i = new Image(); i.decoding = 'async'; i.src = FXA + n + '.webp'; return i; };
   FXI.petals = [1, 2, 3, 4, 5, 6, 7, 8].map(k => ld('petal-' + k)); FXI.flowers = [ld('marigold'), ld('marigold-side')]; FXI.sparks = ld('sparks');
-  for(const n of ['yantra-gold', 'yantra-water', 'yantra-fire', 'rays', 'orb', 'kranok', 'candle', 'phakhuan', 'sasin']) ld(n);
+  for(const n of ['yantra-gold', 'yantra-water', 'yantra-fire', 'rays', 'orb', 'kranok', 'candle', 'phakhuan', 'sasin', 'champa', 'stone-jar', 'rice-basket', 'cave-crystal', 'palm-manuscript', 'chick-star']) ld(n);
 }
 const fxOk = i => i && i.complete && i.naturalWidth > 0;
 function fxCanvas(){
@@ -7072,7 +7245,7 @@ async function localReplay(req,want,code){
 }
 // after a reload: a bot game picks its local copy back up, a room goes on through the server
 async function secureResume(code){
- try{const [d,L]=await Promise.all([secureApi({op:'poll',code,rid:crypto.randomUUID(),want:'full'}),localLoad().catch(()=>null)]);
+ try{const [d,L]=await Promise.all([secureApi({op:'poll',code,rid:crypto.randomUUID(),want:'full'}),secureWait(localLoad(),8000).catch(()=>null)]);
   if(d.mode==='bot'&&d.full&&L&&d.status!=='finished'){secureWatch(code,true);SEC.guard=accountGuard();LOCAL.L=L;LOCAL.row={code,rev:d.rev,mode:'bot',host:'me',guest:null,status:d.status,engine:d.full,spec:null,deadline:null,reward:null,rewarded:false};delete d.full;SEC.rev=-1;await secureApply(d);return;}
  }catch(e){}
  secureWatch(code);securePoll();
@@ -7088,9 +7261,12 @@ async function secureNoticeOn(code){
 }
 function secureNoticeOff(){if(SEC.ch){try{SB.removeChannel(SEC.ch);}catch(e){}SEC.ch=null;}}
 function secureNotice(){if(SEC.ch)try{SEC.ch.send({type:'broadcast',event:'rev',payload:{}});}catch(e){}}
+function secureWait(task,ms=15000){
+ let timer;return Promise.race([task,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('server_unavailable')),ms);})]).finally(()=>clearTimeout(timer));
+}
 async function secureApi(body){
  if(window.__secureMock)return window.__secureMock(JSON.parse(JSON.stringify(body)));
- await sbLoad();const {data}=await SB.auth.getSession(),token=data.session?.access_token;
+ await secureWait(sbLoad());const {data}=await secureWait(SB.auth.getSession()),token=data.session?.access_token;
  if(!token)throw Error('sign_in');
  const res=await fetch(SB_URL+'/functions/v1/secure-game',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify(body),signal:AbortSignal.timeout(15000)});
  let out;try{out=await res.json();}catch{throw Error('server_unavailable');}
@@ -7206,24 +7382,24 @@ async function secureSend(op,more){
 const secureMove=move=>secureSend('move',{move});
 const secureAnswer=value=>secureSend('answer',{value});
 async function secureBot(spec,level,extra={}){
- secureStop();ui.mmodal={type:'online',step:'conn'};render();const still=accountGuard();
+ secureStop();ui.mmodal={type:'online',step:'conn'};render();const guard=accountGuard(),pending=ui.mmodal,still=()=>guard()&&ui.mmodal===pending;
  const botDeck=extra.botDeck??pick(DECKS.map((_,i)=>i).filter(i=>i!==spec.di));
- try{const [d,L]=await Promise.all([secureApi({op:'create',mode:'bot',spec,level,botDeck,stage:extra.adv??null,want:'full'}),localLoad().catch(()=>null)]);if(!still())return;
+ try{const [d,L]=await Promise.all([secureApi({op:'create',mode:'bot',spec,level,botDeck,stage:extra.adv??null,want:'full'}),secureWait(localLoad(),8000).catch(()=>null)]);if(!still())return;
   secureWatch(d.code,true);
   if(d.full&&L){LOCAL.L=L;LOCAL.row={code:d.code,rev:d.rev,mode:'bot',host:'me',guest:null,status:d.status,engine:d.full,spec:null,deadline:null,reward:null,rewarded:false};}
   delete d.full;await secureApply(d);}
- catch(e){ui.mmodal=null;render();toast(secureError(e));}
+ catch(e){if(!still())return;ui.mmodal=null;render();toast(secureError(e));}
 }
 async function secureHost(invited){
- ui.mmodal={type:'online',step:'conn'};render();const still=accountGuard();
+ ui.mmodal={type:'online',step:'conn'};render();const guard=accountGuard(),pending=ui.mmodal,still=()=>guard()&&ui.mmodal===pending;
  try{const d=await secureApi({op:'create',mode:'casual',spec:mySpec()});if(!still())return;secureWatch(d.code);ui.mmodal={type:'online',step:'host',code:d.code,invited};render();
- return d.code;}catch(e){ui.mmodal=null;render();toast(secureError(e));}
+ return d.code;}catch(e){if(!still())return;ui.mmodal=null;render();toast(secureError(e));}
 }
 async function secureJoin(code){
  code=(code||'').trim().toUpperCase();if(!/^[A-Z2-9]{5,8}$/.test(code)){toast('ໃສ່ລະຫັດຫ້ອງ 8 ຕົວ');return;}
- ui.mmodal={type:'online',step:'conn'};render();const still=accountGuard();
+ ui.mmodal={type:'online',step:'conn'};render();const guard=accountGuard(),pending=ui.mmodal,still=()=>guard()&&ui.mmodal===pending;
  try{const d=await secureApi({op:'join',code,spec:mySpec()});if(!still())return;secureWatch(d.code);await secureApply(d);}
- catch(e){ui.mmodal=null;render();toast(secureError(e));}
+ catch(e){if(!still())return;ui.mmodal=null;render();toast(secureError(e));}
 }
 async function secureExit(){const code=SEC.code;if(S?.secure&&!S.over)try{await secureApi({op:'move',code,rev:SEC.rev,rid:crypto.randomUUID(),move:{t:'quit'}});}catch{}secureStop();liveClear();S=null;ui.grave=null;render();}
 
@@ -7596,7 +7772,7 @@ function onlineHTML(m){
   if(m.mm && (m.step === 'host' || m.step === 'wait' || m.step === 'conn')) return '<p class="q">🎉 ພົບຄູ່ແລ້ວ!</p><div class="mmspin big">' + UIC('pvp') + '</div><p class="lore">ກຳລັງເຊື່ອມຕໍ່…</p>';
   if(m.step === 'host' && m.invited) return '<p class="q">⚔️ ສົ່ງຄຳທ້າໄປຫາ ' + escH(m.invited) + ' ແລ້ວ</p><div class="mmspin big">' + UIC('friends') + '</div><p class="lore">ລໍໝູ່ຮັບຄຳທ້າ… (ຫ້ອງ ' + m.code + ')</p><div class="mbtns"><button class="btn2" data-a="onclose">ຍົກເລີກ</button></div>';
   if(m.step === 'host') return head + '<p class="lore">ບອກລະຫັດນີ້ໃຫ້ໝູ່ ແລ້ວລໍຖ້າ…</p><div class="roomcode">' + m.code + '</div><p class="lore">ໃຊ້ເດັກທີ່ເລືອກໄວ້ໃນໜ້າຫຼັກ</p><div class="mbtns"><button class="btn2" data-a="onclose">ຍົກເລີກ</button></div>';
-  if(m.step === 'conn') return head + '<p class="lore">ກຳລັງຕໍ່ອິນເຕີເນັດ…</p>';
+  if(m.step === 'conn') return '<p class="q">🎮 ກຳລັງກຽມເກມ</p><p class="lore">ກຳລັງຕໍ່ອິນເຕີເນັດ…</p><div class="mbtns"><button class="btn2" data-a="onclose">ຍົກເລີກ</button></div>';
   if(m.step === 'wait') return head + '<p class="lore">ກຳລັງເຂົ້າຫ້ອງ ' + m.code + '…</p><div class="mbtns"><button class="btn2" data-a="onclose">ຍົກເລີກ</button></div>';
   // the online hub: your rank, the two queues, friends, and a private room
   const deck = selInfo(ui.deck);
@@ -7763,7 +7939,7 @@ $app.addEventListener('click', e => {
     if(ui.mmodal && ui.mmodal.type === 'online'){
       if(a === 'onhost'){ onlineHost(); return; }
       if(a === 'onjoin'){ onlineJoin((document.getElementById('roomin') || {}).value); return; }
-      if(a === 'onclose'){ netClose(); mmStop(true); ui.mmodal = null; render(); return; }
+      if(a === 'onclose'){ secureStop(); netClose(); mmStop(true); ui.mmodal = null; render(); return; }
       if(a === 'mmgo'){ mmStart('casual'); return; }
       if(a === 'mmrank'){ mmStart('ranked'); return; }
       if(a === 'mmcancel'){ mmStop(true); ui.mmodal = {type:'online', step:'menu'}; render(); rankLoad(); return; }

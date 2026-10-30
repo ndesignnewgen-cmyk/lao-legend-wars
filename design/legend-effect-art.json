@@ -1,0 +1,12 @@
+{
+  "tool": "built-in image_gen",
+  "prompts": "prompts/legend-effect-pieces.txt",
+  "assets": {
+    "champa": "exec-2ec25c77-4a40-4133-9f53-13849ae7f00a.png",
+    "stone-jar": "exec-7217be5c-d26b-4b05-acac-8931facd363f.png",
+    "rice-basket": "exec-715aacdd-3ae0-4f92-818e-265379c73c68.png",
+    "cave-crystal": "exec-4e87a3e6-04c1-42c7-8857-ca7a730cbee6.png",
+    "chick-star": "exec-57455bba-7e73-4716-bffd-afff63a70ed6.png",
+    "palm-manuscript": "exec-4fea7aee-453d-40ee-9550-186e25485c6d.png"
+  }
+}
