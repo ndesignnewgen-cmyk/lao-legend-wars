@@ -63,7 +63,7 @@ const serverAPI={
    startTurn=realStart;return checkpoint();
  },
  async run(base,action,input=[]){
-   loadCheckpoint(base);answers=copy(input);answerIndex=0;S.peekFor=null;
+   startTurn=realStart;loadCheckpoint(base);answers=copy(input);answerIndex=0;S.peekFor=null;
    try{
      if(action.type==='start')await startTurn();
      else if(action.type==='quit'){if(action.side!==0&&action.side!==1)throw Error('Invalid side');gameOver(S.p[1-action.side],'quit');}
