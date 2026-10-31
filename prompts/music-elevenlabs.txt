@@ -1,0 +1,62 @@
+ເພງປະກອບເກມ ລຸ້ນໃໝ່ · ElevenLabs Music · 7 ເພງ · 01/11/2026
+ເກມໃຊ້ເພງ 7 ອັນນີ້ຢູ່ແລ້ວ (art/music/). ເພງໃໝ່ຈະມາແທນ, ຊື່ໄຟລ໌ຄືເກົ່າ.
+
+=====================================================================================================
+ເຮັດແນວໃດ
+=====================================================================================================
+  1. ເຂົ້າ elevenlabs.io → ເມນູຊ້າຍ «Music».
+  2. ກັອບ PROMPT ຂອງເພງນັ້ນ ໄປວາງ.
+  3. ຕັ້ງ: Duration (ຄວາມຍາວ) ຕາມທີ່ຂຽນ · ເປີດ «Instrumental» (ບໍ່ມີສຽງຮ້ອງ) ຖ້າມີປຸ່ມນີ້.
+  4. Generate → ຟັງ → ດາວໂຫຼດ MP3 ອັນທີ່ມັກ.
+  5. ຕັ້ງຊື່ໄຟລ໌ຕາມ [ຊື່] → ສົ່ງມາໃນແຊັດ (ໃສ່ zip ກໍ່ໄດ້). ເລືອກບໍ່ໄດ້ ສົ່ງ 2 ອັນ ເຊັ່ນ battle-a, battle-b.
+
+ສຳຄັນ:
+  · battle, winning, losing ຕ້ອງເປັນ 120 BPM ແລະ ຄີ A minor ທັງ 3 ເພງ. ເກມຈະປ່ຽນເພງກາງຄັນ ໂດຍບໍ່ຫຼຸດຈັງຫວະ.
+  · ເພງວົນ (loop) ຢ່າໃຫ້ຄ່ອຍໆມິດໃນຕອນທ້າຍ. ຂ້ອຍຈະຕັດຈຸດວົນເອງ.
+  · ສຽງດັງຄ່ອຍບໍ່ເປັນຫຍັງ. ຂ້ອຍປັບໃຫ້ເທົ່າກັນ.
+  · ລິຂະສິດ: ເກມມີຮ້ານຂາຍເພັດ, ໃຫ້ໃຊ້ແຜນເສຍເງິນ ທີ່ອະນຸຍາດໃຊ້ທາງການຄ້າ.
+
+ແບບເພງທັງໝົດ: ສີສັນລາວ (ແຄນ, ພິນ, ລະນາດ/ໂປງລາງ, ຄ້ອງ, ກອງ) ປົນກັບເພງເກມທັນສະໄໝ (ກອງໄຟຟ້າ, ສັງເຄາະ,
+ເຄື່ອງສາຍ, ທອງເຫຼືອງ). ບໍ່ມີສຽງຮ້ອງ, ບໍ່ໜ້າຢ້ານ, ຈັງຫວະສະໝ່ຳສະເໝີ.
+
+=====================================================================================================
+1. [menu] ໜ້າເມນູ, ຮ້ານ, ຈັດເດັກ · ວົນ · 60 ວິນາທີ
+=====================================================================================================
+PROMPT:
+Instrumental loopable main theme for a Lao folklore fantasy card game menu screen, 100 BPM, A minor pentatonic. Opens with a soft gong swell and a lone khaen mouth organ phrase, then a warm groove: deep frame drum and light hybrid percussion, a plucked phin lute ostinato, bright bamboo xylophone arpeggios, gentle string pads and a heroic khaen melody that rises like a legend about to begin. Adventurous, proud and welcoming, not too busy, so players can browse and read comfortably. Steady tempo the whole time, no breakdown, no fade out, ends on a full bar so it can loop. No vocals, no choir, no spoken words.
+
+=====================================================================================================
+2. [battle] ເກມປົກກະຕິ · ວົນ · 90 ວິນາທີ
+=====================================================================================================
+PROMPT:
+Instrumental loopable battle theme for a Lao folklore fantasy card game, exactly 120 BPM, A minor pentatonic, four-on-the-floor energy. Punchy hybrid drums with taiko and Lao frame drum hits, tight claps, a driving pulsing synth bass, a catchy khaen riff as the main hook answered by fast phin lute runs, bamboo xylophone sixteenth-note arpeggios, short brass stabs and gong accents every eight bars. Focused, energetic and fun, like a clever duel of legends, with variation every 16 bars but the same intensity throughout. Steady tempo, no tempo change, no breakdown to silence, no fade out, ends on a full bar so it loops. No vocals, no choir, no spoken words, no heavy metal guitar.
+
+=====================================================================================================
+3. [winning] ໃກ້ຊະນະ (ຄູ່ແຂ່ງເຫຼືອຊີວິດໜ້ອຍ) · ວົນ · 70 ວິນາທີ
+=====================================================================================================
+PROMPT:
+Instrumental loopable triumphant battle theme, exactly 120 BPM, A minor moving to C major lift, same groove family as a Lao folklore card game battle track. Bigger and brighter: driving drums with extra hand percussion, soaring khaen lead melody, fast phin lute, sparkling bamboo xylophone, bold brass and rising strings, gong crashes, a sense of victory coming closer and heroes charging forward. Confident and exciting, steady tempo, no tempo change, no fade out, ends on a full bar so it loops. No vocals, no choir, no spoken words.
+
+=====================================================================================================
+4. [losing] ກຳລັງແພ້ (ຊີວິດເຈົ້າເຫຼືອໜ້ອຍ) · ວົນ · 90 ວິນາທີ
+=====================================================================================================
+PROMPT:
+Instrumental loopable tense battle theme, exactly 120 BPM, A minor, same groove family as a Lao folklore card game battle track but under pressure. Low pulsing synth bass, tight driving drums with a heartbeat kick, urgent staccato strings, a determined minor khaen melody, nervous phin lute tremolo, deep gong swells, the feeling of a hero cornered but still fighting with hope to turn it around. Serious and dramatic but not scary, steady tempo, no tempo change, no fade out, ends on a full bar so it loops. No vocals, no choir, no spoken words, no horror sounds.
+
+=====================================================================================================
+5. [start] ເລີ່ມເກມ (ກ່ອນເພງ battle) · ດຽວ · 8 ວິນາທີ
+=====================================================================================================
+PROMPT:
+Instrumental short battle-start fanfare for a Lao folklore fantasy card game, 120 BPM, A minor. A fast drum roll and riser, a big gong hit, a bold khaen and brass call, then a punchy drop into one strong held chord. Heroic and hype, like two legends stepping into the arena. Short and clean, no long intro, no fade in, no vocals.
+
+=====================================================================================================
+6. [victory] ໜ້າຈໍຊະນະ · ດຽວ · 10 ວິນາທີ
+=====================================================================================================
+PROMPT:
+Instrumental short victory fanfare for a Lao folklore fantasy card game win screen, C major pentatonic. Joyful khaen melody, sparkling bamboo xylophone, bright brass, festive frame drums and claps, a final gong and shimmering bells. Celebratory, warm and proud, like a village festival for the hero. Short, ends cleanly on a held chord, no vocals, no choir.
+
+=====================================================================================================
+7. [defeat] ໜ້າຈໍແພ້ · ດຽວ · 7 ວິນາທີ
+=====================================================================================================
+PROMPT:
+Instrumental short gentle defeat jingle for a Lao folklore fantasy card game, A minor. A soft descending khaen phrase over warm strings, a quiet low gong, then a small hopeful bamboo xylophone note at the end that says "try again". Calm and kind, not sad or scary. Short, ends cleanly, no vocals, no choir.
