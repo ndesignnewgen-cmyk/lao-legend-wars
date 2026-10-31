@@ -70,6 +70,10 @@ online play, ranked, friends, a card shop with earned gems and owner-approved BC
 - Bots: easy = random, medium = `botPick` (a score per card id: add one for every new card or it is never played
   well; spells score 0 unless listed) + `botTarget`, hard = rollouts on `cloneState` (copy every new player/card
   field there too) scored by `evalState`.
+- In a game `render()` patches the board with `morph` instead of replacing it (full replacement repainted every card and
+  shadow each move: the main source of jank). Elements live on between renders: attributes, classes and inline styles are
+  reset to the new HTML, but a WAAPI animation with `fill:'forwards'` on a board element must be cancelled by its effect.
+  `__dbg.morphCheck()` compares the patched board with a fresh one (true = same).
 - Online: both screens run the same seeded game; game logic must use `rnd()`, never `Math.random()`
   (Math.random is fine for looks only). Snapshots are full JSON of `S`.
 - Constants used inside `def(...)` must be declared earlier in the file (a later `const` = TDZ error that breaks the
