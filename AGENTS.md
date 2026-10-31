@@ -83,7 +83,9 @@ online play, ranked, friends, a card shop with earned gems and owner-approved BC
 - Accounts play through the edge function `secure-game`: it runs the game on the server (`_shared/engine.mjs`) and only
   its results pay gems or rank. `engine.mjs` is GENERATED from index.html: after ANY change to the browser script run
   `python3 tools/build-security.py` (or `node tools/build-security.cjs`). It also refreshes the CSP hashes in the
-  `<meta http-equiv="Content-Security-Policy">` — skip it and the browser blocks the whole script.
+  `<meta http-equiv="Content-Security-Policy">` — skip it and the browser blocks the whole script. It deletes every
+  literal `<meta http-equiv="Content-Security-Policy"…>` up to the next `>`, even inside the script: build such a string
+  in two parts (see `updCheck`). `updCheck` reloads pages left open across an update.
 - Bot games are fast: the browser imports the same `engine.mjs` (+ `security.mjs`), asks the server for the full start
   (`want:'full'`), plays every move locally at once (`localSend`) and sends the same moves to the server in the
   background (`localReplay`). If the server's copy ever differs (`localSig`), it falls back to the server copy.
