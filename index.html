@@ -1,5 +1,5 @@
 <meta name="security-build" content="1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-Kp2hOyUNDdve70RnEHSXSBxw83mbmDl84qn2czgiYOk='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com https://xahuvoounkdojfsvnfaj.supabase.co; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co wss://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-DCVj6jcmCaGtF5r8Fm0rSx4a8BKhCJC7/WUWGO/9r+M='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com https://xahuvoounkdojfsvnfaj.supabase.co; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co wss://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="referrer" content="no-referrer">
 <meta charset="utf-8">
 <script>
@@ -5745,7 +5745,10 @@ async function openPack(kind, free){
     const di = ui.shopDeck != null ? ui.shopDeck : 1, still = accountGuard();
     try{
       const {data, error} = await SB.rpc('eco_pack', {kind, di, free:!!free}); if(!still()) return; if(error) throw error;
-      ecoApply(data.state); for(const x of data.cards) if(x.alt && x.isNew) markAltSeen(x.id);
+      ecoApply(data.state);
+      // a card this page does not know yet = the site was updated while it was open: the cards are already yours, reload to see them
+      if(data.cards.some(x => !C[x.id])){ toast('🔄 ມີກາດໃໝ່ໃນເກມ · ກຳລັງໂຫຼດໜ້າໃໝ່'); setTimeout(() => location.reload(), 1500); return; }
+      for(const x of data.cards) if(x.alt && x.isNew) markAltSeen(x.id);
       questEvent('pack', 1);
       ui.open = {kind, di, cards:data.cards, flip:{}, torn:false}; sfx('pack'); render();
     }catch(e){ if(still()) toast(ecoErr(e)); }
@@ -8765,6 +8768,25 @@ window.__sim = async function(n, level, levels, only){
 
 // installable app: offline cache on the real (https) site; add ?sw to try it on localhost
 if('serviceWorker' in navigator && (location.protocol === 'https:' || /[?&]sw\b/.test(location.search))) navigator.serviceWorker.register('sw.js').catch(err => window.__errs.push('sw: ' + err));
+// A page left open across an update keeps the old cards and rules (on 2026-10-31 a pack with a new deck-25 card failed
+// on such a page and said «ຕໍ່ເຊີບເວີບໍ່ໄດ້»). When the site has a newer build (its CSP script hashes differ from ours),
+// reload at the next calm moment: no game running, no pack being opened, no big effect on screen.
+const UPD = {want:false, busy:false};
+async function updCheck(){
+  if(UPD.want || UPD.busy || location.protocol !== 'https:' || !window.fetch) return;
+  const mine = document.querySelector('meta[http-equiv="Content-Security-Policy"]'); if(!mine) return;
+  UPD.busy = true;
+  // the tag is spelled in two parts: tools/build-security.py strips every literal copy of it from the page
+  try{ const t = await (await fetch(location.pathname, {cache:'no-store'})).text(), m = t.match(new RegExp('<meta http-equiv="Content-Security-' + 'Policy" content="([^"]*)"'));
+    if(m && m[1] !== mine.getAttribute('content')) UPD.want = true; }catch(e){}
+  UPD.busy = false; updTry();
+}
+function updTry(){
+  if(!UPD.want || (S && !S.over) || ui.open || ui.packBusy || FX.big) return;
+  UPD.want = false; toast('🔄 ມີເກມເວີຊັນໃໝ່ · ກຳລັງໂຫຼດ'); setTimeout(() => location.reload(), 1200);
+}
+document.addEventListener('visibilitychange', () => { if(!document.hidden) updCheck(); });
+setInterval(updCheck, 10 * 60 * 1000); setInterval(updTry, 15000);
 
 choiceRestore();
 render();
