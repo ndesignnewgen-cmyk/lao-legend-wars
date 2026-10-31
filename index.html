@@ -1,5 +1,5 @@
 <meta name="security-build" content="1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-qKmoef6Hbr/l1in2gGZdr+OgeiUzCzRiEFzrujL7xoE='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com https://xahuvoounkdojfsvnfaj.supabase.co; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co wss://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-QUBI9elfxwXcLUtavhEAWhqrLD3PLtQ0V8pxQXOqd7E='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com https://xahuvoounkdojfsvnfaj.supabase.co; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co wss://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="referrer" content="no-referrer">
 <meta charset="utf-8">
 <script>
@@ -3411,7 +3411,7 @@ function mfFade(secs){
 }
 /* ---------- character voices (art/voice/<id>.m4a, prompts/deck-25-voices.txt): a short line when a card enters ---------- */
 // add an id here when its file arrives; taniduean = Nang Tani's change, yanfull = the full yantra call
-const VOICES = ['nangtani'];
+const VOICES = ['nangtani', 'taniduean'];
 const VO = {buf:{}, wait:{}, t:{}, last:0};
 function voiceLoad(id){
   if(VO.buf[id] || VO.wait[id] || !SND.ctx || !window.fetch) return VO.wait[id];
