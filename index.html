@@ -1,5 +1,5 @@
 <meta name="security-build" content="1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-pN49LtZNxm9IoDw+WwmSaReKKV6xBJHXtAxlpIywOl8='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com https://xahuvoounkdojfsvnfaj.supabase.co; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co wss://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-701mv6MZCyfyP74Hf1Y+8Ue6t5miv7lLZMxS1unc4Ms='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com https://xahuvoounkdojfsvnfaj.supabase.co; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co wss://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="referrer" content="no-referrer">
 <meta charset="utf-8">
 <script>
@@ -238,6 +238,8 @@ button:focus-visible{outline:2px solid #fff;outline-offset:2px}
 .hc.ok .card{box-shadow:0 0 0 2px var(--good),0 0 18px #4fd18b88}
 .hc.ok:hover{transform:translateY(-16px)}
 .hc.no{filter:brightness(.62)}
+.hc.trib{position:relative}.hc.trib .card{box-shadow:0 0 0 2px #ffd23d,0 0 18px #ffd23d99}
+.hc.trib::after{content:'🙏';position:absolute;top:-8px;right:-6px;z-index:2;font-size:clamp(14px,2.4vw,20px);filter:drop-shadow(0 1px 2px #0008)}
 
 
 /* ---------- board v2: color-coded lanes, ຂວັນ column left, piles and portrait right ---------- */
@@ -6141,8 +6143,9 @@ function miniHTML(p, c){
 }
 function handHTML(h, i){
   const p = S.p[0]; const mine = S.turn === 0 && !S.busy && !S.over && !S.auto;
-  const ok = mine && !playBlock(p, h);
-  return '<div class="hc ' + (ok ? 'ok' : (mine ? 'no' : '')) + '" data-a="hand" data-v="' + h.uid + '" style="--i:' + (i || 0) + '">' + cardHTML(h.id, costOf(p, h.id), h.alt) + '</div>';
+  // a legend or 7+ card that can only come in by ຖວາຍພະລັງ (not enough ບຸນ, or the field is full) still lights up, in gold with 🙏
+  const why = mine && playBlock(p, h), trib = !!why && canTribute(p, h), ok = mine && (!why || trib);
+  return '<div class="hc ' + (ok ? 'ok' : (mine ? 'no' : '')) + (trib ? ' trib' : '') + '" data-a="hand" data-v="' + h.uid + '" style="--i:' + (i || 0) + '">' + cardHTML(h.id, costOf(p, h.id), h.alt) + '</div>';
 }
 function modalHTML(){
   const m = S.modal; if(!m) return ''; let inner = '';
