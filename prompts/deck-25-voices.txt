@@ -1,0 +1,92 @@
+ເດັກ 25 · ໝໍຜີ ອາຈານແດງ · ສຽງພາກຕົວລະຄອນ ຕອນລົງສະໜາມ (16 ໄຟລ໌)
+ເກມຈະເປີດສຽງນີ້ ຕອນກາດລົງສະໜາມ. ຄຳເວົ້າສັ້ນ 1–2 ວິນາທີ.
+
+=====================================================================================================
+ເຮັດຢູ່ໃສ: ElevenLabs (elevenlabs.io)
+=====================================================================================================
+ຂັ້ນ 1 · ສ້າງສຽງຕົວລະຄອນ (ເຮັດເທື່ອດຽວຕໍ່ຕົວ)
+  1. ເຂົ້າ elevenlabs.io → ເມນູຊ້າຍ Voices → ກົດ "+ Create a Voice" → ເລືອກ "Voice Design".
+  2. ກັອບຂໍ້ຄວາມ VOICE (ພາສາອັງກິດ) ຂອງຕົວນັ້ນ ໄປວາງໃນຊ່ອງ "Describe the voice".
+  3. ກົດ Generate → ຟັງ 3 ສຽງທີ່ອອກມາ → ເລືອກສຽງທີ່ມັກ → Save → ຕັ້ງຊື່ຕາມຊື່ໄຟລ໌ (ajandaeng …).
+
+ຂັ້ນ 2 · ໃຫ້ສຽງນັ້ນເວົ້າ
+  1. ເມນູຊ້າຍ Text to Speech → ເລືອກສຽງທີ່ Save ໄວ້ → Model ເລືອກ "Eleven v3".
+  2. ກັອບ LINE (ພາສາລາວ) ໄປວາງ. ຄຳໃນວົງເລັບ [ ] ເຊັ່ນ [giggles] ແມ່ນບອກອາລົມ, ວາງໄປນຳໄດ້ເລີຍ.
+  3. ກົດ Generate → ຟັງ → ກົດດາວໂຫຼດ (MP3) → ຕັ້ງຊື່ໄຟລ໌ຕາມ [ຊື່] ຂ້າງລຸ່ມ (ເຊັ່ນ ajandaeng.mp3).
+
+ຖ້າ AI ອ່ານພາສາລາວບໍ່ຖືກ (ສຽງເພີ້ນ):
+  ໃຊ້ Voice Changer ແທນ: ເມນູຊ້າຍ Voice Changer → ເລືອກສຽງຕົວລະຄອນ → ກົດໄມ ແລ້ວອັດສຽງເຈົ້າເອງ ເວົ້າປະໂຫຍກນັ້ນ
+  ໃຫ້ມີອາລົມ → Generate. ມັນຈະປ່ຽນສຽງເຈົ້າ ເປັນສຽງຕົວລະຄອນ ແຕ່ຄຳເວົ້າລາວຍັງຖືກຕ້ອງ.
+  ຫຼື ອັດສຽງໝູ່ ໃນໂທລະສັບເລີຍກໍ່ໄດ້ (Voice Memos). ສົ່ງ m4a ມາກໍ່ໄດ້.
+
+ສົ່ງ: ໃສ່ທຸກໄຟລ໌ໃນ voices.zip ແລ້ວສົ່ງໃນແຊັດ. ຖ້າເລືອກບໍ່ໄດ້ ສົ່ງ 2 ອັນມາ (ajandaeng-a.mp3, ajandaeng-b.mp3).
+ສຽງດັງຄ່ອຍບໍ່ເປັນຫຍັງ, ຂ້ອຍຈະປັບໃຫ້ເທົ່າກັນ ແລະ ຕັດຊ່ວງງຽບອອກເອງ.
+ລິຂະສິດ: ແຜນຟຣີຂອງ ElevenLabs ໃຊ້ໄດ້ສະເພາະບໍ່ຫາເງິນ. ເກມມີຮ້ານຂາຍເພັດ, ສະນັ້ນ ຕອນເຮັດສຽງແທ້ໃຫ້ໃຊ້ແຜນເສຍເງິນ.
+
+=====================================================================================================
+ຕົວລະຄອນ (14)
+=====================================================================================================
+[ajandaeng] ອາຈານແດງ · ກາດຕຳນານ
+  VOICE: A young Lao man in his mid twenties, warm and confident, a cool easy smile in his voice, clear medium-low tone, the calm hero who is never afraid. Southeast Asian accent.
+  LINE:  ອາຈານແດງ ມາແລ້ວ… ຜີຮ້າຍ ກັບບ້ານໄປ!
+
+[nangtani] ນາງຕານີ
+  VOICE: A young Lao woman in her twenties, soft, sweet and playful, a teasing smile in her voice, gentle and charming, a little breathy, like a friendly spirit of the night. Southeast Asian accent.
+  LINE:  [playful] ຄືນເດືອນເພັງ… ມາຫຼິ້ນກັບນາງບໍ?
+
+[taniduean] ນາງຕານີ ຮ່າງແສງເດືອນ (ຕອນປ່ຽນຮ່າງ, ໃຊ້ສຽງດຽວກັບ nangtani)
+  VOICE: (use the nangtani voice)
+  LINE:  [powerful] ແສງເດືອນເອີຍ… ມອບພະລັງໃຫ້ນາງ!
+
+[nongtani] ນ້ອງຕານີ
+  VOICE: A cheerful little Lao girl about seven years old, bright, cute and innocent, happy and full of energy. Southeast Asian accent.
+  LINE:  [excited] ເອື້ອຍຕານີ ຖ້ານ້ອງແດ່!
+
+[kumanthong] ກຸມານທອງ
+  VOICE: A tiny Lao boy spirit about four years old, giggly, cheeky and adorable, high little voice. Southeast Asian accent.
+  LINE:  [giggles] ຄິກໆ… ໂຊກດີມາແລ້ວ!
+
+[luksitmophi] ລູກສິດໝໍຜີ
+  VOICE: An eager Lao teenage boy about fourteen, a bit nervous but excited, voice cracking slightly, funny and lovable. Southeast Asian accent.
+  LINE:  ຍັນເສັ້ນທຳອິດ… ສຳເລັດ!
+
+[motian] ໝໍທຽນ
+  VOICE: A calm young Lao woman, soft and warm, quiet and kind, like she is speaking by candlelight. Southeast Asian accent.
+  LINE:  [softly] ຈູດທຽນແລ້ວ… ອອກມາເດີ ຜີນ້ອຍ
+
+[phitahaek] ຜີຕາແຮກ
+  VOICE: A small round funny old Lao grandpa spirit, slightly raspy, grumpy but cute, a proud farmer guarding his rice field. Southeast Asian accent.
+  LINE:  ນາເຂົ້າຂອງຂ້ອຍ… ຢ່າມາແຕະ!
+
+[mophivaendam] ໝໍຜີແວ່ນດຳ
+  VOICE: A cool young Lao man in his early twenties, laid-back and cocky, fast talker, stylish street attitude. Southeast Asian accent.
+  LINE:  ແວ່ນດຳ… ໄວກວ່າຜີ!
+
+[momonnammon] ໝໍມົນ ນ້ຳມົນ
+  VOICE: A kind elderly Lao man with a silver beard, slow, gentle and wise, a grandfather who blesses everyone. Southeast Asian accent.
+  LINE:  ນ້ຳມົນສັກສິດ… ກັບບ້ານເສຍເດີ
+
+[phipajaidi] ຜີປ່າໃຈດີ
+  VOICE: A huge gentle forest giant, very deep, slow and warm, soft rumbling voice, kind like a big old tree. Southeast Asian accent.
+  LINE:  ບໍ່ຕ້ອງຢ້ານ… ຂ້ອຍປົກປ້ອງເອງ
+
+[nangtiam] ນາງທຽມ
+  VOICE: A Lao spirit medium woman in her thirties, calm and mystical, dreamy and echoing, speaking slowly as if in a trance. Southeast Asian accent.
+  LINE:  [whispers] ບັນພະບຸລຸດເອີຍ… ມາຢືນຂ້າງຂ້ອຍ
+
+[mosakyan] ໝໍສັກຍັນ
+  VOICE: A legendary old Lao yantra master, wise and steady, warm with a quiet strength, a smile in his voice. Southeast Asian accent.
+  LINE:  ຍັນຄຳ… ກາຍເປັນໂລ່ແສງ!
+
+[phichaothi] ຜີເຈົ້າທີ່
+  VOICE: A noble ancient guardian spirit of the land, deep, slow and royal, powerful and echoing like a temple hall. Southeast Asian accent.
+  LINE:  ແຜ່ນດິນນີ້… ຂ້ອຍຮັກສາ
+
+=====================================================================================================
+ສຽງນ້ອຍ ແລະ ເຫດການ (ໃຊ້ສຽງທີ່ສ້າງໄວ້ແລ້ວ)
+=====================================================================================================
+[phinoikhom] ຜີນ້ອຍໂຄມໄຟ ອອກມາ (ໃຊ້ສຽງ kumanthong, ສັ້ນທີ່ສຸດ)
+  LINE:  [giggles] ວີ້!
+
+[yanfull] ຍັນເຕັມ (ໃຊ້ສຽງ ajandaeng)
+  LINE:  [shouts] ຍັນເຕັມ!
