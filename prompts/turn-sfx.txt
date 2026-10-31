@@ -1,0 +1,20 @@
+ສຽງປ່ຽນຕາ · 3 ສຽງໃໝ່ (ແບບເທ້ໆ) · 31/10/2026
+ດຽວນີ້: ກົດ ຈົບຕາ ໃຊ້ສຽງຄາຖາ, ເລີ່ມຕາເຈົ້າ ແລະ ຕາຄູ່ແຂ່ງ ໃຊ້ສຽງດຽວກັນ. ຈະແຍກເປັນ 3 ສຽງ ໃຫ້ຮູ້ເລີຍວ່າຕາໃຜ.
+
+ເຮັດຢູ່ໃສ: ElevenLabs → Sound Effects
+  1. ກັອບ PROMPT ຂອງສຽງນັ້ນ ໄປວາງ.
+  2. Settings: Duration = ຕາມວິນາທີທີ່ຂຽນ · Prompt influence = ສູງ (ປະມານ 70%).
+  3. Generate → ຟັງ → ດາວໂຫຼດອັນທີ່ມັກ (ຖ້າເລືອກບໍ່ໄດ້ ສົ່ງ 2 ອັນ ເຊັ່ນ myturn-a, myturn-b).
+  4. ຕັ້ງຊື່ໄຟລ໌ຕາມ [ຊື່] → ສົ່ງມາໃນແຊັດ.
+ສຽງດັງຄ່ອຍບໍ່ເປັນຫຍັງ ຂ້ອຍປັບໃຫ້ເອງ. ຕອນເຮັດແທ້ໃຫ້ໃຊ້ແຜນເສຍເງິນ (ເກມມີຮ້ານ).
+ແບບສຽງ: ເທ້, ມີພະລັງ, ສັ້ນ, ສີສັນລາວ (ຄ້ອງ, ກອງ, ລະນາດ, ແຄນ). ບໍ່ມີສຽງຄົນ, ບໍ່ມີເພງຍາວ, ບໍ່ໜ້າຢ້ານ.
+ສຽງນີ້ດັງທຸກຕາ, ສະນັ້ນຕ້ອງສັ້ນ ແລະ ຟັງເລື້ອຍໆແລ້ວບໍ່ເບື່ອ.
+
+[endturn] ກົດປຸ່ມ ຈົບຕາ · 1 ວິນາທີ
+  PROMPT: a powerful short "turn complete" stamp for a fantasy card game, a heavy wooden temple drum hit layered with a crisp metallic seal clank, followed by a quick whoosh that sweeps away and a tiny golden shimmer tail, decisive and satisfying, no voice, no music melody
+
+[myturn] ເລີ່ມຕາຂອງເຈົ້າ (ປ້າຍສີຟ້າ) · 1.5 ວິນາທີ
+  PROMPT: an epic heroic "your turn" fanfare hit for a mobile card game, a deep warm Lao gong strike with a bright rising whoosh, then a short bold khaen mouth organ chord and sparkling bamboo xylophone notes going up, confident, energizing and triumphant, like a hero stepping forward, no voice, under two seconds
+
+[foeturn] ເລີ່ມຕາຂອງຄູ່ແຂ່ງ (ປ້າຍສີແດງ) · 1.5 ວິນາທີ
+  PROMPT: a dramatic "opponent's turn" cue for a fantasy card game, two deep pounding Lao war drum hits with a low brass-like gong swell and a dark falling whoosh, tense and serious like a rival stepping onto the battlefield, cool and cinematic but not scary, no voice, no screams, under two seconds
