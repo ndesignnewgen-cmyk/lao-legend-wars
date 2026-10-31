@@ -55,6 +55,9 @@ online play, ranked, friends, a card shop with earned gems and owner-approved BC
   kw:{taunt, fly, rush, shield, guard, drain, grow, poison, block, quick, hide, duel, rally}, legend, tag, skill, lore,
   bonus (items), buff (locations: +1 to a tribe), fusion:[a,b], ritual, cd (countdown), mech (deck meter),
   own (a villager that is not neutral), token, ph (emoji placeholder art), img`.
+- Decks: «ເດັກຂອງຂ້ອຍ» (`ui.screen = 'mydecks'`, `myDecksHTML`) lists saved decks; the builder (`builderHTML`: card info
+  `edInspHTML`, pool `edPool`/`poolIds(ui.bf)`, deck `edDeckHTML`; ＋/－ via `edChange`) rates decks with `deckStars`,
+  `deckTips`, `deckSuggest`. Both render through `morph`. Test: `tools/deck-builder-test.js`.
 - Customize page (ໜ້າປັບແຕ່ງ, `ui.screen = 'style'`): `styleHTML`, `styleItems(tab)`, `styleUse(tab, id)`, locked sheet
   `styleSheetHTML`. Every look item is chosen there (back, arena, avatar, frame, title, pet); the shop only sells and
   settings keep the arena picker only during a game. Test: `tools/style-page-test.js` with `tools/wk.swift`.
