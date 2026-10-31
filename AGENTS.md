@@ -94,7 +94,9 @@ online play, ranked, friends, a card shop with earned gems and owner-approved BC
 - Online rooms: moves wait for the server; the mover broadcasts `rev` on Realtime channel `sec-<code>` so the other
   screen polls at once (`secureNoticeOn`).
 - Deploy after changing anything under `supabase/functions`: the owner runs `sh tools/deploy-security.sh` in Terminal
-  (Supabase CLI, browser sign-in). Localhost test without Supabase: set `window.__secureMock` to a function that
+  (Supabase CLI, browser sign-in). The owner's Mac has NO Supabase CLI (and no Node): use the dashboard way instead —
+  `build-security.py` also writes `supabase/secure-game-deploy.txt` (one file, no secrets); after a push the owner opens its
+  raw GitHub link → Cmd+A → Cmd+C → Supabase → Edge Functions → secure-game → Code → index.ts → Cmd+A → Cmd+V → Deploy updates. Localhost test without Supabase: set `window.__secureMock` to a function that
   answers like the server (see git history of this file's commit for an example) and call `__dbg.secure.bot(...)`.
 
 ## Adding a deck (checklist)
