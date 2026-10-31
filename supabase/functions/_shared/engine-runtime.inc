@@ -3,7 +3,7 @@ const copy = x => JSON.parse(JSON.stringify(x));
 class NeedDecision extends Error { constructor(prompt){ super('decision'); this.prompt=prompt; } }
 let answers=[], answerIndex=0,visualFrames=[],tracing=false;
 function captureVisual(kind=null,args=[]){
- if(!tracing||visualFrames.length>=180)return;
+ if(!tracing||S?.auto||visualFrames.length>=180)return; // S.auto: a hard-bot rollout copy (cloneState), never the real game
  const state=checkpoint().state;if(!kind&&visualFrames.length&&JSON.stringify(state)===JSON.stringify(visualFrames.at(-1).state))return;
  visualFrames.push({state,kind,args:copy(args)});
 }
@@ -19,7 +19,7 @@ function visualResult(){
    const patch=diffVisual(previous,state);previous=state;
    let args=copy(f.args),kind=f.kind;
    const key=k=>side===1&&/^h:[01]$/.test(k)?'h:'+(1-Number(k.slice(2))):k;
-   if(['activate','trap','loc','draw','rite','gather','baci','banner'].includes(kind))args[0]=side===1?1-args[0]:args[0];
+   if(['activate','trap','loc','draw','rite','gather','baci','banner','home','yanfull','holywater'].includes(kind))args[0]=side===1?1-args[0]:args[0];
    if(kind==='cast'){args[0]=side===1?1-args[0]:args[0];args[1]=key(args[1]);}
    if(['lunge','fireflies'].includes(kind)){args[0]=key(args[0]);args[1]=key(args[1]);}
    if(['float','ring','heal','buff','weak','rocket','curse','tornado','trip','grab','slash'].includes(kind))args[0]=key(args[0]);
@@ -37,7 +37,7 @@ function visualResult(){
 const realStart=startTurn, realOnPlay=onPlay;
 render=()=>captureVisual();floatAt=(...a)=>captureVisual('float',a);fxHeal=k=>captureVisual('heal',[k]);petSay=()=>{};petGrow=()=>{};botSay=()=>{};
 fxEnter=c=>captureVisual('enter',[c.uid]);
-fxShowcase=(id,alt)=>captureVisual('showcase',[id,alt]);
+fxShowcase=(id,alt,form)=>captureVisual('showcase',[id,alt,form]);
 fxActivate=(id,alt,side,key)=>captureVisual('activate',[side,id,alt,key]);
 fxLunge=(...a)=>captureVisual('lunge',a);
 fxCast=(side,t,kind)=>captureVisual('cast',[side,tkey(t),kind]);
@@ -53,6 +53,7 @@ fxSlash=(...a)=>captureVisual('slash',a);fxWave=()=>captureVisual('wave');fxRock
 fxCurse=k=>captureVisual('curse',[k]);fxTornado=k=>captureVisual('tornado',[k]);fxTrip=k=>captureVisual('trip',[k]);
 fxLoc=(side,id)=>captureVisual('loc',[side,id]);fxBuff=(...a)=>captureVisual('buff',a);fxWeak=k=>captureVisual('weak',[k]);
 fxFireflies=(...a)=>captureVisual('fireflies',a);fxGrab=k=>captureVisual('grab',[k]);
+fxHome=(side,keys)=>captureVisual('home',[side,keys]);fxYanFull=(side,keys)=>captureVisual('yanfull',[side,keys]);fxHolyWater=side=>captureVisual('holywater',[side]);
 const realDestroy=destroy;destroy=async(p,c,quick)=>{if(!c.shield&&p.field.includes(c))captureVisual('destroy',[c.uid,C[c.id].tribe]);return realDestroy(p,c,quick);};
 feat=(p,k)=>{ if(!S?.secureCounts)return; const n=S.secureCounts[pi(p)];n[k]=(n[k]||0)+1; };
 questEvent=(k,n=1)=>{if(S?.secureCounts){const c=S.secureCounts[0];c[k]=(c[k]||0)+n;}};

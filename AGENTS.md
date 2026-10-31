@@ -87,6 +87,10 @@ online play, ranked, friends, a card shop with earned gems and owner-approved BC
 - Bot games are fast: the browser imports the same `engine.mjs` (+ `security.mjs`), asks the server for the full start
   (`want:'full'`), plays every move locally at once (`localSend`) and sends the same moves to the server in the
   background (`localReplay`). If the server's copy ever differs (`localSig`), it falls back to the server copy.
+- Effects in secure games are recorded, not run: `engine-runtime.inc` swaps each `fx…` function for a `captureVisual`
+  recorder and the browser replays it in `secureEffect`. The server always has `S.fast` on, so never wrap an effect
+  call in `if(!S.fast)` (the effect checks it itself), and a NEW effect function needs a recorder line in
+  `engine-runtime.inc` (+ the side flip list if its first argument is a player index) and a `secureEffect` case.
 - Online rooms: moves wait for the server; the mover broadcasts `rev` on Realtime channel `sec-<code>` so the other
   screen polls at once (`secureNoticeOn`).
 - Deploy after changing anything under `supabase/functions`: the owner runs `sh tools/deploy-security.sh` in Terminal

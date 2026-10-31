@@ -1,5 +1,5 @@
 <meta name="security-build" content="1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-WBSxDowXIYsmevC1sKuu2PCQAgt/ioWkuAOUzaffv14='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com https://xahuvoounkdojfsvnfaj.supabase.co; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co wss://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-syKAMjSehBp7TMUpn4sw+8dfYQfj32pHY7SY2I0bgu4='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com https://xahuvoounkdojfsvnfaj.supabase.co; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co wss://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="referrer" content="no-referrer">
 <meta charset="utf-8">
 <script>
@@ -620,6 +620,45 @@ body{background:
 .show .scut.mx-glitch + .scut.mx-glitch{animation-delay:.2s}
 @keyframes mxglitch{0%,100%{translate:0 0;opacity:0}20%{translate:-8px 2px;opacity:.8}40%{translate:6px -3px;opacity:0}60%{translate:10px 0;opacity:.7}}
 .show .sbg.mx-glitchbg{animation:kbcut var(--dur) cubic-bezier(.2,.7,.3,1) forwards,mxhue 1.6s steps(4) infinite}
+/* deck 25 ໝໍຜີ (art/fx: yantra-ring, talisman, lantern-spirit, full-moon, banana-leaf, banana-petal, gold-coin, holy-water) */
+.show.mx-yan .stint{background:radial-gradient(ellipse at 50% 38%,transparent 30%,#1a0606dd 100%),linear-gradient(0deg,#d8452caa 0%,transparent 50%)}
+.show.mx-tani .stint{background:radial-gradient(ellipse at 50% 38%,transparent 30%,#04161add 100%),linear-gradient(0deg,#7fd8b0aa 0%,transparent 50%)}
+.show.mx-yan .sband{--bandc:#c0361c}.show.mx-tani .sband{--bandc:#2f8a62}
+/* her wings run off the picture's edges: fade the cut there */
+.show.mx-tani .scut{-webkit-mask:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent),linear-gradient(transparent,#000 7%,#000);-webkit-mask-composite:source-in;mask:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent),linear-gradient(transparent,#000 7%,#000);mask-composite:intersect}
+.show .mx-yring,.show .mx-ygold{left:var(--gx);top:var(--gy);width:calc(var(--R) * 2.1);aspect-ratio:1;translate:-50% -50%;animation:mxyring var(--dur) ease-out both}
+.show .mx-ygold{width:calc(var(--R) * 1.6);opacity:.6}
+.show .mx-yring img,.show .mx-ygold img,#fx .yring img{display:block;width:100%;height:100%;animation:mxspin 12s linear infinite;filter:drop-shadow(0 0 10px #ffd76a)}
+.show .mx-ygold img{animation-direction:reverse;animation-duration:20s}
+@keyframes mxyring{0%{scale:.3;opacity:0}22%{scale:1.05;opacity:1}100%{scale:1;opacity:1}}
+@keyframes mxspin{to{rotate:360deg}}
+.show .mx-tal{left:var(--gx);top:var(--gy);width:var(--ts);animation:mxtal calc(var(--dur) * .3) var(--d) cubic-bezier(.2,1.3,.4,1) both}
+.show .mx-tal img{display:block;width:100%;translate:-50% -50%;filter:drop-shadow(0 0 8px #ffd76a);animation:mxsway 1.2s ease-in-out infinite alternate}
+@keyframes mxtal{0%{transform:translate(var(--fx),var(--fy)) rotate(-200deg) scale(.4);opacity:0}100%{transform:translate(var(--tx),var(--ty)) rotate(var(--tr));opacity:1}}
+@keyframes mxsway{from{rotate:-6deg}to{rotate:6deg}}
+.show .mx-orbit{left:var(--gx);top:var(--gy);width:0;height:0;animation:mxspin 7s linear infinite}
+.show .mx-orbit i{position:absolute;left:0;top:0;transform:rotate(var(--a)) translateX(var(--r)) rotate(calc(var(--a) * -1))}
+.show .mx-orbit img{display:block;width:var(--ls);translate:-50% -55%;filter:drop-shadow(0 0 8px #7fffd4);animation:mxlan .5s var(--d) cubic-bezier(.2,1.6,.4,1) both,mxspin 7s linear infinite reverse}
+@keyframes mxlan{0%{scale:0;opacity:0}100%{scale:1;opacity:1}}
+.show .mx-fmoon{left:calc(var(--gx) + var(--R) * .62);top:calc(var(--gy) - var(--R) * .98);width:calc(var(--R) * 1.05);translate:-50% -50%;animation:mxfmoon var(--dur) ease-out both}
+.show .mx-fmoon img{display:block;width:100%;filter:drop-shadow(0 0 30px #e8f4ffcc)}
+@keyframes mxfmoon{0%{transform:translateY(45%) scale(.6);opacity:0}35%{opacity:1}100%{transform:none;opacity:1}}
+.show .mx-wing{left:var(--gx);top:calc(var(--gy) + var(--R) * .05);width:calc(var(--R) * .95);translate:0 -100%;transform-origin:0 100%;filter:drop-shadow(0 0 12px #c9ffe9);animation:mxwing calc(var(--dur) * .4) var(--d) cubic-bezier(.2,1.3,.4,1) both}
+.show .mx-wing.l{translate:-100% -100%;transform-origin:100% 100%}
+.show .mx-wing img{display:block;width:100%}.show .mx-wing.l img{scale:-1 1}
+@keyframes mxwing{0%{rotate:var(--r0);scale:.4;opacity:0}100%{rotate:var(--r1);scale:1;opacity:.95}}
+#fx .yring{position:absolute;width:var(--s);height:var(--s);translate:-50% -50%;animation:fxyring var(--d) ease-out forwards}
+@keyframes fxyring{0%{scale:.4;opacity:0}20%{scale:1.05;opacity:1}75%{opacity:1}100%{scale:1.12;opacity:0}}
+#fx .ytal{position:absolute;width:var(--w);translate:-50% -50%;rotate:var(--r);filter:drop-shadow(0 0 8px #ffd76a);animation:fxytal var(--d) var(--dl) ease-out both}
+@keyframes fxytal{0%{scale:0;opacity:0}15%{scale:1.2;opacity:1;filter:brightness(2.2) drop-shadow(0 0 14px #fff3b0)}30%{scale:1;filter:brightness(1) drop-shadow(0 0 8px #ffd76a)}80%{opacity:1}100%{opacity:0;scale:.9}}
+#fx .ytal img,#fx .lcoin img,#fx .hwater img,#fx .lpop img{display:block;width:100%}
+#fx .lcoin{position:absolute;width:44px;translate:-50% -50%;filter:drop-shadow(0 0 8px #ffd23d)}
+#fx .hwater{position:absolute;width:100px;translate:-50% -50%;filter:drop-shadow(0 0 10px #bfe9ff)}
+#fx .lpop{position:absolute;width:76px;translate:-50% -60%;filter:drop-shadow(0 0 10px #7fffd4);animation:fxlpop .9s ease-out forwards}
+@keyframes fxlpop{0%{scale:0;opacity:0}30%{scale:1.25;opacity:1}50%{scale:.95}65%{scale:1}80%{opacity:1}100%{scale:1;opacity:0;translate:-50% -150%}}
+.homefly .ftal{position:absolute;width:46%;left:27%;top:12%;filter:drop-shadow(0 2px 4px #0008) drop-shadow(0 0 8px #ffd76a);animation:fxslap .3s cubic-bezier(.3,1.5,.5,1) both}
+@keyframes fxslap{0%{scale:2.4;rotate:-30deg;opacity:0}100%{scale:1;rotate:-6deg;opacity:1}}
+.homefly .lspirit{position:absolute;width:62%;left:-34%;bottom:-16%;filter:drop-shadow(0 0 8px #7fffd4);animation:mxlan .3s calc(var(--sp) * 420ms) cubic-bezier(.2,1.6,.4,1) both}
 @keyframes mxhue{to{filter:blur(7px) brightness(.5) saturate(1.6) hue-rotate(40deg)}}
 /* ກະຕ່າຍ: clever stars twinkling */
 .show .mx-twinkle{left:var(--x);top:var(--y);width:min(17vmin,124px);aspect-ratio:1;background:url(art/fx/sparks.webp) var(--bx) var(--by)/300% 300% no-repeat;mix-blend-mode:screen;animation:mxtw .9s var(--d) ease-in-out infinite alternate both}
@@ -2801,7 +2840,7 @@ const PET_ART = true;            // art/pet-<id>-<1..3>.webp, cut out from the u
 const PET_LINES = {start:['ສູ້ໆ!', 'ພ້ອມແລ້ວ!', 'ໄປກັນເລີຍ!'], kill:['ເກັ່ງຫຼາຍ!', 'ວ້າວ!', 'ສຸດຍອດ!'], legend:['ຕຳນານມາແລ້ວ!', 'ແຮງຫຼາຍ!'],
   tale:['ນິທານຄົບແລ້ວ!', 'ມ່ວນຫຼາຍ!'], win:['ຊະນະແລ້ວ! 🎉', 'ເຮົາເກັ່ງທີ່ສຸດ!'], lose:['ບໍ່ເປັນຫຍັງ ເທື່ອໜ້າເອົາໃໝ່!', 'ສູ້ໃໝ່ເດີ້!']};
 // cutouts for the summon showcase (art/cut/<img>.webp), made with the macOS subject-lift; the subject's box as fractions [x, y, w, h]
-const CUTS = {"pulangseung":[0.0145, 0.0, 0.9158, 0.6601],"alt-pulangseung":[0.0, 0.0, 0.9803, 0.6761],"khunjueang":[0.1013, 0.0473, 0.5934, 0.4276],"alt-khunjueang":[0.0, 0.0938, 0.5224, 0.3845],"chaothamkonglor":[0.3618, 0.01, 0.4579, 0.586],"alt-chaothamkonglor":[0.2855, 0.0085, 0.6987, 0.5849],"rueaxuangkham":[0.0, 0.0218, 1.0, 0.65],"alt-rueaxuangkham":[0.0158, 0.1569, 0.9842, 0.6134],"maekhuakham":[0.2342, 0.0236, 0.5171, 0.5309],"alt-maekhuakham":[0.0, 0.0822, 0.7947, 0.6352],"nairoymuay":[0.1026, 0.0511, 0.8697, 0.6424],"alt-nairoymuay":[0.0, 0.0132, 0.9408, 0.7703],"hydronak":[0.2322, 0.0198, 0.4395, 0.4613],"panyakham":[0.2211, 0.0132, 0.6776, 0.5478],"alt-panyakham":[0.0303, 0.086, 0.5921, 0.431],"bangfaidao":[0.3355, 0.0104, 0.6, 0.5208],"alt-bangfaidao":[0.0605, 0.0123, 0.8566, 0.6654],"maekaidao":[0.0, 0.1231, 0.9868, 0.4489],"alt-maekaidao":[0.0039, 0.0919, 0.95, 0.5464],"alt-hydronak":[0.0, 0.0085, 0.9178, 0.3547],nangchampa:[0.087,0.043,0.847,0.692],khudapphen:[0.029,0,0.953,0.636],dapsongmue:[0.008,0.055,0.966,0.496],ajandap:[0.126,0.074,0.768,0.715],kamkadam:[0.234,0.028,0.584,0.528],'alt-hackxm':[0,0.119,0.874,0.862],'alt-hapkhanasouane':[0,0.023,0.997,0.939],'alt-kalaket':[0,0.009,0.995,0.951],'alt-kamkadam':[0.045,0,0.945,0.657],'alt-kangli':[0,0.015,0.961,0.896],'alt-khaendj':[0,0,0.929,0.811],'alt-kratai':[0.232,0.242,0.513,0.417],'alt-luksaolao':[0,0.03,0.753,0.777],'alt-maethap':[0,0.013,0.795,0.879],'alt-makaew':[0,0.021,0.942,0.772],'alt-mechyak':[0,0.038,0.995,0.96],'alt-nagax':[0,0,0.887,0.798],'alt-nangkaew':[0,0,0.958,0.826],'alt-ngaonam':[0.087,0.385,0.674,0.238],'alt-phadaeng':[0,0.009,0.934,0.77],'alt-phayanak':[0,0,0.958,0.679],'alt-phayathaen':[0,0.015,0.997,0.677],'alt-phralam':[0,0,0.997,0.999],'alt-phutthasen':[0,0.047,0.997,0.709],'alt-punyeu':[0,0.021,0.997,0.591],'alt-santhaman':[0,0,0.997,0.942],'alt-singkaew':[0,0.094,0.992,0.691],'alt-sinxay':[0,0,0.984,0.999],'alt-suttharo':[0.216,0,0.529,0.615],'alt-thaohung':[0,0,0.989,0.998],'alt-xangsuek':[0,0.013,0.945,0.768],hanuman:[0,0,0.987,0.69],hapkhanasouane:[0,0.015,0.997,0.621],hungxang:[0,0,0.9,0.642],kalaket:[0,0.023,0.976,0.619],kamkadam2:[0,0.011,0.632,0.553],khrut:[0,0,0.997,0.679],khunborom:[0.108,0.038,0.395,0.369],khurak:[0.039,0.009,0.942,0.472],kratai:[0.034,0.094,0.963,0.468],kumphan:[0.058,0.011,0.713,0.543],leader:[0,0.023,0.997,0.674],maethap:[0,0,0.997,0.615],mechyak:[0,0.011,0.987,0.632],nakjet:[0.008,0.002,0.974,0.519],nangkaew:[0,0,0.987,0.711],phangkhi:[0,0,0.868,0.536],phayakhom:[0,0,0.997,0.623],phayanak:[0,0,0.892,0.938],phayathaen:[0.121,0.013,0.797,0.494],phralam:[0.105,0,0.861,0.741],phutthasen:[0,0.023,0.966,0.64],punyeu:[0.061,0.036,0.853,0.553],sangkhanthewi:[0.15,0.008,0.847,0.551],sangpheuak:[0.153,0.077,0.624,0.447],singhimma:[0.082,0.011,0.824,0.586],sinxay:[0,0,0.997,0.742],sinxaysam:[0.013,0.021,0.971,0.589],songphi:[0.039,0.023,0.782,0.494],suttharo:[0.003,0,0.776,0.394],thaenlom:[0.005,0.023,0.842,0.496],thaentong:[0.013,0,0.913,0.555],thaohung:[0.168,0,0.445,0.525],thewadapon:[0,0,0.761,0.566],xangjaidi:[0.1,0.03,0.797,0.542],xangsuek:[0.037,0.011,0.913,0.617],yaknak:[0.005,0.011,0.863,0.521],yaksip:[0.005,0,0.882,0.591],yaksombat:[0.084,0,0.913,0.609]};
+const CUTS = {ajandaeng:[0.155,0.087,0.711,0.745],'alt-ajandaeng':[0.047,0.106,0.95,0.887],nangtani:[0.105,0.017,0.624,0.742],taniduean:[0,0,0.997,0.849],"pulangseung":[0.0145, 0.0, 0.9158, 0.6601],"alt-pulangseung":[0.0, 0.0, 0.9803, 0.6761],"khunjueang":[0.1013, 0.0473, 0.5934, 0.4276],"alt-khunjueang":[0.0, 0.0938, 0.5224, 0.3845],"chaothamkonglor":[0.3618, 0.01, 0.4579, 0.586],"alt-chaothamkonglor":[0.2855, 0.0085, 0.6987, 0.5849],"rueaxuangkham":[0.0, 0.0218, 1.0, 0.65],"alt-rueaxuangkham":[0.0158, 0.1569, 0.9842, 0.6134],"maekhuakham":[0.2342, 0.0236, 0.5171, 0.5309],"alt-maekhuakham":[0.0, 0.0822, 0.7947, 0.6352],"nairoymuay":[0.1026, 0.0511, 0.8697, 0.6424],"alt-nairoymuay":[0.0, 0.0132, 0.9408, 0.7703],"hydronak":[0.2322, 0.0198, 0.4395, 0.4613],"panyakham":[0.2211, 0.0132, 0.6776, 0.5478],"alt-panyakham":[0.0303, 0.086, 0.5921, 0.431],"bangfaidao":[0.3355, 0.0104, 0.6, 0.5208],"alt-bangfaidao":[0.0605, 0.0123, 0.8566, 0.6654],"maekaidao":[0.0, 0.1231, 0.9868, 0.4489],"alt-maekaidao":[0.0039, 0.0919, 0.95, 0.5464],"alt-hydronak":[0.0, 0.0085, 0.9178, 0.3547],nangchampa:[0.087,0.043,0.847,0.692],khudapphen:[0.029,0,0.953,0.636],dapsongmue:[0.008,0.055,0.966,0.496],ajandap:[0.126,0.074,0.768,0.715],kamkadam:[0.234,0.028,0.584,0.528],'alt-hackxm':[0,0.119,0.874,0.862],'alt-hapkhanasouane':[0,0.023,0.997,0.939],'alt-kalaket':[0,0.009,0.995,0.951],'alt-kamkadam':[0.045,0,0.945,0.657],'alt-kangli':[0,0.015,0.961,0.896],'alt-khaendj':[0,0,0.929,0.811],'alt-kratai':[0.232,0.242,0.513,0.417],'alt-luksaolao':[0,0.03,0.753,0.777],'alt-maethap':[0,0.013,0.795,0.879],'alt-makaew':[0,0.021,0.942,0.772],'alt-mechyak':[0,0.038,0.995,0.96],'alt-nagax':[0,0,0.887,0.798],'alt-nangkaew':[0,0,0.958,0.826],'alt-ngaonam':[0.087,0.385,0.674,0.238],'alt-phadaeng':[0,0.009,0.934,0.77],'alt-phayanak':[0,0,0.958,0.679],'alt-phayathaen':[0,0.015,0.997,0.677],'alt-phralam':[0,0,0.997,0.999],'alt-phutthasen':[0,0.047,0.997,0.709],'alt-punyeu':[0,0.021,0.997,0.591],'alt-santhaman':[0,0,0.997,0.942],'alt-singkaew':[0,0.094,0.992,0.691],'alt-sinxay':[0,0,0.984,0.999],'alt-suttharo':[0.216,0,0.529,0.615],'alt-thaohung':[0,0,0.989,0.998],'alt-xangsuek':[0,0.013,0.945,0.768],hanuman:[0,0,0.987,0.69],hapkhanasouane:[0,0.015,0.997,0.621],hungxang:[0,0,0.9,0.642],kalaket:[0,0.023,0.976,0.619],kamkadam2:[0,0.011,0.632,0.553],khrut:[0,0,0.997,0.679],khunborom:[0.108,0.038,0.395,0.369],khurak:[0.039,0.009,0.942,0.472],kratai:[0.034,0.094,0.963,0.468],kumphan:[0.058,0.011,0.713,0.543],leader:[0,0.023,0.997,0.674],maethap:[0,0,0.997,0.615],mechyak:[0,0.011,0.987,0.632],nakjet:[0.008,0.002,0.974,0.519],nangkaew:[0,0,0.987,0.711],phangkhi:[0,0,0.868,0.536],phayakhom:[0,0,0.997,0.623],phayanak:[0,0,0.892,0.938],phayathaen:[0.121,0.013,0.797,0.494],phralam:[0.105,0,0.861,0.741],phutthasen:[0,0.023,0.966,0.64],punyeu:[0.061,0.036,0.853,0.553],sangkhanthewi:[0.15,0.008,0.847,0.551],sangpheuak:[0.153,0.077,0.624,0.447],singhimma:[0.082,0.011,0.824,0.586],sinxay:[0,0,0.997,0.742],sinxaysam:[0.013,0.021,0.971,0.589],songphi:[0.039,0.023,0.782,0.494],suttharo:[0.003,0,0.776,0.394],thaenlom:[0.005,0.023,0.842,0.496],thaentong:[0.013,0,0.913,0.555],thaohung:[0.168,0,0.445,0.525],thewadapon:[0,0,0.761,0.566],xangjaidi:[0.1,0.03,0.797,0.542],xangsuek:[0.037,0.011,0.913,0.617],yaknak:[0.005,0.011,0.863,0.521],yaksip:[0.005,0,0.882,0.591],yaksombat:[0.084,0,0.913,0.609]};
 function preloadCuts(ids){ for(const id of ids){ const d = C[id]; if(!d) continue; if(FUSE_FIG[id]) new Image().src = ART + 'cut/' + FUSE_FIG[id] + '.webp'; for(const im of [d.img, ALT[id]]) if(im && CUTS[im]) new Image().src = ART + 'cut/' + im + '.webp'; } }
 const ALT_CHANCE = location.hash === '#altall' ? 1 : .25;  // #altall makes every one alt, for showing the cards off
 
@@ -3953,9 +3992,10 @@ async function onPlay(p, c, t){
     case 'nongtani': tutor(p, id => id === 'nangtani'); break;
     case 'nangtani': await summon(p, 'tonkuayngoen', 1); break;
     case 'kumanthong': { const top = opp(p).deck[opp(p).deck.length - 1]; if(top && p === S.p[0] && !isBot(p) && !S.fast) toast('👶 ກຸມານທອງ ກະຊິບ: ກາດໃບຕໍ່ໄປຂອງ' + foe() + ' ແມ່ນ «' + C[top].name + '»'); break; }
-    case 'momonnammon': if(t && t.owner.field.includes(t.c)){ floatAt(tkey(t), 'ກັບບ້ານ!', 'hit'); bounce(t.owner, t.c); render(); } break;
-    case 'ajandaeng': { await yanFull(p); const q = opp(p);
-      for(const x of q.field.filter(x => pow(q, x) <= 3)){ if(!S.fast) floatAt('c:' + x.uid, 'ກັບບ້ານ!', 'hit'); bounce(q, x); }
+    case 'momonnammon': if(t && t.owner.field.includes(t.c)){ floatAt(tkey(t), 'ກັບບ້ານ!', 'hit'); await fxHome(pi(t.owner), [tkey(t)]); bounce(t.owner, t.c); render(); } break;
+    case 'ajandaeng': { await yanFull(p); const q = opp(p), v = q.field.filter(x => pow(q, x) <= 3);
+      if(v.length){ v.forEach(x => floatAt('c:' + x.uid, 'ກັບບ້ານ!', 'hit')); await fxHome(pi(q), v.map(x => 'c:' + x.uid)); }
+      for(const x of v) bounce(q, x);
       log('ອາຈານແດງ ສົ່ງຜີນ້ອຍຂອງ' + q.name + ' ກັບບ້ານ'); render(); break; }
     case 'babynaga': heal(p, 1); break;
     case 'kinnari': heal(p, 3); break;
@@ -4111,8 +4151,8 @@ async function castSpell(p, id, t){
   switch(id){
     case 'phitibangfai': case 'phitisukhuan': await rite(p, id); break;
     case 'paokhatha': { const n = p.yanN || 0; await addYan(p, 2); if((p.yanN || 0) > n) draw(p, 1); break; }
-    case 'nammonsaksit': heal(p, 3); break;
-    case 'khaplaiphihai': if(t && t.owner.field.includes(t.c)){ floatAt(tkey(t), 'ກັບບ້ານ!', 'hit'); bounce(t.owner, t.c); render(); } break;
+    case 'nammonsaksit': await fxHolyWater(pi(p)); heal(p, 3); break;
+    case 'khaplaiphihai': if(t && t.owner.field.includes(t.c)){ floatAt(tkey(t), 'ກັບບ້ານ!', 'hit'); await fxHome(pi(t.owner), [tkey(t)]); bounce(t.owner, t.c); render(); } break;
     case 'bangfai': {
       const k = p.field.some(x => x.id === 'khankhaak'); const dmg = k ? 5 : 3;
       await fxRocket(tkey(t));
@@ -4365,7 +4405,7 @@ async function addYan(p, n){
 }
 async function yanFull(p){
   p.yanN = (p.yanN || 0) + 1; log('✴ ຍັນເຕັມ! ' + p.name);
-  if(!S.fast){ sfx('rite'); fxYantra(innerWidth / 2, innerHeight * (pi(p) === 0 ? .64 : .32), Math.min(innerWidth, innerHeight) * .4, '#ffd76a', 1500); toast('✴ ຍັນເຕັມ!'); }
+  await fxYanFull(pi(p), p.field.filter(x => x.id === 'kumanthong').map(x => 'c:' + x.uid));
   for(const c of p.field) c.mods.push({amt:1, exp:S.T});
   const lucky = p.field.filter(x => x.id === 'kumanthong').length; if(lucky){ p.mana += lucky; log('ກຸມານທອງ ນຳໂຊກ: ບຸນ +' + lucky); }
   if(p.field.some(x => x.id === 'mosakyan')) for(const c of p.field) c.shield = true;
@@ -4410,9 +4450,9 @@ async function transform(p, c){
   c.tf = 1; log('«' + d.name + '» ປ່ຽນຮ່າງ' + (d.tf.name ? ' ເປັນ «' + d.tf.name + '»' : '') + '!');
   if(c.id === 'nangtani'){   // the tree is used up; a legend-sized entrance, then the rival's strongest goes home
     const tree = p.field.find(x => x.id === 'tonkuayngoen'); if(tree) p.field.splice(p.field.indexOf(tree), 1);
-    render(); if(!S.fast) await fxShowcase('nangtani', c.alt, true);
+    render(); await fxShowcase('nangtani', c.alt, true);   // no S.fast guard: the secure server records it
     const q = opp(p), v = q.field.filter(x => !x.hid);
-    if(v.length){ const b = maxBy(v, x => pow(q, x) + C[x.id].cost); if(!S.fast) floatAt('c:' + b.uid, 'ກັບບ້ານ!', 'hit'); bounce(q, b); log('ນາງຕານີ ສົ່ງ «' + C[b.id].name + '» ກັບບ້ານ'); }
+    if(v.length){ const b = maxBy(v, x => pow(q, x) + C[x.id].cost); floatAt('c:' + b.uid, 'ກັບບ້ານ!', 'hit'); await fxHome(pi(q), ['c:' + b.uid]); bounce(q, b); log('ນາງຕານີ ສົ່ງ «' + C[b.id].name + '» ກັບບ້ານ'); }
     heal(p, 4); render(); return;
   }
   if(!S.fast){ render(); sfx('win'); particlesAt('c:' + c.uid, '#ffd23d', 30); const k = centerOf('c:' + c.uid); if(k) shockAt(k.x, k.y, '#ffd23d', 130); await fxRing('c:' + c.uid, '#ffd23d', true); }
@@ -6293,6 +6333,7 @@ async function fxEnter(c){
   const pt = centerOf('c:' + c.uid), tribe = C[c.id].tribe;
   if(pt){
     shockAt(pt.x, pt.y + 10, TC[tribe], 120); burstAt(pt.x, pt.y, tribe, 26, .75); screenShake(4);
+    if(c.id === 'tonkuayngoen') fxSprout(pt); else if(c.id === 'phinoikhom') fxLantern(pt);
     if(false){
       sfx('spell'); flashScreen('#fff', .35); rainbowBurst(pt.x, pt.y, 80);
       const b = addFx('altban', pt.x, pt.y - 70); b.textContent = '✦ ອາດພິເສດ'; setTimeout(() => b.remove(), 1250);
@@ -6364,6 +6405,13 @@ function mxLayer(el, cls, html, vars){ const d = document.createElement('div'); 
 function mxEvery(el, ms, n, fn){ let i = 0; const t = setInterval(() => { if(!el.isConnected || (n && i >= n)){ clearInterval(t); return; } fn(i++); }, ms * SET.speed); }
 function mxAt(el, ms, fn){ setTimeout(() => { if(el.isConnected) fn(); }, ms * SET.speed); }
 const MX_C = () => ({x:innerWidth / 2, y:innerHeight * .39});
+// the scene's centre and size even without a cutout; R = a radius that fits a phone screen
+function mxGeo(el, fr){
+  if(!el.style.getPropertyValue('--gx')){ el.style.setProperty('--gx', innerWidth / 2 + 'px'); el.style.setProperty('--gy', innerHeight * .39 + 'px'); el.style.setProperty('--gs', fr.gs + 'px'); }
+  const R = Math.min(fr.gs * .6, innerWidth * .46, innerHeight * .34); el.style.setProperty('--R', R + 'px'); return R;
+}
+// put a layer behind the lifted character
+const mxBack = el => { const sc = el.querySelector('.scut'); return l => { if(sc) sc.before(l); return l; }; };
 function mxClones(el, cut, n, cls){ if(!cut) return; const sc = el.querySelector('.scut'); if(!sc) return;
   for(let i = 0; i < n; i++){ const g = document.createElement('div'); g.className = 'scut mxc ' + cls; g.style.setProperty('--i', i - (n - 1) / 2); g.style.setProperty('--n', n); g.innerHTML = '<img src="' + cut + '" alt="">'; sc.before(g); } }
 function mxBolt(el, x, y, h, col){ let d = 'M0 0', px = 0; for(let k = 1; k <= 7; k++){ px += (Math.random() - .5) * 60; d += ' L' + px.toFixed(0) + ' ' + (k * h / 7).toFixed(0); }
@@ -6515,6 +6563,25 @@ const LEGEND_FX = {
     mxAt(el, 300, () => { for(let k = 0; k < 30; k++){ const a = Math.random() * 6.283; emit({x:c.x, y:c.y - fr.gs * .3, vx:Math.cos(a) * 260, vy:Math.sin(a) * 260, g:60, drag:.94, life:1.2, size:4 + Math.random() * 3, kind:'star', color:pick(['#ffe48a', '#ffffff', '#9fe0ff'])}); } });
     mxEvery(el, 80, 20, () => emit({x:Math.random() * innerWidth, y:innerHeight + 10, vx:(Math.random() - .5) * 80, vy:-140 - Math.random() * 120, g:40, drag:.99, life:1.8, size:6 + Math.random() * 4, kind:'leaf', color:pick(['#3f8f3a', '#7bc24a', '#c9e265'])})); },
   // ໄຟເວທີ ແລະ ແສງສີບົວ
+  // ຍັນທອງໝູນ, ຜ້າຍັນບິນມາເປັນວົງ ແລະ ຜີນ້ອຍໂຄມໄຟ 8 ໂຕ (deck 25)
+  ajandaeng(el, fr){ el.classList.add('mx-yan'); const R = mxGeo(el, fr), c = MX_C(), back = mxBack(el);
+    back(mxLayer(el, 'mx-ygold', '<img alt="" src="' + FXP('yantra-gold') + '">')); back(mxLayer(el, 'mx-yring', '<img alt="" src="' + FXP('yantra-ring') + '">'));
+    for(let k = 0; k < 6; k++){ const a = -Math.PI / 2 + k * Math.PI / 3;
+      back(mxLayer(el, 'mx-tal', '<img alt="" src="' + FXP('talisman') + '">', {'--ts':R * .26 + 'px', '--tx':Math.cos(a) * R * 1.02 + 'px', '--ty':Math.sin(a) * R * 1.02 + 'px', '--tr':(a * 180 / Math.PI + 90) + 'deg',
+        '--fx':Math.cos(a) * innerWidth + 'px', '--fy':Math.sin(a) * innerHeight + 'px', '--d':(200 + k * 90) * SET.speed + 'ms'})); }
+    const orb = back(mxLayer(el, 'mx-orbit'));
+    for(let k = 0; k < 8; k++) orb.insertAdjacentHTML('beforeend', '<i style="--a:' + k * 45 + 'deg;--r:' + R * .8 + 'px"><img alt="" src="' + FXP('lantern-spirit') + '" style="--ls:' + R * .24 + 'px;--d:' + (550 + k * 80) * SET.speed + 'ms"></i>');
+    mxAt(el, 250, () => { sfx('rite'); shockAt(c.x, c.y, '#ffd76a', R * 1.6); });
+    mxEvery(el, 50, 36, () => { for(let k = 0; k < 2; k++) emit({x:c.x + (Math.random() - .5) * R * 2.4, y:innerHeight + 10, vx:(Math.random() - .5) * 40, vy:-200 - Math.random() * 200, g:-30, drag:.99, life:1.4, size:2 + Math.random() * 3, kind:'ember', color:pick(['#ffd76a', '#ff7a5a', '#7fffd4'])}); }); },
+  // ດວງເດືອນຂຶ້ນ, ໃບກ້ວຍໝຸນວົນ, ປີກໃບກ້ວຍກາງ ແລະ ກີບດອກກ້ວຍຕົກ (ນາງຕານີ ຮ່າງແສງເດືອນ, deck 25)
+  nangtani(el, fr){ el.classList.add('mx-tani'); const R = mxGeo(el, fr), c = MX_C(), back = mxBack(el);
+    back(mxLayer(el, 'mx-fmoon', '<img alt="" src="' + FXP('full-moon') + '">'));
+    [[-1, 0], [-1, 1], [1, 0], [1, 1]].forEach(([sd, k]) => back(mxLayer(el, 'mx-wing ' + (sd < 0 ? 'l' : 'r'), '<img alt="" src="' + FXP('banana-leaf') + '">',
+      {'--r0':sd * -45 + 'deg', '--r1':sd * (k ? 30 : -4) + 'deg', '--d':(450 + k * 160) * SET.speed + 'ms'})));
+    mxAt(el, 80, () => { sfx('wind'); for(let k = 0; k < 14; k++) fxEmitImg('banana-leaf', {x:c.x, y:c.y, sp:1, cx:c.x, cy:c.y + R * .7, a0:k * Math.PI / 7, w:4.2, r0:R * .25, dr:R * .9, up:R * .9, life:1.3, size:R * .26}); });
+    mxAt(el, 650, () => { sfx('bless'); shockAt(c.x, c.y - R * .45, '#e8f4ff', R * 1.5); });
+    mxEvery(el, 90, 22, () => fxEmitImg('banana-petal', {x:Math.random() * innerWidth, y:-30, vx:(Math.random() - .5) * 40, vy:80 + Math.random() * 80, g:60, drag:.99, life:2.2, size:22 + Math.random() * 12, rot:Math.random() * 6, vr:(Math.random() - .5) * 3, fl:10}));
+    mxEvery(el, 70, 26, () => emit({x:c.x + (Math.random() - .5) * R * 2.6, y:c.y + (Math.random() - .5) * R * 2, vx:0, vy:-30, g:0, drag:1, life:.8, size:4 + Math.random() * 4, kind:'star', color:pick(['#e8f4ff', '#ffffff', '#c9ffe9'])})); },
   nangkaew(el){ el.classList.add('mx-stage'); mxLayer(el, 'mx-spot l'); mxLayer(el, 'mx-spot r'); mxLayer(el, 'mx-spot m');
     fxPetals(24, ['#ff7ad9', '#ffb3e6', '#ffd23d', '#ffffff']); mxAt(el, 400, () => { sfx('legend'); rainbowBurst(innerWidth / 2, innerHeight * .2, 60); }); }
 };
@@ -6640,7 +6707,7 @@ function preloadFx(){
   if(FXI.on) return; FXI.on = true;
   const ld = n => { const i = new Image(); i.decoding = 'async'; i.src = FXA + n + '.webp'; return i; };
   FXI.petals = [1, 2, 3, 4, 5, 6, 7, 8].map(k => ld('petal-' + k)); FXI.flowers = [ld('marigold'), ld('marigold-side')]; FXI.sparks = ld('sparks');
-  for(const n of ['yantra-gold', 'yantra-water', 'yantra-fire', 'rays', 'orb', 'kranok', 'candle', 'phakhuan', 'sasin', 'champa', 'stone-jar', 'rice-basket', 'cave-crystal', 'palm-manuscript', 'chick-star']) ld(n);
+  for(const n of ['yantra-gold', 'yantra-water', 'yantra-fire', 'rays', 'orb', 'kranok', 'candle', 'phakhuan', 'sasin', 'champa', 'stone-jar', 'rice-basket', 'cave-crystal', 'palm-manuscript', 'chick-star', 'banana-leaf', 'banana-petal', 'talisman', 'lantern-spirit', 'full-moon', 'gold-coin', 'holy-water', 'yantra-ring']) FXI[n] = ld(n);
 }
 const fxOk = i => i && i.complete && i.naturalWidth > 0;
 function fxCanvas(){
@@ -6671,7 +6738,7 @@ function fxTick(now){
     const k = Math.min(1, 1 - p.t / p.life);
     try{
     p.vx *= p.drag; p.vy = p.vy * p.drag + p.g * dt; p.x += p.vx * dt; p.y += p.vy * dt; p.rot += p.vr * dt;
-    c.globalCompositeOperation = p.solid || p.mg || p.kind === 'smoke' || p.kind === 'flower' ? 'source-over' : 'lighter';   // smoke, dust and flowers are matter, not light
+    c.globalCompositeOperation = p.solid || p.mg || p.kind === 'smoke' || p.kind === 'flower' || p.kind === 'img' ? 'source-over' : 'lighter';   // smoke, dust and flowers are matter, not light
     c.globalAlpha = Math.max(0, Math.min(1, k * 1.4)); c.fillStyle = p.color; c.strokeStyle = p.color;
     if(p.kind === 'dot'){ c.beginPath(); c.arc(p.x, p.y, Math.max(.5, p.size * (.4 + k * .6)), 0, 6.283); c.fill(); }
     else if(p.kind === 'spark'){ c.lineWidth = p.size; c.lineCap = 'round'; c.beginPath(); c.moveTo(p.x, p.y); c.lineTo(p.x - p.vx * .045, p.y - p.vy * .045); c.stroke(); }
@@ -6681,6 +6748,12 @@ function fxTick(now){
       if(fxOk(im)){ const w = p.size * 2.6, h = w * im.naturalHeight / im.naturalWidth; c.drawImage(im, -w / 2, -h / 2, w, h); }
       else { c.beginPath(); c.ellipse(0, 0, p.size, p.size * .55, 0, 0, 6.283); c.fill(); }
       c.restore();
+    }
+    else if(p.kind === 'img'){   // a painted piece from art/fx (banana leaf, petal …); sp: spirals up around (cx, cy); fl: flutters
+      if(p.sp){ const a = p.a0 + p.t * p.w, r = p.r0 + p.t * p.dr; p.x = p.cx + Math.cos(a) * r; p.y = p.cy + Math.sin(a) * r * .45 - p.t * p.up; p.rot = a + 2.4; }
+      const im = FXI[p.im];
+      if(fxOk(im)){ const w = p.size, h = w * im.naturalHeight / im.naturalWidth; c.save(); c.translate(p.x + (p.fl ? Math.sin(p.t * 3 + p.rot) * p.fl : 0), p.y); c.rotate(p.rot);
+        if(p.fl) c.scale(1, .55 + .45 * Math.abs(Math.sin(p.t * 4 + p.rot))); c.drawImage(im, -w / 2, -h / 2, w, h); c.restore(); }
     }
     else if(p.kind === 'flower'){   // a whole marigold tumbling down
       const im = FXI.flowers && FXI.flowers[p.f || 0];
@@ -6885,6 +6958,73 @@ async function fxTrapSnap(id, side){
   const d = addFx('trapsnap', x, y, '<div class="tsf"><div class="tsb"><span class="cback">' + BACK + '</span></div><div class="tsc">' + cardHTML(id) + '</div></div><i class="chain a"></i><i class="chain b"></i><b class="snap">ແກັບ!</b>');
   sfx('trip'); setTimeout(() => { if(d.isConnected){ sfx('hit'); shockAt(x, y, '#b06bff', 160); burstAt(x, y, 'ghost', 24, .9); } }, 380 * SET.speed);
   await sleep(1050); d.remove();
+}
+/* ---------- deck 25 ໝໍຜີ: send home, the full yantra, holy water, the banana tree and the lantern spirit ---------- */
+const FXP = n => FXA + n + '.webp';
+const fxEmitImg = (n, o) => emit(Object.assign({kind:'img', im:n, drag:1}, o));
+const fxArc = (A, B, lift, n, extra) => Array.from({length:n + 1}, (_, j) => { const t = j / n, v = 1 - t, cx = (A.x + B.x) / 2, cy = Math.min(A.y, B.y) - lift;
+  return Object.assign({left:(v * v * A.x + 2 * v * t * cx + t * t * B.x) + 'px', top:(v * v * A.y + 2 * v * t * cy + t * t * B.y) + 'px'}, extra ? extra(t, j) : {}); });
+// cards going back to their owner's hand: a talisman sticks on each, then it flies home with a lantern spirit pushing
+async function fxHome(side, keys){
+  if(S.fast || REDUCE) return;
+  const els = (keys || []).map(k => elOf(k)).filter(Boolean); if(!els.length) return;
+  const hand = elOf('hand:' + side), hr = hand && hand.getBoundingClientRect();
+  const H = hr && hr.width ? {x:hr.left + hr.width / 2, y:hr.top + hr.height / 2} : {x:innerWidth / 2, y:side ? -80 : innerHeight + 80};
+  const dur = 1100 * SET.speed; sfx('spell');
+  const fly = els.map((e, i) => { const r = e.getBoundingClientRect(), d = document.createElement('div'); d.className = 'fzc homefly';
+    d.style.setProperty('--tc', '#ffd76a'); d.style.setProperty('--sp', SET.speed);
+    Object.assign(d.style, {left:r.left + 'px', top:r.top + 'px', width:r.width + 'px', height:r.height + 'px'});
+    d.innerHTML = e.innerHTML + '<img class="ftal" alt="" src="' + FXP('talisman') + '"><img class="lspirit" alt="" src="' + FXP('lantern-spirit') + '">';
+    $fx.appendChild(d); e.style.visibility = 'hidden';
+    const dx = H.x - (r.left + r.width / 2), dy = H.y - (r.top + r.height / 2), up = side ? 50 : -70;
+    return d.animate([{transform:'none'}, {transform:'scale(1.08)', offset:.28}, {transform:'scale(1)', offset:.4},
+      {transform:'translate(' + dx * .45 + 'px,' + (dy * .45 + up) + 'px) rotate(-10deg) scale(.75)', offset:.72},
+      {transform:'translate(' + dx + 'px,' + dy + 'px) rotate(-18deg) scale(.3)', opacity:.15}], {duration:dur + i * 90 * SET.speed, easing:'ease-in-out', fill:'forwards'}); });
+  const iv = setInterval(() => { for(const an of fly){ const r = an.effect.target.getBoundingClientRect();
+    emit({x:r.left + r.width / 2, y:r.top + r.height / 2, vx:(Math.random() - .5) * 50, vy:(Math.random() - .5) * 50, g:-30, drag:.95, life:.5, size:2 + Math.random() * 2, kind:'ember', color:pick(['#ffd76a', '#7fffd4', '#ff7a5a'])}); } }, 45);
+  setTimeout(() => sfx('wind'), dur * .45);
+  await Promise.all(fly.map(animDone)); clearInterval(iv); fly.forEach(an => an.effect.target.remove());
+}
+// ຍັນເຕັມ: the painted yantra and its ring turn on the owner's side, five talismans light one by one, Kuman Thong's coins fly to the ບຸນ gems
+async function fxYanFull(side, keys){
+  if(S.fast || REDUCE) return;
+  const x = innerWidth / 2, y = innerHeight * (side ? .32 : .64), s = Math.min(innerWidth, innerHeight) * .4, d = 1600 * SET.speed;
+  sfx('rite'); toast('✴ ຍັນເຕັມ!'); fxYantra(x, y, s, '#ffd76a', 1600);
+  const ring = addFx('yring', x, y, '<img alt="" src="' + FXP('yantra-ring') + '">'); ring.style.setProperty('--s', s * 1.3 + 'px'); ring.style.setProperty('--d', d + 'ms');
+  const tals = [0, 1, 2, 3, 4].map(i => { const a = -Math.PI / 2 + i * 2 * Math.PI / 5, t = addFx('ytal', x + Math.cos(a) * s * .62, y + Math.sin(a) * s * .62, '<img alt="" src="' + FXP('talisman') + '">');
+    t.style.setProperty('--w', s * .24 + 'px'); t.style.setProperty('--d', d + 'ms'); t.style.setProperty('--dl', i * 130 * SET.speed + 'ms'); t.style.setProperty('--r', (a * 180 / Math.PI + 90) + 'deg');
+    setTimeout(() => { if(t.isConnected) burstAt(x + Math.cos(a) * s * .62, y + Math.sin(a) * s * .62, 'mophi', 8, .4); }, (i * 130 + 200) * SET.speed); return t; });
+  setTimeout(() => { ring.remove(); tals.forEach(t => t.remove()); }, d + 700 * SET.speed);
+  const hp = elOf('h:' + side), gems = hp && hp.querySelector('.gems'), gr = gems && gems.getBoundingClientRect(), G = gr && gr.width ? gr : hp && hp.getBoundingClientRect();
+  const coin = async (k, i) => { await sleep(400 + i * 140); const A = centerOf(k); if(!A || !G || !G.width) return; const B = {x:G.left + G.width / 2, y:G.top + G.height / 2};
+    const c = addFx('lcoin', A.x, A.y, '<img alt="" src="' + FXP('gold-coin') + '">'); sfx('gem');
+    await animDone(c.animate(fxArc(A, B, 100, 12, (t, j) => ({transform:'rotateY(' + j * 90 + 'deg) scale(' + (1 + Math.sin(t * Math.PI) * .6) + ')'})), {duration:800 * SET.speed, easing:'ease-in-out', fill:'forwards'}));
+    c.remove(); burstAt(B.x, B.y, 'hero', 12, .4); floatAt('h:' + side, '+1 ບຸນ', 'heal'); };
+  await Promise.all([sleep(900), ...(keys || []).map(coin)]);
+}
+// ນ້ຳມົນສັກສິດ: a spray of holy water arcs onto its caster's hero and bursts into silver drops
+async function fxHolyWater(side){
+  if(S.fast || REDUCE) return; const B = centerOf('h:' + side); if(!B) return;
+  const A = {x:innerWidth / 2, y:innerHeight * (side ? .3 : .7)}, w = addFx('hwater', A.x, A.y, '<img alt="" src="' + FXP('holy-water') + '">'); sfx('splash');
+  const tr = setInterval(() => { const r = w.getBoundingClientRect(); emit({x:r.left + r.width / 2, y:r.top + r.height / 2, vx:(Math.random() - .5) * 60, vy:(Math.random() - .5) * 60, g:200, drag:.95, life:.5, size:2 + Math.random() * 2, kind:'drop', color:pick(['#bfe9ff', '#ffffff'])}); }, 40);
+  await animDone(w.animate(fxArc(A, B, 130, 12, t => ({transform:'rotate(' + (-30 + t * 100) + 'deg) scale(' + (.7 + t * .5) + ')'})), {duration:650 * SET.speed, easing:'ease-in', fill:'forwards'}));
+  clearInterval(tr); w.remove();
+  for(let i = 0; i < 26; i++){ const a = Math.random() * 6.283, sp = 80 + Math.random() * 260;
+    emit({x:B.x, y:B.y, vx:Math.cos(a) * sp, vy:Math.sin(a) * sp - 60, g:400, drag:.95, life:.7 + Math.random() * .4, size:3 + Math.random() * 3, kind:i % 3 ? 'drop' : 'star', color:pick(['#bfe9ff', '#ffffff', '#9fd8ff'])}); }
+  shockAt(B.x, B.y, '#bfe9ff', 110);
+}
+// ຕົ້ນກ້ວຍເງິນ: banana leaves unfold upward from the card with silver sparkles
+function fxSprout(pt){
+  if(REDUCE) return;
+  for(let i = 0; i < 6; i++){ const a = -Math.PI / 2 + (i - 2.5) * .55 + (Math.random() - .5) * .2, sp = 260 + Math.random() * 120;
+    fxEmitImg('banana-leaf', {x:pt.x, y:pt.y + 24, vx:Math.cos(a) * sp, vy:Math.sin(a) * sp, g:220, drag:.93, life:1.05, size:30 + Math.random() * 12, rot:a + Math.PI / 4, vr:(Math.random() - .5) * 1.6}); }
+  for(let i = 0; i < 16; i++) emit({x:pt.x + (Math.random() - .5) * 60, y:pt.y + 20, vx:(Math.random() - .5) * 80, vy:-90 - Math.random() * 140, g:-20, drag:.97, life:1, size:3 + Math.random() * 3, kind:'star', color:pick(['#e8f4ff', '#ffffff', '#c9ffe9'])});
+  shockAt(pt.x, pt.y + 20, '#c9ffe9', 90);
+}
+// ຜີນ້ອຍໂຄມໄຟ: the lantern spirit pops out bouncing, with mint sparkles
+function fxLantern(pt){
+  if(REDUCE) return; const d = addFx('lpop', pt.x, pt.y, '<img alt="" src="' + FXP('lantern-spirit') + '">'); d.style.animationDuration = 900 * SET.speed + 'ms'; setTimeout(() => d.remove(), 950 * SET.speed);
+  for(let i = 0; i < 14; i++){ const a = Math.random() * 6.283; emit({x:pt.x, y:pt.y, vx:Math.cos(a) * 150, vy:Math.sin(a) * 150 - 40, g:-40, drag:.93, life:.8, size:3 + Math.random() * 3, kind:'star', color:pick(['#7fffd4', '#ffffff', '#ffd76a'])}); }
 }
 function fxHeal(k){
   if(S.fast || REDUCE) return; const c = centerOf(k); if(!c) return; sfx('heal');
@@ -7791,6 +7931,9 @@ async function secureEffect(kind,a,context){
   case 'loc': await fxLoc(...a);break;
   case 'fireflies': await fxFireflies(...a);break;
   case 'grab': await fxGrab(...a);break;
+  case 'home': await fxHome(...a);break;
+  case 'yanfull': await fxYanFull(...a);break;
+  case 'holywater': await fxHolyWater(...a);break;
   case 'destroy': {const el=elOf('c:'+a[0]);if(el){sfx('destroy');if(REDUCE)el.classList.add('dying');else fxShatter(el,a[1]);await sleep(220);}break;}
  }
 }
@@ -8562,7 +8705,7 @@ $app.addEventListener('contextmenu', e => {
 
 /* ---------- self-test: bot vs bot, no animation ---------- */
 // local dev only: poke at live game state from the console
-if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__dbg = {secure:{bot:(...a) => secureBot(...a), move:m => secureMove(m), answer:v => secureAnswer(v), get SEC(){ return SEC; }, get LOCAL(){ return LOCAL; }}, fx:{show:(id, alt) => fxShowcase(id, alt), motif:(id, x, y) => fxFuseMotif(id, {x:x || innerWidth / 2, y:y || innerHeight / 2}), cutin:(f) => fxFuseCutin(C[f].fusion, f), rite:(i, id) => { const p = S.p[i || 0]; return fxRite(p, id || 'phitibangfai', p.field.slice(0, 3)); }, rays:fxRays, yantra:fxYantra, orb:fxOrb, petals:fxPetals, marigolds:fxMarigolds, baci:(i) => fxBaci(S.p[i || 0]), fest:(id) => fxFest(FESTS.find(f => f.id === id) || FESTS[0]), blade:(i, n) => addBlade(S.p[i || 0], n), slash:fxSlash, burst:burstAt, big:fxBig, wait:fxWait, get state(){ return FX; }},get S(){ return S; }, get net(){ return NET; }, get ACCT(){ return ACCT; }, get ui(){ return ui; }, DECKS, mockSB:x => { SB = x; },
+if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__dbg = {secure:{bot:(...a) => secureBot(...a), move:m => secureMove(m), answer:v => secureAnswer(v), get SEC(){ return SEC; }, get LOCAL(){ return LOCAL; }}, fx:{show:(id, alt, form) => fxShowcase(id, alt, form), home:fxHome, yanFull:fxYanFull, holyWater:fxHolyWater, sprout:fxSprout, lantern:fxLantern, motif:(id, x, y) => fxFuseMotif(id, {x:x || innerWidth / 2, y:y || innerHeight / 2}), cutin:(f) => fxFuseCutin(C[f].fusion, f), rite:(i, id) => { const p = S.p[i || 0]; return fxRite(p, id || 'phitibangfai', p.field.slice(0, 3)); }, rays:fxRays, yantra:fxYantra, orb:fxOrb, petals:fxPetals, marigolds:fxMarigolds, baci:(i) => fxBaci(S.p[i || 0]), fest:(id) => fxFest(FESTS.find(f => f.id === id) || FESTS[0]), blade:(i, n) => addBlade(S.p[i || 0], n), slash:fxSlash, burst:burstAt, big:fxBig, wait:fxWait, get state(){ return FX; }},get S(){ return S; }, get net(){ return NET; }, get ACCT(){ return ACCT; }, get ui(){ return ui; }, DECKS, mockSB:x => { SB = x; },
   music:{want:m => { MUS.want = m; }, sting:musicSting, sfx:n => sfx(n), get state(){ return MUS; }, get mf(){ return {loaded:Object.keys(MF.buf), cur:MF.cur && MF.cur.name, parts:MF.cur ? MF.cur.parts.length : 0}; }, level:async (mood, secs) => {
     const sr = 22050, oc = new OfflineAudioContext(1, sr * (secs || 20), sr), keep = Object.assign({}, SND), out = oc.createGain(); out.connect(oc.destination);
     SND.ctx = oc; SND.sfx = out; musicBus(oc, out);
