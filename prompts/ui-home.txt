@@ -36,3 +36,7 @@ Square 1024x1024, ONE object only, on a PLAIN PURE WHITE background, no shadow o
 
 How the game will use them: 1–2 the login page background (portrait / landscape) · 3 on the big "ສູ້ກັບຜູ້ຫຼິ້ນ" button ·
 4 the "ໜ້າຫຼັກ" tab of the menu bar · 5 the "ຝຶກກັບບອດ" button · 6 the login buttons · 7 the "ຕັ້ງອີເມວ" reminder.
+
+8. "Customize" icon (menu bar tab «ປັບແຕ່ງ», file art/ui/style.webp): a small golden hand mirror with a kranok-carved frame,
+   a fine paintbrush leaning on it and a tiny card back peeking behind, same style as the other menu icons (gold, ruby
+   accents, transparent background, no text).
