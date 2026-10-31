@@ -1,5 +1,5 @@
 <meta name="security-build" content="1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-KhVQrD7ffvm/mQK2elvykh1BULQLeuho0WrnI2m9h6Y='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com https://xahuvoounkdojfsvnfaj.supabase.co; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co wss://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-LJ2LQd3XGFvXXHAsf1k9gzsmffNIEVwqQ2gY2JuGkPg='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com https://xahuvoounkdojfsvnfaj.supabase.co; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co wss://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="referrer" content="no-referrer">
 <meta charset="utf-8">
 <script>
@@ -2146,8 +2146,9 @@ body{background:
 .toast{position:absolute;left:50%;bottom:calc(32% + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#000e;border:1px solid #ffffff30;padding:9px 18px;border-radius:999px;font:700 14px var(--f-d);animation:fadeio 1.9s forwards;white-space:nowrap}
 /* Vat Phou · golden light. Painted scenery stays behind the cards; gold and copper distinguish the two sides. */
 .arena[data-theme="watphou"]{
+  --lane-cl:url('art/arena/watphou-cl.webp');--lane-cr:url('art/arena/watphou-cr.webp');--lane-ch:70.1%;--lane-slice:22;
   --arena-lane:url('art/arena/watphou-lane-v2.webp');--arena-panel:url('art/arena/watphou-panel-v2.webp');
-  --a-bg:#35291f;--f-bg:url('art/arena/watphou-surround-v2.webp') center/100% 100%;
+  --a-bg:#35291f;--f-bg:url('art/arena/watphou-surround-v2.webp') center/cover;
   --ring:#eac47b;--ring2:#9d6e36;--gap:#453224;--lane-bg:#d3a26b14;--lane-line:#d7ae71;--wm:#ffedc33d;
   --slot-line:#e5c18099;--slot-bg:#3b2d2299;--slot-ink:#fff0d4;--plate-bg:linear-gradient(#72502f,#352a22);--plate-ink:#fff9e7;--soft:#ffebc5;
   --accent:#e6be70;--accent-ink:#36291a;--log-bg:#382b20ed;--log-ink:#fff0cf;--btn-bg:linear-gradient(#715334,#3a3024);
@@ -2156,8 +2157,19 @@ body{background:
 }
 .arena.v7:is([data-theme="watphou"],[data-theme="starjars"]) .field2{isolation:isolate;background:var(--f-bg);border:1px solid #fff0bf99;box-shadow:0 0 0 2px #85613e,0 0 0 5px #352a20,0 0 0 6px #dbb770,0 18px 40px #0006}
 .arena:is([data-theme="watphou"],[data-theme="starjars"])[data-fest] .field2::before{display:none}
-.arena.v7:is([data-theme="watphou"],[data-theme="starjars"]) .half2.opp .lane.chars,.arena.v7:is([data-theme="watphou"],[data-theme="starjars"]) .half2.me .lane.chars{border:1px solid #8a603c;background:var(--arena-lane) center/100% 100%;box-shadow:0 0 0 1px #edc88d80,0 3px 6px #24180fb3;border-radius:14px;isolation:isolate}
-.arena.v7:is([data-theme="watphou"],[data-theme="starjars"]) .half2 .lane.chars.hasloc{background:linear-gradient(#59412a38,#59412a38),var(--locimg) center/cover;box-shadow:inset 0 0 0 6px #4d392c,inset 0 0 0 7px #c9a26c,0 3px 6px #24180fb3}
+.arena.v7:is([data-theme="watphou"],[data-theme="starjars"]) .half2.opp .lane.chars,.arena.v7:is([data-theme="watphou"],[data-theme="starjars"]) .half2.me .lane.chars{border:1px solid #8a603c;background:var(--arena-lane) center/cover;box-shadow:0 0 0 1px #edc88d80,0 3px 6px #24180fb3;border-radius:14px;isolation:isolate}
+/* the lane picture is 3:1 but lanes run from ~1.4:1 (phones) to ~4:1 (computers): it is shown with cover (never
+   stretched), its frame is redrawn from the same picture as a 9-slice border, and on narrow lanes, where cover cuts
+   the sides, the corner pieces (art/arena/<theme>-cl/-cr) come back at the same scale */
+.arena.v7:is([data-theme="watphou"],[data-theme="starjars"]) .half2 .lane.chars::after{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;border:1px solid transparent;border-radius:inherit;
+  border-image:var(--arena-lane) var(--lane-slice,24) / calc(var(--lane-slice,24) * var(--lane-k,.37) * 1px) stretch}
+.arena.v7:is([data-theme="watphou"],[data-theme="starjars"]) .half2 .lane.chars::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;display:none;border-radius:inherit;
+  background:var(--lane-cl) left bottom/auto var(--lane-ch,60%) no-repeat,var(--lane-cr) right bottom/auto var(--lane-ch,60%) no-repeat}
+@media(max-aspect-ratio:1/1){.arena.v7:is([data-theme="watphou"],[data-theme="starjars"]) .half2 .lane.chars::before{display:block}}
+@media(min-width:700px) and (max-aspect-ratio:1/1){.arena.v7{--lane-k:.6}}
+.lane.chars .locov{position:absolute;inset:6% 18%;z-index:0;pointer-events:none;background:var(--locimg) center/cover;opacity:.62;border-radius:50%;
+  -webkit-mask:radial-gradient(closest-side,#000 55%,transparent 100%);mask:radial-gradient(closest-side,#000 55%,transparent 100%)}
+.arena.v7:is([data-theme="watphou"],[data-theme="starjars"]) .half2 .lane.chars.hasloc{background:var(--arena-lane) center/cover;box-shadow:inset 0 0 0 6px #4d392c,inset 0 0 0 7px #c9a26c,0 3px 6px #24180fb3}
 .arena.v7:is([data-theme="watphou"],[data-theme="starjars"]) .half2.opp .slot{border-color:#d48d64b3}.arena.v7:is([data-theme="watphou"],[data-theme="starjars"]) .half2.me .slot{border-color:#f2d694b3}
 .arena.v7:is([data-theme="watphou"],[data-theme="starjars"]) .half2 .lane.chars .wm{color:#65422bd9;text-shadow:0 1px 0 #f6d5a775;font-size:clamp(20px,5cqw,62px);letter-spacing:.01em}
 .arena.v7:is([data-theme="watphou"],[data-theme="starjars"]) .lane.chars:has(.mini) .wm{opacity:.25}
@@ -2212,7 +2224,8 @@ body{background:
 @media(max-height:500px){:is(.watphou-stage,.starjars-stage) .fzband{padding:5px 0}:is(.watphou-stage,.starjars-stage) .fzband small{font-size:10px;letter-spacing:.02em}:is(.watphou-stage,.starjars-stage) .fzband b{font-size:24px}}
 /* Plain of Jars · stars: the same crafted board construction, cool stone and a twilight landscape. */
 .arena[data-theme="starjars"]{
-  --arena-lane:url('art/arena/starjars-lane.webp');--arena-panel:url('art/arena/starjars-panel.webp');--a-bg:#242a3d;--f-bg:url('art/arena/starjars-surround.webp') center/100% 100%;
+  --lane-cl:url('art/arena/starjars-cl.webp');--lane-cr:url('art/arena/starjars-cr.webp');--lane-ch:70.1%;--lane-slice:26;
+  --arena-lane:url('art/arena/starjars-lane.webp');--arena-panel:url('art/arena/starjars-panel.webp');--a-bg:#242a3d;--f-bg:url('art/arena/starjars-surround.webp') center/cover;
   --ring:#c5cbdc;--ring2:#7a8298;--gap:#353a4e;--lane-bg:#c8d2e3;--lane-line:#7c879c;--wm:#4d556e;
   --slot-line:#aeb8c999;--slot-bg:#fff1d7de;--slot-ink:#8b4d3a;--plate-bg:linear-gradient(#464e66,#252c42);--plate-ink:#fffaf2;--soft:#edf0ff;
   --accent:#c8d9ff;--accent-ink:#293449;--log-bg:#fffaf0;--log-ink:#30394c;--btn-bg:linear-gradient(#344a71,#182b50);
@@ -2221,7 +2234,7 @@ body{background:
 }
 .arena.v7[data-theme="starjars"] .field2{border-color:#d6dbea;box-shadow:0 0 0 2px #6f788d,0 0 0 5px #222a3c,0 0 0 6px #b6bfd3,0 18px 40px #0006}
 .arena.v7[data-theme="starjars"] .half2 .lane.chars{border-color:#7c8496;box-shadow:0 0 0 1px #d8dfef99,0 3px 6px #171d2bb3}
-.arena.v7[data-theme="starjars"] .half2 .lane.chars.hasloc{background:linear-gradient(#33415c38,#33415c38),var(--locimg) center/cover;box-shadow:inset 0 0 0 6px #424b5e,inset 0 0 0 7px #b6bfd3,0 3px 6px #171d2bb3}
+.arena.v7[data-theme="starjars"] .half2 .lane.chars.hasloc{background:var(--arena-lane) center/cover;box-shadow:inset 0 0 0 6px #424b5e,inset 0 0 0 7px #b6bfd3,0 3px 6px #171d2bb3}
 .arena.v7[data-theme="starjars"] .half2 .lane.chars .wm{color:#444b63d9;text-shadow:0 1px 0 #ffffff80}
 .arena.v7[data-theme="starjars"] .lplate{box-shadow:inset 0 0 0 1.5px #d0bf98,0 4px 12px #171d2b80}
 .arena.v7[data-theme="starjars"] .mid7{background:linear-gradient(90deg,#e3e7f3f2,#d2d9e9ee,#eef0f6f0);border-color:#818aa1;box-shadow:0 1px 0 #eee2be,0 -1px 0 #b8c2d6}
@@ -2299,7 +2312,7 @@ body{background:
 @keyframes pm-twinkle{from{opacity:.4}to{opacity:.95}}
 .arena[data-premium-arena=meteor] .lane.chars{isolation:isolate}.lane.chars>.pm-meteors{z-index:0}
 .arena[data-premium-arena=meteor] .half2 .wp-carving{filter:drop-shadow(0 0 10px #f5d27a)}
-.arena[data-theme="starjars"][data-premium-arena=meteor]{--arena-lane:url('art/arena/meteor-lane.webp');--arena-panel:url('art/arena/meteor-panel.webp');--a-bg:#111833;--f-bg:url('art/arena/meteor-surround.webp') center/100% 100%;--ring:#e8c97a;--ring2:#9a7a3c;--gap:#1b2240;--wm:#f3d48a;--accent:#f3d48a;--accent-ink:#1d2340}
+.arena[data-theme="starjars"][data-premium-arena=meteor]{--lane-cl:url('art/arena/meteor-cl.webp');--lane-cr:url('art/arena/meteor-cr.webp');--lane-ch:45.1%;--lane-slice:44;--arena-lane:url('art/arena/meteor-lane.webp');--arena-panel:url('art/arena/meteor-panel.webp');--a-bg:#111833;--f-bg:url('art/arena/meteor-surround.webp') center/cover;--ring:#e8c97a;--ring2:#9a7a3c;--gap:#1b2240;--wm:#f3d48a;--accent:#f3d48a;--accent-ink:#1d2340}
 .arena.v7[data-theme="starjars"][data-premium-arena=meteor] .half2 .lane.chars{border-color:#c9a45a;box-shadow:0 0 0 1px #f0cf7d99,0 3px 8px #070b1cb3}
 .arena.v7[data-theme="starjars"][data-premium-arena=meteor] .half2 .lane.chars .wm{color:#f3d48a33;text-shadow:none}
 .arena.v7[data-theme="starjars"][data-premium-arena=meteor] .lane .wp-carving{display:none}
@@ -6277,7 +6290,7 @@ function half7(p, i, hand, tools){
   const grave = '<div class="slot gy' + (top ? ' has' : '') + '" data-a="grave" data-v="' + i + '" data-l="ກອງຖິ້ມ" role="button" tabindex="0" aria-label="ເບິ່ງກອງຖິ້ມ ' + p.grave.length + ' ໃບ">' +
     last.map((id, j) => '<div class="gyc" style="--j:' + (last.length - 1 - j) + '">' + cardHTML(id) + '</div>').join('') + '<span class="cnt">' + p.grave.length + '</span></div>';
   const bar = '<div class="sbar ' + (i ? 'opp' : 'me') + '">' + plate2(p, i) + (hand || '') + '<div class="slots">' + loc + trapSlot(p, mg) + grave + deck + exSlot(p, i) + '</div>' + (tools || '') + '</div>';
-  const lane = '<div class="lane chars' + (p.loc ? ' hasloc' : '') + '" data-k="side:' + i + '"' + (p.loc ? ' style="--locimg:url(' + PIC(C[p.loc].img) + ')"' : '') + '>' + (pmMeteor() ? pmMeteorsHTML(i * 3.7) : '') + (sculptedArena() ? '<div class="wp-carving" aria-hidden="true">' + (SET.theme === 'starjars' ? starjarSeal() : watphouSeal()) + '</div>' : '') + '<span class="wm">' + (S.auto || S.pvp ? p.name : (i ? 'ຝ່າຍ' + foe() : 'ຝ່າຍເຈົ້າ')) + '</span>' +
+  const lane = '<div class="lane chars' + (p.loc ? ' hasloc' : '') + '" data-k="side:' + i + '"' + (p.loc ? ' style="--locimg:url(' + PIC(C[p.loc].img) + ')"' : '') + '>' + (p.loc && sculptedArena() ? '<i class="locov" aria-hidden="true"></i>' : '') + (pmMeteor() ? pmMeteorsHTML(i * 3.7) : '') + (sculptedArena() ? '<div class="wp-carving" aria-hidden="true">' + (SET.theme === 'starjars' ? starjarSeal() : watphouSeal()) + '</div>' : '') + '<span class="wm">' + (S.auto || S.pvp ? p.name : (i ? 'ຝ່າຍ' + foe() : 'ຝ່າຍເຈົ້າ')) + '</span>' +
     (p.loc ? '<span class="locname" data-a="info" data-v="' + p.loc + '">📍 ' + C[p.loc].name + '</span>' : '') +
     (p.water ? '<span class="waterlv" style="--wl:' + p.water + '"><b>🌊 ' + p.water + '/5' + (p.water >= 3 ? ' · 🛡+1' : '') + '</b></span>' : '') + (p.fans ? '<span class="fanlv"><b>💖 ' + Math.min(p.fans, encoreAt(p)) + '/' + encoreAt(p) + '</b><i style="width:' + Math.round(Math.min(1, p.fans / encoreAt(p)) * 100) + '%"></i></span>' : '') + bladeLv(p) + meterLv(p) +
     '<div class="row" style="--n:' + p.field.length + '">' + p.field.map(c => miniHTML(p, c)).join('') + '</div></div>';
