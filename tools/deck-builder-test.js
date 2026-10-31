@@ -88,6 +88,25 @@ try{
   if(phone){ click('edtabs', 'deck'); await W(200); ok($('.ed-wrap').dataset.view === 'deck' && $('.ed-deck').offsetHeight > 0 && $('.ed-pool').offsetHeight === 0, 'phone: deck tab'); click('edtabs', 'pool'); await W(150); }
   ok(noOverflow(), 'builder: no horizontal overflow');
 
+  // special cards (fusion / summon) and special art
+  if(phone && !$('.ed-fsel.open')){ click('edfold'); await W(150); }
+  await setF('type', 'special');
+  const specials = D.deck.specials();
+  ok(pool().length === specials.length && $$('.ed-pool .spc .spneed').length === specials.length, 'special filter: every fusion and summon card with what it needs');
+  const pairF = specials.find(id => Cc[id].fusion && Cc[id].fusion.every(x => K.owned(x) > 0 && !L()[x]));
+  if(pairF){ click('edpair', pairF); await W(200); ok(Cc[pairF].fusion.every(x => L()[x] >= 1) && /✓/.test($('.ed-pool .pc[data-id="' + pairF + '"] .spneed').textContent), 'add pair: both halves in, card marked ✓'); }
+  await setF('type', '');
+  const altId = pool().find(id => D.deck.hasAltArt(id));
+  if(altId){ K.col().alts[altId] = true; D.render(); await W(200);
+    const tileImg = () => $('.ed-pool .pc[data-id="' + altId + '"] img') && $('.ed-pool .pc[data-id="' + altId + '"] .card').className;
+    ok(!!$('.ed-pool .pc[data-id="' + altId + '"] .altb') && D.deck.wantAlt(altId), 'owned special art: ✦ badge and used by default');
+    const before = tileImg(); $('.ed-pool .pc[data-id="' + altId + '"] [data-a="edinfo"]').click(); await W(250);
+    ok(!!$('[data-a="edalt"][data-v="' + altId + '"]'), 'card info has the art switch');
+    $('[data-a="edalt"][data-v="' + altId + '"][data-w="0"]').click(); await W(200);
+    ok(!D.deck.wantAlt(altId) && K.col().altOff[altId] === true && tileImg() !== before, 'switch: normal art chosen and shown');
+    if($('.modal')){ click('mmclose'); await W(150); }
+    delete K.col().altOff[altId]; delete K.col().alts[altId]; D.render(); await W(150); }
+
   // review fix · a saved card you no longer own can still be taken out
   const gone = Object.keys(Cc).find(x => !K.owned(x) && !Cc[x].fusion && !Cc[x].ritual && !Cc[x].token);
   D.ui.mmodal = null; D.ui.screen = 'mydecks'; K.col().decks.push({id:'gone', name:'ຂາດກາດ', list:{[gone]:2}, p:0, w:0}); D.render(); await W(150);
