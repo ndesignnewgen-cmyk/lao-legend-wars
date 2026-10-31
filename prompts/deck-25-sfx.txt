@@ -1,0 +1,44 @@
+ເດັກ 25 · ໝໍຜີ ອາຈານແດງ · ສຽງເອັບເຟັກ 8 ສຽງ (ຕອນອັນເຊີນ ແລະ ເວດມົນ)
+ດຽວນີ້ເອັບເຟັກເດັກ 25 ໃຊ້ສຽງເກົ່າທີ່ເກມສ້າງເອງ. ສຽງເຫຼົ່ານີ້ຈະມາແທນ ໃຫ້ເຂົ້າກັບພາບ.
+
+=====================================================================================================
+ເຮັດຢູ່ໃສ: ElevenLabs → Sound Effects
+=====================================================================================================
+  1. ເຂົ້າ elevenlabs.io → ເມນູຊ້າຍ "Sound Effects".
+  2. ກັອບ PROMPT (ພາສາອັງກິດ) ຂອງສຽງນັ້ນ ໄປວາງໃນຊ່ອງພິມ.
+  3. ກົດປຸ່ມຕັ້ງຄ່າ (ຮູບເຟືອງ ຫຼື Settings):
+       Duration = ຕາມວິນາທີທີ່ຂຽນໄວ້
+       Prompt influence = ສູງ (ປະມານ 70%)
+  4. ກົດ Generate → ມັນຈະອອກມາຫຼາຍອັນ → ຟັງ → ດາວໂຫຼດອັນທີ່ມັກທີ່ສຸດ.
+  5. ຕັ້ງຊື່ໄຟລ໌ຕາມ [ຊື່] ຂ້າງລຸ່ມ. ຫຼື ສົ່ງມາຊື່ເດີມກໍ່ໄດ້ ແຕ່ບອກວ່າແມ່ນສຽງໃດ (ຄືສຽງພາກ).
+
+ສົ່ງ: ຈະສົ່ງເທື່ອລະອັນ ຫຼື ໃສ່ zip ທັງໝົດກໍ່ໄດ້. ສຽງດັງຄ່ອຍບໍ່ເປັນຫຍັງ ຂ້ອຍຈະປັບໃຫ້ເທົ່າກັນ.
+ລິຂະສິດ: ແຜນຟຣີ ໃຊ້ໄດ້ສະເພາະບໍ່ຫາເງິນ. ເກມມີຮ້ານຂາຍເພັດ ສະນັ້ນ ຕອນເຮັດສຽງແທ້ໃຫ້ໃຊ້ແຜນເສຍເງິນ.
+ທຸກສຽງ: ບໍ່ມີສຽງຄົນເວົ້າ, ບໍ່ມີດົນຕີ, ບໍ່ໜ້າຢ້ານ (ສຽງພາກຕົວລະຄອນ ແຍກຢູ່ prompts/deck-25-voices.txt ແລ້ວ).
+
+=====================================================================================================
+ສຽງ 8 ອັນ
+=====================================================================================================
+[summon-yan] ອັນເຊີນ ອາຈານແດງ ລົງສະໜາມ (ຍັນທອງໝຸນ, ຜ້າຍັນບິນມາ, ຜີນ້ອຍບິນວົນ) · 3 ວິນາທີ
+  PROMPT: magical summoning in a Lao temple at night, a deep warm temple gong hit, then a rising shimmering wave of golden chimes and soft bells swirling around, paper talismans fluttering past with soft whooshes, ends with a bright sparkling magic bloom, heroic and mystical, no voice, no music melody, not scary
+
+[yanfull] ຍັນເຕັມ (ຜ້າຍັນ 5 ແຜ່ນຕິດແສງເທື່ອລະແຜ່ນ) · 2 ວິນາທີ
+  PROMPT: five quick bright magical bell chimes rising in pitch one after another, then a warm golden energy burst with a soft gong swell and glittering sparkles, powerful spell completed, game sound effect, no voice
+
+[sendhome] ສົ່ງກັບບ້ານ (ຜ້າຍັນຕິດກາດ ແລ້ວກາດບິນກັບມື) · 1.5 ວິນາທີ
+  PROMPT: a paper talisman slapped onto a card with a crisp paper snap and a small magic ting, then a quick airy whoosh flying away with a light sparkle trail fading out, playful game sound effect, no voice
+
+[moonchange] ນາງຕານີ ປ່ຽນຮ່າງ ຮ່າງແສງເດືອນ (ໃບກ້ວຍໝຸນ, ດວງເດືອນຂຶ້ນ) · 3 ວິນາທີ
+  PROMPT: magical transformation under a full moon, soft night wind and big leaves rustling and swirling upward, an ethereal rising shimmer of glass chimes and soft choir-like pad without words, blooming into a bright silvery moonlight sparkle, beautiful and dreamy, no voice, not scary
+
+[sprout] ປູກຕົ້ນກ້ວຍເງິນ (ໃບງອກອອກ) · 1 ວິນາທີ
+  PROMPT: a quick magical plant sprouting, fresh leaves unfurling with a soft rustle and a gentle upward swoosh, a tiny bright sparkle pop at the end, cute game sound effect, no voice
+
+[lanternpop] ຜີນ້ອຍໂຄມໄຟ ໂດດອອກມາ · 0.8 ວິນາທີ
+  PROMPT: a cute bubbly magical pop with a tiny high bell twinkle, like a little glowing spirit popping out happily, cartoon game sound effect, no voice, no giggle
+
+[luckycoin] ກຸມານທອງ ດີດຫຼຽນຄຳ · 1 ວິນາທີ
+  PROMPT: a single gold coin flicked into the air, a bright metallic ting, a short spinning shimmer, then a cheerful sparkling chime as it lands, lucky reward game sound effect, no voice
+
+[holywater] ນ້ຳມົນສັກສິດ (ຢົດນ້ຳບິນແລ້ວແຕກເປັນປະກາຍ) · 1.2 ວິນາທີ
+  PROMPT: a light flick of blessed water, a small clean water splash with droplets sprinkling, turning into soft glittering healing chimes, gentle and holy, game sound effect, no voice
