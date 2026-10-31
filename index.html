@@ -1,5 +1,5 @@
 <meta name="security-build" content="1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-hSyzvBo8Gk+mNcbE+vKb/6a4Xt8lleMUzQTtmgXg+Ao='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com https://xahuvoounkdojfsvnfaj.supabase.co; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co wss://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-qKmoef6Hbr/l1in2gGZdr+OgeiUzCzRiEFzrujL7xoE='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com https://xahuvoounkdojfsvnfaj.supabase.co; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co wss://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="referrer" content="no-referrer">
 <meta charset="utf-8">
 <script>
@@ -2255,7 +2255,7 @@ window.__errs = [];
 window.addEventListener('error', e => window.__errs.push(String(e.message)));
 window.addEventListener('unhandledrejection', e => window.__errs.push(String(e.reason && e.reason.stack || e.reason)));
 
-const SET = {sfx:true, music:true, speed:1, theme:'watphou', fest:true, mvol:1, svol:1};
+const SET = {sfx:true, music:true, voice:true, speed:1, theme:'watphou', fest:true, mvol:1, svol:1};
 const THEMES = [['watphou','ວັດພູ · ແສງຄຳ'],['starjars','ທົ່ງໄຫຫີນແຫ່ງດວງດາວ'],['mekong','ແມ່ນ້ຳຂອງ'],['sinh','ຜ້າຊິ່ນ'],['himma','ປ່າຫິມະພານ']];
 const sculptedArena = () => SET.theme === 'watphou' || SET.theme === 'starjars';
 const themePicker = () => '<div class="themes">' + THEMES.map(([k, n]) => '<button class="thb ' + (SET.theme === k ? 'on' : '') + '" data-a="theme" data-v="' + k + '"><i></i>' + n + '</button>').join('') + '</div>';
@@ -3409,6 +3409,25 @@ function mfFade(secs){
   const k = MF.cur; if(!k || !SND.ctx) return; MF.cur = null; const t = SND.ctx.currentTime;
   for(const p of k.parts){ p.g.gain.cancelScheduledValues(t); p.g.gain.setValueAtTime(p.g.gain.value, t); p.g.gain.linearRampToValueAtTime(0, t + secs); try{ p.src.stop(t + secs + .05); }catch(e){} }
 }
+/* ---------- character voices (art/voice/<id>.m4a, prompts/deck-25-voices.txt): a short line when a card enters ---------- */
+// add an id here when its file arrives; taniduean = Nang Tani's change, yanfull = the full yantra call
+const VOICES = ['nangtani'];
+const VO = {buf:{}, wait:{}, t:{}, last:0};
+function voiceLoad(id){
+  if(VO.buf[id] || VO.wait[id] || !SND.ctx || !window.fetch) return VO.wait[id];
+  return VO.wait[id] = fetch(ART + 'voice/' + id + '.m4a').then(r => r.ok ? r.arrayBuffer() : Promise.reject(r.status))
+    .then(b => new Promise((ok, no) => SND.ctx.decodeAudioData(b, ok, no))).then(buf => { VO.buf[id] = buf; }).catch(() => { VO.wait[id] = null; });
+}
+// the same card speaks at most once in 4 s, and two lines never start on top of each other
+function voice(id){
+  if(!VOICES.includes(id) || !SET.voice || !SND.ctx || (S && (S.fast || S.sim))) return;
+  const now = performance.now(); if(now - (VO.t[id] || 0) < 4000 || now - VO.last < 1200) return;
+  VO.t[id] = VO.last = now;
+  const go = () => { const buf = VO.buf[id]; if(!buf || performance.now() - now > 1500) return;
+    const c = SND.ctx, src = c.createBufferSource(), g = c.createGain(); g.gain.value = .9; src.buffer = buf; src.connect(g); g.connect(SND.sfx); src.start();
+    src.onended = () => g.disconnect(); musicDuck(buf.duration * 1000); };
+  if(VO.buf[id]) go(); else { const w = voiceLoad(id); if(w) w.then(go); }
+}
 function mfOnce(name, t){ const p = mfSource(name, t, 0, 0); p.src.onended = () => p.g.disconnect(); return MF.buf[name].duration; }
 // start the wanted song (keeping the beat when the tempo matches), and queue each loop's jump back before it is due
 function mfTick(c){
@@ -3448,7 +3467,7 @@ function settingsHTML(){
     : '<div class="stme"><div class="stl">ຫຼິ້ນເປັນແຂກ<small>ສະໝັກ ເພື່ອເກັບກາດໄວ້ ແລະ ຫຼິ້ນກັບຄົນແທ້</small></div>' + go('login', UIC('key'), 'ເຂົ້າສູ່ລະບົບ') + '</div>';
   return '<div class="modal-bg"><div class="modal setv2" role="dialog" aria-label="ຕັ້ງຄ່າ">' +
     '<div class="sthead">' + UIC('settings') + '<h3>ຕັ້ງຄ່າ</h3><button class="stx" data-a="setclose" aria-label="ປິດ">✕</button></div><div class="stbody">' +
-    sec('🔊', 'ສຽງ', row('ດົນຕີ', '', sw('music', SET.music, 'ດົນຕີ')) + vol('mvol', SET.music) + row('ສຽງເອັບເຟັກ', '', sw('sfx', SET.sfx, 'ສຽງເອັບເຟັກ')) + vol('svol', SET.sfx)) +
+    sec('🔊', 'ສຽງ', row('ດົນຕີ', '', sw('music', SET.music, 'ດົນຕີ')) + vol('mvol', SET.music) + row('ສຽງເອັບເຟັກ', '', sw('sfx', SET.sfx, 'ສຽງເອັບເຟັກ')) + vol('svol', SET.sfx) + row('ສຽງພາກຕົວລະຄອນ', 'ຕົວລະຄອນເວົ້າ ຕອນລົງສະໜາມ', sw('voice', SET.voice, 'ສຽງພາກຕົວລະຄອນ'))) +
     sec('🎮', 'ການຫຼິ້ນ', row('ເອັບເຟັກ', 'ສັ້ນ ຫຼື ປິດ ຖ້າເຄື່ອງຊ້າ', '<div class="stseg">' + seg + '</div>') +
       row('ງານບຸນ ຮີດສິບສອງ', 'ທຸກ 3 ຕາ ມີງານບຸນປ່ຽນກົດ · ໃຊ້ກັບເກມໃໝ່', sw('fest', SET.fest, 'ງານບຸນ'))) +
     sec('🎨', 'ໜ້າຕາສະໜາມ', themePicker()) +
@@ -6326,7 +6345,7 @@ async function fxFuseEmerge(c, M){
   await sleep(220);
 }
 async function fxEnter(c){
-  if(S.fast) return; sfx('play'); const e = elOf('c:' + c.uid); if(e) e.classList.add('enter');
+  if(S.fast) return; sfx('play'); voice(c.id); const e = elOf('c:' + c.uid); if(e) e.classList.add('enter');
   await sleep(230);
   const pt = centerOf('c:' + c.uid), tribe = C[c.id].tribe;
   if(pt){
@@ -6592,6 +6611,7 @@ function cutFrame(cut){
 }
 async function fxShowcase(id, alt, form){
   if(S.fast) return; const d = C[id], T = TFX[d.tribe] || TFX.hero, legend = !!d.legend || !!(form && d.tf);
+  voice(form && d.tf ? d.tf.img : id);
   const scene = LEGEND_SCENES[id];
   const dur = (legend ? 2300 : 1500) * SET.speed;
   sfx(legend ? 'legend' : 'spell');
@@ -6705,6 +6725,7 @@ function preloadFx(){
   if(FXI.on) return; FXI.on = true;
   const ld = n => { const i = new Image(); i.decoding = 'async'; i.src = FXA + n + '.webp'; return i; };
   FXI.petals = [1, 2, 3, 4, 5, 6, 7, 8].map(k => ld('petal-' + k)); FXI.flowers = [ld('marigold'), ld('marigold-side')]; FXI.sparks = ld('sparks');
+  VOICES.forEach(voiceLoad);
   for(const n of ['yantra-gold', 'yantra-water', 'yantra-fire', 'rays', 'orb', 'kranok', 'candle', 'phakhuan', 'sasin', 'champa', 'stone-jar', 'rice-basket', 'cave-crystal', 'palm-manuscript', 'chick-star', 'banana-leaf', 'banana-petal', 'talisman', 'lantern-spirit', 'full-moon', 'gold-coin', 'holy-water', 'yantra-ring']) FXI[n] = ld(n);
 }
 const fxOk = i => i && i.complete && i.naturalWidth > 0;
@@ -6987,7 +7008,7 @@ async function fxHome(side, keys){
 async function fxYanFull(side, keys){
   if(S.fast || REDUCE) return;
   const x = innerWidth / 2, y = innerHeight * (side ? .32 : .64), s = Math.min(innerWidth, innerHeight) * .4, d = 1600 * SET.speed;
-  sfx('rite'); toast('✴ ຍັນເຕັມ!'); fxYantra(x, y, s, '#ffd76a', 1600);
+  sfx('rite'); voice('yanfull'); toast('✴ ຍັນເຕັມ!'); fxYantra(x, y, s, '#ffd76a', 1600);
   const ring = addFx('yring', x, y, '<img alt="" src="' + FXP('yantra-ring') + '">'); ring.style.setProperty('--s', s * 1.3 + 'px'); ring.style.setProperty('--d', d + 'ms');
   const tals = [0, 1, 2, 3, 4].map(i => { const a = -Math.PI / 2 + i * 2 * Math.PI / 5, t = addFx('ytal', x + Math.cos(a) * s * .62, y + Math.sin(a) * s * .62, '<img alt="" src="' + FXP('talisman') + '">');
     t.style.setProperty('--w', s * .24 + 'px'); t.style.setProperty('--d', d + 'ms'); t.style.setProperty('--dl', i * 130 * SET.speed + 'ms'); t.style.setProperty('--r', (a * 180 / Math.PI + 90) + 'deg');
@@ -8703,7 +8724,7 @@ $app.addEventListener('contextmenu', e => {
 
 /* ---------- self-test: bot vs bot, no animation ---------- */
 // local dev only: poke at live game state from the console
-if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__dbg = {secure:{bot:(...a) => secureBot(...a), move:m => secureMove(m), answer:v => secureAnswer(v), get SEC(){ return SEC; }, get LOCAL(){ return LOCAL; }}, fx:{show:(id, alt, form) => fxShowcase(id, alt, form), home:fxHome, yanFull:fxYanFull, holyWater:fxHolyWater, sprout:fxSprout, lantern:fxLantern, motif:(id, x, y) => fxFuseMotif(id, {x:x || innerWidth / 2, y:y || innerHeight / 2}), cutin:(f) => fxFuseCutin(C[f].fusion, f), rite:(i, id) => { const p = S.p[i || 0]; return fxRite(p, id || 'phitibangfai', p.field.slice(0, 3)); }, rays:fxRays, yantra:fxYantra, orb:fxOrb, petals:fxPetals, marigolds:fxMarigolds, baci:(i) => fxBaci(S.p[i || 0]), fest:(id) => fxFest(FESTS.find(f => f.id === id) || FESTS[0]), blade:(i, n) => addBlade(S.p[i || 0], n), slash:fxSlash, burst:burstAt, big:fxBig, wait:fxWait, get state(){ return FX; }},get S(){ return S; }, get net(){ return NET; }, get ACCT(){ return ACCT; }, get ui(){ return ui; }, DECKS, mockSB:x => { SB = x; },
+if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__dbg = {secure:{bot:(...a) => secureBot(...a), move:m => secureMove(m), answer:v => secureAnswer(v), get SEC(){ return SEC; }, get LOCAL(){ return LOCAL; }}, fx:{show:(id, alt, form) => fxShowcase(id, alt, form), home:fxHome, voice:id => voice(id), get vo(){ return VO; }, get snd(){ return SND; }, yanFull:fxYanFull, holyWater:fxHolyWater, sprout:fxSprout, lantern:fxLantern, motif:(id, x, y) => fxFuseMotif(id, {x:x || innerWidth / 2, y:y || innerHeight / 2}), cutin:(f) => fxFuseCutin(C[f].fusion, f), rite:(i, id) => { const p = S.p[i || 0]; return fxRite(p, id || 'phitibangfai', p.field.slice(0, 3)); }, rays:fxRays, yantra:fxYantra, orb:fxOrb, petals:fxPetals, marigolds:fxMarigolds, baci:(i) => fxBaci(S.p[i || 0]), fest:(id) => fxFest(FESTS.find(f => f.id === id) || FESTS[0]), blade:(i, n) => addBlade(S.p[i || 0], n), slash:fxSlash, burst:burstAt, big:fxBig, wait:fxWait, get state(){ return FX; }},get S(){ return S; }, get net(){ return NET; }, get ACCT(){ return ACCT; }, get ui(){ return ui; }, DECKS, mockSB:x => { SB = x; },
   music:{want:m => { MUS.want = m; }, sting:musicSting, sfx:n => sfx(n), get state(){ return MUS; }, get mf(){ return {loaded:Object.keys(MF.buf), cur:MF.cur && MF.cur.name, parts:MF.cur ? MF.cur.parts.length : 0}; }, level:async (mood, secs) => {
     const sr = 22050, oc = new OfflineAudioContext(1, sr * (secs || 20), sr), keep = Object.assign({}, SND), out = oc.createGain(); out.connect(oc.destination);
     SND.ctx = oc; SND.sfx = out; musicBus(oc, out);
