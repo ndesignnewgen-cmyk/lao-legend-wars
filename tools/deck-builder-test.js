@@ -96,8 +96,15 @@ try{
   const pairF = specials.find(id => Cc[id].fusion && Cc[id].fusion.every(x => K.owned(x) > 0 && !L()[x]));
   if(pairF){ click('edpair', pairF); await W(200); ok(Cc[pairF].fusion.every(x => L()[x] >= 1) && /✓/.test($('.ed-pool .pc[data-id="' + pairF + '"] .spneed').textContent), 'add pair: both halves in, card marked ✓'); }
   await setF('type', '');
+  // the extra pile is always shown in the deck column
+  if(phone){ click('edtabs', 'deck'); await W(150); }
+  ok(!!$('.ed-deck .edextra'), 'deck column: extra pile section is always there');
+  if(pairF) ok($$('.ed-deck .edextra .exc').some(e => e.dataset.insp === pairF) && /✨ ກອງພິເສດ/.test($('.ed-deck .edextra').textContent), 'extra pile lists the fusion card');
+  const near = specials.find(id => Cc[id].fusion && Cc[id].fusion.some(x => K.owned(x) > 0) && !Cc[id].fusion.every(x => L()[x]));
+  click('edf', 'type:special'); await W(200); ok(D.ui.bf.type === 'special' && (!phone || D.ui.edView === 'pool'), 'extra pile button opens the special cards');
+  await setF('type', '');
   const altId = pool().find(id => D.deck.hasAltArt(id));
-  if(altId){ K.col().alts[altId] = true; D.render(); await W(200);
+  if(altId){ K.col().altOff = {}; K.col().alts[altId] = true; D.render(); await W(200);   // start clean: earlier runs may leave a choice saved
     const tileImg = () => $('.ed-pool .pc[data-id="' + altId + '"] img') && $('.ed-pool .pc[data-id="' + altId + '"] .card').className;
     ok(!!$('.ed-pool .pc[data-id="' + altId + '"] .altb') && D.deck.wantAlt(altId), 'owned special art: ✦ badge and used by default');
     const before = tileImg(); $('.ed-pool .pc[data-id="' + altId + '"] [data-a="edinfo"]').click(); await W(250);
@@ -106,6 +113,20 @@ try{
     ok(!D.deck.wantAlt(altId) && K.col().altOff[altId] === true && tileImg() !== before, 'switch: normal art chosen and shown');
     if($('.modal')){ click('mmclose'); await W(150); }
     delete K.col().altOff[altId]; delete K.col().alts[altId]; D.render(); await W(150); }
+
+  // related cards in the card info
+  const R = id => D.deck.related(id).map(x => x.id);
+  const fuse = Object.keys(Cc).find(id => Cc[id].fusion), [fa, fb] = Cc[fuse].fusion;
+  ok(R(fa).includes(fuse) && R(fa).includes(fb) && R(fuse).includes(fa), 'related: fusion parts and result');
+  const names = Object.fromEntries(Object.keys(Cc).map(id => [Cc[id].name, id]));
+  const mentioner = Object.keys(Cc).find(id => [...(Cc[id].skill || '').matchAll(/«([^»]+)»/g)].some(m => names[m[1]] && names[m[1]] !== id));
+  const named = names[[...Cc[mentioner].skill.matchAll(/«([^»]+)»/g)].map(m => m[1]).find(n => names[n] && names[n] !== mentioner)];
+  ok(R(mentioner).includes(named) && R(named).includes(mentioner), 'related: a card named in a skill, both ways');
+  ok(!R(fa).includes(fa) && R(fa).length <= 12, 'related: no self, at most 12');
+  D.ui.bf = {...D.ui.bf, type:''}; D.render(); await W(150);
+  $('.ed-pool .pc[data-id] [data-a="edinfo"]') && $$('.ed-pool .pc[data-id]').find(e => D.deck.related(e.dataset.id).length) ?.querySelector('[data-a="edinfo"]').click(); await W(250);
+  ok(!!$((wide ? '.ed-insp' : '.modal') + ' .edrel .relc'), 'card info shows related cards');
+  if(!wide && $('.modal')){ click('mmclose'); await W(150); }
 
   // review fix · a saved card you no longer own can still be taken out
   const gone = Object.keys(Cc).find(x => !K.owned(x) && !Cc[x].fusion && !Cc[x].ritual && !Cc[x].token);
