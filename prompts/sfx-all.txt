@@ -1,0 +1,112 @@
+ສຽງເອັບເຟັກພື້ນຖານທັງໝົດໃນເກມ · 27 ສຽງ (ໃຊ້ແທນສຽງທີ່ເກມສ້າງເອງດ້ວຍໂຄດ)
+ສຽງໃດທີ່ຍັງບໍ່ສົ່ງມາ ເກມຈະໃຊ້ສຽງເກົ່າໄປກ່ອນ. ສົ່ງມາເທື່ອລະໜ້ອຍກໍ່ໄດ້.
+
+=====================================================================================================
+ເຮັດຢູ່ໃສ: ElevenLabs → Sound Effects (ຄືສຽງເດັກ 25)
+=====================================================================================================
+  1. ເຂົ້າ elevenlabs.io → ເມນູຊ້າຍ "Sound Effects".
+  2. ກັອບ PROMPT (ພາສາອັງກິດ) ຂອງສຽງນັ້ນ ໄປວາງ.
+  3. ກົດ Settings: Duration = ຕາມວິນາທີທີ່ຂຽນ · Prompt influence = ສູງ (ປະມານ 70%).
+  4. ກົດ Generate → ຟັງ → ດາວໂຫຼດອັນທີ່ມັກ.
+  5. ສົ່ງມາໃນແຊັດ. ບອກຊື່ສຽງນຳ (ເຊັ່ນ click, hit) ຫຼື ຕັ້ງຊື່ໄຟລ໌ຕາມ [ຊື່] ເລີຍ.
+     ຖ້າເລືອກບໍ່ໄດ້ ສົ່ງ 2 ອັນມາ, ຂ້ອຍຈະໃຫ້ເກມສຸ່ມສະລັບກັນ (ສຽງທີ່ດັງເລື້ອຍໆ ເຊັ່ນ hit, play, draw ມີ 2 ແບບຈະດີກວ່າ).
+
+ສຽງດັງຄ່ອຍບໍ່ເປັນຫຍັງ ຂ້ອຍຈະປັບໃຫ້ເທົ່າກັນ ແລະ ຕັດຊ່ວງງຽບອອກເອງ.
+ລິຂະສິດ: ແຜນຟຣີ ໃຊ້ໄດ້ສະເພາະບໍ່ຫາເງິນ. ເກມມີຮ້ານຂາຍເພັດ ສະນັ້ນ ຕອນເຮັດສຽງແທ້ໃຫ້ໃຊ້ແຜນເສຍເງິນ.
+
+ແບບສຽງທັງໝົດ: ສຽງເກມມືຖືທີ່ທັນສະໄໝ ສະອາດ ຟັງສະບາຍ, ມີສີສັນເຄື່ອງດົນຕີລາວ (ໂປງລາງ, ລະນາດ, ຄ້ອງ, ລະຄັງວັດ, ແຄນ, ໄມ້ໄຜ່).
+ບໍ່ມີສຽງຄົນເວົ້າ, ບໍ່ມີດົນຕີຍາວ, ບໍ່ໜ້າຢ້ານ, ບໍ່ມີສຽງເລືອດ ຫຼື ຮ້ອງໄຫ້.
+ສຽງທີ່ດັງເລື້ອຍໆ (click, draw, play, hit) ຕ້ອງສັ້ນ ແລະ ເບົາ ເພື່ອບໍ່ໃຫ້ໜວກຫູ.
+
+=====================================================================================================
+1 · ປຸ່ມ ແລະ ກາດ
+=====================================================================================================
+[click] ກົດປຸ່ມທຸກປຸ່ມ · 0.5 ວິ
+  PROMPT: a very short soft wooden tap, like a light tap on a small Lao bamboo xylophone key, clean UI button click, gentle and pleasant, no reverb tail, no voice
+
+[draw] ຈົ່ວກາດ · 0.5 ວິ
+  PROMPT: a quick light paper card swish, a playing card sliding off a deck into a hand, crisp and airy, subtle, game UI sound, no voice
+
+[play] ລົງກາດໃສ່ສະໜາມ · 0.7 ວິ
+  PROMPT: a satisfying card slapped down onto a wooden table with a soft thump, followed by a tiny bright wooden xylophone sparkle note, confident trading card game sound, no voice
+
+[flip] ພິກກາດ (ກັບດັກເປີດ, ກາດຫງາຍ) · 0.6 ວິ
+  PROMPT: a quick card flip, a crisp paper flick and a single clear wooden xylophone note, card reveal in a game, short, no voice
+
+[reveal] ເປີດເຫັນກາດຫາຍາກ ໃນຊອງ · 1.5 ວິ
+  PROMPT: a magical card reveal, a rising shimmer of bright bells ending in a sparkling golden chime, exciting rare item reveal in a mobile game, no voice
+
+[pack] ຈີກຊອງກາດ · 1.2 ວິ
+  PROMPT: tearing open a foil card pack, a crisp satisfying rip of shiny wrapper followed by a soft magical sparkle burst, booster pack opening in a mobile game, no voice
+
+=====================================================================================================
+2 · ການຕໍ່ສູ້
+=====================================================================================================
+[attack] ຕົວລະຄອນພຸ່ງເຂົ້າໂຈມຕີ · 0.6 ວິ
+  PROMPT: a fast heroic whoosh of a character dashing forward to strike, short swoosh of air with a little energy, cartoon battle game, no voice, no metal blade
+
+[hit] ໂຈມຕີຖືກ · 0.5 ວິ
+  PROMPT: a punchy cartoon impact, a solid wooden drum thump with a short crack, satisfying game hit, family friendly, no gore, no voice
+
+[destroy] ກາດຖືກທຳລາຍ (ແຕກເປັນປະກາຍ) · 1 ວິ
+  PROMPT: a magical card shattering into glittering pieces, a light glassy crack followed by falling sparkles, defeated card disappearing in a game, not violent, no voice
+
+[boom] ລະເບີດ / ດອກໄມ້ໄຟແຕກ · 1.2 ວິ
+  PROMPT: a festive firework explosion, a deep soft boom followed by crackling sparkles, celebration fireworks rather than war, cartoon game sound, no voice
+
+[rocket] ບັ້ງໄຟຂຶ້ນຟ້າ · 1.5 ວິ
+  PROMPT: a Lao bamboo rocket launching into the sky, a fizzing hiss rising quickly in pitch with a whoosh, festival rocket, playful, no explosion at the end, no voice
+
+[thunder] ຟ້າຜ່າ · 1.5 ວິ
+  PROMPT: a sharp magical lightning strike with a bright electric crack followed by a short rolling thunder rumble, powerful but not scary, fantasy game spell, no voice
+
+[splash] ນ້ຳສາດ / ພະຍານາກ · 1 ວິ
+  PROMPT: a big clean water splash, a wave crashing up then water droplets falling, river magic, refreshing, game sound effect, no voice
+
+[wind] ລົມພັດ · 1.2 ວິ
+  PROMPT: a quick swirl of magical wind, a soft rising whoosh with rustling leaves, gust of air spell, light and airy, no voice
+
+[trip] ກັບດັກຈັບ (ໄມ້ກັບ ແລະ ໂສ້) · 1 ວິ
+  PROMPT: a wooden trap snapping shut with a sharp wooden clack, followed by a short metal chain rattle, cartoon trap triggered, playful, no voice
+
+=====================================================================================================
+3 · ເວດມົນ ແລະ ພິທີ
+=====================================================================================================
+[spell] ໃຊ້ຄາຖາ (ສຽງເວດມົນທົ່ວໄປ, ໃຊ້ຫຼາຍສຸດ) · 1 ວິ
+  PROMPT: a magic spell being cast, a quick rising run of bright wooden xylophone notes with a shimmering sparkle on top, light fantasy magic, game sound effect, no voice
+
+[heal] ຟື້ນຂວັນ · 1 ວິ
+  PROMPT: gentle healing magic, soft warm bell chimes rising with a calm sparkle, restoring health in a fantasy game, soothing, no voice
+
+[curse] ຄຳສາບ / ເຮັດໃຫ້ອ່ອນແອ · 1 ວິ
+  PROMPT: a playful dark magic wobble, a low warbling descending tone with a soft puff of smoke, mischievous rather than scary, cartoon curse in a family game, no voice, no screams
+
+[bless] ພອນສູ່ຂວັນ (ລະຄັງນ້ອຍ) · 1.2 ວິ
+  PROMPT: a soft Lao blessing ceremony sound, small temple bells and light chimes tinkling gently, warm and happy, a white thread baci blessing, no voice
+
+[rite] ພິທີອັນເຊີນ (ຄ້ອງ ແລະ ລະຄັງວັດ) · 2.5 ວິ
+  PROMPT: a sacred Lao temple ritual, a deep warm gong hit followed by ringing temple bells and a soft rising shimmer, mystical summoning ceremony, powerful and holy, no voice, no chanting
+
+[fusion] ຮ່ວມຮ່າງ (2 ໃບລວມເປັນ 1) · 2 ວິ
+  PROMPT: two magical energies rushing together, two shimmering tones swirling closer and rising, then merging in a bright powerful burst, fusion transformation in a fantasy card game, no voice
+
+[legend] ກາດຕຳນານລົງສະໜາມ · 2.5 ວິ
+  PROMPT: an epic legendary hero entrance, a huge deep gong strike with a heroic rising swell of shimmering bells and a short khaen mouth organ chord, majestic and exciting, mobile game legendary card, no voice
+
+=====================================================================================================
+4 · ຕາ, ລາງວັນ ແລະ ຜົນ
+=====================================================================================================
+[turn] ເລີ່ມຕາໃໝ່ · 1 ວິ
+  PROMPT: a clear friendly turn-start chime, two bright wooden xylophone notes going up, like a small bell saying "your turn", short and pleasant, no voice
+
+[gem] ໄດ້ເພັດ · 1 ວິ
+  PROMPT: collecting shiny gems, bright crystal clinks and a sparkling chime, satisfying reward pickup in a mobile game, no voice
+
+[coin] ໄດ້ຫຼຽນ / ຮາງວັນນ້ອຍ · 0.8 ວິ
+  PROMPT: a single gold coin pickup, a bright metallic ting with a tiny sparkle, cheerful reward, game sound effect, no voice
+
+[win] ສຳເລັດ / ປ່ຽນຮ່າງ / ໄດ້ຜົນງານ · 1.5 ວິ
+  PROMPT: a short happy success jingle, three rising bright xylophone and bell notes ending in a sparkle, achievement unlocked, joyful, no voice, under two seconds
+
+[lose] ບໍ່ສຳເລັດ · 1.2 ວິ
+  PROMPT: a short gentle "oh no" jingle, two soft descending wooden xylophone notes, sad but cute and not discouraging, family game, no voice
