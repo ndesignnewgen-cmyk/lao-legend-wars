@@ -1,0 +1,72 @@
+ສະໜາມພິເສດ (ຂາຍໃນຮ້ານ) · ໄຫຫີນ · ຄືນຝົນດາວ · 31/10/2026
+ເປົ້າໝາຍ: ໃຫ້ຕ່າງຈາກສະໜາມຟຣີ «ທົ່ງໄຫຫີນແຫ່ງດວງດາວ» ແບບເຫັນປຸບຮູ້ເລີຍ.
+  ສະໜາມຟຣີ  = ຕອນແລງ, ຫີນສີເງິນອ່ອນ, ສະຫງົບ.
+  ສະໜາມພິເສດ = ກາງຄືນເລິກ, ຫີນສີຄາມເຂັ້ມມີເສັ້ນດາວຝັງທອງ, ໄຫຫີນມີແສງທອງອອກມາຈາກໃນໄຫ, ຟ້າເຕັມໄປດ້ວຍດາວຕົກ.
+
+=====================================================================================================
+ແບບລວມ · ກັອບເທື່ອດຽວ ໄດ້ 3 ຮູບ
+=====================================================================================================
+  1. ເປີດແຊັດໃໝ່ (ChatGPT ຫຼື Codex).
+  2. ແນບ 3 ຮູບພ້ອມກັນ ຈາກ lao-legend-game → art → arena → source:
+     starjars-lane.png, starjars-surround.png, starjars-panel.png
+  3. ກັອບ PROMPT ລຸ່ມນີ້ທັງໝົດ ໄປວາງ → ສົ່ງ.
+  4. ຖ້າມັນເຮັດໃຫ້ແຕ່ 1 ຮູບແລ້ວຢຸດ, ພິມ: next image
+  5. ໄດ້ຄົບ 3 ຮູບ → ດາວໂຫຼດ → ສົ່ງມາໃນແຊັດນີ້.
+
+PROMPT:
+Create 3 SEPARATE images, one after another, for a premium arena skin of a Lao folklore trading card game called "Plain of Jars · Meteor Night". The 3 attached images are the current daytime arena: use them ONLY for shape, size and layout of each piece; change the palette and mood completely to a magical midnight meteor shower. Shared style for all 3: premium hand-painted physical fantasy game board, tactile detail, luxurious and wondrous but serene, palette deep navy, lapis indigo, violet, antique gold and soft silver; ancient squat open-topped stone jars of the Plain of Jars, Laos, glowing warm gold from inside as if holding starlight; golden-white shooting stars. Never include words, letters, numbers, cards, icons, logos, UI, people, skulls, fog or anything scary.
+
+IMAGE 1 · LANE (wide 3:1, match the attached lane image): ONE horizontal empty battlefield lane panel with softly rounded corners, straight-on, no perspective. Surface of polished lapis and midnight-indigo stone paving blocks, MEDIUM-DARK not black, soft moonlit sheen so cards on top stay readable. At the center a refined low-contrast celestial star map inlaid in fine gold: constellation lines, small glowing gold star studs, two thin concentric gold rings, a crescent moon motif and a few engraved falling-star streaks. Slim carved dark slate frame with bright antique-gold bevel and tiny gold star rivets. Only at the far lower-left and lower-right corners: a few stone jars glowing gold from inside with little sparkles rising, dark grass and tiny white night flowers. Broad calm empty central 80 percent. No landscape inside the panel. All corners intact, fills the canvas.
+
+IMAGE 2 · SURROUND (wide 16:9, match the attached surround image): full-bleed landscape around the board. UPPER 22 percent: deep navy and violet night sky full of bright stars, a soft Milky Way band, a large pale full moon on one side, many elegant golden-white shooting stars streaking diagonally from upper right to lower left; stone jars on dark grassy hills glowing gold from inside; distant indigo mountains with a faint gold rim light. CENTER 60 percent: flat calm dark-indigo stone terrace (it will be covered by card lanes). BOTTOM 20 percent: moonlit grasses, fireflies, small white night flowers, slate stepping stones and large weathered jars on both lower corners glowing gold, the largest at far right with gold sparkles rising out of it. Thin dark slate frame on the outer edges with antique-gold star ornaments. No temple, no huge central subject.
+
+IMAGE 3 · PANEL (tall 1:3, match the attached panel image): blank vertical sidebar. Warm pale ivory parchment with a very faint gold star pattern; broad clean LIGHT empty center over the upper 75 percent for text placed later. Narrow carved frame of dark midnight-blue stone with bright antique-gold bevel and tiny gold stars on all four edges, a dark indigo carved lintel along the top with a small gold crescent moon in its middle. BOTTOM 20 percent only: a hand-painted midnight Plain of Jars scene with jars glowing gold, dark grass and fireflies, distant indigo mountains, full moon and several golden shooting stars. Entire frame intact.
+
+=====================================================================================================
+ເຮັດແນວໃດ (ChatGPT ຫຼື Codex) · ແບບແຍກທີລະຮູບ (ຖ້າແບບລວມອອກມາບໍ່ດີ)
+=====================================================================================================
+  1. ເປີດແຊັດໃໝ່ 1 ອັນ ຕໍ່ 1 ຮູບ.
+  2. ແນບຮູບຕົວຢ່າງ (Image 1) ຈາກໂຟນເດີເກມ: lao-legend-game → art → arena → source
+       ຮູບ 1 lane     → ແນບ starjars-lane.png
+       ຮູບ 2 surround → ແນບ starjars-surround.png
+       ຮູບ 3 panel    → ແນບ starjars-panel.png
+     (ແນບໄວ້ເພື່ອໃຫ້ຂະໜາດ ແລະ ບ່ອນວາງຂອງ ກົງກັບເກມ. ສີ ແລະ ບັນຍາກາດ ຈະໃໝ່ໝົດ.)
+  3. ກັອບ PROMPT (ພາສາອັງກິດ) ໄປວາງ → ສົ່ງ.
+  4. ຂະໜາດ: lane = ກວ້າງ (3:1) · surround = ກວ້າງ (16:9) · panel = ສູງ (1:3).
+  5. ຕັ້ງຊື່ໄຟລ໌: meteor-lane, meteor-surround, meteor-panel → ສົ່ງມາໃນແຊັດ (zip ກໍ່ໄດ້).
+
+ກວດກ່ອນສົ່ງ:
+  - ກາງ lane ຕ້ອງໂລ່ງ ແລະ ບໍ່ດຳເກີນໄປ (ກາດຕ້ອງອ່ານງ່າຍ).
+  - ບໍ່ມີໜັງສື, ບໍ່ມີຄົນ, ບໍ່ມີກາດ ຫຼື ປຸ່ມ ຢູ່ໃນຮູບ.
+  - ບໍ່ມີໝອກ, ບໍ່ໜ້າຢ້ານ.
+
+ເມື່ອຮູບມາຮອດ ຂ້ອຍຈະເຮັດໃນເກມ:
+  - ສີປ້າຍ, ກອບ, ປຸ່ມ ໃຫ້ເຂົ້າກັບກາງຄືນ (ທອງ + ຄາມ).
+  - ດາວຕົກສີທອງ (ມີແລ້ວ) + ໄຫຫີນມີແສງທອງກະພິບຊ້າໆ.
+  - ຕອນລົງກາດຕຳນານ: ມີດາວຕົກໃຫຍ່ 1 ດວງ ຕົກລົງໃສ່ຝັ່ງເຈົ້າ.
+  - ໃນຮ້ານ ແລະ ໃນຕັ້ງຄ່າ ຈະໃຊ້ຮູບໃໝ່ນີ້ ເປັນຮູບຕົວຢ່າງ.
+  - ສະໜາມຟຣີ ຍັງຄືເກົ່າ.
+
+=====================================================================================================
+1. meteor-lane  (ພື້ນລານກາງ ທີ່ວາງກາດ · 3:1)
+=====================================================================================================
+PROMPT:
+Use case: stylized-concept. Asset type: ONE horizontal empty battlefield lane surface for a Lao folklore trading card game. Image 1 is the exact SHAPE and LAYOUT reference only; change the palette and mood completely. Generate ONLY the lane panel, no full UI. Wide 3:1 straight-on rectangular panel with softly rounded corners. Surface: polished deep lapis-lazuli and midnight-indigo stone paving blocks, MEDIUM-DARK not black, with a soft cool moonlit sheen so cards on top stay readable. Inlaid fine gold lines form a large elegant celestial star map at the center: constellation lines, small glowing gold star studs, two thin concentric gold rings and a crescent moon motif, a few tiny falling-star streaks engraved in gold, all low contrast and refined. Slim carved dark slate frame with a bright antique-gold bevel and tiny gold star rivets. At the far lower-left and lower-right corners, a few squat open-topped megalithic stone jars of the Plain of Jars, Laos, each with warm golden starlight glowing softly from inside the jar mouth, little sparkles rising, with dark grass and a few tiny white night flowers. Broad calm unobstructed central 80 percent. Premium hand-painted physical fantasy game board, tactile stone, luxurious, magical, serene. No words, letters, numbers, cards, icons, logos, UI, people, skulls, fog or spooky objects. No landscape inside the panel, no perspective trapezoid. All corners intact, fills canvas.
+
+=====================================================================================================
+2. meteor-surround  (ພາບອ້ອມສະໜາມ · 16:9)
+=====================================================================================================
+PROMPT:
+Use case: stylized-concept. Asset type: full-bleed 16:9 landscape game-board surroundings. Image 1 is COMPOSITION reference only (same layout zones); change the time of day and palette completely. The Plain of Jars in Xiangkhouang, Laos, on a clear magical midnight during a spectacular meteor shower: across the UPPER 22 percent a deep navy and violet night sky full of bright stars, a soft glowing Milky Way band, a large pale full moon on one side, and many elegant golden-white shooting stars streaking diagonally from upper right to lower left; ancient squat open-topped grey stone jars on the dark grassy hills glow warm gold from inside as if holding starlight, distant indigo mountains silhouetted with a faint gold rim light. CENTER 60 percent a flat calm dark-indigo stone terrace that will be hidden by card lanes. BOTTOM 20 percent richly painted moonlit grasses, tiny glowing fireflies, small white night flowers, slate stepping stones and large weathered stone jars on both lower corners glowing gold from inside, the largest at far right with gold sparkles rising out of it. Thin crafted dark slate frame around the outer edges with bright antique-gold star ornaments. Premium illustrated fantasy card game environment, rich tactile hand-painted detail, luxurious and wondrous, palette navy, violet, gold and soft silver. No temple, no people, no cards, no text, labels or UI, no skulls, no fog, no horror, no huge central subject. Keep the jar landscape and meteor sky visible along the top, ornaments concentrated at the sides and bottom.
+
+=====================================================================================================
+3. meteor-panel  (ແຖບຊ້າຍ ອ່ານກາດ · 1:3)
+=====================================================================================================
+PROMPT:
+Use case: stylized-concept. Asset type: tall portrait game card-inspector background. Image 1 is SHAPE reference only. Generate ONLY a blank vertical sidebar panel: warm pale ivory parchment with a very faint gold star pattern, broad clean quiet center covering the upper 75 percent for card and text UI placed later (keep it LIGHT for readable text). An ornate narrow carved frame of dark midnight-blue stone with a bright antique-gold bevel and tiny gold stars around all four edges, a dark indigo carved lintel along the top edge with a small gold crescent moon at its middle. Along the BOTTOM 20 percent a beautiful hand-painted midnight Plain of Jars scene: squat stone jars glowing gold from inside, dark grass and fireflies, distant indigo mountains, a deep blue sky with several golden shooting stars and a full moon. Premium physical fantasy card game craftsmanship, luxurious night-and-gold palette with readable parchment. Straight front view, portrait 1:3. No words, labels, letters, icons, numbers, characters, cards or UI. Illustration at the footer only, center very light and empty, entire frame intact.
+
+=====================================================================================================
+ໄອເດຍອື່ນ (ຖ້າບໍ່ມັກ «ຄືນຝົນດາວ», ບອກມາ ຂ້ອຍຈະຂຽນ PROMPT ໃໝ່)
+=====================================================================================================
+  B. ໄຫຫີນທອງຄຳ · ງານສະຫຼອງໄຊຊະນະຂຸນເຈືອງ: ຕອນຕາເວັນຂຶ້ນ, ໄຫມີຂອບທອງ, ທຸງ ແລະ ໂຄມລອຍ.
+  C. ໄຫຫີນລອຍຟ້າ · ອາວະກາດ: ໄຫຫີນລອຍຢູ່ກາງກາແລັກຊີ, ພື້ນເປັນແກ້ວໃສມີດາວຢູ່ລຸ່ມ.

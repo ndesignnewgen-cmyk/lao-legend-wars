@@ -1,0 +1,9 @@
+ນາກາ-X (ເດັກ 13) · ຮູບໄດຄັດເຕັມຕົວ ສຳລັບຕອນລົງສະໜາມ (ອາດທຳມະດາ)
+ຮູບກາດເກົ່າ ນາກພັນຢູ່ກັບຕຶກ ແລະ ຂົວ, ເຄື່ອງຕັດອັດຕະໂນມັດແຍກບໍ່ໄດ້. ເລີຍຕ້ອງເຈນຮູບນາກໂຕດຽວ ພື້ນຂາວລ້ວນ.
+
+1. ເປີດ ChatGPT ຫຼື Codex → ແນບຮູບ lao-legend-game → art → nagax.jpg
+2. ກັອບ PROMPT ລຸ່ມນີ້ → ສົ່ງ.
+3. ດາວໂຫຼດ → ຕັ້ງຊື່ nagax-full → ສົ່ງມາໃນແຊັດ.
+
+PROMPT:
+Use the attached card illustration as the strict visual reference. Redraw ONLY the giant cyber naga "Naga-X" as one complete character on a plain pure white background. Preserve exactly: the silver-white scale body with glowing cyan and magenta neon inner panels, the ornate golden Lao naga crown, mane and flame-like crest, gold fin ridges along the body, glowing cyan eyes, the open mouth with small fangs and the magenta forked tongue. Show the whole head, upper body and the long body in an elegant compact S-coil with the tail tip visible, as one clean readable silhouette, heroic three-quarter view, confident and powerful but not frightening. Remove EVERYTHING else: no buildings, skyscrapers, highways, bridges, river, temple, trees, clouds, rain, city lights or reflections; nothing passes in front of or through the body. Same hand-painted 2D fantasy card-art style as the reference, not photorealistic, not 3D. Portrait canvas 1024x1536, the full naga inside the canvas with about 10 percent white margin on every side. Plain flat pure white background, no shadow, no ground, no glow halo, no particles, no text, letters, numbers, logo or frame.
