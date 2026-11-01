@@ -20,7 +20,7 @@ try{
   ok(!!$('.style-page'), 'customize page opens');
   ok($$('[data-a="stab"]').length === 6, 'six tabs');
   ok(!!$('.style-prev'), 'preview shown');
-  const want = {back:6, arena:6, avatar:D.style.items('avatar').length, frame:9, title:D.style.items('title').length, pet:5};
+  const want = {back:6, arena:11, avatar:D.style.items('avatar').length, frame:9, title:D.style.items('title').length, pet:5};
   for(const [tab, n] of Object.entries(want)){
     click('stab', tab); await W(250);
     ok($$('.stile').length === n && n > 0, tab + ': ' + n + ' tiles');
@@ -60,6 +60,7 @@ try{
   ok(D.ui.screen === 'shop' && D.ui.shopTab === 'cosmetics', 'locked back opens the shop cosmetics tab');
   D.ui.screen = 'style'; D.ui.styleTab = 'arena'; D.style.set({theme:'starjars', meteor:true}); D.render(); await W(200);
   ok(on() === 'starjars' && $('[data-v="meteor"]').dataset.a === 'slock', 'meteor not owned: free starjars shown, meteor locked');
+  ok(['naga', 'bangfai', 'heuafai', 'himmasky', 'neon'].every(id => $('[data-v="' + id + '"]') && $('[data-v="' + id + '"]').dataset.a === 'slock'), 'the 5 new paid arenas are listed and locked');
   // Task 3 · old pickers become links
   D.ui.screen = 'shop'; D.ui.shopTab = 'cosmetics'; D.render(); await W(300);
   ok(!$('[data-a="pmequip"]') && !$('[data-a="pmreset"]'), 'shop: no equip or reset buttons');

@@ -63,6 +63,10 @@ online play, ranked, friends, a card shop with earned gems and owner-approved BC
   transforms, summoned cards via `SUMMONS`/`summonsOf`: add a card there when a new skill summons something), shown by `edExtraHTML`. Test: `tools/deck-builder-test.js`.
 - Home screen: `menuHTML`. The chosen deck's legend stands on a stage (`legendStage(id)`: its CUTS box fitted with container
   units; phones show a tall full body from the waist up), painted background `art/bg/login-*.webp`, lanterns `h2Lanterns`.
+- Paid arenas: `PM_ARENAS` (meteor, naga, bangfai, heuafai, himmasky, neon; product `arena-<id>` in f17/f20.sql). Each dresses the
+  'starjars' board: CSS vars on `.arena[data-premium-arena=<id>]`, pictures `art/arena/<id>-lane/panel/surround/cl/cr`, live lane
+  sprites `PF[id]` from `art/arena/fx/<id>-*.webp` (`pmFxHTML`), a legend moment `fxArenaLegend`, sounds `art/sfx/ar-<id>`
+  and looping `amb-<id>` (`ambTick`). `pmArena()` is the arena in use. Note: 'himma' is the FREE theme id, the paid one is 'himmasky'.
 - Levels 1-100 (ເສັ້ນທາງຕຳນານ, `ui.screen = 'road'`, `roadHTML`): `lvStart`/`levelOf` (XP curve) and `lvReward(L)` must match
   `lv_start`/`lv_pay` in `supabase/f19.sql`. Guests are paid by `lvLocalPay`, accounts by the server (`eco_xp` → `lv_catch`,
   `lv_claim`, `lv_pick` for the level 60/90 card choice). Level frames/titles/backs come from the level (`FRAMES[].lv`,
