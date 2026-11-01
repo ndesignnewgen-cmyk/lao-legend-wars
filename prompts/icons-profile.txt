@@ -1,0 +1,34 @@
+ໄອຄອນທີ່ຍັງບໍ່ມີຮູບ · ບັດຜູ້ຫຼິ້ນ + ບັນຊີ + ຈັດເດັກ · 17 ໄອຄອນ · 01/11/2026
+ໄອຄອນທີ່ມີຮູບແລ້ວ (ກາດ, ຖ້ວຍລາງວັນ, ລະດັບ, ໝູ່, ແກ້ໄຂ, ກະແຈ, ຈົດໝາຍ, ອອກ) ໃສ່ໃຫ້ແລ້ວ.
+
+ເຮັດແນວໃດ:
+  1. ChatGPT ຫຼື Codex → ແຊັດໃໝ່ → ແນບຮູບ art/ui/trophy.webp ແລະ art/ui/style.webp ເປັນແບບ.
+  2. ກັອບ PROMPT ລຸ່ມນີ້ → ສົ່ງ. ຖ້າມັນຢຸດກ່ອນຄົບ 17 ຮູບ ພິມ: next image
+  3. ກວດ: ພື້ນຫຼັງຕ້ອງໂປ່ງໃສ. ຖ້າເປັນພື້ນຂາວ ກໍ່ບໍ່ເປັນຫຍັງ ຂ້ອຍຕັດໃຫ້.
+  4. ດາວໂຫຼດທັງໝົດ (zip ກໍ່ໄດ້) → ສົ່ງມາ. ຊື່ໄຟລ໌ບໍ່ຖືກ ກໍ່ບໍ່ເປັນຫຍັງ.
+
+PROMPT:
+Create 17 SEPARATE images, one after another, in this exact order, as menu icons for a Lao folklore trading card game. Do not stop or ask questions between images. Match the attached icons exactly: glossy premium game icon, one object only, thick ornate golden Lao kranok details, bright saturated colours, red rubies and blue sapphires, soft bevel and shine, slight 3/4 view, strong silhouette that reads at 32 pixels. Square 1024x1024, TRANSPARENT BACKGROUND (or plain pure white if transparency is not possible), no shadow on the ground, no text, letters or numbers, never scary.
+1 [games] Games played: a golden game controller shaped like a small Lao drum, two ruby buttons and a sapphire pad.
+2 [wins] Wins: a round gold victory medal with a naga embossed on it, hanging from a red and blue ribbon.
+3 [winrate] Win rate: a small golden easel board with a rising red arrow and three rising jade bars, kranok corners.
+4 [streak] Win streak: a bright orange-gold flame rising from a golden Lao oil lamp, sparks around it.
+5 [title] Title: a golden name banner ribbon scroll with a ruby star in the centre, kranok ends.
+6 [showcase] Showcase cards: three trading cards standing upright on a small golden display stand, the middle card glowing.
+7 [copy] Copy: two overlapping golden cards with a small blue arrow loop, clean and simple.
+8 [cloud] Cloud save: a soft white and gold cloud with a small golden check mark shield in front of it.
+9 [password] Change password: a golden padlock with a kranok pattern, a small golden key in its keyhole, a ruby on top.
+10 [lock] Locked: a closed golden padlock with a sapphire in the centre.
+11 [fusion] Fusion: two small glowing cards (one red, one blue) merging into one bright gold card in a swirl of light.
+12 [rite] Rite: a lit golden ritual candle on a lotus base with a small yantra circle glowing behind it.
+13 [transform] Transform: a golden butterfly with jade and ruby wings bursting from a glowing cocoon of light.
+14 [summon] Summon: a golden magic wand with a lotus tip casting a small swirl of sparkles.
+15 [gift] Reward chest: a small golden gift box tied with a red ribbon and a kranok bow, light shining from the gap.
+16 [code] Deck code: a golden chain link with a small glowing card hanging from it.
+17 [delete] Delete: a small golden trash bin with a lid, a ruby on the front, friendly not scary.
+Remember: 17 separate images, one object each, no text.
+
+ໄອຄອນໃດ ໃຊ້ຢູ່ໃສ:
+  1–6, 8–10, 7 : ບັດຜູ້ຫຼິ້ນ ແລະ ກ່ອງບັນຊີ (ໂປຣໄຟລ໌)
+  11–14         : ກ່ອງ «ກາດພິເສດຂອງເດັກນີ້» ໃນໜ້າຈັດເດັກ
+  15–17         : ປຸ່ມຕ່າງໆ (ຮັບລາງວັນ, ລະຫັດເດັກ, ລຶບເດັກ)

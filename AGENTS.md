@@ -67,6 +67,9 @@ online play, ranked, friends, a card shop with earned gems and owner-approved BC
   'starjars' board: CSS vars on `.arena[data-premium-arena=<id>]`, pictures `art/arena/<id>-lane/panel/surround/cl/cr`, live lane
   sprites `PF[id]` from `art/arena/fx/<id>-*.webp` (`pmFxHTML`), a legend moment `fxArenaLegend`, sounds `art/sfx/ar-<id>`
   and looping `amb-<id>` (`ambTick`). `pmArena()` is the arena in use. Note: 'himma' is the FREE theme id, the paid one is 'himmasky'.
+- Icons: `UIC(name)` = art/ui/<name>.webp; `UIX(name, emoji)` uses the picture when `name` is in `UI_HAVE`, else the emoji.
+- Ranked result: `rankResult(S, before)` after a ranked game loads the new rank and sets `S.rankRes`; `rankResHTML` draws it in the
+  game-over popup (star gained / lost, tier up with the new emblem, legend tier counts stars).
 - Levels 1-100 (ເສັ້ນທາງຕຳນານ, `ui.screen = 'road'`, `roadHTML`): `lvStart`/`levelOf` (XP curve) and `lvReward(L)` must match
   `lv_start`/`lv_pay` in `supabase/f19.sql`. Guests are paid by `lvLocalPay`, accounts by the server (`eco_xp` → `lv_catch`,
   `lv_claim`, `lv_pick` for the level 60/90 card choice). Level frames/titles/backs come from the level (`FRAMES[].lv`,
