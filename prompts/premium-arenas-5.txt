@@ -58,6 +58,46 @@ Remember: 20 separate images in this order, each a single clean asset, no text a
 
 
 =====================================================================================================
+★ ສຽງທັງໝົດ 10 ສຽງ (ElevenLabs ເຮັດໄດ້ເທື່ອລະສຽງ ຈຶ່ງລວມໄວ້ບ່ອນດຽວ ໃຫ້ກັອບງ່າຍ)
+=====================================================================================================
+  1. ElevenLabs → Sound Effects.
+  2. ກັອບແຖວ PROMPT ຂອງສຽງ 1 ໄປວາງ.
+  3. ຕັ້ງ Duration ຕາມວິນາທີທີ່ຂຽນ · Prompt influence ປະມານ 70% · ສຽງ «ວົນ» ໃຫ້ເປີດ Loop ຖ້າມີ.
+  4. Generate → ຟັງ → ດາວໂຫຼດ → ຕັ້ງຊື່ຕາມ [ຊື່].
+  5. ເຮັດຊ້ຳ ສຽງ 2 ຮອດ 10 → ສົ່ງມາທັງໝົດ (zip ກໍ່ໄດ້).
+
+ 1. [naga-amb] ສຽງບັນຍາກາດ · ວົນ · 20 ວິນາທີ
+    PROMPT: calm underwater ambience loop for a fantasy game arena, soft deep water hum, gentle slow bubbles rising, distant whale-like low tones, a faint shimmering chime now and then, peaceful and magical, seamless loop, no music, no voices
+
+ 2. [naga-legend] ລົງກາດຕຳນານ · 3 ວິນາທີ
+    PROMPT: a big magical water surge for a legendary card entering, a deep rumble swelling into a rushing wave whoosh, then a bright splash and sparkling bubbles with a soft gong shimmer, epic and clean, no voices
+
+ 3. [bangfai-amb] ສຽງບັນຍາກາດ · ວົນ · 20 ວິນາທີ
+    PROMPT: festive outdoor festival ambience loop, distant cheerful crowd murmur without words, soft rhythmic long drum and khaen in the far distance, occasional far rocket whoosh, warm and happy, seamless loop, no clear voices
+
+ 4. [bangfai-legend] ລົງກາດຕຳນານ · 3 ວິນາທີ
+    PROMPT: a big bamboo rocket launch for a legendary card, a fuse crackle, a powerful roaring whoosh rising into the sky, then a bright crackling golden firework burst with a gong hit, exciting, no voices
+
+ 5. [heuafai-amb] ສຽງບັນຍາກາດ · ວົນ · 20 ວິນາທີ
+    PROMPT: peaceful night river ambience loop, gentle water lapping, soft crickets, candle flames crackling softly, a very faint distant temple bell and khaen far away, calm and warm, seamless loop, no voices
+
+ 6. [heuafai-legend] ລົງກາດຕຳນານ · 3 ວິນາທີ
+    PROMPT: a magical glowing fire boat arriving for a legendary card, a soft whoosh of flames igniting in a long row, warm crackle, a deep temple bell and a rising shimmer of light, majestic and gentle, no voices
+
+ 7. [himma-amb] ສຽງບັນຍາກາດ · ວົນ · 20 ວິນາທີ
+    PROMPT: heavenly garden ambience loop, soft waterfall in the distance, gentle exotic birdsong, light wind chimes and a soft airy shimmer, serene and magical, seamless loop, no voices, no music
+
+ 8. [himma-legend] ລົງກາດຕຳນານ · 3 ວິນາທີ
+    PROMPT: heavenly gates opening for a legendary card, a soft rising choir-like synth pad without words, a bright harp glissando and golden bell shimmer, then a gentle wind of petals, majestic and pure, no voices
+
+ 9. [neon-amb] ສຽງບັນຍາກາດ · ວົນ · 20 ວິນາທີ
+    PROMPT: friendly futuristic city ambience loop, soft electric hum, gentle synth pads, distant flying car whooshes passing by, light digital blips, calm and cool, seamless loop, no voices
+
+10. [neon-legend] ລົງກາດຕຳນານ · 3 ວິນາທີ
+    PROMPT: a futuristic hologram activation for a legendary card, a rising electric charge, a crisp laser scan sweep, then a deep bass impact with sparkling digital shimmer and a short khaen-like synth chord, epic and clean, no voices
+
+
+=====================================================================================================
 ເຮັດຮູບແນວໃດ (ChatGPT ຫຼື Codex)
 =====================================================================================================
   1. ເປີດແຊັດໃໝ່ 1 ອັນ ຕໍ່ 1 ສະໜາມ.
