@@ -1,5 +1,5 @@
 <meta name="security-build" content="1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-LJ2LQd3XGFvXXHAsf1k9gzsmffNIEVwqQ2gY2JuGkPg='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com https://xahuvoounkdojfsvnfaj.supabase.co; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co wss://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-FeINVz1fTAXSlxfBFJ1MZNsShD2GK974beIAQHl5b7o='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com https://xahuvoounkdojfsvnfaj.supabase.co; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co wss://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="referrer" content="no-referrer">
 <meta charset="utf-8">
 <script>
@@ -2354,6 +2354,8 @@ function fxApply(){
 const ART = 'art/';
 // in-game card pictures: 560px WebP copies made by tools/webp.sh (about 1/4 the size); the full JPEGs stay as the masters
 const PIC = f => ART + 'w/' + f + '.webp';
+// the sharper copy (full master size) for big views: card info, the card popup, packs and the summon showcase
+const PIC2 = f => ART + 'w2/' + f + '.webp';
 const RULES_URL = 'https://claude.ai/artifact/4LMD4PNy7TDVP3w1ciKUb3';
 const CARDS_URL = 'https://claude.ai/artifact/Q5Whqx9JteTnTcbfAAvkHs';
 const $app = document.getElementById('app'), $fx = document.getElementById('fx');
@@ -3715,6 +3717,11 @@ function mkPlayer(name, di, bot, level, list){
 }
 // keep every picture of both decks in memory, so re-drawing the board never shows a blank card
 const IMG_KEEP = new Map();
+// the sharp copies of the cards that get a full-screen showcase (legends, cost 5+, special art), a few seconds later
+function preloadBig(ids){
+  const files = [...new Set(ids.filter(id => C[id] && (C[id].legend || C[id].cost >= 5)).flatMap(id => ALT[id] ? [C[id].img, ALT[id]] : [C[id].img]))];
+  setTimeout(() => { for(const f of files){ const k = 'w2:' + f; if(IMG_KEEP.has(k)) continue; const im = new Image(); im.decoding = 'async'; im.src = PIC2(f); IMG_KEEP.set(k, im); } }, 2500);
+}
 function preloadArt(files){
   for(const f of files){ if(IMG_KEEP.has(f)) continue; const im = new Image(); im.decoding = 'async'; im.src = PIC(f); IMG_KEEP.set(f, im); }
 }
@@ -3728,6 +3735,7 @@ document.addEventListener('error', e => {
   // no WebP copy yet (new art not run through tools/webp.sh): use the JPEG master
   // the claude.ai copy can't hold every picture (file limit): fetch the rest from the public site
   if(!/^(localhost|127\.0\.0\.1)$|github\.io$|laolegendwars\.com$/.test(location.hostname) && !im.dataset.gh){ im.dataset.gh = 1; im.src = SITE + src.split('?')[0]; return; }
+  if(src.startsWith(ART + 'w2/')){ im.src = ART + 'w/' + src.slice(ART.length + 3).split('?')[0]; return; }
   if(src.startsWith(ART + 'w/')){ im.src = ART + src.slice(ART.length + 2).split('?')[0].replace(/\.webp$/, '.jpg'); return; }
   const n = +(im.dataset.retry || 0); if(n >= 2){ im.classList.add('broken'); return; }
   im.dataset.retry = n + 1;
@@ -3758,7 +3766,7 @@ function newGame(di, level, opts){
   if(opts.tut) for(const p of S.p) p.tales = [];
   if(opts.adv != null){ S.adv = opts.adv; S.p[1].maxLife = 20 + (opts.boss || 0); S.p[1].life = S.p[1].maxLife; }
   if(!S.fast && petOn()) setTimeout(() => petSay('start'), 1400);
-  if(!S.fast) preloadArt(['back', ...deckArt(di, opts.list), ...deckArt(bi)]);
+  if(!S.fast){ preloadArt(['back', ...deckArt(di, opts.list), ...deckArt(bi)]); preloadBig([...Object.keys(opts.list || DECKS[di].list), ...Object.keys(DECKS[bi].list)]); }
   if(opts.levels){ S.p[0].level = opts.levels[0]; S.p[1].level = opts.levels[1]; }
   for(const p of S.p) for(let i=0;i<5;i++) drawRaw(p);
   S.turn = opts.first != null ? opts.first : (rnd() < .5 ? 0 : 1);
@@ -5505,10 +5513,10 @@ function fmtSkill(t){
   for(const [re, cls] of RULES) s = s.replace(re, m => { bits.push('<span class="kw-' + cls + '">' + m + '</span>'); return '\u0001' + (bits.length - 1) + '\u0002'; });
   return s.replace(/\u0001(\d+)\u0002/g, (m, i) => bits[+i]);
 }
-function cardHTML(id, cs, alt, pv, form){
+function cardHTML(id, cs, alt, pv, form, big){
   const d = C[id]; const isAlt = !!(alt && ALT[id]); const cls = (d.legend ? 'legend' : (d.type === 'char' ? 'hero' : 'spell')) + (isAlt ? ' alt' : '') + (d.cy ? ' cy' : '') + (d.idf ? ' idf' : '') + (d.type === 'trap' ? ' trap' : '') + (d.fusion ? ' fusion' : '') + (d.ritual || RITES[id] ? ' ritual' : '');
   const cost = cs != null ? cs : d.cost;
-  return '<div class="card ' + cls + '"><div class="face"><div class="art">' + (d.ph && !isAlt ? '<span class="phart">' + d.ph + '<small>ຮູບກຳລັງມາ</small></span>' : '<img src="' + PIC((isAlt ? ((form && d.tf && d.tf.altImg) || ALT[id]) : (form && d.tf && d.tf.img) || d.img)) + '" alt=""' + (S ? '' : ' loading="lazy"') + '>') + '</div>' + (isAlt ? '<span class="altbadge">✦ ອາດພິເສດ</span>' : '') +
+  return '<div class="card ' + cls + '"><div class="face"><div class="art">' + (d.ph && !isAlt ? '<span class="phart">' + d.ph + '<small>ຮູບກຳລັງມາ</small></span>' : '<img src="' + (big ? PIC2 : PIC)((isAlt ? ((form && d.tf && d.tf.altImg) || ALT[id]) : (form && d.tf && d.tf.img) || d.img)) + '" alt=""' + (S ? '' : ' loading="lazy"') + '>') + '</div>' + (isAlt ? '<span class="altbadge">✦ ອາດພິເສດ</span>' : '') +
     '<div class="cost"><span class="lbl">ບຸນ</span><span class="num">' + cost + '</span></div>' +
     (d.fusion ? '<span class="xtype">🤝 ຮ່ວມຮ່າງ</span>' : d.ritual ? '<span class="xtype">🕯️ ກາດພິທີ</span>' : RITES[id] ? '<span class="xtype">🕯️ ຄາຖາພິທີ</span>' : '') +
     '<div class="sym">' + SYM[d.type === 'char' ? d.tribe : 'spell'] + '</div>' +
@@ -6042,7 +6050,7 @@ function packOpenHTML(){
   if(!o.torn) return '<div class="popen"><div class="bigwrap' + (o.tearing ? ' tearing' : '') + '" role="button" tabindex="0" data-a="packtear" aria-label="ແກະຊອງ">' + boosterHTML(o.kind, o.di, true) + '</div><p class="ptip2">' + (o.tearing ? '✨' : 'ແຕະຊອງ ເພື່ອແກະ') + '</p></div>';
   const done = o.cards.every((_, i) => o.flip[i]), still = o.dealt; o.dealt = true;   // deal and fade in once; later redraws only animate the card just flipped
   return '<div class="popen' + (still ? ' still' : '') + '"><div class="prow">' + o.cards.map((x, i) => o.flip[i]
-      ? '<div class="pcard up r-' + (x.alt ? 'alt' : x.r) + (o.last === i || o.last === 'all' ? ' jf' : '') + '">' + cardHTML(x.id, null, x.alt ? 1 : 0) + '<span class="ptag">' + (x.alt ? RARITY_NAME.alt : RARITY_NAME[x.r]) + (x.isNew ? ' · ໃໝ່!' : '') + (x.dust ? ' · ✨+' + x.dust : '') + '</span></div>'
+      ? '<div class="pcard up r-' + (x.alt ? 'alt' : x.r) + (o.last === i || o.last === 'all' ? ' jf' : '') + '">' + cardHTML(x.id, null, x.alt ? 1 : 0, null, null, true) + '<span class="ptag">' + (x.alt ? RARITY_NAME.alt : RARITY_NAME[x.r]) + (x.isNew ? ' · ໃໝ່!' : '') + (x.dust ? ' · ✨+' + x.dust : '') + '</span></div>'
       : '<div class="pcard down r-' + (x.alt ? 'alt' : x.r) + '" role="button" tabindex="0" data-a="flip" data-v="' + i + '"><span class="cback">' + BACK + '</span></div>').join('') + '</div>' +
     '<div class="mbtns">' + (done ? '<button class="btn-main sm" data-a="opendone">ຕົກລົງ</button>' + (col().gems >= PACKS[o.kind].cost ? '<button class="btn2" data-a="buy" data-v="' + o.kind + '">ເປີດອີກ 💎' + PACKS[o.kind].cost + '</button>' : '') : '<button class="btn2" data-a="flipall">ເປີດທັງໝົດ</button>') + '</div></div>';
 }
@@ -6254,7 +6262,7 @@ function menuModalHTML(){
       FRAMES.map(f => { const ok = frameOwned(f.id); return '<span class="frm' + ((c.frame || '') === f.id ? ' on' : '') + '" ' + (ok ? '' : ' style="opacity:.45"') + '><span class="hav fr-' + (f.id || 'none') + '"><img src="' + ART + 'back.jpg" alt=""></span><small>' + (ok ? f.name : '🔒') + '</small></span>'; }).join('') +
       '</div><div class="mbtns"><button class="btn2" data-a="mmclose">ປິດ</button></div>';
   }
-  else if(m.type === 'card') inner = '<div style="width:min(290px,66vw)">' + cardHTML(m.id, null, m.alt) + '</div><p class="lore">' + C[m.id].lore + '</p><div class="mbtns"><button class="btn2" data-a="mmclose">ປິດ</button></div>';
+  else if(m.type === 'card') inner = '<div style="width:min(290px,66vw)">' + cardHTML(m.id, null, m.alt, null, null, true) + '</div><p class="lore">' + C[m.id].lore + '</p><div class="mbtns"><button class="btn2" data-a="mmclose">ປິດ</button></div>';
   else if(m.type === 'stats'){
     const st = loadJ('lao-legend-stats', {played:0, won:0}), pct = (w, p) => p ? Math.round(w / p * 100) + '%' : '–';
     const dk = st.deck || [{p:0,w:0},{p:0,w:0},{p:0,w:0}], lv = st.level || [{p:0,w:0},{p:0,w:0},{p:0,w:0}];
@@ -6434,7 +6442,7 @@ function detailHTML(){
   const st = tip ? [] : detailState(d0), kws = kwHelp(d);
   const body = (tip ? '<p class="ptop">✦ ຊີ້ໃສ່ກາດໃດກໍໄດ້ ເພື່ອເບິ່ງລາຍລະອຽດ · ນີ້ແມ່ນກາດຕຳນານຂອງເດັກເຈົ້າ</p>' : '') +
     '<div class="ph">' + SYM[isChar ? d.tribe : 'spell'] + '<span>' + d.name + (d0.alt && ALT[d0.id] ? ' ✦' : '') + '</span></div>' +
-    '<div class="pc">' + cardHTML(d0.id, null, d0.alt, isChar ? pw : null) + '</div>' +
+    '<div class="pc">' + cardHTML(d0.id, null, d0.alt, isChar ? pw : null, null, true) + '</div>' +
     '<div class="pchips"><span>ບຸນ <b>' + d.cost + '</b></span>' + (isChar ? '<span class="' + (pw > d.power ? 'up' : pw < d.power ? 'dn' : '') + '">ພະລັງ <b>' + pw + '</b>' + (pw !== d.power ? ' <small>(ເດີມ ' + d.power + ')</small>' : '') + '</span>' : '') + '</div>' +
     '<div class="ptype">' + type + '</div>' +
     (st.length ? '<ul class="pstate">' + st.map(([k, t]) => '<li class="' + k + '">' + t + '</li>').join('') + '</ul>' : '') +
@@ -6521,7 +6529,7 @@ function handHTML(h, i){
 function modalHTML(){
   const m = S.modal; if(!m) return ''; let inner = '';
   if(m.type === 'info'){
-    inner = cardHTML(m.id, null, m.alt) + '<p class="lore">' + C[m.id].lore + '</p><div class="mbtns"><button class="btn2" data-a="mclose">ປິດ</button></div>';
+    inner = cardHTML(m.id, null, m.alt, null, null, true) + '<p class="lore">' + C[m.id].lore + '</p><div class="mbtns"><button class="btn2" data-a="mclose">ປິດ</button></div>';
   } else if(m.type === 'pact'){
     inner = '<p class="q">' + escH(m.name) + '</p><div class="mbtns"><button class="btn2" data-a="pactblock">🚫 ບລັອກ</button></div><p class="lore">ລາຍງານ:</p><div class="whylist">' + REPORT_WHY.map(([k, l]) => '<button class="btn2 sm" data-a="pactrep" data-v="' + k + '">' + l + '</button>').join('') + '</div><div class="mbtns"><button class="btn2" data-a="mclose">ປິດ</button></div>';
   } else if(m.type === 'hand'){
@@ -7006,7 +7014,7 @@ async function fxShowcase(id, alt, form){
   const ownSfx = {ajandaeng:'summon-yan', taniduean:'moonchange'}[form && d.tf ? d.tf.img : id];
   if(!(ownSfx && sfxf(ownSfx))) sfx(legend ? 'legend' : 'spell');
   if(legend && pmMeteor()) fxBigMeteor();
-  const im = form && d.tf ? ((alt && d.tf.altImg) || d.tf.img) : (alt && ALT[id] ? ALT[id] : d.img), img = PIC(im), cut = CUTS[im];
+  const im = form && d.tf ? ((alt && d.tf.altImg) || d.tf.img) : (alt && ALT[id] ? ALT[id] : d.img), img = PIC2(im), cut = CUTS[im];
   const label = (alt && ALT[id] ? '✦ ອາດພິເສດ · ' : '') + (legend ? 'ກາດຕຳນານ · ' : '') + TRIBE_NAME[d.tribe] + ' · ບຸນ ' + d.cost;
   let body = '<div class="sbg" style="background-image:url(' + img + ')"></div>' + (scene ? '' : '<div class="stint"></div>'), fr = null;
   if(scene) body+='<div class="scene-disc"></div>';

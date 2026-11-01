@@ -30,7 +30,8 @@ online play, ranked, friends, a card shop with earned gems and owner-approved BC
 ## Where things live
 - `index.html`: the whole game, one file (~850 KB): CSS, then one big `<script>` with the engine in an IIFE.
 - `art/`: masters `art/<id>.jpg` (760 px wide), the in-game copies `art/w/<id>.webp` (560 px),
-  showcase cutouts `art/cut/<name>.webp`, deck boxes `art/box-d<no>.webp`, packs, UI icons `art/ui/`,
+  sharp copies `art/w2/<id>.webp` (up to 1100 px, from the originals; `PIC2`, used for card info, popups, packs and
+  the showcase background), showcase cutouts `art/cut/<name>.webp`, deck boxes `art/box-d<no>.webp`, packs, UI icons `art/ui/`,
   rank emblems `art/rank/`, effect art `art/fx/`.
 - `cards.html`: the printable card gallery.
 - `supabase/f1.sql … f13.sql`: server SQL, run in order by the owner. `email-templates.md`: Supabase email setup.
