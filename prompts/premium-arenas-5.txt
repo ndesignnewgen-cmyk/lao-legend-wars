@@ -235,3 +235,21 @@ One image, square 1:1, PLAIN PURE WHITE background, game effect sprites spaced a
   · ໃສ່ໃນຮ້ານ (ຮູບຕົວຢ່າງເຄື່ອນໄຫວໄດ້) ແລະ ໜ້າປັບແຕ່ງ.
   · ໄຟລ໌ SQL ໃໝ່ 1 ໄຟລ໌ ເພື່ອຂາຍ (ເຈົ້າແລ່ນໃນ Supabase ຄືເກົ່າ).
   · ໃສ່ໄດ້ເທື່ອລະສະໜາມ: ສະໜາມໃດມາກ່ອນ ເຮັດກ່ອນ.
+
+
+#####################################################################################################
+ວຽງຈັນ 2099 · ຮູບເອັບເຟັກ ຊຸດໃໝ່ (01/11/2026) · PNG ໄດຄັດ ບໍ່ມີພື້ນຫຼັງ · 6 ຮູບ
+ຊື່ໄຟລ໌: neon-car, neon-car2, neon-drone, neon-hex, neon-thatluang, neon-naga
+#####################################################################################################
+ເຮັດແນວໃດ: ChatGPT → ແຊັດໃໝ່ → ກັອບ PROMPT ລຸ່ມນີ້ → ສົ່ງ. ຖ້າມັນຢຸດກ່ອນຄົບ ພິມ: next image
+ກວດ: ພື້ນຫຼັງຕ້ອງໂປ່ງໃສ (ເປັນຕາໝາກຮຸກ ສີເທົາ-ຂາວ ເວລາເປີດເບິ່ງ). ຖ້າມີພື້ນຂາວ ພິມ: make the background transparent
+
+PROMPT:
+Create 6 SEPARATE images, one after another, as game effect sprites for a futuristic Lao arena called "Vientiane 2099". Do not stop or ask questions between images. Every image: a single object only, centred with a little empty margin, TRANSPARENT BACKGROUND (PNG with alpha), no ground, no shadow, no floor reflection, no scenery, no frame, no text, letters, numbers or logos. Style: premium glossy game asset, clean bold silhouette that reads at small size, rich detail, friendly and stylish, not dystopian. Palette: deep midnight blue and pearl white bodies, electric cyan and hot pink light, polished gold Lao kranok ornaments.
+1 [neon-car] A sleek luxury hover car seen exactly from the SIDE, facing RIGHT, no wheels, floating on a glowing cyan hover strip underneath; long low aerodynamic body in pearl white and midnight blue, thin gold kranok flame pattern along the side, tinted cyan glass canopy, glowing cyan headlight at the front (right), pink tail lights at the back (left), a short soft cyan glow behind it. Wide format 3:1.
+2 [neon-car2] A futuristic hover tuk-tuk (Lao jumbo taxi) seen exactly from the SIDE, facing RIGHT, no wheels, floating on a glowing pink hover strip; rounded cabin with a small curved roof edged in gold kranok trim, open side with a neon cyan seat, body in midnight blue with pink light lines, glowing headlight at the front (right). Cute and stylish. Wide format 2:1.
+3 [neon-drone] A small friendly round hover drone, front three-quarter view: a glossy white sphere body with a midnight blue band, one big glowing cyan eye-lens in the middle, two small side rotor rings glowing hot pink, a tiny gold kranok fin on top. Square 1:1.
+4 [neon-hex] A glowing hologram tile: a flat hexagon seen from slightly above, made only of translucent cyan light, thin bright edges, a fine inner grid and a small glowing Lao lotus symbol in the centre, soft light rising from it. Pure light, see-through. Square 1:1.
+5 [neon-thatluang] The That Luang stupa of Vientiane as a hologram made of light: golden-cyan glowing outline and translucent faces, fine scan lines, small light particles around the spire, front view, symmetrical. Square 1:1.
+6 [neon-naga] A Lao naga serpent head and upper body made of cyan hologram light, side view facing RIGHT, rising in an elegant S curve, translucent with bright cyan edges and pink highlights, kranok crest flames on its head, small light particles. Tall format 1:2.
+Remember: 6 separate images, transparent backgrounds, no text.
