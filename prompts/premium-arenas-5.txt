@@ -1,0 +1,147 @@
+ສະໜາມພິເສດ 5 ສະໜາມໃໝ່ (ຂາຍໃນຮ້ານ) · ຮູບ + ເອັບເຟັກ + ສຽງ · 01/11/2026
+
+ແຕ່ລະສະໜາມ ມີ:
+  · ຮູບ 3 ຮູບ (lane = ພື້ນວາງກາດ, surround = ພາບອ້ອມ, panel = ແຖບອ່ານກາດ) + ຮູບນ້ອຍ 1 ແຜ່ນ ສຳລັບເອັບເຟັກ (fx).
+  · ເອັບເຟັກໃນສະໜາມ ຕະຫຼອດເກມ (ຂ້ອຍຂຽນໂຄ້ດເອງ).
+  · ເອັບເຟັກໃຫຍ່ ຕອນລົງກາດຕຳນານ.
+  · ສຽງ 2 ສຽງ: ສຽງບັນຍາກາດ (ວົນ) ແລະ ສຽງຕອນລົງກາດຕຳນານ.
+ລາຄາແນະນຳ: ສະໜາມລະ 💎800 ເພັດພິເສດ, ຊຸດ 5 ສະໜາມ 💎3000. ເຈົ້າປ່ຽນລາຄາໄດ້.
+
+=====================================================================================================
+ເຮັດຮູບແນວໃດ (ChatGPT ຫຼື Codex)
+=====================================================================================================
+  1. ເປີດແຊັດໃໝ່ 1 ອັນ ຕໍ່ 1 ສະໜາມ.
+  2. ແນບ 3 ຮູບຕົວຢ່າງ ຈາກ lao-legend-game → art → arena → source:
+       starjars-lane.png, starjars-surround.png, starjars-panel.png
+     (ໃຊ້ສະເພາະ ຂະໜາດ ແລະ ບ່ອນວາງ. ສີ ແລະ ເລື່ອງ ໃໝ່ໝົດ.)
+  3. ກັອບ PROMPT «ຮູບ 3 ຮູບ» ຂອງສະໜາມນັ້ນ ໄປວາງ → ສົ່ງ. ຖ້າມັນຢຸດຫຼັງ 1 ຮູບ ພິມ: next image
+  4. ຢູ່ແຊັດເກົ່າ ກັອບ PROMPT «fx» ໄປວາງ (ບໍ່ຕ້ອງແນບຮູບ).
+  5. ຕັ້ງຊື່ໄຟລ໌ ຕາມ [ຊື່] ທີ່ຂຽນໄວ້ → ສົ່ງມາ (zip ກໍ່ໄດ້). ສົ່ງເທື່ອລະສະໜາມ ຫຼື ພ້ອມກັນກໍ່ໄດ້.
+ກວດກ່ອນສົ່ງ: ກາງ lane ໂລ່ງ ແລະ ບໍ່ດຳເກີນ · ບໍ່ມີໜັງສື, ຄົນ, ກາດ, ປຸ່ມ · ບໍ່ມີໝອກ, ບໍ່ໜ້າຢ້ານ.
+
+ເຮັດສຽງແນວໃດ: ElevenLabs → Sound Effects
+  1. ກັອບ PROMPT ຂອງສຽງ ໄປວາງ. Duration ຕາມທີ່ຂຽນ · Prompt influence ປະມານ 70%.
+     ສຽງບັນຍາກາດ: ເປີດ «Loop» ຖ້າມີປຸ່ມນີ້.
+  2. Generate → ຟັງ → ດາວໂຫຼດ → ຕັ້ງຊື່ ຕາມ [ຊື່] → ສົ່ງມາ.
+  ສຽງດັງຄ່ອຍບໍ່ເປັນຫຍັງ ຂ້ອຍປັບເອງ. ໃຊ້ແຜນເສຍເງິນ (ເກມມີຮ້ານ).
+
+ກົດທີ່ໃຊ້ທຸກຮູບ (ຢູ່ໃນ PROMPT ແລ້ວ): premium hand-painted physical fantasy game board, ບໍ່ມີໜັງສື, ຄົນ, ກາດ, UI, ບໍ່ໜ້າຢ້ານ.
+
+
+#####################################################################################################
+1. ເມືອງນາກບາດານ · ພະລາຊະວັງໃຕ້ນ້ຳຂອງ          ຊື່ໄຟລ໌: naga-lane, naga-surround, naga-panel, naga-fx
+#####################################################################################################
+ເລື່ອງ: ລົງໄປໃຕ້ແມ່ນ້ຳຂອງ ຮອດວັງຂອງພະຍານາກ. ແກ້ວ, ໄຂ່ມຸກ, ທອງ, ແສງນ້ຳສີຂຽວອົມຟ້າ.
+ເອັບເຟັກໃນເກມ: ຟອງນ້ຳລອຍຂຶ້ນຊ້າໆ · ແສງນ້ຳກະເພື່ອມ (caustics) ເທິງພື້ນ · ປານ້ອຍສີທອງລອຍຜ່ານ.
+ລົງກາດຕຳນານ: ຄື້ນນ້ຳໃຫຍ່ໄຫຼຜ່ານສະໜາມ + ນາກທອງລອຍວົນ 1 ຮອບ.
+
+ຮູບ 3 ຮູບ · PROMPT:
+Create 3 SEPARATE images, one after another, for a premium arena skin of a Lao folklore trading card game called "Naga Palace beneath the Mekong". The 3 attached images are the current arena: use them ONLY for shape, size and layout of each piece; change everything else. Shared style: premium hand-painted physical fantasy game board, tactile detail, luxurious and magical but calm; palette deep teal, jade green, aquamarine, mother-of-pearl white and antique gold; an underwater Lao naga palace: carved jade and gold naga balustrades, pearl inlays, lotus motifs, soft rays of sunlight filtering down through water, small bubbles. Never include words, letters, numbers, cards, icons, logos, UI, people, skulls, fog or anything scary.
+IMAGE 1 · LANE (wide 3:1, like the attached lane): ONE horizontal empty lane panel with softly rounded corners, straight-on, no perspective. Surface of polished jade-green and teal stone tiles, MEDIUM-DARK not black, with a gentle watery light pattern so cards stay readable. Centre: a refined low-contrast inlaid gold and mother-of-pearl circle of two coiled nagas around a lotus. Slim carved frame of dark teal stone with a bright gold bevel and tiny pearl studs. Only at the far lower corners: small coral, river weed and a few pearls. Broad calm empty central 80 percent. All corners intact, fills the canvas.
+IMAGE 2 · SURROUND (wide 16:9, like the attached surround): full-bleed underwater palace scene. UPPER 22 percent: the water surface far above with shimmering sun rays, schools of tiny golden fish, the golden spires of the naga palace on both sides. CENTER 60 percent: a flat calm dark-teal stone courtyard (it will be covered by card lanes). BOTTOM 20 percent: jade naga balustrades, glowing pearls in open shells, river weed and lotus, a big golden naga head statue at far right. Thin dark teal frame on the outer edges with gold wave ornaments. No huge central subject.
+IMAGE 3 · PANEL (tall 1:3, like the attached panel): blank vertical sidebar. Pale pearl-white parchment with a very faint wave pattern; broad clean LIGHT empty centre over the upper 75 percent for text placed later. Narrow carved frame of dark teal stone with bright gold bevel and tiny pearls on all four edges, a carved lintel on top with a small gold naga head in the middle. BOTTOM 20 percent only: a painted underwater palace scene with rays of light, bubbles, golden fish and a coiled naga. Entire frame intact.
+
+fx · PROMPT (ໃນແຊັດດຽວກັນ):
+One image, square 1:1, PLAIN PURE WHITE background, game effect sprites spaced apart in a neat grid, nothing touching: 4 clear shiny water bubbles of different sizes, 3 small golden river fish seen from the side, 2 glowing pearls, 1 small golden naga swimming in an S curve, 1 curling blue-white water wave crest. Glossy painted game style, no shadows on the ground, no text.
+
+[naga-amb] ສຽງບັນຍາກາດ · ວົນ · 20 ວິນາທີ
+  PROMPT: calm underwater ambience loop for a fantasy game arena, soft deep water hum, gentle slow bubbles rising, distant whale-like low tones, a faint shimmering chime now and then, peaceful and magical, seamless loop, no music, no voices
+[naga-legend] ລົງກາດຕຳນານ · 3 ວິນາທີ
+  PROMPT: a big magical water surge for a legendary card entering, a deep rumble swelling into a rushing wave whoosh, then a bright splash and sparkling bubbles with a soft gong shimmer, epic and clean, no voices
+
+
+#####################################################################################################
+2. ບຸນບັ້ງໄຟ · ຟ້າເປີດ                          ຊື່ໄຟລ໌: bangfai-lane, bangfai-surround, bangfai-panel, bangfai-fx
+#####################################################################################################
+ເລື່ອງ: ງານບຸນບັ້ງໄຟ ຕອນບ່າຍແລງ. ຟ້າສີສົ້ມ-ຊົມພູ, ບັ້ງໄຟຂຶ້ນຟ້າ ມີຄວັນສີຂາວ, ທຸງ ແລະ ພວງມະໄລ.
+ເອັບເຟັກໃນເກມ: ບັ້ງໄຟນ້ອຍພຸ່ງຂຶ້ນຟ້າເປັນໄລຍະ ມີຫາງຄວັນ · ກະດາດສີ (ຕຸງ) ປິວ.
+ລົງກາດຕຳນານ: ບັ້ງໄຟໃຫຍ່ 3 ລູກ ພຸ່ງຂຶ້ນ ແລ້ວແຕກເປັນດອກໄຟສີທອງ.
+
+ຮູບ 3 ຮູບ · PROMPT:
+Create 3 SEPARATE images, one after another, for a premium arena skin of a Lao folklore trading card game called "Rocket Festival · Open Sky" (Boun Bang Fai). The 3 attached images are the current arena: use them ONLY for shape, size and layout of each piece; change everything else. Shared style: premium hand-painted physical fantasy game board, festive, joyful and bright; palette warm sunset orange, coral pink, sky blue, bamboo green and gold; Lao rocket festival: tall decorated bamboo rockets with golden naga heads, colourful paper flags (tung), marigold garlands, white rocket smoke trails in the sky. Never include words, letters, numbers, cards, icons, logos, UI, people, skulls, fog or anything scary.
+IMAGE 1 · LANE (wide 3:1): ONE horizontal empty lane panel, rounded corners, straight-on, no perspective. Surface of warm sandstone and woven bamboo mat texture, MEDIUM tone so cards stay readable; centre a refined low-contrast gold inlay of a naga-headed rocket rising inside a sun circle. Slim frame of lacquered red wood with gold bevel and tiny marigold studs. Only at the far lower corners: small marigold garlands and a little bamboo rocket. Broad calm empty central 80 percent. All corners intact, fills the canvas.
+IMAGE 2 · SURROUND (wide 16:9): full-bleed festival scene. UPPER 22 percent: sunset sky with several rockets streaking upward leaving long white smoke trails, colourful paper flags on bamboo poles, rice fields and a village temple roof in the distance. CENTER 60 percent: a flat calm sandstone festival ground (covered by card lanes later). BOTTOM 20 percent: decorated naga rockets on launch ramps at both sides, marigold garlands, drums, paper flags. Thin lacquered red frame with gold ornaments. No people, no huge central subject.
+IMAGE 3 · PANEL (tall 1:3): blank vertical sidebar. Warm pale cream parchment with a very faint flag pattern; broad clean LIGHT empty centre over the upper 75 percent. Narrow frame of lacquered red wood with gold bevel, a carved lintel on top with a small golden naga rocket head in the middle. BOTTOM 20 percent only: a painted scene of rockets rising into a sunset sky with smoke trails and flags. Entire frame intact.
+
+fx · PROMPT:
+One image, square 1:1, PLAIN PURE WHITE background, game effect sprites spaced apart in a neat grid, nothing touching: 2 small decorated Lao bamboo rockets with golden naga heads pointing straight up, each with a short orange flame at the bottom; 4 small colourful triangular paper festival flags (red, yellow, green, blue); 3 golden firework bursts of different sizes; 2 marigold flowers. Glossy painted game style, no shadows, no text.
+
+[bangfai-amb] ສຽງບັນຍາກາດ · ວົນ · 20 ວິນາທີ
+  PROMPT: festive outdoor festival ambience loop, distant cheerful crowd murmur without words, soft rhythmic long drum and khaen in the far distance, occasional far rocket whoosh, warm and happy, seamless loop, no clear voices
+[bangfai-legend] ລົງກາດຕຳນານ · 3 ວິນາທີ
+  PROMPT: a big bamboo rocket launch for a legendary card, a fuse crackle, a powerful roaring whoosh rising into the sky, then a bright crackling golden firework burst with a gong hit, exciting, no voices
+
+
+#####################################################################################################
+3. ໄຫຼເຮືອໄຟ · ຄືນອອກພັນສາ                       ຊື່ໄຟລ໌: heuafai-lane, heuafai-surround, heuafai-panel, heuafai-fx
+#####################################################################################################
+ເລື່ອງ: ຄືນອອກພັນສາ ຢູ່ແຄມຂອງ ຫຼວງພະບາງ. ເຮືອໄຟຮູບນາກ ສ່ອງແສງເທິງນ້ຳ, ກະທົງ, ທຽນ, ໂຄມ.
+ເອັບເຟັກໃນເກມ: ກະທົງ ແລະ ທຽນ ລອຍຜ່ານຊ້າໆ · ແສງໄຟສະທ້ອນນ້ຳກະພິບ · ໂຄມລອຍຂຶ້ນ.
+ລົງກາດຕຳນານ: ເຮືອໄຟນາກໃຫຍ່ ລອຍຜ່ານກາງສະໜາມ ພ້ອມແສງໄຟ.
+
+ຮູບ 3 ຮູບ · PROMPT:
+Create 3 SEPARATE images, one after another, for a premium arena skin of a Lao folklore trading card game called "Fire Boat Night" (Lai Heua Fai, end of Buddhist Lent in Luang Prabang). The 3 attached images are the current arena: use them ONLY for shape, size and layout of each piece; change everything else. Shared style: premium hand-painted physical fantasy game board, serene and glowing; palette deep night blue, warm candle orange, gold and soft pink; the Mekong at night with glowing naga-shaped fire boats made of paper lanterns, banana-leaf krathong floats with candles and flowers, star-shaped paper lanterns hanging from temple eaves, reflections on the water. Never include words, letters, numbers, cards, icons, logos, UI, people, skulls, fog or anything scary.
+IMAGE 1 · LANE (wide 3:1): ONE horizontal empty lane panel, rounded corners, straight-on. Surface of dark blue-grey river stone with soft orange candle reflections, MEDIUM-DARK not black, so cards stay readable; centre a refined low-contrast gold inlay of a lotus krathong inside a ring of small flames. Slim frame of dark teak wood with gold bevel and tiny candle-light studs. Only at the far lower corners: two small banana-leaf krathong with candles. Broad calm empty central 80 percent. All corners intact.
+IMAGE 2 · SURROUND (wide 16:9): full-bleed night river scene. UPPER 22 percent: night sky with stars and rising paper lanterns, the golden temple roofs of Luang Prabang and Mount Phousi stupa on the far bank glowing. CENTER 60 percent: a flat calm dark river-stone embankment (covered by card lanes later). BOTTOM 20 percent: the Mekong with long glowing naga fire boats at both sides, many krathong with candles drifting, warm reflections. Thin dark teak frame with gold ornaments. No people, no huge central subject.
+IMAGE 3 · PANEL (tall 1:3): blank vertical sidebar. Warm pale cream parchment with a very faint lotus pattern; broad clean LIGHT empty centre over the upper 75 percent. Narrow dark teak frame with gold bevel and a carved lintel with a small star lantern in the middle. BOTTOM 20 percent only: a painted scene of a naga fire boat and krathong glowing on the night river. Entire frame intact.
+
+fx · PROMPT:
+One image, square 1:1, PLAIN PURE WHITE background, game effect sprites spaced apart in a neat grid, nothing touching: 3 small banana-leaf krathong floats with a lit candle and flowers, 2 star-shaped Lao paper lanterns glowing orange, 1 long glowing naga-shaped fire boat seen from the side, 3 small candle flames, 2 floating sky lanterns. Glossy painted game style, no shadows, no text.
+
+[heuafai-amb] ສຽງບັນຍາກາດ · ວົນ · 20 ວິນາທີ
+  PROMPT: peaceful night river ambience loop, gentle water lapping, soft crickets, candle flames crackling softly, a very faint distant temple bell and khaen far away, calm and warm, seamless loop, no voices
+[heuafai-legend] ລົງກາດຕຳນານ · 3 ວິນາທີ
+  PROMPT: a magical glowing fire boat arriving for a legendary card, a soft whoosh of flames igniting in a long row, warm crackle, a deep temple bell and a rising shimmer of light, majestic and gentle, no voices
+
+
+#####################################################################################################
+4. ສວນຫິມະພານ · ສະຫວັນຊັ້ນຟ້າ                   ຊື່ໄຟລ໌: himma-lane, himma-surround, himma-panel, himma-fx
+#####################################################################################################
+ເລື່ອງ: ປ່າຫິມະພານໃນນິທານ ທີ່ສວນສະຫວັນ. ດອກໄມ້ທອງ, ນ້ຳຕົກ, ສັດຫິມະພານ (ກິນນະລີ, ສິງ, ຄຸດ) ເປັນຮູບປັ້ນ, ເມກສີທອງ.
+ເອັບເຟັກໃນເກມ: ກີບດອກໄມ້ທອງຕົກ · ຜີເສື້ອແສງບິນ · ແສງສະຫວັນສ່ອງລົງເປັນໄລຍະ.
+ລົງກາດຕຳນານ: ປະຕູສະຫວັນເປີດ ແສງທອງສ່ອງລົງ + ກີບດອກໄມ້ພຸ່ງ.
+
+ຮູບ 3 ຮູບ · PROMPT:
+Create 3 SEPARATE images, one after another, for a premium arena skin of a Lao folklore trading card game called "Himmaphan Celestial Garden". The 3 attached images are the current arena: use them ONLY for shape, size and layout of each piece; change everything else. Shared style: premium hand-painted physical fantasy game board, heavenly, bright and wondrous; palette soft gold, ivory white, rose pink, mint green and sky blue; the mythical Himmaphan forest in heaven: golden flowering trees, waterfalls falling into clouds, white marble pavilions with tiered Lao roofs, golden statues of kinnari, singha lion and garuda, floating golden clouds. Never include words, letters, numbers, cards, icons, logos, UI, people, skulls, fog or anything scary.
+IMAGE 1 · LANE (wide 3:1): ONE horizontal empty lane panel, rounded corners, straight-on. Surface of white and pale gold marble tiles with soft pink veins, MEDIUM-LIGHT but not white, slightly warm so cards stay readable; centre a refined low-contrast gold inlay of a lotus mandala with a small kinnari silhouette. Slim frame of white marble with gold bevel and tiny rose-quartz studs. Only at the far lower corners: small golden flowers and petals. Broad calm empty central 80 percent. All corners intact.
+IMAGE 2 · SURROUND (wide 16:9): full-bleed heavenly garden. UPPER 22 percent: golden clouds, rays of heavenly light, tiered pavilion roofs, flowering golden trees, small waterfalls falling into clouds, golden birds. CENTER 60 percent: a flat calm pale marble terrace (covered by card lanes later). BOTTOM 20 percent: golden statues of a kinnari at left and a singha lion at right, lotus ponds, flowers, glowing butterflies. Thin white marble frame with gold ornaments. No huge central subject.
+IMAGE 3 · PANEL (tall 1:3): blank vertical sidebar. Ivory parchment with a very faint floral pattern; broad clean LIGHT empty centre over the upper 75 percent. Narrow white marble frame with gold bevel and a carved lintel with a small golden garuda in the middle. BOTTOM 20 percent only: a painted heavenly garden with a waterfall into clouds, golden trees and a kinnari statue. Entire frame intact.
+
+fx · PROMPT:
+One image, square 1:1, PLAIN PURE WHITE background, game effect sprites spaced apart in a neat grid, nothing touching: 4 golden flower petals of different shapes, 3 small glowing butterflies (gold, pink, mint), 2 golden lotus flowers, 1 small golden cloud, 1 ornate golden heavenly gate with two doors slightly open. Glossy painted game style, no shadows, no text.
+
+[himma-amb] ສຽງບັນຍາກາດ · ວົນ · 20 ວິນາທີ
+  PROMPT: heavenly garden ambience loop, soft waterfall in the distance, gentle exotic birdsong, light wind chimes and a soft airy shimmer, serene and magical, seamless loop, no voices, no music
+[himma-legend] ລົງກາດຕຳນານ · 3 ວິນາທີ
+  PROMPT: heavenly gates opening for a legendary card, a soft rising choir-like synth pad without words, a bright harp glissando and golden bell shimmer, then a gentle wind of petals, majestic and pure, no voices
+
+
+#####################################################################################################
+5. ວຽງຈັນ 2099 · ນະຄອນແສງນີອອນ                   ຊື່ໄຟລ໌: neon-lane, neon-surround, neon-panel, neon-fx
+#####################################################################################################
+ເລື່ອງ: ອະນາຄົດ (ເຂົ້າກັບເດັກອະນາຄົດ ແລະ ອາວະກາດ). ປະຕູໄຊ ແລະ ທາດຫຼວງ ແບບນີອອນ, ຕຶກສູງ, ລົດບິນ, ສີຟ້າ-ຊົມພູ-ທອງ.
+ເອັບເຟັກໃນເກມ: ເສັ້ນແສງນີອອນແລ່ນຕາມຂອບ · ຕາຂ່າຍໂຮໂລແກຣມກະພິບ · ລົດບິນຜ່ານໃນຟ້າ.
+ລົງກາດຕຳນານ: ແສງເລເຊີສະແກນຜ່ານສະໜາມ + ຮູບໂຮໂລແກຣມທາດຫຼວງ ຂຶ້ນມາ.
+
+ຮູບ 3 ຮູບ · PROMPT:
+Create 3 SEPARATE images, one after another, for a premium arena skin of a Lao trading card game called "Vientiane 2099 · Neon City". The 3 attached images are the current arena: use them ONLY for shape, size and layout of each piece; change everything else. Shared style: premium hand-painted sci-fi game board with Lao identity, clean and glowing, friendly not dystopian; palette midnight blue, electric cyan, hot pink, violet and gold; a futuristic Vientiane at night: That Luang stupa and Patuxai gate outlined in neon gold, sleek towers with Lao kranok patterns in light, flying cars with light trails, holographic naga made of cyan light. Never include words, letters, numbers, cards, icons, logos, readable signs, UI, people, skulls, fog or anything scary.
+IMAGE 1 · LANE (wide 3:1): ONE horizontal empty lane panel, rounded corners, straight-on. Surface of dark glossy blue glass and metal plates, MEDIUM-DARK not black, with a faint cyan circuit pattern so cards stay readable; centre a refined low-contrast neon-gold outline of That Luang inside a thin cyan ring. Slim frame of dark metal with glowing cyan and pink edge lights. Only at the far lower corners: small neon kranok light ornaments. Broad calm empty central 80 percent. All corners intact.
+IMAGE 2 · SURROUND (wide 16:9): full-bleed futuristic city. UPPER 22 percent: night skyline with That Luang and Patuxai glowing gold, towers with neon Lao patterns, flying cars with light trails, a large cyan hologram naga curling in the sky. CENTER 60 percent: a flat calm dark glass plaza (covered by card lanes later). BOTTOM 20 percent: neon-lit planters with palm trees, glowing floor lines, small hover drones. Thin dark metal frame with cyan and pink light strips. No people, no readable signs, no huge central subject.
+IMAGE 3 · PANEL (tall 1:3): blank vertical sidebar. Very pale cool grey-white panel with a faint hexagon pattern; broad clean LIGHT empty centre over the upper 75 percent. Narrow dark metal frame with cyan edge lights and a top bar with a small gold neon naga emblem in the middle. BOTTOM 20 percent only: a painted neon city skyline with That Luang glowing and flying cars. Entire frame intact.
+
+fx · PROMPT:
+One image, square 1:1, PLAIN PURE WHITE background, game effect sprites spaced apart in a neat grid, nothing touching: 2 small sleek flying cars seen from the side with cyan light trails, 3 small hexagon hologram tiles glowing cyan, 1 glowing neon-gold outline of That Luang stupa, 1 cyan hologram naga head, 2 small round hover drones with pink lights. Glossy painted game style, no shadows, no text.
+
+[neon-amb] ສຽງບັນຍາກາດ · ວົນ · 20 ວິນາທີ
+  PROMPT: friendly futuristic city ambience loop, soft electric hum, gentle synth pads, distant flying car whooshes passing by, light digital blips, calm and cool, seamless loop, no voices
+[neon-legend] ລົງກາດຕຳນານ · 3 ວິນາທີ
+  PROMPT: a futuristic hologram activation for a legendary card, a rising electric charge, a crisp laser scan sweep, then a deep bass impact with sparkling digital shimmer and a short khaen-like synth chord, epic and clean, no voices
+
+
+=====================================================================================================
+ເມື່ອຮູບ ແລະ ສຽງ ມາຮອດ ຂ້ອຍຈະເຮັດ:
+  · ສີປ້າຍ, ກອບ, ປຸ່ມ ໃຫ້ເຂົ້າກັບແຕ່ລະສະໜາມ.
+  · ເອັບເຟັກຕະຫຼອດເກມ + ເອັບເຟັກລົງກາດຕຳນານ + ສຽງ ຕາມທີ່ຂຽນໄວ້.
+  · ໃສ່ໃນຮ້ານ (ຮູບຕົວຢ່າງເຄື່ອນໄຫວໄດ້) ແລະ ໜ້າປັບແຕ່ງ.
+  · ໄຟລ໌ SQL ໃໝ່ 1 ໄຟລ໌ ເພື່ອຂາຍ (ເຈົ້າແລ່ນໃນ Supabase ຄືເກົ່າ).
+  · ໃສ່ໄດ້ເທື່ອລະສະໜາມ: ສະໜາມໃດມາກ່ອນ ເຮັດກ່ອນ.
