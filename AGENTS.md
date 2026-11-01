@@ -63,7 +63,10 @@ online play, ranked, friends, a card shop with earned gems and owner-approved BC
 - Customize page (ໜ້າປັບແຕ່ງ, `ui.screen = 'style'`): `styleHTML`, `styleItems(tab)`, `styleUse(tab, id)`, locked sheet
   `styleSheetHTML`. Every look item is chosen there (back, arena, avatar, frame, title, pet); the shop only sells and
   settings keep the arena picker only during a game. Test: `tools/style-page-test.js` with `tools/wk.swift`.
-- `ALT` = special-art image per card. `CUTS` = cutout boxes for showcases. `TALES` = 3-card story pages.
+- `ALT` = special-art image per card. `CUTS` = cutout boxes for showcases: `[x, y, w, h]` fractions of the cutout picture,
+  plus an optional 5th number, the picture's height when 760 wide (for a cutout cropped to its box; default 1060). Crop a
+  cutout to its box (+ margin) instead of zooming into a big picture: a zoomed picture becomes a layer larger than the
+  screen and stutters. `tools/defringe.py` cleans white-background edges. `TALES` = 3-card story pages.
   `DECKS` = deck list (see below). `TC`, `TRIBE_NAME`, `TFX`, `SYM` = tribe colour, name, particles, icon.
   `KW_HELP` = keyword explanations shown in the card panel. `BOXES` = deck box art per DECKS index.
 - Rules flow: `playCard` → `onPlay` (enter effects, a `switch` on card id) / `castSpell` (spells) / items / traps
