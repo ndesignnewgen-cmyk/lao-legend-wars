@@ -1,5 +1,5 @@
 <meta name="security-build" content="1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-mVr1F2DqHdrqnp3AH48+n/RPdwAAK+gIN1iYnnOuE9w='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com https://xahuvoounkdojfsvnfaj.supabase.co; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co wss://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-srH2dPoW/Q8eRTFsjKlNy3VSoZlJdVjluW7Wm8BM1oQ='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com https://xahuvoounkdojfsvnfaj.supabase.co; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co wss://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="referrer" content="no-referrer">
 <meta charset="utf-8">
 <script>
@@ -1965,6 +1965,52 @@ body{background:
   .h2logo{display:none}.h2hero{padding:10px}.h2deck{width:min(120px,14vw)}.h2dinfo p{display:none}
   .h2online{padding:12px 16px}.h2online .uic{width:48px;height:48px}.h2online b{font-size:21px}
 }
+/* ---------- home screen v2: a painted night background, the chosen legend standing on a stage, tidy even tiles ---------- */
+.home2 .hbg{inset:-30px;transform:none;background:#0b0710 url(art/bg/login-p.webp) center top/cover;filter:blur(8px) saturate(1.1)}
+.home2 .hbg::after{background:linear-gradient(180deg,#0b071099 0%,#0b0710aa 30%,#0b0710ee 55%,#0b0710 100%)}
+.h2lan{position:absolute;z-index:1;left:var(--x);top:105%;width:10px;height:14px;border-radius:4px 4px 6px 6px;background:radial-gradient(#fff3c4,#ffb347 60%,#ff7a2a);box-shadow:0 0 14px 4px #ffb34788;opacity:.75;scale:var(--s);animation:h2lan linear infinite}
+@keyframes h2lan{to{transform:translateY(-120vh)}}
+.h2hero{display:block;padding:0;background:none;border:0;box-shadow:none;backdrop-filter:none;text-align:center}
+.h2stage{position:relative;container-type:size;height:330px;cursor:pointer;overflow:hidden;-webkit-mask:linear-gradient(#000 72%,transparent);mask:linear-gradient(#000 72%,transparent);
+  background:radial-gradient(circle at 50% 42%,#ffcf5a55,#ff7a2a1c 38%,transparent 62%)}
+.h2stage.h2lock .h2leg{filter:grayscale(.8) brightness(.7)}
+.h2leg{position:absolute;max-width:none;--iw:min(calc(100cqh * var(--k1p)),calc(96cqw * var(--k2)));width:var(--iw);left:calc(50cqw - var(--cx) * var(--iw));top:calc(100cqh - var(--cbp) * var(--iw));
+  filter:drop-shadow(0 0 2px #fff) drop-shadow(0 0 16px #ff9a3d88);transform-origin:50% 30%;animation:h2breathe 3.4s ease-in-out infinite alternate;pointer-events:none}
+.h2leg.flat{left:0;right:0;top:6%;width:auto;height:88%;margin:0 auto;border-radius:16px;border:3px solid #ffd23d99;box-shadow:0 0 30px #ffb34755}
+@keyframes h2breathe{to{transform:translateY(-5px) scale(1.012)}}
+.h2glow,.h2ring,.h2stage .h2deck{display:none}
+.h2logo{display:block;position:relative;z-index:3;margin:0 0 -18px}.h2logo .logoimg{width:min(150px,40vw)}
+.h2dinfo{align-items:center;padding-top:4px}.h2dinfo h2{font-size:21px;text-shadow:0 2px 8px #000}.h2dinfo .hbtns{justify-content:center}
+.h2online{background:url(art/fx/kranok.webp) right -40px center/auto 170% no-repeat,linear-gradient(90deg,#f8cf5a,#eeb042 55%,#d98a2a)}
+.h2online .uic{width:72px;height:72px}
+.h2chip{flex-direction:column;justify-content:center;text-align:center;gap:4px;padding:12px 8px}.h2chip .uic,.h2chip .rkic{width:48px;height:48px}.h2chip .rkic{filter:drop-shadow(0 0 10px #ffd23d66)}
+.h2chip span{font-size:15px}.h2chip small{font-size:12px}
+.h2tile{gap:4px;padding:12px 4px}.h2tile .uic{width:44px;height:44px}
+.h2tile.bot{cursor:default;gap:6px}.h2tile.bot:hover{transform:none}
+.h2tmain{display:flex;flex-direction:column;align-items:center;gap:4px;padding:0;border:0;background:none;color:inherit;cursor:pointer;font:inherit}.h2tmain:disabled{opacity:.5;cursor:not-allowed}
+.h2tmain b{font:800 13.5px var(--f-d)}.h2tmain:hover .uic{transform:translateY(-2px)}
+.h2seg{display:flex;gap:2px;padding:3px;border-radius:999px;background:#0007}.h2seg button{padding:3px 8px;border:0;border-radius:999px;background:none;color:var(--dim);font:800 11.5px var(--f-d);cursor:pointer}
+.h2seg button.on{background:var(--gold);color:#1a1206}
+.h2minis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;overflow:visible}
+.h2mini{flex-direction:column;justify-content:center;gap:4px;padding:10px 2px;border-radius:16px;white-space:normal;text-align:center;font-size:12px}
+.h2mini .uic,.h2mini .petimg{width:32px;height:32px;object-fit:contain}.h2mini .pemo{font-size:26px;line-height:32px}.h2mini .badge{top:-6px;right:8px}
+@media (min-width:600px) and (orientation:portrait){ .h2stage{height:400px}.h2logo .logoimg{width:180px} }
+@media (orientation:landscape) and (min-width:760px){
+  .home2 .hbg{background-image:url(art/bg/login-l.webp);background-position:20% center;filter:blur(5px) saturate(1.15)}
+  .home2 .hbg::after{background:linear-gradient(90deg,#0b071088 0%,#0b0710aa 38%,#0b0710e8 62%,#0b0710f5 100%),linear-gradient(0deg,#0b0710cc 0%,transparent 35%)}
+  .h2main{align-items:center}.h2left{position:relative;display:flex;flex-direction:column}
+  .h2logo{position:absolute;left:0;top:0;margin:0}.h2logo .logoimg{width:min(190px,15vw)}
+  .h2stage{height:auto;flex:1;min-height:min(520px,60vh);-webkit-mask:none;mask:none;background:none;overflow:visible}
+  .h2leg{--iw:min(calc(86cqh * var(--k1)),calc(80cqw * var(--k2)));left:calc(56cqw - var(--cx) * var(--iw));top:calc(93cqh - var(--cb) * var(--iw));transform-origin:50% 100%}
+  .h2glow{display:block;position:absolute;left:56%;bottom:4%;width:min(440px,80%);height:110px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(ellipse,#ffcf5a66,#ff7a2a22 45%,transparent 70%);animation:h2glow 3s ease-in-out infinite alternate}
+  .h2ring{display:block;position:absolute;left:56%;bottom:7%;width:min(380px,70%);height:76px;transform:translateX(-50%);border-radius:50%;border:2px solid #ffd23d66;box-shadow:0 0 18px #ffd23d55}
+  .h2stage .h2deck{display:block;position:absolute;left:0;bottom:2%;width:min(150px,24%);transform:rotate(-6deg);filter:drop-shadow(0 10px 18px #000c);transition:transform .2s}
+  .h2stage:hover .h2deck{transform:rotate(-3deg) translateY(-4px)}
+  .h2dinfo h2{font-size:26px}
+  .h2minis{gap:10px}
+}
+@keyframes h2glow{to{opacity:.6;transform:translateX(-50%) scale(1.06)}}
+@media (orientation:landscape) and (max-height:560px){ .h2logo{display:none}.h2stage{min-height:46vh}.h2stage .h2deck{width:min(96px,18%)} }
 /* ---------- the login page: sign in or sign up before playing, with a small way in as a guest ---------- */
 .login{position:relative;height:100%;overflow-y:auto;display:grid;place-items:center;padding:24px max(16px,env(safe-area-inset-right,0px)) 24px max(16px,env(safe-area-inset-left,0px));isolation:isolate}
 .login .hbg{inset:0;transform:none;background:#120f18 url(art/bg/login-p.webp) center 30%/cover;filter:brightness(.92)}
@@ -5600,6 +5646,17 @@ function selInfo(sel){
   const d = DECKS[sel] || DECKS[0], ok = deckOwned(d.list);
   return {name:'ເດັກ ' + d.no + ' · ' + d.name, cover:d.legend, sub:ok ? d.style : '🔒 ມີກາດ ' + ownedOf(d.list) + '/30 · ເປີດຊອງເພື່ອສະສົມ', locked:!ok};
 }
+// the chosen deck's legend stands on the home screen: its cutout box fills the stage (container units, so any screen size);
+// on a phone a tall full-body box shows from the waist up. No cutout: the card picture in a frame.
+function legendStage(id){
+  const alt = wantAlt(id) && ALT[id], im = alt && CUTS[alt] ? alt : C[id].img, cut = CUTS[im];
+  if(!cut) return '<img class="h2leg flat" src="' + PIC2(alt || C[id].img) + '" alt="">';
+  const [x, y, w, h] = cut, fh = cut[4] || 1060, f = h * fh / (w * 760) > 1.3 ? .58 : 1, n = v => +v.toFixed(4);
+  return '<img class="h2leg" src="' + ART + 'cut/' + im + '.webp" alt="" style="--k1:' + n(760 / (h * fh)) + ';--k2:' + n(1 / w) + ';--cx:' + n(x + w / 2) + ';--cb:' + n((y + h) * fh / 760) +
+    ';--k1p:' + n(760 / (h * f * fh)) + ';--cbp:' + n((y + h * f) * fh / 760) + '">';
+}
+// floating lanterns behind the home screen, phased by the clock so a re-render does not restart them
+const h2Lanterns = () => { const t = Date.now() / 1000; return Array.from({length:12}, (_, i) => { const d = 18 + (i * 7) % 15; return '<i class="h2lan" style="--x:' + ((i * 37 + 11) % 100) + '%;--s:' + (.6 + (i * 13) % 9 / 10) + ';animation-duration:' + d + 's;animation-delay:-' + ((t + i * 5.3) % d).toFixed(2) + 's"></i>'; }).join(''); };
 function menuHTML(){
   const c = col(), sel = ui.deck, info = selInfo(sel), L = levelOf(c.xp), into = c.xp - (L - 1) * LEVEL_XP;
   const qn = quests().filter(q => q.p >= q.n && !q.claimed).length, art = PIC(C[info.cover].img), online = !par().noOnline, r = ACCT.rank;
@@ -5610,8 +5667,8 @@ function menuHTML(){
   // a guest plays on this device only; a guest account without an email can lose everything with the browser's data
   const note = !ACCT.prof && isGuest() ? '<div class="h2note"><span>👀 ຫຼິ້ນເປັນແຂກ · ຂໍ້ມູນຢູ່ເຄື່ອງນີ້ເທົ່ານັ້ນ</span><button class="btn2 sm" data-a="lglogin">ເຂົ້າສູ່ລະບົບ / ສະໝັກ</button></div>'
     : ACCT.prof && !mailOf() && !loadJ(RCODE_KEY, '') ? '<div class="h2note"><span>' + UIC('mail') + 'ຕັ້ງອີເມວ + ລະຫັດຜ່ານ ເພື່ອບໍ່ໃຫ້ບັນຊີຫາຍ</span><button class="btn2 sm" data-a="hmail">ຕັ້ງເລີຍ</button></div>' : '';
-  const hero = '<section class="h2hero"><div class="h2deck" role="button" tabindex="0" data-a="decks" aria-label="ປ່ຽນເດັກ">' +
-      boxHTML(typeof sel === 'string' ? sel : (DECKS[sel] ? sel : 0), info.cover, typeof sel === 'string' ? info.name : 'ເດັກ ' + (DECKS[sel] || DECKS[0]).no) + '<span class="hswap">' + UIC('swapdeck') + '</span></div>' +
+  const hero = '<section class="h2hero"><div class="h2stage' + (info.locked ? ' h2lock' : '') + '" role="button" tabindex="0" data-a="decks" aria-label="ປ່ຽນເດັກ"><i class="h2glow"></i><i class="h2ring"></i>' + legendStage(info.cover) +
+      '<span class="h2deck">' + boxHTML(typeof sel === 'string' ? sel : (DECKS[sel] ? sel : 0), info.cover, typeof sel === 'string' ? info.name : 'ເດັກ ' + (DECKS[sel] || DECKS[0]).no) + '</span></div>' +
     '<div class="h2dinfo"><small>ເດັກທີ່ເລືອກ</small><h2>' + escH(info.name) + '</h2><p>' + info.sub + '</p>' +
       '<div class="hbtns"><button class="btn2" data-a="decks">' + UIC('swapdeck') + 'ປ່ຽນເດັກ</button><button class="btn2" data-a="edsel">' + UIC('edit') + ' ' + (typeof sel === 'string' ? 'ແກ້ເດັກ' : 'ກັອບໄປແກ້') + '</button></div></div></section>';
   // real people first: quick match, ranked, a room with a friend; the bot, adventure and two players on one device below
@@ -5620,11 +5677,12 @@ function menuHTML(){
       '<button class="h2chip" data-a="online">' + UIC('friends') + '<span>ຫ້ອງກັບໝູ່<small>ລະຫັດຫ້ອງ · ທ້າໝູ່</small></span></button></div>' : '';
   const more = '<p class="h2sub">' + (online ? 'ຝຶກ ແລະ ຜະຈົນໄພ' : 'ເລືອກໂໝດ') + '</p><div class="h2alt">' +
       tile('adv', UIC('adventure'), 'ຜະຈົນໄພ', Math.min(c.adv || 0, ADV.length) + '/' + ADV.length + ' ດ່ານ') +
-      tile('start', UIC('bot'), online ? 'ຝຶກກັບບອດ' : 'ສູ້ກັບບອດ', 'ບອດ' + LEVELS[ui.level]) + tile('pvpstart', UIC('pvp'), '2 ຄົນ', 'ເຄື່ອງດຽວ') + '</div>' +
-    '<div class="levels"><span>ບອດ</span>' + LEVELS.map((l, i) => '<button class="lv ' + (ui.level === i ? 'on' : '') + '" data-a="lvl" data-v="' + i + '">' + l + '</button>').join('') + '</div>' +
+      '<div class="h2tile bot"><button class="h2tmain" data-a="start"' + (info.locked ? ' disabled' : '') + '>' + UIC('bot') + '<b>' + (online ? 'ຝຶກກັບບອດ' : 'ສູ້ກັບບອດ') + '</b></button><div class="h2seg" role="group" aria-label="ລະດັບບອດ">' +
+        LEVELS.map((l, i) => '<button class="' + (ui.level === i ? 'on' : '') + '" data-a="lvl" data-v="' + i + '">' + l + '</button>').join('') + '</div></div>' +
+      tile('pvpstart', UIC('pvp'), '2 ຄົນ', 'ເຄື່ອງດຽວ') + '</div>' +
     '<div class="h2minis">' + mini('quests', UIC('quests'), 'ພາລະກິດ', qn) + mini('ednew', UIC('deck'), 'ຈັດເດັກ') + mini('style', c.pet ? petFace() : UIC('pet'), 'ຄູ່ຫູ', c.pet ? '' : '!', 'pet') +
       mini('tutstart', UIC('tutorial'), 'ສອນຫຼິ້ນ', loadJ('lao-legend-tut', 0) ? '' : '!') + mini('stats', UIC('stats'), 'ສະຖິຕິ') + '</div>';
-  return '<div class="home2" style="--bg:url(' + art + ')"><div class="hbg" aria-hidden="true"></div>' +
+  return '<div class="home2"><div class="hbg" aria-hidden="true">' + h2Lanterns() + '</div>' +
     '<div class="h2scroll">' + '<header class="htop"><div class="hprof" role="button" tabindex="0" data-a="prof" aria-label="ໂປຣໄຟລ໌"><span class="hav fr-' + (c.frame || 'none') + '"><img src="' + (ACCT.prof && C[ACCT.prof.avatar] ? PIC(C[ACCT.prof.avatar].img) : art) + '" alt=""></span><div class="hlv">' + (ACCT.prof ? '<em class="hname">' + escH(ACCT.prof.name) + (ACCT.state === 'on' ? ' ☁️' : '') + '</em>' : '<em class="hname new">👤 ສ້າງຜູ້ຫຼິ້ນ</em>') + '<b>' + UIC('level') + 'ລະດັບ ' + L + ' <small>' + (L >= LEVEL_MAX ? 'ສູງສຸດ' : into + '/' + LEVEL_XP + ' XP') + '</small></b><div class="pbar"><i style="width:' + (L >= LEVEL_MAX ? 100 : into) + '%"></i></div></div><span class="hach">' + UIC('trophy') + ' ' + Object.keys(c.ach || {}).length + '/' + ACH.length + '</span></div>' +
       walletHTML('sm') + '<button class="hset" data-a="settings" aria-label="ຕັ້ງຄ່າ">' + UIC('settings') + (ACCT.admin && ACCT.pmWait ? '<em class="badge">' + ACCT.pmWait + '</em>' : '') + '</button></header>' + note +
       '<div class="h2main"><div class="h2left"><div class="h2logo"><img class="logoimg" src="art/logo.webp" alt="Lao Legend Wars" width="960" height="640"></div>' + (ACCT.cfg && +ACCT.cfg.gem_mult > 1 ? '<div class="evribbon">🎉 ອີເວັ້ນ: ເພັດ x' + ACCT.cfg.gem_mult + ' ຈາກການຊະນະບອດ!</div>' : '') + hero + '</div>' +
