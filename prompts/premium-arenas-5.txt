@@ -8,6 +8,56 @@
 ລາຄາແນະນຳ: ສະໜາມລະ 💎800 ເພັດພິເສດ, ຊຸດ 5 ສະໜາມ 💎3000. ເຈົ້າປ່ຽນລາຄາໄດ້.
 
 =====================================================================================================
+★ ແບບລວມ · PROMPT ດຽວ ໄດ້ຮູບຄົບ 20 ຮູບ (5 ສະໜາມ × 4)
+=====================================================================================================
+  1. ເປີດແຊັດໃໝ່ (ChatGPT ຫຼື Codex).
+  2. ແນບ 3 ຮູບ ຈາກ lao-legend-game → art → arena → source: starjars-lane.png, starjars-surround.png, starjars-panel.png
+  3. ກັອບ PROMPT ລຸ່ມນີ້ທັງໝົດ ໄປວາງ → ສົ່ງ.
+  4. ຖ້າມັນຢຸດກ່ອນຄົບ 20 ຮູບ ພິມ: next image   (ພິມຊ້ຳໄປເລື້ອຍໆ ຈົນຄົບ)
+  5. ດາວໂຫຼດທັງໝົດ (zip ກໍ່ໄດ້) → ສົ່ງມາ. ຊື່ໄຟລ໌ບໍ່ຖືກກໍ່ບໍ່ເປັນຫຍັງ ຂ້ອຍຈັດເອງ.
+  ຖ້າແບບລວມອອກມາບໍ່ດີ ໃຊ້ PROMPT ແຍກ ແຕ່ລະສະໜາມ ຢູ່ລຸ່ມ.
+
+PROMPT:
+Create 20 SEPARATE images, one after another, in the exact order below, for 5 premium arena skins of a Lao folklore trading card game. Do not stop or ask questions between images; after each image continue straight to the next one. Give each image the file name in brackets.
+
+The 3 attached images are the current arena. Use them ONLY for the shape, size and layout of each piece: LANE = wide 3:1 empty lane panel with softly rounded corners, straight-on, no perspective, a slim carved frame, a broad calm EMPTY centre (80 percent), surface MEDIUM tone never black so cards placed on it stay readable, a refined low-contrast emblem inlaid in the centre, small decorations only at the far lower corners. SURROUND = wide 16:9 full-bleed scene: the upper 22 percent is the scenic sky and skyline, the centre 60 percent is a flat calm floor that will be covered by card lanes, the bottom 20 percent holds rich decorations at both sides, a thin frame on the outer edges, no huge central subject. PANEL = tall 1:3 blank sidebar: LIGHT clean parchment-like centre over the upper 75 percent for text placed later, a narrow carved frame on all four edges with a small emblem in the top lintel, a small painted scene only in the bottom 20 percent. FX = square 1:1 sheet of small game effect sprites on a PLAIN PURE WHITE background, spaced apart in a neat grid, nothing touching, no shadows.
+
+Rules for all 20 images: premium hand-painted physical fantasy game board style, tactile detail, luxurious, magical and friendly. Never include words, letters, numbers, readable signs, cards, icons, logos, UI, people, skulls, fog or anything scary. Every frame and corner intact, fill the canvas.
+
+ARENA 1 · "Naga Palace beneath the Mekong" · palette deep teal, jade green, aquamarine, mother-of-pearl and antique gold; an underwater Lao naga palace with jade and gold naga balustrades, pearl inlays, lotus motifs, sun rays filtering down through water, bubbles.
+ 1 [naga-lane] LANE: polished jade-green and teal stone tiles with a gentle watery light pattern; centre emblem of two coiled nagas around a lotus in gold and mother-of-pearl; dark teal frame with gold bevel and pearl studs; coral, river weed and pearls at the lower corners.
+ 2 [naga-surround] SURROUND: top: the shimmering water surface far above with sun rays, schools of golden fish, golden palace spires on both sides; floor: calm dark-teal stone courtyard; bottom: jade naga balustrades, glowing pearls in open shells, lotus, a golden naga head statue at far right; dark teal frame with gold wave ornaments.
+ 3 [naga-panel] PANEL: pale pearl-white parchment with a faint wave pattern; dark teal stone frame with gold bevel and pearls, a gold naga head in the lintel; bottom scene of the underwater palace with rays, bubbles, golden fish and a coiled naga.
+ 4 [naga-fx] FX: 4 shiny water bubbles of different sizes, 3 small golden river fish from the side, 2 glowing pearls, 1 small golden naga swimming in an S curve, 1 curling blue-white wave crest.
+
+ARENA 2 · "Rocket Festival · Open Sky" (Boun Bang Fai) · palette warm sunset orange, coral pink, sky blue, bamboo green and gold; tall decorated bamboo rockets with golden naga heads, colourful paper flags, marigold garlands, white rocket smoke trails, festive and joyful.
+ 5 [bangfai-lane] LANE: warm sandstone and woven bamboo mat texture; centre emblem of a naga-headed rocket rising inside a sun circle in gold; lacquered red wood frame with gold bevel and marigold studs; marigold garlands and a little rocket at the lower corners.
+ 6 [bangfai-surround] SURROUND: top: sunset sky with several rockets streaking upward leaving long white smoke trails, paper flags on bamboo poles, rice fields and a distant temple roof; floor: calm sandstone festival ground; bottom: decorated naga rockets on launch ramps at both sides, marigolds, drums, flags; lacquered red frame with gold ornaments.
+ 7 [bangfai-panel] PANEL: warm cream parchment with a faint flag pattern; lacquered red frame with gold bevel, a golden naga rocket head in the lintel; bottom scene of rockets rising into a sunset sky with smoke trails and flags.
+ 8 [bangfai-fx] FX: 2 small decorated bamboo rockets with golden naga heads pointing straight up with a short orange flame, 4 small triangular paper flags (red, yellow, green, blue), 3 golden firework bursts of different sizes, 2 marigold flowers.
+
+ARENA 3 · "Fire Boat Night" (Lai Heua Fai, end of Buddhist Lent, Luang Prabang) · palette deep night blue, warm candle orange, gold and soft pink; glowing naga-shaped fire boats made of paper lanterns on the Mekong, banana-leaf krathong floats with candles and flowers, star-shaped paper lanterns, warm reflections on water, serene.
+ 9 [heuafai-lane] LANE: dark blue-grey river stone with soft orange candle reflections; centre emblem of a lotus krathong inside a ring of small flames in gold; dark teak frame with gold bevel and candle-light studs; two small krathong with candles at the lower corners.
+10 [heuafai-surround] SURROUND: top: night sky with stars and rising paper lanterns, golden temple roofs of Luang Prabang and the Mount Phousi stupa glowing on the far bank; floor: calm dark river-stone embankment; bottom: the Mekong with long glowing naga fire boats at both sides and many drifting krathong; dark teak frame with gold ornaments.
+11 [heuafai-panel] PANEL: warm cream parchment with a faint lotus pattern; dark teak frame with gold bevel, a small star lantern in the lintel; bottom scene of a naga fire boat and krathong glowing on the night river.
+12 [heuafai-fx] FX: 3 small banana-leaf krathong with a lit candle and flowers, 2 star-shaped paper lanterns glowing orange, 1 long glowing naga fire boat from the side, 3 small candle flames, 2 floating sky lanterns.
+
+ARENA 4 · "Himmaphan Celestial Garden" · palette soft gold, ivory white, rose pink, mint green and sky blue; the mythical Himmaphan forest in heaven with golden flowering trees, waterfalls falling into clouds, white marble pavilions with tiered Lao roofs, golden statues of kinnari, singha lion and garuda, golden clouds, heavenly and bright.
+13 [himma-lane] LANE: white and pale gold marble tiles with soft pink veins, medium-light but not white; centre emblem of a lotus mandala with a small kinnari silhouette in gold; white marble frame with gold bevel and rose-quartz studs; golden flowers and petals at the lower corners.
+14 [himma-surround] SURROUND: top: golden clouds, rays of heavenly light, tiered pavilion roofs, flowering golden trees, small waterfalls into clouds, golden birds; floor: calm pale marble terrace; bottom: golden kinnari statue at left, golden singha lion at right, lotus ponds, flowers, glowing butterflies; white marble frame with gold ornaments.
+15 [himma-panel] PANEL: ivory parchment with a faint floral pattern; white marble frame with gold bevel, a small golden garuda in the lintel; bottom scene of a heavenly garden with a waterfall into clouds, golden trees and a kinnari statue.
+16 [himma-fx] FX: 4 golden flower petals of different shapes, 3 small glowing butterflies (gold, pink, mint), 2 golden lotus flowers, 1 small golden cloud, 1 ornate golden heavenly gate with two doors slightly open.
+
+ARENA 5 · "Vientiane 2099 · Neon City" · palette midnight blue, electric cyan, hot pink, violet and gold; futuristic Vientiane at night, That Luang stupa and Patuxai gate outlined in neon gold, sleek towers with Lao kranok patterns in light, flying cars with light trails, a hologram naga of cyan light; clean and friendly, not dystopian.
+17 [neon-lane] LANE: dark glossy blue glass and metal plates with a faint cyan circuit pattern; centre emblem of That Luang outlined in neon gold inside a thin cyan ring; dark metal frame with glowing cyan and pink edge lights; small neon kranok ornaments at the lower corners.
+18 [neon-surround] SURROUND: top: night skyline with That Luang and Patuxai glowing gold, towers with neon Lao patterns, flying cars with light trails, a large cyan hologram naga curling in the sky; floor: calm dark glass plaza; bottom: neon-lit planters with palm trees, glowing floor lines, small hover drones; dark metal frame with cyan and pink light strips.
+19 [neon-panel] PANEL: very pale cool grey-white with a faint hexagon pattern; dark metal frame with cyan edge lights, a small gold neon naga emblem in the top bar; bottom scene of the neon skyline with That Luang glowing and flying cars.
+20 [neon-fx] FX: 2 small sleek flying cars from the side with cyan light trails, 3 small hexagon hologram tiles glowing cyan, 1 neon-gold outline of That Luang stupa, 1 cyan hologram naga head, 2 small round hover drones with pink lights.
+
+Remember: 20 separate images in this order, each a single clean asset, no text anywhere.
+
+
+=====================================================================================================
 ເຮັດຮູບແນວໃດ (ChatGPT ຫຼື Codex)
 =====================================================================================================
   1. ເປີດແຊັດໃໝ່ 1 ອັນ ຕໍ່ 1 ສະໜາມ.
