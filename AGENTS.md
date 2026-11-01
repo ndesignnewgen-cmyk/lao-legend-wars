@@ -40,7 +40,8 @@ online play, ranked, friends, a card shop with earned gems and owner-approved BC
 - `prompts/`: image, music and sound prompts given to the owner.
 - `tools/`: `webp.sh` (makes art/w copies), `cutout.swift` (lifts a subject off its background for showcases),
   `wk.swift` (headless WebKit/Safari screenshots and checks), `fxart.swift`.
-- `sw.js`, `manifest.webmanifest`, `icons/`: installable app.
+- `sw.js`, `manifest.webmanifest`, `icons/`: installable app. Art is served cache-first: after REPLACING any file under
+  `art/` with the same name, bump `VERSION` in `sw.js`, or players keep the old picture (this hid the sharper cutouts for days).
 
 ## Hosting
 - Public site: **https://laolegendwars.com/** (GitHub Pages from `main` of github.com/ndesignnewgen-cmyk/lao-legend-wars;
