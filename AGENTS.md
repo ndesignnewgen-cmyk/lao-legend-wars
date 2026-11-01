@@ -59,7 +59,8 @@ online play, ranked, friends, a card shop with earned gems and owner-approved BC
   own (a villager that is not neutral), token, ph (emoji placeholder art), img`.
 - Decks: «ເດັກຂອງຂ້ອຍ» (`ui.screen = 'mydecks'`, `myDecksHTML`) lists saved decks; the builder (`builderHTML`: card info
   `edInspHTML`, pool `edPool`/`poolIds(ui.bf)`, deck `edDeckHTML`; ＋/－ via `edChange`) rates decks with `deckStars`,
-  `deckTips`, `deckSuggest`. Both render through `morph`. Test: `tools/deck-builder-test.js`.
+  `deckTips`, `deckSuggest`. Both render through `morph`. Special cards of a list: `deckSpecials(list)` (fusions, rites,
+  transforms, summoned cards via `SUMMONS`/`summonsOf`: add a card there when a new skill summons something), shown by `edExtraHTML`. Test: `tools/deck-builder-test.js`.
 - Home screen: `menuHTML`. The chosen deck's legend stands on a stage (`legendStage(id)`: its CUTS box fitted with container
   units; phones show a tall full body from the waist up), painted background `art/bg/login-*.webp`, lanterns `h2Lanterns`.
 - Customize page (ໜ້າປັບແຕ່ງ, `ui.screen = 'style'`): `styleHTML`, `styleItems(tab)`, `styleUse(tab, id)`, locked sheet
