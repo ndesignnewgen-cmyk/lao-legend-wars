@@ -34,7 +34,7 @@ online play, ranked, friends, a card shop with earned gems and owner-approved BC
   the showcase background), showcase cutouts `art/cut/<name>.webp`, deck boxes `art/box-d<no>.webp`, packs, UI icons `art/ui/`,
   rank emblems `art/rank/`, effect art `art/fx/`.
 - `cards.html`: the printable card gallery.
-- `supabase/f1.sql … f13.sql`: server SQL, run in order by the owner. `email-templates.md`: Supabase email setup.
+- `supabase/f1.sql … f19.sql`: server SQL, run in order by the owner. `email-templates.md`: Supabase email setup.
 - `PLAN.md` (Lao): every phase, what is done (✅), half done (🔶), waiting (⏳). Update it after each piece of work.
 - `design/new-decks-10.md`: the design of decks 15–24.
 - `prompts/`: image, music and sound prompts given to the owner.
@@ -63,6 +63,10 @@ online play, ranked, friends, a card shop with earned gems and owner-approved BC
   transforms, summoned cards via `SUMMONS`/`summonsOf`: add a card there when a new skill summons something), shown by `edExtraHTML`. Test: `tools/deck-builder-test.js`.
 - Home screen: `menuHTML`. The chosen deck's legend stands on a stage (`legendStage(id)`: its CUTS box fitted with container
   units; phones show a tall full body from the waist up), painted background `art/bg/login-*.webp`, lanterns `h2Lanterns`.
+- Levels 1-100 (ເສັ້ນທາງຕຳນານ, `ui.screen = 'road'`, `roadHTML`): `lvStart`/`levelOf` (XP curve) and `lvReward(L)` must match
+  `lv_start`/`lv_pay` in `supabase/f19.sql`. Guests are paid by `lvLocalPay`, accounts by the server (`eco_xp` → `lv_catch`,
+  `lv_claim`, `lv_pick` for the level 60/90 card choice). Level frames/titles/backs come from the level (`FRAMES[].lv`,
+  `TITLES`, `LV_BACK_*`); `ui.lvUp` opens the level-up sheet on the next menu render.
 - Customize page (ໜ້າປັບແຕ່ງ, `ui.screen = 'style'`): `styleHTML`, `styleItems(tab)`, `styleUse(tab, id)`, locked sheet
   `styleSheetHTML`. Every look item is chosen there (back, arena, avatar, frame, title, pet); the shop only sells and
   settings keep the arena picker only during a game. Test: `tools/style-page-test.js` with `tools/wk.swift`.

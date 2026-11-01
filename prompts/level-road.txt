@@ -1,0 +1,83 @@
+ເສັ້ນທາງຕຳນານ (ລະດັບ 1–100) · ຮູບທີ່ຕ້ອງການ · 01/11/2026
+ເກມໃຊ້ໄດ້ແລ້ວ ໂດຍບໍ່ມີຮູບເຫຼົ່ານີ້ (ໃຊ້ຮູບແທນຊົ່ວຄາວ). ເມື່ອໄດ້ຮູບມາ ຈະງາມກວ່າເກົ່າ.
+
+=====================================================================================================
+ເຮັດແນວໃດ
+=====================================================================================================
+  1. ເປີດແຊັດໃໝ່ (ChatGPT, Gemini ຫຼື Codex).
+  2. ກັອບ PROMPT ຂອງຮູບນັ້ນ ໄປວາງ → ສົ່ງ. ເຮັດເທື່ອລະຮູບ.
+  3. ຕັ້ງຊື່ໄຟລ໌ຕາມ [ຊື່] → ສົ່ງມາໃນແຊັດ (ໃສ່ zip ກໍ່ໄດ້).
+  · ຮູບໄອຄອນ ແລະ ກອບ: ພື້ນຫຼັງ ສີຂາວລ້ວນ. ຂ້ອຍຈະຕັດພື້ນອອກເອງ.
+  · ບໍ່ມີໜັງສື, ບໍ່ມີຕົວເລກ, ບໍ່ມີໂລໂກ້ ໃນຮູບ.
+
+ແບບທຸກຮູບ: ສີສັນສົດໃສ ແບບກາດເກມ, ທອງ ແລະ ລາຍກະໜົກລາວ, ເພັດສີແດງ ແລະ ສີຟ້າ, ແສງເງົາງາມ, ບໍ່ໜ້າຢ້ານ.
+
+=====================================================================================================
+1. [road-bg] ພື້ນຫຼັງໜ້າ «ເສັ້ນທາງຕຳນານ» · ຮູບຕັ້ງ 1080x1920 (9:16)
+=====================================================================================================
+PROMPT:
+Portrait 9:16 painted fantasy key art for a Lao folklore card game menu background. A winding golden stone path climbs from a misty
+riverside village at the bottom, up a green mountain, past small golden shrines with naga railings every short distance, to a radiant
+golden temple on the summit at the top under a starry purple twilight sky with floating lanterns. Warm golden light along the path,
+Mekong river and palm trees at the bottom, gentle mist. Calm and inviting, not too busy: the middle of the picture should stay simple
+because a list of rewards will sit on top of it. Southeast Asian comic style, bold clean outlines, rich colors. No people, no text.
+
+=====================================================================================================
+2. [back-lv50] ຫຼັງກາດ «ທອງຄຳ» (ລາງວັນລະດັບ 50) · ຮູບຕັ້ງ 63:88
+=====================================================================================================
+PROMPT:
+Production trading card BACK artwork for a Lao folklore fantasy card game. Portrait canvas aspect ratio 63:88, one flat front-on
+full-bleed card-back design filling the whole canvas, no perspective, no table, no shadow around it. Polished solid gold background
+with fine engraved Lao kranok flame patterns, a thick ornate gold border with small red rubies at the corners, and in the centre a
+round medallion of a coiled golden naga around a glowing lotus. Symmetrical left-right and top-bottom like a real card back.
+Rich, shiny, prestigious. No text, no numbers, no logo.
+
+=====================================================================================================
+3. [back-lv100] ຫຼັງກາດ «ຕຳນານລາວ» (ລາງວັນລະດັບ 100) · ຮູບຕັ້ງ 63:88
+=====================================================================================================
+PROMPT:
+Production trading card BACK artwork for a Lao folklore fantasy card game, the rarest reward for reaching the top level. Portrait
+canvas aspect ratio 63:88, one flat front-on full-bleed card-back design filling the whole canvas, no perspective, no shadow around it.
+Deep royal purple and midnight blue background with a starry sky, a radiant golden sun-yantra circle in the centre with a golden naga
+and a golden garuda facing each other inside it, thick ornate gold kranok border with rubies and sapphires, soft rainbow shimmer on
+the gold edges. Perfectly symmetrical like a real card back. Majestic and magical. No text, no numbers, no logo.
+
+=====================================================================================================
+4. [lv-chest] ໄອຄອນ «ກ່ອງລາງວັນລະດັບ» · ສີ່ຫຼ່ຽມຈັດຕຸລັດ 1024x1024 · ພື້ນຂາວ
+=====================================================================================================
+PROMPT:
+A glossy game icon, one object centered: a small ornate golden Lao treasure chest with a tiered temple-roof lid and a naga
+finial, half open, warm golden light and sparkles coming out, red ruby and blue sapphire inlays, kranok carvings.
+Slight 3/4 view, strong silhouette that reads at 40 pixels. Square 1024x1024 on a PLAIN PURE WHITE background, no shadow on the
+ground, no text.
+
+=====================================================================================================
+5. [lv-pickalt] ໄອຄອນ «ເລືອກກາດອາດພິເສດ» (ລາງວັນລະດັບ 60) · 1024x1024 · ພື້ນຂາວ
+=====================================================================================================
+PROMPT:
+A glossy game icon, one object centered: a single trading card standing upright, its face glowing with a rainbow holographic
+shimmer and a bright four-pointed star in the middle, a thin ornate gold Lao kranok frame around the card, small sparkles
+around it. Slight 3/4 view, strong silhouette that reads at 40 pixels. Square 1024x1024 on a PLAIN PURE WHITE background,
+no shadow on the ground, no text.
+
+=====================================================================================================
+6. [lv-picklegend] ໄອຄອນ «ເລືອກກາດຕຳນານ» (ລາງວັນລະດັບ 90) · 1024x1024 · ພື້ນຂາວ
+=====================================================================================================
+PROMPT:
+A glossy game icon, one object centered: a single golden trading card standing upright with a small golden Lao crown floating
+above it and rays of golden light behind, the card face shows a coiled golden naga, red rubies on the frame.
+Slight 3/4 view, strong silhouette that reads at 40 pixels. Square 1024x1024 on a PLAIN PURE WHITE background,
+no shadow on the ground, no text.
+
+=====================================================================================================
+7. [frame-lv30] [frame-lv80] [frame-lv100] ກອບຮູບໂປຣໄຟລ໌ 3 ແບບ · 1024x1024 · ພື້ນຂາວ
+=====================================================================================================
+ເຮັດ 3 ຮູບແຍກກັນ, ກັອບ PROMPT ດຽວກັນ ແຕ່ປ່ຽນແຖວສຸດທ້າຍ:
+PROMPT:
+A round avatar frame ring for a game profile picture, front view, perfectly circular, the centre of the ring is EMPTY and plain
+white (a profile photo will go there), the ring itself is thick ornate gold with Lao kranok carvings and jewels, glossy game style,
+strong silhouette. Square 1024x1024 on a PLAIN PURE WHITE background, no shadow, no text.
+  · frame-lv30:  the ring is decorated with small glowing paper sky lanterns and warm orange light.
+  · frame-lv80:  a green-and-gold naga serpent coils around the ring, its head resting at the top.
+  · frame-lv100: the most precious: gold and purple ring with a naga on the left and a garuda on the right, a small crown at the
+                 top, rays of light and a soft rainbow shimmer.

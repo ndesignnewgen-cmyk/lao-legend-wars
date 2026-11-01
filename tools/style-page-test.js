@@ -20,7 +20,7 @@ try{
   ok(!!$('.style-page'), 'customize page opens');
   ok($$('[data-a="stab"]').length === 6, 'six tabs');
   ok(!!$('.style-prev'), 'preview shown');
-  const want = {back:4, arena:6, avatar:D.style.items('avatar').length, frame:6, title:D.style.items('title').length, pet:5};
+  const want = {back:6, arena:6, avatar:D.style.items('avatar').length, frame:9, title:D.style.items('title').length, pet:5};
   for(const [tab, n] of Object.entries(want)){
     click('stab', tab); await W(250);
     ok($$('.stile').length === n && n > 0, tab + ': ' + n + ' tiles');
@@ -42,6 +42,7 @@ try{
   click('stab', 'arena'); await W(200); click('suse', 'himma'); await W(250);
   ok(on() === 'himma' && JSON.parse(localStorage.getItem('lao-legend-settings')).theme === 'himma', 'arena: free theme used and saved');
   click('stab', 'frame'); await W(200); ok(on() === 'none', 'frame: default in use');
+  click('slock', 'legend'); await W(200); ok(/ລະດັບ 100/.test($('.modal').textContent), 'frame: a level frame says which level'); click('mmclose'); await W(150);
   click('slock', 'royal'); await W(200); ok(/ຊະນະ 50/.test($('.modal').textContent), 'frame: sheet says how to get it'); click('mmclose'); await W(150);
   click('stab', 'title'); await W(200); click('suse', 'new'); await W(200); ok((D.style.col().title || 'new') === 'new' && on() === 'new', 'title: the one in use stays (only «new» is earned by a guest)');
   ok($$('.stile').every(t => (t.dataset.a === 'slock') === t.classList.contains('lock')), 'title: locked tiles open the sheet, earned ones are usable');

@@ -38,7 +38,7 @@
 **Interfaces:**
 - Produces:
   - `ui.styleTab: 'back'|'arena'|'avatar'|'frame'|'title'|'pet'` (default `'back'`)
-  - `STYLE_TABS: Array<[id, label]>` = `[['back','ຫຼັງກາດ'],['arena','ສະໜາມ'],['avatar','ຮູບ'],['frame','ກອບ'],['title','ຊື່ເສີງ'],['pet','ຄູ່ຫູ']]`
+  - `STYLE_TABS: Array<[id, label]>` = `[['back','ຫຼັງກາດ'],['arena','ສະໜາມ'],['avatar','ຮູບ'],['frame','ກອບ'],['title','ຊື່ສຽງ'],['pet','ຄູ່ຫູ']]`
   - `styleItems(tab): Array<{id:string, name:string, art:string /*html*/, on:boolean, owned:boolean, how:string, shop:boolean}>`
   - `frameOwned(id): boolean` — `!id || ACH.some(a => a.frame === id && (col().ach||{})[a.id])` (move the achievements modal's test here and use it there too)
   - `styleHTML(): string`
