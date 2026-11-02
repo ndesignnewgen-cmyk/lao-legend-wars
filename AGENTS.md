@@ -71,7 +71,8 @@ online play, ranked, friends, a card shop with earned gems and owner-approved BC
 - Ranked result: `rankResult(S, before)` after a ranked game loads the new rank and sets `S.rankRes`; `rankResHTML` draws it in the
   game-over popup (star gained / lost, tier up with the new emblem, legend tier counts stars).
 - Levels 1-100 (ເສັ້ນທາງຕຳນານ, `ui.screen = 'road'`, `roadHTML`): `lvStart`/`levelOf` (XP curve) and `lvReward(L)` must match
-  `lv_start`/`lv_pay` in `supabase/f19.sql`. Guests are paid by `lvLocalPay`, accounts by the server (`eco_xp` → `lv_catch`,
+  `lv_start` (f23.sql: 100 XP a level to 10, then +25 each; old saves move once via `lvCurve2` / `wallets.lv_curve`)
+  and `lv_pay` in `supabase/f19.sql`. Guests are paid by `lvLocalPay`, accounts by the server (`eco_xp` → `lv_catch`,
   `lv_claim`, `lv_pick` for the level 60/90 card choice). Level frames/titles/backs come from the level (`FRAMES[].lv`,
   `TITLES`, `LV_BACK_*`); `ui.lvUp` opens the level-up sheet on the next menu render.
 - Customize page (ໜ້າປັບແຕ່ງ, `ui.screen = 'style'`): `styleHTML`, `styleItems(tab)`, `styleUse(tab, id)`, locked sheet
