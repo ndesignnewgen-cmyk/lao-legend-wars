@@ -22,7 +22,7 @@ async function rpc(name,a={}){
 frame.onload=()=>{try{
  const w=frame.contentWindow;d=w.__dbg;if(!d)throw Error('Debug hooks unavailable');
  const uid='17000000-0000-4000-8000-000000000001';
- model={balance:1200,owned:[],equipped:{back:'',arena:''},packs:[{id:'small',amount_lak:10000,gems:100},{id:'medium',amount_lak:30000,gems:330},{id:'large',amount_lak:50000,gems:575},{id:'chest',amount_lak:100000,gems:1200}],payment:{enabled:false,receiver:'',qrPath:''},orders:[],ledger:[]};
+ model={balance:1200,owned:[],equipped:{back:'',arena:''},packs:[{id:'small',amount_lak:10000,gems:100},{id:'medium',amount_lak:30000,gems:330},{id:'large',amount_lak:50000,gems:575},{id:'chest',amount_lak:100000,gems:1200},{id:'vault',amount_lak:250000,gems:3000},{id:'treasury',amount_lak:400000,gems:5000},{id:'royal',amount_lak:750000,gems:10000}],payment:{enabled:false,receiver:'',qrPath:''},orders:[],ledger:[]};
  const saved=JSON.parse(w.localStorage.getItem('lao-legend-collection')||'{}');
  eco={gems:Number(saved.gems||300),dust:100,xp:1000,freePacks:0,pity:0,packs:0,tutGems:true,adv:0,cards:saved.cards||{},alts:Object.keys(saved.alts||{}),hardBeat:[],ach:[]};retry=new Map();
  Object.assign(d.ACCT,{user:{id:uid},prof:{name:'ຜູ້ທົດລອງ',avatar:'phayanak'},eco:true,achPending:[],admin:true});d.mockSB({rpc});d.ui.screen='shop';d.ui.shopTab=['topup','exchange','cosmetics','history'].includes(new URLSearchParams(location.search).get('tab'))?new URLSearchParams(location.search).get('tab'):'topup';d.ui.mmodal=null;d.ui.login=null;d.render();w.document.querySelector('[data-a="pmrefresh"]').click();

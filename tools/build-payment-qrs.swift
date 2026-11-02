@@ -1,6 +1,7 @@
 // Owner verified this QR format in BCEL One on 2026-10-31: correct recipient and 10000 LAK displayed.
 // Build the four configured pack QRs, preserving recipient/currency; no bank API or payment is called.
-// Usage: binary /absolute/path/to/original-qr.png /absolute/path/to/output-directory
+// Usage: binary /absolute/path/to/original-qr.png /absolute/path/to/output-directory [amounts, e.g. 250000,400000,750000]
+// Extra pack amounts (added 2026-11-02) write verification-extra.json so the first report stays as it was.
 // Exact QR preparation only. Never modify bank payloads: BCEL One ignored added EMV amount fields on the supplied LAPNET MyQR.
 // swiftc tools/prepare-payment-qr.swift -o /tmp/prepare-payment-qr
 // /tmp/prepare-payment-qr /absolute/path/to/bank-created-qr.png /absolute/path/to/output.png
@@ -48,7 +49,8 @@ let directory=URL(fileURLWithPath:CommandLine.arguments[2],isDirectory:true)
 try FileManager.default.createDirectory(at:directory,withIntermediateDirectories:true)
 let keep:(Field)->Bool={!["01","54","63"].contains($0.id)}
 var variants:[[String:Any]]=[]
-for amount in [10000,30000,50000,100000] {
+let amounts=CommandLine.arguments.count>3 ? CommandLine.arguments[3].split(separator:",").map{Int($0)!} : [10000,30000,50000,100000]
+for amount in amounts {
  var output:[Field]=[]
  for f in fields where f.id != "54" && f.id != "63" {output.append(f.id=="01" ? Field(id:"01",value:"12") : f);if f.id=="53" {output.append(Field(id:"54",value:String(amount)))}}
  guard output.filter(keep).map({$0.encoded})==fields.filter(keep).map({$0.encoded}) else {fatalError("Recipient/currency changed")}
@@ -57,4 +59,4 @@ for amount in [10000,30000,50000,100000] {
  variants.append(["amount_lak":amount,"file":filename,"point_of_initiation":"12","crc_valid":crc(String(payload.dropLast(4)))==parsed.last?.value,"same_recipient_and_currency":true,"scan_round_trip":true,"bank_app_verified":amount==10000])
 }
 let report:[String:Any]=["format":"BCEL supplied LAPNET QR with method 12 and amount tag 54","source_payload_sha256":SHA256.hash(data:Data(original.utf8)).map{String(format:"%02x",$0)}.joined(),"bank_feedback":"Owner scanned round 2 in BCEL One: recipient and 10000 LAK both correct","bank_feedback_date":"2026-10-31","payment_executed":false,"production_enabled":false,"variants":variants]
-let data=try JSONSerialization.data(withJSONObject:report,options:[.prettyPrinted,.sortedKeys]);try data.write(to:directory.appendingPathComponent("verification-v2.json"));print(String(data:data,encoding:.utf8)!)
+let data=try JSONSerialization.data(withJSONObject:report,options:[.prettyPrinted,.sortedKeys]);try data.write(to:directory.appendingPathComponent(CommandLine.arguments.count>3 ? "verification-extra.json" : "verification-v2.json"));print(String(data:data,encoding:.utf8)!)

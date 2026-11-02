@@ -7,7 +7,7 @@ const ok=(yes,name)=>{if(!yes)throw Error(name);checks.push(name);};
 const click=(a,v)=>{const el=doc.querySelector('[data-a="'+a+'"]'+(v==null?'':'[data-v="'+v+'"]'));if(!el)throw Error('Missing '+a+' '+v);el.click();};
 const tab=async name=>{click('shoptab',name);await wait();};
 ok(!!window.shopDemo,'preview booted');const originalGems=shopDemo.eco.gems;
-ok(doc.querySelectorAll('.pm-pack').length===4,'four canonical topup packs');
+ok(doc.querySelectorAll('.pm-pack').length===7,'seven canonical topup packs');
 ok([...doc.querySelectorAll('[data-a=pmpack]')].every(b=>b.disabled),'topups disabled without merchant QR');
 ok(doc.querySelector('.pm-shophero img').complete&&doc.querySelector('.pm-shophero img').naturalWidth>0,'generated chest art loads');
 ok(doc.querySelector('.pm-icon').naturalWidth>0,'generated premium icon loads');
