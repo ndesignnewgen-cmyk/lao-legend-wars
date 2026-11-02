@@ -2330,7 +2330,10 @@ body{background:
 /* the side panel: the card text uses the whole height and may run over the painted scene at the bottom of the panel
    picture (owner, 2026-11-02), so every text block sits on a parchment plate that keeps it easy to read */
 @media (min-width:980px) and (hover:hover){
-  .arena.v7:is([data-theme="watphou"],[data-theme="starjars"]) .spanel{padding-bottom:0}
+  /* the text stays inside the picture frame: clear of its bottom border, fading out just above it */
+  .arena.v7:is([data-theme="watphou"],[data-theme="starjars"]) .spanel{padding-bottom:calc(4dvh + 6px)}
+  .arena.v7:is([data-theme="watphou"],[data-theme="starjars"]) .spanel .wp-panel-body{padding:0 14px 22px;
+    -webkit-mask-image:linear-gradient(#000 calc(100% - 22px),transparent);mask-image:linear-gradient(#000 calc(100% - 22px),transparent)}
   .arena.v7:is([data-theme="watphou"],[data-theme="starjars"]) .spanel .pc{width:min(80%,calc(40dvh * .716))}
 }
 .arena.v7:is([data-theme="watphou"],[data-theme="starjars"]) .spanel :is(.pskill,.ptale,.plore,.pkw,.pstate){background:color-mix(in srgb,var(--p-bg) 93%,transparent);
