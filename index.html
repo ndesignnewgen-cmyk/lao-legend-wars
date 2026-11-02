@@ -1,5 +1,5 @@
 <meta name="security-build" content="1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-IcjgmjVtchgEumi8/YOAgNWlp9q54ovXnGkuziqFgfM='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com https://xahuvoounkdojfsvnfaj.supabase.co; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co wss://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-b2pCY5crw1fnXWf65AerUVpXNV2jM8yBFQN8mMJOSGc='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com https://xahuvoounkdojfsvnfaj.supabase.co; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co wss://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="referrer" content="no-referrer">
 <meta charset="utf-8">
 <script>
@@ -654,8 +654,8 @@ body{background:
 #fx .ytal img,#fx .lcoin img,#fx .hwater img,#fx .lpop img{display:block;width:100%}
 #fx .lcoin{position:absolute;width:44px;translate:-50% -50%;filter:drop-shadow(0 0 8px #ffd23d)}
 #fx .hwater{position:absolute;width:100px;translate:-50% -50%;filter:drop-shadow(0 0 10px #bfe9ff)}
-#fx .mfx{position:absolute;translate:-50% -50%}#fx .mfx img{display:block;width:100%;height:100%}#fx .mfx.glow{filter:drop-shadow(0 0 10px #ffd23d)}
-#fx .mfx.beam{translate:0 -50%;transform-origin:0 50%;height:34px;filter:drop-shadow(0 0 8px #ffd23d)}
+#fx .mfx{position:absolute;translate:-50% -50%}#fx .mfx img{display:block;width:100%;height:auto}#fx .mfx.beam img{height:100%}#fx .mfx.glow{filter:drop-shadow(0 0 10px #ffd23d)}
+#fx .mfx.beam{translate:0 -50%;transform-origin:0 50%;height:52px;filter:drop-shadow(0 0 6px #fff3c4) drop-shadow(0 0 16px #ffd23d)}
 #fx .lpop{position:absolute;width:76px;translate:-50% -60%;filter:drop-shadow(0 0 10px #7fffd4);animation:fxlpop .9s ease-out forwards}
 @keyframes fxlpop{0%{scale:0;opacity:0}30%{scale:1.25;opacity:1}50%{scale:.95}65%{scale:1}80%{opacity:1}100%{scale:1;opacity:0;translate:-50% -150%}}
 .homefly .ftal{position:absolute;width:46%;left:27%;top:12%;filter:drop-shadow(0 2px 4px #0008) drop-shadow(0 0 8px #ffd76a);animation:fxslap .3s cubic-bezier(.3,1.5,.5,1) both}
@@ -8240,7 +8240,7 @@ async function fxMechLand(k){
   if(S.fast || REDUCE) return; const el = elOf(k); if(!el) return;
   const r = el.getBoundingClientRect(), w = r.width, x = r.left + w / 2, foot = r.top + r.height * .9, dur = 620 * SET.speed;
   if(!sfxf('mechland')) sfx('rocket');
-  const fl = [-.26, .26].map(dx => mfx('thruster-flame', x + dx * w, r.top - w * .3, w * .2, 'glow'));
+  const fl = [-.26, .26].map(dx => mfx('thruster-flame', x + dx * w, r.top - w * .3, w * .28, 'glow'));
   await Promise.all(fl.map(f => animDone(f.animate([{transform:'translateY(-50px) scaleY(1.5)', opacity:0}, {transform:'translateY(' + r.height * .62 + 'px)', opacity:1, offset:.7},
     {transform:'translateY(' + r.height * .72 + 'px) scaleY(.2)', opacity:0}], {duration:dur, easing:'ease-in', fill:'forwards'}))));
   fl.forEach(f => f.remove());
