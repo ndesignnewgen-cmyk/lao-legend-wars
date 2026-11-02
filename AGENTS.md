@@ -90,7 +90,7 @@ online play, ranked, friends, a card shop with earned gems and owner-approved BC
   Deaths: `destroy`, `checkDeaths`. Helpers: `zap(t, n)` (destroy if power ≤ n), `summon`, `bounce`, `heal`,
   `damageHero`, `draw`, `tutor`.
 - Deck meters: `mechOf(list)` sets flags on each player when a deck holds cards with that `mech`
-  (oar, basket, jar, volt, know, stars, yan); `meterLv(p)` draws them; fans (deck 12), water (deck 10), sword spirit
+  (oar, basket, jar, volt, know, stars, yan, core); `meterLv(p)` draws them; fans (deck 12), water (deck 10), sword spirit
   (deck 14) are older meters with their own code.
 - Bots: easy = random, medium = `botPick` (a score per card id: add one for every new card or it is never played
   well; spells score 0 unless listed) + `botTarget`, hard = rollouts on `cloneState` (copy every new player/card
@@ -104,7 +104,7 @@ online play, ranked, friends, a card shop with earned gems and owner-approved BC
 - Constants used inside `def(...)` must be declared earlier in the file (a later `const` = TDZ error that breaks the
   whole page, e.g. `POISON`, `SHIELD`).
 - DECKS index ≠ deck number. `DORDER` sorts by number. Index → no:
-  0:1 1:2 2:3 3:5 4:4 5:6 6:7 7:8 8:9 9:10 10:13 11:11 12:12 13:14 14:18 15:19 16:23 17:16 18:15 19:21 20:17 21:20 22:22 23:24 24:25.
+  0:1 1:2 2:3 3:5 4:4 5:6 6:7 7:8 8:9 9:10 10:13 11:11 12:12 13:14 14:18 15:19 16:23 17:16 18:15 19:21 20:17 21:20 22:22 23:24 24:25 25:26.
   The server uses the index (catalog `decks`, hard-bot legend array in `eco_game`, deck packs), so never reorder;
   append new decks at the end.
 
@@ -155,7 +155,7 @@ online play, ranked, friends, a card shop with earned gems and owner-approved BC
   far: `height:100%` inside size containers, negative canvas arc radius, frame time going backwards.
 
 ## Status (2026-10-30)
-- Done: 24 decks with art and balance (43–57% medium); fusions incl. special art; rites; tales; festivals;
+- Done: 26 decks with art and balance (43–57% medium; deck 26 mecha 2026-11-02: pilots `c.pilot` board robots, ⚙ core `p.core`/`glowT`, 3-part fusion `fking`, f21.sql); fusions incl. special art; rites; tales; festivals;
   adventure map (11 stages); accounts, cloud save, levels, gems, packs, ranked, friends, safety and admin (F1–F7);
   player ID card and email + password sign-in (F8, f12.sql); login page and new home screen (F9, f13.sql);
   code-made music and sounds (H1–H2), recorded music files; new settings screen; effects G1–G3.

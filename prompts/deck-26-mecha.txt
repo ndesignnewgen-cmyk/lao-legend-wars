@@ -1,0 +1,98 @@
+ເດັກ 26 · ກອງທັບຫຸ່ນຮົບ ລ້ານຊ້າງ · ຮູບທັງໝົດ 2 ຊຸດ · 02/11/2026
+  ຊຸດ A: ຮູບກາດ 21 ຮູບ (ກາດ 13 · ຮ່ວມຮ່າງ 4 · ອາດພິເສດ 3 · ກ່ອງເດັກ 1)
+  ຊຸດ B: ຮູບຫຸ່ນ ແລະ ນັກບິນ ເຕັມຕົວ ແບບໄດຄັດ (PNG ພື້ນໂປ່ງໃສ) 10 ຮູບ · ໃຊ້ຕອນລົງສະໜາມ
+
+ວິທີເຈນ (ແຕ່ລະຊຸດ ເປີດແຊັດໃໝ່):
+1. ChatGPT (ຫຼື Codex) → ກັອບຂໍ້ຄວາມພາສາອັງກິດ ຂອງຊຸດນັ້ນ ທັງໝົດ → ວາງ → ສົ່ງ.
+2. ມັນຈະເຈນເທື່ອລະຮູບ ຕາມເລກ. ຖ້າມັນຢຸດ ພິມ: continue
+3. ບັນທຶກແຕ່ລະຮູບເປັນເລກ (1.png …) ຫຼື ຕາມຊື່ໃນ [ວົງເລັບ] → ລວມເປັນ zip → ສົ່ງມາ.
+ເຮັດຊຸດ A ກ່ອນ. ເມື່ອໄດ້ຫຸ່ນທີ່ມັກແລ້ວ ໃຫ້ແນບຮູບກາດຂອງຫຸ່ນນັ້ນ ໃນແຊັດຊຸດ B ເພື່ອໃຫ້ໜ້າຕາຄືກັນ.
+ຮູບສຳຄັນທີ່ສຸດ: 14 (ລ້ານຊ້າງ ມາກ-ໂຊ), 18 (ລ້ານຊ້າງ ອະນັນຕະ · ຮ່ວມຮ່າງສູງສຸດ), 4 (ຫຸ່ນດາບ).
+ສຳຄັນ: ສະຕາຍຫຸ່ນຍົນແບບ real-robot ແຕ່ເປັນແບບຂອງເຮົາເອງ. ບໍ່ໃຫ້ມີຊື່ ຫຼື ໂລໂກ້ Gundam, ບໍ່ໃຫ້ຄືຫຸ່ນໂຕໃດໃນອະນິເມະ.
+
+
+=====================================================================================================
+ຊຸດ A · ຮູບກາດ 21 ຮູບ · ກັອບແຕ່ «LAO LEGEND WARS · DECK 26» ຮອດທ້າຍຊຸດ A
+=====================================================================================================
+LAO LEGEND WARS · DECK 26: LAN XANG MECHA CORPS — CARD ART · 21 images
+(13 card pictures + 4 fusion cards + 3 epic alt arts + 1 deck box)
+
+HOW TO MAKE THEM
+Please create these images one at a time, in order, numbered. After each image, continue with the next one without asking me. If you have to stop, I will type 'continue' and you go on from the next number.
+Save each image as its number only (1.png, 2.png …). The word in [brackets] at the start of each item is a file label for me: never draw it, never write any text in a picture.
+For the same character or robot, keep the same design in every image (shape, colors, markings). The recurring designs are listed below: keep them identical everywhere they appear.
+Card pictures: Portrait 63:88 (for example 1062x1482). Keep the main subject in the upper half of the picture and leave the bottom 40% as a simple, calm, softly lit background, because the card's text box covers it. No text, no letters, no numbers, no logos, no insignia with writing, no frames, no card borders.
+
+ORIGINALITY (very important): these are OUR OWN original giant robots in the "real robot" anime mecha style (piloted humanoid war machines, about 18 meters tall, panel lines, armor plates, thrusters, beam weapons). Do NOT copy or imitate any existing robot design from any anime, film, toy or game: no V-shaped head antenna, no famous color layout copied from a known robot, no existing names or logos. Our robots' head crest is a golden Lao kranok flame or a pair of naga horns.
+
+COMMON CARD STYLE:
+Full-art trading card illustration, polished anime mecha style mixed with the game's Southeast Asian comic look: bold clean outlines, crisp cel shading with metallic highlights, dynamic low-angle poses, glowing thruster flames, light trails and sparks, rich detailed backgrounds, strong clear silhouette that reads at small size. Friendly and heroic, never scary, no blood, no wrecked bodies, no one is hurt: beams hit only targets, shields or empty ground.
+DECK LOOK: Lao in every robot: smooth armor in pearl white, deep lapis blue and royal gold with thin gold Lao kranok flame engravings along the edges, shoulder plates shaped like temple roof eaves with naga-head tips, a glowing GOLD "khwan core" crystal in the chest, eyes glowing warm gold, Lao weaving (sinh) patterns as small decals. Setting: Laos in the year 2150: Vientiane with That Luang glowing gold beside sleek towers, the Mekong at dusk, karst mountains, rice terraces, hangars under temple-style roofs.
+PILOTS: young Lao adults (about 19–25) with Lao faces and skin tones, sleek white-and-blue pilot suits with a gold sash (pha biang) across the chest and a small woven sinh pattern on the sleeves, helmets with a gold kranok crest; brave, warm expressions.
+
+LEGEND CARD (marked LEGEND): the most magnificent picture of the deck: heroic centered pose, glowing golden aura, light rays from behind, floating sparkles and kranok flame shapes in the light, richer detail than the other cards.
+EPIC ALT ART (marked EPIC ALT ART): very detailed and dramatic painterly illustration, cinematic lighting, dynamic diagonal composition, rich textures, glowing particles, deep colors with bright highlights.
+
+RECURRING DESIGNS (keep identical):
+- LAN XANG MK-0 (the hero robot): sleek humanoid prototype, pearl white and gold with lapis blue joints, a tall golden kranok-flame crest on the head, two small naga horns, a glowing gold khwan core in the chest, shoulder armor like tiered temple eaves, a long cape-like rear thruster wing in gold, a beam sword with a blade of golden light shaped like a Lao daab sword.
+- SWORD MECH: slim agile robot in lapis blue and white, red sash-like armor strip around the waist, a single beam sword.
+- SNIPER MECH "NAGA EYE": tall slim robot in dark teal and silver, a long beam rifle, one big glowing teal visor eye, naga-scale armor on the arms.
+- SCOUT MECH "MOON SHADOW": sleek dark violet robot with silver trim, a hooded head with a crescent-moon crest, cloak-like stealth panels.
+- SHIELD MECH "GOLDEN DRUM": heavy, broad robot in white and gold, a huge round shield shaped like an ancient Lao bronze kettle drum with a radiant star and small frog figures in relief, thick layered shoulder armor like stacked temple eaves.
+- FLYER MECH "KINNARI": graceful light robot with feathered wing panels in white, pink and gold, kinnari-inspired helmet.
+- WING DRONE "GARUDA": a small unmanned flying support unit shaped like a stylized golden garuda with wide wing panels and two thrusters.
+- CANNON DRONE "BANG FAI": a small unmanned support unit carrying a long twin cannon decorated like a Lao rocket festival rocket with a naga head muzzle.
+- PILOT KHAMSING: a cheerful rookie Lao young man, short spiky black hair, freckles, big grin.
+- PILOT NOY: a calm sharp-eyed Lao young woman, long black hair in a low braid, small gold earrings.
+- PILOT THAO KAEW: the ace, a cool Lao young man with a scar-free handsome face, swept-back hair, confident smile, gold-trimmed captain's suit.
+
+1. [pilotkhamsing] PILOT KHAMSING in his pilot suit, helmet under his arm, running toward a kneeling white robot in a hangar with a temple-style roof, thumbs up, mechanics waving, morning light, excited energy.
+2. [pilotnoy] PILOT NOY sitting in a glowing cockpit, hands on the controls, holographic gold displays around her (abstract shapes, no text), a translucent blue energy shield forming outside the canopy.
+3. [dronewing] WING DRONE "GARUDA" flying fast over rice terraces at sunrise, golden light trails behind its wings.
+4. [dronecannon] CANNON DRONE "BANG FAI" hovering on the Mekong shore, firing a bright warm beam at a distant practice target buoy, smoke-like light trail, festival flags on the bank.
+5. [pilotace] PILOT THAO KAEW giving a confident salute in front of a line of robots, his gold-trimmed suit, a holographic squad map glowing beside him, dusk sky.
+6. [mechsword] SWORD MECH charging forward with its beam sword raised, thrusters blazing, dust and sparks, karst mountains behind.
+7. [mechsniper] SNIPER MECH "NAGA EYE" kneeling on a cliff edge aiming its long beam rifle, a thin teal beam crossing the valley toward an empty target platform, misty mountains.
+8. [mechscout] SCOUT MECH "MOON SHADOW" half hidden by its shimmering stealth cloak in a moonlit bamboo forest, its crescent crest glowing faintly.
+9. [hangar] The robot hangar of That Luang 2150: a grand hangar under golden tiered temple roofs, three robots standing in bays with gold scaffolding, glowing khwan cores, mechanics on catwalks, warm lights. No characters in focus.
+10. [mechshield] SHIELD MECH "GOLDEN DRUM" planting its huge round shield in front of a village, energy shield glowing outward, the village children safe behind.
+11. [mechflyer] FLYER MECH "KINNARI" soaring above the clouds with feathered wing panels spread, a trail of pink-gold light.
+12. [beamsaber] Close-up of a robot's armored hand gripping the hilt of a beam sword, the blade of golden light shaped like a Lao daab sword igniting with sparks, kranok engraving on the hilt.
+13. [scramble] Alarm in the hangar: robots' eyes lighting up one after another, pilots running down a catwalk, warning lights pulsing amber (no text), dramatic angle.
+14. [lanxangmk0] LEGEND · LAN XANG MK-0 standing heroically on a rooftop beside the glowing That Luang at night, golden khwan core blazing, crest shining, beam sword lowered, golden light rays and kranok flame shapes behind it, city lights below.
+15. [khwanburst] LAN XANG MK-0's chest core firing a huge golden beam into the sky, rings of light expanding around it, clouds parting.
+16. [fsword] FUSION · SWORD MECH with the WING DRONE "GARUDA" docked on its back as golden wings, flying fast with beam sword drawn, feather-shaped light trails, sunset sky.
+17. [fsniper] FUSION · SNIPER MECH "NAGA EYE" with the CANNON DRONE "BANG FAI" mounted on its shoulder, both barrels glowing, standing on a fortress wall.
+18. [fking] ULTIMATE FUSION · LAN XANG ANANTA: a brand-new, bigger and more powerful form made by combining the best parts of every robot of this deck into ONE robot: the body, crest and glowing gold chest core of LAN XANG MK-0; the feathered white-pink-gold wing panels of the KINNARI flyer, spread wide; the heavy layered armor and the round golden drum shield of the GOLDEN DRUM shield mech on one arm; the golden daab-shaped beam sword of the SWORD MECH in the other hand; the long beam rifle and teal visor eye of the NAGA EYE sniper folded on its back and shoulder; a short dark-violet stealth cape from the MOON SHADOW scout. Each part keeps its original color so you can see where it came from, joined by glowing gold seams. Floating above the Mekong at night, light pouring down, the most majestic picture of all. Original design, not like any existing robot.
+19. [alt-lanxangmk0] EPIC ALT ART · LAN XANG MK-0 in "khwan light mode": its whole armor glowing gold with lines of light racing along the engravings, mid-air dash through a storm of light particles, cinematic.
+20. [alt-mechsword] EPIC ALT ART · SWORD MECH in a dramatic duel pose against a sunset, beam sword sweeping a golden arc of light, sparks flying (no enemy shown being hit).
+21. [box-d26] A collectible deck box for this deck: a sturdy box in pearl white and gold with lapis blue edges, the front shows LAN XANG MK-0's head with its golden crest, kranok engravings, glossy finish, three-quarter view on a plain soft background. No text.
+
+
+=====================================================================================================
+ຊຸດ B · ຫຸ່ນ ແລະ ນັກບິນ ເຕັມຕົວ ແບບໄດຄັດ · 10 ຮູບ · ກັອບແຕ່ «LAO LEGEND WARS · DECK 26 · CUTOUTS» ຮອດທ້າຍ
+ແນບຮູບກາດ 14, 18, 4, 7, 10, 11 ແລະ ນັກບິນ 1, 2, 5 ທີ່ໄດ້ຈາກຊຸດ A ໄປນຳ ເພື່ອໃຫ້ໜ້າຕາຄືກັນ.
+=====================================================================================================
+LAO LEGEND WARS · DECK 26 · CUTOUTS — 10 images
+Create 10 SEPARATE images, one after another, without stopping. Each image: ONE character or robot only, FULL BODY from head to feet, standing in a strong heroic pose, centered with a small empty margin, TRANSPARENT BACKGROUND (PNG with alpha), no ground, no shadow on the floor, no scenery, no effects reaching the edges, no text, letters, numbers or logos. Match the attached card pictures exactly (same design, colors and markings). Portrait format 2:3, high resolution.
+1 [cut-lanxangmk0] LAN XANG MK-0, full body, beam sword in hand, golden crest, glowing chest core.
+2 [cut-alt-lanxangmk0] LAN XANG MK-0 in khwan light mode: armor glowing gold with light lines along the engravings, full body.
+3 [cut-fking] LAN XANG ANANTA, the ultimate fusion (MK-0 body + Kinnari wings + Golden Drum armor and shield + Sword Mech beam sword + Naga Eye rifle and visor + Moon Shadow cape), full body, wings spread and fitting inside the image.
+4 [cut-fsword] SWORD MECH with GARUDA wings docked, full body, beam sword drawn.
+5 [cut-fsniper] SNIPER MECH with the BANG FAI cannon on its shoulder, full body.
+6 [cut-fshield] SHIELD MECH "GOLDEN DRUM" with the BANG FAI cannon on its back, huge drum shield in front, full body (this is the fusion "Golden Drum Fortress").
+7 [cut-mechsword] SWORD MECH, full body, beam sword raised.
+8 [cut-alt-mechsword] SWORD MECH in its epic alt-art look (dramatic lighting on the armor), full body.
+9 [cut-pilotace] PILOT THAO KAEW, full body, saluting, helmet under one arm.
+10 [cut-pilotnoy] PILOT NOY, full body, helmet on, visor up, confident stance.
+Remember: 10 separate images, one subject each, transparent background, full body, no text.
+
+
+=====================================================================================================
+ເຈນໃໝ່ 3 ຮູບ (02/11/2026): ບໍ່ໃຫ້ມີສັນຍາລັກຊ້າງສາມຫົວ ໃນເດັກເລີຍ · ໂລ່ ໃຊ້ລາຍກອງທອງ ແທນ
+=====================================================================================================
+Create 3 SEPARATE images, one after another, for my card game "Lao Legend Wars". The attached pictures are the robots of this deck: keep the same art style.
+NEW DESIGN, replacing the old one: SHIELD MECH "GOLDEN DRUM": a heavy, broad humanoid robot in pearl white and gold with lapis blue joints, thick layered shoulder armor like stacked Lao temple eaves with small naga-head tips, a golden kranok-flame head crest, glowing gold chest core, and a huge round shield shaped like an ancient Lao bronze kettle drum: a radiant many-pointed star in the center, rings of fine geometric patterns, and small frog figures standing on the rim. IMPORTANT: no elephants anywhere (no three-headed elephant, no elephant heads, no tusks, no trunks). Original real-robot anime mecha style: no V-shaped antenna, not like any existing robot, no names, logos or text.
+1 [mechshield] CARD PICTURE, portrait 63:88 (for example 1062x1482): the GOLDEN DRUM robot planting its huge drum shield in front of a Lao village, a dome of golden energy glowing outward from the shield, village children safe behind it, dusk sky. Robot in the upper half, the bottom 40% a calm softly lit background. No text.
+2 [fshield] CARD PICTURE, portrait 63:88: FUSION "GOLDEN DRUM FORTRESS": the GOLDEN DRUM robot with the BANG FAI cannon drone docked on its back and shoulder (a long twin cannon decorated like a Lao rocket-festival rocket with a naga-head muzzle), standing on a fortress wall above the Mekong, shield raised, both cannon barrels glowing. Robot in the upper half, bottom 40% calm. No text.
+3 [cut-fshield] FULL-BODY CUTOUT of the same GOLDEN DRUM FORTRESS, head to feet, heroic stance, shield in front, centered with a small margin, TRANSPARENT BACKGROUND (PNG with alpha), no ground, no shadow, no scenery, no text. Portrait 2:3.

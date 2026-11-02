@@ -1,0 +1,50 @@
+ເດັກ 26 · ກອງທັບຫຸ່ນຮົບ ລ້ານຊ້າງ · ຮູບປະກອບເອັບເຟັກ 10 ຮູບ (prompt ດຽວ)
+ຄັດລອກຂໍ້ຄວາມອັງກິດທັງໝົດລຸ່ມນີ້ → ChatGPT → ສົ່ງ. ແນບຮູບກາດ ລ້ານຊ້າງ ມາກ-ໂຊ ໄປນຳ 1 ຮູບ ເພື່ອໃຫ້ສີ ແລະ ສະຕາຍຄືກັນ.
+ໄດ້ zip ແລ້ວສົ່ງຄືນໃນແຊັດນີ້. ຖ້າ ChatGPT ເຮັດ 10 ຮູບບໍ່ໄດ້ໃນເທື່ອດຽວ ໃຫ້ພິມ "continue" ໃຫ້ມັນເຮັດຕໍ່.
+ຮູບຫຸ່ນສຳລັບສາກອອກໂຕ ບໍ່ຕ້ອງເຈນ: ມີຮູບໄດຄັດແລ້ວ.
+
+ຮູບເຫຼົ່ານີ້ໃຊ້ຢູ່ໃສ:
+  1 ແກ່ນຂວັນ: ມາດ ⚙ ແລະ ໂໝດແສງຂວັນ (ຫຸ່ນທຸກໂຕເຫຼື້ອມທອງ)
+  2 ວົງກະໜົກ: ຂ້າງຫຼັງ ມາກ-ໂຊ ຕອນລົງສະໜາມ
+  3 ໄຟພົ່ນ + 4 ວົງຂີ້ຝຸ່ນ: ຫຸ່ນຕົກລົງຈາກຟ້າ
+  5 ລຳບີມ: ຫຸ່ນຊຸ່ມຍິງ, ໂດຣນປືນໃຫຍ່, ລຳແສງແກ່ນຂວັນ
+  6 ຮອຍດາບແສງ: ຫຸ່ນດາບ, ດາບແສງລາວ
+  7 ໂລ່ພະລັງກອງທອງ: ນັກບິນນ້ອຍ (ໂລ່ທິບ), ປ້ອມກອງທອງ
+  8 ປະກາຍໄຟເຊື່ອມ + 9 ແຜ່ນເກາະບິນ: ຮ່ວມຮ່າງ (ຊິ້ນສ່ວນບິນມາຕໍ່ກັນ)
+  10 ວົງເລັງເປົ້າ: ນັກບິນຂຶ້ນຂັບ ແລະ ຍິງບີມ
+
+Create a batch of TEN separate transparent PNG effect assets for Lao Legend Wars, a trading card game. This set belongs to a deck of original giant piloted robots from a future Laos (year 2150): white and gold armor, warm gold energy cores, soft sky-blue thruster light, Lao temple-style ornament (kranok flame curls, lotus shapes, the star of an ancient Lao bronze drum). These are small decorative objects that the game animates around existing cards and robot cutouts (they spin, fly, scatter, flash and glow). Do not generate robots, characters, card illustrations, backgrounds or complete scenes.
+
+Shared style: beautiful hand-painted 2D sci-fi fantasy game art matching the attached card picture: polished white and gold metal, warm gold glow, sky-blue (#7fb8ff) light accents. Clean soft outlines and refined shading, clear silhouettes readable at 40–80 pixels. Not photorealistic, not 3D render. Each image 1024×1024, ONE centred object, actual alpha transparency (no white or black background, no checkerboard), about 20% transparent margin around the object, no drop shadow on the ground, no text, no letters, no numbers, no logos. Never use an elephant or a three-headed elephant anywhere. Original designs, not copied from any existing robot franchise.
+
+1. fx-khwan-core.png
+One glowing robot energy core: a round faceted gold crystal set in a small white-gold metal ring with kranok flame curls around its edge, a bright warm golden light inside, soft gold glow kept tight around the object.
+
+2. fx-kranok-halo.png
+One large circular halo of golden Lao kranok flame ornament, like the decorated crest behind a temple statue but made of polished gold metal with thin glowing seams, the centre fully transparent and empty, elegant and symmetrical.
+
+3. fx-thruster-flame.png
+One jet thruster flame plume pointing straight down: a bright white-blue core turning into soft sky-blue and pale violet at the tip, a few tiny glowing sparks, cleanly tapered. Only the flame, no engine.
+
+4. fx-dust-ring.png
+One low ring of light grey-beige dust and small pebbles bursting outward as seen from a slightly raised side view (a wide flat oval), soft and airy, the middle of the oval transparent. Not smoke-black, not scary.
+
+5. fx-beam-gold.png
+One straight horizontal energy beam bolt going from left to right: a bright white core with a warm gold outer glow and thin sky-blue edge lines, a round bright flare at the left end, the right end slightly tapered. Keep it within the canvas with margin.
+
+6. fx-beam-slash.png
+One curved crescent slash arc left by a swinging energy sword: a bright white-gold arc with a soft gold trail fading out, a few tiny gold sparks along the curve, shaped like an elegant Lao sword curve.
+
+7. fx-drum-shield.png
+One round transparent energy shield seen from the front: a pale sky-blue glassy disc with a glowing gold rim, and in its centre a faint gold pattern of an ancient Lao bronze kettle drum top (a radiant star in the middle and concentric rings). No animals, no figures. Semi-transparent so cards behind can still be seen.
+
+8. fx-weld-sparks.png
+One burst of bright welding sparks: many short thin orange-gold and white sparks shooting outward from a small white-hot centre point, a few tiny glowing drops. Crisp and bright.
+
+9. fx-armor-plate.png
+One single curved robot armor plate flying through the air: white enamel with gold trim and a small gold kranok engraving, a thin glowing gold seam along one edge, slight motion streaks behind it.
+
+10. fx-target-ring.png
+One futuristic targeting reticle: a thin glowing sky-blue circle with four small gold corner brackets and short tick marks, a tiny bright dot in the centre, the rest of the centre transparent. Abstract shapes only, never readable letters or numbers.
+
+Generate all ten individual PNG files and deliver them together as lao-legend-deck26-effects.zip. If ZIP delivery is unavailable, provide ten separate downloadable PNG files. Do not put them in a collage, grid, contact sheet or sprite sheet.

@@ -1,0 +1,38 @@
+ເດັກ 26 · ກອງທັບຫຸ່ນຮົບ ລ້ານຊ້າງ · ສຽງເອັບເຟັກ 6 ສຽງ
+ດຽວນີ້ເດັກ 26 ໃຊ້ສຽງເກົ່າທີ່ເກມມີແລ້ວ. ສຽງເຫຼົ່ານີ້ຈະມາແທນ ໃຫ້ເຂົ້າກັບຫຸ່ນຮົບ.
+
+=====================================================================================================
+ເຮັດຢູ່ໃສ: ElevenLabs → Sound Effects
+=====================================================================================================
+  1. ເຂົ້າ elevenlabs.io → ເມນູຊ້າຍ "Sound Effects".
+  2. ກັອບ PROMPT (ພາສາອັງກິດ) ຂອງສຽງນັ້ນ ໄປວາງໃນຊ່ອງພິມ.
+  3. ກົດປຸ່ມຕັ້ງຄ່າ (ຮູບເຟືອງ ຫຼື Settings):
+       Duration = ຕາມວິນາທີທີ່ຂຽນໄວ້
+       Prompt influence = ສູງ (ປະມານ 70%)
+  4. ກົດ Generate → ມັນຈະອອກມາຫຼາຍອັນ → ຟັງ → ດາວໂຫຼດອັນທີ່ມັກທີ່ສຸດ.
+  5. ຕັ້ງຊື່ໄຟລ໌ຕາມ [ຊື່] ຂ້າງລຸ່ມ. ຫຼື ສົ່ງມາຊື່ເດີມກໍ່ໄດ້ ແຕ່ບອກວ່າແມ່ນສຽງໃດ.
+
+ສົ່ງ: ຈະສົ່ງເທື່ອລະອັນ ຫຼື ໃສ່ zip ທັງໝົດກໍ່ໄດ້. ສຽງດັງຄ່ອຍບໍ່ເປັນຫຍັງ ຂ້ອຍຈະປັບໃຫ້ເທົ່າກັນ.
+ລິຂະສິດ: ແຜນຟຣີ ໃຊ້ໄດ້ສະເພາະບໍ່ຫາເງິນ. ເກມມີຮ້ານຂາຍເພັດ ສະນັ້ນ ຕອນເຮັດສຽງແທ້ໃຫ້ໃຊ້ແຜນເສຍເງິນ.
+ທຸກສຽງ: ບໍ່ມີສຽງຄົນເວົ້າ, ບໍ່ມີດົນຕີ, ບໍ່ໜ້າຢ້ານ.
+
+=====================================================================================================
+ສຽງ 6 ອັນ
+=====================================================================================================
+[mechland] ຫຸ່ນຮົບລົງສະໜາມ (ຕົກລົງຈາກຟ້າ, ໄອພົ່ນສີຟ້າ, ຕາກະພິບແສງ) · 2 ວິນາທີ
+  PROMPT: a giant robot landing from the sky, a short rising jet thruster whoosh, a heavy metal stomp with a deep thud and a little dust, then hydraulic hiss and two quick electronic beeps as its eyes light up, powerful sci-fi game sound effect, no voice, no music
+
+[boarding] ນັກບິນຂຶ້ນຂັບ (ເຂົ້າຫ້ອງນັກບິນ, ລະບົບເປີດ) · 1.5 ວິນາທີ
+  PROMPT: a pilot jumps into a robot cockpit, a quick hatch slide and clunk, then a rising electronic power-up hum with a short sequence of bright computer chirps, systems online, sci-fi game sound effect, no voice
+
+[beamsaber] ດາບແສງ (ດາບແສງເປີດ ແລ້ວຟັນ) · 1 ວິນາທີ
+  PROMPT: an energy beam sword ignites with a crackling electric snap and a warm golden hum, then one fast swinging slash whoosh, heroic sci-fi game sound effect, no voice, original sound
+
+[beamshot] ລຳບີມ (ຫຸ່ນຊຸ່ມຍິງ, ໂດຣນປືນໃຫຍ່) · 1 ວິນາທີ
+  PROMPT: a charged energy beam rifle shot, a short high charging whine, then a bright powerful beam blast with a sizzling tail and a soft distant impact, sci-fi game sound effect, no voice
+
+[mechfuse] ຮ່ວມຮ່າງຫຸ່ນ (ໂດຣນບິນມາຕໍ່, ປະກາຍໄຟເຊື່ອມ, ລັອກ) · 2.5 ວິນາທີ
+  PROMPT: robot parts flying together and combining, mechanical whirs and servo motors, several heavy metal clamps locking into place one after another with welding sparks crackling, ending with a big satisfying power-up hum and a bright golden chime, epic sci-fi game sound effect, no voice
+
+[coreglow] ໂໝດແສງຂວັນ (ແກ່ນຂວັນໃນອົກສ່ອງແສງທອງ ທົ່ວຕົວຫຸ່ນ) · 2.5 ວິນາທີ
+  PROMPT: a robot's golden energy core awakening, a deep heartbeat-like pulse, then a rising shimmering wave of warm golden energy with soft temple-bell-like chimes, glowing power surge spreading through metal armor, majestic and hopeful, game sound effect, no voice, not scary
