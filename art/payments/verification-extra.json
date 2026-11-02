@@ -1,37 +1,37 @@
 {
-  "bank_feedback" : "Owner scanned round 2 in BCEL One: recipient and 10000 LAK both correct",
-  "bank_feedback_date" : "2026-10-31",
-  "format" : "BCEL supplied LAPNET QR with method 12 and amount tag 54",
-  "payment_executed" : false,
-  "production_enabled" : false,
-  "source_payload_sha256" : "94ef57b7a3b4c2b906429c510fc77f7e5bfca20e80675f157e720ac1a402d930",
-  "variants" : [
+  "bank_feedback": "Owner scanned 250000, 400000 and 750000 LAK in BCEL One: recipient and amounts all correct",
+  "bank_feedback_date": "2026-11-02",
+  "format": "BCEL supplied LAPNET QR with method 12 and amount tag 54",
+  "payment_executed": false,
+  "production_enabled": false,
+  "source_payload_sha256": "94ef57b7a3b4c2b906429c510fc77f7e5bfca20e80675f157e720ac1a402d930",
+  "variants": [
     {
-      "amount_lak" : 250000,
-      "bank_app_verified" : false,
-      "crc_valid" : true,
-      "file" : "bcel-onepay-250000-v2.png",
-      "point_of_initiation" : "12",
-      "same_recipient_and_currency" : true,
-      "scan_round_trip" : true
+      "amount_lak": 250000,
+      "bank_app_verified": true,
+      "crc_valid": true,
+      "file": "bcel-onepay-250000-v2.png",
+      "point_of_initiation": "12",
+      "same_recipient_and_currency": true,
+      "scan_round_trip": true
     },
     {
-      "amount_lak" : 400000,
-      "bank_app_verified" : false,
-      "crc_valid" : true,
-      "file" : "bcel-onepay-400000-v2.png",
-      "point_of_initiation" : "12",
-      "same_recipient_and_currency" : true,
-      "scan_round_trip" : true
+      "amount_lak": 400000,
+      "bank_app_verified": true,
+      "crc_valid": true,
+      "file": "bcel-onepay-400000-v2.png",
+      "point_of_initiation": "12",
+      "same_recipient_and_currency": true,
+      "scan_round_trip": true
     },
     {
-      "amount_lak" : 750000,
-      "bank_app_verified" : false,
-      "crc_valid" : true,
-      "file" : "bcel-onepay-750000-v2.png",
-      "point_of_initiation" : "12",
-      "same_recipient_and_currency" : true,
-      "scan_round_trip" : true
+      "amount_lak": 750000,
+      "bank_app_verified": true,
+      "crc_valid": true,
+      "file": "bcel-onepay-750000-v2.png",
+      "point_of_initiation": "12",
+      "same_recipient_and_currency": true,
+      "scan_round_trip": true
     }
   ]
 }
