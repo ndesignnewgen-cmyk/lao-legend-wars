@@ -1,5 +1,5 @@
 <meta name="security-build" content="1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-cTgAijvpWO33DL5q1sL2Gj6oi4DCL2f/4+afdaKLj7E='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com https://xahuvoounkdojfsvnfaj.supabase.co; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co wss://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-I6KFcvUfUhjuHUhbSzcpaX8/yY7FmDbF2NBu2iCfxzs='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com https://xahuvoounkdojfsvnfaj.supabase.co; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co wss://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="referrer" content="no-referrer">
 <meta charset="utf-8">
 <script>
@@ -6402,18 +6402,24 @@ const PF = {
   neon:[['car','r2l',0,10,.34,9,0],['car2','l2r',0,28,.3,12,5],['hex','pop',8,58,.22,4,0],['hex','pop',85,52,.2,5,2.2],['drone','bob',90,12,.16,3.2,0],['drone','bob',6,18,.14,3.8,1.5]]};
 const PF_AR = {"bangfai-burst":0.922,"bangfai-burst2":0.863,"bangfai-flag1":0.322,"bangfai-flag2":0.317,"bangfai-flag3":0.339,"bangfai-flag4":0.35,"bangfai-marigold":1.176,"bangfai-rocket":0.22,"bangfai-rocket2":0.22,"heuafai-boat":2.533,"heuafai-flame":0.508,"heuafai-krathong":1.099,"heuafai-krathong2":1.064,"heuafai-krathong3":1.07,"heuafai-lantern":0.688,"heuafai-star":0.82,"himmasky-cloud":1.97,"himmasky-fly1":1.382,"himmasky-fly2":1.405,"himmasky-fly3":1.393,"himmasky-gate":1.766,"himmasky-lotus":1.461,"himmasky-petal1":0.742,"himmasky-petal2":1.062,"himmasky-petal3":0.975,"himmasky-petal4":0.642,"naga-bubble":1.039,"naga-bubble2":1.009,"naga-fish":1.732,"naga-fish2":1.803,"naga-naga":0.7,"naga-pearl":0.986,"naga-wave":0.855,"neon-car":4.518,"neon-car2":2.013,"neon-drone":1.27,"neon-hex":1.019,"neon-naga":0.425,"neon-thatluang":1.024};   // each sprite's width / height
 /* ---------- living arenas: light and particles drawn every frame on a canvas under each lane's cards ---------- */
-const LF = {raf:0, last:0, imgs:{}, st:new WeakMap(), tiles:{}};
+const LF = {raf:0, last:0, prev:0, ema:.016, slow:0, n:0, lite:false, imgs:{}, st:new WeakMap(), tiles:{}};
 const lfImg = n => LF.imgs[n] || (LF.imgs[n] = Object.assign(new Image(), {src:ART + 'arena/fx/' + n + '.webp'}));
 const lfRnd = (a, b) => a + Math.random() * (b - a);
 function lfStart(){
   if(LF.raf || !LF_SCENES[pmArena()]) return;
-  LF.last = performance.now();
+  LF.last = LF.prev = performance.now();
   const step = now => {
     const id = pmArena(), cvs = S && !S.over && LF_SCENES[id] && !REDUCE && !document.hidden ? document.querySelectorAll('.pfc') : [];
     if(!cvs.length){ LF.raf = 0; return; }
     LF.raf = requestAnimationFrame(step);
-    const dt = Math.min(.05, (now - LF.last) / 1000), t = now / 1000; LF.last = now;
-    const lite = FX.lite || SET.fx === 'lite', dpr = Math.min(lite ? 1 : 2, devicePixelRatio || 1);
+    // a slow device (the lane light runs every frame, on top of the game) drops to light mode for the session:
+    // half the frames, one pixel per point and fewer particles. Nothing is drawn while a big effect covers the board.
+    const gap = (now - LF.prev) / 1000; LF.prev = now;
+    if(gap > 0 && gap < .5){ LF.ema = LF.ema * .95 + gap * .05; LF.slow = LF.ema > .021 ? LF.slow + gap : 0; if(LF.slow > 2) LF.lite = true; }
+    const lite = FX.lite || SET.fx === 'lite' || LF.lite;
+    if(FX.big || (lite && ++LF.n % 2)) return;
+    const dt = Math.min(.07, (now - LF.last) / 1000), t = now / 1000; LF.last = now;
+    const dpr = Math.min(lite ? 1 : 2, devicePixelRatio || 1);
     cvs.forEach((cv, k) => {
       const w = cv.clientWidth, h = cv.clientHeight; if(!w || !h) return;
       if(cv.width !== Math.round(w * dpr) || cv.height !== Math.round(h * dpr)){ cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); }
