@@ -136,6 +136,9 @@ online play, ranked, friends, a card shop with earned gems and owner-approved BC
 2. `DECKS` entry at the end: `{no, name, legend, aggr, style, list:{id:n}}`, 30 cards, max 3 copies, 1 legend.
 3. Bot scores in `botPick`, new fields in `cloneState`, a tale in `TALES`, `ALT` entries, a box in `BOXES`.
 4. Art: `art/<id>.jpg` → `bash tools/webp.sh`. Until art arrives use `ph:'emoji'`.
+   The deck's image prompt file must ALSO ask for full-body cutouts (owner, 2026-11-02): every main character with a showcase
+   entrance (legend, cost 5+, special art) head to feet, PNG with a transparent background, same pose and outfit as its card,
+   named `cut-<id>` / `cut-alt-<id>` → `art/cut/<id>.webp` + a `CUTS` box.
 5. Balance with `__sim` to 45–56%.
 6. Server: a new `supabase/fN.sql` with catalog rows (`rarity`: legend → 'legend', cost ≥ 5 → 'rare', else 'common';
    fusion/ritual/token cards are not packable) and, for a new deck, `eco_game` with the longer legend array.

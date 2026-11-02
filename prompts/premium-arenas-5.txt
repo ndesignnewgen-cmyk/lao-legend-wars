@@ -253,3 +253,15 @@ Create 6 SEPARATE images, one after another, as game effect sprites for a futuri
 5 [neon-thatluang] The That Luang stupa of Vientiane as a hologram made of light: golden-cyan glowing outline and translucent faces, fine scan lines, small light particles around the spire, front view, symmetrical. Square 1:1.
 6 [neon-naga] A Lao naga serpent head and upper body made of cyan hologram light, side view facing RIGHT, rising in an elegant S curve, translucent with bright cyan edges and pink highlights, kranok crest flames on its head, small light particles. Tall format 1:2.
 Remember: 6 separate images, transparent backgrounds, no text.
+
+
+#####################################################################################################
+ໄຫຫີນ · ຝົນດາວ · ສຽງ 2 ສຽງ (02/11/2026)
+#####################################################################################################
+ElevenLabs → Sound Effects · Prompt influence ~70% · ຕັ້ງຊື່ໄຟລ໌ຕາມ [ຊື່] → ສົ່ງມາ.
+
+1. [meteor-amb] ສຽງບັນຍາກາດ · ວົນ · 20 ວິນາທີ (ເປີດ Loop ຖ້າມີ)
+   PROMPT: calm magical night ambience loop on an ancient plain of stone jars under a starry sky, soft wind over grass, gentle crickets, a faint warm hum of starlight, occasional soft high shimmering chimes like distant falling stars, peaceful and wondrous, seamless loop, no music, no voices
+
+2. [meteor-legend] ລົງກາດຕຳນານ · 3 ວິນາທີ
+   PROMPT: a giant shooting star crossing the sky for a legendary card, a rising airy whoosh with sparkling chimes, then a deep warm boom as it lands and a shower of glittering star sparkles fading out, epic and magical, no voices
