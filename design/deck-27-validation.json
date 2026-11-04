@@ -25,7 +25,7 @@
     "deck27LegendReward": true,
     "deck26LegendRewardUnchanged": true,
     "lossPayoutUnchanged": true,
-    "liveSupabaseChanged": false
+    "liveSupabaseChanged": true
   },
   "ui": {
     "desktop": [
@@ -54,9 +54,33 @@
       "overflow": 0,
       "clippedText": 0,
       "morphMatches": true
+    },
+    "homeStageCutouts": {
+      "decks": [
+        1,
+        5,
+        25,
+        26,
+        27
+      ],
+      "sizes": [
+        [
+          1280,
+          800
+        ],
+        [
+          430,
+          932
+        ],
+        [
+          1000,
+          540
+        ]
+      ],
+      "zeroSizeImages": 0
     }
   },
-  "productionDeployed": false,
+  "productionDeployed": true,
   "visualEffects": {
     "entrances": 9,
     "domChecks": 62,
@@ -93,5 +117,22 @@
     "horizontalOverflow": false,
     "manifest": "design/deck-27-audio.json",
     "specialArtSingleCueVerified": true
+  },
+  "deployment": {
+    "date": "2026-11-04",
+    "rulesCommit": "d4d5ca699fcd5b1bc6544ef8abff3e28a0e53fcc",
+    "url": "https://laolegendwars.com/",
+    "cloudflarePages": "success",
+    "githubPages": "success",
+    "securityRegression": "success",
+    "f24Applied": true,
+    "catalogRows": 15,
+    "packableRows": 15,
+    "rewardFunctionMatchesMigration": true,
+    "rewardPrivilegesPreserved": true,
+    "secureGameDeployed": true,
+    "verifiedArtAndSounds": 120,
+    "sourceAndPublishedEngineMatch": true,
+    "signedInGameplayTested": false
   }
 }

@@ -2044,7 +2044,7 @@ body{background:
   .home2 .hbg::after{background:linear-gradient(90deg,#0b071088 0%,#0b0710aa 38%,#0b0710e8 62%,#0b0710f5 100%),linear-gradient(0deg,#0b0710cc 0%,transparent 35%)}
   .h2main{align-items:center}.h2left{position:relative;display:flex;flex-direction:column}
   .h2logo{position:absolute;left:0;top:0;margin:0}.h2logo .logoimg{width:min(190px,15vw)}
-  .h2stage{height:auto;flex:1;min-height:min(520px,60vh);-webkit-mask:none;mask:none;background:none;overflow:visible}
+  .h2stage{height:min(520px,60vh);flex:none;min-height:min(520px,60vh);-webkit-mask:none;mask:none;background:none;overflow:visible}
   .h2leg{--iw:min(calc(86cqh * var(--k1)),calc(80cqw * var(--k2)));left:calc(56cqw - var(--cx) * var(--iw));top:calc(93cqh - var(--cb) * var(--iw));transform-origin:50% 100%}
   .h2glow{display:block;position:absolute;left:56%;bottom:4%;width:min(440px,80%);height:110px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(ellipse,#ffcf5a66,#ff7a2a22 45%,transparent 70%);animation:h2glow 3s ease-in-out infinite alternate}
   .h2ring{display:block;position:absolute;left:56%;bottom:7%;width:min(380px,70%);height:76px;transform:translateX(-50%);border-radius:50%;border:2px solid #ffd23d66;box-shadow:0 0 18px #ffd23d55}
@@ -2054,7 +2054,7 @@ body{background:
   .h2minis{gap:10px}
 }
 @keyframes h2glow{to{opacity:.6;transform:translateX(-50%) scale(1.06)}}
-@media (orientation:landscape) and (max-height:560px){ .h2logo{display:none}.h2stage{min-height:46vh}.h2stage .h2deck{width:min(96px,18%)} }
+@media (orientation:landscape) and (max-height:560px){ .h2logo{display:none}.h2stage{height:46vh;min-height:46vh}.h2stage .h2deck{width:min(96px,18%)} }
 /* ---------- ເສັ້ນທາງຕຳນານ (levels 1-100) ---------- */
 .road{position:relative;height:100%;overflow-y:auto;isolation:isolate;padding:14px max(14px,env(safe-area-inset-right,0px)) 40px max(14px,env(safe-area-inset-left,0px));display:flex;flex-direction:column;gap:12px}
 .rbg{position:fixed;inset:-10px;z-index:-1;background:#120f18 url(art/bg/road-bg.webp) center/cover;filter:blur(2px) brightness(.42) saturate(1.1)}
