@@ -22,8 +22,8 @@ function visualResult(){
    if(['activate','trap','loc','draw','rite','gather','baci','banner','home','yanfull','holywater'].includes(kind))args[0]=side===1?1-args[0]:args[0];
    if(kind==='cast'){args[0]=side===1?1-args[0]:args[0];args[1]=key(args[1]);}
    if(['lunge','fireflies','beam'].includes(kind)){args[0]=key(args[0]);args[1]=key(args[1]);}
-   if(['float','ring','heal','buff','weak','rocket','curse','tornado','trip','grab','slash','mland','board','coreglow','saber','drumshield','mechfuse','dinochange','dinocue'].includes(kind))args[0]=key(args[0]);
-   if(kind==='dinocue'&&args[3])args[3]=key(args[3]);
+   if(['float','ring','heal','buff','weak','rocket','curse','tornado','trip','grab','slash','mland','board','coreglow','saber','drumshield','mechfuse','dinochange','dinocue','bladecue'].includes(kind))args[0]=key(args[0]);
+   if((kind==='dinocue'||kind==='bladecue')&&args[3])args[3]=key(args[3]);
    if(kind==='activate'&&args[3])args[3]=key(args[3]);
    // A hidden character must not reveal its picture through an animation.
    if(kind==='enter'&&!state.p.flatMap(p=>p.field).some(c=>c.uid===args[0]&&c.id!=='back'))kind=null;
@@ -55,6 +55,7 @@ fxCurse=k=>captureVisual('curse',[k]);fxTornado=k=>captureVisual('tornado',[k]);
 fxLoc=(side,id)=>captureVisual('loc',[side,id]);fxBuff=(...a)=>captureVisual('buff',a);fxWeak=k=>captureVisual('weak',[k]);
 fxFireflies=(...a)=>captureVisual('fireflies',a);fxGrab=k=>captureVisual('grab',[k]);
 fxMechLand=k=>captureVisual('mland',[k]);fxBoard=k=>captureVisual('board',[k]);fxCoreGlow=k=>captureVisual('coreglow',[k]);fxBeam=(a,b)=>captureVisual('beam',[a,b]);
+fxBladeCue=(...a)=>captureVisual('bladecue',a);
 fxDinoChange=(...a)=>captureVisual('dinochange',a);fxDinoCue=(...a)=>captureVisual('dinocue',a);
 fxSaber=k=>captureVisual('saber',[k]);fxDrumShield=k=>captureVisual('drumshield',[k]);fxMechFuse=k=>captureVisual('mechfuse',[k]);
 fxHome=(side,keys)=>captureVisual('home',[side,keys]);fxYanFull=(side,keys)=>captureVisual('yanfull',[side,keys]);fxHolyWater=side=>captureVisual('holywater',[side]);

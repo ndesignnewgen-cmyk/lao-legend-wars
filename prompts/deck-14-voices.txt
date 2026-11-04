@@ -1,0 +1,42 @@
+﻿ເດັກ 14 · ບົດພາກລາວ 6 ບົດ
+
+ເຈນແຍກໄຟລ໌; ອ່ານສະເພາະ LINE. ແນະນຳ 2–3.2 ວິນາທີຕໍ່ບົດ.
+ສຽງເວົ້າລ້ວນ; ມີເພງ/ສຽງດາບໃນເກມແລ້ວ.
+champathong ແລະ alt-champathong ໃຊ້ສຽງດຽວກັນ.
+ຟັງຄຳລາວກ່ອນບັນທຶກ; ຖ້າເພີ້ນ ອັດສຽງລາວຈິງຕາມບົດນີ້ກໍໄດ້.
+
+1. ນາງຈຳປາ · ດາບດອກໄມ້
+FILE: nangchampa.mp3
+ນ້ຳສຽງ: ສຽງສາວສົດໃສ ອົບອຸ່ນ ແລະກ້າຫານ. ເລີ່ມນຸ່ມ ແລ້ວເນັ້ນຄຳວ່າ «ປົກປ້ອງ».
+VOICE / PERFORMANCE: Native Lao, natural Vientiane pronunciation. Female youthful anime heroine, bright medium-high pitch, clear and warm, a smile and brave resolve. Start gently, take a brief dramatic pause, then deliver the final phrase with confident protective energy. Natural speech, not singing. Clean studio recording; speech only.
+LINE: ຄົມດາບຈຳປາ… ປົກປ້ອງທຸກຄົນ!
+
+2. ສາວດາບສອງມື
+FILE: dapsongmue.mp3
+ນ້ຳສຽງ: ສຽງສາວໂທນກາງ ສຸຂຸມ ເທ້ ແລະກະຊັບ. ທ້າຍປະໂຫຍກໄວ ແລະຄົມຊັດ.
+VOICE / PERFORMANCE: Native Lao, natural Vientiane pronunciation. Female youthful anime swordswoman, medium pitch slightly lower than the bright lead heroine, cool and composed, precise diction and quiet confidence. A short poised pause, then a quick clean finish with agile energy. Natural speech, not singing. Clean studio recording; speech only.
+LINE: ສອງຄົມດາບ… ໄວກວ່າສາຍລົມ!
+
+3. ອາຈານສອນດາບ
+FILE: ajandap.mp3
+ນ້ຳສຽງ: ສຽງຜູ້ຍິງຜູ້ໃຫຍ່ ອົບອຸ່ນ ໜັກແໜ້ນ ແລະໃຈດີ. ເວົ້າແບບອາຈານໃຫ້ກຳລັງໃຈລູກສິດ.
+VOICE / PERFORMANCE: Native Lao, natural Vientiane pronunciation. Female teacher around forty, warm medium-low pitch, calm authority, kind and reassuring. Measured cadence, clear diction, gently encouraging her students with a firm uplifting finish. Natural speech, not singing. Clean studio recording; speech only.
+LINE: ຕັ້ງສະຕິ… ແລ້ວກ້າວໄປນຳກັນ!
+
+4. ຄູ່ດາບເດືອນເພັງ
+FILE: khudapphen.mp3
+ນ້ຳສຽງ: ສຽງສາວມັ່ນໃຈ ສົດໃສ ແລະຮູ້ສຶກເຖິງພະລັງຂອງທີມ. ເວົ້າຊັດເປັນຈັງຫວະ.
+VOICE / PERFORMANCE: Native Lao, natural Vientiane pronunciation. One female youthful anime fusion heroine, clear medium-high pitch, bright and confident, joyful teamwork and focused resolve. Speak the two phrases rhythmically with a brief pause and a united triumphant finish. One clean voice take, not a chorus. Natural speech, not singing. Clean studio recording; speech only.
+LINE: ສອງຄົມດາບ… ຫົວໃຈດຽວກັນ!
+
+5. ເທວີດາບຈຳປາທອງ · ປົກກະຕິ
+FILE: champathong.mp3
+ນ້ຳສຽງ: ສຽງສາວໃສ ມີພະລັງ ແລະສະຫງ່າ. ໃຫ້ຄວາມຮູ້ສຶກວ່າສອງພະລັງລວມເປັນໜຶ່ງ.
+VOICE / PERFORMANCE: Native Lao, natural Vientiane pronunciation. Female youthful anime fusion heroine, luminous clear medium-high voice, elegant, courageous and confident. A gentle poised opening builds into a strong uplifting final declaration. Preserve youthful warmth and a natural speaking tone. Clean studio recording; speech only, not singing.
+LINE: ສອງພະລັງ… ລວມເປັນໜຶ່ງ!
+
+6. ເທວີດາບຈຳປາທອງ · ອາດພິເສດແປງຮ່າງ
+FILE: alt-champathong.mp3
+ນ້ຳສຽງ: ໃຊ້ສຽງດຽວກັບເທວີດາບປົກກະຕິ. ເລີ່ມເບົາໆ ແລ້ວເນັ້ນ «ຈົ່ງເບັ່ງບານ!» ໃຫ້ຮູ້ສຶກວ່າພະລັງຕື່ນຂຶ້ນ.
+VOICE / PERFORMANCE: Use the SAME saved voice as champathong. Native Lao, natural Vientiane pronunciation. The same female youthful anime fusion heroine, clear and luminous. Begin softly with wonder, hold one brief pause, then rise into an excited powerful transformation call on the final phrase. Confident and joyful, never harsh or shrill. Natural speech, not singing. Clean studio recording; speech only.
+LINE: ແສງຈຳປາ… ຈົ່ງເບັ່ງບານ!

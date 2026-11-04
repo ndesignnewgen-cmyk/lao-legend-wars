@@ -1,0 +1,36 @@
+﻿ເດັກ 14 · ພຣອມ SFX ສຳລັບ ElevenLabs
+
+ສຽງ ElevenLabs ຂອງເຈົ້າໃສ່ໃນເກມແລ້ວ. ພຣອມດ້ານລຸ່ມໃຊ້ເຈນສຽງໃໝ່ໃນ ElevenLabs ເພື່ອປ່ຽນໄດ້. ເຈນແຍກເທື່ອລະສຽງ, ບໍ່ລວມເປັນໄຟລ໌ດຽວ.
+
+ຊັກດາບ · 0.85 s · blade-draw.mp3
+One elegant Japanese katana draw: short dry sliding steel, delicate metallic ring, clean fast finish. Close-up anime game Foley, no voice or music.
+
+ຟັນດາບເງິນ · 0.8 s · blade-slash.mp3
+One fast precise katana slash through air, silky sharp whoosh and a small bright metal glint. Light agile school sword heroine, no impact on flesh, no voice or music.
+
+ດາບຄູ່ · 1.15 s · blade-double.mp3
+Two clearly separated quick katana and wakizashi air slashes, left then right, crisp crossed silver ringing finish. Agile anime sword combo, no voices, no music.
+
+ໂລ້ຈຳປາ · 1.3 s · blade-guard.mp3
+One rounded wooden practice shield block with a clean soft thock, followed by an airy magical glass shimmer blooming like a white plumeria flower. No harsh crash, voices or music.
+
+ກີບຈຳປາຮັກສາ · 1.9 s · blade-heal.mp3
+A gentle upward floral breeze, soft rustling petals and three delicate bright bell glints, warm reassuring healing magic. One short game cue, no music or voices.
+
+ລວມຈິດດາບ · 1.6 s · blade-focus.mp3
+Sword-spirit focus charging: a narrow airy rising shimmer, restrained silver overtones gathering to one clear bell ping. Refined magical focus cue, no engine, voice or music.
+
+ຝຶກດາບໄມ້ · 1.1 s · blade-training.mp3
+Two light wooden bokken practice taps, dry polished wood with a brief air swish and soft room tail. Friendly modern school sword club, no voices or music.
+
+ນາງຈຳປາອອກໂຕ · 2.5 s · blade-legend.mp3
+A graceful legendary sword heroine entrance: silk wind sweeps up, a clear silver katana draw, then warm golden plumeria sparkle blooms. Luxurious anime game reveal, no voice, song, drums or explosion.
+
+ຟ້ອນດາບດອກຈຳປາ · 2.0 s · blade-dance.mp3
+Three elegant accelerating sword air sweeps spiraling through floating plumeria petals, final precise bright silver-gold cut and short crystal tail. Distinct rhythmic attacks, no voices or music.
+
+ຄູ່ດາບເດືອນເພັງ · 2.7 s · blade-fusion.mp3
+Two silvery magical streams converge from left and right, paired blade rings lock together, a soft moonlit crystal bloom finishes the fusion. Elegant airy anime transformation, no voice or music.
+
+ເທວີດາບຈຳປາທອງ · 3.2 s · blade-ultimate.mp3
+Ultimate golden plumeria sword awakening: a short low warm pulse, ascending silver and gold magical wind, two powerful clean air slashes, one radiant five-petal crystal bloom with shimmering decay. Majestic but gentle, no voices, music, gunfire or explosion.

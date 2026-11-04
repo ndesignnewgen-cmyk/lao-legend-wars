@@ -1,0 +1,41 @@
+// Safari QA: the special-art reveal is richer, bounded, skippable and rules-neutral.
+const wait=ms=>new Promise(r=>setTimeout(r,ms)),checks=[],ok=(v,n)=>{if(!v)throw Error(n);checks.push(n);};
+for(let i=0;i<100&&!document.querySelector('iframe')?.contentWindow.__dbg;i++)await wait(100);
+document.getElementById('viewBoard').click();
+const f=document.querySelector('iframe'),doc=f.contentDocument,win=f.contentWindow,D=win.__dbg,saved={...D.style.set({})};
+D.style.set({sfx:false,fx:'full',speed:.5});
+const before=JSON.stringify(D.S.p),stop=()=>D.fx.state.waits.slice().forEach(fn=>fn());
+let promise=D.fx.show('champathong',false),el=doc.querySelector('.show');
+const normal={sprites:el.querySelectorAll('.blade-sprite').length,duration:parseFloat(el.style.getPropertyValue('--dur'))};
+ok(!el.classList.contains('blade-special')&&normal.sprites===7,'normal art keeps its original seven sprites');
+stop();await promise;
+promise=D.fx.show('champathong',true);el=doc.querySelector('.show');
+ok(el.classList.contains('blade-special')&&el.dataset.cut==='alt-champathong','special art uses its own reveal and exact cutout');
+ok(el.querySelectorAll('.blade-sprite').length===13,'special art has thirteen bounded painted sprites');
+ok(el.querySelectorAll('.blade-special-star').length===12,'twelve rising stars stay local to the figure');
+ok(parseFloat(el.style.getPropertyValue('--dur'))>normal.duration,'special reveal lasts longer than normal');
+await Promise.all([...el.querySelectorAll('img')].map(im=>im.decode()));
+ok([...el.querySelectorAll('img')].every(im=>im.naturalWidth>0),'all special images decode');
+ok(el.querySelectorAll('[data-asset="champa-ring"]').length===2,'opposing floral halos');
+ok(el.querySelectorAll('[data-asset="champa-bloom"]').length===3,'three blooms form the platform');
+ok(!el.querySelector('.sbg:not([hidden])')||win.getComputedStyle(el.querySelector('.sbg')).display==='none','no full-screen backdrop image');
+ok(win.getComputedStyle(el).backgroundColor==='rgba(0, 0, 0, 0)','stage background remains transparent');
+ok(win.getComputedStyle(el.querySelector('.sshine')).display==='none','bright shine does not wash out the face or outfit');
+const animations=[...el.querySelectorAll('*')].flatMap(n=>n.getAnimations());
+ok(animations.length>20,'layered reveal animates independently');
+stop();await promise;
+ok(!doc.querySelector('.show,.skiphint,.blade-special-star'),'skip removes every special layer');
+ok(animations.every(a=>a.playState==='idle'),'skip cancels owned animations');
+ok(D.fx.state.big===0&&D.fx.state.waits.length===0,'skip releases the input lock');
+for(const mode of ['short','off']){
+ D.style.set({fx:mode});promise=D.fx.show('champathong',true);el=doc.querySelector('.show');
+ ok(mode==='off'?!el:el.querySelectorAll('.blade-sprite').length===1,mode+' limits visual work');
+ await promise;ok(!doc.querySelector('.show,.blade-special-star'),mode+' cleans up');
+}
+D.style.set({fx:'full',speed:.12});await D.fx.show('champathong',true);
+ok(!doc.querySelector('.show,.skiphint'),'natural completion cleans up');
+ok(JSON.stringify(D.S.p)===before,'normal and special reveals have identical gameplay state');
+ok(D.morphCheck()===true,'board remains consistent');
+ok(!(win.__errs||[]).length,'no browser errors');
+D.style.set(saved);
+return JSON.stringify({passed:checks.length,viewport:[innerWidth,innerHeight],normal,special:{sprites:13,stars:12},checks});

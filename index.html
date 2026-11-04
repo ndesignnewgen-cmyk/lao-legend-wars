@@ -1,5 +1,5 @@
 <meta name="security-build" content="1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-jTediQyx+XFv3t7AoUOGh73sFJR/vuLm/iVAeSsCSRw='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com https://xahuvoounkdojfsvnfaj.supabase.co; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co wss://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-8qHVz1U3YEwutB2StNAZc8nkRBwDJCRaOusQBTLowng='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com https://xahuvoounkdojfsvnfaj.supabase.co; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co wss://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="referrer" content="no-referrer">
 <meta charset="utf-8">
 <script>
@@ -2598,6 +2598,33 @@ body{background:
 @media(max-width:520px){.premium-shop .bhead .wallet{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%;gap:5px}.premium-shop .wallet>span,.premium-shop .pm-wallet{display:flex;align-items:center;justify-content:center;gap:3px;padding:6px 3px;font-size:11px;white-space:nowrap}.premium-shop .pm-wallet .pm-icon,.premium-shop .wallet .uic{width:20px;height:20px;margin:0}.premium-shop .pm-wallet small{width:15px;height:15px;line-height:15px}.premium-shop .pm-wallet{gap:2px}.premium-shop .wallet b{font-size:11px}.premium-shop .bhead .wallet>span:last-child{font-size:10px}}
 .pm-prepared{padding:10px 14px;border:1px solid var(--sheet-line,#bfa36d);border-radius:12px;margin:14px 0;text-align:center}.pm-prepared p{font-size:12px;line-height:1.8}.pm-prepared .pm-qr{width:min(240px,100%);margin:8px auto}
 .pm-amount-config{margin:14px 0;border:1px solid var(--sheet-line,#bfa36d);border-radius:10px;padding:12px}.pm-amount-config summary{cursor:pointer;font-weight:bold}.pm-amount-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}.pm-amount-grid>div{min-width:0;padding:8px;border:1px solid var(--sheet-line,#bfa36d);border-radius:9px}.pm-amount-grid .pm-qr{width:100%;padding:8px;margin:8px auto}.pm-amount-grid label{font-size:11px}.pm-amount-grid input{font-size:11px!important}@media(max-width:520px){.pm-amount-grid{grid-template-columns:1fr}}
+
+/* Deck 14: transparent painted sprites; a local disc only behind the character. */
+.blade-fx{position:fixed;width:1px;height:1px;z-index:32;isolation:isolate;pointer-events:none}
+.blade-sprite{position:absolute;transform:translate(-50%,-50%);pointer-events:none}
+.blade-sprite img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 5px #ffe7ab33)}
+.blade-entrance,.blade-materials{position:absolute;left:50%;top:39%;width:1px;height:1px;z-index:2;pointer-events:none}
+.blade-materials{z-index:4}.blade-materials img{position:absolute;width:clamp(48px,12vw,92px);left:0;top:0;translate:-50% -50%;border-radius:7px;box-shadow:0 0 16px #ffe0a744}
+.show.blade-scene.legend-scene .sbg,.show.blade-scene.legend-scene .stint,.show.blade-scene.legend-scene .streaks{display:none}
+.show.blade-scene.legend-scene .scene-disc{width:min(88vw,700px);height:min(68vh,640px);background:radial-gradient(ellipse,#13263be6 0%,#122335bc 32%,#0d1a2a55 53%,transparent 71%)}
+.show.blade-scene.legend-scene .sband{left:50%;right:auto;bottom:7%;width:min(92vw,740px);transform:translateX(-50%);border:1px solid var(--accent);border-radius:16px;background:linear-gradient(120deg,#142235f5,color-mix(in srgb,var(--bandc) 65%,#142235) 50%,#142235f5);animation-name:scene-band;box-shadow:0 8px 28px #0005}
+.show.blade-scene.legend-scene .sband b{font-size:clamp(23px,5vw,42px);line-height:1.35;text-wrap:balance}
+.show.blade-scene.legend-scene .scene-subtitle{display:block;font-size:clamp(11px,2.6vw,14px);margin-top:5px;color:var(--accent)}
+.show.blade-special.legend-scene .scene-disc{background:radial-gradient(ellipse,#142c50eb 0%,#172c4cb8 34%,#13233745 55%,transparent 71%)}
+.show.blade-special .scut{animation-name:blade-special-in}
+.show.blade-special .sbr img{animation:none;filter:drop-shadow(0 0 3px #fff0ca) drop-shadow(0 0 12px #c4dcff80);mask:none;-webkit-mask:none}
+.show.blade-special .sshine{display:none}
+.show.blade-special.legend-scene .sband{border-color:#f4d68f;box-shadow:0 0 0 3px #d4ac5720,0 8px 28px #0006,0 0 28px #b8d8ff25;background:linear-gradient(115deg,#142641f5,#344369f5 50%,#332c43f5)}
+.blade-special-star{position:absolute;width:7px;height:7px;background:#fff0b6;clip-path:polygon(50% 0,61% 37%,100% 50%,61% 63%,50% 100%,39% 63%,0 50%,39% 37%);pointer-events:none}
+@keyframes blade-special-in{0%{transform:translateY(36px) scale(.72);opacity:0}45%{opacity:1;transform:translateY(-7px) scale(1.025)}100%{transform:none;opacity:1}}
+@media(max-height:500px){.show.blade-scene.legend-scene .sband{bottom:4%;padding:6px 12px}.show.blade-scene.legend-scene .sband b{font-size:24px}.show.blade-scene.legend-scene .scene-subtitle{display:none}}
+
+
+.blade-gather{position:fixed;inset:0;pointer-events:none;z-index:32;isolation:isolate;background:none}
+.blade-gather .blade-sprite{z-index:0}.blade-gather .blade-fusion-card{z-index:2}
+.blade-fusion-card{position:absolute;pointer-events:none;transform-origin:center;--tc:#ffe4a1;filter:drop-shadow(0 7px 10px #101c3480) drop-shadow(0 0 9px var(--tc));will-change:transform,opacity}
+.blade-fusion-card>.card{width:100%;height:100%;margin:0;transform:none!important}
+
 </style>
 
 <div id="app"></div>
@@ -3278,7 +3305,7 @@ const PET_LINES = {start:['ສູ້ໆ!', 'ພ້ອມແລ້ວ!', 'ໄປ�
 // cutouts for the summon showcase (art/cut/<img>.webp), made with the macOS subject-lift; the subject's box as fractions [x, y, w, h]
 // [x, y, w, h] of the cutout's box as fractions of its picture; a 5th number is the picture's height when it is 760 wide
 // (a cutout cropped to its box), else 1060 (the card shape)
-const CUTS = {"alt-dinoevobastion":[0, 0, 1, 1, 747.4],"alt-dinoevoblader":[0, 0, 1, 1, 666.5],"alt-dinoevoemperor":[0, 0, 1, 1, 889.7],"alt-dinoking":[0, 0, 1, 1, 595.9],"alt-dinometaraptor":[0, 0, 1, 1, 547.5],"alt-dinometarex":[0, 0, 1, 1, 719.3],"dinoevobastion":[0, 0, 1, 1, 962.4],"dinoevoblader":[0, 0, 1, 1, 793.4],"dinoevoemperor":[0, 0, 1, 1, 958.7],"dinoking":[0, 0, 1, 1, 561.8],"dinolongneck":[0, 0, 1, 1, 590.1],"dinometaraptor":[0, 0, 1, 1, 543.7],"dinometarex":[0, 0, 1, 1, 540.5],"dinometatrike":[0, 0, 1, 1, 372.3],"dinotrex":[0, 0, 1, 1, 369.6],lanxangmk0:[0,0,1,1,1130.3],'alt-lanxangmk0':[0,0,1,1,1183.6],fking:[0,0,1,1,1075.4],fsword:[0,0,1,1,1105.6],fsniper:[0,0,1,1,1151.4],fshield:[0,0,1,1,1133.2],mechsword:[0,0,1,1,1090.7],'alt-mechsword':[0,0,1,1,1113.3],pilotace:[0,0,1,1,1539.2],pilotnoy:[0,0,1,1,1513.0],'alt-nongtani':[0.03,0.006,0.89,0.99],ajandaeng:[0.071,0.012,0.886,0.954],'alt-ajandaeng':[0.087,0.055,0.863,0.892],nangtani:[0.091,0.011,0.839,0.919],'alt-nangtani':[0.032,0.008,0.935,0.991],taniduean:[0.001,0,0.999,1],'alt-taniduean':[0,0.027,0.999,0.972],"pulangseung":[0.0145, 0.0, 0.9158, 0.6601],"alt-pulangseung":[0.0, 0.0, 0.9803, 0.6761],"khunjueang":[0.0828,0.0584,0.8333,0.7239,879.5],"alt-khunjueang":[0.0,0.0574,0.9097,0.725,978.9],"chaothamkonglor":[0.3618, 0.01, 0.4579, 0.586],"alt-chaothamkonglor":[0.2855, 0.0085, 0.6987, 0.5849],"rueaxuangkham":[0.0, 0.0218, 1.0, 0.65],"alt-rueaxuangkham":[0.0158, 0.1569, 0.9842, 0.6134],"maekhuakham":[0.2342, 0.0236, 0.5171, 0.5309],"alt-maekhuakham":[0.0, 0.0822, 0.7947, 0.6352],"nairoymuay":[0.1026, 0.0511, 0.8697, 0.6424],"alt-nairoymuay":[0.0, 0.0132, 0.9408, 0.7703],"hydronak":[0.0835,0.032,0.833,0.7448,1244.2],"panyakham":[0.2211, 0.0132, 0.6776, 0.5478],"alt-panyakham":[0.0444,0.0584,0.8681,0.7247,924.6],"bangfaidao":[0.3355, 0.0104, 0.6, 0.5208],"alt-bangfaidao":[0.0605, 0.0123, 0.8566, 0.6654],"maekaidao":[0.0,0.0583,0.9868,0.7241,657.1],"alt-maekaidao":[0.0039, 0.0919, 0.95, 0.5464],"alt-hydronak":[0.0,0.0181,0.9178,0.755,498.0],nangchampa:[0.087,0.043,0.847,0.692],khudapphen:[0.029,0,0.953,0.636],dapsongmue:[0.008,0.0583,0.966,0.7242,726.0],ajandap:[0.126,0.074,0.768,0.715],kamkadam:[0.234,0.028,0.584,0.528],'alt-hackxm':[0,0.119,0.874,0.862],'alt-hapkhanasouane':[0,0.023,0.997,0.939],'alt-kalaket':[0,0.009,0.995,0.951],'alt-kamkadam':[0.045,0,0.945,0.657],'alt-kangli':[0,0.015,0.961,0.896],'alt-khaendj':[0,0,0.929,0.811],'alt-kratai':[0.0829,0.0578,0.8335,0.7252,990.4],'alt-luksaolao':[0,0.03,0.753,0.777],'alt-maethap':[0,0.013,0.795,0.879],'alt-makaew':[0,0.021,0.942,0.772],'alt-mechyak':[0,0.038,0.995,0.96],nagax:[0.080,0,0.839,1], 'alt-nagax':[0,0,0.887,0.798],'alt-nangkaew':[0,0,0.958,0.826],'alt-ngaonam':[0.0831,0.0572,0.8335,0.7248,430.5],'alt-phadaeng':[0,0.009,0.934,0.77],'alt-phayanak':[0,0,0.958,0.679],'alt-phayathaen':[0,0.015,0.997,0.677],'alt-phralam':[0,0,0.997,0.999],'alt-phutthasen':[0,0.047,0.997,0.709],'alt-punyeu':[0,0.021,0.997,0.591],'alt-santhaman':[0,0,0.997,0.942],'alt-singkaew':[0,0.094,0.992,0.691],'alt-sinxay':[0,0,0.984,0.999],'alt-suttharo':[0.216,0,0.529,0.615],'alt-thaohung':[0,0,0.989,0.998],'alt-xangsuek':[0,0.013,0.945,0.768],hanuman:[0,0,0.987,0.69],hapkhanasouane:[0,0.015,0.997,0.621],hungxang:[0,0,0.9,0.642],kalaket:[0,0.023,0.976,0.619],kamkadam2:[0,0.011,0.632,0.553],khrut:[0,0,0.997,0.679],khunborom:[0.0827,0.0574,0.8332,0.7253,1137.7],khurak:[0.039,0.0145,0.942,0.7581,660.0],kratai:[0.034,0.0578,0.963,0.725,684.1],kumphan:[0.058,0.011,0.713,0.543],leader:[0,0.023,0.997,0.674],maethap:[0,0,0.997,0.615],mechyak:[0,0.011,0.987,0.632],nakjet:[0.008,0.002,0.974,0.519],nangkaew:[0,0,0.987,0.711],phangkhi:[0,0,0.868,0.536],phayakhom:[0,0,0.997,0.623],phayanak:[0,0,0.892,0.938],phayathaen:[0.0831,0.0198,0.8331,0.7537,726.3],phralam:[0.105,0,0.861,0.741],phutthasen:[0,0.023,0.966,0.64],punyeu:[0.061,0.036,0.853,0.553],sangkhanthewi:[0.15,0.008,0.847,0.551],sangpheuak:[0.0834,0.058,0.8328,0.7246,872.8],singhimma:[0.082,0.011,0.824,0.586],sinxay:[0,0,0.997,0.742],sinxaysam:[0.013,0.021,0.971,0.589],songphi:[0.0434,0.0346,0.8702,0.7428,784.5],suttharo:[0.0035,0.0,0.9056,0.7688,633.9],thaenlom:[0.0054,0.0344,0.9041,0.7427,760.0],thaentong:[0.013,0,0.913,0.555],thaohung:[0.168,0,0.445,0.525],thewadapon:[0,0,0.761,0.566],xangjaidi:[0.1,0.03,0.797,0.542],xangsuek:[0.037,0.011,0.913,0.617],yaknak:[0.005,0.011,0.863,0.521],yaksip:[0.005,0,0.882,0.591],yaksombat:[0.084,0,0.913,0.609]};
+const CUTS = {"alt-champathong":[0,0,1,1,1015.5],"champathong":[0,0,1,1,1019.5],"alt-dinoevobastion":[0, 0, 1, 1, 747.4],"alt-dinoevoblader":[0, 0, 1, 1, 666.5],"alt-dinoevoemperor":[0, 0, 1, 1, 889.7],"alt-dinoking":[0, 0, 1, 1, 595.9],"alt-dinometaraptor":[0, 0, 1, 1, 547.5],"alt-dinometarex":[0, 0, 1, 1, 719.3],"dinoevobastion":[0, 0, 1, 1, 962.4],"dinoevoblader":[0, 0, 1, 1, 793.4],"dinoevoemperor":[0, 0, 1, 1, 958.7],"dinoking":[0, 0, 1, 1, 561.8],"dinolongneck":[0, 0, 1, 1, 590.1],"dinometaraptor":[0, 0, 1, 1, 543.7],"dinometarex":[0, 0, 1, 1, 540.5],"dinometatrike":[0, 0, 1, 1, 372.3],"dinotrex":[0, 0, 1, 1, 369.6],lanxangmk0:[0,0,1,1,1130.3],'alt-lanxangmk0':[0,0,1,1,1183.6],fking:[0,0,1,1,1075.4],fsword:[0,0,1,1,1105.6],fsniper:[0,0,1,1,1151.4],fshield:[0,0,1,1,1133.2],mechsword:[0,0,1,1,1090.7],'alt-mechsword':[0,0,1,1,1113.3],pilotace:[0,0,1,1,1539.2],pilotnoy:[0,0,1,1,1513.0],'alt-nongtani':[0.03,0.006,0.89,0.99],ajandaeng:[0.071,0.012,0.886,0.954],'alt-ajandaeng':[0.087,0.055,0.863,0.892],nangtani:[0.091,0.011,0.839,0.919],'alt-nangtani':[0.032,0.008,0.935,0.991],taniduean:[0.001,0,0.999,1],'alt-taniduean':[0,0.027,0.999,0.972],"pulangseung":[0.0145, 0.0, 0.9158, 0.6601],"alt-pulangseung":[0.0, 0.0, 0.9803, 0.6761],"khunjueang":[0.0828,0.0584,0.8333,0.7239,879.5],"alt-khunjueang":[0.0,0.0574,0.9097,0.725,978.9],"chaothamkonglor":[0.3618, 0.01, 0.4579, 0.586],"alt-chaothamkonglor":[0.2855, 0.0085, 0.6987, 0.5849],"rueaxuangkham":[0.0, 0.0218, 1.0, 0.65],"alt-rueaxuangkham":[0.0158, 0.1569, 0.9842, 0.6134],"maekhuakham":[0.2342, 0.0236, 0.5171, 0.5309],"alt-maekhuakham":[0.0, 0.0822, 0.7947, 0.6352],"nairoymuay":[0.1026, 0.0511, 0.8697, 0.6424],"alt-nairoymuay":[0.0, 0.0132, 0.9408, 0.7703],"hydronak":[0.0835,0.032,0.833,0.7448,1244.2],"panyakham":[0.2211, 0.0132, 0.6776, 0.5478],"alt-panyakham":[0.0444,0.0584,0.8681,0.7247,924.6],"bangfaidao":[0.3355, 0.0104, 0.6, 0.5208],"alt-bangfaidao":[0.0605, 0.0123, 0.8566, 0.6654],"maekaidao":[0.0,0.0583,0.9868,0.7241,657.1],"alt-maekaidao":[0.0039, 0.0919, 0.95, 0.5464],"alt-hydronak":[0.0,0.0181,0.9178,0.755,498.0],"nangchampa":[0,0,1,1,1060.2],"khudapphen":[0,0,1,1,989.4],"dapsongmue":[0,0,1,1,1115.9],"ajandap":[0,0,1,1,1263.0],kamkadam:[0.234,0.028,0.584,0.528],'alt-hackxm':[0,0.119,0.874,0.862],'alt-hapkhanasouane':[0,0.023,0.997,0.939],'alt-kalaket':[0,0.009,0.995,0.951],'alt-kamkadam':[0.045,0,0.945,0.657],'alt-kangli':[0,0.015,0.961,0.896],'alt-khaendj':[0,0,0.929,0.811],'alt-kratai':[0.0829,0.0578,0.8335,0.7252,990.4],'alt-luksaolao':[0,0.03,0.753,0.777],'alt-maethap':[0,0.013,0.795,0.879],'alt-makaew':[0,0.021,0.942,0.772],'alt-mechyak':[0,0.038,0.995,0.96],nagax:[0.080,0,0.839,1], 'alt-nagax':[0,0,0.887,0.798],'alt-nangkaew':[0,0,0.958,0.826],'alt-ngaonam':[0.0831,0.0572,0.8335,0.7248,430.5],'alt-phadaeng':[0,0.009,0.934,0.77],'alt-phayanak':[0,0,0.958,0.679],'alt-phayathaen':[0,0.015,0.997,0.677],'alt-phralam':[0,0,0.997,0.999],'alt-phutthasen':[0,0.047,0.997,0.709],'alt-punyeu':[0,0.021,0.997,0.591],'alt-santhaman':[0,0,0.997,0.942],'alt-singkaew':[0,0.094,0.992,0.691],'alt-sinxay':[0,0,0.984,0.999],'alt-suttharo':[0.216,0,0.529,0.615],'alt-thaohung':[0,0,0.989,0.998],'alt-xangsuek':[0,0.013,0.945,0.768],hanuman:[0,0,0.987,0.69],hapkhanasouane:[0,0.015,0.997,0.621],hungxang:[0,0,0.9,0.642],kalaket:[0,0.023,0.976,0.619],kamkadam2:[0,0.011,0.632,0.553],khrut:[0,0,0.997,0.679],khunborom:[0.0827,0.0574,0.8332,0.7253,1137.7],khurak:[0.039,0.0145,0.942,0.7581,660.0],kratai:[0.034,0.0578,0.963,0.725,684.1],kumphan:[0.058,0.011,0.713,0.543],leader:[0,0.023,0.997,0.674],maethap:[0,0,0.997,0.615],mechyak:[0,0.011,0.987,0.632],nakjet:[0.008,0.002,0.974,0.519],nangkaew:[0,0,0.987,0.711],phangkhi:[0,0,0.868,0.536],phayakhom:[0,0,0.997,0.623],phayanak:[0,0,0.892,0.938],phayathaen:[0.0831,0.0198,0.8331,0.7537,726.3],phralam:[0.105,0,0.861,0.741],phutthasen:[0,0.023,0.966,0.64],punyeu:[0.061,0.036,0.853,0.553],sangkhanthewi:[0.15,0.008,0.847,0.551],sangpheuak:[0.0834,0.058,0.8328,0.7246,872.8],singhimma:[0.082,0.011,0.824,0.586],sinxay:[0,0,0.997,0.742],sinxaysam:[0.013,0.021,0.971,0.589],songphi:[0.0434,0.0346,0.8702,0.7428,784.5],suttharo:[0.0035,0.0,0.9056,0.7688,633.9],thaenlom:[0.0054,0.0344,0.9041,0.7427,760.0],thaentong:[0.013,0,0.913,0.555],thaohung:[0.168,0,0.445,0.525],thewadapon:[0,0,0.761,0.566],xangjaidi:[0.1,0.03,0.797,0.542],xangsuek:[0.037,0.011,0.913,0.617],yaknak:[0.005,0.011,0.863,0.521],yaksip:[0.005,0,0.882,0.591],yaksombat:[0.084,0,0.913,0.609]};
 // the showcase cutouts, after the cards themselves (through the same queue)
 function preloadCuts(ids){ const n = []; for(const id of ids){ const d = C[id]; if(!d) continue; if(FUSE_FIG[id]) n.push(FUSE_FIG[id]); for(const im of [d.img, ALT[id], d.tf && d.tf.img, d.tf && d.tf.altImg]) if(im && CUTS[im]) n.push(im); }
   setTimeout(() => { for(const f of n) imgWant('cut:' + f, ART + 'cut/' + f + '.webp'); }, 1500); }
@@ -3958,21 +3985,23 @@ function mfFade(secs){
 }
 /* ---------- character voices (art/voice/<id>.m4a, prompts/deck-25-voices.txt): a short line when a card enters ---------- */
 // add an id here when its file arrives; taniduean = Nang Tani's change, yanfull = the full yantra call
-const VOICES = ['nangtani', 'taniduean', 'ajandaeng', 'nongtani'];
-const VO = {buf:{}, wait:{}, t:{}, last:0};
+const VOICES = ["nangtani", "taniduean", "ajandaeng", "nongtani", "nangchampa", "dapsongmue", "ajandap", "khudapphen", "champathong", "alt-champathong"];
+const VO = {buf:{}, wait:{}, t:{}, last:0, active:null};
 function voiceLoad(id){
   if(VO.buf[id] || VO.wait[id] || !SND.ctx || !window.fetch) return VO.wait[id];
   return VO.wait[id] = fetch(ART + 'voice/' + id + '.m4a').then(r => r.ok ? r.arrayBuffer() : Promise.reject(r.status))
     .then(b => new Promise((ok, no) => SND.ctx.decodeAudioData(b, ok, no))).then(buf => { VO.buf[id] = buf; }).catch(() => { VO.wait[id] = null; });
 }
-// the same card speaks at most once in 4 s, and two lines never start on top of each other
+// A showcase and its following field entrance share one line, even at a slow animation speed.
 function voice(id){
   if(!VOICES.includes(id) || !SET.voice || !SND.ctx || (S && (S.fast || S.sim))) return;
-  const now = performance.now(); if(now - (VO.t[id] || 0) < 4000 || now - VO.last < 1200) return;
-  VO.t[id] = VO.last = now;
-  const go = () => { const buf = VO.buf[id]; if(!buf || performance.now() - now > 1500) return;
+  const card=id.replace(/^alt-/,''),scene=BLADE_SCENES[card];
+  const gap=C[card]?.tribe==='blade'?Math.max(4000,(Math.max(scene?.ms||2300,scene?.altMs||0)+600)*Math.max(1,SET.speed)):4000;
+  const now = performance.now(); if(VO.active || now - (VO.t[card] ?? -Infinity) < gap || now - (VO.last || -Infinity) < 1200) return;
+  VO.t[id] = VO.t[card] = VO.last = now;
+  const go = () => { const buf = VO.buf[id]; if(!buf || VO.active || !SET.voice || (S && (S.fast || S.sim)) || performance.now() - now > 1500) return;
     const c = SND.ctx, src = c.createBufferSource(), g = c.createGain(); g.gain.value = .9; src.buffer = buf; src.connect(g); g.connect(SND.sfx); src.start();
-    src.onended = () => g.disconnect(); musicDuck(buf.duration * 1000); };
+    VO.active=src;src.onended = () => {if(VO.active===src)VO.active=null;g.disconnect();};musicDuck(buf.duration * 1000); };
   if(VO.buf[id]) go(); else { const w = voiceLoad(id); if(w) w.then(go); }
 }
 /* ---------- recorded effect sounds (art/sfx/<name>.m4a, prompts/deck-25-sfx.txt); the code-built sfx stays the fallback ---------- */
@@ -3983,11 +4012,16 @@ const SFXF = {click:1, draw:2, play:1, hit:2, spell:1, turn:2, myturn:1, foeturn
   mechland:1, boarding:1, beamsaber:1, beamshot:1, mechfuse:2, coreglow:1,
   // Owner's ElevenLabs recordings: 12 cues, 15 distinct takes (one duplicate omitted).
   'dino-egg':1,'dino-hatch':1,'dino-grow':1,'dino-roar':2,'dino-upgrade':2,'dino-evolve':2,
-  'dino-core':1,'dino-claw':1,'dino-sword':1,'dino-shield':1,'dino-beam':1,'dino-heal':1};
+  'dino-core':1,'dino-claw':1,'dino-sword':1,'dino-shield':1,'dino-beam':1,'dino-heal':1,
+  // Original procedural SFX; ElevenLabs replacement briefs in prompts/deck-14-sfx-elevenlabs.txt.
+  'blade-draw':1,'blade-slash':1,'blade-double':1,'blade-guard':1,'blade-heal':1,'blade-focus':1,
+  'blade-training':1,'blade-legend':1,'blade-dance':1,'blade-fusion':1,'blade-ultimate':1};
 // the sounds heard all the time sit a little lower than the big moments
 const SFX_GAIN = {click:.45, draw:.55, flip:.6, play:.7, hit:.75, attack:.7, turn:.65, coin:.7, myturn:.75, foeturn:.75, endturn:.7,
   'dino-egg':.65,'dino-hatch':.75,'dino-grow':.75,'dino-roar':.85,'dino-upgrade':.8,'dino-evolve':.85,
-  'dino-core':.85,'dino-claw':.7,'dino-sword':.7,'dino-shield':.75,'dino-beam':.75,'dino-heal':.7};
+  'dino-core':.85,'dino-claw':.7,'dino-sword':.7,'dino-shield':.75,'dino-beam':.75,'dino-heal':.7,
+  'blade-draw':.55,'blade-slash':.65,'blade-double':.65,'blade-guard':.6,'blade-heal':.6,'blade-focus':.55,
+  'blade-training':.55,'blade-legend':.7,'blade-dance':.7,'blade-fusion':.7,'blade-ultimate':.75};
 const SFB = {buf:{}, wait:{}, last:{}, queue:null};
 function sfxfLoad(f){
   if(SFB.buf[f] || SFB.wait[f] || !SND.ctx || !window.fetch) return;
@@ -4491,7 +4525,7 @@ async function fuse(p, f){
   // a robot's pilot moves into the new robot; any second pilot jumps back to the hand
   const pil = mats.filter(x => x.pilot); if(pil.length){ c.pilot = pil[0].pilot; for(const x of pil.slice(1)) eject(p, x); }
   if(isMech(c) && p.glowT === S.T){ c.sick = false; c.mods.push({amt:2, exp:S.T}); }
-  if(!S.fast){ render(); await fxFuseEmerge(c, M); }
+  render(); await fxFuseEmerge(c, M);
   if(isMech(c)) await fxMechFuse('c:' + c.uid);
   if(f === 'fshield') await fxDrumShield('c:' + c.uid);
   if(f === 'singkhu') heal(p, 3);
@@ -4738,7 +4772,7 @@ async function onPlay(p, c, t){
       const bl = p.field.filter(x => C[x.id].tribe === 'blade');
       const g = maxBy(bl.filter(x => x !== c && !x.items.includes('dapmai')), x => pow(p, x)) || c;
       g.items.push('dapmai'); log('ອາຈານສອນດາບ ມອບ «ດາບໄມ້ຊ້ອມ» ໃຫ້ «' + C[g.id].name + '»');
-      if(!S.fast){ render(); sfx('spell'); await fxRing('c:' + g.uid, '#e6ecf7', true); }
+      render(); await fxBladeCue('c:' + g.uid,'training',c.id);
       await addBlade(p, swordGain(p)); break;
     }
     case 'khaendj': for(const x of p.field){ x.mods.push({amt:1, exp:S.T}); if(!S.fast) particlesAt('c:' + x.uid, '#ff7ad9', 8); } log('ມືແຄນ DJ ເປີດເພງ: ທຸກໃບ ພະລັງ +1'); break;
@@ -4917,11 +4951,12 @@ async function castSpell(p, id, t){
     case 'fondap': {
       const bl = p.field.filter(x => C[x.id].tribe === 'blade');
       for(const x of bl){ x.mods.push({amt:1, exp:S.T}); if(!S.fast) particlesAt('c:' + x.uid, '#ffe9a8', 8); }
+      await fxBladeCue('h:' + pi(p),'dance',id);
       log('ຟ້ອນດາບຕ້ອນຮັບ: ນັກດາບ ' + bl.length + ' ໃບ ພະລັງ +1'); await addBlade(p, 1); break;
     }
     case 'tatlom': {
       const lim = (p.blade || 0) >= 5 ? 5 : 3;
-      if(t && t.owner.field.includes(t.c) && pow(t.owner, t.c) <= lim){ if(!S.fast) await fxSlash(tkey(t)); await destroy(t.owner, t.c); }
+      if(t && t.owner.field.includes(t.c) && pow(t.owner, t.c) <= lim){ await fxBladeCue(tkey(t),'slash',id); await destroy(t.owner, t.c); }
       else if(t){ log('«' + C[t.c.id].name + '» ທົນໄດ້'); floatAt(tkey(t), 'ທົນໄດ້!', 'hit'); }
       break;
     }
@@ -5115,6 +5150,195 @@ async function encore(p){
   if(!S.fast){ toast('🎤 ອັງກໍ!'); flashScreen('#ff7ad9', .3); sfx('win'); for(const c of p.field) particlesAt('c:' + c.uid, '#ff7ad9', 12); render(); }
 }
 // ຈິດດາບ: the sword-spirit gauge. Full = ຟ້ອນດາບດອກຈຳປາ; with no enemy to cut it waits, full, for the next chance
+// Deck 14: floral katana sprites and the owner's ElevenLabs recordings.
+const BLADE_SOUND={draw:'play',slash:'attack',double:'attack',guard:'heal',heal:'heal',focus:'spell',training:'play',legend:'legend',dance:'spell',fusion:'fusion',ultimate:'fusion'};
+const BLADE_SCENES={
+ nangchampa:{color:'#ffe6a2',second:'#fff8e1',band:'#745245',title:'ຄົມດາບຈຳປາ · ຄວາມກ້າຫານຂອງຊົມລົມ',sound:'legend',ms:3100},
+ dapsongmue:{color:'#b4d9ff',second:'#fff7dc',band:'#39547a',title:'ສອງຄົມດາບ · ໄວດັ່ງແສງຈັນ',sound:'double',ms:2500},
+ ajandap:{color:'#e6cf9f',second:'#c8e5dc',band:'#48645b',title:'ຝຶກຈິດ · ຝຶກດາບ · ປົກປ້ອງກັນ',sound:'training',ms:3200},
+ khudapphen:{color:'#c5e0ff',second:'#ffe9ab',band:'#4b507e',title:'ຄູ່ດາບເດືອນເພັງ · ໃຈດຽວກັນ',sound:'fusion',ms:3300},
+ champathong:{color:'#ffe19a',second:'#d7eaff',band:'#7a5b36',title:'ຈຳປາທອງເບັ່ງບານ · ສອງຄົມລວມເປັນໜຶ່ງ',sound:'ultimate',ms:2600,altMs:3700}
+};
+function bladeSound(kind){
+ if(!S || S.fast || S.sim || !SET.sfx)return;
+ if(!sfxf('blade-'+kind))sfx(BLADE_SOUND[kind]||'spell');
+ if(['legend','fusion','ultimate'].includes(kind))musicDuck(kind==='ultimate'?3000:2100);
+}
+async function bladePreload(){
+ audioInit();const files=Object.keys(BLADE_SOUND).map(k=>'blade-'+k);
+ const voices=VOICES.filter(id=>C[id.replace(/^alt-/,'')]?.tribe==='blade');
+ await Promise.all([...files.map(f=>{sfxfLoad(f);return SFB.wait[f]||Promise.resolve();}),...voices.map(id=>voiceLoad(id)||Promise.resolve())]);
+ return files.every(f=>!!SFB.buf[f])&&voices.every(id=>!!VO.buf[id]);
+}
+function bladeRole(id){return /champathong/.test(id)?'ultimate':id==='khudapphen'?'fusion':id==='nangchampa'?'legend':/dapsongmue|dapkhu/.test(id)?'double':id==='dapolo'?'guard':id==='dapjaidi'?'heal':/ajandap|dappi1/.test(id)?'training':/dapwaen|daphuana|hofuek/.test(id)?'focus':'draw';}
+function bladeSprite(root,name,x,y,size,frames,ms=850,delay=0){
+ const e=document.createElement('div');e.className='blade-sprite';e.dataset.asset=name;
+ e.style.cssText='left:'+x+'px;top:'+y+'px;width:'+size+'px;height:'+size+'px';
+ const im=document.createElement('img');im.alt='';im.src=ART+'fx/blade-'+name+'.webp';e.append(im);root.append(e);
+ if(frames&&!REDUCE)im.animate(frames,{duration:ms*SET.speed,delay:delay*SET.speed,easing:'cubic-bezier(.2,.75,.3,1)',fill:'both'});
+ return e;
+}
+const bladePulse=[{opacity:0,transform:'scale(.55)'},{opacity:.9,transform:'scale(1)',offset:.32},{opacity:0,transform:'scale(1.13)'}];
+// Only this rule-facing cue needs a server recorder; all other helpers live inside existing recorded effects.
+async function fxBladeCue(key,kind,id,to){
+ if(!S||S.fast)return;
+ bladeSound(kind);
+ if(SET.fx==='off')return;
+ const at=centerOf(to||key);if(!at)return;
+ const short=REDUCE||SET.fx==='short',ms=short?240:kind==='dance'?1200:kind==='heal'?1000:650;
+ const root=addFx('blade-fx',at.x,at.y),w=Math.min(innerWidth*.62,kind==='dance'?320:220);
+ root.dataset.cue=kind;root.dataset.card=id||'';
+ try{
+  if(['slash','double','dance'].includes(kind)){
+   const count=short?1:kind==='dance'?3:1;
+   for(let i=0;i<count;i++)bladeSprite(root,kind==='double'?'twin-arc':'silver-arc',0,0,w,[{opacity:0,transform:'rotate('+(-40+i*65)+'deg) scale(.4)'},{opacity:1,transform:'rotate('+(i*65)+'deg) scale(1)',offset:.32},{opacity:0,transform:'rotate('+(35+i*65)+'deg) scale(1.1)'}],ms*.65,i*ms*.16);
+   if(kind==='dance')bladeSprite(root,'champa-bloom',0,0,w*.75,bladePulse,ms,0);
+  }else if(kind==='guard')bladeSprite(root,'flower-guard',0,0,w,bladePulse,ms);
+  else if(kind==='heal'){
+   bladeSprite(root,'petal-wisp',-w*.15,0,w,bladePulse,ms);
+   if(!short)bladeSprite(root,'champa-bloom',w*.18,-w*.1,w*.4,bladePulse,ms,100);
+  }else{
+   bladeSprite(root,'champa-ring',0,0,w,bladePulse,ms);
+   if(!short&&kind==='draw')bladeSprite(root,'silver-arc',0,0,w*.9,bladePulse,ms);
+  }
+  await sleep(ms);
+ }finally{root.remove();}
+}
+// Everything is parent-owned. A skip removes all images and cancels their animations together.
+function bladeSpecialEntrance(root,w,ms){
+ // A bounded stage around the cutout: two opposing halos, paired blades and a flower platform.
+ for(let i=0;i<2;i++){
+  const sd=i?1:-1;
+  bladeSprite(root,'champa-ring',0,-w*.035,w*(i?1.06:.84),[
+   {opacity:0,transform:'scale(.3) rotate('+sd*55+'deg)'},
+   {opacity:i?.65:.85,transform:'scale(1) rotate(0)',offset:.24},
+   {opacity:.55,transform:'scale(1.03) rotate('+sd*80+'deg)',offset:.84},
+   {opacity:0,transform:'scale(1.12) rotate('+sd*100+'deg)'}],ms,i*90);
+  const arc=bladeSprite(root,i?'twin-arc':'silver-arc',0,-w*.015,w*1.12,[
+   {opacity:0,transform:'rotate('+sd*105+'deg) scale(.55)'},
+   {opacity:.86,transform:'rotate('+sd*25+'deg) scale(1)',offset:.28},
+   {opacity:.5,transform:'rotate('+sd*-95+'deg) scale(1.04)',offset:.72},
+   {opacity:0,transform:'rotate('+sd*-155+'deg) scale(.85)'}],ms*.82,160+i*150);
+  if(!i)arc.querySelector('img').style.filter='sepia(.45) saturate(1.25) drop-shadow(0 0 5px #ffe3a6)';
+ }
+ for(let i=0;i<6;i++){
+  const sd=i%2?1:-1,x=sd*w*(.3+Math.floor(i/2)*.065),y=w*(.25-Math.floor(i/2)*.17);
+  bladeSprite(root,'petal-wisp',x,y,w*.32,[
+   {opacity:0,transform:'translate('+sd*-18+'px,60px) rotate('+sd*-25+'deg) scale(.5)'},
+   {opacity:.8,transform:'translate(0,0) rotate('+sd*5+'deg) scale(1)',offset:.38},
+   {opacity:.45,transform:'translate('+sd*12+'px,-45px) rotate('+sd*30+'deg)',offset:.78},
+   {opacity:0,transform:'translate('+sd*25+'px,-90px) rotate('+sd*55+'deg) scale(.65)'}],ms*.85,120+i*65);
+ }
+ const floor=Math.min(innerHeight*.27,w*.7);
+ for(let i=0;i<3;i++)bladeSprite(root,'champa-bloom',(i-1)*w*.19,floor+Math.abs(i-1)*w*.035,w*(i===1?.64:.35),[
+  {opacity:0,transform:'rotateX(55deg) scale(.12)'},
+  {opacity:i===1?.88:.65,transform:'rotateX(55deg) scale(1)',offset:.32},
+  {opacity:.65,transform:'rotateX(55deg) scale(1.06)',offset:.82},
+  {opacity:0,transform:'rotateX(55deg) scale(1.18)'}],ms*.8,240+Math.abs(i-1)*120);
+ for(let i=0;i<12;i++){
+  const a=i*Math.PI/6,x=Math.cos(a)*w*.48,y=Math.sin(a)*w*.38;
+  const star=document.createElement('i');star.className='blade-special-star';star.style.cssText='left:'+x+'px;top:'+y+'px;background:'+(i%2?'#d9edff':'#ffe6a2');root.append(star);
+  if(!REDUCE)star.animate([{opacity:0,transform:'translateY(30px) scale(.2) rotate(0)'},{opacity:.95,transform:'translateY(0) scale(1.2) rotate(60deg)',offset:.35},{opacity:0,transform:'translateY(-60px) scale(.3) rotate(120deg)'}],{duration:ms*.7*SET.speed,delay:(160+i*75)*SET.speed,easing:'ease-out',fill:'both'});
+ }
+}
+function bladeEntrance(el,id,fr){
+ const scene=BLADE_SCENES[id],short=REDUCE||SET.fx==='short';
+ el.style.setProperty('--accent',scene.color);el.style.setProperty('--accent2',scene.second);el.style.setProperty('--bandc',scene.band);
+ const root=document.createElement('div');root.className='blade-entrance';el.append(root);
+ const alt=id==='champathong'&&el.dataset.cut==='alt-champathong',w=Math.min(fr.gs*.85,innerWidth*.82,innerHeight*.6),ms=short?500:alt?Math.max(3200,scene.altMs||0):2300;
+ if(alt){el.classList.add('blade-special');el.dataset.entrance='special';if(!short){bladeSpecialEntrance(root,w,ms);return;}}
+ bladeSprite(root,'champa-ring',0,0,w,[{opacity:0,transform:'scale(.55) rotate(-20deg)'},{opacity:.78,transform:'scale(1) rotate(0)',offset:.3},{opacity:.3,transform:'scale(1.08) rotate(20deg)'}],ms);
+ if(short)return;
+ const twin=['dapsongmue','khudapphen'].includes(id),ultimate=id==='champathong';
+ if(id==='ajandap'){
+  bladeSprite(root,'flower-guard',w*.32,w*.13,w*.46,[{opacity:0,transform:'scale(.4)'},{opacity:.85,transform:'scale(1)',offset:.3},{opacity:0,transform:'scale(1.06)'}],ms,150);
+ }else{
+  bladeSprite(root,twin?'twin-arc':'silver-arc',0,0,w*1.15,[{opacity:0,transform:'rotate('+(alt?25:-35)+'deg) scale(.5)'},{opacity:.9,transform:'rotate(0) scale(1)',offset:.35},{opacity:0,transform:'rotate(35deg) scale(1.1)'}],ms*.7,120);
+ }
+ for(let i=0;i<(ultimate?4:2);i++){
+  const sd=i%2?1:-1;
+  bladeSprite(root,'petal-wisp',sd*w*(.3+i*.035),w*.06,w*.42,[{opacity:0,transform:'translateY(35px) rotate('+sd*20+'deg)'},{opacity:.85,transform:'translateY(0)',offset:.4},{opacity:0,transform:'translateY(-70px) rotate('+sd*-20+'deg)'}],ms,80*i);
+ }
+ if(ultimate)bladeSprite(root,'champa-bloom',0,w*.22,w*.6,[{opacity:0,transform:'scale(.2)'},{opacity:.9,transform:'scale(1)',offset:.45},{opacity:0,transform:'scale(1.15)'}],ms,200);
+}
+// Lift copies of the exact battlefield cards, then spiral them into the shared crest.
+// Only DOM is touched here: all originals and animations are restored even after a skip.
+async function bladeGather(mats,f){
+ const M={x:innerWidth/2,y:innerHeight*.39};
+ bladeSound('focus');if(SET.fx==='off')return M;
+ const short=REDUCE||SET.fx==='short',ms=short?320:1900,els=mats.map(c=>({c,e:elOf('c:'+c.uid)})).filter(x=>x.e);
+ if(!els.length)return M;
+ const root=addFx('blade-gather');root.dataset.fusion=f;
+ const originals=els.map(({e})=>({e,visibility:e.style.visibility}));
+ try{
+  const ringSize=Math.min(innerWidth*.7,innerHeight*.48,350),orbit=Math.min(innerWidth*.22,150);
+  bladeSprite(root,'champa-ring',M.x,M.y,ringSize,[{opacity:0,transform:'scale(.45) rotate(-25deg)'},{opacity:.8,transform:'scale(1) rotate(10deg)',offset:.55},{opacity:0,transform:'scale(1.15) rotate(55deg)'}],ms);
+  if(!short)bladeSprite(root,'twin-arc',M.x,M.y,ringSize*1.06,[{opacity:0,transform:'scale(.65) rotate(-65deg)'},{opacity:.65,transform:'scale(1) rotate(30deg)',offset:.55},{opacity:0,transform:'scale(.25) rotate(160deg)'}],ms*.72,ms*.18);
+  els.forEach(({c,e},i)=>{
+   const card=e.matches('.card')?e:e.querySelector('.card');if(!card)return;
+   const r=card.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;
+   const d=document.createElement('div');d.className='fzc blade-fusion-card';d.dataset.sourceUid=c.uid;d.dataset.sourceCard=c.id;
+   d.style.cssText='left:'+r.left+'px;top:'+r.top+'px;width:'+r.width+'px;height:'+r.height+'px;--tc:'+(i%2?'#b8dcff':'#ffe4a1');
+   d.append(card.cloneNode(true));
+   d.querySelectorAll('[id],[data-k],[data-act]').forEach(n=>{n.removeAttribute('id');n.removeAttribute('data-k');n.removeAttribute('data-act');});
+   root.append(d);e.style.visibility='hidden';
+   const sd=i%2?1:-1,lift=Math.min(72,r.height*.35),phase=Math.PI+i*Math.PI;
+   const frames=short?[{transform:'none',opacity:1},{transform:'translate('+(M.x-x)+'px,'+(M.y-y)+'px) scale(.2)',opacity:0}]:[
+    {transform:'none',opacity:1,offset:0},
+    {transform:'translateY('+(-lift)+'px) rotate('+sd*5+'deg) scale(1.12)',opacity:1,offset:.18},
+    {transform:'translate('+(M.x+Math.cos(phase)*orbit-x)+'px,'+(M.y-y)+'px) rotate('+sd*12+'deg) scale(1.08)',opacity:1,offset:.36}
+   ];
+   if(!short){
+    for(let j=1;j<=28;j++){
+     const t=j/28,a=phase+t*Math.PI*2.2,R=orbit*Math.pow(1-t,.85),scale=1.08-t*.92;
+     frames.push({transform:'translate('+(M.x+Math.cos(a)*R-x)+'px,'+(M.y+Math.sin(a)*R*.52-y)+'px) rotate('+(sd*12+t*sd*335)+'deg) scale('+scale+')',opacity:Math.min(1,(1-t)*4),offset:.36+t*.58});
+    }
+    frames.push({transform:'translate('+(M.x-x)+'px,'+(M.y-y)+'px) scale(.04)',opacity:0,offset:1});
+   }
+   if(!REDUCE)d.animate(frames,{duration:ms*SET.speed,easing:'linear',fill:'both'});
+  });
+  if(!short){
+   bladeSprite(root,'champa-bloom',M.x,M.y,ringSize*.65,bladePulse,ms*.3,ms*.7);
+   [-1,1].forEach(sd=>bladeSprite(root,'petal-wisp',M.x+sd*ringSize*.4,M.y,ringSize*.45,[{opacity:0,transform:'translateY(35px)'},{opacity:.8,transform:'translateY(0)',offset:.4},{opacity:0,transform:'translateY(-65px) rotate('+sd*25+'deg)'}],ms*.8,ms*.12));
+  }
+  await fxBig(()=>fxWait(ms));
+ }finally{
+  root.querySelectorAll('*').forEach(n=>n.getAnimations().forEach(a=>a.cancel()));root.remove();
+  originals.forEach(({e,visibility})=>{e.style.visibility=visibility;});
+ }
+ return M;
+}
+async function bladeFusion(ids,id,alt){
+ if(SET.fx==='off'){bladeSound(BLADE_SCENES[id].sound);return;}
+ // The preceding gather already merged the real cards. Do not invent a second pair.
+ const mats=ids.map(key=>S.p[S.turn]?.field.find(c=>c.id===key)).filter(Boolean);
+ const originals=mats.map(c=>elOf('c:'+c.uid)).filter(Boolean).map(e=>({e,visibility:e.style.visibility}));
+ try{
+  originals.forEach(({e})=>{e.style.visibility='hidden';});
+  await fxShowcase(id,alt,false,false);
+ }finally{originals.forEach(({e,visibility})=>{e.style.visibility=visibility;});}
+}
+async function bladeEmerge(c,M){
+ const e=elOf('c:'+c.uid);if(!e)return;
+ const r=e.getBoundingClientRect(),pt={x:r.left+r.width/2,y:r.top+r.height/2},from=M||{x:innerWidth/2,y:innerHeight*.39};
+ if(SET.fx==='off')return;
+ const short=REDUCE||SET.fx==='short',ms=short?220:650,root=addFx('blade-fx',pt.x,pt.y);
+ const visibility=e.style.visibility;let ghost=null;
+ try{
+  bladeSprite(root,'champa-bloom',0,0,Math.min(innerWidth*.45,220),bladePulse,ms);
+  if(!short){
+   const card=e.matches('.card')?e:e.querySelector('.card'),cr=card?.getBoundingClientRect();
+   if(card&&cr){
+    ghost=document.createElement('div');ghost.className='fzc blade-fusion-card blade-result';ghost.append(card.cloneNode(true));
+    ghost.style.cssText='position:fixed;left:'+cr.left+'px;top:'+cr.top+'px;width:'+cr.width+'px;height:'+cr.height+'px;--tc:#ffe4a1';
+    root.append(ghost);e.style.visibility='hidden';
+    ghost.animate([{transform:'translate('+(from.x-pt.x)+'px,'+(from.y-pt.y)+'px) scale(.3)',opacity:0},{transform:'translate('+(from.x-pt.x)*.3+'px,'+(from.y-pt.y)*.3+'px) scale(1.15)',opacity:1,offset:.5},{transform:'none',opacity:1}],{duration:ms*SET.speed,easing:'cubic-bezier(.2,.8,.3,1)',fill:'both'});
+   }
+  }
+  await fxBig(()=>fxWait(ms));
+ }finally{root.querySelectorAll('*').forEach(n=>n.getAnimations().forEach(a=>a.cancel()));root.remove();e.style.visibility=visibility;}
+}
+
 const BLADE_AT = 10, BLADE_CUT = 5;
 const bladeAt = p => p.field.some(x => x.id === 'nangchampa' || x.id === 'champathong') ? BLADE_AT - 3 : BLADE_AT;
 const swordGain = p => 1 + (p.loc === 'hofuek' ? 1 : 0);
@@ -5129,7 +5353,9 @@ async function bladeDance(p){
   if(!v.length || S.over){ if(!S.fast) render(); return; }
   const k = maxBy(v, c => pow(q, c) * 10 + C[c.id].cost);
   p.blade = 0; log('🌸 ' + p.name + ' ຟ້ອນດາບດອກຈຳປາ! ຟັນ «' + C[k.id].name + '»');
-  if(!S.fast){ toast('🌸 ຟ້ອນດາບດອກຈຳປາ!'); fxPetals(30); sfx('legend'); render(); await fxSlash('c:' + k.uid, true); if(!S || S.over || !S.p.includes(q)) return; }
+  if(!S.fast){ toast('🌸 ຟ້ອນດາບດອກຈຳປາ!'); render(); }
+  await fxBladeCue('c:' + k.uid,'dance','nangchampa');
+  if(!S || S.over || !S.p.includes(q)) return;
   await destroy(q, k);
   render();
 }
@@ -5319,7 +5545,7 @@ function bounce(owner, c){
 }
 async function destroy(p, c, quick){
   if(!p.field.includes(c)) return;
-  if(c.shield){ const G=S; if(C[c.id].tribe === 'dino') await fxDinoCue('c:' + c.uid,'shield',c.id); if(S !== G || !p.field.includes(c)) return; c.shield = false; log('«' + C[c.id].name + '» ໂລ່ທິບ ກັນໄວ້'); if(!S.fast){ floatAt('c:' + c.uid, 'ໂລ່ທິບ!', 'heal'); render(); } return; }
+  if(c.shield){ const G=S; if(C[c.id].tribe === 'dino') await fxDinoCue('c:' + c.uid,'shield',c.id); else if(C[c.id].tribe === 'blade') await fxBladeCue('c:' + c.uid,'guard',c.id); if(S !== G || !p.field.includes(c)) return; c.shield = false; log('«' + C[c.id].name + '» ໂລ່ທິບ ກັນໄວ້'); if(!S.fast){ floatAt('c:' + c.uid, 'ໂລ່ທິບ!', 'heal'); render(); } return; }
   if(!S.fast){ sfx('destroy'); if(!S.auto) botSay(p === S.p[1] ? 'lose' : 'kill');
     const el = elOf('c:' + c.uid); if(el){ if(REDUCE) el.classList.add('dying'); else fxShatter(el, C[c.id].tribe); await sleep(quick ? 220 : 380); } }
   const i = p.field.indexOf(c); if(i < 0) return;
@@ -6608,7 +6834,7 @@ function boosterHTML(kind, di, big){
 }
 // deck boxes: the three starter decks have their own; any other deck shows its legend in the window of the blank box
 // rt/rl/rr place the name on each box's ribbon, measured from the art
-const BOXES = {0:{img:'box-d1', rt:'78.4%', rl:'25%', rr:'28%'}, 4:{img:'box-d4', rt:'82.6%', rl:'23%', rr:'27%'}, 2:{img:'box-d3', rt:'84.2%', rl:'20%', rr:'28%'},
+const BOXES = {13:{img:'box-d14', rt:'82%', rl:'15%', rr:'24%'}, 0:{img:'box-d1', rt:'78.4%', rl:'25%', rr:'28%'}, 4:{img:'box-d4', rt:'82.6%', rl:'23%', rr:'27%'}, 2:{img:'box-d3', rt:'84.2%', rl:'20%', rr:'28%'},
   // decks 15-24 (DECKS index 14-23), boxes made with the deck art
   18:{img:'box-d15', rt:'79.5%', rl:'12%', rr:'30%'}, 17:{img:'box-d16', rt:'83%', rl:'12%', rr:'22%'}, 20:{img:'box-d17', rt:'82%', rl:'10%', rr:'30%'},
   14:{img:'box-d18', rt:'82%', rl:'10%', rr:'25%'}, 15:{img:'box-d19', rt:'79%', rl:'14%', rr:'25%'}, 21:{img:'box-d20', rt:'74%', rl:'8%', rr:'25%'},
@@ -7760,6 +7986,7 @@ async function fxFuseGather(p, mats, f){
   if(!els.length) return null;
   const rs = els.map(e => e.getBoundingClientRect()), ctr = r => ({x:r.left + r.width / 2, y:r.top + r.height / 2});
   const M = {x:rs.reduce((a, r) => a + ctr(r).x, 0) / rs.length, y:rs.reduce((a, r) => a + ctr(r).y, 0) / rs.length - 20};
+  if(C[f].tribe==='blade')return bladeGather(mats,f);
   const cl = els.map((e, i) => { const r = rs[i], d = document.createElement('div'); d.className = 'fzc'; d.innerHTML = e.innerHTML; d.style.setProperty('--tc', T.c[0]);
     Object.assign(d.style, {left:r.left + 'px', top:r.top + 'px', width:r.width + 'px', height:r.height + 'px'}); $fx.appendChild(d); e.style.visibility = 'hidden'; return d; });
   sfx('fusion');
@@ -7821,7 +8048,9 @@ function fxFuseMotif(id, o){
 // a fusion with its own full-body picture: it rises behind the new card in the cut-in
 const FUSE_FIG = {champathong:'champathong-full', fsword:'fsword', fsniper:'fsniper', fshield:'fshield', fking:'fking'};
 async function fxFuseCutin(ids, f, alt){
-  if(S.fast || REDUCE || SET.fx === 'short') return;
+  if(S.fast)return;
+  if(C[f].tribe==='blade')return bladeFusion(ids,f,alt);
+  if(REDUCE || SET.fx==='short')return;
   const d = C[f], T = TFX[d.tribe] || TFX.hero, n = ids.length, dur = 2100 * SET.speed, far = Math.max(innerWidth, innerHeight) * .62;
   const mats = ids.map((id, i) => { const a = Math.PI + i * 6.283 / n + (n === 2 ? 0 : -Math.PI / 2 + Math.PI);
     return '<div class="fzm" style="--sx:' + Math.round(Math.cos(a) * far) + 'px;--sy:' + Math.round(Math.sin(a) * far * .6) + 'px;--rz:' + (i % 2 ? 18 : -18) + 'deg">' + cardHTML(id) + '</div>'; }).join('');
@@ -7841,6 +8070,7 @@ async function fxFuseEmerge(c, M){
   if(S.fast) return;
   const e = elOf('c:' + c.uid); if(!e) return;
   const r = e.getBoundingClientRect(), pt = {x:r.left + r.width / 2, y:r.top + r.height / 2}, from = M || pt, tribe = C[c.id].tribe;
+  if(tribe==='blade')return bladeEmerge(c,M);
   const glow = (TFX[tribe] || TFX.hero).c[0];
   const gate = SET.theme === 'watphou' && !REDUCE && SET.fx === 'short' ? addFx('wp-emerge', pt.x, pt.y, '<img alt="" src="' + ART + 'arena/watphou-gate.webp">') : null;
   if(!REDUCE){
@@ -7853,7 +8083,9 @@ async function fxFuseEmerge(c, M){
   await sleep(220);
 }
 async function fxEnter(c){
-  if(S.fast) return; sfx('play'); voice(c.id); const e = elOf('c:' + c.uid); if(e) e.classList.add('enter');
+  if(S.fast)return;
+  if(C[c.id].tribe==='blade'){const e=elOf('c:'+c.uid);if(e)e.classList.add('enter');voice(c.id);if(!BLADE_SCENES[c.id])await fxBladeCue('c:'+c.uid,bladeRole(c.id),c.id);return;}
+  sfx('play'); voice(c.id); const e = elOf('c:' + c.uid); if(e) e.classList.add('enter');
   await sleep(230);
   const pt = centerOf('c:' + c.uid), tribe = C[c.id].tribe;
   if(pt){
@@ -7886,7 +8118,8 @@ async function fxLunge(a, b, tribe, dmg){
   const T = TFX[tribe] || TFX.hero, col = T.c[0], big = (dmg || 0) >= 6;
   e.style.zIndex = 20;
   const dc = tribe === 'dino' && S.p.flatMap(p=>p.field).find(c=>'c:' + c.uid === a);
-  if(dc) void fxDinoCue(a,/evoemperor|evoblader/.test(dc.id)?'sword':'claw',dc.id,b); else sfx('attack');
+  const bc=tribe==='blade'&&S.p.flatMap(p=>p.field).find(c=>'c:'+c.uid===a);
+  if(dc)void fxDinoCue(a,/evoemperor|evoblader/.test(dc.id)?'sword':'claw',dc.id,b);else if(bc)bladeSound('draw');else sfx('attack');
   // 1) the card rises and glows in its tribe colour
   const lift = 'translateY(-16px) scale(1.12)';
   e.animate([{transform:'none', filter:'drop-shadow(0 0 0 ' + col + ')'}, {transform:lift, filter:'drop-shadow(0 0 18px ' + col + ')'}], {duration:230 * sp, easing:'ease-out', fill:'forwards'});
@@ -7904,9 +8137,9 @@ async function fxLunge(a, b, tribe, dmg){
   await animDone(dash)
   clearInterval(ghosts);
   // 3) impact: a cross of light, a ring, a few sparks; the target flashes white and is knocked back
-  sfx('hit'); if(big) sfx('boom');
+  if(bc)void fxBladeCue(a,/dapsongmue|dapkhu|khudapphen|champathong/.test(bc.id)?'double':'slash',bc.id,b);else{sfx('hit');if(big)sfx('boom');}
   const f = addFx('flare' + (big ? ' big' : ''), B.x, B.y, '<i></i><i></i>'); f.style.setProperty('--tc', col); setTimeout(() => f.remove(), 520);
-  flashScreen('#ffffff', big ? .32 : .16); shockAt(B.x, B.y, col, big ? 190 : 130); burstAt(B.x, B.y, tribe, big ? 28 : 16, .9);
+  if(!bc)flashScreen('#ffffff', big ? .32 : .16); shockAt(B.x, B.y, col, big ? 190 : 130); burstAt(B.x, B.y, tribe, big ? 28 : 16, .9);
   if(tgt) tgt.animate([{transform:'none', filter:'brightness(1)'}, {transform:'translate(' + ux * 18 + 'px,' + uy * 18 + 'px) rotate(' + (ux * 6) + 'deg)', filter:'brightness(2.8)', offset:.2}, {transform:'none', filter:'brightness(1)'}], {duration:440, easing:'ease-out'});
   await sleep(130);
   const ret = e.animate([{transform:'translate(' + tx + 'px,' + ty + 'px) scale(1.16)'}, {transform:'none', filter:'none'}], {duration:280 * sp, easing:'cubic-bezier(.2,.8,.2,1)'});
@@ -8202,6 +8435,8 @@ const LEGEND_FX = {
 };
 for(const id of Object.keys(LEGEND_SCENES)) LEGEND_FX[id]=el=>legendScene(el,id);
 for(const id of Object.keys(DINO_SCENES)) LEGEND_FX[id]=(el,fr)=>dinoEntrance(el,id,fr);
+Object.assign(LEGEND_SCENES,BLADE_SCENES);
+for(const id of Object.keys(BLADE_SCENES))LEGEND_FX[id]=(el,fr)=>bladeEntrance(el,id,fr);
 // frame a lifted character: fit its box into the upper part of the screen, above the name band
 function cutFrame(cut){
   const W = innerWidth, H = innerHeight, fh = cut[4] || 1060, bw = cut[2] * 760, bh = cut[3] * fh;
@@ -8210,12 +8445,13 @@ function cutFrame(cut){
 }
 async function fxShowcase(id, alt, form, silent){
   if(S.fast) return; const d = C[id], T = TFX[d.tribe] || TFX.hero, legend = !!d.legend || !!(form && d.tf);
-  voice(form && d.tf ? d.tf.img : id);
+  voice(form && d.tf ? d.tf.img : alt && VOICES.includes('alt-'+id) ? 'alt-'+id : id);
   const special=alt && DINO_ALT_SCENES[id],scene = special ? {...LEGEND_SCENES[id],...special} : LEGEND_SCENES[id];
   if(d.tribe === 'dino' && SET.fx === 'off') return;
-  const altFx = !legend && alt && ALT[id] && LEGEND_FX['alt-' + id], time = scene && scene.ms || (legend ? 2300 : altFx ? 2000 : 1500), dur = time * SET.speed;
+  if(d.tribe==='blade'&&SET.fx==='off'){if(!silent)bladeSound(BLADE_SCENES[id]?.sound||bladeRole(id));return;}
+  const altFx = !legend && alt && ALT[id] && LEGEND_FX['alt-' + id], time = d.tribe==='blade'&&(REDUCE||SET.fx==='short')?600:id==='champathong'&&alt?Math.max(3200,BLADE_SCENES[id].altMs||0):scene && scene.ms || (legend ? 2300 : altFx ? 2000 : 1500), dur = time * SET.speed;
   const ownSfx = {ajandaeng:'summon-yan', taniduean:'moonchange', lanxangmk0:'coreglow'}[form && d.tf ? d.tf.img : id];
-  if(!silent){ if(DINO_SCENES[id]) dinoSound(DINO_SCENES[id].sound,id); else if(!(ownSfx && sfxf(ownSfx))) sfx(legend ? 'legend' : 'spell'); }
+  if(!silent){ if(BLADE_SCENES[id])bladeSound(BLADE_SCENES[id].sound);else if(DINO_SCENES[id]) dinoSound(DINO_SCENES[id].sound,id); else if(!(ownSfx && sfxf(ownSfx))) sfx(legend ? 'legend' : 'spell'); }
   const im = form && d.tf ? ((alt && d.tf.altImg) || d.tf.img) : (alt && ALT[id] ? ALT[id] : d.img), img = PIC2(im), cut = CUTS[im];
   const label = (alt && ALT[id] ? '✦ ອາດພິເສດ · ' : '') + (legend ? 'ກາດຕຳນານ · ' : '') + TRIBE_NAME[d.tribe] + ' · ບຸນ ' + d.cost;
   let body = '<div class="sbg" style="background-image:url(' + img + ')"></div>' + (scene ? '' : '<div class="stint"></div>'), fr = null;
@@ -8227,10 +8463,10 @@ async function fxShowcase(id, alt, form, silent){
   }
   if(scene && !cut) body+='<div class="sfigure"><img src="'+img+'" alt=""></div>';
   body += '<div class="streaks"></div><div class="sband"><small>' + label + '</small><b>' + (form && d.tf ? d.tf.name : d.name) + '</b><span>ພະລັງ ' + (form && d.tf ? d.tf.power : d.power) + '</span>' + (scene ? '<em class="scene-subtitle">'+scene.title+'</em>' : '') + '</div>';
-  const el = addFx('show' + (DINO_SCENES[id] ? ' dino-scene' : '') + (scene ? ' legend-scene' : '') + (REDUCE ? ' still' : '') + (cut ? ' cut' : '') + (alt && ALT[id] ? ' alt' : ''), null, null, body);
+  const el = addFx('show' + (BLADE_SCENES[id]?' blade-scene':'') + (DINO_SCENES[id] ? ' dino-scene' : '') + (scene ? ' legend-scene' : '') + (REDUCE ? ' still' : '') + (cut ? ' cut' : '') + (alt && ALT[id] ? ' alt' : ''), null, null, body);
   el.dataset.legend=id; el.dataset.cut=im;
   if(legend && pmArena()) fxArenaLegend(pmArena(), el);   // behind the character and its name band
-  const finishTheme = legend ? watphouAdorn(el, false) : () => {};
+  const finishTheme = legend&&d.tribe!=='blade' ? watphouAdorn(el, false) : () => {};
   if(cut)el.style.setProperty('--cut-end',((cut[1]+cut[3])*100)+'%');
   el.style.setProperty('--dur', dur + 'ms'); el.style.setProperty('--tc', T.c[0] + 'cc');
   if(fr){ el.style.setProperty('--cw', fr.cw + 'px'); el.style.setProperty('--cx', fr.cx + 'px'); el.style.setProperty('--cy', fr.cy + 'px');
@@ -8248,15 +8484,16 @@ async function fxShowcase(id, alt, form, silent){
   }, 40);
   if(fr && !scene) setTimeout(() => { if(el.isConnected){ shockAt(innerWidth / 2, innerHeight * .39, T.c[0], fr.gs * .55); burstAt(innerWidth / 2, innerHeight * .39, d.tribe, legend ? 50 : 28, 1); } }, dur * .12);
   if(!scene && alt && ALT[id]) setTimeout(() => { if(el.isConnected) rainbowBurst(innerWidth / 2, innerHeight * .45, 90); }, 300);
-  await fxBig(() => fxWait(time));
-  clearInterval(iv); finishTheme(); el.remove();
+  try{await fxBig(() => fxWait(time));}
+  finally{clearInterval(iv);finishTheme();el.querySelectorAll('*').forEach(n=>n.getAnimations().forEach(a=>a.cancel()));el.getAnimations().forEach(a=>a.cancel());el.remove();}
 }
 // a spell, item or location is shown big with a golden glow, then flies into its slot
 async function fxActivate(id, alt, side, toK){
   if(S.fast) return; const d = C[id];
   const tag = d.type === 'loc' ? 'ສະຖານທີ່' : (d.type === 'item' ? 'ຂອງວິເສດ' : 'ຄາຖາ');
   const el = addFx('activate', null, null, '<div class="glow"></div>' + cardHTML(id, null, alt) + '<span class="acttag">' + tag + ' · ' + d.name + '</span>');
-  if(d.tribe !== 'dino'){ sfx('spell'); flashScreen('#fff3c4', .2); }
+  if(d.tribe!=='dino'&&d.tribe!=='blade'){sfx('spell');flashScreen('#fff3c4',.2);}
+  if(d.tribe==='blade'&&d.type==='item')await fxBladeCue(toK||'h:'+side,'draw',id);
   const r = el.getBoundingClientRect(); for(let i = 0; i < 18; i++){ const a = Math.random() * 6.283; emit({x:r.left + r.width / 2 + Math.cos(a) * r.width * .6, y:r.top + r.height / 2 + Math.sin(a) * r.height * .5, vx:Math.cos(a) * 60, vy:Math.sin(a) * 60 - 40, drag:.97, life:.9, size:2.5, kind:'spark', color:pick(['#ffd23d', '#fff6c8', '#ffffff'])}); }
   await sleep(780);
   // an item flies onto the card it goes on; anything else settles into its slot
@@ -8802,7 +9039,8 @@ async function fxGrab(k){
   await sleep(550);
 }
 async function fxLoc(i, id){
-  if(S.fast) return; if(id === 'dinovalley'){ await fxDinoCue('side:' + i,'nest',id); return; } sfx('spell');
+  if(S.fast) return; if(id === 'dinovalley'){ await fxDinoCue('side:' + i,'nest',id); return; }
+  if(id==='hofuek'){await fxBladeCue('h:'+i,'focus',id);return;}sfx('spell');
   const m = elOf('mat:' + i);
   if(m && !REDUCE){
     // the new place spreads over this side's field from the centre (the side box itself has no box, so measure its rows)
@@ -9787,6 +10025,7 @@ async function secureEffect(kind,a,context){
   case 'mechfuse': await fxMechFuse(...a);break;
   case 'dinochange': await fxDinoChange(...a);break;
   case 'dinocue': await fxDinoCue(...a);break;
+  case 'bladecue': await fxBladeCue(...a);break;
   case 'destroy': {const el=elOf('c:'+a[0]);if(el){sfx('destroy');if(REDUCE)el.classList.add('dying');else fxShatter(el,a[1]);await sleep(220);}break;}
  }
 }
@@ -10625,7 +10864,7 @@ $app.addEventListener('contextmenu', e => {
 // local dev only: poke at live game state from the console
 if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__dbg = {amb:() => AMB.id, rank:{res:R => { if(S){ S.rankRes = R; render(); } }, html:rankResHTML}, lf:{pulse:lfPulse, get LF(){ return LF; }, start:() => lfStart(), scenes:LF_SCENES}, lv:{add:n => addXP(n), reward:lvReward, of:levelOf, start:lvStart}, deck:{related:relatedCards, sp:deckSpecials, specials:edSpecials, wantAlt, hasAltArt:id => !!ALT[id], stars:deckStars, tips:deckTips, suggest:deckSuggest, half:fusionHalf, owned:id => owned(id), col:() => col()}, style:{items:styleItems, col:() => col(), set:o => Object.assign(SET, o)}, morphCheck:() => { if(!S) return null; const t = document.createElement('template'); t.innerHTML = boardHTML() + modalHTML() + graveHTML() + settingsHTML() + tutHTML();
   const path = []; const eq = (x, y) => { if(x.nodeType !== y.nodeType || x.nodeName !== y.nodeName) return false; if(x.nodeType !== 1) return x.nodeValue === y.nodeValue; if(x.attributes.length !== y.attributes.length) return false; for(const {name, value} of y.attributes) if(x.getAttribute(name) !== value) return false; const xs = x.childNodes, ys = y.childNodes; if(xs.length !== ys.length) return false; for(let i = 0; i < xs.length; i++) if(!eq(xs[i], ys[i])){ path.push(i + ':' + (xs[i].className || xs[i].nodeName)); return false; } return true; };
-  const r = eq($app, (() => { const d = document.createElement('div'); for(const {name, value} of $app.attributes) d.setAttribute(name, value); d.append(t.content); return d; })()) && $app.childNodes.length > 0; return r || path.reverse().join(' > '); }, pm:st => { PM.uid = ACCT.user?.id; PM.state = st; render(); }, secure:{bot:(...a) => secureBot(...a), effect:(k, a) => secureEffect(k, a, {}), move:m => secureMove(m), answer:v => secureAnswer(v), get SEC(){ return SEC; }, get LOCAL(){ return LOCAL; }}, fx:{show:(id, alt, form) => fxShowcase(id, alt, form), home:fxHome, voice:id => voice(id), get vo(){ return VO; }, sfxf:n => sfxf(n), get sfb(){ return SFB; }, get snd(){ return SND; }, yanFull:fxYanFull, holyWater:fxHolyWater, mland:fxMechLand, board:fxBoard, coreGlow:fxCoreGlow, beam:fxBeam, saber:fxSaber, drum:fxDrumShield, mfuse:fxMechFuse, sprout:fxSprout, lantern:fxLantern, motif:(id, x, y) => fxFuseMotif(id, {x:x || innerWidth / 2, y:y || innerHeight / 2}), cutin:(f) => fxFuseCutin(C[f].fusion, f), rite:(i, id) => { const p = S.p[i || 0]; return fxRite(p, id || 'phitibangfai', p.field.slice(0, 3)); }, rays:fxRays, yantra:fxYantra, orb:fxOrb, petals:fxPetals, marigolds:fxMarigolds, baci:(i) => fxBaci(S.p[i || 0]), fest:(id) => fxFest(FESTS.find(f => f.id === id) || FESTS[0]), blade:(i, n) => addBlade(S.p[i || 0], n), slash:fxSlash, burst:burstAt, big:fxBig, wait:fxWait, get state(){ return FX; }},dino:{audio:audioInit, preload:dinoPreload, sound:dinoSound, scenes:DINO_SCENES, altScenes:DINO_ALT_SCENES, sounds:DINO_SOUND, cue:fxDinoCue, fx:fxDinoChange, make:mkPlayer, fresh:freshChar, change:dinoChange, tick:dinoTick, cyber:dinoCanCyber, evo:dinoCanEvo, play:playCard, targets:targetsFor, block:playBlock, pow, canAttack, clone:cloneState, bounce, destroy, start:turnStartEffects, moves:hardMoves, legal:legalMove, pick:botPick, set:g => {S=g;}, newGame, cardHTML}, get S(){ return S; }, get net(){ return NET; }, get ACCT(){ return ACCT; }, get ui(){ return ui; }, DECKS, mockSB:x => { SB = x; },
+  const r = eq($app, (() => { const d = document.createElement('div'); for(const {name, value} of $app.attributes) d.setAttribute(name, value); d.append(t.content); return d; })()) && $app.childNodes.length > 0; return r || path.reverse().join(' > '); }, pm:st => { PM.uid = ACCT.user?.id; PM.state = st; render(); }, secure:{bot:(...a) => secureBot(...a), effect:(k, a) => secureEffect(k, a, {}), move:m => secureMove(m), answer:v => secureAnswer(v), get SEC(){ return SEC; }, get LOCAL(){ return LOCAL; }}, fx:{show:(id, alt, form) => fxShowcase(id, alt, form), home:fxHome, voice:id => voice(id), get vo(){ return VO; }, sfxf:n => sfxf(n), get sfb(){ return SFB; }, get snd(){ return SND; }, yanFull:fxYanFull, holyWater:fxHolyWater, mland:fxMechLand, board:fxBoard, coreGlow:fxCoreGlow, beam:fxBeam, saber:fxSaber, drum:fxDrumShield, mfuse:fxMechFuse, sprout:fxSprout, lantern:fxLantern, motif:(id, x, y) => fxFuseMotif(id, {x:x || innerWidth / 2, y:y || innerHeight / 2}), cutin:(f) => fxFuseCutin(C[f].fusion, f), rite:(i, id) => { const p = S.p[i || 0]; return fxRite(p, id || 'phitibangfai', p.field.slice(0, 3)); }, rays:fxRays, yantra:fxYantra, orb:fxOrb, petals:fxPetals, marigolds:fxMarigolds, baci:(i) => fxBaci(S.p[i || 0]), fest:(id) => fxFest(FESTS.find(f => f.id === id) || FESTS[0]), blade:(i, n) => addBlade(S.p[i || 0], n), slash:fxSlash, burst:burstAt, big:fxBig, wait:fxWait, get state(){ return FX; }},blade:{preload:bladePreload,sound:bladeSound,sounds:BLADE_SOUND,scenes:BLADE_SCENES,cue:fxBladeCue,role:bladeRole,fuse:f=>fuse(S.p[0],f),canFuse:f=>canFuse(S.p[0],f),gather:(i,f)=>fxFuseGather(S.p[i],C[f].fusion.map(id=>S.p[i].field.find(c=>c.id===id)).filter(Boolean),f)},dino:{audio:audioInit, preload:dinoPreload, sound:dinoSound, scenes:DINO_SCENES, altScenes:DINO_ALT_SCENES, sounds:DINO_SOUND, cue:fxDinoCue, fx:fxDinoChange, make:mkPlayer, fresh:freshChar, change:dinoChange, tick:dinoTick, cyber:dinoCanCyber, evo:dinoCanEvo, play:playCard, targets:targetsFor, block:playBlock, pow, canAttack, clone:cloneState, bounce, destroy, start:turnStartEffects, moves:hardMoves, legal:legalMove, pick:botPick, set:g => {S=g;}, newGame, cardHTML}, get S(){ return S; }, get net(){ return NET; }, get ACCT(){ return ACCT; }, get ui(){ return ui; }, DECKS, mockSB:x => { SB = x; },
   music:{want:m => { MUS.want = m; }, sting:musicSting, sfx:n => sfx(n), get state(){ return MUS; }, get mf(){ return {loaded:Object.keys(MF.buf), cur:MF.cur && MF.cur.name, parts:MF.cur ? MF.cur.parts.length : 0}; }, level:async (mood, secs) => {
     const sr = 22050, oc = new OfflineAudioContext(1, sr * (secs || 20), sr), keep = Object.assign({}, SND), out = oc.createGain(); out.connect(oc.destination);
     SND.ctx = oc; SND.sfx = out; musicBus(oc, out);
