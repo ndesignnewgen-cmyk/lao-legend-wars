@@ -22,7 +22,8 @@ function visualResult(){
    if(['activate','trap','loc','draw','rite','gather','baci','banner','home','yanfull','holywater'].includes(kind))args[0]=side===1?1-args[0]:args[0];
    if(kind==='cast'){args[0]=side===1?1-args[0]:args[0];args[1]=key(args[1]);}
    if(['lunge','fireflies','beam'].includes(kind)){args[0]=key(args[0]);args[1]=key(args[1]);}
-   if(['float','ring','heal','buff','weak','rocket','curse','tornado','trip','grab','slash','mland','board','coreglow','saber','drumshield','mechfuse'].includes(kind))args[0]=key(args[0]);
+   if(['float','ring','heal','buff','weak','rocket','curse','tornado','trip','grab','slash','mland','board','coreglow','saber','drumshield','mechfuse','dinochange','dinocue'].includes(kind))args[0]=key(args[0]);
+   if(kind==='dinocue'&&args[3])args[3]=key(args[3]);
    if(kind==='activate'&&args[3])args[3]=key(args[3]);
    // A hidden character must not reveal its picture through an animation.
    if(kind==='enter'&&!state.p.flatMap(p=>p.field).some(c=>c.uid===args[0]&&c.id!=='back'))kind=null;
@@ -37,7 +38,7 @@ function visualResult(){
 const realStart=startTurn, realOnPlay=onPlay;
 render=()=>captureVisual();floatAt=(...a)=>captureVisual('float',a);fxHeal=k=>captureVisual('heal',[k]);petSay=()=>{};petGrow=()=>{};botSay=()=>{};
 fxEnter=c=>captureVisual('enter',[c.uid]);
-fxShowcase=(id,alt,form)=>captureVisual('showcase',[id,alt,form]);
+fxShowcase=(id,alt,form,silent)=>captureVisual('showcase',[id,alt,form,silent]);
 fxActivate=(id,alt,side,key)=>captureVisual('activate',[side,id,alt,key]);
 fxLunge=(...a)=>captureVisual('lunge',a);
 fxCast=(side,t,kind)=>captureVisual('cast',[side,tkey(t),kind]);
@@ -54,6 +55,7 @@ fxCurse=k=>captureVisual('curse',[k]);fxTornado=k=>captureVisual('tornado',[k]);
 fxLoc=(side,id)=>captureVisual('loc',[side,id]);fxBuff=(...a)=>captureVisual('buff',a);fxWeak=k=>captureVisual('weak',[k]);
 fxFireflies=(...a)=>captureVisual('fireflies',a);fxGrab=k=>captureVisual('grab',[k]);
 fxMechLand=k=>captureVisual('mland',[k]);fxBoard=k=>captureVisual('board',[k]);fxCoreGlow=k=>captureVisual('coreglow',[k]);fxBeam=(a,b)=>captureVisual('beam',[a,b]);
+fxDinoChange=(...a)=>captureVisual('dinochange',a);fxDinoCue=(...a)=>captureVisual('dinocue',a);
 fxSaber=k=>captureVisual('saber',[k]);fxDrumShield=k=>captureVisual('drumshield',[k]);fxMechFuse=k=>captureVisual('mechfuse',[k]);
 fxHome=(side,keys)=>captureVisual('home',[side,keys]);fxYanFull=(side,keys)=>captureVisual('yanfull',[side,keys]);fxHolyWater=side=>captureVisual('holywater',[side]);
 const realDestroy=destroy;destroy=async(p,c,quick)=>{if(!c.shield&&p.field.includes(c))captureVisual('destroy',[c.uid,C[c.id].tribe]);return realDestroy(p,c,quick);};

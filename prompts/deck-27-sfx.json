@@ -1,0 +1,188 @@
+{
+  "deck": 27,
+  "recordingsReady": true,
+  "sounds": [
+    {
+      "key": "dino-egg",
+      "file": "dino-egg.wav",
+      "name": "ວາງໄຂ່ / ອົບອຸ່ນຮັງ",
+      "seconds": 1.2,
+      "prompt": "A small dinosaur egg settles into a soft fern nest: a light earthy tap, delicate shell ticks and a warm amber magical shimmer. Gentle, curious and hopeful. One short isolated fantasy game sound, immediate onset, clean fade. No speech, vocals, music, background ambience or horror.",
+      "status": "ໃສ່ໃນເກມແລ້ວ",
+      "recordings": [
+        {
+          "file": "art/sfx/dino-egg.m4a",
+          "seconds": 0.892854
+        }
+      ]
+    },
+    {
+      "key": "dino-hatch",
+      "file": "dino-hatch.wav",
+      "name": "ໄຂ່ແຕກ ແລະຟັກ",
+      "seconds": 1.6,
+      "prompt": "A dinosaur egg hatches: three crisp delicate shell cracks, small shell pieces popping outward, a tiny friendly chirp and a bright golden sparkle. A joyful new life, not an explosion. One isolated fantasy game effect, immediate onset, short clean tail. No speech, music, ambience or scary growls.",
+      "status": "ໃສ່ໃນເກມແລ້ວ",
+      "recordings": [
+        {
+          "file": "art/sfx/dino-hatch.m4a",
+          "seconds": 1.260146
+        }
+      ]
+    },
+    {
+      "key": "dino-grow",
+      "file": "dino-grow.wav",
+      "name": "ລູກເຣັກເຕີບໃຫຍ່",
+      "seconds": 1.8,
+      "prompt": "A young dinosaur magically grows stronger: a low soft heartbeat pulse, an airy rising emerald energy sweep, then one confident earthy footstep and a warm golden chime. Organic and majestic, not mechanical. One isolated game effect with a clean fade. No speech, music, ambience or horror.",
+      "status": "ໃສ່ໃນເກມແລ້ວ",
+      "recordings": [
+        {
+          "file": "art/sfx/dino-grow.m4a",
+          "seconds": 1.559271
+        }
+      ]
+    },
+    {
+      "key": "dino-roar",
+      "file": "dino-roar.wav",
+      "name": "ຣາຊາເຣັກ / ເຣັກ ອອກໂຕ",
+      "seconds": 2.2,
+      "prompt": "One majestic fantasy tyrannosaur entrance: two weighty footfalls on stone, followed by one short confident resonant dinosaur roar. Warm powerful chest resonance, noble and protective, with a subtle metallic gong tail. Clear on phone speakers; controlled bass. No speech, music, horror screams or clipping.",
+      "status": "ໃສ່ໃນເກມແລ້ວ",
+      "recordings": [
+        {
+          "file": "art/sfx/dino-roar.m4a",
+          "seconds": 2.162792
+        },
+        {
+          "file": "art/sfx/dino-roar-b.m4a",
+          "seconds": 2.027688
+        }
+      ]
+    },
+    {
+      "key": "dino-upgrade",
+      "file": "dino-upgrade.wav",
+      "name": "ປະກອບເກາະໄຊບອດ",
+      "seconds": 2.4,
+      "prompt": "Living dinosaur armor powers up: a short rising servo sweep, four precise gold metal plates snapping into place in sequence, a crystal core pulse, then one satisfying warm energy bloom. Refined ancient Lao-inspired science fantasy, powerful and hopeful. One isolated effect. No voice, music, gunfire, ambience or horror.",
+      "status": "ໃສ່ໃນເກມແລ້ວ",
+      "recordings": [
+        {
+          "file": "art/sfx/dino-upgrade.m4a",
+          "seconds": 1.950479
+        },
+        {
+          "file": "art/sfx/dino-upgrade-b.m4a",
+          "seconds": 2.1405
+        }
+      ]
+    },
+    {
+      "key": "dino-evolve",
+      "file": "dino-evolve.wav",
+      "name": "ປຸກຮ່າງນັກຮົບ",
+      "seconds": 3.0,
+      "prompt": "Ultimate dinosaur warrior transformation: a deep warm core pulse, layered smooth mechanical unfolding and armor locks rising in pitch, then a broad golden energy surge with one noble bronze gong strike and a sparkling tail. A triumphant original science-fantasy game effect. No words, vocals, melody, background music or horror.",
+      "status": "ໃສ່ໃນເກມແລ້ວ",
+      "recordings": [
+        {
+          "file": "art/sfx/dino-evolve.m4a",
+          "seconds": 2.681938
+        },
+        {
+          "file": "art/sfx/dino-evolve-b.m4a",
+          "seconds": 2.472229
+        }
+      ]
+    },
+    {
+      "key": "dino-core",
+      "file": "dino-core.wav",
+      "name": "ແກ່ນພະລັງຟອດຊິວ",
+      "seconds": 1.0,
+      "prompt": "A small golden fossil crystal core activates: one crisp glassy click, a compact low electronic pulse, and a bright warm crystalline shimmer. Precious, ancient and futuristic, restrained and clear on phone speakers. One isolated game effect, immediate start and short fade. No speech, music, ambience or alarm.",
+      "status": "ໃສ່ໃນເກມແລ້ວ",
+      "recordings": [
+        {
+          "file": "art/sfx/dino-core.m4a",
+          "seconds": 0.623125
+        }
+      ]
+    },
+    {
+      "key": "dino-claw",
+      "file": "dino-claw.wav",
+      "name": "ເລັບໄດໂນເສົາໂຈມຕີ",
+      "seconds": 0.8,
+      "prompt": "One fast powerful dinosaur claw swipe through the air, a tight low whoosh followed by a crisp scrape against stone armor and a compact impact. Clean energetic fantasy combat, non-graphic, no creature pain. One isolated action, immediate onset and short tail. No speech, music, ambience or horror.",
+      "status": "ໃສ່ໃນເກມແລ້ວ",
+      "recordings": [
+        {
+          "file": "art/sfx/dino-claw.m4a",
+          "seconds": 1.0
+        }
+      ]
+    },
+    {
+      "key": "dino-sword",
+      "file": "dino-sword.wav",
+      "name": "ດາບແສງນັກຮົບ",
+      "seconds": 1.0,
+      "prompt": "A dinosaur knight swings a golden energy sword: a clear electric ignition tick, a broad fast blade whoosh and a bright metallic energy impact, ending in tiny cyan sparks. Elegant, sharp and heroic, controlled treble and bass. One isolated original game effect. No voice, music, ambience, gunfire or pain sounds.",
+      "status": "ໃສ່ໃນເກມແລ້ວ",
+      "recordings": [
+        {
+          "file": "art/sfx/dino-sword.m4a",
+          "seconds": 0.977375
+        }
+      ]
+    },
+    {
+      "key": "dino-shield",
+      "file": "dino-shield.wav",
+      "name": "ກາງໂລ່ / ຮັບການໂຈມຕີ",
+      "seconds": 1.2,
+      "prompt": "A gold and ivory dinosaur energy shield opens with a smooth mechanical click, absorbs one heavy impact with a rounded bronze resonance and a soft electric ripple, then fades cleanly. Strong protective magic, never harsh or explosive. One isolated game effect. No speech, music, ambience, breaking glass or screams.",
+      "status": "ໃສ່ໃນເກມແລ້ວ",
+      "recordings": [
+        {
+          "file": "art/sfx/dino-shield.m4a",
+          "seconds": 1.127063
+        }
+      ]
+    },
+    {
+      "key": "dino-beam",
+      "file": "dino-beam.wav",
+      "name": "ບີມຂອງເຣັກອະທິຣາດ",
+      "seconds": 1.2,
+      "prompt": "One golden dinosaur shoulder-cannon energy beam: a very short focused charging whine, a single clean bright beam discharge, a compact distant impact and a delicate sizzling fade. Powerful science-fantasy game sound, not a real gun or a repeated burst. No speech, music, ambience, harsh distortion or horror.",
+      "status": "ໃສ່ໃນເກມແລ້ວ",
+      "recordings": [
+        {
+          "file": "art/sfx/dino-beam.m4a",
+          "seconds": 1.2
+        }
+      ]
+    },
+    {
+      "key": "dino-heal",
+      "file": "dino-heal.wav",
+      "name": "ຟື້ນຂວັນ / ພອນຄຸ້ມຮັງ",
+      "seconds": 1.5,
+      "prompt": "A gentle ancient forest healing blessing: soft leaf rustle rises into a warm golden light sweep, three delicate glass-bell sparkles and a tiny water-drop finish. Serene, caring and magical, not a musical phrase. One isolated fantasy game sound with a clean fade. No speech, singing, background music, ambience or horror.",
+      "status": "ໃສ່ໃນເກມແລ້ວ",
+      "recordings": [
+        {
+          "file": "art/sfx/dino-heal.m4a",
+          "seconds": 1.397333
+        }
+      ]
+    }
+  ],
+  "receivedFiles": 16,
+  "uniqueRecordings": 15
+}

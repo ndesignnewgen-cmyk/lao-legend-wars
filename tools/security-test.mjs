@@ -34,7 +34,7 @@ assert.throws(()=>patchVisual({},[[['__proto__','bad'],true]]));checks++;
 let games=0,visualMoves=0,missingVisuals=0,largest=0,effectKinds=new Set();
 const total=Number(process.argv.find(x=>x.startsWith('--games='))?.split('=')[1]||48);
 for(let g=0;g<total;g++){
- const eg=createEngine(),a=g%24,b=(a+1+Math.floor(g/24))%24;
+ const eg=createEngine(),count=eg.decks.length,a=g%count,b=(a+1+Math.floor(g/count))%count;
  const mode=g%2?'bot':'casual';const sp={mode,level:g%3,host:{di:a,list:eg.decks[a].list},guest:{di:b,list:eg.decks[b].list}};
  let action={type:'start'},answers=[],current={checkpoint:eg.start(sp,100+g)};
  for(let turn=0;turn<1200&&!current.checkpoint.state.over;turn++){

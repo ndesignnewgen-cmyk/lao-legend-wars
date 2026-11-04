@@ -39,7 +39,7 @@ function game(){
  return {p,q,S:a.S};
 }
 async function test(){
- check(Object.keys(a.C).length === 344 && a.DECKS.length === 24,'card/deck count');
+ check(Object.keys(a.C).length === 406 && a.DECKS.length === 27,'card/deck count');
  for(const d of a.DECKS){
   const n=Object.values(d.list).reduce((x,y)=>x+y,0);
   check(n>=30&&n<=40,'deck size '+d.no);

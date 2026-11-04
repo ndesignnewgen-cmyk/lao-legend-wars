@@ -1,0 +1,97 @@
+{
+  "deck": 27,
+  "index": 26,
+  "rulesHash": "523a3d33ed8b5e17a77184a1f236b04376c3b16d8f05a8beafa49a387c779df5",
+  "cardDesigns": 22,
+  "starterCards": 30,
+  "packableDesigns": 15,
+  "generatedForms": 7,
+  "artworks": 49,
+  "verifiedTransparentPNGs": 20,
+  "gameplayChecks": 31,
+  "secureEngineChecks": 21,
+  "mediumBot": {
+    "seed": 270411,
+    "games": 2600,
+    "wins": 1364,
+    "winRate": 0.5246153846153846,
+    "errors": []
+  },
+  "sql": {
+    "database": "throwaway PostgreSQL 16",
+    "migrationAppliedTwice": true,
+    "packMembership": true,
+    "existingGrantsPreserved": true,
+    "deck27LegendReward": true,
+    "deck26LegendRewardUnchanged": true,
+    "lossPayoutUnchanged": true,
+    "liveSupabaseChanged": false
+  },
+  "ui": {
+    "desktop": [
+      1600,
+      1030
+    ],
+    "phone": [
+      430,
+      932
+    ],
+    "missingDinoArt": [],
+    "horizontalOverflow": false,
+    "morphMatches": true,
+    "cardNameFit": {
+      "cardDesigns": 406,
+      "variantsPerViewport": 1410,
+      "cardWidths": [
+        90,
+        160,
+        320
+      ],
+      "viewportWidths": [
+        1440,
+        430
+      ],
+      "overflow": 0,
+      "clippedText": 0,
+      "morphMatches": true
+    }
+  },
+  "productionDeployed": false,
+  "visualEffects": {
+    "entrances": 9,
+    "domChecks": 62,
+    "recordedSoundPrompts": 12,
+    "recordingsReceived": 16,
+    "fallbackSoundsActive": false,
+    "noFullScreenBackdrop": true,
+    "skipCleanupVerified": true,
+    "uniqueRecordings": 15,
+    "recordedSoundTypes": 12,
+    "fallbackOnLoadFailure": true,
+    "specialArtEntrances": 6,
+    "specialArtChecks": {
+      "desktop": 59,
+      "phone": 59,
+      "widths": [
+        1440,
+        430
+      ],
+      "secureReplay": true,
+      "noFullScreenBackdrop": true,
+      "noCollectionGrant": true
+    }
+  },
+  "audio": {
+    "checks": 96,
+    "decodedRecordings": 15,
+    "mutingVerified": true,
+    "simulationSilent": true,
+    "offlineRenderingVerified": true,
+    "humanListeningVerified": false,
+    "sfxPagePlayers": 15,
+    "sfxPagePhoneWidth": 430,
+    "horizontalOverflow": false,
+    "manifest": "design/deck-27-audio.json",
+    "specialArtSingleCueVerified": true
+  }
+}

@@ -1,0 +1,26 @@
+<!doctype html><html lang="lo"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ເດັກ 27 · ໄດໂນເສົາໄຊບອດ</title>
+<style>*{box-sizing:border-box}body{height:100dvh;display:flex;flex-direction:column;margin:0;background:#071b18;color:#f7ead2;font:15px system-ui,sans-serif}header{padding:14px 20px;background:linear-gradient(110deg,#123e30,#0e2428);border-bottom:1px solid #b79545;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}h1{font-size:21px;margin:0}p{margin:5px 0;color:#c8d8c4}.buttons{display:flex;gap:7px;flex-wrap:wrap}button{font:inherit;border:1px solid #bd9b4c;border-radius:22px;background:#18382e;color:#ffedb7;padding:9px 15px;cursor:pointer}button:first-child{background:#edc564;color:#14241b;font-weight:bold}select{font:inherit;max-width:230px;background:#0d2a23;color:#ffe4a0;border:1px solid #bd9b4c;border-radius:18px;padding:8px}button:disabled{opacity:.5;cursor:wait}button:hover{filter:brightness(1.15)}iframe{flex:1;min-height:0;display:block;width:100%;height:auto;border:0;background:#0e2428}#status{font-size:13px;color:#c8d8c4}@media(max-width:700px){header{padding:10px}h1{font-size:18px}iframe{height:auto}button{font-size:13px;padding:8px 10px}}</style>
+<header><div><h1>🦖 ເດັກ 27 · ອານາຈັກໄຊບອດ</h1><p>ໄຂ່ → ໄດໂນເສົາ → ໄຊບອດ → ນັກຮົບ</p><span id="status">ກຳລັງເປີດເກມ…</span></div><div class="buttons"><button data-mode="play">ລອງກັບບອດ</button><button data-mode="egg">ລອງຟັກໄຂ່</button><button data-mode="cyber">ລອງອັບໄຊບອດ</button><button data-mode="evo">ລອງຮ່າງນັກຮົບ</button><button data-mode="show">ເບິ່ງຮ່າງສຸດຍອດ</button><select id="fxCard" aria-label="ເລືອກຕົວລະຄອນ"></select><select id="fxArt" aria-label="ເລືອກແບບຮູບ"><option value="normal">ຮູບປົກກະຕິ</option><option value="special">✦ ອາດພິເສດ</option></select><button id="entrance">ເບິ່ງສາກອອກໂຕ</button><a href="deck-27-sfx.html" style="color:#f1d58d">ຟັງສຽງໃໝ່ 15 ສຽງ ↗</a></div></header>
+<iframe id="game" src="../?deck27-preview=1" allow="autoplay"></iframe>
+<script>
+const frame=document.getElementById('game'),status=document.getElementById('status');let N=700000;
+const get=()=>frame.contentWindow.__dbg;
+function syncArt(){const D=get(),art=document.getElementById('fxArt'),available=!!D?.deck.hasAltArt(document.getElementById('fxCard').value);art.options[1].disabled=!available;if(!available)art.value='normal';}
+document.getElementById('fxCard').onchange=syncArt;
+function demo(mode){
+ const D=get();if(!D){status.textContent='ໜ້າລອງນີ້ໃຊ້ໄດ້ໃນເຄື່ອງເທົ່ານັ້ນ';return;}const K=D.dino;D.style.set({theme:'watphou'});
+ if(mode==='play'){K.set(null);K.newGame(26,1,{first:0});status.textContent='ຫຼິ້ນເດັກໃໝ່ກັບບອດກາງໄດ້ເລີຍ';return;}
+ K.set(null);const g={screen:'game',p:[K.make('ເຈົ້າ',26,false,1),K.make('ບອດ',25,true,1)],turn:0,T:9,level:1,log:[],over:null,fast:false,auto:false,busy:false,targeting:null,sel:null,modal:null,fest:null};K.set(g);
+ for(const p of g.p)Object.assign(p,{mana:10,maxMana:10,mulled:true,tales:[],deck:Array(24).fill('dinoraptor')});
+ const add=(id,side=0)=>{const c=K.fresh(id);c.sick=false;c.dinoSince=5;g.p[side].field.push(c);return c;};
+ add('mechshield',1);add('mechsword',1);add('dronecannon',1);
+ let hand=[];
+ if(mode==='egg'){const e=add('dinoeggtrex');e.dinoTimer=1;add('dinoeggtrike');add('dinoeggraptor');add('dinolongneck');hand=['dinohatch','dinohatch','dinovalley','dinocore','dinoking'];}
+ if(mode==='cyber'){add('dinoking');add('dinotrike');add('dinoraptor');hand=['dinoupgrade','dinoupgrade','dinocore','dinoawaken','dinorepair'];}
+ if(mode==='evo'){const c=add('dinometarex');c.dinoBase='dinoking';c.shield=true;hand=['dinoawaken','dinocore','dinoraptor','dinotrike','dinorepair'];}
+ if(mode==='show'){add('dinoevoemperor');add('dinoevobastion');add('dinoevoblader');hand=['dinoking','dinometarex','dinometatrike','dinometaraptor','dinoawaken'];}
+ g.p[0].hand=hand.map(id=>({id,uid:++N}));D.render();status.textContent='ສະໜາມລອງ · ກົດກາດໃນມື ເພື່ອລອງຜົນໄດ້ເລີຍ';
+}
+document.querySelectorAll('button[data-mode]').forEach(b=>b.onclick=()=>demo(b.dataset.mode));document.getElementById('entrance').onclick=async()=>{const D=get();if(!D||!D.S||D.S.busy)return;D.dino.audio();const g=D.S,old=g.busy;g.busy=true;const buttons=[...document.querySelectorAll('button,select')];buttons.forEach(b=>b.disabled=true);try{status.textContent='ກຳລັງກຽມສຽງ…';const ready=await D.dino.preload();status.textContent=ready?'ພ້ອມແລ້ວ · ສຽງ ElevenLabs ຂອງເຈົ້າ':'ສຽງບາງອັນໂຫຼດບໍ່ທັນ · ລອງອີກຄັ້ງໄດ້';await D.fx.show(document.getElementById('fxCard').value,document.getElementById('fxArt').value==='special');}finally{if(D.S===g){g.busy=old;D.render();}buttons.forEach(b=>b.disabled=false);}};
+frame.onload=()=>{const D=get();if(D){const sel=document.getElementById('fxCard');sel.replaceChildren();Object.keys(D.dino.scenes).forEach(id=>{const o=document.createElement('option');o.value=id;o.textContent=D.C[id].name;sel.append(o);});const params=new URLSearchParams(location.search);sel.value=params.get('card')||'dinoevoemperor';if(!sel.value)sel.value='dinoevoemperor';document.getElementById('fxArt').value=params.get('art')==='special'?'special':'normal';syncArt();}status.textContent='ພ້ອມແລ້ວ · ບໍ່ປ່ຽນກາດທີ່ເຈົ້າສະສົມ';demo('show');};
+</script></html>

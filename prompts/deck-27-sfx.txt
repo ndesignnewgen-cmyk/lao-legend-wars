@@ -1,0 +1,90 @@
+ເດັກ 27 · ໄດໂນເສົາ — ອານາຈັກໄຊບອດ
+ພຣອມ ElevenLabs · 12 ສຽງ · 04/11/2026
+
+ສະຖານະ 04/11/2026: ຮັບ 16 MP3, ຊ້ຳ 1, ໃສ່ໃນເກມ 15 ສຽງ/12 ປະເພດແລ້ວ.
+ພຣອມເດີມຮັກສາໄວ້ເພື່ອເຈນເພີ່ມ. ໜ້າຟັງ: tools/deck-27-sfx.html.
+
+ວິທີເຮັດ:
+1. ElevenLabs → Playground → Sound Effects.
+2. ກັອບສະເພາະ PROMPT ຂອງສຽງນັ້ນ → ວາງໃນຊ່ອງພິມ.
+3. Duration = ຕາມວິນາທີທີ່ລະບຸ; Looping = ປິດ. Prompt influence ປ່ອຍຄ່າເດີມກ່ອນ.
+4. ກົດ Generate / ລູກສອນ → ຟັງ → ເລືອກອັນທີ່ມັກ → Download → WAV (48 kHz) ຫຼື MP3.
+5. ຕັ້ງຊື່ໄຟລ໌ຕາມທີ່ລະບຸ. ຖ້າເປັນ MP3 ໃຫ້ໃຊ້ຊື່ດຽວກັນແຕ່ທ້າຍ .mp3.
+6. ສົ່ງ 12 ໄຟລ໌ມາໃນ ZIP. ຂ້ອຍຈະປັບລະດັບສຽງ, ຕັດຊ່ວງງຽບ ແລະໃສ່ໃຫ້ກົງຈັງຫວະໃນເກມ.
+
+ເຈນແຍກເທື່ອລະສຽງ. ບໍ່ວາງທັງ 12 ພຣອມໃນຊ່ອງດຽວ.
+ຊື່ແລະຫົວຂໍ້ພາສາລາວບໍ່ຕ້ອງກັອບໄປນຳ.
+ໄຟລ໌ໃນເກມ: art/sfx/dino-*.m4a. ສຽງທົດແທນຈະໃຊ້ສະເພາະຕອນໂຫຼດສຽງໃໝ່ບໍ່ທັນ.
+ຄູ່ມື: https://elevenlabs.io/docs/eleven-creative/playground/sound-effects
+
+1. ວາງໄຂ່ / ອົບອຸ່ນຮັງ
+ໄຟລ໌: dino-egg.wav
+Duration: 1.2 ວິນາທີ
+PROMPT:
+A small dinosaur egg settles into a soft fern nest: a light earthy tap, delicate shell ticks and a warm amber magical shimmer. Gentle, curious and hopeful. One short isolated fantasy game sound, immediate onset, clean fade. No speech, vocals, music, background ambience or horror.
+
+2. ໄຂ່ແຕກ ແລະຟັກ
+ໄຟລ໌: dino-hatch.wav
+Duration: 1.6 ວິນາທີ
+PROMPT:
+A dinosaur egg hatches: three crisp delicate shell cracks, small shell pieces popping outward, a tiny friendly chirp and a bright golden sparkle. A joyful new life, not an explosion. One isolated fantasy game effect, immediate onset, short clean tail. No speech, music, ambience or scary growls.
+
+3. ລູກເຣັກເຕີບໃຫຍ່
+ໄຟລ໌: dino-grow.wav
+Duration: 1.8 ວິນາທີ
+PROMPT:
+A young dinosaur magically grows stronger: a low soft heartbeat pulse, an airy rising emerald energy sweep, then one confident earthy footstep and a warm golden chime. Organic and majestic, not mechanical. One isolated game effect with a clean fade. No speech, music, ambience or horror.
+
+4. ຣາຊາເຣັກ / ເຣັກ ອອກໂຕ
+ໄຟລ໌: dino-roar.wav
+Duration: 2.2 ວິນາທີ
+PROMPT:
+One majestic fantasy tyrannosaur entrance: two weighty footfalls on stone, followed by one short confident resonant dinosaur roar. Warm powerful chest resonance, noble and protective, with a subtle metallic gong tail. Clear on phone speakers; controlled bass. No speech, music, horror screams or clipping.
+
+5. ປະກອບເກາະໄຊບອດ
+ໄຟລ໌: dino-upgrade.wav
+Duration: 2.4 ວິນາທີ
+PROMPT:
+Living dinosaur armor powers up: a short rising servo sweep, four precise gold metal plates snapping into place in sequence, a crystal core pulse, then one satisfying warm energy bloom. Refined ancient Lao-inspired science fantasy, powerful and hopeful. One isolated effect. No voice, music, gunfire, ambience or horror.
+
+6. ປຸກຮ່າງນັກຮົບ
+ໄຟລ໌: dino-evolve.wav
+Duration: 3.0 ວິນາທີ
+PROMPT:
+Ultimate dinosaur warrior transformation: a deep warm core pulse, layered smooth mechanical unfolding and armor locks rising in pitch, then a broad golden energy surge with one noble bronze gong strike and a sparkling tail. A triumphant original science-fantasy game effect. No words, vocals, melody, background music or horror.
+
+7. ແກ່ນພະລັງຟອດຊິວ
+ໄຟລ໌: dino-core.wav
+Duration: 1.0 ວິນາທີ
+PROMPT:
+A small golden fossil crystal core activates: one crisp glassy click, a compact low electronic pulse, and a bright warm crystalline shimmer. Precious, ancient and futuristic, restrained and clear on phone speakers. One isolated game effect, immediate start and short fade. No speech, music, ambience or alarm.
+
+8. ເລັບໄດໂນເສົາໂຈມຕີ
+ໄຟລ໌: dino-claw.wav
+Duration: 0.8 ວິນາທີ
+PROMPT:
+One fast powerful dinosaur claw swipe through the air, a tight low whoosh followed by a crisp scrape against stone armor and a compact impact. Clean energetic fantasy combat, non-graphic, no creature pain. One isolated action, immediate onset and short tail. No speech, music, ambience or horror.
+
+9. ດາບແສງນັກຮົບ
+ໄຟລ໌: dino-sword.wav
+Duration: 1.0 ວິນາທີ
+PROMPT:
+A dinosaur knight swings a golden energy sword: a clear electric ignition tick, a broad fast blade whoosh and a bright metallic energy impact, ending in tiny cyan sparks. Elegant, sharp and heroic, controlled treble and bass. One isolated original game effect. No voice, music, ambience, gunfire or pain sounds.
+
+10. ກາງໂລ່ / ຮັບການໂຈມຕີ
+ໄຟລ໌: dino-shield.wav
+Duration: 1.2 ວິນາທີ
+PROMPT:
+A gold and ivory dinosaur energy shield opens with a smooth mechanical click, absorbs one heavy impact with a rounded bronze resonance and a soft electric ripple, then fades cleanly. Strong protective magic, never harsh or explosive. One isolated game effect. No speech, music, ambience, breaking glass or screams.
+
+11. ບີມຂອງເຣັກອະທິຣາດ
+ໄຟລ໌: dino-beam.wav
+Duration: 1.2 ວິນາທີ
+PROMPT:
+One golden dinosaur shoulder-cannon energy beam: a very short focused charging whine, a single clean bright beam discharge, a compact distant impact and a delicate sizzling fade. Powerful science-fantasy game sound, not a real gun or a repeated burst. No speech, music, ambience, harsh distortion or horror.
+
+12. ຟື້ນຂວັນ / ພອນຄຸ້ມຮັງ
+ໄຟລ໌: dino-heal.wav
+Duration: 1.5 ວິນາທີ
+PROMPT:
+A gentle ancient forest healing blessing: soft leaf rustle rises into a warm golden light sweep, three delicate glass-bell sparkles and a tiny water-drop finish. Serene, caring and magical, not a musical phrase. One isolated fantasy game sound with a clean fade. No speech, singing, background music, ambience or horror.

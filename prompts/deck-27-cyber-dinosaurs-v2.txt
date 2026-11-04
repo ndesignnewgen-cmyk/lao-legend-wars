@@ -1,0 +1,116 @@
+ເດັກ 27 · ອານາຈັກໄດໂນເສົາໄຊບອດ · ຊຸດແກ້ v2 · 04/11/2026
+ແຕ່ລະຮູບມີສາກ, ທ່າທາງ ແລະມຸມກ້ອງສະເພາະ. ອ້າງອີງຕົວລະຄອນເທົ່ານັ້ນ; ບໍ່ຄັດລອກສາກຈາກຮູບອື່ນ.
+
+Use case: stylized-concept. ONE premium hand-painted dimensional fantasy trading-card illustration, rich tactile scales and materials, convincing dinosaur anatomy, sophisticated cinematic light, crisp readable silhouette, original design for a Lao folklore game. Portrait 63:88. Main subject in the upper 60–65%, lower portion quiet continuation for a later text box. No text, letters, numerals, logos, watermark, UI, frame, collage or labels. No people, gore, injuries or horror. Each card MUST follow its unique specified pose, camera, environment, time of day and palette. Never import another picture's setting. Do not add waterfalls, temples, gateways or halos unless specifically requested. Only add technology when THIS asset description explicitly asks for a cyber form. Otherwise the animal is entirely natural and organic.
+
+CUTOUT RULES
+For each cutout, attach its approved card image. Match the SAME creature, same pose, identical scales, markings, proportions, armor and lighting. Extend out-of-frame body parts coherently rather than inventing a new pose. One creature only, complete snout, head, all limbs, claws and ENTIRE tail inside the canvas with 6–10% clear margin. True transparent background with alpha; no checkerboard drawn into the image, no landscape, floor, ground shadow, pedestal, typography or cast particles. Isolated subtle self-contained glow is allowed. Choose a landscape canvas when needed to avoid cropping a long dinosaur; do not force all creatures into a tall narrow image. The files will be cropped to their actual subject boxes for the game.
+
+
+[dinoking]
+Emerald KING REX, ivory throat, amber eyes, gold crescent brow marking, tiny forearms. FRONT three-quarter, head LEFT, mouth proudly roaring, one hind foot stepping toward viewer, tail behind. OPEN windswept rocky plateau with golden grass, copper sunset and purple storm clouds, low ground-level camera. No waterfall, temple, gate, forest canopy or right-facing statue pose. CRITICAL NATURAL FORM: entirely biological, bare scales/feathers and natural bone plates only. NO manufactured armor, metal jewelry, saddles, chest crystal, mechanical parts, turquoise circuits or metal horn caps. Any gold mark is natural scale pigment, never a metal object.
+
+[dinoeggtrex]
+MACRO: one olive/cream rex egg in a hollow TREE ROOT, brown bark and curled fern fronds, tiny gold crack, warm amber spotlight. Close oblique angle, quiet blurred brown bark below. NO landscape, buildings, waterfall or extra eggs.
+
+[dinoeggtrike]
+One terracotta-speckled egg in a shallow bowl of ORANGE SAND beneath a low flat rock, tiny green shoots and sunburst pebble. OVERHEAD three-quarter view, coral afternoon reflected light, delicate gold crack, quiet sand below. No landscape, tree hollow, temple or waterfall.
+
+[dinoeggraptor]
+One teal-blue striped egg between exposed BAMBOO ROOTS, fresh leaves and silver DEWDROPS, fine warm gold crack. LOW macro side view, cool fresh green PREDAWN light. Quiet blurred leaves below. No moon disc, buildings, waterfall or mountains.
+
+[dinoraptor]
+Lean teal-blue feathered RAPTOR with gold side stripe. SPRINTING low around a fallen trunk, looking BACK over its right shoulder, S-curved tail and one raised sickle claw. Dense straight BAMBOO grove, bright dappled MIDDAY sun, pale bamboo leaves kicked up. Camera ABOVE diagonal. No mountains, waterfall, temple or moon. CRITICAL NATURAL FORM: entirely biological, bare scales/feathers and natural bone plates only. NO manufactured armor, metal jewelry, saddles, chest crystal, mechanical parts, turquoise circuits or metal horn caps. Any gold mark is natural scale pigment, never a metal object.
+
+[dinotrike]
+Terracotta TRICERATOPS with three ivory horns and gold sunburst frill. HEAD-ON defensive CHARGE, head LOW, one front foot stamping, body receding behind huge frill. RED OCHRE DRY FLOODPLAIN, sparse cycads, dusty orange horizon, strong side sunlight. Ground camera. No waterfall, buildings, bridge or forest canopy. CRITICAL NATURAL FORM: entirely biological, bare scales/feathers and natural bone plates only. NO manufactured armor, metal jewelry, saddles, chest crystal, mechanical parts, turquoise circuits or metal horn caps. Any gold mark is natural scale pigment, never a metal object.
+
+[dinoankylo]
+Slate-green ANKYLOSAUR with ivory natural bony plates. LEFT-facing full SIDE VIEW, twisting to SWING rounded TAIL CLUB toward right foreground, coherent four legs. BLUE HOUR FERN RAVINE, dark boulders, blue mineral puddles, narrow violet sky above. No buildings or waterfall. CRITICAL NATURAL FORM: entirely biological, bare scales/feathers and natural bone plates only. NO manufactured armor, metal jewelry, saddles, chest crystal, mechanical parts, turquoise circuits or metal horn caps. Any gold mark is natural scale pigment, never a metal object.
+
+[dinolongneck]
+Jade-gray SAUROPOD with cream underside. Graceful neck reaching UP to pluck leaves on RIGHT, small head high, body across middle and tail LEFT. Broad still LOTUS LAKE at PINK DAWN, rose sky reflected in smooth water, reeds and low hills. Serene eye-level view, no ruins or waterfall. CRITICAL NATURAL FORM: entirely biological, bare scales/feathers and natural bone plates only. NO manufactured armor, metal jewelry, saddles, chest crystal, mechanical parts, turquoise circuits or metal horn caps. Any gold mark is natural scale pigment, never a metal object.
+
+[dinotrex]
+Ordinary olive-green REX with cream spots, NO royal brow mark. LEFT-facing full PROFILE, head lowered to DRINK from stream, crouched hind legs, ripples below snout and long tail behind. Intimate enclosed RIVER BEND with giant exposed tree roots and amber pebbles, soft morning shafts, low camera across water. No temple, panorama or waterfall. CRITICAL NATURAL FORM: entirely biological, bare scales/feathers and natural bone plates only. NO manufactured armor, metal jewelry, saddles, chest crystal, mechanical parts, turquoise circuits or metal horn caps. Any gold mark is natural scale pigment, never a metal object.
+
+[dinohatch]
+Intimate SPELL CLOSE-UP: two halves of rex eggshell parting to reveal tiny foreclaws and one amber eye peeking out. Warm protective golden sunlight ribbon, honey-green foliage bokeh. Not a full dinosaur portrait, NO landscape, temples or waterfall.
+
+[dinoupgrade]
+SPELL MID-TRANSFORMATION, HALF-BODY composition of the emerald KING REX: frame ONLY head, neck, chest, shoulder and upper hips, entirely above the hind knees. LEFT-facing side view, raised neck, mouth closed, exactly TWO TINY FOREARMS folded up near the chest and NOT touching the ground. Healthy emerald scales, ivory throat and gold crescent brow. Graphite/gold protective armor plates levitating inches away from its shoulder, spine and chest as a warm-gold crystal approaches the breast; delicate turquoise energy threads. Background: deep underground technological chamber, dark teal mineral walls, diagonal ceiling spotlight, only a small cropped edge of circular platform far below. No front legs, no quadruped stance, no giant forearms, no whole-body crouch, no landscape or waterfall.
+
+[dinorepair]
+SPELL EXTREME CLOSE-UP of a gold CHEST CRYSTAL and small area of graphite/gold cyber dinosaur breast armor; emerald scales at edge. Thin green-gold restorative stream from amber fossil stone, rekindled turquoise seams, dark emerald/gold abstract BOKEH. NO head, whole dinosaur, landscape, pedestal scene or temple.
+
+[dinocore]
+ITEM MACRO: amber fossil energy crystal in graphite/gold cradle LEVITATING above black stone inside a tiny ancient WORKSHOP ALCOVE. Fern pattern enclosed in amber, turquoise seams, indigo shadows, one warm spotlight, quiet lower area. No dinosaur, landscape or waterfall.
+
+[dinovalley]
+LOCATION: HIGH BIRD'S-EYE AERIAL of sweeping sheltered fern valley, winding turquoise RIVER, grassy islands, dinosaur nests on RED STONE shelves, small distant herds. Bright morning, buried dormant geometric golden technology far away. No large foreground creature, waterfall or ornate gate.
+
+[dinobabyrex]
+Young olive-green/cream spotted ordinary REX, NO royal mark, SITTING on haunches, head tilted toward tiny gold BUTTERFLY, forearms reaching, TAIL CURLED around feet, broken shell beside. Soft MOSS and white flowers under ROOTS, intimate warm sunlight. Sophisticated animal rendering, not toy-like. No panorama or temple. CRITICAL NATURAL FORM: entirely biological, bare scales/feathers and natural bone plates only. NO manufactured armor, metal jewelry, saddles, chest crystal, mechanical parts, turquoise circuits or metal horn caps. Any gold mark is natural scale pigment, never a metal object.
+
+[dinometarex]
+ULTIMATE META REX: emerald living tyrannosaur, ivory throat, amber eyes, gold crescent brow, SHORT forearms. Graphite/gold engraved protective armor, gold chest crystal, turquoise seams, low shoulder energy vents, organic face/flanks visible. Long-striding LEFT-facing three-quarter CHARGE, neck stretched FORWARD, mouth partly open, one hind foot HIGH, tail curves UP right. GLOSSY BLACK BASALT FIELD and luminous turquoise crystal fissures under NAVY STORM SKY, low tracking camera. No waterfall, temple, gold halo or right-facing statue pose.
+
+[dinometatrike]
+ULTIMATE META TRICERATOPS: terracotta scales, sunburst frill, three ivory horns in gold caps, ivory/gold protective armor, turquoise shield following frill. LEFT-facing SIDE PROFILE, head LOW, four feet BRACED on a narrow RAIN-WET STONE BRIDGE above dark chasm, shield catching harmless gold sparks. VIOLET TWILIGHT, hanging roots, rain reflections, side camera. No front standing pose, waterfall, temple gate or sun.
+
+[dinometaraptor]
+ULTIMATE META RAPTOR: teal scales, gold side stripe, short feathers, LIGHT graphite/gold armor, small gold chest crystal, turquoise sickle claws. Bounding from LOWER RIGHT toward UPPER LEFT across a CRYSTAL CREVASSE, torso TWISTED to show BACK and side, one leg extended/other folded, long tail curved DOWN. VIOLET CAVERN with luminous mineral spires, dramatic low angle. No moon, waterfall, temple, jungle or horizontal side-running pose.
+
+[alt-dinoking]
+EPIC ALT KING REX, emerald scales, ivory throat, amber eyes, royal gold crescent brow, short forearms. REARED HIGH on jagged ridge in LEFT-FACING PROFILE, jaws roaring UPWARD, forearms lifted, full moon and silver clouds behind. NIGHT SEA OF CLOUDS below, lapis/silver palette with gold rim light, VERY LOW camera behind hind leg, dramatic diagonal. No daylight, jungle waterfall or temple. CRITICAL NATURAL FORM: entirely biological, bare scales/feathers and natural bone plates only. NO manufactured armor, metal jewelry, saddles, chest crystal, mechanical parts, turquoise circuits or metal horn caps. Any gold mark is natural scale pigment, never a metal object.
+
+[alt-dinometarex]
+EPIC ALT META REX. Create an intense TIGHT HEAD-AND-UPPER-TORSO PORTRAIT, not a full-body animal. Emerald organic face, ivory throat, amber eyes, distinctive gold crescent brow mark, graphite/gold protective armor with small Lao flame engravings, warm gold chest crystal and turquoise seams. Head directly TOWARD CAMERA, chin slightly DOWN, mouth partially open, proud commanding eyes. Two TINY FOREARMS held beside the chest, both wrists OFF the ground. Extreme-low portrait lens makes the head majestic. Background: moonlit flooded black ruins on a silver salt flat and green AURORA, a few far broken obelisks. Cool silver rain drops on graphite armor contrasted with warm gold core. Lower portion quiet dark reflective water. No giant forelegs, no quadruped stance, no whole-body crawl, no jungle, waterfall, gate or gold halo.
+
+[alt-dinometaraptor]
+EPIC ALT META RAPTOR: teal scales, gold stripe, short feathers, lightweight graphite/gold armor and turquoise claws. CROUCHED on thick horizontal GIANT TREE BRANCH, head looking DOWN at viewer, one hind claw near foreground, tail COILED around far branch, arms spread balancing. Camera BELOW branch with strong foreshortening. Warm DAYLIGHT sunbeams through amber broad leaves. No running, leaping, moon, waterfall, temple, cave or ground path.
+
+[box-d27]
+Premium physical deck box, three-quarter PRODUCT VIEW on DARK EMERALD STUDIO background. Graphite and emerald shell, antique-gold Lao woven/flame embossing, fossil amber inlays. Front features a bold newly composed LEFT-facing META REX head emblem with organic emerald scales and graphite/gold armor, turquoise accents. No landscape printed behind head. All box corners inside frame. NO text or logos.
+
+[cut-dinoking]
+Approved dinoking legend, complete natural KING REX. Remove ALL scenery and physical support objects: no branch, stone, water, flowers or platform. No free-floating unrelated particles. Maintain a clean alpha edge. ANATOMY LOCK: tyrannosaur is BIPEDAL with exactly TWO massive HIND legs plus exactly TWO TINY short FOREARMS beside the upper chest, four limbs total. No front walking legs. If the source is a head/torso portrait, extend a normal upright tyrannosaur lower body coherently; do not extrapolate a crawling quadruped. Entire balancing tail fits inside the frame.
+
+[cut-alt-dinoking]
+Approved alt-dinoking, same pose and sunrise-lit body, no landscape. Remove ALL scenery and physical support objects: no branch, stone, water, flowers or platform. No free-floating unrelated particles. Maintain a clean alpha edge. ANATOMY LOCK: tyrannosaur is BIPEDAL with exactly TWO massive HIND legs plus exactly TWO TINY short FOREARMS beside the upper chest, four limbs total. No front walking legs. If the source is a head/torso portrait, extend a normal upright tyrannosaur lower body coherently; do not extrapolate a crawling quadruped. Entire balancing tail fits inside the frame.
+
+[cut-dinometarex]
+Approved dinometarex, entire armored META REX including tail and all armor projections. Remove ALL scenery and physical support objects: no branch, stone, water, flowers or platform. No free-floating unrelated particles. Maintain a clean alpha edge. ANATOMY LOCK: tyrannosaur is BIPEDAL with exactly TWO massive HIND legs plus exactly TWO TINY short FOREARMS beside the upper chest, four limbs total. No front walking legs. If the source is a head/torso portrait, extend a normal upright tyrannosaur lower body coherently; do not extrapolate a crawling quadruped. Entire balancing tail fits inside the frame.
+
+[cut-alt-dinometarex]
+Approved alt-dinometarex, same pose and glowing armor, no pillars or halo reaching beyond the body margin. Remove ALL scenery and physical support objects: no branch, stone, water, flowers or platform. No free-floating unrelated particles. Maintain a clean alpha edge. ANATOMY LOCK: tyrannosaur is BIPEDAL with exactly TWO massive HIND legs plus exactly TWO TINY short FOREARMS beside the upper chest, four limbs total. No front walking legs. If the source is a head/torso portrait, extend a normal upright tyrannosaur lower body coherently; do not extrapolate a crawling quadruped. Entire balancing tail fits inside the frame.
+
+[cut-dinometatrike]
+Approved dinometatrike, entire META TRICERATOPS, three horns and tail tip intact. Remove ALL scenery and physical support objects: no branch, stone, water, flowers or platform. No free-floating unrelated particles. Maintain a clean alpha edge.
+
+[cut-dinometaraptor]
+Approved dinometaraptor, entire META RAPTOR, tail and raised sickle claws intact. Remove ALL scenery and physical support objects: no branch, stone, water, flowers or platform. No free-floating unrelated particles. Maintain a clean alpha edge.
+
+[cut-alt-dinometaraptor]
+Approved alt-dinometaraptor, same pose and complete body; omit detached trail particles. Remove ALL scenery and physical support objects: no branch, stone, water, flowers or platform. No free-floating unrelated particles. Maintain a clean alpha edge.
+
+[cut-dinolongneck]
+Approved dinolongneck, complete sauropod from head to all feet and tail, keep the long neck intact. Remove ALL scenery and physical support objects: no branch, stone, water, flowers or platform. No free-floating unrelated particles. Maintain a clean alpha edge.
+
+[cut-dinotrex]
+Approved dinotrex, complete ordinary adult rex with cream markings, no royal brow marking. Remove ALL scenery and physical support objects: no branch, stone, water, flowers or platform. No free-floating unrelated particles. Maintain a clean alpha edge. ANATOMY LOCK: tyrannosaur is BIPEDAL with exactly TWO massive HIND legs plus exactly TWO TINY short FOREARMS beside the upper chest, four limbs total. No front walking legs. If the source is a head/torso portrait, extend a normal upright tyrannosaur lower body coherently; do not extrapolate a crawling quadruped. Entire balancing tail fits inside the frame.
+
+[dino-egg-crack]
+One isolated dinosaur eggshell opening in two parts, soft golden inner rim glow, no creature or background, no text. Both halves fully inside canvas.
+
+[dino-upgrade-ring]
+Top-down circular antique-gold woven geometric energy ring with a few subtle turquoise lines, transparent center and background, no runes resembling writing, no symbols with letters.
+
+[dino-armor-shards]
+One small graphite/gold curved protective armor plate with a turquoise-lit inner seam, three-quarter angle, isolated transparent PNG. It will be reused as animated assembling pieces.
+
+[dino-core-flare]
+A compact warm-gold crystal glow with a turquoise outer accent, smooth alpha fade, transparent background, no giant burst or opaque white rectangle.
+
+[dino-gold-footprint]
+One stylized three-toed dinosaur footprint formed from glowing antique-gold lines, top-down, subtle sparkles tightly around it, transparent background. No floor or text.
