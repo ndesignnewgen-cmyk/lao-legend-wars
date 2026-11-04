@@ -454,4 +454,6 @@
 - ✅ ຂອງທົ່ວໄປ 2 ຊ່ອງ, ໄຊບອກ 3, ນາກາ-X/ນັກດາບສົມບັດ/ກາລະເກດ 4. ຊື່ດຽວກັນ 1 ໃບ (ຊິບໄຊບອກ 2); ເລືອກຖອດກ່ອນຈ່າຍບຸນ ແລະຍົກເລີກໄດ້. ທຸກທາງຕິດຟຣີໃຊ້ກົດດຽວກັນ; ແຍກໂລ້ຈາກຂອງ/ຄາຖາ, ບອດເລືອກຕົວຮັບ ແລະຊ່ອງປ່ຽນໄດ້.
 - ✅ ຈຳລອງບອດກາງ 14,040 ເກມ: ເດັກເກົ່າທັງ 27 ຢູ່ 45.19–54.13%, errors 0. ເດັກປະສົມແບບລະ 1,040 ເກມ: 45.77/46.15/47.98%, errors 0. ຜົນໃນ outputs/dual-tribe-equipment/.
 - ✅ ກົດ/ເຊີບເວີ 39 ຂໍ້, UI ໂທລະສັບ/ຄອມ 15 ຂໍ້, ເກມຝັ່ງເຊີບເວີ 30, ເດັກໄດໂນເສົາເກົ່າ 31 ຂໍ້ ແລະໜ້າຈັດເດັກເກົ່າ 60 ຂໍ້ຜ່ານ. ກວດ syntax/CSP ແລະສ້າງ engine ຄືນ; sw v31-dual-equipment.
-- 🔶 ກຳລັງກວດຊຸດອັບເວັບ ແລະ Supabase. ບໍ່ຕ້ອງ SQL ໃໝ່.
+- ✅ commit/push `2961fc6` ເຂົ້າ main; Cloudflare Pages ອັບສຳເລັດ (deployment `831c6762-7904-4754-80d6-922e3a45c6e1`). GitHub Pages ແລະ Security regression (run `41886594466`) ຜ່ານທັງໝົດ.
+- ✅ ອັບ Supabase `secure-game` ຜ່ານ Code → Deploy updates; Overview ຢືນຢັນ Last deployed 2 minutes ago. RULES_HASH `8b56f6d59a9b64631ea0e4748a899ea2dc83bd53b5f7211fdf83a4101fb41631`; ບໍ່ຕ້ອງ SQL ໃໝ່.
+- ✅ ກວດເວັບຈິງ: ສະຄຣິບເກມ/engine/security/sw/ໜ້າທົດລອງກົງຊຸດອັບ. ໜ້າຈັດເດັກສະແດງຕົວກອງໃໝ່, ເດັກປະສົມ 3 ແບບ ແລະ Naga-X ສອງເຜົ່າ/ສວມໃສ່ 4 ຊ່ອງ. ຫຼັກຖານ outputs/dual-tribe-equipment/public-verification.json ແລະ live-builder.png.
