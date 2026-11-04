@@ -109,7 +109,7 @@ async function driveBot(){
 }
 const serverAPI={
  validDeck, cards:C, decks:DECKS, adventures:ADV, baseDeck:baseDeckOf,
- suggest(bundle){loadCheckpoint(bundle.checkpoint);const p=cur(),q=opp(p),ch=botPick(p,q);if(ch)return ch.trib?{type:'trib',side:S.turn,uid:ch.h.uid,a:ch.trib[0].uid,b:ch.trib[1].uid}:{type:'play',side:S.turn,uid:ch.h.uid,tk:ch.t?tkey(ch.t):null};
+ suggest(bundle){loadCheckpoint(bundle.checkpoint);const p=cur(),q=opp(p),ch=botPick(p,q);if(ch)return ch.trib?{type:'trib',side:S.turn,uid:ch.h.uid,a:ch.trib[0].uid,b:ch.trib[1].uid}:{type:'play',side:S.turn,uid:ch.h.uid,tk:ch.t?tkey(ch.t):null,...(ch.replace==null?{}:{replace:ch.replace})};
  for(const c of p.field)if(canAttack(p,c)){const t=botTarget(p,c);if(t)return {type:'atk',side:S.turn,uid:c.uid,tk:tkey(t)};}return {type:'end',side:S.turn};},
  start(spec,seed){
    if(!validDeck(spec.host.list)||!validDeck(spec.guest.list))throw Error('Invalid deck');

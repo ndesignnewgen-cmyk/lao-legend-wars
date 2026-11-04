@@ -1,0 +1,23 @@
+const W=ms=>new Promise(r=>setTimeout(r,ms)),D=window.__dbg,K=D.dino,R=D.rules,C=D.C,checks=[];
+const ok=(x,n)=>{if(!x)throw Error(n);checks.push(n);};
+const click=(a,v)=>{const b=document.querySelector('[data-a="'+a+'"]'+(v==null?'':'[data-v="'+v+'"]'));if(!b)throw Error('missing '+a);b.click();};
+const guest=document.querySelector('[data-a="lguest"]');if(guest)guest.click();await W(200);
+const col=D.deck.col(),original={...col.cards};for(const id of Object.keys(C))if(!C[id].token&&!C[id].fusion&&!C[id].ritual)col.cards[id]=C[id].legend?1:3;
+click('ednew');await W(60);click('mdnew');await W(60);click('mdempty');await W(60);
+ok(document.querySelectorAll('.mix-recipes [data-a="mixrecipe"]').length===3,'three mixed deck examples visible');
+const f=document.querySelector('[data-f="tribe"]');f.value='naga';f.dispatchEvent(new Event('change',{bubbles:true}));await W(80);ok(!!document.querySelector('.ed-pool [data-id="nagax"]'),'secondary tribe found in actual filter UI');
+const tile=document.querySelector('[data-id="nagax"] .sym');ok(tile?.classList.contains('dual')&&tile.querySelectorAll('svg').length===2,'card displays two tribe symbols');
+const role=document.querySelector('[data-f="role"]');role.value='equip';role.dispatchEvent(new Event('change',{bubbles:true}));await W(60);ok([...document.querySelectorAll('.ed-pool [data-id]')].every(e=>R.roles(e.dataset.id).includes('equip')),'role selector updates actual pool');
+click('mixrecipe',0);await W(60);ok(!!document.querySelector('[data-a="mixapply"]'),'recipe asks before replacing edited deck');click('mmclose');await W(60);ok(Object.keys(D.ui.ed.list).length===0,'recipe cancel keeps current draft');
+click('mixrecipe',2);await W(60);click('mixapply');await W(80);ok(D.ui.ed.name==='ນາກ + ໄຊບອກ'&&D.ui.ed.list.nagax===1,'recipe opens a real editable deck');
+ok(document.querySelector('.deck-note').textContent.includes('ບໍ່ແມ່ນໂອກາດຊະນະ'),'stars explain readiness rather than win probability');
+ok(document.documentElement.scrollWidth<=innerWidth+1,'builder fits viewport');
+// Equipment selection is a preflight dialog: cancel consumes neither item nor mana.
+const p=K.make('A',0,false,1),q=K.make('B',1,true,1),g={screen:'game',p:[p,q],turn:0,T:1,level:1,log:[],over:null,fast:false,auto:false,sim:true,busy:false,modal:null,targeting:null};K.set(g);p.mana=10;p.maxMana=10;p.hand=[{uid:99100,id:'sonsin'}];p.deck=Array(20).fill('babynaga');const c=K.fresh('babynaga');c.items=['lowai','wao'];p.field=[c];D.style.set({fx:'off',voice:false,sfx:false});D.ui.screen=null;D.render();
+let pending=R.tryPlay(99100);await W(50);const target=g.targeting;g.targeting=null;target.resolve({kind:'char',owner:p,c});await W(80);ok(g.modal?.type==='equip'&&p.mana===10&&p.hand.length===1,'full slots open choice before spending');
+click('mclose');await pending;ok(p.mana===10&&p.hand.length===1&&c.items.join(',')==='lowai,wao','cancel leaves combat state unchanged');
+pending=R.tryPlay(99100);await W(50);const target2=g.targeting;g.targeting=null;target2.resolve({kind:'char',owner:p,c});await W(80);ok(document.querySelectorAll('[data-a="equippick"]').length===2,'both replaceable items shown');
+click('equippick',0);await pending;ok(p.mana===8&&p.hand.length===0&&c.items.join(',')==='wao,sonsin'&&p.grave.includes('lowai'),'chosen slot replaced through real player action');
+ok(document.querySelector('.eqslots')?.textContent.includes('2/2'),'field shows occupied slots');ok(D.morphCheck(),'patched board matches fresh render');
+K.set(null);col.cards=original;D.ui.screen='builder';D.ui.bf={v2:true,own:false,deck:'',tribe:'cyborg',type:'',role:'',cost:0,q:''};D.render();await W(1300);
+return JSON.stringify({passed:checks.length,checks,errors:window.__errs});

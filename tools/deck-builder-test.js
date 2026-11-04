@@ -24,7 +24,7 @@ try{
   ok(K.tips({})[0] === 'ຂາດອີກ 30 ໃບ', 'tips: first tip is the deck issue');
   const sug = K.suggest({});
   ok(sug.length <= 6 && sug.every(id => D.deck.owned(id) > 0 && !Cc[id].fusion && !Cc[id].ritual && !Cc[id].token), 'suggest: owned, packable cards only');
-  const fu = Object.keys(Cc).find(id => Cc[id].fusion && Cc[id].fusion.every(x => D.deck.owned(x) > 0));
+  const fu = Object.keys(Cc).find(id => Cc[id].fusion?.length === 2 && Cc[id].fusion.every(x => D.deck.owned(x) > 0));
   if(fu){ const [a, b] = Cc[fu].fusion, h = K.half({[a]:1}); ok(h && h.b === b && h.f === fu, 'tips: finds the missing fusion half');
     // a good deck where only the fusion tip applies: the fusion line shows up
     const L = {...D.DECKS[D.DECKS.findIndex(d => d.list[a])]?.list || {}}; if(L[a]){ delete L[b]; ok(K.tips(L).some(t => t.includes(Cc[b].name)) || K.tips(L).length === 3, 'tips: fusion tip listed when there is room'); } }
@@ -75,7 +75,7 @@ try{
   const setF = async (k, v) => { const s = $('.ed-pool [data-f="' + k + '"]'); s.value = v; s.dispatchEvent(new Event('change', {bubbles:true})); await W(200); };
   if(phone && $('[data-a="edfold"]')){ click('edfold'); await W(150); }
   await setF('type', 'spell'); ok(pool().length > 0 && pool().every(id => Cc[id].type === 'spell'), 'filter: type');
-  await setF('type', ''); const tr = Cc[pool().find(id => (Cc[id].type || 'char') === 'char')].tribe; await setF('tribe', tr); ok(pool().every(id => Cc[id].tribe === tr), 'filter: tribe');
+  await setF('type', ''); const tr = Cc[pool().find(id => (Cc[id].type || 'char') === 'char')].tribe; await setF('tribe', tr); ok(pool().every(id => D.rules.hasTribe(id,tr)), 'filter: tribe');
   await setF('tribe', ''); click('edf', 'cost:3'); await W(200); ok(pool().every(id => Cc[id].cost === 3), 'filter: cost');
   click('edf', 'cost:0'); await W(150);
   const q = $('#edq'); q.value = 'zzzz'; q.dispatchEvent(new Event('input', {bubbles:true})); await W(200);

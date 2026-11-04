@@ -19,6 +19,7 @@ const uuid=x=>typeof x==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[8
 export function safeMove(raw,side){
  if(!raw||!['play','atk','fuse','trib','end','quit'].includes(raw.t))throw new ApiError('bad_move');
  const out={type:raw.t,side};
+ if(raw.replace!=null){if(raw.t!=='play'||!Number.isInteger(raw.replace)||raw.replace < -1||raw.replace > 3)throw new ApiError('bad_equipment');out.replace=raw.replace;}
  for(const k of ['uid','a','b'])if(raw[k]!=null){if(!Number.isSafeInteger(raw[k])||raw[k]<0)throw new ApiError('bad_move');out[k]=raw[k];}
  if(raw.f!=null){if(typeof raw.f!=='string'||!/^[a-z0-9]{1,40}$/.test(raw.f))throw new ApiError('bad_move');out.f=raw.f;}
  if(raw.tk!=null){if(typeof raw.tk!=='string'||! /^(?:H:[so]|c:\d+)$/.test(raw.tk))throw new ApiError('bad_target');out.tk=raw.tk==='H:s'?'h:'+side:raw.tk==='H:o'?'h:'+(1-side):raw.tk;}
