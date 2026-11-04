@@ -442,4 +442,7 @@
 ## ເດັກ 14 · ອັບເວັບ · 04/11/2026
 - ✅ ເຈົ້າຂອງສັ່ງອັບເວັບ: ຮູບກາດ/ກ່ອງ/ໄດຄັດໃໝ່, FX 6, SFX 11, ສຽງພາກ 6 ແລະກາດລອຍຮ່ວມຮ່າງ.
 - ✅ ກວດສຽງພາກ 55 ແລະ FX/SFX 89 ຂໍ້ຜ່ານ; ກວດໄຟລ໌ຮູບ/ສຽງກົງຊຸດທີ່ອະນຸມັດ.
-- 🔶 ກຳລັງອັບ main/Cloudflare ແລະ secure-game; ຜົນເວັບຈິງຈະບັນທຶກຫຼັງກວດສຳເລັດ.
+- ✅ commit/push `becc621` ເຂົ້າ main; Cloudflare Pages ເຜີຍແຜ່ສຳເລັດ (deployment `0da92541-dd25-45e4-b0fb-8c7e34dc3398`). Security regression ຜ່ານ.
+- ✅ ອັບ `secure-game` ຜ່ານ Supabase Code → Deploy updates; Overview ຢືນຢັນ Last deployed a minute ago. RULES_HASH `cfa8ada6d58f8b56bfd0085214d78d4ac719e889de2f1a47e036fb2151fc2c9b`; ບໍ່ມີ SQL ໃໝ່ສຳລັບຊຸດນີ້.
+- ✅ ກວດ laolegendwars.com ຈິງ: hash ຮູບ/ສຽງ 91/91 ກົງ, ສະຄຣິບໜ້າເກມ/engine/ໜ້າສຽງກົງ ແລະ sw v30-blade-voices. ໜ້າສຽງສະແດງ 6/6 ແລະລອງຫຼິ້ນສຽງໄດ້. ຫຼັກຖານໃນ outputs/deck-14-live-deployment/.
+- ℹ GitHub Pages ເກົ່າ build ຜ່ານ ແຕ່ deploy ໝົດເວລາລໍຖ້າ; Cloudflare ເວັບຫຼັກອັບສຳເລັດແລ້ວ.
