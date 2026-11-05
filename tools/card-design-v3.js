@@ -39,6 +39,11 @@ window.CardDesign=(()=>{
     const label=m==='ritual'&&kind==='spell'?'ຄາຖາພິທີ':labels[m];
     seal.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true">'+symbols[m]+'</svg><span>'+label+'</span>'+(d.fusion?'<b>'+d.fusion.length+'</b>':'');
     card.querySelector('.face').append(seal);
+    // the gold name plate, one line: same fit as cardNameFont in index.html
+    const box=card.querySelector('.namebox'),title=box.querySelector('span');
+    box.classList.remove('long');title.textContent=title.textContent.replace(/\s*·\s*/g,' · ');
+    const n=title.textContent.replace(/[\u0eb1\u0eb4-\u0ebc\u0ec8-\u0ecd]/g,'').length,fit=Math.floor((d.type==='char'?66:82)/(n*.57)*10)/10;
+    if(fit<6.5)box.style.fontSize=fit+'cqw';else box.style.removeProperty('font-size');
     return card;
   }
   return {decorate,method,labels};

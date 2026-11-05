@@ -1,5 +1,5 @@
 <meta name="security-build" content="1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-tnHa74WoogwcFV/IJjQ8lAxsHN5Cn0YSHSusN6kaPi4='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com https://xahuvoounkdojfsvnfaj.supabase.co; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co wss://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-zjTYfwd+kH85D04R479FbaIQxcu/iBMzi9ixFcKDZRk='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com https://xahuvoounkdojfsvnfaj.supabase.co; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co wss://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="referrer" content="no-referrer">
 <meta charset="utf-8">
 <script>
@@ -112,7 +112,7 @@ button{font:inherit;color:inherit}
 @keyframes skiph{to{opacity:.85}}
 
 /* ---------- full card face (same design as the card set) ---------- */
-.card{position:relative;width:100%;aspect-ratio:63/88;border-radius:4.4%/3.2%;container-type:inline-size;background:var(--edge);box-shadow:0 6px 16px #0009}
+.card{position:relative;width:100%;aspect-ratio:63/88;border-radius:4.4%/3.2%;container-type:inline-size;isolation:isolate;--kind-light:#a55548;--kind:#753831;--kind-dark:#432723;--seal:#843c32;--seal-ink:#fff9ef;--seal-edge:#f2bd94;background:linear-gradient(140deg,var(--kind-light),var(--kind) 48%,var(--kind-dark));box-shadow:0 0 0 .3cqw #33201d,0 9px 22px #0008}
 .card .face{position:absolute;top:4.2cqw;left:4.2cqw;right:4.2cqw;bottom:5.4cqw;border-radius:3cqw;overflow:hidden;box-shadow:0 0 0 .7cqw #fff,0 0 0 1.3cqw var(--line)}
 .card .art{position:absolute;inset:0}
 .card .art img{width:100%;height:100%;object-fit:cover;object-position:50% 0;display:block}
@@ -120,8 +120,9 @@ button{font:inherit;color:inherit}
 .card .lbl{display:block;font:800 2.9cqw/1.5 var(--f-d);color:#fff}
 .card .cost .lbl{background:#1f9d6b}
 .card .num{display:block;font:800 9cqw/1.15 var(--f-d);color:var(--line)}
-.card .sym{position:absolute;top:2.6cqw;right:2.6cqw;width:13cqw;height:11cqw;border:.6cqw solid var(--line);border-radius:1.4cqw;background:#fff;display:grid;place-items:center}
-.card .sym svg{width:78%;height:78%}
+.card .sym{position:absolute;top:2.4cqw;right:2.4cqw;width:7.8cqw;display:flex;flex-direction:column;gap:.8cqw}
+.card .sym svg{display:block;flex:none;box-sizing:border-box;width:7.8cqw;height:9cqw;padding:1cqw .65cqw;border:.42cqw solid #e2c078;border-radius:1.2cqw 1.2cqw 3.4cqw 3.4cqw;background:linear-gradient(150deg,#f3f8e9,#8fb8b8);box-shadow:0 .5cqw 1.4cqw #0009,inset 0 0 0 .35cqw #314e58}
+.card .sym svg+svg{background:linear-gradient(150deg,#fff6d6,#bbaa7e)}
 .card .panel{position:absolute;left:2.6cqw;right:2.6cqw;bottom:21.5cqw;background:#ffffffec;border:.6cqw solid var(--line);border-radius:1.6cqw;padding:3.6cqw 3cqw 2cqw;color:#1b1b1b}
 .card .tag{position:absolute;top:-2.9cqw;left:2.6cqw;background:var(--tag);color:#fff;border:.5cqw solid var(--line);font:800 3cqw/1.45 var(--f-d);padding:0 2.2cqw;border-radius:1cqw;white-space:nowrap}
 .card .skill{margin:0;font-size:3.45cqw;line-height:1.55}
@@ -131,13 +132,9 @@ button{font:inherit;color:inherit}
 .card .power .num{flex:1;display:grid;place-items:center}
 .card .namebox{flex:1;min-width:0;border:.6cqw solid var(--line);border-radius:1.4cqw;background:#fffaf0;display:flex;align-items:center;justify-content:center;padding:0 2cqw;font:800 8.2cqw/1.2 var(--f-d);color:var(--line);white-space:nowrap;overflow:hidden}
 .card .namebox>span{display:block;width:100%;text-align:center}
-.card .namebox.long{font-size:6cqw;white-space:normal;overflow-wrap:anywhere}
-.card .bottom:has(.namebox.long){height:20cqw}
-.card .face:has(.namebox.long) .panel{bottom:25cqw}
-.card.alt .face:has(.namebox.long) .panel{bottom:26.5cqw}
-.card.hero{--edge:linear-gradient(160deg,#e0463a,#b8261f 55%,#8e1a15);--tag:#c8312b}
-.card.legend{--edge:linear-gradient(150deg,#ffe48a,#d39a1e 30%,#ffe69a 52%,#b07a0c 76%,#f5cf62);--tag:#b07a0c}
-.card.spell{--edge:linear-gradient(160deg,#3d86e8,#2459b8 55%,#183f8a);--tag:#2459b8}
+.card.hero{--tag:#c8312b}
+.card.legend{--tag:#b07a0c}
+.card.spell{--tag:#2459b8}
 .card.legend::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;mix-blend-mode:color-dodge;opacity:.18;
   background:repeating-linear-gradient(115deg,#ff3d6e 0%,#ffd23d 6%,#3dffa2 12%,#3dc5ff 18%,#b13dff 24%,#ff3d6e 30%);background-size:300% 300%;animation:holo 6s linear infinite}
 @keyframes holo{to{background-position:300% 0}}
@@ -1672,8 +1669,7 @@ body{background:
   background:linear-gradient(180deg,#5fd0ff55,#1d7fd877);box-shadow:inset 0 3px 0 #bfefffaa;transition:height .6s}
 .lane .waterlv b{position:absolute;right:8px;top:-22px;font:800 12px var(--f-d);color:#fff;background:#1d7fd8;border-radius:999px;padding:2px 8px}
 /* ---------- deck 13: neon frame and hacked badge ---------- */
-.card.cy{--edge:linear-gradient(150deg,#1de9ff,#7a2cff 45%,#ff2fb3 75%,#1de9ff);--tag:#7a2cff;box-shadow:0 0 0 1px #1de9ff99,0 0 14px #1de9ff66,0 6px 16px #0009}
-.card.cy.legend{--edge:linear-gradient(150deg,#ffe48a,#1de9ff 35%,#ff2fb3 65%,#ffd23d)}
+.card.cy{--tag:#7a2cff}
 .mini .kw .hk{background:#ff2fb3}
 /* ---------- lobby (home screen) ---------- */
 .home{position:relative;height:100%;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;gap:14px;padding:12px max(16px,env(safe-area-inset-right,0px)) 18px max(16px,env(safe-area-inset-left,0px));isolation:isolate}
@@ -1775,10 +1771,9 @@ body{background:
 .freebar .fbmini{width:56px;flex:none}.freebar .fbmini .booster{width:56px;margin:0}.freebar .fbmini .bband,.freebar .fbmini .blogo{display:none}
 .freebar b{flex:1}
 /* ---------- decks 11-12: traps, shield, idol frame and fans ---------- */
-.card.trap{--edge:linear-gradient(160deg,#9b59d0,#5b2a86 55%,#3a1660);--tag:#6b3fb0}
-/* special cards get their own frames: fusion is emerald with a gold rim, ritual is pearl and sky blue with candle gold */
-.card.fusion{--edge:linear-gradient(150deg,#ffe48a,#2fd08a 18%,#0f8a6a 52%,#075a46 80%,#ffe48a);--tag:#0f8a6a;box-shadow:0 0 0 1px #ffe48aaa,0 0 16px #2fd08a77,0 6px 16px #0009}
-.card.ritual{--edge:linear-gradient(150deg,#fff8e0,#d8f0ff 22%,#7cc6ff 52%,#3f86d6 78%,#ffe7a3);--tag:#3f86d6;box-shadow:0 0 0 1px #fff3c8cc,0 0 16px #ffd98a88,0 6px 16px #0009}
+.card.trap{--tag:#6b3fb0}
+.card.fusion{--tag:#0f8a6a}
+.card.ritual{--tag:#3f86d6}
 .zap{position:absolute;transform:translateX(-50%);pointer-events:none;animation:mxbolt .55s ease-out forwards}
 .zap path{fill:none;stroke:#f4fbff;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 6px #fff) drop-shadow(0 0 18px #6fc8ff)}
 .buffarrow,.weakarrow{position:absolute;transform:translate(-50%,-50%);font:900 22px/1 var(--f-d);pointer-events:none;-webkit-text-stroke:2px #1b1b1b;paint-order:stroke fill}
@@ -1801,12 +1796,7 @@ body{background:
 .trapsnap .snap{position:absolute;left:50%;top:-18%;transform:translateX(-50%);font:900 clamp(26px,6vw,44px)/1 var(--f-d);color:#fff;-webkit-text-stroke:3px #3a1660;paint-order:stroke fill;text-shadow:0 0 18px #b06bff;animation:tssnap .5s .4s cubic-bezier(.2,1.8,.4,1) both}
 @keyframes tssnap{from{scale:0;rotate:-20deg}to{scale:1;rotate:-6deg}}
 .locwipe .locedge{position:absolute;top:0;bottom:0;right:0;width:24px;background:linear-gradient(90deg,transparent,#fff,transparent);filter:blur(2px);opacity:.9}
-.card .xtype{position:absolute;left:50%;top:2.2%;transform:translateX(-50%);z-index:3;white-space:nowrap;font:800 6.2cqw/1.4 var(--f-d);color:#fff;padding:0 3.5cqw;border-radius:99px;
-  box-shadow:0 0 0 .6cqw #fff8,0 1cqw 2cqw #0006}
-.card.fusion .xtype{background:linear-gradient(90deg,#0f8a6a,#2fd08a);text-shadow:0 1px 0 #074a3a}
-.card.ritual .xtype{background:linear-gradient(90deg,#3f86d6,#7cc6ff);text-shadow:0 1px 0 #1d4f8a}
-.card.idf{--edge:linear-gradient(150deg,#ffb3e6,#ff5fc8 40%,#ffd23d 75%,#ffb3e6);--tag:#e0409f;box-shadow:0 0 0 1px #ffd1f0aa,0 0 14px #ff7ad966,0 6px 16px #0009}
-.card.idf.legend{--edge:linear-gradient(150deg,#fff3b0,#ff7ad9 35%,#ffd23d 65%,#fff3b0)}
+.card.idf{--tag:#e0409f}
 .slot.trapslot .trapl{position:absolute;left:50%;bottom:4px;transform:translateX(-50%);z-index:3;background:#6b3fb0;color:#fff;font:800 10px/1 var(--f-d);padding:4px 7px;border-radius:999px;white-space:nowrap;box-shadow:0 0 0 1.5px #fff8}
 .mini .kw .sh{background:#2c9be0}
 .lane .fanlv{position:absolute;left:10px;right:10px;top:6px;height:8px;z-index:0;border-radius:999px;background:#ffffff26;overflow:visible;pointer-events:none}
@@ -2625,8 +2615,46 @@ body{background:
 .blade-fusion-card{position:absolute;pointer-events:none;transform-origin:center;--tc:#ffe4a1;filter:drop-shadow(0 7px 10px #101c3480) drop-shadow(0 0 9px var(--tc));will-change:transform,opacity}
 .blade-fusion-card>.card{width:100%;height:100%;margin:0;transform:none!important}
 
-.card .sym.dual{width:23cqw;display:flex;gap:1cqw;padding:1cqw}.card .sym.dual svg{width:48%;height:100%}.modal-bg.equip-bg{background:transparent;backdrop-filter:none}.equip-picks{display:grid;gap:10px;width:100%}.equip-picks button{white-space:normal;min-height:48px}.eqslots{background:#e6d5ad!important;color:#382911!important}
+.modal-bg.equip-bg{background:transparent;backdrop-filter:none}.equip-picks{display:grid;gap:10px;width:100%}.equip-picks button{white-space:normal;min-height:48px}.eqslots{background:#e6d5ad!important;color:#382911!important}
 .mix-recipes{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 16px}.mix-recipes span,.deck-note{color:var(--dim);font-size:12px}.sgwhy{font-size:11px;color:#c9b48b;overflow-wrap:anywhere}.edsug .sgc{min-width:0}.deck-note{display:block;margin:5px 0}
+/* ---------- card face, approved 2026-11-05 (tools/card-types-preview.html, design/card-layout-checkpoint.md) ---------- */
+.card .face{inset:4cqw;border-radius:1cqw;box-shadow:0 0 0 .45cqw #211d20,0 0 0 1.05cqw #c2ae87;overflow:hidden}
+.card .cost{top:2cqw;left:2cqw;width:12.7cqw;border:.5cqw solid #262325;border-radius:.5cqw;background:#b83430;box-shadow:.5cqw .5cqw 0 #211c22;transform:rotate(-3deg);z-index:2}
+.card .cost .lbl{background:none;color:#fff9e8;font:800 2.9cqw/1.45 var(--f-d);padding:.3cqw 0 0}
+.card .cost .num{color:#fffdf2;font:800 8.3cqw/1.05 var(--f-d);padding:0 0 .6cqw}
+.card .sym{z-index:2}
+.card .bottom{left:3cqw;right:3cqw;bottom:3.5cqw;height:15.5cqw;gap:2cqw;align-items:center}
+.card .power{width:13.8cqw;height:15cqw;border:.45cqw solid #272327;border-radius:.45cqw;background:#fffdf1;box-shadow:.4cqw .4cqw 0 #241e24;transform:rotate(-1deg)}
+.card .power .lbl{font:800 2.7cqw/1.4 var(--f-d);background:#bc3630;color:#fffbea}
+.card .power .num{font:800 8cqw/1.1 var(--f-d);color:#242428;display:grid;place-items:center;flex:1}
+.card.alt{background:transparent;box-shadow:0 0 0 .12cqw #e7d9b588,0 9px 22px #0008}
+.card.alt .face{inset:.18cqw;border-radius:4.4%/3.2%;box-shadow:none}
+.card.alt .bottom{bottom:3.5cqw;z-index:2}
+.card .namebox,.card.alt .namebox{position:relative;min-height:14cqw;padding:1.2cqw 2.5cqw;border:0;border-radius:0;background:#ad8239;box-shadow:none;justify-content:center;font:800 6.5cqw/1.35 var(--f-d);color:#30291d;-webkit-text-stroke:0;text-shadow:0 .15cqw #fff7;clip-path:polygon(1.8cqw 0,calc(100% - 1.2cqw) 0,100% 1.2cqw,100% calc(100% - 1.8cqw),calc(100% - 1.8cqw) 100%,1.2cqw 100%,0 calc(100% - 1.2cqw),0 1.8cqw)}
+.card .namebox::before{content:'';position:absolute;inset:.55cqw;background:linear-gradient(110deg,#f3dda2,#e5c578 64%,#f3dda2);clip-path:inherit;pointer-events:none}
+.card .namebox>span{position:relative;z-index:1}
+.card.alt .altbadge{top:3.8cqw;left:20cqw;right:14cqw;background:none;border:0;border-radius:0;box-shadow:none;text-align:right;font:800 2.7cqw/1.7 var(--f-d);padding:0;color:#fff0b9;text-shadow:0 .3cqw .7cqw #00101d,0 0 1.2cqw #00101d}
+/* the frame colour and the labelled seal name the card kind and how it arrives */
+.card[data-kind=spell]{--kind-light:#4b82bf;--kind:#294f8b;--kind-dark:#1d3159;--seal:#255b9a;--seal-edge:#b3dbff}
+.card[data-kind=item]{--kind-light:#bb904b;--kind:#80602f;--kind-dark:#483521;--seal:#8e5d22;--seal-edge:#ffe0a3}
+.card[data-kind=trap]{--kind-light:#ae5890;--kind:#72375f;--kind-dark:#3d2444;--seal:#8e356f;--seal-edge:#ffc4ec}
+.card[data-kind=loc]{--kind-light:#6f9671;--kind:#3a6651;--kind-dark:#213c35;--seal:#37674e;--seal-edge:#d6eab4}
+.card[data-method=fusion]{--kind-light:#54ad9b;--kind:#237c70;--kind-dark:#15453e;--seal:#8243b3;--seal-edge:#e3c1ff}
+.card[data-method=ritual]{--kind-light:#9abed5;--kind:#527b9b;--kind-dark:#294a6b;--seal:#346b9a;--seal-edge:#d2edff}
+.card[data-method=transform]{--seal:#936020;--seal-edge:#ffe1a3}
+.card[data-method=token]{--seal:#506b7d;--seal-edge:#d5e7f2}
+.card[data-method=hatch]{--seal:#7d7138;--seal-edge:#f1e5a9}
+.card[data-method=upgrade]{--seal:#276a79;--seal-edge:#b7eef2}
+.card[data-method=evolve]{--seal:#496288;--seal-edge:#d1e9ff}
+.card[data-method=react]{--seal:#366b8c;--seal-edge:#c7efff}
+.card[data-method=pilot]{--seal:#57667a;--seal-edge:#dde8ff}
+.card.legend:not(.alt){background:linear-gradient(140deg,#fff0ba,#b28b43 35%,#edcf7b 60%,#81602e);box-shadow:0 0 0 .3cqw #574127,0 9px 22px #0008}
+.card.legend[data-method=legend]{--seal:#7b5a20;--seal-edge:#ffdf8b}
+.card .xtype{position:absolute;left:17.8cqw;top:2.8cqw;width:max-content;max-width:55cqw;min-height:5.5cqw;display:inline-flex;align-items:center;justify-content:center;gap:.8cqw;padding:.35cqw 1.15cqw;border:.4cqw solid var(--seal-edge);border-radius:1.3cqw 1.3cqw 2.3cqw 2.3cqw;background:linear-gradient(115deg,#ffffff20,transparent 60%),var(--seal);box-shadow:0 .55cqw 1.5cqw #101b2c77,inset 0 0 0 .4cqw #ffffff14;color:var(--seal-ink);font:800 2.8cqw/1.5 var(--f-d);text-shadow:0 .2cqw .2cqw #10203166;white-space:nowrap;z-index:2}
+.card .xtype svg{flex:none;width:3.1cqw;height:3.1cqw;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.card .xtype b{display:grid;place-items:center;font:800 2.3cqw/1 var(--f-d);width:3.3cqw;height:3.3cqw;border:1px solid #fff5;border-radius:50%;background:#061b232e}
+/* the approved face shows the picture clean: no rainbow wash over legend and special art */
+.card.legend::after,.card.alt::after{display:none}
 </style>
 
 <div id="app"></div>
@@ -6471,21 +6499,47 @@ function fmtSkill(t){
   for(const [re, cls] of RULES) s = s.replace(re, m => { bits.push('<span class="kw-' + cls + '">' + m + '</span>'); return '\u0001' + (bits.length - 1) + '\u0002'; });
   return s.replace(/\u0001(\d+)\u0002/g, (m, i) => bits[+i]);
 }
+// the labelled seal beside ບຸນ: what kind of card this is, or how it comes onto the field (looks only, no rules)
+const SEAL_ART={
+  char:'<path d="M12 3 15 8l-1 5 4 7H6l4-7-1-5z"/>', legend:'<path d="m12 2 3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/>',
+  fusion:'<path d="m8 3 7 7-7 7-7-7zM16 7l7 7-7 7-7-7z"/>', ritual:'<path d="M9 11h6v10H9zM7 21h10M12 2c-5 5-3 7 0 7s4-3 0-7z"/>',
+  spell:'<path d="m12 2 2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5z"/>', react:'<path d="M5 7h9a6 6 0 1 1-5 10M5 7l4-4M5 7l4 4"/>',
+  item:'<path d="m6 18 12-12 3-3-1 6-11 12zM4 15l5 5M3 22l4-4"/>', trap:'<path d="M3 9h18L12 22zM3 9l3-7M21 9l-3-7M8 9V4M16 9V4"/>',
+  loc:'<path d="m2 19 7-12 4 7 3-5 6 10zM5 22h14"/>', transform:'<path d="M4 12a8 8 0 0 1 14-5M18 3v4h-4M20 12A8 8 0 0 1 6 17M6 21v-4h4"/>',
+  token:'<path d="m12 3 9 5v9l-9 5-9-5V8zM3 8l9 5 9-5M12 13v9"/>', hatch:'<path d="M12 2C7 2 3 12 3 16a9 9 0 0 0 18 0c0-4-4-14-9-14zM5 11l4 3 4-5 2 5 5-2"/>',
+  upgrade:'<path d="M5 21V11h14v10M8 8l4-5 4 5M12 3v12M8 18h8"/>', evolve:'<path d="m12 2 9 8-9 12-9-12zM3 10h18M12 2l-4 8 4 12 4-12z"/>',
+  pilot:'<path d="M4 13a8 8 0 0 1 16 0v7H4zM7 11h10v5H7zM8 20v2M16 20v2"/>'};
+const SEAL_LABEL={char:'ຕົວລະຄອນ',legend:'ຕຳນານ',fusion:'ຮ່ວມຮ່າງ',ritual:'ພິທີອັນເຊີນ',spell:'ຄາຖາ',react:'ຄາຖາຕອບໂຕ້',item:'ຂອງສວມໃສ່',trap:'ກັບດັກ',loc:'ສະຖານທີ່',transform:'ປ່ຽນຮ່າງ',token:'ຕົວອັນເຊີນ',hatch:'ຟັກໄຂ່',upgrade:'ອັບເກຣດ',evolve:'ອິໂວລູຊັນ',pilot:'ນັກບິນ'};
+function cardMethod(d){
+  if(d.fusion) return 'fusion';
+  if(d.ritual || RITES[d.id]) return 'ritual';
+  if(d.type !== 'char') return d.react ? 'react' : d.type;
+  if(d.tf) return 'transform';
+  if(d.id.startsWith('dinoevo')) return 'evolve';
+  if(d.id.startsWith('dinometa')) return 'upgrade';
+  if(d.egg || d.hatch) return 'hatch';
+  if(d.pilot) return 'pilot';
+  if(d.token) return 'token';
+  return d.legend ? 'legend' : 'char';
+}
+// a long name stays on one line in its gold plate: the letters shrink to fit (Lao tone marks take no width of their own), at every card size
+function cardNameFont(name, hasPower){
+  const n=name.replace(/[\u0eb1\u0eb4-\u0ebc\u0ec8-\u0ecd]/g,'').length, room=hasPower ? 66 : 82, fit=Math.floor(room / (n * NAME_CH) * 10) / 10;
+  return fit < 6.5 ? fit : 0;
+}
+const NAME_CH=.57;
 function cardHTML(id, cs, alt, pv, form, big){
   const d = C[id]; const isAlt = !!(alt && ALT[id]); const cls = (d.legend ? 'legend' : (d.type === 'char' ? 'hero' : 'spell')) + (isAlt ? ' alt' : '') + (d.cy ? ' cy' : '') + (d.idf ? ' idf' : '') + (d.type === 'trap' ? ' trap' : '') + (d.fusion ? ' fusion' : '') + (d.ritual || RITES[id] ? ' ritual' : '');
   const cost = cs != null ? cs : d.cost;
   const name=(form && d.tf && d.tf.name) || d.name;
-  // Lao combining marks do not take another character's width. Long titles get
-  // two readable lines with room for the tone marks, at every card size.
-  const longName=name.replace(/[\u0eb1\u0eb4-\u0ebc\u0ec8-\u0ecd]/g,'').length>=14;
-  const nameHTML=longName ? escH(name).replace(/ · /g,'<br>') : escH(name);
-  return '<div class="card ' + cls + '"><div class="face"><div class="art">' + (d.ph && !isAlt ? '<span class="phart">' + d.ph + '<small>ຮູບກຳລັງມາ</small></span>' : '<img src="' + (big ? PIC2 : PIC)((isAlt ? ((form && d.tf && d.tf.altImg) || ALT[id]) : (form && d.tf && d.tf.img) || d.img)) + '" alt=""' + (S ? '' : ' loading="lazy"') + '>') + '</div>' + (isAlt ? '<span class="altbadge">✦ ອາດພິເສດ</span>' : '') +
+  const m=cardMethod(d), nameFont=cardNameFont(name, d.type === 'char');
+  return '<div class="card ' + cls + '" data-kind="' + d.type + '" data-method="' + m + '"><div class="face"><div class="art">' + (d.ph && !isAlt ? '<span class="phart">' + d.ph + '<small>ຮູບກຳລັງມາ</small></span>' : '<img src="' + (big ? PIC2 : PIC)((isAlt ? ((form && d.tf && d.tf.altImg) || ALT[id]) : (form && d.tf && d.tf.img) || d.img)) + '" alt=""' + (S ? '' : ' loading="lazy"') + '>') + '</div>' + (isAlt ? '<span class="altbadge">✦ ອາດພິເສດ</span>' : '') +
     '<div class="cost"><span class="lbl">ບຸນ</span><span class="num">' + cost + '</span></div>' +
-    (d.fusion ? '<span class="xtype">🤝 ຮ່ວມຮ່າງ</span>' : d.ritual ? '<span class="xtype">🕯️ ກາດພິທີ</span>' : RITES[id] ? '<span class="xtype">🕯️ ຄາຖາພິທີ</span>' : '') +
+    '<span class="xtype"><svg viewBox="0 0 24 24" aria-hidden="true">' + SEAL_ART[m] + '</svg><span>' + (RITES[id] ? 'ຄາຖາພິທີ' : SEAL_LABEL[m]) + '</span>' + (d.fusion ? '<b>' + d.fusion.length + '</b>' : '') + '</span>' +
     '<div class="sym' + (d.type==='char'&&d.tribe2?' dual':'') + '" title="' + (d.type==='char'?tribesOf(d).map(t=>TRIBE_NAME[t]).join(' + '):'') + '">' + (d.type==='char'?tribesOf(d).map(t=>SYM[t]).join(''):SYM.spell) + '</div>' +
     '<div class="panel"><span class="tag">' + d.tag + '</span><p class="skill">' + fmtSkill(d.skill) + '</p></div>' +
     '<div class="bottom">' + (d.type === 'char' ? '<div class="power"><span class="lbl">ພະລັງ</span><span class="num' + (pv == null || pv === d.power ? '' : (pv > d.power ? ' up' : ' down')) + '">' + (pv == null ? d.power : pv) + '</span></div>' : '') +
-    '<div class="namebox' + (longName ? ' long' : '') + '"><span>' + nameHTML + '</span></div></div></div></div>';
+    '<div class="namebox"' + (nameFont ? ' style="font-size:' + nameFont + 'cqw"' : '') + '><span>' + escH(name) + '</span></div></div></div></div>';
 }
 function render(){
   if(S && S.fast) return;
@@ -10961,7 +11015,7 @@ $app.addEventListener('contextmenu', e => {
 
 /* ---------- self-test: bot vs bot, no animation ---------- */
 // local dev only: poke at live game state from the console
-if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__dbg = {amb:() => AMB.id, rank:{res:R => { if(S){ S.rankRes = R; render(); } }, html:rankResHTML}, lf:{pulse:lfPulse, get LF(){ return LF; }, start:() => lfStart(), scenes:LF_SCENES}, lv:{add:n => addXP(n), reward:lvReward, of:levelOf, start:lvStart}, rules:{tribesOf,hasTribe,equipMax,equipCopies,equipFits,equipOptions,attach:attachItem,detach:detachItem,apply:applyMove,roles:cardRoles,pool:poolIds,recipe:mixedList,pair:pairReason,tryPlay,canFuse},deck:{related:relatedCards, sp:deckSpecials, specials:edSpecials, wantAlt, hasAltArt:id => !!ALT[id], stars:deckStars, tips:deckTips, suggest:deckSuggest, half:fusionHalf, owned:id => owned(id), col:() => col()}, style:{items:styleItems, col:() => col(), set:o => Object.assign(SET, o)}, morphCheck:() => { if(!S) return null; const t = document.createElement('template'); t.innerHTML = boardHTML() + modalHTML() + graveHTML() + settingsHTML() + tutHTML();
+if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__dbg = {cardHTML:(...a) => cardHTML(...a), amb:() => AMB.id, rank:{res:R => { if(S){ S.rankRes = R; render(); } }, html:rankResHTML}, lf:{pulse:lfPulse, get LF(){ return LF; }, start:() => lfStart(), scenes:LF_SCENES}, lv:{add:n => addXP(n), reward:lvReward, of:levelOf, start:lvStart}, rules:{tribesOf,hasTribe,equipMax,equipCopies,equipFits,equipOptions,attach:attachItem,detach:detachItem,apply:applyMove,roles:cardRoles,pool:poolIds,recipe:mixedList,pair:pairReason,tryPlay,canFuse},deck:{related:relatedCards, sp:deckSpecials, specials:edSpecials, wantAlt, hasAltArt:id => !!ALT[id], stars:deckStars, tips:deckTips, suggest:deckSuggest, half:fusionHalf, owned:id => owned(id), col:() => col()}, style:{items:styleItems, col:() => col(), set:o => Object.assign(SET, o)}, morphCheck:() => { if(!S) return null; const t = document.createElement('template'); t.innerHTML = boardHTML() + modalHTML() + graveHTML() + settingsHTML() + tutHTML();
   const path = []; const eq = (x, y) => { if(x.nodeType !== y.nodeType || x.nodeName !== y.nodeName) return false; if(x.nodeType !== 1) return x.nodeValue === y.nodeValue; if(x.attributes.length !== y.attributes.length) return false; for(const {name, value} of y.attributes) if(x.getAttribute(name) !== value) return false; const xs = x.childNodes, ys = y.childNodes; if(xs.length !== ys.length) return false; for(let i = 0; i < xs.length; i++) if(!eq(xs[i], ys[i])){ path.push(i + ':' + (xs[i].className || xs[i].nodeName)); return false; } return true; };
   const r = eq($app, (() => { const d = document.createElement('div'); for(const {name, value} of $app.attributes) d.setAttribute(name, value); d.append(t.content); return d; })()) && $app.childNodes.length > 0; return r || path.reverse().join(' > '); }, pm:st => { PM.uid = ACCT.user?.id; PM.state = st; render(); }, secure:{bot:(...a) => secureBot(...a), effect:(k, a) => secureEffect(k, a, {}), move:m => secureMove(m), answer:v => secureAnswer(v), get SEC(){ return SEC; }, get LOCAL(){ return LOCAL; }}, fx:{show:(id, alt, form) => fxShowcase(id, alt, form), home:fxHome, voice:id => voice(id), get vo(){ return VO; }, sfxf:n => sfxf(n), get sfb(){ return SFB; }, get snd(){ return SND; }, yanFull:fxYanFull, holyWater:fxHolyWater, mland:fxMechLand, board:fxBoard, coreGlow:fxCoreGlow, beam:fxBeam, saber:fxSaber, drum:fxDrumShield, mfuse:fxMechFuse, sprout:fxSprout, lantern:fxLantern, motif:(id, x, y) => fxFuseMotif(id, {x:x || innerWidth / 2, y:y || innerHeight / 2}), cutin:(f) => fxFuseCutin(C[f].fusion, f), rite:(i, id) => { const p = S.p[i || 0]; return fxRite(p, id || 'phitibangfai', p.field.slice(0, 3)); }, rays:fxRays, yantra:fxYantra, orb:fxOrb, petals:fxPetals, marigolds:fxMarigolds, baci:(i) => fxBaci(S.p[i || 0]), fest:(id) => fxFest(FESTS.find(f => f.id === id) || FESTS[0]), blade:(i, n) => addBlade(S.p[i || 0], n), slash:fxSlash, burst:burstAt, big:fxBig, wait:fxWait, get state(){ return FX; }},blade:{preload:bladePreload,sound:bladeSound,sounds:BLADE_SOUND,scenes:BLADE_SCENES,cue:fxBladeCue,role:bladeRole,fuse:f=>fuse(S.p[0],f),canFuse:f=>canFuse(S.p[0],f),gather:(i,f)=>fxFuseGather(S.p[i],C[f].fusion.map(id=>S.p[i].field.find(c=>c.id===id)).filter(Boolean),f)},dino:{audio:audioInit, preload:dinoPreload, sound:dinoSound, scenes:DINO_SCENES, altScenes:DINO_ALT_SCENES, sounds:DINO_SOUND, cue:fxDinoCue, fx:fxDinoChange, make:mkPlayer, fresh:freshChar, change:dinoChange, tick:dinoTick, cyber:dinoCanCyber, evo:dinoCanEvo, play:playCard, targets:targetsFor, block:playBlock, pow, canAttack, clone:cloneState, bounce, destroy, start:turnStartEffects, moves:hardMoves, legal:legalMove, pick:botPick, set:g => {S=g;}, newGame, cardHTML}, get S(){ return S; }, get net(){ return NET; }, get ACCT(){ return ACCT; }, get ui(){ return ui; }, DECKS, mockSB:x => { SB = x; },
   music:{want:m => { MUS.want = m; }, sting:musicSting, sfx:n => sfx(n), get state(){ return MUS; }, get mf(){ return {loaded:Object.keys(MF.buf), cur:MF.cur && MF.cur.name, parts:MF.cur ? MF.cur.parts.length : 0}; }, level:async (mood, secs) => {

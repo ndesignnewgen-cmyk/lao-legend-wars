@@ -65,3 +65,5 @@
 .refined .card .power,.refined .card.alt .power{width:13.8cqw;height:15cqw;border:.45cqw solid #272327;border-radius:.45cqw;background:#fffdf1;box-shadow:.4cqw .4cqw 0 #241e24;transform:rotate(-1deg)}
 .refined .card .namebox,.refined .card.alt .namebox{min-height:14cqw;padding:1.2cqw 2.5cqw;font:800 6.5cqw/1.35 var(--f-d);color:#30291d;-webkit-text-stroke:0;text-shadow:0 .15cqw #fff7;justify-content:center}
 .refined .card .namebox.long,.refined .card.alt .namebox.long{font-size:5cqw}
+/* The name stays on one line: card-design-v3.js shrinks long names to fit. */
+.refined .card .namebox,.refined .card.alt .namebox{white-space:nowrap;overflow-wrap:normal}
