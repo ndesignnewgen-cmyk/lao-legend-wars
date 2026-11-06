@@ -1,5 +1,5 @@
 <meta name="security-build" content="1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-WJuTQkZPLYa2EGlplABoVWk2BM97g7Cmtwy/GFQXwgY='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com https://xahuvoounkdojfsvnfaj.supabase.co; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co wss://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Xh50GS+mHx/D0Md/rNInzrnHCgoVxXr2jz0Vp6Xpx5U=' 'sha256-vagHmtSeqTcpW0BJc5mYIScM3HZNkHgPp2o/VKwg74k='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://laolegendwars.com https://xahuvoounkdojfsvnfaj.supabase.co; media-src 'self' blob:; connect-src 'self' https://xahuvoounkdojfsvnfaj.supabase.co wss://xahuvoounkdojfsvnfaj.supabase.co; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="referrer" content="no-referrer">
 <meta charset="utf-8">
 <script>
@@ -2662,23 +2662,23 @@ body{background:
 /* the approved face shows the picture clean: no rainbow wash over legend and special art */
 .card.legend::after,.card.alt::after{display:none}
 /* ອາດພິເສດ foil, like a real holo card: galaxy flecks that flash inside moving bands of light, plus a soft rainbow sheen. --fig keeps it off the character (mask made from the cutout by tools/build-foil-masks.py), so the character stays sharp and stands out; art with no cutout gets a soft gap in the middle. --mx/--my is where the light is: it drifts by itself, follows the pointer, and crowded places rest until pointed at */
-@property --mx{syntax:'<number>';inherits:true;initial-value:.5}
-@property --my{syntax:'<number>';inherits:true;initial-value:.4}
-.card.alt{animation:foilsway 9s ease-in-out infinite alternate}
-@keyframes foilsway{0%{--mx:.08;--my:.2}35%{--mx:.72;--my:.85}70%{--mx:.28;--my:.55}100%{--mx:.95;--my:.15}}
+.card.alt{--mx:.5;--my:.4}
 .card.alt .art{isolation:isolate;--fig:radial-gradient(ellipse 44% 50% at 50% 44%,#0002 50%,#000 100%)}
 .card.alt .art::before,.card.alt .art::after{content:"";position:absolute;inset:0;pointer-events:none;mix-blend-mode:color-dodge}
-.card.alt .art::before{z-index:1;opacity:.8;background:url(art/foil/cosmos.jpg) 0 0/62cqw;
-  -webkit-mask:linear-gradient(115deg,#0000 4%,#000 14%,#0000 25%,#000d 36%,#0000 48%,#000 60%,#0000 72%,#000c 84%,#0000 96%) calc(var(--mx)*100%) calc(var(--my)*100%)/260% 260%,var(--fig) 50% 0/cover no-repeat;-webkit-mask-composite:source-in;
-  mask:linear-gradient(115deg,#0000 4%,#000 14%,#0000 25%,#000d 36%,#0000 48%,#000 60%,#0000 72%,#000c 84%,#0000 96%) calc(var(--mx)*100%) calc(var(--my)*100%)/260% 260%,var(--fig) 50% 0/cover no-repeat;mask-composite:intersect}
+.card.alt .art::before{z-index:1;opacity:.8;background:url(art/foil/cosmos.jpg) 0 0/62cqw;-webkit-mask:linear-gradient(115deg,#0000 4%,#000 14%,#0000 25%,#000d 36%,#0000 48%,#000 60%,#0000 72%,#000c 84%,#0000 96%) calc(var(--mx)*100%) calc(var(--my)*100%)/260% 260%,var(--fig) 50% 0/cover no-repeat;-webkit-mask-composite:source-in;mask:linear-gradient(115deg,#0000 4%,#000 14%,#0000 25%,#000d 36%,#0000 48%,#000 60%,#0000 72%,#000c 84%,#0000 96%) calc(var(--mx)*100%) calc(var(--my)*100%)/260% 260%,var(--fig) 50% 0/cover no-repeat;mask-composite:intersect}
 .card.alt .art::after{z-index:2;
-  background:radial-gradient(circle at calc(var(--mx)*100%) calc(var(--my)*100%),#ffffff30,#fff0 42%),linear-gradient(115deg,hsl(350,75%,9%),hsl(40,75%,9%) 12%,hsl(70,70%,9%) 24%,hsl(150,70%,9%) 36%,hsl(195,75%,9%) 48%,hsl(245,70%,9%) 60%,hsl(300,70%,9%) 72%,hsl(350,75%,9%) 84%,hsl(40,75%,9%)) calc((1 - var(--mx))*100%) calc((1 - var(--my))*100%)/240% 240%;
+  background:radial-gradient(circle,#ffffff30,#fff0 21%) calc((1 - var(--mx))*100%) calc((1 - var(--my))*100%)/200% 200% no-repeat,linear-gradient(115deg,hsl(350,75%,9%),hsl(40,75%,9%) 12%,hsl(70,70%,9%) 24%,hsl(150,70%,9%) 36%,hsl(195,75%,9%) 48%,hsl(245,70%,9%) 60%,hsl(300,70%,9%) 72%,hsl(350,75%,9%) 84%,hsl(40,75%,9%)) calc((1 - var(--mx))*100%) calc((1 - var(--my))*100%)/240% 240%;
   -webkit-mask:var(--fig) 50% 0/cover no-repeat;mask:var(--fig) 50% 0/cover no-repeat}
-:is(.bgrid,.bgrid2,.hc,.mini,.ggrid,.pick) .card.alt{animation-play-state:paused}
-.card.alt.foilon{animation:none}
-.modal :not(.hc,.cv-slot,.gcard)>.card.alt{transform:perspective(800px) rotateY(calc((var(--mx) - .5)*10deg)) rotateX(calc((var(--my) - .5)*-10deg))}
+/* only the one big card moves by itself (popup, side panel); everywhere else the foil is still, so play stays smooth */
+:is(.modal :not(.hc,.cv-slot,.gcard),.spanel .pc)>.card.alt:not(.foilon){animation:foiltilt 9s ease-in-out infinite alternate}
+:is(.modal :not(.hc,.cv-slot,.gcard),.spanel .pc)>.card.alt:not(.foilon) .art::before{animation:foilmask 9s ease-in-out infinite alternate}
+:is(.modal :not(.hc,.cv-slot,.gcard),.spanel .pc)>.card.alt:not(.foilon) .art::after{animation:foilsheen 9s ease-in-out infinite alternate}
+.spanel .pc>.card.alt:not(.foilon){animation:none}
+@keyframes foiltilt{0%{transform:perspective(800px) rotateY(-4deg) rotateX(-2deg)}35%{transform:perspective(800px) rotateY(2deg) rotateX(4deg)}70%{transform:perspective(800px) rotateY(-2deg) rotateX(1deg)}100%{transform:perspective(800px) rotateY(5deg) rotateX(-3deg)}}
+@keyframes foilmask{0%{-webkit-mask-position:8% 20%,50% 0;mask-position:8% 20%,50% 0}35%{-webkit-mask-position:72% 85%,50% 0;mask-position:72% 85%,50% 0}70%{-webkit-mask-position:28% 55%,50% 0;mask-position:28% 55%,50% 0}100%{-webkit-mask-position:95% 15%,50% 0;mask-position:95% 15%,50% 0}}
+@keyframes foilsheen{0%{background-position:92% 80%,92% 80%}35%{background-position:28% 15%,28% 15%}70%{background-position:72% 45%,72% 45%}100%{background-position:5% 85%,5% 85%}}
 .modal .card.alt.foilon,.spanel .card.alt.foilon{transform:perspective(800px) rotateY(calc((var(--mx) - .5)*18deg)) rotateX(calc((var(--my) - .5)*-18deg))}
-@media(prefers-reduced-motion:reduce){.card.alt{animation:none}.modal .card.alt,.modal :not(.hc,.cv-slot,.gcard)>.card.alt{transform:none}}
+@media(prefers-reduced-motion:reduce){.card.alt,.card.alt .art::before,.card.alt .art::after{animation:none!important}}
 /* the panel's head (switch, name, big card) is a plain part of the panel in the game; in the deck builder it stays pinned while the rest scrolls under it */
 .phead{display:contents}.phead>*{flex-shrink:0}
 .spanel.ed-sheet{display:flex;flex:0 1 auto;width:100%}
@@ -8079,12 +8079,17 @@ function graveHTML(){
     '<div class="gbody">' + prev + '<div class="ggrid">' + grid + '</div></div></div></div>';
 }
 // the floating detail panel goes beside the card under the pointer: to its right on the left half of the screen, to its left otherwise
-// a special-art card's foil light follows the pointer while it is over the card
+// a special-art card's foil light follows the pointer, only on the one big card (popup or side panel): on the field, in the hand and in grids the foil
+// stays still, because repainting it on every pointer move made play stutter. One update per frame, and the card's box is measured once on entry
+let foilRect = null, foilXY = null, foilRaf = 0;
+function foilDrop(){ if(ui.foil){ ui.foil.classList.remove('foilon'); ui.foil.style.removeProperty('--mx'); ui.foil.style.removeProperty('--my'); } ui.foil = null; foilRect = null; }
 document.addEventListener('pointermove', e => {
-  if(!e.target.closest) return; const box = e.target.closest('.mini,.hc'), c = e.target.closest('.card.alt') || (box && box.querySelector(':scope>.card.alt'));
-  if(ui.foil && ui.foil !== c){ ui.foil.classList.remove('foilon'); ui.foil.style.removeProperty('--mx'); ui.foil.style.removeProperty('--my'); ui.foil = null; }
-  if(!c || e.pointerType === 'touch') return;
-  const r = c.getBoundingClientRect(); c.classList.add('foilon'); c.style.setProperty('--mx', ((e.clientX - r.left) / r.width).toFixed(3)); c.style.setProperty('--my', ((e.clientY - r.top) / r.height).toFixed(3)); ui.foil = c;
+  if(e.pointerType === 'touch' || !e.target.closest) return;
+  const c = e.target.closest('.modal .card.alt,.spanel .pc>.card.alt');
+  if(c !== ui.foil){ foilDrop(); if(!c) return; ui.foil = c; foilRect = c.getBoundingClientRect(); c.classList.add('foilon'); }
+  foilXY = [e.clientX, e.clientY];
+  if(!foilRaf) foilRaf = requestAnimationFrame(() => { foilRaf = 0; const c = ui.foil, r = foilRect; if(!c || !r || !c.isConnected){ foilDrop(); return; }
+    c.style.setProperty('--mx', Math.min(1, Math.max(0, (foilXY[0] - r.left) / r.width)).toFixed(2)); c.style.setProperty('--my', Math.min(1, Math.max(0, (foilXY[1] - r.top) / r.height)).toFixed(2)); });
 }, {passive:true});
 const HOVER = matchMedia('(hover: hover) and (pointer: fine)'), SIDEP = matchMedia('(min-width: 980px) and (hover: hover)');
 function placeDetail(el){
