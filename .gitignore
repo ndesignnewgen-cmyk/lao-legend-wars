@@ -1,1 +1,6 @@
 .DS_Store
+
+# One Piece Lao trial: local only (Bandai/Shueisha artwork, never deploy)
+onepiece/
+design/onepiece-*
+tools/onepiece-*
