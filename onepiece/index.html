@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="lo">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#091d2a">
+  <title>One Piece · ຝຶກຫຼິ້ນພາສາລາວ</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="lesson.js" defer></script>
+  <script src="audio.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="sea" aria-hidden="true"></div>
+  <header class="topbar"><a class="brand" href="./"><span class="brand-mark">☸</span><span>ONE PIECE<small>ຮຽນຮູ້ກາດ · ພາສາລາວ</small></span></a><span class="trial-label">ຕົວທົດລອງ</span><div class="header-controls"><button class="quiet" id="sound" aria-pressed="true">ສຽງ: ເປີດ</button><button class="quiet" id="motion" aria-pressed="false">ຫຼຸດການເຄື່ອນໄຫວ</button></div></header>
+  <main>
+    <section class="intro"><div><p class="eyebrow">ອ່ານເຂົ້າໃຈ · ລອງໃຊ້ເປັນ</p><h1>ກາດໃບນີ້<br>ເຮັດຫຍັງໄດ້?</h1><p>ເລືອກກາດ ອ່ານຄຳອະທິບາຍລາວ<br>ແລ້ວລອງກົດໃຊ້ຢູ່ສະໜາມຝຶກ.</p><a class="primary" href="#practice">ລອງໃຊ້ກາດ <span>↗</span></a></div><div class="hero-cards" aria-hidden="true"><img src="cards/OP01-001.png" alt=""><img src="cards/ST01-012.png" alt=""><span class="hero-seal">ຮູບກາດເດີມ<br><b>ອະທິບາຍລາວ</b></span></div></section>
+    <div class="workspace">
+      <section class="library" aria-labelledby="library-title"><div class="section-head"><div><p class="eyebrow">01 / ເລືອກກາດ</p><h2 id="library-title">ກຸ່ມໝວກເຟືອງ</h2></div><span class="count" id="count"></span></div><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="ຄົ້ນຊື່, ລະຫັດ ຫຼືຄວາມສາມາດ" aria-label="ຄົ້ນກາດ"></label><div class="filters" id="filters" aria-label="ປະເພດກາດ"></div><div class="card-grid" id="cards"></div></section>
+      <aside class="inspector" id="inspector" aria-label="ຄຳອະທິບາຍກາດ"></aside>
+    </div>
+    <section class="practice" id="practice" aria-labelledby="practice-title"><div class="section-head"><div><p class="eyebrow">02 / ລອງແລ້ວຈະເຂົ້າໃຈ</p><h2 id="practice-title">ສະໜາມຝຶກ</h2></div><button class="quiet" id="reset">↻ ລອງໃໝ່</button></div><p class="practice-note">ຝຶກຄວາມສາມາດທີລະໃບ. ສ່ວນນີ້ຍັງບໍ່ແມ່ນການແຂ່ງເຕັມເກມ.</p><div class="audio-controls"><label for="volume">ລະດັບສຽງ</label><input id="volume" type="range" min="0" max="100" value="55"><output id="volume-value" for="volume">55%</output><button id="sound-test" class="quiet">♫ ລອງສຽງ</button></div><div id="lesson"></div></section>
+    <section class="glossary"><p class="eyebrow">ຄຳສັບທີ່ພົບເລື້ອຍ</p><div><details><summary>DON!! ແມ່ນຫຍັງ?</summary><p>ໃຊ້ຈ່າຍຄ່າລົງກາດ. ຫຼືຕິດໃຫ້ຜູ້ນຳ ແລະຕົວລະຄອນ ເພື່ອເພີ່ມພະລັງ 1,000 ຕໍ່ໃບ ໃນຕາຂອງເຈົ້າ.</p></details><details><summary>Rush · ໂຈມຕີໄດ້ທັນທີ</summary><p>ຕົວລະຄອນໃຊ້ໂຈມຕີໄດ້ໃນຕາທີ່ລົງມາ. ຕ້ອງຍັງຢູ່ໃນສະພາບຕັ້ງ.</p></details><details><summary>Blocker · ຮັບການໂຈມຕີແທນ</summary><p>ຫຼັງຄູ່ແຂ່ງປະກາດໂຈມຕີ ສາມາດວາງຕົວປ້ອງກັນຈາກຕັ້ງເປັນນອນ ເພື່ອຮັບແທນ.</p></details><details><summary>Counter / Trigger</summary><p>Counter ໃຊ້ໃນຈັງຫວະຕອບໂຕ້ການໂຈມຕີ. Trigger ເປັນຜົນທີ່ເລືອກໃຊ້ໄດ້ເມື່ອເປີດກາດຈາກກອງຊີວິດເພາະຮັບຄວາມເສຍຫາຍ.</p></details></div></section>
+  </main>
+  <footer><p>ຄຳອະທິບາຍລາວສຳລັບຝຶກຫຼິ້ນ · ກວດຂໍ້ມູນ 16/11/2026 · ບໍ່ແມ່ນແອັບທາງການ</p><a href="https://en.onepiece-cardgame.com/rules/" target="_blank" rel="noopener noreferrer">ກົດການຫຼິ້ນຈາກ Bandai ↗</a><p class="fine">ONE PIECE © Eiichiro Oda/Shueisha, Toei Animation · ຮູບກາດເດີມຈາກ Bandai · ຄຳອະທິບາຍແລະບົດຝຶກຢູ່ໃນເຄື່ອງ.</p></footer>
+  <div id="effects" aria-hidden="true"></div>
+</body>
+</html>
